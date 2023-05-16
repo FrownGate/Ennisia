@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-
+using JetBrains.Annotations;
 
 public class CSVToSO
 {
@@ -16,8 +16,12 @@ public class CSVToSO
 
             EquipmentSO equipment = ScriptableObject.CreateInstance<EquipmentSO>();
 
+            //enum pour EquipmentType, Attribute et Rarity
+
             equipment.Name = splitData[0];
+            //equipment.Type = splitData[0];
             equipment.Type = splitData[1];
+            //equipment.Attribute = splitData[1];
             equipment.CommonMin = int.Parse(splitData[2]);
             equipment.CommonMax = int.Parse(splitData[3]);
             equipment.RareMin = int.Parse(splitData[4]);
@@ -26,13 +30,43 @@ public class CSVToSO
             equipment.EpicMax = int.Parse(splitData[7]);
             equipment.LegendaryMin = int.Parse(splitData[8]);
             equipment.LegendaryMax = int.Parse(splitData[9]);
+           
+
+            //enum EquipmentType
+            //{
+            //    Helmet,
+            //    Chest,
+            //    Boots,
+            //    Neckable,
+            //    Ring,
+            //    EarRings
+            //}
+
+            //enum AttributeType
+            //{
+            //    Hp,
+            //    Def,
+            //    Ph,
+            //    M,
+            //    CR,
+            //    CD,
+            //    Speed
+            //}
+
+            //enum RarityType
+            //{
+            //    Common,
+            //    Rare,
+            //    SuperRare,
+            //    SuperSuperRare
+            //}
+
             AssetDatabase.CreateAsset(equipment, $"Assets/Equipments/DebugGears/{equipment.Name}.asset");
 
         }
 
-        AssetDatabase.SaveAssets();
+    AssetDatabase.SaveAssets();
 
     }
-
 
 }
