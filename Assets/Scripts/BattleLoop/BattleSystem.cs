@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using BattleLoop.BattleStates;
 using UnityEngine;
 
-public class BattleSystem : MonoBehaviour
+public class BattleSystem : StateMachine
 {
 
 
@@ -14,48 +16,35 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemyPrefab;
 
 
-    Entity playerData;
-    Entity enemyData;
+    public Entity PlayerData { get; private set; }
+    public Entity EnemyData { get; private set; }   
+
     public BattleState state;
-    void Start()
 
+    private void Start()
     {
-
-        state = BattleState.START;
-        StartCoroutine(SetupBattle());
-
-
-       
+        SetupBattle();
+        SetState(new WhoGoFirst(this));
     }
 
-
-    IEnumerator SetupBattle()
+    private void SetupBattle()
     {
+        //Retrieve player's data & enemy's data 
+        PlayerData = playerPrefab.GetComponent<Entity>();
+        EnemyData = enemyPrefab.GetComponent<Entity>();
+        
 
-
-        //instantiate enemies or player GO here
-        playerData = playerPrefab.GetComponent<Entity>();
-        enemyData = enemyPrefab.GetComponent<Entity>();
-
-        Debug.Log("A fight has started against : " + enemyData.name);
-
-
-        yield return new WaitForSeconds(2);
-        state = BattleState.PLAYERTURN;
-
-        Debug.Log(playerData.name + "'s turn");
-        PlayerTurn();
     }
 
 
     IEnumerator PlayerAttack()
     {
 
-        bool isDead = enemyData.TakeDamage(playerData.damage);
-        Debug.Log("You attacjed for  " + playerData.damage);
+        
+        Debug.Log("You attacjed for  " + PlayerData.damage);
         yield return new WaitForSeconds(2);
 
-        if(isDead)
+        if(EnemyData.IsDead)
         {
             state = BattleState.WON;
             EndBattle();
@@ -70,13 +59,12 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        Debug.Log(enemyData.name + " Attacked for " + enemyData.damage);
+        Debug.Log(EnemyData.name + " Attacked for " + EnemyData.damage);
 
         yield return new WaitForSeconds(2);
+        
 
-        bool playerDead = playerData.TakeDamage(enemyData.damage);
-
-        if (!playerDead)
+        if (!PlayerData.IsDead)
         {
             state = BattleState.PLAYERTURN;
            PlayerTurn();
@@ -110,9 +98,5 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(PlayerAttack());
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
