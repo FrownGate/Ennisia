@@ -12,6 +12,21 @@ public class Entity : MonoBehaviour
 
     public int maxHp;
     public int battleHp;
+    
+    public struct Spell
+    {
+        public Spell(int damage, int cd, int aoe)
+        {
+            DAMAGE = damage;
+            COOLDOWN= cd;
+            AOECHECK= aoe;
+        }
+
+        public int DAMAGE { get;  }
+        public int COOLDOWN { get;  }
+        public int AOECHECK { get;  }
+    }
+
 
     public bool TakeDamage(int damage)
     {

@@ -11,30 +11,30 @@ public class BattleSystem : MonoBehaviour
 
 
     public GameObject playerPrefab;
+    public SpellManager spellManager;
     public GameObject enemyPrefab;
 
-
+    
     Entity playerData;
     Entity enemyData;
     public BattleState state;
+
+  
     void Start()
 
     {
-
         state = BattleState.START;
         StartCoroutine(SetupBattle());
-
-
-       
     }
 
 
     IEnumerator SetupBattle()
     {
-
-
         //instantiate enemies or player GO here
         playerData = playerPrefab.GetComponent<Entity>();
+        spellManager= playerPrefab.GetComponent<SpellManager>();
+
+        
         enemyData = enemyPrefab.GetComponent<Entity>();
 
         Debug.Log("A fight has started against : " + enemyData.name);
@@ -50,7 +50,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-
+        state = BattleState.ENEMYTURN;
         bool isDead = enemyData.TakeDamage(playerData.damage);
         Debug.Log("You attacjed for  " + playerData.damage);
         yield return new WaitForSeconds(2);
@@ -62,7 +62,6 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
     }
@@ -72,7 +71,7 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log(enemyData.name + " Attacked for " + enemyData.damage);
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2); //animation time
 
         bool playerDead = playerData.TakeDamage(enemyData.damage);
 
