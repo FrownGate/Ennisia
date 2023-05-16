@@ -18,10 +18,10 @@ public class CSVToSO
 
             //enum pour EquipmentType, Attribute et Rarity
 
-            equipment.Name = splitData[0];
-            //equipment.Type = splitData[0];
-            equipment.Type = splitData[1];
-            //equipment.Attribute = splitData[1];
+            equipment.Type = splitData[0];
+            //equipment.Name = splitData[0];
+            equipment.Attribute = splitData[1];
+            //equipment.Type = splitData[1];
             equipment.CommonMin = int.Parse(splitData[2]);
             equipment.CommonMax = int.Parse(splitData[3]);
             equipment.RareMin = int.Parse(splitData[4]);
