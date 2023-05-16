@@ -42,7 +42,7 @@ public class GearsCreator : EditorWindow
             _serializedObjects[equipment] = serializedObject;
             _selectedRarity[equipment] = "Common";
 
-
+            equipment.Value = (equipment.CommonMin + equipment.CommonMax) / 2;
             Dictionary<string, float> values = new Dictionary<string, float>
             {
                 { "CommonMin", equipment.CommonMin },
@@ -112,7 +112,7 @@ public class GearsCreator : EditorWindow
             if (newSelectedRarity != _selectedRarity[equipment])
             {
                 // The selected rarity has changed, update the min/max values accordingly
-                Undo.RecordObject(equipment, "Change Rarity"); 
+                Undo.RecordObject(equipment, "Change Rarity");
                 UpdateMinMaxValues(equipment, newSelectedRarity);
                 _selectedRarity[equipment] = newSelectedRarity;
             }
@@ -153,7 +153,7 @@ public class GearsCreator : EditorWindow
         float currentMax = maxProperty.floatValue;
 
         // Update the selected rarity to the new value
-        valueProperty.floatValue = (currentMin+currentMax)/2;
+        valueProperty.floatValue = (currentMin + currentMax) / 2;
         // Update the serialized object
         serializedObject.ApplyModifiedProperties();
     }
@@ -194,7 +194,7 @@ public class GearsCreator : EditorWindow
 
     //        Dictionary<string, float> values = _originalValues[equipment];
 
-            
+
 
     //    }
 
