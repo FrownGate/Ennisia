@@ -26,10 +26,11 @@ public class CSVToSO
             equipment.CommonMax = int.Parse(splitData[3]);
             equipment.RareMin = int.Parse(splitData[4]);
             equipment.RareMax = int.Parse(splitData[5]);
-            equipment.SuperRareMin = int.Parse(splitData[6]);
-            equipment.SuperRareMax = int.Parse(splitData[7]);
-            equipment.SuperSuperRareMin = int.Parse(splitData[8]);
-            equipment.SuperSuperRareMax = int.Parse(splitData[9]);
+            equipment.EpicMin = int.Parse(splitData[6]);
+            equipment.EpicMax = int.Parse(splitData[7]);
+            equipment.LegendaryMin = int.Parse(splitData[8]);
+            equipment.LegendaryMax = int.Parse(splitData[9]);
+           
 
             //enum EquipmentType
             //{

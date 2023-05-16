@@ -11,8 +11,9 @@ public class EquipmentSO : ScriptableObject
     public float CommonMax;
     public float RareMin;
     public float RareMax;
-    public float SuperRareMin;
-    public float SuperRareMax;
-    public float SuperSuperRareMin;
-    public float SuperSuperRareMax;
+    public float EpicMin;
+    public float EpicMax;
+    public float LegendaryMin;
+    public float LegendaryMax;
+    public float Value;
 }
