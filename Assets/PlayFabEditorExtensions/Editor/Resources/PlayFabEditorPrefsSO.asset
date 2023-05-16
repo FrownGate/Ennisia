@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
-  DevAccountEmail: emilie.yuu@gmail.com
-  DevAccountToken: qbwnxzr7pe7cchyb14kiwt8u74x9a3qxnxgk17inj48ixamk3c7qg3n671tm4sqd64ehoshizw3qf4rmhjjhpf8qpo54uqe4amdina8yctzeomwjt8436btn3p9yshthxw8ukxdmd1njnpkidje5mepg3nt4exi69yhok74edjwzips8zczrsms6za55ozn3mfznofze
+  DevAccountEmail: 
+  DevAccountToken: 
   AadAuthorization: 
-  SelectedStudio: Frown Gate
-  SdkPath: Assets/PlayFabSDK
+  SelectedStudio: 
+  SdkPath: 
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 2
+  curMainMenuIdx: 0
   curSubMenuIdx: 0
