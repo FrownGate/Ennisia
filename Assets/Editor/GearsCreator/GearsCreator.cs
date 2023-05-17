@@ -9,11 +9,10 @@ public class GearsCreator : EditorWindow
     private List<EquipmentData> _equipmentList = new List<EquipmentData>();
     private Dictionary<EquipmentData, SerializedObject> _serializedObjects = new Dictionary<EquipmentData, SerializedObject>();
     private Dictionary<EquipmentData, Dictionary<string, float>> _originalValues = new Dictionary<EquipmentData, Dictionary<string, float>>();
-
     private Dictionary<string, GUIContent[]> _rarityOptions = new Dictionary<string, GUIContent[]>();
     private Dictionary<string, string[]> _rarityPropertyNames = new Dictionary<string, string[]>();
     private Dictionary<EquipmentData, string> _selectedRarity = new Dictionary<EquipmentData, string>();
-
+    private Dictionary<string, List<string>> _availableAttributes = new Dictionary<string, List<string>>();
     private Vector2 _scrollPosition = Vector2.zero;
 
     [MenuItem("Tools/Gears Creator")]
@@ -53,14 +52,22 @@ public class GearsCreator : EditorWindow
 
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
+        HashSet<string> displayedTypes = new HashSet<string>();
+
         foreach (EquipmentData equipment in _equipmentList)
         {
+            if (displayedTypes.Contains(equipment.Type))
+            {
+                continue;
+            }
+
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
             EditorGUILayout.LabelField("Equipment: " + equipment.Type);
 
             _serializedObjects[equipment].Update();
 
+            // Dropdown menu for selecting the rarity
             string[] properties = _rarityPropertyNames[equipment.Type];
             GUIContent[] options = _rarityOptions[equipment.Type];
 
@@ -76,7 +83,18 @@ public class GearsCreator : EditorWindow
                 _selectedRarity[equipment] = newSelectedRarity;
             }
 
-            EditorGUILayout.LabelField("Attribute:", equipment.Attribute);
+            // Dropdown menu for selecting the attribute
+            List<string> availableAttributes = _availableAttributes[equipment.Type];
+            int selectedAttributeIndex = availableAttributes.IndexOf(equipment.Attribute);
+            int newSelectedAttributeIndex = EditorGUILayout.Popup("Attribute:", selectedAttributeIndex, availableAttributes.ToArray());
+            string newSelectedAttribute = availableAttributes[newSelectedAttributeIndex];
+
+            if (newSelectedAttribute != equipment.Attribute)
+            {
+                Undo.RecordObject(equipment, "Change Attribute");
+                equipment.Attribute = newSelectedAttribute;
+                UpdateMinMaxValues(equipment, newSelectedRarity);
+            }
 
             float min = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment] + "Min").floatValue;
             float max = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment] + "Max").floatValue;
@@ -93,6 +111,8 @@ public class GearsCreator : EditorWindow
             }
 
             EditorGUILayout.EndVertical();
+
+            displayedTypes.Add(equipment.Type);
         }
 
         EditorGUILayout.EndScrollView();
@@ -137,6 +157,7 @@ public class GearsCreator : EditorWindow
         _serializedObjects.Clear();
         _originalValues.Clear();
         _selectedRarity.Clear();
+        _availableAttributes.Clear();
 
         string csvPath = EditorUtility.OpenFilePanel("Select CSV file", "", "csv");
 
@@ -144,6 +165,7 @@ public class GearsCreator : EditorWindow
         {
             return;
         }
+
         string[] lines = System.IO.File.ReadAllLines(csvPath);
 
         // Skip the header line
@@ -184,6 +206,17 @@ public class GearsCreator : EditorWindow
             };
 
             _originalValues[equipment] = valuesDict;
+
+            // Add the attribute to the list of available attributes for the equipment type
+            if (!_availableAttributes.ContainsKey(equipment.Type))
+            {
+                _availableAttributes[equipment.Type] = new List<string>();
+            }
+
+            if (!_availableAttributes[equipment.Type].Contains(equipment.Attribute))
+            {
+                _availableAttributes[equipment.Type].Add(equipment.Attribute);
+            }
         }
 
         SetupRarityOptions();

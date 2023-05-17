@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEquipment", menuName = "Equipment/New")]
 public class EquipmentSO : ScriptableObject
 {
+    public int Id;
     public string Name;
     public string Type;
     public string Rarity;
