@@ -1,3 +1,4 @@
+type,attribute,commonMin,commonMax,rareMin,rareMax,epicMin,epicMax,legendaryMin,legendaryMax
 Helmet,Hp,900,1500,1650,2750,3000,5000,5400,9000
 Chest,Def,48,80,102,170,174,290,300,500
 Chest,Hp,450,750,825,1375,1500,2500,2700,4500

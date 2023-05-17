@@ -7,13 +7,8 @@ public class EquipmentSO : ScriptableObject
 {
     public string Name;
     public string Type;
-    public float CommonMin;
-    public float CommonMax;
-    public float RareMin;
-    public float RareMax;
-    public float EpicMin;
-    public float EpicMax;
-    public float LegendaryMin;
-    public float LegendaryMax;
+    public string Rarity;
+    public string Attribute;
     public float Value;
+    public string Description;
 }
