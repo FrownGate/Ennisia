@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace BattleLoop.BattleStates
 {
@@ -10,7 +11,23 @@ namespace BattleLoop.BattleStates
 
         public override IEnumerator Start()
         {
-            return base.Start();
+            if (BattleSystem.Enemy.battleHp <= 0)
+            {
+                
+            }
+            
+            BattleSystem.Player.TakeDamage(BattleSystem.Enemy.damage);
+            if (BattleSystem.Player.IsDead)
+            {
+                BattleSystem.SetState(new Lost(BattleSystem));
+            }
+            else
+            {
+                
+            }
+            yield return new WaitForSeconds(1.5f);
         }
+        
+        //TODO:Enemy Attack methode to implement (AI later)
     }
 }

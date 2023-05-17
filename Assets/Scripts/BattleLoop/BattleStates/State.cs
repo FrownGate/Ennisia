@@ -15,6 +15,16 @@ using UnityEngine;
             yield break;
         }
 
+        public virtual IEnumerator Attack()
+        {
+            yield break;
+        }
+
+        public virtual IEnumerator Heal()
+        {
+            yield break;
+        }
+
         
         
     }
