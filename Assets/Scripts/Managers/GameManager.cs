@@ -8,15 +8,31 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class GameManager : MonoBehaviour
 {
     private const string GameManagerKey = "GameManager";
+    public static GameManager Instance = null;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void InstantiateGameManager()
     {
-        Addressables.InstantiateAsync(GameManagerKey).Completed += operationHandle =>
+        if (Instance == null)
         {
-            DontDestroyOnLoad(operationHandle.Result);
-        };
+            Addressables.InstantiateAsync(GameManagerKey).Completed += operationHandle =>
+            {
+                Instance = operationHandle.Result.GetComponent<GameManager>();
+                DontDestroyOnLoad(operationHandle.Result);
+            };
+        }
+
     }
-    
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }else if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
     
