@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7617586859331874041}
-  - component: {fileID: 7362026932482589630}
+  - component: {fileID: 2441489111841129966}
+  - component: {fileID: 2238260537201565870}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -30,9 +31,21 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7362026932482589630
+--- !u!114 &2441489111841129966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431651445765464355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655542a03937247439fe8a03cdb56c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2238260537201565870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,8 +57,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd660c6e7600654c91e35bf191dae9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: Player
-  level: 10
-  damage: 10
-  maxHp: 60
-  battleHp: 60
+  entityName: 20
+  level: 50
+  damage: 20
+  maxHp: 50
+  battleHp: 50
+  speed: 50

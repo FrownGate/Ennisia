@@ -8,7 +8,7 @@ public class BattleSystem : StateMachine
 {
 
 
-    public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
+    public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
     // Start is called before the first frame update
 
 
@@ -18,7 +18,7 @@ public class BattleSystem : StateMachine
 
 
     public Entity PlayerData { get; private set; }
-    public Entity EnemyData { get; private set; }   
+    public Entity EnemyData { get; private set; }
 
     public BattleState state;
 
@@ -31,28 +31,28 @@ public class BattleSystem : StateMachine
     private void SetupBattle()
     {
         //instantiate enemies or player GO here
-       PlayerData = playerPrefab.GetComponent<Entity>();
+        PlayerData = playerPrefab.GetComponent<Entity>();
         EnemyData = enemyPrefab.GetComponent<Entity>();
 
         Debug.Log("A fight has started against : " + EnemyData.name);
 
 
-        yield return new WaitForSeconds(2);
+       
         state = BattleState.PLAYERTURN;
 
-        Debug.Log(playerData.name + "'s turn");
+        Debug.Log(PlayerData.name + "'s turn");
         PlayerTurn();
     }
 
 
     IEnumerator PlayerAttack()
     {
+        state = BattleState.ENEMYTURN;
 
-        
         Debug.Log("You attacjed for  " + PlayerData.damage);
         yield return new WaitForSeconds(2);
 
-        if(EnemyData.IsDead)
+        if (EnemyData.IsDead)
         {
             state = BattleState.WON;
             EndBattle();
@@ -69,12 +69,12 @@ public class BattleSystem : StateMachine
         Debug.Log(EnemyData.name + " Attacked for " + EnemyData.damage);
 
         yield return new WaitForSeconds(2);
-        
+
 
         if (!PlayerData.IsDead)
         {
             state = BattleState.PLAYERTURN;
-           PlayerTurn();
+            PlayerTurn();
         }
         else
         {
@@ -85,11 +85,11 @@ public class BattleSystem : StateMachine
 
     void EndBattle()
     {
-        if(state == BattleState.WON)
+        if (state == BattleState.WON)
         {
             Debug.Log("You won");
         }
-        else if(state == BattleState.LOST)
+        else if (state == BattleState.LOST)
         {
             Debug.Log("You were defeated");
         }
