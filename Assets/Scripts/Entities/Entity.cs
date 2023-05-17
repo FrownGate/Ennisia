@@ -30,5 +30,5 @@ public class Entity : MonoBehaviour
     {
         battleHp -= damage;
     }
-
+    
 }
