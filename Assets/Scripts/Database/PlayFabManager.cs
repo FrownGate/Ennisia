@@ -1,5 +1,6 @@
 using PlayFab;
 using PlayFab.ClientModels;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -7,6 +8,21 @@ using UnityEngine;
 public class PlayFabManager : MonoBehaviour 
 {
     public static PlayFabManager Instance { get; private set; }
+
+    public struct Account
+    {
+        public int Level;
+        public int Gender;
+        public bool Tutorial;
+    }
+
+    public struct Player
+    {
+        //
+    }
+
+    public int[] EquippedGears { get; private set; }
+    public int[] EquippedSupports { get; private set; }
 
     private BinaryFormatter _binaryFormatter;
     private string _path;
