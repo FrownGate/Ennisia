@@ -30,5 +30,5 @@ public abstract class Entity : MonoBehaviour
     {
         battleHp -= damage;
     }
-
+    
 }
