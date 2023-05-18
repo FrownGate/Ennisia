@@ -1,5 +1,6 @@
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -7,11 +8,27 @@ using UnityEngine;
 public class PlayFabManager : MonoBehaviour
 {
     public static PlayFabManager Instance { get; private set; }
+    public static event Action OnLoginSuccess;
+    public static event Action<PlayFabError> OnError;
 
+    public struct Account
+    {
+        public int Level;
+        public int Gender;
+        public bool Tutorial;
+    }
+
+    public struct Player
+    {
+        //
+    }
+
+    public int[] EquippedGears { get; private set; }
+    public int[] EquippedSupports { get; private set; }
+
+    private AccountData _accountData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
-    private string _username;
-    private string _password;
 
     private void Awake()
     {
@@ -26,10 +43,14 @@ public class PlayFabManager : MonoBehaviour
 
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
-            Debug.Log(_path);
+            Debug.Log($"Your save path is : {_path}");
 
             if (HasSave()) return;
+            Debug.Log("no save found");
             AnonymousLogin();
+
+            //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
+            //Login("testing@gmail.com", "Testing");
         }
     }
 
@@ -37,98 +58,105 @@ public class PlayFabManager : MonoBehaviour
     {
         //Check if binary file with user datas exists
         if (!File.Exists(_path)) return false;
-
         Debug.Log("save found");
-        FileStream file = File.Open(_path, FileMode.Open);
-        AccountData account = (AccountData)_binaryFormatter.Deserialize(file);
-        file.Close();
 
-        _username = account.username;
-        _password = account.password;
+        using (FileStream file = new(_path, FileMode.Open))
+        {
+            _accountData = (AccountData)_binaryFormatter.Deserialize(file);
+        }
 
-        Login();
-        ClearData();
-        Debug.Log("save loaded");
+        Login(_accountData.email, _accountData.password);
         return true;
     }
 
-    private void Login()
+    private void Login(string email, string password)
     {
-        LoginWithPlayFabRequest request = new()
-        {
-            Username = _username,
-            Password = _password
-        };
+        if (_accountData == null) CreateAccountData(email, password);
 
-        PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnError);
+        PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest()
+        {
+            Email = email,
+            Password = password
+        }, OnLoginRequestSuccess, OnLoginRequestError);
     }
 
     private void AnonymousLogin()
     {
-        Debug.Log("Devive Identifier: " + SystemInfo.deviceUniqueIdentifier);
-        LoginWithCustomIDRequest request = new()
+        PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true
-        };
-
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
+        }, OnLoginRequestSuccess, OnError);
     }
 
-    private void OnLoginSuccess(LoginResult result)
+    private void OnLoginRequestSuccess(LoginResult result)
     {
-        Debug.Log("success");
+        Debug.Log("login success");
+        OnLoginSuccess?.Invoke();
+        if (_accountData != null) CreateSave();
+
+        //Use this line once to test PlayFab Register & Login
+        //RegisterAccount("testing@gmail.com", "Testing");
         Debug.Log("PlayFabId: " + result.PlayFabId);
         Debug.Log("SessionTicket: " + result.SessionTicket);
         Debug.Log("EntityToken: " + result.EntityToken.EntityToken);
     }
 
-    private void OnError(PlayFabError error)
-    {
-        Debug.Log(error.GenerateErrorReport());
-    }
-
-    private void RegisterAccount()
-    {
-        //This function will be registered to a button event
-        //Password must be between 6 and 100 characters
-        _username = "Testing"; //For testing only
-        _password = "Testing"; //For testing only
-        string email = "testing@gmail.com"; //For testing only
-
-        AddUsernamePasswordRequest request = new()
-        {
-            Username = _username,
-            Password = _password,
-            Email = email
-        };
-
-        PlayFabClientAPI.AddUsernamePassword(request, OnRegisterSuccess, OnError, null);
-    }
-    private void OnRegisterSuccess(AddUsernamePasswordResult result)
+    private void OnLoginRequestError(PlayFabError error)
     {
         Debug.Log("success");
-        CreateAccount();
+        
+        OnRequestError(error);
+        _accountData ??= null;
+
+        if (File.Exists(_path)) File.Delete(_path);
     }
 
-    private void CreateAccount()
+    private void OnRequestError(PlayFabError error)
+    {
+        Debug.Log(error.GenerateErrorReport());
+        OnError?.Invoke(error);
+    }
+
+    private void RegisterAccount(string email, string password) //This function will be registered to a button event
+    {
+        CreateAccountData(email, password);
+        string username = CreateUsername(email); //Create unique username with email
+
+        PlayFabClientAPI.AddUsernamePassword(new AddUsernamePasswordRequest()
+        {
+            Username = username,
+            Email = email,
+            Password = password //Password must be between 6 and 100 characters
+        },
+        res => { CreateSave(); }, OnRequestError);
+    }
+
+    private void CreateAccountData(string email, string password)
     {
         //Create binary file with user datas
-        AccountData account = new()
+        _accountData = new()
         {
-            username = _username,
-            password = _password
+            email = email,
+            password = password
         };
-
-        FileStream file = File.Create(_path);
-        _binaryFormatter.Serialize(file, account);
-        file.Close();
-        ClearData();
     }
 
-    private void ClearData()
+    private void CreateSave()
     {
-        _username = null;
-        _password = null;
+        using (FileStream file = new(_path, FileMode.OpenOrCreate))
+        {
+            _binaryFormatter.Serialize(file, _accountData);
+        }
+
+        _accountData = null;
+    }
+
+    private string CreateUsername(string email)
+    {
+        string name = email.Split('@')[0];
+        string id = SystemInfo.deviceUniqueIdentifier[..5];
+        Debug.Log($"creating username {name}{id}");
+        return name + id;
     }
 }
