@@ -116,11 +116,10 @@ public class PlayFabManager : MonoBehaviour
     private void RegisterAccount(string email, string password) //This function will be registered to a button event
     {
         CreateAccountData(email, password);
-        string username = CreateUsername(email); //Create unique username with email
 
         PlayFabClientAPI.AddUsernamePassword(new AddUsernamePasswordRequest()
         {
-            Username = username,
+            Username = CreateUsername(email), //Create unique username with email
             Email = email,
             Password = password //Password must be between 6 and 100 characters
         },
