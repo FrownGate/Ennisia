@@ -23,6 +23,7 @@ public class GearsCreator : EditorWindow
     private Vector2 _scrollPosition = Vector2.zero;
     private HashSet<string> _displayedTypes = new HashSet<string>();
 
+    private bool _csvRead = false;
     [MenuItem("Tools/Gears Creator")]
     public static void ShowWindow()
     {
@@ -69,11 +70,19 @@ public class GearsCreator : EditorWindow
 
     private void FullSetWindow()
     {
-        
-        ReadCSV();
-        
+        if (!_csvRead)
+        {
+            ReadCSV();
+            _csvRead = true;
+        }
 
+        EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Equipment List:");
+        if (GUILayout.Button("Update"))
+        {
+            ReadCSV();
+        }
+        EditorGUILayout.EndHorizontal();
 
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
@@ -210,7 +219,7 @@ public class GearsCreator : EditorWindow
 
         //string csvPath = EditorUtility.OpenFilePanel("Select CSV file", "", "csv");
         string csvPath = "/Editor/CSV/EquipmentStats.csv";
-        
+
 
         string[] lines = File.ReadAllLines(Application.dataPath + csvPath);
 
@@ -263,7 +272,7 @@ public class GearsCreator : EditorWindow
                 continue;
             }
             EquipmentSO equipmentSO = CreateEquipment(equipment);
-            if (equipmentSO.equipmentName == null)
+            if (equipmentSO.equipmentName == null || equipmentSO.equipmentName == "")
             {
                 path = "Assets/Equipments/DebugGears/" + equipment.type + ".asset";
 
