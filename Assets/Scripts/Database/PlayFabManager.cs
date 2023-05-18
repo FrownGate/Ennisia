@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class PlayFabManager : MonoBehaviour 
+public class PlayFabManager : MonoBehaviour
 {
     public static PlayFabManager Instance { get; private set; }
 
@@ -65,7 +65,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void AnonymousLogin()
     {
-        Debug.Log(SystemInfo.deviceUniqueIdentifier);
+        Debug.Log("Devive Identifier: " + SystemInfo.deviceUniqueIdentifier);
         LoginWithCustomIDRequest request = new()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
@@ -78,6 +78,9 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("success");
+        Debug.Log("PlayFabId: " + result.PlayFabId);
+        Debug.Log("SessionTicket: " + result.SessionTicket);
+        Debug.Log("EntityToken: " + result.EntityToken.EntityToken);
     }
 
     private void OnError(PlayFabError error)
