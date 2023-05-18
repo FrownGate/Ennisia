@@ -49,7 +49,7 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log("no save found");
             AnonymousLogin();
 
-            //Use this line to test PlayFab Login
+            //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
             //Login("testing@gmail.com", "Testing");
         }
     }
@@ -94,6 +94,9 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log("login success");
         OnLoginSuccess?.Invoke();
         if (_accountData != null) CreateSave();
+
+        //Use this line once to test PlayFab Register & Login
+        //RegisterAccount("testing@gmail.com", "Testing");
     }
 
     private void OnLoginRequestError(PlayFabError error)
