@@ -43,10 +43,14 @@ public class PlayFabManager : MonoBehaviour
 
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
-            Debug.Log(_path);
+            Debug.Log($"Your save path is : {_path}");
 
             if (HasSave()) return;
+            Debug.Log("no save found");
             AnonymousLogin();
+
+            //Use this line to test PlayFab Login
+            //Login("testing@gmail.com", "Testing");
         }
     }
 
@@ -54,23 +58,26 @@ public class PlayFabManager : MonoBehaviour
     {
         //Check if binary file with user datas exists
         if (!File.Exists(_path)) return false;
-
         Debug.Log("save found");
-        FileStream file = File.Open(_path, FileMode.Open);
-        _accountData = (AccountData)_binaryFormatter.Deserialize(file);
-        file.Close();
 
-        Login();
+        using (FileStream file = new(_path, FileMode.Open))
+        {
+            _accountData = (AccountData)_binaryFormatter.Deserialize(file);
+        }
+
+        Login(_accountData.email, _accountData.password);
         return true;
     }
 
-    private void Login()
+    private void Login(string email, string password)
     {
-        PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest()
+        if (_accountData == null) CreateAccountData(email, password);
+
+        PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest()
         {
-            Username = _accountData.username,
-            Password = _accountData.password
-        }, OnLoginRequestSuccess, OnRequestError);
+            Email = email,
+            Password = password
+        }, OnLoginRequestSuccess, OnLoginRequestError);
     }
 
     private void AnonymousLogin()
@@ -79,15 +86,22 @@ public class PlayFabManager : MonoBehaviour
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true
-        }, OnLoginRequestSuccess, OnRequestError);
+        }, OnLoginRequestSuccess, OnError);
     }
 
     private void OnLoginRequestSuccess(LoginResult result)
     {
         Debug.Log("login success");
         OnLoginSuccess?.Invoke();
-        if (_accountData == null) return;
-        ClearData();
+        if (_accountData != null) CreateSave();
+    }
+
+    private void OnLoginRequestError(PlayFabError error)
+    {
+        OnRequestError(error);
+        _accountData ??= null;
+
+        if (File.Exists(_path)) File.Delete(_path);
     }
 
     private void OnRequestError(PlayFabError error)
@@ -98,6 +112,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void RegisterAccount(string email, string password)
     {
+        CreateAccountData(email, password);
         //This function will be registered to a button event
         string username = CreateUsername(email); //Create unique username with email
 
@@ -107,29 +122,31 @@ public class PlayFabManager : MonoBehaviour
             Email = email,
             Password = password //Password must be between 6 and 100 characters
         },
-        res =>
-        {
-            //Create binary file with user datas
-            _accountData = new()
-            {
-                username = username,
-                password = password
-            };
+        res => { CreateSave(); }, OnRequestError);
+    }
 
-            FileStream file = File.Create(_path);
+    private void CreateAccountData(string email, string password)
+    {
+        //Create binary file with user datas
+        _accountData = new()
+        {
+            email = email,
+            password = password
+        };
+    }
+
+    private void CreateSave()
+    {
+        using (FileStream file = new(_path, FileMode.OpenOrCreate))
+        {
             _binaryFormatter.Serialize(file, _accountData);
-            file.Close();
-            ClearData();
-        }, OnRequestError);
+        }
+
+        _accountData = null;
     }
 
     private string CreateUsername(string email)
     {
         return "Testing";
-    }
-
-    private void ClearData()
-    {
-        _accountData = null;
     }
 }
