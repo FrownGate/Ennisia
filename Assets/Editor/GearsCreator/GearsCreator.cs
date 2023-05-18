@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class GearsCreator : EditorWindow
 {
+    private int selectedTab = 0;
+    private GUIContent[] tabLabels = new GUIContent[]
+    {
+        new GUIContent("Full Set"),
+        new GUIContent("Onglet 2")
+    };
+
     private List<EquipmentData> _equipmentList = new List<EquipmentData>();
     private Dictionary<EquipmentData, SerializedObject> _serializedObjects = new Dictionary<EquipmentData, SerializedObject>();
     private Dictionary<string, GUIContent[]> _rarityOptions = new Dictionary<string, GUIContent[]>();
@@ -44,10 +51,27 @@ public class GearsCreator : EditorWindow
 
     private void OnGUI()
     {
-        if (GUILayout.Button("Read CSV"))
+        selectedTab = GUILayout.Toolbar(selectedTab, tabLabels);
+
+        switch (selectedTab)
         {
-            ReadCSV();
+            case 0:
+                // Contenu de l'onglet 1
+                FullSetWindow();
+                break;
+
+            case 1:
+                // Contenu de l'onglet 2
+                GUILayout.Label("Contenu de l'onglet 2");
+                break;
         }
+    }
+
+    private void FullSetWindow()
+    {
+        
+        ReadCSV();
+        
 
         GUILayout.Label("Equipment List:");
 
@@ -184,14 +208,11 @@ public class GearsCreator : EditorWindow
         _selectedRarity.Clear();
         _availableAttributes.Clear();
 
-        string csvPath = EditorUtility.OpenFilePanel("Select CSV file", "", "csv");
+        //string csvPath = EditorUtility.OpenFilePanel("Select CSV file", "", "csv");
+        string csvPath = "/Editor/CSV/EquipmentStats.csv";
+        
 
-        if (string.IsNullOrEmpty(csvPath))
-        {
-            return;
-        }
-
-        string[] lines = System.IO.File.ReadAllLines(csvPath);
+        string[] lines = File.ReadAllLines(Application.dataPath + csvPath);
 
         // Skip the header line
         for (int i = 1; i < lines.Length; i++)
