@@ -8,17 +8,18 @@ public class SpellManager : MonoBehaviour
     {
         public Spell(string name, int damage, int cd,int maxcd, int aoe)
         {
-            NAME = name;
-            DAMAGE = damage;
-            COOLDOWN = cd;
-            MAXCOOLDOWN = maxcd;
-            AOECHECK = aoe;
+            Name = name;
+            Damage = damage;
+            Cooldown = cd;
+            MaxCooldown = maxcd;
+            AOECheck = aoe;
         }
-        public string NAME { get; }
-        public int DAMAGE { get; }
-        public int COOLDOWN { get; }
-        public int MAXCOOLDOWN { get; }
-        public int AOECHECK { get; }
+
+        public string Name { get; }
+        public int Damage { get; }
+        public int Cooldown { get; }
+        public int MaxCooldown { get; }
+        public int AOECheck { get; }
     }
 
     public Spell spell1 = new Spell("Basic", 10, 0,0, 0);

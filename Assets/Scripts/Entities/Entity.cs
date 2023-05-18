@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
 {
     // Start is called before the first frame update
     // Change public to protected, once battle loop is done. 
+  
     public string entityName;
     public int level;
 
@@ -15,6 +16,14 @@ public class Entity : MonoBehaviour
     public int maxHp;
     public int battleHp;
     public int speed;
+
+    public int battleId;
+    public static event Action<int> OnClick;
+
+    public void OnMouseDown()
+    {
+        OnClick?.Invoke(battleId);
+    }
 
     public bool IsDead
     {
@@ -30,5 +39,6 @@ public class Entity : MonoBehaviour
     {
         battleHp -= damage;
     }
+
 
 }
