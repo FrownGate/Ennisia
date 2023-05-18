@@ -61,7 +61,7 @@ public class CSVToSO
             //    SuperSuperRare
             //}
 
-            AssetDatabase.CreateAsset(equipment, $"Assets/Equipments/DebugGears/{equipment.Type}.asset");
+            AssetDatabase.CreateAsset(equipment, $"Assets/Equipments/DebugGears/{equipment.type}.asset");
 
         }
 

@@ -8,12 +8,13 @@ public class GearsCreator : EditorWindow
 {
     private List<EquipmentData> _equipmentList = new List<EquipmentData>();
     private Dictionary<EquipmentData, SerializedObject> _serializedObjects = new Dictionary<EquipmentData, SerializedObject>();
-    private Dictionary<EquipmentData, Dictionary<string, float>> _originalValues = new Dictionary<EquipmentData, Dictionary<string, float>>();
     private Dictionary<string, GUIContent[]> _rarityOptions = new Dictionary<string, GUIContent[]>();
     private Dictionary<string, string[]> _rarityPropertyNames = new Dictionary<string, string[]>();
     private Dictionary<EquipmentData, string> _selectedRarity = new Dictionary<EquipmentData, string>();
+    private Dictionary<string, string> _selectedAttribute = new Dictionary<string, string>();
     private Dictionary<string, List<string>> _availableAttributes = new Dictionary<string, List<string>>();
     private Vector2 _scrollPosition = Vector2.zero;
+    private HashSet<string> _displayedTypes = new HashSet<string>();
 
     [MenuItem("Tools/Gears Creator")]
     public static void ShowWindow()
@@ -36,8 +37,8 @@ public class GearsCreator : EditorWindow
                 options[i] = new GUIContent(properties[i]);
             }
 
-            _rarityOptions[equipment.Type] = options;
-            _rarityPropertyNames[equipment.Type] = properties;
+            _rarityOptions[equipment.type] = options;
+            _rarityPropertyNames[equipment.type] = properties;
         }
     }
 
@@ -52,26 +53,35 @@ public class GearsCreator : EditorWindow
 
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
-        HashSet<string> displayedTypes = new HashSet<string>();
 
         foreach (EquipmentData equipment in _equipmentList)
         {
-            if (displayedTypes.Contains(equipment.Type))
+            if (_displayedTypes.Contains(equipment.type) && _selectedAttribute[equipment.type] != equipment.attribute)
             {
                 continue;
             }
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
-            EditorGUILayout.LabelField("Equipment: " + equipment.Type);
+            EditorGUILayout.LabelField("Equipment: " + equipment.type);
 
             _serializedObjects[equipment].Update();
-
+            string name = _serializedObjects[equipment].FindProperty("equipmentName").stringValue;
+            EditorGUI.BeginChangeCheck();
+            name = EditorGUILayout.TextField("Name", name);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(equipment, "Change name Value");
+                _serializedObjects[equipment].FindProperty("equipmentName").stringValue = name;
+                _serializedObjects[equipment].ApplyModifiedProperties();
+            }
             // Dropdown menu for selecting the rarity
-            string[] properties = _rarityPropertyNames[equipment.Type];
-            GUIContent[] options = _rarityOptions[equipment.Type];
+            EditorGUILayout.BeginHorizontal();
+            string[] properties = _rarityPropertyNames[equipment.type];
+            GUIContent[] options = _rarityOptions[equipment.type];
 
             int selectedRarityIndex = GetSelectedRarityIndex(equipment);
+            EditorGUILayout.LabelField("Rarity: ");
             int newSelectedRarityIndex = EditorGUILayout.Popup(selectedRarityIndex, options);
             string newSelectedRarity = properties[newSelectedRarityIndex];
 
@@ -82,48 +92,64 @@ public class GearsCreator : EditorWindow
                 UpdateMinMaxValues(equipment, newSelectedRarity);
                 _selectedRarity[equipment] = newSelectedRarity;
             }
-
+            EditorGUILayout.EndHorizontal();
             // Dropdown menu for selecting the attribute
-            List<string> availableAttributes = _availableAttributes[equipment.Type];
-            int selectedAttributeIndex = availableAttributes.IndexOf(equipment.Attribute);
+            List<string> availableAttributes = _availableAttributes[equipment.type];
+            int selectedAttributeIndex = availableAttributes.IndexOf(equipment.attribute);
             int newSelectedAttributeIndex = EditorGUILayout.Popup("Attribute:", selectedAttributeIndex, availableAttributes.ToArray());
             string newSelectedAttribute = availableAttributes[newSelectedAttributeIndex];
-
-            if (newSelectedAttribute != equipment.Attribute)
+            float min, max;
+            _selectedAttribute[equipment.type] = equipment.attribute;
+            if (newSelectedAttribute != equipment.attribute)
             {
                 Undo.RecordObject(equipment, "Change Attribute");
-                equipment.Attribute = newSelectedAttribute;
+                _selectedAttribute[equipment.type] = newSelectedAttribute;
                 UpdateMinMaxValues(equipment, newSelectedRarity);
             }
 
-            float min = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment] + "Min").floatValue;
-            float max = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment] + "Max").floatValue;
-            float value = _serializedObjects[equipment].FindProperty("Value").floatValue;
+
+            min = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment].ToLower() + "Min").floatValue;
+            max = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment].ToLower() + "Max").floatValue;
+            float value = _serializedObjects[equipment].FindProperty("value").floatValue;
 
             // Update the corresponding min/max property
             EditorGUI.BeginChangeCheck();
-            float newValue = EditorGUILayout.Slider(newSelectedRarity + " Value", value, _originalValues[equipment][newSelectedRarity + "Min"], _originalValues[equipment][newSelectedRarity + "Max"]);
+            float newValue = EditorGUILayout.Slider(newSelectedRarity + " Value", value, min, max);
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(equipment, "Change Slider Value");
-                _serializedObjects[equipment].FindProperty("Value").floatValue = newValue;
+                _serializedObjects[equipment].FindProperty("value").floatValue = newValue;
+                _serializedObjects[equipment].ApplyModifiedProperties();
+            }
+
+            string description = _serializedObjects[equipment].FindProperty("description").stringValue;
+            EditorGUI.BeginChangeCheck();
+            name = EditorGUILayout.TextField("Description", description);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(equipment, "Change description Value");
+                _serializedObjects[equipment].FindProperty("description").stringValue = description;
                 _serializedObjects[equipment].ApplyModifiedProperties();
             }
 
             EditorGUILayout.EndVertical();
 
-            displayedTypes.Add(equipment.Type);
+            _displayedTypes.Add(equipment.type);
         }
 
         EditorGUILayout.EndScrollView();
+        if (GUILayout.Button("Create Equipment Assets"))
+        {
+            CreateEquipmentAssets();
+        }
     }
 
     private void UpdateMinMaxValues(EquipmentData equipment, string newRarity)
     {
         SerializedObject serializedObject = _serializedObjects[equipment];
-        SerializedProperty minProperty = serializedObject.FindProperty(newRarity + "Min");
-        SerializedProperty maxProperty = serializedObject.FindProperty(newRarity + "Max");
-        SerializedProperty valueProperty = serializedObject.FindProperty("Value");
+        SerializedProperty minProperty = serializedObject.FindProperty(newRarity.ToLower() + "Min");
+        SerializedProperty maxProperty = serializedObject.FindProperty(newRarity.ToLower() + "Max");
+        SerializedProperty valueProperty = serializedObject.FindProperty("value");
 
         // Get the current min/max values before changing the rarity
         float currentMin = minProperty.floatValue;
@@ -137,7 +163,7 @@ public class GearsCreator : EditorWindow
 
     private int GetSelectedRarityIndex(EquipmentData equipment)
     {
-        string[] properties = _rarityPropertyNames[equipment.Type];
+        string[] properties = _rarityPropertyNames[equipment.type];
         string selectedRarity = _selectedRarity[equipment];
 
         for (int i = 0; i < properties.Length; i++)
@@ -155,7 +181,6 @@ public class GearsCreator : EditorWindow
     {
         _equipmentList.Clear();
         _serializedObjects.Clear();
-        _originalValues.Clear();
         _selectedRarity.Clear();
         _availableAttributes.Clear();
 
@@ -173,18 +198,18 @@ public class GearsCreator : EditorWindow
         {
             string[] values = lines[i].Split(',');
 
-            EquipmentData equipment = new EquipmentData();
-            equipment.Type = values[0];
-            equipment.Attribute = values[1];
-            equipment.CommonMin = float.Parse(values[2]);
-            equipment.CommonMax = float.Parse(values[3]);
-            equipment.RareMin = float.Parse(values[4]);
-            equipment.RareMax = float.Parse(values[5]);
-            equipment.EpicMin = float.Parse(values[6]);
-            equipment.EpicMax = float.Parse(values[7]);
-            equipment.LegendaryMin = float.Parse(values[8]);
-            equipment.LegendaryMax = float.Parse(values[9]);
-            equipment.Value = (equipment.CommonMin + equipment.CommonMax) / 2;
+            EquipmentData equipment = CreateInstance<EquipmentData>();
+            equipment.type = values[0];
+            equipment.attribute = values[1];
+            equipment.commonMin = float.Parse(values[2]);
+            equipment.commonMax = float.Parse(values[3]);
+            equipment.rareMin = float.Parse(values[4]);
+            equipment.rareMax = float.Parse(values[5]);
+            equipment.epicMin = float.Parse(values[6]);
+            equipment.epicMax = float.Parse(values[7]);
+            equipment.legendaryMin = float.Parse(values[8]);
+            equipment.legendaryMax = float.Parse(values[9]);
+            equipment.value = (equipment.commonMin + equipment.commonMax) / 2;
 
             _equipmentList.Add(equipment);
 
@@ -192,48 +217,74 @@ public class GearsCreator : EditorWindow
             _serializedObjects[equipment] = serializedObject;
             _selectedRarity[equipment] = "Common";
 
-            Dictionary<string, float> valuesDict = new Dictionary<string, float>
-            {
-                { "CommonMin", equipment.CommonMin },
-                { "CommonMax", equipment.CommonMax },
-                { "RareMin", equipment.RareMin },
-                { "RareMax", equipment.RareMax },
-                { "EpicMin", equipment.EpicMin },
-                { "EpicMax", equipment.EpicMax },
-                { "LegendaryMin", equipment.LegendaryMin },
-                { "LegendaryMax", equipment.LegendaryMax },
-                { "Value", equipment.Value }
-            };
-
-            _originalValues[equipment] = valuesDict;
 
             // Add the attribute to the list of available attributes for the equipment type
-            if (!_availableAttributes.ContainsKey(equipment.Type))
+            if (!_availableAttributes.ContainsKey(equipment.type))
             {
-                _availableAttributes[equipment.Type] = new List<string>();
+                _availableAttributes[equipment.type] = new List<string>();
             }
 
-            if (!_availableAttributes[equipment.Type].Contains(equipment.Attribute))
+            if (!_availableAttributes[equipment.type].Contains(equipment.attribute))
             {
-                _availableAttributes[equipment.Type].Add(equipment.Attribute);
+                _availableAttributes[equipment.type].Add(equipment.attribute);
             }
         }
 
         SetupRarityOptions();
     }
+    private void CreateEquipmentAssets()
+    {
+        string path;
+        foreach (EquipmentData equipment in _equipmentList)
+        {
+            if (_displayedTypes.Contains(equipment.type) && _selectedAttribute[equipment.type] != equipment.attribute)
+            {
+                continue;
+            }
+            EquipmentSO equipmentSO = CreateEquipment(equipment);
+            if (equipmentSO.equipmentName == null)
+            {
+                path = "Assets/Equipments/DebugGears/" + equipment.type + ".asset";
+
+            }
+            else
+            {
+                path = "Assets/Equipments/DebugGears/" + equipment.equipmentName + ".asset";
+            }
+            AssetDatabase.CreateAsset(equipmentSO, path);
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        EditorSceneManager.MarkAllScenesDirty();
+    }
+    private EquipmentSO CreateEquipment(EquipmentData equipmentData)
+    {
+        EquipmentSO equipment = CreateInstance<EquipmentSO>();
+        equipment.equipmentName = equipmentData.equipmentName;
+        equipment.type = equipmentData.type;
+        equipment.rarity = _selectedRarity[equipmentData];
+        equipment.attribute = equipmentData.attribute;
+        equipment.value = equipmentData.value;
+        equipment.description = equipmentData.description;
+
+        return equipment;
+    }
 }
 
 public class EquipmentData : ScriptableObject
 {
-    public string Type;
-    public string Attribute;
-    public float CommonMin;
-    public float CommonMax;
-    public float RareMin;
-    public float RareMax;
-    public float EpicMin;
-    public float EpicMax;
-    public float LegendaryMin;
-    public float LegendaryMax;
-    public float Value;
+    public string equipmentName;
+    public string type;
+    public string attribute;
+    public float commonMin;
+    public float commonMax;
+    public float rareMin;
+    public float rareMax;
+    public float epicMin;
+    public float epicMax;
+    public float legendaryMin;
+    public float legendaryMax;
+    public float value;
+    public string description;
 }

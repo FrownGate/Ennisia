@@ -6,10 +6,10 @@ using UnityEngine;
 public class EquipmentSO : ScriptableObject
 {
     public int Id;
-    public string Name;
-    public string Type;
-    public string Rarity;
-    public string Attribute;
-    public float Value;
-    public string Description;
+    public string equipmentName;
+    public string type;
+    public string rarity;
+    public string attribute;
+    public float value;
+    public string description;
 }
