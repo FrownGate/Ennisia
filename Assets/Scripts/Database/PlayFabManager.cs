@@ -113,10 +113,9 @@ public class PlayFabManager : MonoBehaviour
         OnError?.Invoke(error);
     }
 
-    private void RegisterAccount(string email, string password)
+    private void RegisterAccount(string email, string password) //This function will be registered to a button event
     {
         CreateAccountData(email, password);
-        //This function will be registered to a button event
         string username = CreateUsername(email); //Create unique username with email
 
         PlayFabClientAPI.AddUsernamePassword(new AddUsernamePasswordRequest()
