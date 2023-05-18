@@ -2,8 +2,11 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using PlayFab.DataModels;
+using System.Runtime.InteropServices.ComTypes;
 
 public class PlayFabManager : MonoBehaviour 
 {
@@ -14,18 +17,20 @@ public class PlayFabManager : MonoBehaviour
     public struct Account
     {
         public int Level;
+        public int AccountExp;
         public int Gender;
         public bool Tutorial;
+        public int CharacterLevel;
+        public int CharacterExp;
     }
 
-    public struct Player
-    {
-        //
-    }
+    public Account AccountData { get; private set; }
+    public int PlayFabId { get; private set; }
 
     public int[] EquippedGears { get; private set; }
     public int[] EquippedSupports { get; private set; }
 
+    private List<SetObject> _dataObjects;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -160,5 +165,43 @@ public class PlayFabManager : MonoBehaviour
         string id = SystemInfo.deviceUniqueIdentifier[..5];
         Debug.Log($"creating username {name}{id}");
         return name + id;
+    }
+
+    private void GetUserDatas()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest
+        {
+            //
+        }, null, OnRequestError);
+    }
+
+    private void SaveUserDatas()
+    {
+        PlayFabDataAPI.SetObjects(new SetObjectsRequest
+        {
+            Objects = _dataObjects
+        }, OnDataUpdate, OnRequestError);
+
+        _dataObjects.Clear();
+    }
+
+    private void UpdateData()
+    {
+        _dataObjects.Add(new SetObject()
+        {
+            ObjectName = "Account",
+            EscapedDataObject = JsonUtility.ToJson(AccountData)
+        });
+        SaveUserDatas();
+    }
+
+    private void CreateAccountData()
+    {
+        //
+    }
+
+    private void OnDataUpdate(SetObjectsResponse response)
+    {
+        //
     }
 }
