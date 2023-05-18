@@ -26,7 +26,7 @@ public class PlayFabManager : MonoBehaviour
     public int[] EquippedGears { get; private set; }
     public int[] EquippedSupports { get; private set; }
 
-    private AccountData _accountData;
+    private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
 
@@ -58,20 +58,28 @@ public class PlayFabManager : MonoBehaviour
     {
         //Check if binary file with user datas exists
         if (!File.Exists(_path)) return false;
-        Debug.Log("save found");
 
-        using (FileStream file = new(_path, FileMode.Open))
+        try
         {
-            _accountData = (AccountData)_binaryFormatter.Deserialize(file);
+            using (FileStream file = new(_path, FileMode.Open))
+            {
+                _authData = (AuthData)_binaryFormatter.Deserialize(file);
+            }
+        }
+        catch
+        {
+            File.Delete(_path);
+            return false;
         }
 
-        Login(_accountData.email, _accountData.password);
+        Debug.Log("save found");
+        Login(_authData.email, _authData.password);
         return true;
     }
 
     private void Login(string email, string password)
     {
-        if (_accountData == null) CreateAccountData(email, password);
+        if (_authData == null) CreateAccountData(email, password);
 
         PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest()
         {
@@ -93,7 +101,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Debug.Log("login success");
         OnLoginSuccess?.Invoke();
-        if (_accountData != null) CreateSave();
+        if (_authData != null) CreateSave();
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
@@ -102,7 +110,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginRequestError(PlayFabError error)
     {
         OnRequestError(error);
-        _accountData ??= null;
+        _authData ??= null;
 
         if (File.Exists(_path)) File.Delete(_path);
     }
@@ -129,7 +137,7 @@ public class PlayFabManager : MonoBehaviour
     private void CreateAccountData(string email, string password)
     {
         //Create binary file with user datas
-        _accountData = new()
+        _authData = new()
         {
             email = email,
             password = password
@@ -140,10 +148,10 @@ public class PlayFabManager : MonoBehaviour
     {
         using (FileStream file = new(_path, FileMode.OpenOrCreate))
         {
-            _binaryFormatter.Serialize(file, _accountData);
+            _binaryFormatter.Serialize(file, _authData);
         }
 
-        _accountData = null;
+        _authData = null;
     }
 
     private string CreateUsername(string email)

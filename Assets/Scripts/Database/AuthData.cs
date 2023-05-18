@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class AccountData
+public class AuthData
 {
     public string email;
     public string password;
