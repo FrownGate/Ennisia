@@ -149,6 +149,9 @@ public class PlayFabManager : MonoBehaviour
 
     private string CreateUsername(string email)
     {
-        return "Testing";
+        string name = email.Split('@')[0];
+        string id = SystemInfo.deviceUniqueIdentifier[..5];
+        Debug.Log($"creating username {name}{id}");
+        return name + id;
     }
 }
