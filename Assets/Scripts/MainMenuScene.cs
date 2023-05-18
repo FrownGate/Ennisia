@@ -6,16 +6,6 @@ using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
-    public enum ButtonType
-    {
-        SETTING_BTN, 
-        BATTLE_BTN,
-        SUMMON_BTN,
-        SHOP_BTN,
-        STUFF_BTN,
-        RETURN_BTN
-    }
-
     public class MainMenu : MonoBehaviour
     {
         public Button Settings;
@@ -23,12 +13,7 @@ namespace DefaultNamespace
         public Button Battle;
         public Button Shop;
         public Button Stuff;
-        public Button Return;
-        /*public void LoadGame()
-        {
-            
-        }*/
-        //public void EndGame() => Application.Quit();
+        //public Return;
 
         public void OnEnable()
         {
@@ -38,7 +23,7 @@ namespace DefaultNamespace
             Battle.onClick.AddListener(() => buttonCallBack(Battle));
             Shop.onClick.AddListener(() => buttonCallBack(Shop));
             Stuff.onClick.AddListener(() => buttonCallBack(Stuff));
-            Return.onClick.AddListener(() => buttonCallBack(Return));
+            //Return.onClick.AddListener(() => buttonCallBack(Return));
         }
 
 
@@ -54,7 +39,6 @@ namespace DefaultNamespace
             if (buttonPressed == Summon)
             {
                 SceneManager.LoadScene("SummonMenu");
-
                 Debug.Log("Clicked: " + Summon.name);
             }
 
@@ -63,7 +47,6 @@ namespace DefaultNamespace
                 SceneManager.LoadScene("Battle");
                 Debug.Log("Clicked: " + Battle.name);
             }
-
 
             if (buttonPressed == Shop)
             {
@@ -77,14 +60,11 @@ namespace DefaultNamespace
                 Debug.Log("Clicked: " + Stuff.name);
             } 
             
-            if (buttonPressed == Return)
+            /*if (buttonPressed == Return)
             {
                 SceneManager.LoadScene("MainMenu");
                 Debug.Log("Clicked: " + Return.name);
-            }
+            }*/
         }
     }
 }
-
-
-
