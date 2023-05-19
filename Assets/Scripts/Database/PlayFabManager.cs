@@ -16,21 +16,27 @@ public class PlayFabManager : MonoBehaviour
 
     public struct Account
     {
+        public string Name;
         public int Level;
-        public int AccountExp;
+        public int Exp;
         public int Gender;
         public bool Tutorial;
-        public int CharacterLevel;
-        public int CharacterExp;
+    }
+
+    public struct Player
+    {
+        public int Level;
+        public int Exp;
+        public int EquippedWeapon;
+        public int[] EquippedGears;
+        public int[] EquippedSupports;
     }
 
     public Account AccountData { get; private set; }
-    public int PlayFabId { get; private set; }
+    public Player PlayerData { get; private set; }
+    public string PlayFabId { get; private set; }
+    public PlayFab.ClientModels.EntityKey Entity { get; private set; }
 
-    public int[] EquippedGears { get; private set; }
-    public int[] EquippedSupports { get; private set; }
-
-    private List<SetObject> _dataObjects;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -45,7 +51,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-
+            
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
@@ -89,12 +95,17 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest()
         {
             Email = email,
-            Password = password
+            Password = password,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+            {
+                GetUserAccountInfo = true
+            }
         }, OnLoginRequestSuccess, OnLoginRequestError);
     }
 
     private void AnonymousLogin()
     {
+        Debug.Log("anonymous login");
         PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
@@ -110,6 +121,22 @@ public class PlayFabManager : MonoBehaviour
     {
         Debug.Log("login success");
         OnLoginSuccess?.Invoke();
+        PlayFabId = result.PlayFabId;
+        Entity = result.EntityToken.Entity;
+
+        UserAccountInfo info = result.InfoResultPayload.AccountInfo;
+        bool newPlayer = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
+
+        if (newPlayer)
+        {
+            Debug.Log("new player");
+            CreateData();
+        }
+        else
+        {
+            GetUserDatas();
+        }
+
         if (_authData != null) CreateSave();
 
         //Use this line once to test PlayFab Register & Login
@@ -163,49 +190,83 @@ public class PlayFabManager : MonoBehaviour
         _authData = null;
     }
 
-    private string CreateUsername(string email)
+    private string CreateUsername(string email = "user")
     {
         string name = email.Split('@')[0];
-        string id = SystemInfo.deviceUniqueIdentifier[..5];
-        Debug.Log($"creating username {name}{id}");
-        return name + id;
+        name += SystemInfo.deviceUniqueIdentifier[..5];
+        Debug.Log($"creating username {name}");
+        UpdateName(name);
+        return name;
+    }
+
+    private void CreateData()
+    {
+        AccountData = new()
+        {
+            Name = CreateUsername(),
+            Level = 1
+        };
+
+        PlayerData = new()
+        {
+            Level = 1,
+            EquippedGears = new int[6],
+            EquippedSupports = new int[2]
+        };
+
+        UpdateData();
     }
 
     private void GetUserDatas()
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest
+        PlayFabDataAPI.GetObjects(new GetObjectsRequest
         {
-            //
-        }, null, OnRequestError);
-    }
-
-    private void SaveUserDatas()
-    {
-        PlayFabDataAPI.SetObjects(new SetObjectsRequest
-        {
-            Objects = _dataObjects
-        }, OnDataUpdate, OnRequestError);
-
-        _dataObjects.Clear();
+            EscapeObject = true,
+            Entity = new()
+            {
+                Id = Entity.Id,
+                Type = Entity.Type
+            }
+        }, OnDataObtained, OnRequestError);
     }
 
     private void UpdateData()
     {
-        _dataObjects.Add(new SetObject()
+        PlayFabDataAPI.SetObjects(new SetObjectsRequest
         {
-            ObjectName = "Account",
-            EscapedDataObject = JsonUtility.ToJson(AccountData)
-        });
-        SaveUserDatas();
+            Objects = new()
+            {
+                new SetObject
+                {
+                    ObjectName = "Account",
+                    EscapedDataObject = JsonUtility.ToJson(AccountData)
+                },
+                new SetObject
+                {
+                    ObjectName = "Player",
+                    EscapedDataObject = JsonUtility.ToJson(PlayerData)
+                }
+            },
+            Entity = new()
+            {
+                Id = Entity.Id,
+                Type = Entity.Type
+            }
+        }, res => { Debug.Log("data updated"); }, OnRequestError);
     }
 
-    private void CreateAccountData()
+    private void OnDataObtained(GetObjectsResponse response)
     {
-        //
+        AccountData = JsonUtility.FromJson<Account>(response.Objects["Account"].EscapedDataObject);
+        PlayerData = JsonUtility.FromJson<Player>(response.Objects["Player"].EscapedDataObject);
+        Debug.Log("data obtained");
     }
 
-    private void OnDataUpdate(SetObjectsResponse response)
+    private void UpdateName(string name)
     {
-        //
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = name
+        }, null, OnRequestError);
     }
 }
