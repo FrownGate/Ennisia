@@ -15,6 +15,7 @@ namespace DefaultNamespace
         public Button Ring;
         public Button Chest;
         public Button Boots;
+        public Button Weapon;
         public Button Supp1;
         public Button Supp2;
         public Button Return;
@@ -29,6 +30,7 @@ namespace DefaultNamespace
             Ring.onClick.AddListener(() => buttonCallBack(Ring));
             Chest.onClick.AddListener(() => buttonCallBack(Chest));
             Boots.onClick.AddListener(() => buttonCallBack(Boots));
+            Weapon.onClick.AddListener(() => buttonCallBack(Weapon));
             Supp1.onClick.AddListener(() => buttonCallBack(Supp1));
             Supp2.onClick.AddListener(() => buttonCallBack(Supp2));
             Return.onClick.AddListener(() => buttonCallBack(Return));
@@ -71,6 +73,11 @@ namespace DefaultNamespace
             if (buttonPressed == Boots)
             {
                 Debug.Log("Clicked: " + Boots.name);
+            } 
+            
+            if (buttonPressed == Weapon)
+            {
+                Debug.Log("Clicked: " + Weapon.name);
             } 
             
             if (buttonPressed == Supp1)
