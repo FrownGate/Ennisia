@@ -1,28 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
-using PlayFab.ClientModels;
 using PlayFab.EconomyModels;
 
 namespace Currencies
 {
     public class Buyable : MonoBehaviour
     {
+        private EntityKey _entity;
 
-        public void AddItemToInventory(PlayFab.ClientModels.EntityKey playerEntity, string itemAlternateId)
+        private void Awake()
         {
-            PlayFab.EconomyModels.EntityKey entity = new() { Id = playerEntity.Id, Type = playerEntity.Type };
-            PlayFab.EconomyModels.AddInventoryItemsRequest request = new()
+            _entity = new() { Id = PlayFabManager.Instance.Entity.Id, Type = PlayFabManager.Instance.Entity.Type };
+        }
+        public void AddItemToInventory(string itemAlternateId)
+        {
+            PlayFabEconomyAPI.AddInventoryItems(new()
             {
                 // CatalogVersion = "Items",
                 // PlayFabId = PlayFabManager.Instance.PlayFabId,
                 // ItemIds = new List<string> { "607c7159-82a0-4796-97aa-1b1d77cbe4db" }
 
-                Entity = entity,
-                Item = new PlayFab.EconomyModels.InventoryItemReference
+                Entity = _entity,
+                Item = new InventoryItemReference
                 {
-                    AlternateId = new PlayFab.EconomyModels.AlternateId
+                    AlternateId = new AlternateId
                     {
                         Type = "FriendlyId",
                         Value = itemAlternateId
@@ -32,32 +34,26 @@ namespace Currencies
                 },
                 // FIXME: The amount will be a return from an int function
                 Amount = 1
-            };
-            PlayFabEconomyAPI.AddInventoryItems(request, OnAddedItemToInventorySucess, OnAddedItemToInventoryError);
+            }, OnAddedItemToInventorySucess, PlayFabManager.Instance.OnRequestError);
         }
 
         private void OnAddedItemToInventorySucess(AddInventoryItemsResponse result)
         {
             Debug.Log("Successfully granted item: ");
         }
-        private void OnAddedItemToInventoryError(PlayFabError error)
-        {
-            Debug.LogError("Error while adding item: " + error.ErrorMessage);
-        }
 
-        public void PurchaseItem(PlayFab.ClientModels.EntityKey playerEntity, string itemAlternateId, int itemAmount, string currencyId, int currencyAmount)
+        public void PurchaseItem(string itemAlternateId, int itemAmount, string currencyId, int currencyAmount)
         {
-            PlayFab.EconomyModels.EntityKey entity = new() { Id = playerEntity.Id, Type = playerEntity.Type };
-            PlayFab.EconomyModels.PurchaseInventoryItemsRequest request = new()
+            PlayFabEconomyAPI.PurchaseInventoryItems(new()
             {
                 // CatalogVersion = "Items",
                 // PlayFabId = PlayFabManager.Instance.PlayFabId,
                 // ItemIds = new List<string> { "607c7159-82a0-4796-97aa-1b1d77cbe4db" }
 
-                Entity = entity,
-                Item = new PlayFab.EconomyModels.InventoryItemReference
+                Entity = _entity,
+                Item = new()
                 {
-                    AlternateId = new PlayFab.EconomyModels.AlternateId
+                    AlternateId = new AlternateId
                     {
                         Type = "FriendlyId",
                         Value = itemAlternateId
@@ -66,9 +62,9 @@ namespace Currencies
                     // StackId = "TsStack1"
                 },
                 Amount = itemAmount,
-                PriceAmounts = new List<PlayFab.EconomyModels.PurchasePriceAmount>
+                PriceAmounts = new List<PurchasePriceAmount>
             {
-                new PlayFab.EconomyModels.PurchasePriceAmount
+                new PurchasePriceAmount
                 {
                     //TODO: check the currency and add the right ItemId
 
@@ -78,18 +74,12 @@ namespace Currencies
                 }
             }
 
-            };
-            PlayFabEconomyAPI.PurchaseInventoryItems(request, OnPurchaseItemSucess, OnPurchaseItemError);
+            }, OnPurchaseItemSucess, PlayFabManager.Instance.OnRequestError);
         }
 
         private void OnPurchaseItemSucess(PurchaseInventoryItemsResponse result)
         {
             Debug.Log("Successfully purchased item: ");
-        }
-
-        private void OnPurchaseItemError(PlayFabError error)
-        {
-            Debug.LogError("Error while purchasing item: " + error.ErrorMessage);
         }
     }
 }

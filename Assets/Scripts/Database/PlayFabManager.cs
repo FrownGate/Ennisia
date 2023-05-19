@@ -32,6 +32,11 @@ public class PlayFabManager : MonoBehaviour
         public int[] EquippedSupports;
     }
 
+    public struct Currencies
+    {
+        //
+    }
+
     public Account AccountData { get; private set; }
     public Player PlayerData { get; private set; }
     public string PlayFabId { get; private set; }
@@ -156,7 +161,7 @@ public class PlayFabManager : MonoBehaviour
         if (File.Exists(_path)) File.Delete(_path);
     }
 
-    private void OnRequestError(PlayFabError error)
+    public void OnRequestError(PlayFabError error)
     {
         Debug.Log(error.GenerateErrorReport());
         OnError?.Invoke(error);
