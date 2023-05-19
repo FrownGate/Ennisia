@@ -2,11 +2,10 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using PlayFab.DataModels;
-using System.Runtime.InteropServices.ComTypes;
+using PlayFab.EconomyModels;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -225,6 +224,7 @@ public class PlayFabManager : MonoBehaviour
         };
 
         UpdateData();
+        AddCurrency("Gold", 1000);
     }
 
     private void GetUserDatas()
@@ -278,5 +278,50 @@ public class PlayFabManager : MonoBehaviour
         {
             DisplayName = name
         }, null, OnRequestError);
+    }
+
+    private void AddCurrency(string currency, int amount)
+    {
+        PlayFabEconomyAPI.AddInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Amount = amount,
+            Item = new()
+            {
+                AlternateId = new()
+                {
+                    Type = "FriendlyId",
+                    Value = currency
+                }
+            }
+        }, OnCurrencyAdd, OnRequestError);
+    }
+
+    private void RemoveCurrency(string currency, int amount)
+    {
+        PlayFabEconomyAPI.SubtractInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Amount = amount,
+            Item = new()
+            {
+                AlternateId = new()
+                {
+                    Type = "FriendlyId",
+                    Value = currency
+                }
+            }
+        }, OnCurrencySubtract, OnRequestError);
+    }
+
+    private void OnCurrencyAdd(AddInventoryItemsResponse response)
+    {
+        Debug.Log("currency added");
+        //Update user inventory
+    }
+
+    private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
+    {
+        //Update user inventory
     }
 }
