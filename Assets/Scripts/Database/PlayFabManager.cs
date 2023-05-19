@@ -98,8 +98,12 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true
-        }, OnLoginRequestSuccess, OnError);
+            CreateAccount = true,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+            {
+                GetUserAccountInfo = true
+            }
+        }, OnLoginRequestSuccess, OnRequestError);
     }
 
     private void OnLoginRequestSuccess(LoginResult result)
