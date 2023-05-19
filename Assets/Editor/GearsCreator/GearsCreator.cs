@@ -239,7 +239,7 @@ public class GearsCreator : EditorWindow
 
         string description = _serializedObjects[equipment].FindProperty("description").stringValue;
         EditorGUI.BeginChangeCheck();
-        name = EditorGUILayout.TextField("Description", description);
+        description = EditorGUILayout.TextField("Description", description);
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(equipment, "Change description Value");
@@ -350,7 +350,7 @@ public class GearsCreator : EditorWindow
             }
             else
             {
-                path = "Assets/Equipments/DebugGears/" + equipment.equipmentName + ".asset";
+                path = "Assets/Equipments/DebugGears/" + equipment.type + "-" + equipment.equipmentName + ".asset";
             }
             AssetDatabase.CreateAsset(equipmentSO, path);
         }
