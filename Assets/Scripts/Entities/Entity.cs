@@ -10,12 +10,19 @@ public class Entity : MonoBehaviour
   
     public string entityName;
     public int level;
-
     public int damage;
-
     public int maxHp;
-    public int battleHp;
+    public int currentHp;
     public int speed;
+
+    public bool IsAlive
+    {
+        get
+        {
+            bool isAlive = currentHp > 0;
+            return isAlive;
+        }
+    }
 
     public int battleId;
     public static event Action<int> OnClick;
@@ -29,7 +36,7 @@ public class Entity : MonoBehaviour
     {
         get
         {
-            bool isDead = battleHp <= 0 ? true : false;
+            bool isDead = currentHp <= 0 ? true : false;
             return isDead;
         }
         private set{}
@@ -37,7 +44,7 @@ public class Entity : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        battleHp -= damage;
+        currentHp -= damage;
     }
 
 
