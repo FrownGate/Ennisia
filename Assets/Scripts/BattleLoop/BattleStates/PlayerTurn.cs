@@ -5,10 +5,8 @@ namespace BattleLoop.BattleStates
 {
     public class PlayerTurn : State
     {
-        public bool nextRound;
         public PlayerTurn(BattleSystem battleSystem) : base(battleSystem)
         {
-            nextRound = false;
         }
 
         public override IEnumerator Start()

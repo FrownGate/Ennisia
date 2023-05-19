@@ -10,9 +10,11 @@ public class Entity : MonoBehaviour
   
     public string entityName;
     public int level;
+
     public int damage;
+
     public int maxHp;
-    public int currentHp;
+    public int battleHp;
     public int speed;
 
     public bool IsAlive
