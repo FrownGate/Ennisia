@@ -8,7 +8,7 @@ using UnityEngine;
 using PlayFab.DataModels;
 using System.Runtime.InteropServices.ComTypes;
 
-public class PlayFabManager : MonoBehaviour 
+public class PlayFabManager : MonoBehaviour
 {
     public static PlayFabManager Instance { get; private set; }
     public static event Action OnLoginSuccess;
@@ -141,10 +141,15 @@ public class PlayFabManager : MonoBehaviour
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
+        Debug.Log("PlayFabId: " + result.PlayFabId);
+        Debug.Log("SessionTicket: " + result.SessionTicket);
+        Debug.Log("EntityToken: " + result.EntityToken.EntityToken);
     }
 
     private void OnLoginRequestError(PlayFabError error)
     {
+        Debug.Log("success");
+        
         OnRequestError(error);
         _authData ??= null;
 
