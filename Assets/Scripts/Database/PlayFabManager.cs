@@ -45,6 +45,9 @@ public class PlayFabManager : MonoBehaviour
     private BinaryFormatter _binaryFormatter;
     private string _path;
 
+    private readonly string _goldId = "0dc3228a-78a9-4d26-a3ab-f7d1e5b5c4d3";
+    private readonly string _crystalsId = "0ec7fd19-4c26-4e0a-bd66-cf94f83ef060";
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -55,7 +58,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            
+
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
@@ -153,7 +156,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginRequestError(PlayFabError error)
     {
         Debug.Log("success");
-        
+
         OnRequestError(error);
         _authData ??= null;
 
@@ -280,7 +283,7 @@ public class PlayFabManager : MonoBehaviour
         }, null, OnRequestError);
     }
 
-    private void AddCurrency(string currency, int amount)
+    public void AddCurrency(string currency, int amount)
     {
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
@@ -297,7 +300,7 @@ public class PlayFabManager : MonoBehaviour
         }, OnCurrencyAdd, OnRequestError);
     }
 
-    private void RemoveCurrency(string currency, int amount)
+    public void RemoveCurrency(string currency, int amount)
     {
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
@@ -324,4 +327,56 @@ public class PlayFabManager : MonoBehaviour
     {
         //Update user inventory
     }
+    public int GetCurrency()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $"stackId eq 'currency'"
+        }, OnGetCurrencySuccess, OnGetCurrencyError);
+        //  return a dictionary of currency and amount
+        return 0;
+
+    }
+
+    public int GetCurrency(string currency)
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $":{currency}"
+        }, OnGetCurrencySuccess, OnGetCurrencyError);
+
+        return 0;
+    }
+
+    private void OnGetCurrencySuccess(GetInventoryItemsResponse response)
+    {
+
+        foreach (InventoryItem item in response.Items)
+        {
+            if (item.Id == _goldId)
+            {
+                ShowGold((int)item.Amount);
+            }
+            else if (item.Id == _crystalsId)
+            {
+                // _crystalAmount = (int)item.Amount;
+            }
+
+
+        }
+    }
+    public void ShowGold(int amount)
+    {
+        ToolCurrencies.goldAmount = amount;
+    }
+
+    private void OnGetCurrencyError(PlayFabError error)
+    {
+        Debug.LogError(error.ErrorMessage);
+    }
+
+
+
 }
