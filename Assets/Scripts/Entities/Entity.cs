@@ -14,7 +14,7 @@ public class Entity : MonoBehaviour
     public int damage;
 
     public int maxHp;
-    public int battleHp;
+    public int currentHp;
     public int speed;
 
     public bool IsAlive
