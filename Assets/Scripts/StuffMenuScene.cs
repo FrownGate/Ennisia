@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
-    public class BattleMenu : MonoBehaviour
+    public class StuffMenu : MonoBehaviour
     {
         public Button Settings;
         public Button Helmet;

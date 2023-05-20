@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
-    public class TitileScreen : MonoBehaviour
+    public class TitleScreen : MonoBehaviour
     {
         public Button Start;
 
