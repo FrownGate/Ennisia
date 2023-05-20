@@ -11,7 +11,9 @@ namespace DefaultNamespace
         public Button Skill1;
         public Button Skill2;
         public Button Ult;
-        public Button Return;
+        public Button Settings;
+        public GameObject popup;
+        public Button Quit;
 
 
         public void OnEnable()
@@ -20,10 +22,9 @@ namespace DefaultNamespace
             Skill1.onClick.AddListener(() => buttonCallBack(Skill1));
             Skill2.onClick.AddListener(() => buttonCallBack(Skill2));
             Ult.onClick.AddListener(() => buttonCallBack(Ult));
-            Return.onClick.AddListener(() => buttonCallBack(Return));
-
+            Settings.onClick.AddListener(() => buttonCallBack(Settings));
+            Quit.onClick.AddListener(() => buttonCallBack(Quit));
         }
-
 
         private void buttonCallBack(Button buttonPressed)
         {
@@ -47,10 +48,16 @@ namespace DefaultNamespace
                 Debug.Log("Clicked: " + Ult.name);
             }
 
-            if (buttonPressed == Return)
+            if (buttonPressed == Settings)
+            {
+                popup.SetActive(!popup.activeSelf);
+                Debug.Log("Clicked: " + Settings.name);
+               
+            }
+            if (buttonPressed == Quit)
             {
                 SceneManager.LoadScene("MainMenu");
-                Debug.Log("Clicked: " + Return.name);
+                Debug.Log("Clicked: " + Quit.name);
             }
         }
     }
