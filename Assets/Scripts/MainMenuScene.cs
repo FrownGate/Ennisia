@@ -44,7 +44,7 @@ namespace DefaultNamespace
 
             if (buttonPressed == Battle)
             {
-                SceneManager.LoadScene("Battle");
+                SceneManager.LoadScene("RaidBoss");
                 Debug.Log("Clicked: " + Battle.name);
             }
 
