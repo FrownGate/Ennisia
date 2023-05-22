@@ -79,4 +79,4 @@ public class ExperienceSystem : MonoBehaviour
         float fillAmount = (float)_experience / experienceRequired;
         ProgressBar.fillAmount = fillAmount;
     }
-}
+}//egfgg
