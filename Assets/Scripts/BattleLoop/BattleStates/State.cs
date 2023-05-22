@@ -25,6 +25,11 @@ using UnityEngine;
             yield break;
         }
 
+        public virtual IEnumerator UseSpell()
+        {
+            yield break;
+        }
+
         
         
     }

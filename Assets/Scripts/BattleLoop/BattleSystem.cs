@@ -13,12 +13,14 @@ public class BattleSystem : StateMachine
     public Entity PlayerData { get; private set; }
     public Entity EnemyData { get; private set; }
 
-    
+    public List<Entity> Allies { get; private set; }
+    public List<Entity> Enemies { get; private set; }
+
     public Spell[] Spells;
 
-    private int _selectedSpell;
-    private int _selectedEnnemy;
-    private int _enemyTurn;
+    public int SelectedSpell { get; private set; }
+    public int SelectedEnemy { get; private set; }
+    //private int _enemyTurn;
 
 
     //UI
@@ -27,9 +29,10 @@ public class BattleSystem : StateMachine
     public BattleHUD enemyHUD;
     
     
-    public List<Entity> _enemyList;
+
     private void Start()
     {
+        //
         PlayerData = playerPrefab.GetComponent<Entity>();
         EnemyData = enemyPrefab.GetComponent<Entity>();
         //Spell
@@ -40,11 +43,15 @@ public class BattleSystem : StateMachine
         InitBattleHUD();
         SetState(new WhoGoFirst(this));
     }
+
+
     private void OnDestroy()
     {
         OnSpellClick.OnClick-= SelectSpell;
         Entity.OnClick -= OnAttackButton;
     }
+
+
 
     private void InitBattleHUD()
     {
@@ -54,13 +61,23 @@ public class BattleSystem : StateMachine
     
     public void SelectSpell(int id)
     {
-        _selectedSpell = id;
+        SelectedSpell = id;
         Debug.Log("Selected spell : " + id);
     }
     public void OnAttackButton(int id)
     {
-        _selectedEnnemy = id;
+        SelectedEnemy = id;
         StartCoroutine(State.Attack());
+    }
+
+    public void OnFirstSkillButton()
+    {
+        StartCoroutine(State.UseSpell());
+    }
+
+    public void OnSecondSkillButton()
+    {
+        
     }
 
 }

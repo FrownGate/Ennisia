@@ -12,19 +12,30 @@ namespace BattleLoop.BattleStates
         public override IEnumerator Start()
         {
             BattleSystem.dialogueText.text = "Your turn";
+
             
+            yield return new WaitForSeconds(1.0f);
+            BattleSystem.dialogueText.text = "Choose a spell";
             
-            Debug.Log("Choose an action..");
-            yield break;
+            BattleSystem.SetState(new SelectSpell(BattleSystem));
         }
 
         public override IEnumerator Attack()
         {
+            /*foreach (var enemy in BattleSystem.Enemies)
+            {
+                if (enemy.battleId == BattleSystem.SelectedEnemy)
+                {
+                    enemy.TakeDamage(BattleSystem.PlayerData.damage);
+                    BattleSystem.enemyHUD.SetHp(enemy.currentHp);
+                    break;
+                }
+            }*/
+            
+            
             BattleSystem.EnemyData.TakeDamage(BattleSystem.PlayerData.damage);
             BattleSystem.enemyHUD.SetHp(BattleSystem.EnemyData.currentHp);
             
-            
-
             if (BattleSystem.EnemyData.IsDead)
             {
                 BattleSystem.SetState(new Won(BattleSystem));

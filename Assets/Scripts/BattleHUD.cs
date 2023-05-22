@@ -14,8 +14,8 @@ public class BattleHUD : MonoBehaviour
     
     public void SetHUD(Entity target)
     {
-        nameText.text = target.entityName;
-        lvlText.text = target.level.ToString();
+        /*nameText.text = target.entityName;
+        lvlText.text = target.level.ToString();*/
         hpSlider.maxValue = target.maxHp;
         hpSlider.value = target.currentHp;
     }
