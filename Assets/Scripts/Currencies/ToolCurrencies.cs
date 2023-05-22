@@ -37,7 +37,6 @@ public class ToolCurrencies : EditorWindow
         CreateLabels();
         // CreateFields();
         CreateButtons();
-        Debug.Log("Width: " + position.width + " Height: " + position.height);
 
         rootVisualElement.Add(main);
 
@@ -76,14 +75,9 @@ public class ToolCurrencies : EditorWindow
                 alignItems = Align.Center,
                 justifyContent = Justify.Center,
             },
-            // transform =
-            // {
-            //     position = new Vector2((position.width/2) - 50, (position.height/6) * 5)
-            // }
         };
 
 
-        // Create label to show gold amount
         goldLabel = new()
         {
             text = "Gold: ",
