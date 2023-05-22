@@ -15,6 +15,9 @@ public class ToolCurrencies : EditorWindow
     // Text of crystals amount
     public static int crystalsAmount;
 
+    private Label goldLabel;
+    private Label crystalsLabel;
+
     [MenuItem("Currencies/Gestion")]
     public static void ShowWindow()
     {
@@ -45,9 +48,9 @@ public class ToolCurrencies : EditorWindow
         currenciesLabel.style.marginTop = 5;
 
         // Create label to show gold amount
-        Label goldLabel = new()
+        goldLabel = new()
         {
-            text = "Gold: " + goldAmount,
+            text = "Gold: ",
             style =
             {
                 width = 100,
@@ -56,9 +59,9 @@ public class ToolCurrencies : EditorWindow
         };
 
 
-        Label crystalsLabel = new()
+        crystalsLabel = new()
         {
-            text = "Crystals: " + crystalsAmount,
+            text = "Crystals: ",
             style =
             {
                 width = 100,
@@ -70,6 +73,7 @@ public class ToolCurrencies : EditorWindow
 
         rootVisualElement.Add(currenciesLabel);
         rootVisualElement.Add(goldLabel);
+        rootVisualElement.Add(crystalsLabel);
 
         rootVisualElement.Add(main);
 
@@ -78,38 +82,7 @@ public class ToolCurrencies : EditorWindow
     // create buttons on the left side
     private void CreateButtons()
     {
-        // Create button to show currencies
-        Button showCurrencies = new()
-        {
-            text = "Show Currencies",
-            style =
-            {
-                width = 100,
-                height = 30,
-                marginBottom = 5,
-                marginTop = 5,
-                borderBottomColor = Color.black,
-                borderBottomWidth = 1,
-                borderBottomLeftRadius = 5,
-                borderBottomRightRadius = 5,
-                borderTopColor = Color.black,
-                borderTopWidth = 1,
-                borderTopLeftRadius = 5,
-                borderTopRightRadius = 5,
-                borderLeftColor = Color.black,
-                borderLeftWidth = 1,
-                borderRightColor = Color.black,
-                borderRightWidth = 1,
-                paddingLeft = 5,
-                paddingRight = 5,
-                paddingTop = 5,
-                paddingBottom = 5,
-                alignItems = Align.Center,
-                justifyContent = Justify.Center,
-            }
-        };
-        showCurrencies.clicked += ShowCurrencies;
-        rootVisualElement.Add(showCurrencies);
+        
 
         // Create button to show currencies
         Button addGold = new()
@@ -151,7 +124,7 @@ public class ToolCurrencies : EditorWindow
 
         Button addCrystals = new()
         {
-            text = "Add 20 Crystals",
+            text = "Add 2000 Crystals",
             style =
             {
                 width = 120,
@@ -219,18 +192,26 @@ public class ToolCurrencies : EditorWindow
         rootVisualElement.Add(addGoldField);
     }
 
+    private void OnInspectorUpdate()
+    {
+        goldLabel.text = "Gold: " + goldAmount;
+        crystalsLabel.text = "Crystals: " + crystalsAmount;
+    }
+
     private void AddGold()
     {
         PlayFabManager.Instance.AddCurrency("Gold", 100000);
+        PlayFabManager.Instance.GetCurrency();
     }
     private void AddCrystals()
     {
-        PlayFabManager.Instance.AddCurrency("Crystals", 20);
-    }
-
-    private void ShowCurrencies()
-    {
+        PlayFabManager.Instance.AddCurrency("Crystals", 2000);
         PlayFabManager.Instance.GetCurrency();
     }
+
+    // private void UpdateCurrencies()
+    // {
+    //     PlayFabManager.Instance.GetCurrency();
+    // }
 
 }

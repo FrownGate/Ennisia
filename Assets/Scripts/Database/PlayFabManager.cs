@@ -327,7 +327,7 @@ public class PlayFabManager : MonoBehaviour
     {
         //Update user inventory
     }
-    public int GetCurrency()
+    public void GetCurrency()
     {
         PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
         {
@@ -335,11 +335,10 @@ public class PlayFabManager : MonoBehaviour
             Filter = $"stackId eq 'currency'"
         }, OnGetCurrencySuccess, OnGetCurrencyError);
         //  return a dictionary of currency and amount
-        return 0;
 
     }
 
-    public int GetCurrency(string currency)
+    public void GetCurrency(string currency)
     {
         PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
         {
@@ -347,7 +346,6 @@ public class PlayFabManager : MonoBehaviour
             Filter = $":{currency}"
         }, OnGetCurrencySuccess, OnGetCurrencyError);
 
-        return 0;
     }
 
     private void OnGetCurrencySuccess(GetInventoryItemsResponse response)
@@ -357,11 +355,12 @@ public class PlayFabManager : MonoBehaviour
         {
             if (item.Id == _goldId)
             {
-                ShowGold((int)item.Amount);
+                ToolCurrencies.goldAmount = (int)item.Amount;
+
             }
             else if (item.Id == _crystalsId)
             {
-                // _crystalAmount = (int)item.Amount;
+                ToolCurrencies.crystalsAmount = (int)item.Amount;
             }
 
 
