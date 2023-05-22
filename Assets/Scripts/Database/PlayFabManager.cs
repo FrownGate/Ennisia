@@ -364,16 +364,9 @@ public class PlayFabManager : MonoBehaviour
 
         }
     }
-    public void ShowGold(int amount)
-    {
-        ToolCurrencies.goldAmount = amount;
-    }
 
     private void OnGetCurrencyError(PlayFabError error)
     {
         Debug.LogError(error.ErrorMessage);
     }
-
-
-
 }

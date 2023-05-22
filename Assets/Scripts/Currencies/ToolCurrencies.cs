@@ -26,7 +26,7 @@ public class ToolCurrencies : EditorWindow
         window.titleContent = new GUIContent("Currencies");
         window.minSize = new Vector2(500, 500);
         window.maxSize = new Vector2(500, 500);
-        window.position = new Rect(0, 0, 500500, 600);
+        window.position = new Rect(0, 0, 500, 600);
     }
 
     public void CreateGUI()
@@ -38,6 +38,9 @@ public class ToolCurrencies : EditorWindow
         // CreateFields();
         CreateButtons();
 
+        goldLabel.text = "Gold: " + goldAmount;
+        crystalsLabel.text = "Crystals: " + crystalsAmount;
+
         rootVisualElement.Add(main);
 
     }
@@ -45,14 +48,15 @@ public class ToolCurrencies : EditorWindow
     private void Awake()
     {
         PlayFabManager.Instance.GetCurrency();
-        goldLabel.text = "Gold: " + goldAmount;
-        crystalsLabel.text = "Crystals: " + crystalsAmount;
+
     }
 
-    private void OnInspectorUpdate()
-    {
+    private void Update()
+    { 
         goldLabel.text = "Gold: " + goldAmount;
         crystalsLabel.text = "Crystals: " + crystalsAmount;
+        if (EditorApplication.isPlaying && !EditorApplication.isPaused) { Repaint(); }
+
     }
 
     private void CreateLabels()
@@ -144,11 +148,10 @@ public class ToolCurrencies : EditorWindow
             },
             transform =
             {
-                position = new Vector2((position.width/6)  , (position.height/6) * 3 )
+                position = new Vector2((position.width/6)  , (position.height/6) * 2 )
             }
         };
         addGold.clicked += AddGold;
-        rootVisualElement.Add(addGold);
 
 
         Button addCrystals = new()
@@ -180,11 +183,88 @@ public class ToolCurrencies : EditorWindow
             },
             transform =
             {
-                position = new Vector2((position.width/6*5) , ((position.height/6) * 3) -39)
+                position = new Vector2((position.width/6*5) , ((position.height/6) * 2) - 39)
             }
         };
         addCrystals.clicked += AddCrystals;
+
+
+        Button removeGold = new()
+        {
+            text = "Remove 100 000 Gold",
+            style =
+            {
+                width = 140,
+                height = 30,
+                marginBottom = 5,
+                marginTop = 5,
+                borderBottomColor = Color.black,
+                borderBottomWidth = 1,
+                borderBottomLeftRadius = 5,
+                borderBottomRightRadius = 5,
+                borderTopColor = Color.black,
+                borderTopWidth = 1,
+                borderTopLeftRadius = 5,
+                borderTopRightRadius = 5,
+                borderLeftColor = Color.black,
+                borderLeftWidth = 1,
+                borderRightColor = Color.black,
+                borderRightWidth = 1,
+                paddingLeft = 5,
+                paddingRight = 5,
+                paddingTop = 5,
+                paddingBottom = 5,
+                alignItems = Align.Center,
+                justifyContent = Justify.Center,
+            },
+            transform =
+            {
+                position = new Vector2((position.width/6)  , ((position.height/6) * 2)   )
+            }
+        };
+        removeGold.clicked += RemoveGold;
+
+
+
+
+        Button removeCrystals = new()
+        {
+            text = "Remove 2000 Crystals",
+            style =
+            {
+                width = 140,
+                height = 30,
+                marginBottom = 5,
+                marginTop = 5,
+                borderBottomColor = Color.black,
+                borderBottomWidth = 1,
+                borderBottomLeftRadius = 5,
+                borderBottomRightRadius = 5,
+                borderTopColor = Color.black,
+                borderTopWidth = 1,
+                borderTopLeftRadius = 5,
+                borderTopRightRadius = 5,
+                borderLeftColor = Color.black,
+                borderLeftWidth = 1,
+                borderRightColor = Color.black,
+                borderRightWidth = 1,
+                paddingLeft = 5,
+                paddingRight = 5,
+                paddingTop = 5,
+                alignItems = Align.Center,
+                justifyContent = Justify.Center,
+            },
+            transform =
+            {
+                position = new Vector2((position.width/6*5) , ((position.height/6) * 2) - 39)
+            }
+        };
+        removeCrystals.clicked += RemoveCrystals;
+
+        rootVisualElement.Add(addGold);
         rootVisualElement.Add(addCrystals);
+        rootVisualElement.Add(removeGold);
+        rootVisualElement.Add(removeCrystals);
 
     }
 
@@ -224,13 +304,25 @@ public class ToolCurrencies : EditorWindow
 
     private void AddGold()
     {
-        PlayFabManager.Instance.AddCurrency("Gold", 100000);
         PlayFabManager.Instance.GetCurrency();
+        PlayFabManager.Instance.AddCurrency("Gold", 100000);
     }
     private void AddCrystals()
     {
-        PlayFabManager.Instance.AddCurrency("Crystals", 2000);
         PlayFabManager.Instance.GetCurrency();
+        PlayFabManager.Instance.AddCurrency("Crystals", 2000);
+    }
+
+    private void RemoveGold()
+    {
+        PlayFabManager.Instance.GetCurrency();
+        PlayFabManager.Instance.RemoveCurrency("Gold", 100000);
+    }
+
+    private void RemoveCrystals()
+    {
+        PlayFabManager.Instance.GetCurrency();
+        PlayFabManager.Instance.RemoveCurrency("Crystals", 2000);
     }
 
 }
