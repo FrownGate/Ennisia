@@ -4,9 +4,9 @@ using System.IO;
 
 public class ExperienceSystem : MonoBehaviour
 {
-    private int level = 1;
-    private int experience = 0;
-    private Dictionary<int, int> levelExperienceMap;
+    private int _level = 1;
+    private int _experience = 0;
+    private Dictionary<int, int> _levelExperienceMap;
 
     private void Awake()
     {
@@ -15,42 +15,42 @@ public class ExperienceSystem : MonoBehaviour
 
     public void GainExperience()
     {
-        int experienceToAdd = 5; // Montant d'expérience à ajouter lorsque le bouton est cliqué
-        experience += experienceToAdd;
-        Debug.Log("Expérience actuelle : " + experience);
+        int ExperienceToAdd = 5; // Montant d'expérience à ajouter lorsque le bouton est cliqué
+        _experience += ExperienceToAdd;
+        Debug.Log("Expérience actuelle : " + _experience);
 
-        if (levelExperienceMap.ContainsKey(level) && experience >= levelExperienceMap[level+1])
+        if (_levelExperienceMap.ContainsKey(_level) && _experience >= _levelExperienceMap[_level+1])
         {
-            level++;
-            experience -= levelExperienceMap[level];
-            Debug.Log("Niveau atteint : " + level);
+            _level++;
+            _experience -= _levelExperienceMap[_level];
+            Debug.Log("Niveau atteint : " + _level);
         }
     }
 
     private void LoadLevelExperienceMap()
     {
-        levelExperienceMap = new Dictionary<int, int>();
+        _levelExperienceMap = new Dictionary<int, int>();
 
         // Chemin relatif vers le fichier CSV
-        string filePath = Application.dataPath + "/CSV/PlayerXpCSVExport.csv";
+        string _filePath = Application.dataPath + "/CSV/PlayerXpCSVExport.csv";
 
         // Lecture du fichier CSV
-        string[] csvLines = File.ReadAllLines(filePath);
+        string[] _csvLines = File.ReadAllLines(_filePath);
 
-        foreach (string line in csvLines)
+        foreach (string _line in _csvLines)
         {
-            string[] values = line.Split(',');
+            string[] _values = _line.Split(',');
 
-            if (values.Length >= 2)
+            if (_values.Length >= 2)
             {
-                int level = int.Parse(values[0]);
-                int experienceRequired = int.Parse(values[1]);
+                int _level = int.Parse(_values[0]);
+                int _experienceRequired = int.Parse(_values[1]);
 
-                levelExperienceMap[level] = experienceRequired;
+                _levelExperienceMap[_level] = _experienceRequired;
             }
             else
             {
-                Debug.LogWarning("Format invalide dans le fichier CSV : " + line);
+                Debug.LogWarning("Format invalide dans le fichier CSV : " + _line);
             }
         }
     }
