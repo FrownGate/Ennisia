@@ -34,18 +34,54 @@ public class ToolCurrencies : EditorWindow
         rootVisualElement.Clear();
         VisualElement main = new();
 
-        // Show buttons on the left side
-        CreateFields();
+        CreateLabels();
+        // CreateFields();
         CreateButtons();
         Debug.Log("Width: " + position.width + " Height: " + position.height);
 
-        // Create label to show currencies
-        Label currenciesLabel = new();
-        currenciesLabel.text = "Currencies";
-        currenciesLabel.style.width = 100;
-        currenciesLabel.style.height = 30;
-        currenciesLabel.style.marginBottom = 5;
-        currenciesLabel.style.marginTop = 5;
+        rootVisualElement.Add(main);
+
+    }
+
+    private void Awake()
+    {
+        PlayFabManager.Instance.GetCurrency();
+        goldLabel.text = "Gold: " + goldAmount;
+        crystalsLabel.text = "Crystals: " + crystalsAmount;
+    }
+
+    private void OnInspectorUpdate()
+    {
+        goldLabel.text = "Gold: " + goldAmount;
+        crystalsLabel.text = "Crystals: " + crystalsAmount;
+    }
+
+    private void CreateLabels()
+    {
+        Label currenciesLabel = new()
+        {
+            text = "Currencies",
+            style =
+            {
+                // fontStyle = FontStyle.Bold,
+                fontSize = 30,
+                width = 100,
+                height = 30,
+                marginBottom = 30,
+                marginTop = 15,
+                paddingLeft = 5,
+                paddingRight = 5,
+                paddingTop = 5,
+                paddingBottom = 5,
+                alignItems = Align.Center,
+                justifyContent = Justify.Center,
+            },
+            // transform =
+            // {
+            //     position = new Vector2((position.width/2) - 50, (position.height/6) * 5)
+            // }
+        };
+
 
         // Create label to show gold amount
         goldLabel = new()
@@ -54,7 +90,8 @@ public class ToolCurrencies : EditorWindow
             style =
             {
                 width = 100,
-                height = 30
+                height = 30,
+                marginLeft = 20,
             }
         };
 
@@ -65,7 +102,8 @@ public class ToolCurrencies : EditorWindow
             style =
             {
                 width = 100,
-                height = 30
+                height = 30,
+                marginLeft = 20,
             }
         };
 
@@ -74,15 +112,12 @@ public class ToolCurrencies : EditorWindow
         rootVisualElement.Add(currenciesLabel);
         rootVisualElement.Add(goldLabel);
         rootVisualElement.Add(crystalsLabel);
-
-        rootVisualElement.Add(main);
-
     }
 
-    // create buttons on the left side
+
     private void CreateButtons()
     {
-        
+
 
         // Create button to show currencies
         Button addGold = new()
@@ -115,7 +150,7 @@ public class ToolCurrencies : EditorWindow
             },
             transform =
             {
-                position = new Vector2((position.width/6)  , (position.height/6) * 4 )
+                position = new Vector2((position.width/6)  , (position.height/6) * 3 )
             }
         };
         addGold.clicked += AddGold;
@@ -151,7 +186,7 @@ public class ToolCurrencies : EditorWindow
             },
             transform =
             {
-                position = new Vector2((position.width/6*5) , ((position.height/6) * 4) -39)
+                position = new Vector2((position.width/6*5) , ((position.height/6) * 3) -39)
             }
         };
         addCrystals.clicked += AddCrystals;
@@ -192,11 +227,6 @@ public class ToolCurrencies : EditorWindow
         rootVisualElement.Add(addGoldField);
     }
 
-    private void OnInspectorUpdate()
-    {
-        goldLabel.text = "Gold: " + goldAmount;
-        crystalsLabel.text = "Crystals: " + crystalsAmount;
-    }
 
     private void AddGold()
     {
@@ -208,10 +238,5 @@ public class ToolCurrencies : EditorWindow
         PlayFabManager.Instance.AddCurrency("Crystals", 2000);
         PlayFabManager.Instance.GetCurrency();
     }
-
-    // private void UpdateCurrencies()
-    // {
-    //     PlayFabManager.Instance.GetCurrency();
-    // }
 
 }

@@ -319,7 +319,6 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnCurrencyAdd(AddInventoryItemsResponse response)
     {
-        Debug.Log("currency added");
         //Update user inventory
     }
 
@@ -334,7 +333,6 @@ public class PlayFabManager : MonoBehaviour
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
             Filter = $"stackId eq 'currency'"
         }, OnGetCurrencySuccess, OnGetCurrencyError);
-        //  return a dictionary of currency and amount
 
     }
 
