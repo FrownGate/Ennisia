@@ -1,17 +1,50 @@
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using PlayFab.DataModels;
+using System.Runtime.InteropServices.ComTypes;
 
-public class PlayFabManager : MonoBehaviour 
+public class PlayFabManager : MonoBehaviour
 {
     public static PlayFabManager Instance { get; private set; }
+    public static event Action OnLoginSuccess;
+    public static event Action<PlayFabError> OnError;
 
+    public struct Account
+    {
+        public string Name;
+        public int Level;
+        public int Exp;
+        public int Gender;
+        public bool Tutorial;
+    }
+
+    public struct Player
+    {
+        public int Level;
+        public int Exp;
+        public int EquippedWeapon;
+        public int[] EquippedGears;
+        public int[] EquippedSupports;
+    }
+
+    public struct Currencies
+    {
+        //
+    }
+
+    public Account AccountData { get; private set; }
+    public Player PlayerData { get; private set; }
+    public string PlayFabId { get; private set; }
+    public PlayFab.ClientModels.EntityKey Entity { get; private set; }
+
+    private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
-    private string _username;
-    private string _password;
 
     private void Awake()
     {
@@ -23,13 +56,17 @@ public class PlayFabManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-
+            
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
-            Debug.Log(_path);
+            Debug.Log($"Your save path is : {_path}");
 
             if (HasSave()) return;
+            Debug.Log("no save found");
             AnonymousLogin();
+
+            //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
+            //Login("testing@gmail.com", "Testing");
         }
     }
 
@@ -38,94 +75,208 @@ public class PlayFabManager : MonoBehaviour
         //Check if binary file with user datas exists
         if (!File.Exists(_path)) return false;
 
+        try
+        {
+            using (FileStream file = new(_path, FileMode.Open))
+            {
+                _authData = (AuthData)_binaryFormatter.Deserialize(file);
+            }
+        }
+        catch
+        {
+            File.Delete(_path);
+            return false;
+        }
+
         Debug.Log("save found");
-        FileStream file = File.Open(_path, FileMode.Open);
-        AccountData account = (AccountData)_binaryFormatter.Deserialize(file);
-        file.Close();
-
-        _username = account.username;
-        _password = account.password;
-
-        Login();
-        ClearData();
-        Debug.Log("save loaded");
+        Login(_authData.email, _authData.password);
         return true;
     }
 
-    private void Login()
+    private void Login(string email, string password)
     {
-        LoginWithPlayFabRequest request = new()
-        {
-            Username = _username,
-            Password = _password
-        };
+        if (_authData == null) CreateAccountData(email, password);
 
-        PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnError);
+        PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest()
+        {
+            Email = email,
+            Password = password,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+            {
+                GetUserAccountInfo = true
+            }
+        }, OnLoginRequestSuccess, OnLoginRequestError);
     }
 
     private void AnonymousLogin()
     {
-        Debug.Log(SystemInfo.deviceUniqueIdentifier);
-        LoginWithCustomIDRequest request = new()
+        Debug.Log("anonymous login");
+        PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true
-        };
-
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
+            CreateAccount = true,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+            {
+                GetUserAccountInfo = true
+            }
+        }, OnLoginRequestSuccess, OnRequestError);
     }
 
-    private void OnLoginSuccess(LoginResult result)
+    private void OnLoginRequestSuccess(LoginResult result)
+    {
+        Debug.Log("login success");
+        OnLoginSuccess?.Invoke();
+        PlayFabId = result.PlayFabId;
+        Entity = result.EntityToken.Entity;
+
+        UserAccountInfo info = result.InfoResultPayload.AccountInfo;
+        bool newPlayer = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
+
+        if (newPlayer)
+        {
+            Debug.Log("new player");
+            CreateData();
+        }
+        else
+        {
+            GetUserDatas();
+        }
+
+        if (_authData != null) CreateSave();
+
+        //Use this line once to test PlayFab Register & Login
+        //RegisterAccount("testing@gmail.com", "Testing");
+        Debug.Log("PlayFabId: " + result.PlayFabId);
+        Debug.Log("SessionTicket: " + result.SessionTicket);
+        Debug.Log("EntityToken: " + result.EntityToken.EntityToken);
+    }
+
+    private void OnLoginRequestError(PlayFabError error)
     {
         Debug.Log("success");
+        
+        OnRequestError(error);
+        _authData ??= null;
+
+        if (File.Exists(_path)) File.Delete(_path);
     }
 
-    private void OnError(PlayFabError error)
+    public void OnRequestError(PlayFabError error)
     {
         Debug.Log(error.GenerateErrorReport());
+        OnError?.Invoke(error);
     }
 
-    private void RegisterAccount()
+    private void RegisterAccount(string email, string password) //This function will be registered to a button event
     {
-        //This function will be registered to a button event
-        //Password must be between 6 and 100 characters
-        _username = "Testing"; //For testing only
-        _password = "Testing"; //For testing only
-        string email = "testing@gmail.com"; //For testing only
+        CreateAccountData(email, password);
 
-        AddUsernamePasswordRequest request = new()
+        PlayFabClientAPI.AddUsernamePassword(new AddUsernamePasswordRequest()
         {
-            Username = _username,
-            Password = _password,
-            Email = email
-        };
-
-        PlayFabClientAPI.AddUsernamePassword(request, OnRegisterSuccess, OnError, null);
-    }
-    private void OnRegisterSuccess(AddUsernamePasswordResult result)
-    {
-        Debug.Log("success");
-        CreateAccount();
+            Username = CreateUsername(email), //Create unique username with email
+            Email = email,
+            Password = password //Password must be between 6 and 100 characters
+        },
+        res => { CreateSave(); }, OnRequestError);
     }
 
-    private void CreateAccount()
+    private void CreateAccountData(string email, string password)
     {
         //Create binary file with user datas
-        AccountData account = new()
+        _authData = new()
         {
-            username = _username,
-            password = _password
+            email = email,
+            password = password
         };
-
-        FileStream file = File.Create(_path);
-        _binaryFormatter.Serialize(file, account);
-        file.Close();
-        ClearData();
     }
 
-    private void ClearData()
+    private void CreateSave()
     {
-        _username = null;
-        _password = null;
+        using (FileStream file = new(_path, FileMode.OpenOrCreate))
+        {
+            _binaryFormatter.Serialize(file, _authData);
+        }
+
+        _authData = null;
+    }
+
+    private string CreateUsername(string email = "user")
+    {
+        string name = email.Split('@')[0];
+        name += SystemInfo.deviceUniqueIdentifier[..5];
+        Debug.Log($"creating username {name}");
+        UpdateName(name);
+        return name;
+    }
+
+    private void CreateData()
+    {
+        AccountData = new()
+        {
+            Name = CreateUsername(),
+            Level = 1
+        };
+
+        PlayerData = new()
+        {
+            Level = 1,
+            EquippedGears = new int[6],
+            EquippedSupports = new int[2]
+        };
+
+        UpdateData();
+    }
+
+    private void GetUserDatas()
+    {
+        PlayFabDataAPI.GetObjects(new GetObjectsRequest
+        {
+            EscapeObject = true,
+            Entity = new()
+            {
+                Id = Entity.Id,
+                Type = Entity.Type
+            }
+        }, OnDataObtained, OnRequestError);
+    }
+
+    private void UpdateData()
+    {
+        PlayFabDataAPI.SetObjects(new SetObjectsRequest
+        {
+            Objects = new()
+            {
+                new SetObject
+                {
+                    ObjectName = "Account",
+                    EscapedDataObject = JsonUtility.ToJson(AccountData)
+                },
+                new SetObject
+                {
+                    ObjectName = "Player",
+                    EscapedDataObject = JsonUtility.ToJson(PlayerData)
+                }
+            },
+            Entity = new()
+            {
+                Id = Entity.Id,
+                Type = Entity.Type
+            }
+        }, res => { Debug.Log("data updated"); }, OnRequestError);
+    }
+
+    private void OnDataObtained(GetObjectsResponse response)
+    {
+        AccountData = JsonUtility.FromJson<Account>(response.Objects["Account"].EscapedDataObject);
+        PlayerData = JsonUtility.FromJson<Player>(response.Objects["Player"].EscapedDataObject);
+        Debug.Log("data obtained");
+    }
+
+    private void UpdateName(string name)
+    {
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = name
+        }, null, OnRequestError);
     }
 }
