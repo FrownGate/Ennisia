@@ -15,7 +15,7 @@ namespace DefaultNamespace
         public Button Settings;
 
 
-        public void OnEnable()
+        private void OnEnable()
         {
             //Register Button Events
             Betala.onClick.AddListener(() => buttonCallBack(Betala));

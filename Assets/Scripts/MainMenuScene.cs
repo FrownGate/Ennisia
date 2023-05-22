@@ -13,9 +13,8 @@ namespace DefaultNamespace
         public Button Battle;
         public Button Shop;
         public Button Stuff;
-        //public Return;
 
-        public void OnEnable()
+        private void OnEnable()
         {
             //Register Button Events
             Settings.onClick.AddListener(() => buttonCallBack(Settings));
@@ -23,7 +22,6 @@ namespace DefaultNamespace
             Battle.onClick.AddListener(() => buttonCallBack(Battle));
             Shop.onClick.AddListener(() => buttonCallBack(Shop));
             Stuff.onClick.AddListener(() => buttonCallBack(Stuff));
-            //Return.onClick.AddListener(() => buttonCallBack(Return));
         }
 
 
@@ -31,8 +29,6 @@ namespace DefaultNamespace
         {
             if (buttonPressed == Settings)
             {
-                //Your code for button 1
-                //SceneManager.LoadScene("");
                 Debug.Log("Clicked: " + Settings.name);
             }
 
@@ -59,12 +55,6 @@ namespace DefaultNamespace
                 SceneManager.LoadScene("StuffMenu");
                 Debug.Log("Clicked: " + Stuff.name);
             } 
-            
-            /*if (buttonPressed == Return)
-            {
-                SceneManager.LoadScene("MainMenu");
-                Debug.Log("Clicked: " + Return.name);
-            }*/
         }
     }
 }

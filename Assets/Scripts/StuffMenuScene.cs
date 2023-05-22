@@ -20,7 +20,7 @@ namespace DefaultNamespace
         public Button Supp2;
         public Button Return;
 
-        public void OnEnable()
+        private void OnEnable()
         {
             //Register Button Events
             Settings.onClick.AddListener(() => buttonCallBack(Settings));
@@ -40,8 +40,7 @@ namespace DefaultNamespace
         {
             if (buttonPressed == Settings)
             {
-                //Your code for button 1
-                //SceneManager.LoadScene("");
+
                 Debug.Log("Clicked: " + Settings.name);
             }
 

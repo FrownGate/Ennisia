@@ -11,7 +11,7 @@ namespace DefaultNamespace
         public Button Start;
 
 
-        public void OnEnable()
+        private void OnEnable()
         {
             //Register Button Events
             Start.onClick.AddListener(() => buttonCallBack(Start));
@@ -23,7 +23,6 @@ namespace DefaultNamespace
         {
             if (buttonPressed == Start)
             {
-                //Your code for button 1
                 SceneManager.LoadScene("MainMenu");
                 Debug.Log("Clicked: " + Start.name);
             }  

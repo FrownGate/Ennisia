@@ -18,7 +18,7 @@ namespace DefaNormalNamespace
         public Button Settings;
 
 
-        public void OnEnable()
+        private void OnEnable()
         {
             //Register Button Events
             Easy.onClick.AddListener(() => buttonCallBack(Easy));
@@ -77,7 +77,6 @@ namespace DefaNormalNamespace
 
             if (buttonPressed == Settings)
             {
-                //popup.SetActive(!popup.activeSelf);
                 Debug.Log("Clicked: " + Settings.name);
 
             }

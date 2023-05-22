@@ -14,7 +14,7 @@ namespace DefaBannerNamespace
         public Button Return;
 
 
-        public void OnEnable()
+        private void OnEnable()
         {
             //Register Button Events
             pull1.onClick.AddListener(() => buttonCallBack(pull1));

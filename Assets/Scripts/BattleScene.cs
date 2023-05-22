@@ -16,7 +16,7 @@ namespace DefaultNamespace
         public Button Quit;
 
 
-        public void OnEnable()
+        private void OnEnable()
         {
             //Register Button Events
             Skill1.onClick.AddListener(() => buttonCallBack(Skill1));
