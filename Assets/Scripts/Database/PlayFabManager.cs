@@ -2,11 +2,10 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using PlayFab.DataModels;
-using System.Runtime.InteropServices.ComTypes;
+using PlayFab.EconomyModels;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -46,6 +45,9 @@ public class PlayFabManager : MonoBehaviour
     private BinaryFormatter _binaryFormatter;
     private string _path;
 
+    private readonly string _goldId = "0dc3228a-78a9-4d26-a3ab-f7d1e5b5c4d3";
+    private readonly string _crystalsId = "0ec7fd19-4c26-4e0a-bd66-cf94f83ef060";
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -56,7 +58,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            
+
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
@@ -154,7 +156,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginRequestError(PlayFabError error)
     {
         Debug.Log("success");
-        
+
         OnRequestError(error);
         _authData ??= null;
 
@@ -225,6 +227,7 @@ public class PlayFabManager : MonoBehaviour
         };
 
         UpdateData();
+        AddCurrency("Gold", 1000);
     }
 
     private void GetUserDatas()
@@ -278,5 +281,92 @@ public class PlayFabManager : MonoBehaviour
         {
             DisplayName = name
         }, null, OnRequestError);
+    }
+
+    public void AddCurrency(string currency, int amount)
+    {
+        PlayFabEconomyAPI.AddInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Amount = amount,
+            Item = new()
+            {
+                AlternateId = new()
+                {
+                    Type = "FriendlyId",
+                    Value = currency
+                }
+            }
+        }, OnCurrencyAdd, OnRequestError);
+    }
+
+    public void RemoveCurrency(string currency, int amount)
+    {
+        PlayFabEconomyAPI.SubtractInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Amount = amount,
+            Item = new()
+            {
+                AlternateId = new()
+                {
+                    Type = "FriendlyId",
+                    Value = currency
+                }
+            }
+        }, OnCurrencySubtract, OnRequestError);
+    }
+
+    private void OnCurrencyAdd(AddInventoryItemsResponse response)
+    {
+        //Update user inventory
+    }
+
+    private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
+    {
+        //Update user inventory
+    }
+    public void GetCurrency()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $"stackId eq 'currency'"
+        }, OnGetCurrencySuccess, OnGetCurrencyError);
+
+    }
+
+    public void GetCurrency(string currency)
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $":{currency}"
+        }, OnGetCurrencySuccess, OnGetCurrencyError);
+
+    }
+
+    private void OnGetCurrencySuccess(GetInventoryItemsResponse response)
+    {
+
+        foreach (InventoryItem item in response.Items)
+        {
+            if (item.Id == _goldId)
+            {
+                ToolCurrencies.goldAmount = (int)item.Amount;
+
+            }
+            else if (item.Id == _crystalsId)
+            {
+                ToolCurrencies.crystalsAmount = (int)item.Amount;
+            }
+
+
+        }
+    }
+
+    private void OnGetCurrencyError(PlayFabError error)
+    {
+        Debug.LogError(error.ErrorMessage);
     }
 }
