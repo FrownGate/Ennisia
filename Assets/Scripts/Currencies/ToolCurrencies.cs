@@ -10,13 +10,13 @@ using Currencies;
 
 public class ToolCurrencies : EditorWindow
 {
-    // Text of gold amount
     public static int goldAmount;
-    // Text of crystals amount
     public static int crystalsAmount;
+    public static int energyAmount;
 
     private Label goldLabel;
     private Label crystalsLabel;
+    private Label energyLabel;
 
     [MenuItem("Currencies/Gestion")]
     public static void ShowWindow()
@@ -48,13 +48,15 @@ public class ToolCurrencies : EditorWindow
     private void Awake()
     {
         PlayFabManager.Instance.GetCurrency();
+        // PlayFabManager.Instance.GetEnergy();
 
     }
 
     private void Update()
-    { 
+    {
         goldLabel.text = "Gold: " + goldAmount;
         crystalsLabel.text = "Crystals: " + crystalsAmount;
+        // energyLabel.text = "Energy: " + energyAmount;
         if (EditorApplication.isPlaying && !EditorApplication.isPaused) { Repaint(); }
 
     }
@@ -105,11 +107,23 @@ public class ToolCurrencies : EditorWindow
             }
         };
 
+        energyLabel = new()
+        {
+            text = "Energy: ",
+            style =
+            {
+                width = 100,
+                height = 30,
+                marginLeft = 20,
+            }
+        };
+
 
 
         rootVisualElement.Add(currenciesLabel);
         rootVisualElement.Add(goldLabel);
         rootVisualElement.Add(crystalsLabel);
+        rootVisualElement.Add(energyLabel);
     }
 
 
@@ -323,6 +337,18 @@ public class ToolCurrencies : EditorWindow
     {
         PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.RemoveCurrency("Crystals", 2000);
+    }
+
+    private void AddEnergy()
+    {
+        // PlayFabManager.Instance.GetEnergy();
+        // PlayFabManager.Instance.AddCurrency("Energy", 1);
+    }
+
+    private void RemoveEnergy()
+    {
+        // PlayFabManager.Instance.GetEnergy();
+        // PlayFabManager.Instance.RemoveCurrency("Energy", 1);
     }
 
 }
