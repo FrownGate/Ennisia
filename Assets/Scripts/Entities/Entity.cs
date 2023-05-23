@@ -16,22 +16,11 @@ public class Entity : MonoBehaviour
     public int maxHp;
     public int currentHp;
     public int speed;
-
-    public bool IsAlive
-    {
-        get
-        {
-            bool isAlive = currentHp > 0;
-            return isAlive;
-        }
-    }
-
-    public int battleId;
-    public static event Action<int> OnClick;
+    public bool isSelected { get; private set; } = false;
 
     public void OnMouseDown()
     {
-        OnClick?.Invoke(battleId);
+        isSelected = true;
     }
 
     public bool IsDead
@@ -47,6 +36,7 @@ public class Entity : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
+        isSelected = false;
     }
 
 

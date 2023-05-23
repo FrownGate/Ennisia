@@ -11,10 +11,9 @@ namespace BattleLoop.BattleStates
 
         public override IEnumerator Start()
         {
-            Debug.Log("Enemy dead");
+            Debug.Log(BattleSystem.EnemyData.currentHp);
             if (BattleSystem.EnemyData.currentHp <= 0)
             {
-                Debug.Log("Enemy dead");
                 BattleSystem.SetState(new Won(BattleSystem));
             }
             

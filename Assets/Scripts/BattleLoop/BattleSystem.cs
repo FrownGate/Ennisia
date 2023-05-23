@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using BattleLoop.BattleStates;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+
 public class BattleSystem : StateMachine
 {
+    public Transform PlayerStation;
+    public Transform EnemyStation;
     
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
@@ -15,43 +19,35 @@ public class BattleSystem : StateMachine
 
     public List<Entity> Allies { get; private set; }
     public List<Entity> Enemies { get; private set; }
+    private int _maxEnemies => 10;
 
     public Spell[] Spells;
-
-    public int SelectedSpell { get; private set; }
-    public int SelectedEnemy { get; private set; }
-    //private int _enemyTurn;
-
-
+    
+    public int ButtonId { get; private set; }
+    
     //UI
     public TextMeshProUGUI dialogueText;
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
     
-    
 
     private void Start()
     {
-        //
+        //Entity
         PlayerData = playerPrefab.GetComponent<Entity>();
         EnemyData = enemyPrefab.GetComponent<Entity>();
-        //Spell
-        OnSpellClick.OnClick += SelectSpell;
-        Entity.OnClick += OnAttackButton;
+
+        Enemies = new List<Entity> { EnemyData };
 
         /*SetupBattle();*/
         InitBattleHUD();
         SetState(new WhoGoFirst(this));
     }
 
-
-    private void OnDestroy()
+    private void Update()
     {
-        OnSpellClick.OnClick-= SelectSpell;
-        Entity.OnClick -= OnAttackButton;
+        
     }
-
-
 
     private void InitBattleHUD()
     {
@@ -59,25 +55,27 @@ public class BattleSystem : StateMachine
         enemyHUD.SetHUD(EnemyData);
     }
     
-    public void SelectSpell(int id)
+    public void OnAttackButton()
     {
-        SelectedSpell = id;
-        Debug.Log("Selected spell : " + id);
-    }
-    public void OnAttackButton(int id)
-    {
-        SelectedEnemy = id;
-        StartCoroutine(State.Attack());
+        ButtonId = 0;
+        SetState(new SelectSpell(this));
     }
 
     public void OnFirstSkillButton()
     {
-        StartCoroutine(State.UseSpell());
+        ButtonId = 1;
+        SetState(new SelectSpell(this));
     }
 
     public void OnSecondSkillButton()
     {
-        
+        ButtonId = 2;
+        SetState(new SelectSpell(this));
+    }
+
+    public void OnMouseUp()
+    {
+        StartCoroutine(State.Attack());
     }
 
 }

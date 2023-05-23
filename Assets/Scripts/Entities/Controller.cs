@@ -10,7 +10,7 @@ namespace Entities
 {
     public class Controller : MonoBehaviour
     {
-        [SerializeField] private Transform target;
+         private Transform target;
         
         private Vector3 _initPosition;
         private Vector3 _tmpPostion;
@@ -26,7 +26,7 @@ namespace Entities
             _tmpPostion = Vector3.zero;
         }
 
-        private void Update()
+        public void UpdateMovement()
         {
             if (isMovingToTarget)
             {
