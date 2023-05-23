@@ -73,7 +73,7 @@ public class ExperienceSystem : MonoBehaviour
         {
             int experienceRequired = _levelExperienceMap[_level + 1];
             ExpText.text = _experience + " / " + experienceRequired; // Affiche l'expérience actuelle et l'expérience requise
-            LevelText.text = "Lvl: " + _level; // Affiche le niveau
+            LevelText.text = _level.ToString(); // Affiche le niveau sans "Lvl :"
 
             float fillAmount = (float)_experience / experienceRequired; // Calcule le remplissage de la barre de progression
             ProgressBar.fillAmount = fillAmount; // Applique le remplissage à la barre de progression
@@ -81,7 +81,7 @@ public class ExperienceSystem : MonoBehaviour
         else
         {
             ExpText.text = "Max"; // Affiche "Max" lorsque le joueur atteint le niveau maximum
-            LevelText.text = "Lvl: " + _level; // Affiche le niveau
+            LevelText.text = _level.ToString(); // Affiche le niveau sans "Lvl :"
             ProgressBar.fillAmount = 1f; // Remplit complètement la barre de progression
         }
     }
