@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using PlayFab.DataModels;
 using PlayFab.EconomyModels;
+using System.Collections.Generic;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -36,8 +37,14 @@ public class PlayFabManager : MonoBehaviour
         //
     }
 
+    public struct Inventory
+    {
+        public List<int> Supports;
+    }
+
     public Account AccountData { get; private set; }
     public Player PlayerData { get; private set; }
+    public Inventory InventoryData { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
 
@@ -226,6 +233,11 @@ public class PlayFabManager : MonoBehaviour
             EquippedSupports = new int[2]
         };
 
+        InventoryData = new()
+        {
+            Supports = new()
+        };
+
         UpdateData();
         AddCurrency("Gold", 1000);
     }
@@ -258,6 +270,11 @@ public class PlayFabManager : MonoBehaviour
                 {
                     ObjectName = "Player",
                     EscapedDataObject = JsonUtility.ToJson(PlayerData)
+                },
+                new SetObject
+                {
+                    ObjectName = "Inventory",
+                    EscapedDataObject = JsonUtility.ToJson(InventoryData)
                 }
             },
             Entity = new()
@@ -272,6 +289,7 @@ public class PlayFabManager : MonoBehaviour
     {
         AccountData = JsonUtility.FromJson<Account>(response.Objects["Account"].EscapedDataObject);
         PlayerData = JsonUtility.FromJson<Player>(response.Objects["Player"].EscapedDataObject);
+        InventoryData = JsonUtility.FromJson<Inventory>(response.Objects["Inventory"].EscapedDataObject);
         Debug.Log("data obtained");
     }
 
