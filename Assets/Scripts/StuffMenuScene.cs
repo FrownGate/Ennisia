@@ -18,7 +18,9 @@ namespace DefaultNamespace
         public Button Weapon;
         public Button Supp1;
         public Button Supp2;
+        public GameObject PopupEmpty;
         public Button Return;
+        public Button Close;
 
         private void OnEnable()
         {
@@ -34,43 +36,49 @@ namespace DefaultNamespace
             Supp1.onClick.AddListener(() => buttonCallBack(Supp1));
             Supp2.onClick.AddListener(() => buttonCallBack(Supp2));
             Return.onClick.AddListener(() => buttonCallBack(Return));
+            Close.onClick.AddListener(() => buttonCallBack(Close));
         }
 
         private void buttonCallBack(Button buttonPressed)
         {
             if (buttonPressed == Settings)
             {
-
                 Debug.Log("Clicked: " + Settings.name);
             }
 
             if (buttonPressed == Earrings)
             {
+                PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Earrings.name);
             } 
             
             if (buttonPressed == Helmet)
             {
+                PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Helmet.name);
             }
 
             if (buttonPressed == Necklace)
             {
+                PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Necklace.name);
             }
 
             if (buttonPressed == Ring)
             {
+                PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Ring.name);
             }
 
             if (buttonPressed == Chest)
             {
+                PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Chest.name);
             } 
             
             if (buttonPressed == Boots)
             {
+                PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Boots.name);
             } 
             
@@ -93,6 +101,12 @@ namespace DefaultNamespace
             {
                 SceneManager.LoadScene("MainMenu");
                 Debug.Log("Clicked: " + Return.name);
+            }  
+            
+            if (buttonPressed == Close)
+            {
+                PopupEmpty.SetActive(!PopupEmpty.activeSelf);
+                Debug.Log("Clicked: " + Close.name);
             }
         }
     }
