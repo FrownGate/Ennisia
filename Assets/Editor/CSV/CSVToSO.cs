@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class CSVToSO : EditorWindow
 {
-    [MenuItem("Window/CSV to SO")]
+    [MenuItem("Tools/CSV to SO")]
     public static void ShowWindow()
     {
         GetWindow<CSVToSO>("CSV to SO");
