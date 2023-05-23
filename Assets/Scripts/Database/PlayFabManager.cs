@@ -394,10 +394,25 @@ public class PlayFabManager : MonoBehaviour
         {
             Amount = amount,
             VirtualCurrency = "EN"
-        }, OnAddEnergySuccess, OnAddEnergyError);
+        }, OnAddEnergySuccess, OnError);
     }
     
     private void OnAddEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        Debug.Log(result.Balance);
+        ToolCurrencies.energyAmount = result.Balance;
+    }
+
+    public void RemoveEnergy(int amount)
+    {
+        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnRemoveEnergySuccess, OnError);
+    }
+
+    private void OnRemoveEnergySuccess(ModifyUserVirtualCurrencyResult result)
     {
         Debug.Log(result.Balance);
         ToolCurrencies.energyAmount = result.Balance;
