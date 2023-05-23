@@ -5,9 +5,9 @@ using System.IO;
 
 public class ExperienceSystem : MonoBehaviour
 {
-    public Image ProgressBar;
-    public Text ExpText;
-    public Text LevelText;
+    public Image ProgressBar; // Référence à l'objet Image de la barre de progression
+    public Text ExpText; // Référence au texte de l'expérience
+    public Text LevelText; // Référence au texte du niveau
 
     [SerializeField] private int experienceToAdd = 5; // Montant d'expérience à ajouter lorsque le bouton est cliqué
 
@@ -22,17 +22,17 @@ public class ExperienceSystem : MonoBehaviour
 
     public void GainExperience()
     {
-        _experience += experienceToAdd;
+        _experience += experienceToAdd; // Ajoute l'expérience spécifiée
         Debug.Log("Expérience actuelle : " + _experience);
 
         while (_levelExperienceMap.ContainsKey(_level) && _experience >= _levelExperienceMap[_level + 1])
         {
-            _level++;
-            _experience -= _levelExperienceMap[_level];
+            _level++; // Incrémente le niveau
+            _experience -= _levelExperienceMap[_level]; // Déduit l'expérience requise pour atteindre le niveau suivant
             Debug.Log("Niveau atteint : " + _level);
         }
 
-        UpdateUI();
+        UpdateUI(); // Met à jour l'interface utilisateur
     }
 
     private void LoadLevelExperienceMap()
@@ -52,7 +52,7 @@ public class ExperienceSystem : MonoBehaviour
                 int level = int.Parse(values[0]);
                 int experienceRequired = int.Parse(values[1]);
 
-                _levelExperienceMap[level] = experienceRequired;
+                _levelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
             }
             else
             {
@@ -60,7 +60,7 @@ public class ExperienceSystem : MonoBehaviour
             }
         }
 
-        UpdateUI();
+        UpdateUI(); // Met à jour l'interface utilisateur
     }
 
     private void UpdateUI()
@@ -68,17 +68,17 @@ public class ExperienceSystem : MonoBehaviour
         if (_levelExperienceMap.ContainsKey(_level + 1))
         {
             int experienceRequired = _levelExperienceMap[_level + 1];
-            ExpText.text = _experience + " / " + experienceRequired;
-            LevelText.text = "Lvl: " + _level;
+            ExpText.text = _experience + " / " + experienceRequired; // Affiche l'expérience actuelle et l'expérience requise
+            LevelText.text = "Lvl: " + _level; // Affiche le niveau
 
-            float fillAmount = (float)_experience / experienceRequired;
-            ProgressBar.fillAmount = fillAmount;
+            float fillAmount = (float)_experience / experienceRequired; // Calcule le remplissage de la barre de progression
+            ProgressBar.fillAmount = fillAmount; // Applique le remplissage à la barre de progression
         }
         else
         {
-            ExpText.text = "Max";
-            LevelText.text = "Lvl: " + _level;
-            ProgressBar.fillAmount = 1f;
+            ExpText.text = "Max"; // Affiche "Max" lorsque le joueur atteint le niveau maximum
+            LevelText.text = "Lvl: " + _level; // Affiche le niveau
+            ProgressBar.fillAmount = 1f; // Remplit complètement la barre de progression
         }
     }
 }
