@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using PlayFab.DataModels;
 using PlayFab.EconomyModels;
+using System.Collections.Generic;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -319,11 +320,12 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnCurrencyAdd(AddInventoryItemsResponse response)
     {
-        //Update user inventory
+        GetCurrency();
     }
 
     private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
     {
+        GetCurrency();
         //Update user inventory
     }
     public void GetCurrency()
@@ -368,5 +370,50 @@ public class PlayFabManager : MonoBehaviour
     private void OnGetCurrencyError(PlayFabError error)
     {
         Debug.LogError(error.ErrorMessage);
+    }
+
+    public void GetEnergy()
+    {
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
+        {
+        }, OnGetEnergySuccess, OnGetEnergyError);
+
+    }
+
+    private void OnGetEnergySuccess(GetUserInventoryResult result)
+    {
+        ToolCurrencies.energyAmount = result.VirtualCurrency["EN"];
+    }
+
+    private void OnGetEnergyError(PlayFabError error)
+    {
+    }
+
+    public void AddEnergy(int amount)
+    {
+        PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnAddEnergySuccess, OnError);
+    }
+
+    private void OnAddEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
+    }
+
+    public void RemoveEnergy(int amount)
+    {
+        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnRemoveEnergySuccess, OnError);
+    }
+
+    private void OnRemoveEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
     }
 }
