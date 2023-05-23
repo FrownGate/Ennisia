@@ -297,11 +297,12 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnCurrencyAdd(AddInventoryItemsResponse response)
     {
-        //Update user inventory
+        GetCurrency();
     }
 
     private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
     {
+        GetCurrency();
         //Update user inventory
     }
     
@@ -342,5 +343,46 @@ public class PlayFabManager : MonoBehaviour
 
 
         }
+    }
+
+    public void GetEnergy()
+    {
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
+        {
+        }, OnGetEnergySuccess, OnRequestError);
+
+    }
+
+    private void OnGetEnergySuccess(GetUserInventoryResult result)
+    {
+        ToolCurrencies.energyAmount = result.VirtualCurrency["EN"];
+    }
+
+    public void AddEnergy(int amount)
+    {
+        PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnAddEnergySuccess, OnRequestError);
+    }
+
+    private void OnAddEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
+    }
+
+    public void RemoveEnergy(int amount)
+    {
+        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnRemoveEnergySuccess, OnRequestError);
+    }
+
+    private void OnRemoveEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
     }
 }
