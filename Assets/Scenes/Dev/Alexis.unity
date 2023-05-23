@@ -681,7 +681,7 @@ MonoBehaviour:
   ProgressBar: {fileID: 833881579}
   ExpText: {fileID: 1072803123}
   LevelText: {fileID: 1196762829}
-  experienceToAdd: 5
+  experienceToAdd: 5000000
 --- !u!114 &1982270119
 MonoBehaviour:
   m_ObjectHideFlags: 0

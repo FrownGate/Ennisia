@@ -22,10 +22,16 @@ public class ExperienceSystem : MonoBehaviour
 
     public void GainExperience()
     {
+        if (_level == _levelExperienceMap.Count)
+        {
+            // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
+            return;
+        }
+
         _experience += experienceToAdd; // Ajoute l'expérience spécifiée
         Debug.Log("Expérience actuelle : " + _experience);
 
-        while (_levelExperienceMap.ContainsKey(_level) && _experience >= _levelExperienceMap[_level + 1])
+        while (_levelExperienceMap.ContainsKey(_level + 1) && _experience >= _levelExperienceMap[_level + 1])
         {
             _level++; // Incrémente le niveau
             _experience -= _levelExperienceMap[_level]; // Déduit l'expérience requise pour atteindre le niveau suivant
