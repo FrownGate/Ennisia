@@ -14,40 +14,13 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnLoginSuccess;
     public static event Action<PlayFabError> OnError;
 
-    public struct Account
-    {
-        public string Name;
-        public int Level;
-        public int Exp;
-        public int Gender;
-        public bool Tutorial;
-    }
-
-    public struct Player
-    {
-        public int Level;
-        public int Exp;
-        public int EquippedWeapon;
-        public int[] EquippedGears;
-        public int[] EquippedSupports;
-    }
-
-    public struct Currencies
-    {
-        //
-    }
-
-    public struct Inventory
-    {
-        public List<int> Supports;
-    }
-
-    public Account AccountData { get; private set; }
-    public Player PlayerData { get; private set; }
-    public Inventory InventoryData { get; private set; }
+    public AccountData Account { get; private set; }
+    public PlayerData Player { get; private set; }
+    public InventoryData Inventory { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
 
+    private Data[] _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -133,6 +106,11 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnLoginRequestSuccess(LoginResult result)
     {
+        _datas = new Data[3]
+        {
+            new AccountData(CreateUsername()), new PlayerData(), new InventoryData()
+        };
+
         Debug.Log("login success");
         OnLoginSuccess?.Invoke();
         PlayFabId = result.PlayFabId;
@@ -172,7 +150,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void OnRequestError(PlayFabError error)
     {
-        Debug.Log(error.GenerateErrorReport());
+        Debug.LogError(error.GenerateErrorReport());
         OnError?.Invoke(error);
     }
 
@@ -220,24 +198,6 @@ public class PlayFabManager : MonoBehaviour
 
     private void CreateData()
     {
-        AccountData = new()
-        {
-            Name = CreateUsername(),
-            Level = 1
-        };
-
-        PlayerData = new()
-        {
-            Level = 1,
-            EquippedGears = new int[6],
-            EquippedSupports = new int[2]
-        };
-
-        InventoryData = new()
-        {
-            Supports = new()
-        };
-
         UpdateData();
         AddCurrency("Gold", 1000);
     }
@@ -257,26 +217,16 @@ public class PlayFabManager : MonoBehaviour
 
     private void UpdateData()
     {
+        List<SetObject> data = new();
+
+        for (int i = 0; i < _datas.Length; i++)
+        {
+            data.Add(_datas[i].Serialize());
+        }
+
         PlayFabDataAPI.SetObjects(new SetObjectsRequest
         {
-            Objects = new()
-            {
-                new SetObject
-                {
-                    ObjectName = "Account",
-                    EscapedDataObject = JsonUtility.ToJson(AccountData)
-                },
-                new SetObject
-                {
-                    ObjectName = "Player",
-                    EscapedDataObject = JsonUtility.ToJson(PlayerData)
-                },
-                new SetObject
-                {
-                    ObjectName = "Inventory",
-                    EscapedDataObject = JsonUtility.ToJson(InventoryData)
-                }
-            },
+            Objects = data,
             Entity = new()
             {
                 Id = Entity.Id,
@@ -287,9 +237,19 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnDataObtained(GetObjectsResponse response)
     {
-        AccountData = JsonUtility.FromJson<Account>(response.Objects["Account"].EscapedDataObject);
-        PlayerData = JsonUtility.FromJson<Player>(response.Objects["Player"].EscapedDataObject);
-        InventoryData = JsonUtility.FromJson<Inventory>(response.Objects["Inventory"].EscapedDataObject);
+        try
+        {
+            for (int i = 0; i < _datas.Length; i++)
+            {
+                _datas[i].UpdateData(response.Objects[_datas[i].ClassName].EscapedDataObject);
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("data missing - creating missing ones...");
+            UpdateData();
+        }
+
         Debug.Log("data obtained");
     }
 
@@ -344,13 +304,14 @@ public class PlayFabManager : MonoBehaviour
     {
         //Update user inventory
     }
+    
     public void GetCurrency()
     {
         PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
             Filter = $"stackId eq 'currency'"
-        }, OnGetCurrencySuccess, OnGetCurrencyError);
+        }, OnGetCurrencySuccess, OnRequestError);
 
     }
 
@@ -360,7 +321,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
             Filter = $":{currency}"
-        }, OnGetCurrencySuccess, OnGetCurrencyError);
+        }, OnGetCurrencySuccess, OnRequestError);
 
     }
 
@@ -381,10 +342,5 @@ public class PlayFabManager : MonoBehaviour
 
 
         }
-    }
-
-    private void OnGetCurrencyError(PlayFabError error)
-    {
-        Debug.LogError(error.ErrorMessage);
     }
 }
