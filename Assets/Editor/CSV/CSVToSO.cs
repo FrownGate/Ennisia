@@ -17,7 +17,7 @@ public class CSVToSO : EditorWindow
         GUILayout.Space(25);
         if (GUILayout.Button("Supports"))
         {
-            string path = EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
+            string path = Application.dataPath + "/Editor/CSV/Supports.csv"; // EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
             if (!string.IsNullOrEmpty(path))
             {
                 CreateScriptableObjectsFromCSV(path);
