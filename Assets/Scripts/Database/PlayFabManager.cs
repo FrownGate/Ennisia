@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using PlayFab.DataModels;
 using PlayFab.EconomyModels;
+using System.Collections.Generic;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -368,5 +369,22 @@ public class PlayFabManager : MonoBehaviour
     private void OnGetCurrencyError(PlayFabError error)
     {
         Debug.LogError(error.ErrorMessage);
+    }
+
+    public void GetEnergy()
+    {
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
+        {
+        }, OnGetEnergySuccess, OnGetEnergyError);
+
+    }
+
+    private void OnGetEnergySuccess(GetUserInventoryResult result)
+    {
+        Debug.Log(result.VirtualCurrency["EN"]);
+    }
+
+    private void OnGetEnergyError(PlayFabError error)
+    {
     }
 }
