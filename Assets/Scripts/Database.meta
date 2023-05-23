@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Editor.meta
+guid: 49a820acca703354b94757c2cccf10ab
+========
 guid: 8b973fc32d156e347931ed3c6abfc15a
+>>>>>>>> main:Assets/Scripts/Database.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
