@@ -320,11 +320,12 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnCurrencyAdd(AddInventoryItemsResponse response)
     {
-        //Update user inventory
+        GetCurrency();
     }
 
     private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
     {
+        GetCurrency();
         //Update user inventory
     }
     public void GetCurrency()
