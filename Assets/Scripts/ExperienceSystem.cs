@@ -29,13 +29,11 @@ public class ExperienceSystem : MonoBehaviour
         }
 
         _experience += experienceToAdd; // Ajoute l'expérience spécifiée
-        Debug.Log("Expérience actuelle : " + _experience);
 
         while (_levelExperienceMap.ContainsKey(_level + 1) && _experience >= _levelExperienceMap[_level + 1])
         {
             _level++; // Incrémente le niveau
             _experience -= _levelExperienceMap[_level]; // Déduit l'expérience requise pour atteindre le niveau suivant
-            Debug.Log("Niveau atteint : " + _level);
         }
 
         UpdateUI(); // Met à jour l'interface utilisateur
