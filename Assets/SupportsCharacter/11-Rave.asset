@@ -17,7 +17,7 @@ MonoBehaviour:
   rarity: Epic
   race: Elf
   supportClass: Assassin
-  passif: 0
-  skill: 0
+  passif: 42
+  skill: 26
   description: none
   catchPhrase: none

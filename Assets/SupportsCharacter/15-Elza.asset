@@ -18,6 +18,6 @@ MonoBehaviour:
   race: Elf
   supportClass: Mage
   passif: 0
-  skill: 0
+  skill: 30
   description: none
   catchPhrase: none

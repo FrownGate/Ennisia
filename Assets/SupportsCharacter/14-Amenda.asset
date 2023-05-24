@@ -17,7 +17,7 @@ MonoBehaviour:
   rarity: Epic
   race: Human
   supportClass: Shield-Bearer
-  passif: 0
-  skill: 0
+  passif: 45
+  skill: 29
   description: none
   catchPhrase: none
