@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using PlayFab.DataModels;
 using PlayFab.EconomyModels;
+using System.Collections.Generic;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -13,34 +14,13 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnLoginSuccess;
     public static event Action<PlayFabError> OnError;
 
-    public struct Account
-    {
-        public string Name;
-        public int Level;
-        public int Exp;
-        public int Gender;
-        public bool Tutorial;
-    }
-
-    public struct Player
-    {
-        public int Level;
-        public int Exp;
-        public int EquippedWeapon;
-        public int[] EquippedGears;
-        public int[] EquippedSupports;
-    }
-
-    public struct Currencies
-    {
-        //
-    }
-
-    public Account AccountData { get; private set; }
-    public Player PlayerData { get; private set; }
+    public AccountData Account { get; private set; }
+    public PlayerData Player { get; private set; }
+    public InventoryData Inventory { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
 
+    private Data[] _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -126,6 +106,11 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnLoginRequestSuccess(LoginResult result)
     {
+        _datas = new Data[3]
+        {
+            new AccountData(CreateUsername()), new PlayerData(), new InventoryData()
+        };
+
         Debug.Log("login success");
         OnLoginSuccess?.Invoke();
         PlayFabId = result.PlayFabId;
@@ -165,7 +150,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void OnRequestError(PlayFabError error)
     {
-        Debug.Log(error.GenerateErrorReport());
+        Debug.LogError(error.GenerateErrorReport());
         OnError?.Invoke(error);
     }
 
@@ -213,19 +198,6 @@ public class PlayFabManager : MonoBehaviour
 
     private void CreateData()
     {
-        AccountData = new()
-        {
-            Name = CreateUsername(),
-            Level = 1
-        };
-
-        PlayerData = new()
-        {
-            Level = 1,
-            EquippedGears = new int[6],
-            EquippedSupports = new int[2]
-        };
-
         UpdateData();
         AddCurrency("Gold", 1000);
     }
@@ -245,21 +217,16 @@ public class PlayFabManager : MonoBehaviour
 
     private void UpdateData()
     {
+        List<SetObject> data = new();
+
+        for (int i = 0; i < _datas.Length; i++)
+        {
+            data.Add(_datas[i].Serialize());
+        }
+
         PlayFabDataAPI.SetObjects(new SetObjectsRequest
         {
-            Objects = new()
-            {
-                new SetObject
-                {
-                    ObjectName = "Account",
-                    EscapedDataObject = JsonUtility.ToJson(AccountData)
-                },
-                new SetObject
-                {
-                    ObjectName = "Player",
-                    EscapedDataObject = JsonUtility.ToJson(PlayerData)
-                }
-            },
+            Objects = data,
             Entity = new()
             {
                 Id = Entity.Id,
@@ -270,8 +237,19 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnDataObtained(GetObjectsResponse response)
     {
-        AccountData = JsonUtility.FromJson<Account>(response.Objects["Account"].EscapedDataObject);
-        PlayerData = JsonUtility.FromJson<Player>(response.Objects["Player"].EscapedDataObject);
+        try
+        {
+            for (int i = 0; i < _datas.Length; i++)
+            {
+                _datas[i].UpdateData(response.Objects[_datas[i].ClassName].EscapedDataObject);
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("data missing - creating missing ones...");
+            UpdateData();
+        }
+
         Debug.Log("data obtained");
     }
 
@@ -319,20 +297,22 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnCurrencyAdd(AddInventoryItemsResponse response)
     {
-        //Update user inventory
+        GetCurrency();
     }
 
     private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
     {
+        GetCurrency();
         //Update user inventory
     }
+    
     public void GetCurrency()
     {
         PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
             Filter = $"stackId eq 'currency'"
-        }, OnGetCurrencySuccess, OnGetCurrencyError);
+        }, OnGetCurrencySuccess, OnRequestError);
 
     }
 
@@ -342,7 +322,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
             Filter = $":{currency}"
-        }, OnGetCurrencySuccess, OnGetCurrencyError);
+        }, OnGetCurrencySuccess, OnRequestError);
 
     }
 
@@ -365,8 +345,44 @@ public class PlayFabManager : MonoBehaviour
         }
     }
 
-    private void OnGetCurrencyError(PlayFabError error)
+    public void GetEnergy()
     {
-        Debug.LogError(error.ErrorMessage);
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
+        {
+        }, OnGetEnergySuccess, OnRequestError);
+
+    }
+
+    private void OnGetEnergySuccess(GetUserInventoryResult result)
+    {
+        ToolCurrencies.energyAmount = result.VirtualCurrency["EN"];
+    }
+
+    public void AddEnergy(int amount)
+    {
+        PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnAddEnergySuccess, OnRequestError);
+    }
+
+    private void OnAddEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
+    }
+
+    public void RemoveEnergy(int amount)
+    {
+        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnRemoveEnergySuccess, OnRequestError);
+    }
+
+    private void OnRemoveEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
     }
 }
