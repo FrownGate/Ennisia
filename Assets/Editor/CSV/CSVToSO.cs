@@ -7,7 +7,7 @@ public class CSVToSO : EditorWindow
 {
     enum TypeCSV
     {
-        support
+        supports,enemies
     }
     [MenuItem("Tools/CSV to SO")]
     public static void ShowWindow()
@@ -24,7 +24,16 @@ public class CSVToSO : EditorWindow
             string path = Application.dataPath + "/Editor/CSV/Supports.csv"; // EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
             if (!string.IsNullOrEmpty(path))
             {
-                CreateScriptableObjectsFromCSV(TypeCSV.support, path);
+                CreateScriptableObjectsFromCSV(TypeCSV.supports, path);
+            }
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Enemies"))
+        {
+            string path = Application.dataPath + "/Editor/CSV/Enemies.csv"; // EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
+            if (!string.IsNullOrEmpty(path))
+            {
+                CreateScriptableObjectsFromCSV(TypeCSV.supports, path);
             }
         }
     }
@@ -59,8 +68,11 @@ public class CSVToSO : EditorWindow
             }
             switch (type)
             {
-                case TypeCSV.support:
+                case TypeCSV.supports:
                      createSupportSO(rowData);
+                    break;
+                case TypeCSV.enemies:
+                    createEnemySO(rowData);
                     break;
                 default:
                     break;
@@ -88,6 +100,25 @@ public class CSVToSO : EditorWindow
         AssetDatabase.CreateAsset(scriptableObject, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+    }
+    private static void createEnemySO(Dictionary<string, string> rowData)
+    {
+        //EnemiesSO scriptableObject = ScriptableObject.CreateInstance<EnemiesSO>();
+        //scriptableObject.id = int.Parse(rowData["ID"]);
+        //scriptableObject.suppportName = rowData["Name"];
+        //scriptableObject.rarity = rowData["Rarity"];
+        //scriptableObject.race = rowData["Race"];
+        //scriptableObject.supportClass = rowData["Class"];
+        //scriptableObject.passif = int.Parse(rowData["Passif"]);
+        //scriptableObject.skill = int.Parse(rowData["Skill"]);
+        //scriptableObject.description = rowData["Description"].Replace("\"", string.Empty);
+        //scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
+
+        //// Save the scriptable object
+        //string savePath = $"Assets/SupportsCharacter/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
+        //AssetDatabase.CreateAsset(scriptableObject, savePath);
+        //AssetDatabase.SaveAssets();
+        //AssetDatabase.Refresh();
     }
 
     private string[] SplitCSVLine(string line)
