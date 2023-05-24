@@ -4,13 +4,14 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-namespace DefaBannerNamespace
+namespace Defapack3Namespace
 {
     public class SummonScene : MonoBehaviour
     {
-        public Button pull1;
-        public Button pull10;
-        public Button Banner;
+        public Button pack1;
+        public Button pack2;
+        public Button pack3;
+        public Button pack4;
         public Button Settings;
         public Button Return;
 
@@ -18,9 +19,10 @@ namespace DefaBannerNamespace
         private void OnEnable()
         {
             //Register Button Events
-            pull1.onClick.AddListener(() => buttonCallBack(pull1));
-            pull10.onClick.AddListener(() => buttonCallBack(pull10));
-            Banner.onClick.AddListener(() => buttonCallBack(Banner));
+            pack1.onClick.AddListener(() => buttonCallBack(pack1));
+            pack2.onClick.AddListener(() => buttonCallBack(pack2));
+            pack3.onClick.AddListener(() => buttonCallBack(pack3));
+            pack4.onClick.AddListener(() => buttonCallBack(pack4));
             Return.onClick.AddListener(() => buttonCallBack(Return));
             Settings.onClick.AddListener(() => buttonCallBack(Settings));
 
@@ -29,19 +31,19 @@ namespace DefaBannerNamespace
 
         private void buttonCallBack(Button buttonPressed)
         {
-            if (buttonPressed == pull1)
+            if (buttonPressed == pack1)
             {
                 //SUMMON CODE
-                Debug.Log("Clicked: " + pull1.name);
+                Debug.Log("Clicked: " + pack1.name);
             }
 
-            if (buttonPressed == pull10)
+            if (buttonPressed == pack2)
             {
                 //SUMMON CODE
 
-                Debug.Log("Clicked: " + pull10.name);
-            } 
-            
+                Debug.Log("Clicked: " + pack2.name);
+            }
+
             if (buttonPressed == Settings)
             {
                 //SUMMON CODE
@@ -49,11 +51,16 @@ namespace DefaBannerNamespace
                 Debug.Log("Clicked: " + Settings.name);
             }
 
-            if (buttonPressed == Banner)
+            if (buttonPressed == pack3)
             {
                 //SUMMON CODE
-                SceneManager.LoadScene("ShopMenu");
-                Debug.Log("Clicked: " + Banner.name);
+                Debug.Log("Clicked: " + pack3.name);
+            }
+            
+            if (buttonPressed == pack4)
+            {
+                //SUMMON CODE
+                Debug.Log("Clicked: " + pack4.name);
             }
 
             if (buttonPressed == Return)
