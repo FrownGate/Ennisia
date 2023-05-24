@@ -13,12 +13,12 @@ public class Skill : MonoBehaviour
     private bool isAfter;
     private bool use;
     Texture2D texture;
+    
 
 
-
-    private void Use(target, player)
+    private void Use(Entity target,Entity player)
     {
-        damageAmount = damageAmount * (1 + target.hp / targer.maxHp * 100);
+        damageAmount = damageAmount * (1 + target.currentHp / target.maxHp * 100);
 
     }
    
