@@ -108,11 +108,12 @@ public class PlayFabManager : MonoBehaviour
     {
         _datas = new Data[3]
         {
-            new AccountData(CreateUsername()), new PlayerData(), new InventoryData()
+            Account = new AccountData(CreateUsername()),
+            Player = new PlayerData(),
+            Inventory = new InventoryData()
         };
 
         Debug.Log("login success");
-        OnLoginSuccess?.Invoke();
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
 
@@ -130,6 +131,8 @@ public class PlayFabManager : MonoBehaviour
         }
 
         if (_authData != null) CreateSave();
+
+        OnLoginSuccess?.Invoke();
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
