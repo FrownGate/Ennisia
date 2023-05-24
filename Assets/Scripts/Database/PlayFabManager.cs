@@ -19,6 +19,7 @@ public class PlayFabManager : MonoBehaviour
     public InventoryData Inventory { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
+    public bool LoggedIn { get; private set; }
 
     private Data[] _datas;
     private AuthData _authData;
@@ -42,6 +43,7 @@ public class PlayFabManager : MonoBehaviour
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
+            LoggedIn = false;
 
             if (HasSave()) return;
             Debug.Log("no save found");
@@ -133,6 +135,7 @@ public class PlayFabManager : MonoBehaviour
         if (_authData != null) CreateSave();
 
         OnLoginSuccess?.Invoke();
+        LoggedIn = true;
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
