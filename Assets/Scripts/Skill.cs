@@ -16,10 +16,10 @@ public class Skill : MonoBehaviour
 
 
 
-    private void Use(target, player)
-    {
-        damageAmount = damageAmount * (1 + target.hp / targer.maxHp * 100);
+    //private void Use(target, player)
+    //{
+    //    damageAmount = damageAmount * (1 + target.hp / targer.maxHp * 100);
 
-    }
+    //}
    
 }

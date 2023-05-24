@@ -17,8 +17,8 @@ MonoBehaviour:
   rarity: Legendary
   race: Human
   supportClass: Healer
-  passif: 33
-  skill: 18
+  passif: {fileID: 0}
+  skill: {fileID: 0}
   description: "Veronika is the King of Anthrena\u2019s second daughter; however,
     she wants nothing to do with royalty or the castle. Her dream is to travel and
     adventure with the people she loves. However with the rise of the demons she

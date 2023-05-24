@@ -17,8 +17,8 @@ MonoBehaviour:
   rarity: Legendary
   race: Beast
   supportClass: Mage
-  passif: 36
-  skill: 21
+  passif: {fileID: 0}
+  skill: {fileID: 0}
   description: "No one knows how old Ugho truly is as no one has ever seen his face,
     it is rumored that he fought the demon king 1000 years ago and that he hasn\u2019t
     died because the demon king still lives. His raw magic is rumored to be limitless

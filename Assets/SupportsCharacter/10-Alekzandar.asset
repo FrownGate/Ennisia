@@ -17,7 +17,7 @@ MonoBehaviour:
   rarity: Epic
   race: Human
   supportClass: Healer
-  passif: 41
-  skill: 25
+  passif: {fileID: 0}
+  skill: {fileID: 0}
   description: none
   catchPhrase: none
