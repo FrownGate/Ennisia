@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Bonk : Skill
 {
-    /*Weapon weapon;*/
+    
 
     private void Start()
     {
         damageAmount = 100;
 
 
-        /*weapon = GetComponentInParent<Weapon>(true);
-        isMagic = weapon.isMagic;*/
+        
         
 
         description = "";
