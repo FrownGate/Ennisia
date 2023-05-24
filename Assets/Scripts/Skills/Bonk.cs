@@ -8,7 +8,12 @@ public class Bonk : Skill
 
     private void Start()
     {
-        damageAmount = 10
+        damageAmount = 100;
+
+
+        
+        
+
         description = "";
         name = "Bonk !";
     }
