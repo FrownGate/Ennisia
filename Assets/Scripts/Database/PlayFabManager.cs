@@ -388,4 +388,15 @@ public class PlayFabManager : MonoBehaviour
     {
         ToolCurrencies.energyAmount = result.Balance;
     }
+
+    public bool HasSupport(int id)
+    {
+        return Inventory.Supports.Contains(id);
+    }
+
+    public void AddSupport(int id)
+    {
+        Inventory.Supports.Add(id);
+        UpdateData();
+    }
 }
