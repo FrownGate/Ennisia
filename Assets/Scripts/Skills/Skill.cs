@@ -22,7 +22,7 @@ public class Skill : MonoBehaviour
         /*weapon = GetComponentInParent<Weapon>(true);
         isMagic = weapon.isMagic;*/
     }
-    public virtual void Use(Entity target, Entity player)
+    public virtual void Use(Entity target, Entity player,int turn)
     {
         
 
