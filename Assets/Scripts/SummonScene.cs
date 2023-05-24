@@ -10,7 +10,8 @@ namespace DefaBannerNamespace
     {
         public Button pull1;
         public Button pull10;
-        //public Button Banner;
+        public Button Banner;
+        public Button Settings;
         public Button Return;
 
 
@@ -19,8 +20,9 @@ namespace DefaBannerNamespace
             //Register Button Events
             pull1.onClick.AddListener(() => buttonCallBack(pull1));
             pull10.onClick.AddListener(() => buttonCallBack(pull10));
-            //Banner.onClick.AddListener(() => buttonCallBack(Banner));
+            Banner.onClick.AddListener(() => buttonCallBack(Banner));
             Return.onClick.AddListener(() => buttonCallBack(Return));
+            Settings.onClick.AddListener(() => buttonCallBack(Settings));
 
         }
 
@@ -38,14 +40,21 @@ namespace DefaBannerNamespace
                 //SUMMON CODE
 
                 Debug.Log("Clicked: " + pull10.name);
-            }
-
-            /*if (buttonPressed == Banner)
+            } 
+            
+            if (buttonPressed == Settings)
             {
                 //SUMMON CODE
 
+                Debug.Log("Clicked: " + Settings.name);
+            }
+
+            if (buttonPressed == Banner)
+            {
+                //SUMMON CODE
+                SceneManager.LoadScene("ShopMenu");
                 Debug.Log("Clicked: " + Banner.name);
-            }*/
+            }
 
             if (buttonPressed == Return)
             {
