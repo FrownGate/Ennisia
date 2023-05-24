@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Entities;
 using UnityEngine;
 
 namespace BattleLoop.BattleStates
@@ -26,9 +27,9 @@ namespace BattleLoop.BattleStates
                 foreach (var enemy in BattleSystem.Enemies)
                 {
                     if(CheckEnemyIsDead(enemy)) continue;
-                    if (enemy.isSelected)
+                    if (enemy.IsSelected)
                     {
-                        enemy.TakeDamage(BattleSystem.PlayerData.damage);
+                        //enemy.TakeDamage(BattleSystem.PlayerData.damage);
                     }
                 }
             }else if (_spellNumber == 1)//Spell Button 1 
@@ -40,16 +41,16 @@ namespace BattleLoop.BattleStates
             }
             
             //Set HP bar
-            BattleSystem.enemyHUD.SetHp(BattleSystem.EnemyData.currentHp);
+            //BattleSystem.enemyHUD.SetHp(BattleSystem.EnemyData.currentHp);
             
-            if (BattleSystem.EnemyData.IsDead)
+            /*if (BattleSystem.EnemyData.IsDead)
             {
                 BattleSystem.SetState(new Won(BattleSystem));
             }
             else
             {
                 BattleSystem.SetState(new EnemyTurn(BattleSystem));
-            }
+            }*/
             
             
             yield return new WaitForSeconds(1f);

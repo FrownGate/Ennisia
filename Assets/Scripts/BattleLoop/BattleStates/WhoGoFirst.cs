@@ -19,11 +19,11 @@ namespace BattleLoop.BattleStates
         public void CompareSpeed()
         {
             //TO DO: ATB system in order to decide who start 
-            if (BattleSystem.PlayerData.speed > BattleSystem.EnemyData.speed)
+            /*if (BattleSystem.PlayerData.speed > BattleSystem.EnemyData.speed)
             {
                 Debug.Log("Enter PlayerTurn State");
                 BattleSystem.SetState(new PlayerTurn(BattleSystem));
-            }else BattleSystem.SetState(new EnemyTurn(BattleSystem));
+            }else BattleSystem.SetState(new EnemyTurn(BattleSystem));*/
         }
     }
 }

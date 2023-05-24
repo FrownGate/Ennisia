@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BattleLoop.BattleStates;
+using Entities;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
@@ -11,49 +12,32 @@ public class BattleSystem : StateMachine
     public Transform PlayerStation;
     public Transform EnemyStation;
     
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
-
-    public Entity PlayerData { get; private set; }
-    public Entity EnemyData { get; private set; }
 
     public List<Entity> Allies { get; private set; }
     public List<Entity> Enemies { get; private set; }
     private int _maxEnemies => 10;
-
-    public Spell[] Spells;
+    
     
     public int ButtonId { get; private set; }
     
     //UI
     public TextMeshProUGUI dialogueText;
-    public BattleHUD playerHUD;
-    public BattleHUD enemyHUD;
     
 
     private void Start()
     {
         //Entity
-        PlayerData = playerPrefab.GetComponent<Entity>();
-        EnemyData = enemyPrefab.GetComponent<Entity>();
 
-        Enemies = new List<Entity> { EnemyData };
-
-        /*SetupBattle();*/
-        InitBattleHUD();
+        for (int i = 0; i < _maxEnemies; i++)
+        {
+            GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
+            Instantiate(enemy, EnemyStation.position, Quaternion.identity);
+        }
+        
         SetState(new WhoGoFirst(this));
     }
 
-    private void Update()
-    {
-        
-    }
 
-    private void InitBattleHUD()
-    {
-        playerHUD.SetHUD(PlayerData);
-        enemyHUD.SetHUD(EnemyData);
-    }
     
     public void OnAttackButton()
     {

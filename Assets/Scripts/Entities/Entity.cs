@@ -1,43 +1,33 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Entity : MonoBehaviour
+﻿namespace Entities
 {
-    // Start is called before the first frame update
-    // Change public to protected, once battle loop is done. 
-  
-    public string entityName;
-    public int level;
-
-    public int damage;
-
-    public int maxHp;
-    public int currentHp;
-    public int speed;
-    public bool isSelected { get; private set; } = false;
-
-    public void OnMouseDown()
+    public abstract class Entity
     {
-        isSelected = true;
-    }
+        protected internal int Level{ get; protected set; }
+        protected internal int MaxHp{ get; protected set; }
+        protected internal int Damage{ get; protected set; }
+        protected internal int Speed{ get; protected set; }
+        protected internal int CurrentHp { get; set; }
+        public bool IsSelected { get;  set; }
 
-    public bool IsDead
-    {
-        get
+        public bool IsDead
         {
-            bool isDead = currentHp <= 0 ? true : false;
-            return isDead;
+            get
+            {
+                bool isDead = CurrentHp <= 0 ? true : false;
+                return isDead;
+            }
+            private set{}
         }
-        private set{}
+        
+        public void TakeDamage(int damage)
+        {
+            CurrentHp -= damage;
+            IsSelected = false;
+        }
+
+        public void HaveBeSelected()
+        {
+            IsSelected = true;
+        }
     }
-
-    public void TakeDamage(int damage)
-    {
-        currentHp -= damage;
-        isSelected = false;
-    }
-
-
 }

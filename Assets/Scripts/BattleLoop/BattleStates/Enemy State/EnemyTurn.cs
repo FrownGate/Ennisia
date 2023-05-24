@@ -11,23 +11,16 @@ namespace BattleLoop.BattleStates
 
         public override IEnumerator Start()
         {
-            Debug.Log(BattleSystem.EnemyData.currentHp);
-            if (BattleSystem.EnemyData.currentHp <= 0)
-            {
-                BattleSystem.SetState(new Won(BattleSystem));
-            }
             
-            BattleSystem.PlayerData.TakeDamage(BattleSystem.EnemyData.damage);
-            BattleSystem.playerHUD.SetHp(BattleSystem.PlayerData.currentHp);
-            
-            if (BattleSystem.PlayerData.IsDead)
+            /*if (BattleSystem.PlayerData.IsDead)
             {
                 BattleSystem.SetState(new Lost(BattleSystem));
             }
             else
             {
                 BattleSystem.SetState(new PlayerTurn(BattleSystem));
-            }
+            }*/
+            
             yield return new WaitForSeconds(1.5f);
         }
 
