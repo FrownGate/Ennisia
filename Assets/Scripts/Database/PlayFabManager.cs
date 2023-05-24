@@ -45,6 +45,7 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log($"Your save path is : {_path}");
             LoggedIn = false;
 
+            //TODO : Parfois la save est faussement found
             if (HasSave()) return;
             Debug.Log("no save found");
             AnonymousLogin();
@@ -134,8 +135,8 @@ public class PlayFabManager : MonoBehaviour
 
         if (_authData != null) CreateSave();
 
-        OnLoginSuccess?.Invoke();
         LoggedIn = true;
+        OnLoginSuccess?.Invoke();
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
