@@ -2,11 +2,11 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using PlayFab.DataModels;
-using System.Runtime.InteropServices.ComTypes;
+using PlayFab.EconomyModels;
+using System.Collections.Generic;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -14,37 +14,19 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnLoginSuccess;
     public static event Action<PlayFabError> OnError;
 
-    public struct Account
-    {
-        public string Name;
-        public int Level;
-        public int Exp;
-        public int Gender;
-        public bool Tutorial;
-    }
-
-    public struct Player
-    {
-        public int Level;
-        public int Exp;
-        public int EquippedWeapon;
-        public int[] EquippedGears;
-        public int[] EquippedSupports;
-    }
-
-    public struct Currencies
-    {
-        //
-    }
-
-    public Account AccountData { get; private set; }
-    public Player PlayerData { get; private set; }
+    public AccountData Account { get; private set; }
+    public PlayerData Player { get; private set; }
+    public InventoryData Inventory { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
 
+    private Data[] _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
+
+    private readonly string _goldId = "0dc3228a-78a9-4d26-a3ab-f7d1e5b5c4d3";
+    private readonly string _crystalsId = "0ec7fd19-4c26-4e0a-bd66-cf94f83ef060";
 
     private void Awake()
     {
@@ -56,7 +38,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            
+
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
@@ -124,6 +106,11 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnLoginRequestSuccess(LoginResult result)
     {
+        _datas = new Data[3]
+        {
+            new AccountData(CreateUsername()), new PlayerData(), new InventoryData()
+        };
+
         Debug.Log("login success");
         OnLoginSuccess?.Invoke();
         PlayFabId = result.PlayFabId;
@@ -154,7 +141,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginRequestError(PlayFabError error)
     {
         Debug.Log("success");
-        
+
         OnRequestError(error);
         _authData ??= null;
 
@@ -163,7 +150,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void OnRequestError(PlayFabError error)
     {
-        Debug.Log(error.GenerateErrorReport());
+        Debug.LogError(error.GenerateErrorReport());
         OnError?.Invoke(error);
     }
 
@@ -211,20 +198,8 @@ public class PlayFabManager : MonoBehaviour
 
     private void CreateData()
     {
-        AccountData = new()
-        {
-            Name = CreateUsername(),
-            Level = 1
-        };
-
-        PlayerData = new()
-        {
-            Level = 1,
-            EquippedGears = new int[6],
-            EquippedSupports = new int[2]
-        };
-
         UpdateData();
+        AddCurrency("Gold", 1000);
     }
 
     private void GetUserDatas()
@@ -242,21 +217,16 @@ public class PlayFabManager : MonoBehaviour
 
     private void UpdateData()
     {
+        List<SetObject> data = new();
+
+        for (int i = 0; i < _datas.Length; i++)
+        {
+            data.Add(_datas[i].Serialize());
+        }
+
         PlayFabDataAPI.SetObjects(new SetObjectsRequest
         {
-            Objects = new()
-            {
-                new SetObject
-                {
-                    ObjectName = "Account",
-                    EscapedDataObject = JsonUtility.ToJson(AccountData)
-                },
-                new SetObject
-                {
-                    ObjectName = "Player",
-                    EscapedDataObject = JsonUtility.ToJson(PlayerData)
-                }
-            },
+            Objects = data,
             Entity = new()
             {
                 Id = Entity.Id,
@@ -267,8 +237,19 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnDataObtained(GetObjectsResponse response)
     {
-        AccountData = JsonUtility.FromJson<Account>(response.Objects["Account"].EscapedDataObject);
-        PlayerData = JsonUtility.FromJson<Player>(response.Objects["Player"].EscapedDataObject);
+        try
+        {
+            for (int i = 0; i < _datas.Length; i++)
+            {
+                _datas[i].UpdateData(response.Objects[_datas[i].ClassName].EscapedDataObject);
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("data missing - creating missing ones...");
+            UpdateData();
+        }
+
         Debug.Log("data obtained");
     }
 
@@ -278,5 +259,130 @@ public class PlayFabManager : MonoBehaviour
         {
             DisplayName = name
         }, null, OnRequestError);
+    }
+
+    public void AddCurrency(string currency, int amount)
+    {
+        PlayFabEconomyAPI.AddInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Amount = amount,
+            Item = new()
+            {
+                AlternateId = new()
+                {
+                    Type = "FriendlyId",
+                    Value = currency
+                }
+            }
+        }, OnCurrencyAdd, OnRequestError);
+    }
+
+    public void RemoveCurrency(string currency, int amount)
+    {
+        PlayFabEconomyAPI.SubtractInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Amount = amount,
+            Item = new()
+            {
+                AlternateId = new()
+                {
+                    Type = "FriendlyId",
+                    Value = currency
+                }
+            }
+        }, OnCurrencySubtract, OnRequestError);
+    }
+
+    private void OnCurrencyAdd(AddInventoryItemsResponse response)
+    {
+        GetCurrency();
+    }
+
+    private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
+    {
+        GetCurrency();
+        //Update user inventory
+    }
+    
+    public void GetCurrency()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $"stackId eq 'currency'"
+        }, OnGetCurrencySuccess, OnRequestError);
+
+    }
+
+    public void GetCurrency(string currency)
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $":{currency}"
+        }, OnGetCurrencySuccess, OnRequestError);
+
+    }
+
+    private void OnGetCurrencySuccess(GetInventoryItemsResponse response)
+    {
+
+        foreach (InventoryItem item in response.Items)
+        {
+            if (item.Id == _goldId)
+            {
+                ToolCurrencies.goldAmount = (int)item.Amount;
+
+            }
+            else if (item.Id == _crystalsId)
+            {
+                ToolCurrencies.crystalsAmount = (int)item.Amount;
+            }
+
+
+        }
+    }
+
+    public void GetEnergy()
+    {
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
+        {
+        }, OnGetEnergySuccess, OnRequestError);
+
+    }
+
+    private void OnGetEnergySuccess(GetUserInventoryResult result)
+    {
+        ToolCurrencies.energyAmount = result.VirtualCurrency["EN"];
+    }
+
+    public void AddEnergy(int amount)
+    {
+        PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnAddEnergySuccess, OnRequestError);
+    }
+
+    private void OnAddEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
+    }
+
+    public void RemoveEnergy(int amount)
+    {
+        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
+        {
+            Amount = amount,
+            VirtualCurrency = "EN"
+        }, OnRemoveEnergySuccess, OnRequestError);
+    }
+
+    private void OnRemoveEnergySuccess(ModifyUserVirtualCurrencyResult result)
+    {
+        ToolCurrencies.energyAmount = result.Balance;
     }
 }
