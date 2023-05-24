@@ -24,14 +24,14 @@ namespace BattleLoop.BattleStates
             //Attack Button
             if (_spellNumber == 0 )
             {
-                foreach (var enemy in BattleSystem.Enemies)
+                /*foreach (var enemy in BattleSystem.Enemies)
                 {
                     if(CheckEnemyIsDead(enemy)) continue;
                     if (enemy.IsSelected)
                     {
                         //enemy.TakeDamage(BattleSystem.PlayerData.damage);
                     }
-                }
+                }*/
             }else if (_spellNumber == 1)//Spell Button 1 
             {
                 

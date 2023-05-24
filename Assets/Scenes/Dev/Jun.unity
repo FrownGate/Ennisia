@@ -201,7 +201,7 @@ Camera:
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -291,6 +291,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3790394792616838198, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
   m_PrefabInstance: {fileID: 8586269454590916849}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &875303653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875303648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c80423e0994f89989f98f9c73ac867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyModifier: {fileID: 0}
 --- !u!1 &1105069192
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +466,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 875303648}
     - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: EnemyStation
+      value: 
+      objectReference: {fileID: 2028323336}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 425911515}
@@ -460,6 +477,10 @@ PrefabInstance:
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 150634952}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: PlayerStation
+      value: 
+      objectReference: {fileID: 2105984063}
     - target: {fileID: 7252963842459278109, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
       propertyPath: m_Name
       value: BattleSystem
@@ -773,5 +794,8 @@ PrefabInstance:
     - {fileID: 225976490456301251, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3790394792616838198, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 875303653}
   m_SourcePrefab: {fileID: 100100000, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}

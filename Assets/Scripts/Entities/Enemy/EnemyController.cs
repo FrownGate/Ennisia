@@ -6,8 +6,9 @@ namespace Entities
 {
     public class EnemyController : Controller
     {
-        [SerializeField] private Slider hpBar;
         [SerializeField] private ScriptableObject enemyModifier;
+        
+        private Slider _hpBar;
         public Enemy _enemy { get; private set; }
 
         private void Start()
@@ -30,13 +31,14 @@ namespace Entities
 
         private void InitHUD()
         {
-            hpBar.maxValue = _enemy.MaxHp;
-            hpBar.value = _enemy.CurrentHp;
+            _hpBar = GetComponentInChildren<Slider>();
+            _hpBar.maxValue = _enemy.MaxHp;
+            _hpBar.value = _enemy.CurrentHp;
         }
 
         private void UpdateHUD()
         {
-            hpBar.value = _enemy.CurrentHp;
+            _hpBar.value = _enemy.CurrentHp;
         }
     }
 }

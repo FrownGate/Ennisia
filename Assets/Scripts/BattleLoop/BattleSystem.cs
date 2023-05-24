@@ -27,18 +27,48 @@ public class BattleSystem : StateMachine
     private void Start()
     {
         //Entity
-
-        for (int i = 0; i < _maxEnemies; i++)
-        {
-            GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
-            Instantiate(enemy, EnemyStation.position, Quaternion.identity);
-        }
+        EnemyContainer();
+        
         
         SetState(new WhoGoFirst(this));
     }
 
+    private void EnemyContainer()
+    {
+        Enemies = new List<Entity>();
 
-    
+        Vector3 gridCenter = EnemyStation.position;
+
+        int numRows = 5;
+        int numColumns = 5;
+        float hexagonSize = 1f;
+        float hexagonSpacing = 1f;
+        
+
+        for (int row = 0; row < numRows; row++)
+        {
+            for (int col = 0; col < numColumns; col++)
+            {
+                // Calculate position based on row and column index
+                float xPos = col * (hexagonSize + hexagonSpacing);
+                float yPos = row * (hexagonSize + hexagonSpacing) * Mathf.Sqrt(3);
+                if (row % 2 == 1) // Offset every other row
+                    xPos += (hexagonSize + hexagonSpacing) / 2f;
+
+                Vector3 hexagonPosition = gridCenter + new Vector3(xPos, yPos, 0f);
+
+                GameObject enemy = Instantiate(GameObject.FindGameObjectWithTag("Enemy"), hexagonPosition,
+                    Quaternion.identity);
+                Enemy tmp = new Enemy();
+                tmp = enemy.GetComponent<EnemyController>()._enemy;
+                Enemies.Add(tmp);
+
+            }
+
+        }
+    }
+
+
     public void OnAttackButton()
     {
         ButtonId = 0;
