@@ -5,7 +5,14 @@ public class SceneButton : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        Debug.Log(gameObject.name);
-        SceneManager.LoadScene(gameObject.name);
+        try
+		{
+            Debug.Log(gameObject.name);
+            SceneManager.LoadScene(gameObject.name);
+        }
+		catch
+		{
+			Debug.LogError("Scene not found");
+		}
     }
 }
