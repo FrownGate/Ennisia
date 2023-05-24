@@ -7,8 +7,10 @@ public class SceneButton : MonoBehaviour
     {
         try
 		{
-            Debug.Log(gameObject.name);
+            Debug.Log($"Going to scene {gameObject.name}");
             SceneManager.LoadScene(gameObject.name);
+            //TODO -> add name to SceneManager
+            //Add parent name if exist ?
         }
 		catch
 		{
