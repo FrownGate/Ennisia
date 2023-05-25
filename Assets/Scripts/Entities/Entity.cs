@@ -11,11 +11,11 @@ public class Entity : MonoBehaviour
     public string entityName;
     public int level;
 
-    public int damage;
+    public float damage;
 
-    public int maxHp;
-    public int currentHp;
-    public int speed;
+    public float maxHp;
+    public float currentHp;
+    public float speed;
     public bool isSelected { get; private set; } = false;
 
     public void OnMouseDown()
@@ -33,7 +33,7 @@ public class Entity : MonoBehaviour
         private set{}
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHp -= damage;
         isSelected = false;
