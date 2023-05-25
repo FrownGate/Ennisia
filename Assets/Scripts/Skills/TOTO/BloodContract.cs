@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TidalCrash : Skill
+public class BloodContract : Skill
 {
 
 
     private void Awake()
     {
-        fileName = "TidalCrash";
+        fileName = "BloodContract";
     }
 
     public override void Use(Entity target, Entity player, int turn)
