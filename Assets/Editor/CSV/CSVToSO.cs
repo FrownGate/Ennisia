@@ -88,7 +88,7 @@ public class CSVToSO : EditorWindow
         AssetDatabase.Refresh();
     }
 
-    public static string[] SplitCSVLine(string line)
+    private string[] SplitCSVLine(string line)
     {
         List<string> values = new List<string>();
         bool insideQuotes = false;
