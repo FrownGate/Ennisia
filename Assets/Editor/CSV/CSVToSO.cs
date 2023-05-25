@@ -90,10 +90,8 @@ public class CSVToSO : EditorWindow
         scriptableObject.rarity = rowData["Rarity"];
         scriptableObject.race = rowData["Race"];
         scriptableObject.supportClass = rowData["Class"];
-        scriptableObject.passif = int.Parse(rowData["Passif"]);
-        scriptableObject.skill = int.Parse(rowData["Skill"]);
         scriptableObject.description = rowData["Description"].Replace("\"", string.Empty);
-        scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
+        scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty); 
 
         // Save the scriptable object
         string savePath = $"Assets/SupportsCharacter/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
