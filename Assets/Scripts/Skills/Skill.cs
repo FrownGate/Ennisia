@@ -13,7 +13,7 @@ public abstract class Skill : MonoBehaviour
 
     private void Start()
     {
-        data = AssetDatabase.LoadAssetAtPath<SkillData>(Application.dataPath + "/Skills/" + fileName + ".asset");
+        data = AssetDatabase.LoadAssetAtPath<SkillData>(Application.dataPath + "/Skills/SO" + fileName + ".asset");
 
     }
 
