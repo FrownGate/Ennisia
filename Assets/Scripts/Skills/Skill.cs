@@ -6,6 +6,8 @@ public class Skill : MonoBehaviour
     /*Weapon weapon;*/
     public SkillData data;
     public float damageModifier;
+    public float shieldModifier;
+    public float healingModifier;
     public float cooldownn;
     public string fileName;
 
