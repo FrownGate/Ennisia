@@ -1,17 +1,10 @@
-﻿namespace Entities
+﻿public class Player : Entity
 {
-    public class Player : Entity
+    public Player()
     {
-
-        public Player()
-        {
-            MaxHp = 300;
-            Damage = 15;
-            Speed = 30000;
-            CurrentHp = MaxHp / 2;
-        }
-        
-        
-        
+        MaxHp = 300;
+        Damage = 15;
+        Speed = 30000;
+        CurrentHp = MaxHp / 2;
     }
 }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BattleLoop.BattleStates;
-using Entities;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
@@ -88,7 +87,7 @@ public class BattleSystem : StateMachine
     {
         Allies = new List<Entity>();
         GameObject playGo = GameObject.FindGameObjectWithTag("Player");
-        Player tmp = playGo.GetComponent<PlayerController>()._player;
+        Player tmp = playGo.GetComponent<PlayerController>().Player;
         Allies.Add(tmp);
     }
 

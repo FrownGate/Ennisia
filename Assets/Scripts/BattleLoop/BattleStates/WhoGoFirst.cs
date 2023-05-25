@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Entities;
 using UnityEngine;
 
 namespace BattleLoop.BattleStates
@@ -40,7 +39,6 @@ namespace BattleLoop.BattleStates
             else {BattleSystem.SetState(new EnemyTurn(BattleSystem));}
           
             //TO DO: ATB system in order to decide who start 
-  
         }
     }
 }

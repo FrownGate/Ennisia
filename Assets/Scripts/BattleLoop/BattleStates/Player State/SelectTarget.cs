@@ -1,16 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Entities;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BattleLoop.BattleStates
 {
     public class SelectTarget : SelectSpell
     {
-        public SelectTarget(BattleSystem battleSystem) : base(battleSystem)
-        {
-        }
+        public SelectTarget(BattleSystem battleSystem) : base(battleSystem) { }
 
         public override IEnumerator Start()
         {
@@ -50,10 +45,12 @@ namespace BattleLoop.BattleStates
 
                     enemy.TakeDamage(BattleSystem.Player.Damage);
                 }
-            }else if (_spellNumber == 1)//Spell Button 1 
+            }
+            else if (_spellNumber == 1)//Spell Button 1 
             {
                 
-            }else if (_spellNumber == 2)//Spell Button 2 
+            }
+            else if (_spellNumber == 2)//Spell Button 2 
             {
                 
             }
@@ -62,9 +59,5 @@ namespace BattleLoop.BattleStates
             
             //BattleSystem.NextTurn();
         }
-
-
-
-
     }
 }
