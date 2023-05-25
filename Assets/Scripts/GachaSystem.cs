@@ -14,23 +14,22 @@ public class GachaSystem : MonoBehaviour
 
     public void Summon()
     {
-        int range = 100;
-        System.Random random = new();
-        double roll = random.NextDouble() * range;
-        if (roll <= _legendaryChance)
+        foreach (var item in GetRandomHeroFromPool(GetGachaPool(PickRarity())))
         {
-            Debug.Log(GetGachaPool("Legendary"));
-        }
-        else if (roll <= _epicChance)
-        {
-            Debug.Log(GetGachaPool("Epic"));
-        }
-        else if (roll <= _rareChance)
-        {
-            Debug.Log(GetGachaPool("Rare"));
-        }
+            Debug.Log(item.Value);
 
+            // if (PlayFabManager.Instance.HasSupport(item.Key)) return;
+            if (PlayFabManager.Instance.HasSupport(item.Key))
+            {
+                Debug.Log("You already have this support" + item.Value);
+                return;
+            }
+            PlayFabManager.Instance.AddSupport(item.Key);
+            Debug.Log("=====================================");
+        }
     }
+
+
 
     public void Summon(int amount)
     {
@@ -52,12 +51,14 @@ public class GachaSystem : MonoBehaviour
         }
     }
 
+
+
     private Dictionary<int, string> GetGachaPool(string rarity)
     {
         string path = Application.dataPath + "/Editor/CSV/Supports.csv";
         string[] lines = System.IO.File.ReadAllLines(path);
         string[] headers = lines[0].Split(',');
-        Dictionary<int, string> gachaPool = new Dictionary<int, string>();
+        Dictionary<int, string> gachaPool = new();
         for (int i = 1; i < lines.Length; i++)
         {
             string[] values = SplitCSVLine(lines[i]);
@@ -76,13 +77,19 @@ public class GachaSystem : MonoBehaviour
                 gachaPool.Add(int.Parse(rowData["ID"]), rowData["Name"]);
             }
         }
-        // return gachaPool;
         return gachaPool.OrderBy(x => Guid.NewGuid()).ToDictionary(item => item.Key, item => item.Value);
-
-
-
-
     }
+
+
+    private Dictionary<int, string> GetRandomHeroFromPool(Dictionary<int, string> pool)
+    {
+        System.Random random = new();
+        int index = random.Next(pool.Count);
+        // Debug.Log("=====================================");
+        // Debug.Log(pool.ElementAt(index));
+        return pool.Skip(index).Take(1).ToDictionary(item => item.Key, item => item.Value);
+    }
+
 
     private string[] SplitCSVLine(string line)
     {
@@ -114,4 +121,25 @@ public class GachaSystem : MonoBehaviour
     }
 
 
+    private string PickRarity()
+    {
+        int range = 100;
+        System.Random random = new();
+        double roll = random.NextDouble() * range;
+
+        string pickedRarity = "";
+        if (roll <= _legendaryChance)
+        {
+            pickedRarity = "Legendary";
+        }
+        else if (roll <= _epicChance)
+        {
+            pickedRarity = "Epic";
+        }
+        else if (roll <= _rareChance)
+        {
+            pickedRarity = "Rare";
+        }
+        return pickedRarity;
+    }
 }
