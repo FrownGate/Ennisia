@@ -13,6 +13,8 @@ public class PlayFabManager : MonoBehaviour
     public static PlayFabManager Instance { get; private set; }
     public static event Action OnLoginSuccess;
     public static event Action<PlayFabError> OnError;
+    public static event Action<List<InventoryItem>> OnGetCurrencies;
+    public static event Action<int> OnGetEnergy;
 
     public AccountData Account { get; private set; }
     public PlayerData Player { get; private set; }
@@ -25,9 +27,6 @@ public class PlayFabManager : MonoBehaviour
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
-
-    private readonly string _goldId = "0dc3228a-78a9-4d26-a3ab-f7d1e5b5c4d3";
-    private readonly string _crystalsId = "0ec7fd19-4c26-4e0a-bd66-cf94f83ef060";
 
     private void Awake()
     {
@@ -270,6 +269,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void AddCurrency(string currency, int amount)
     {
+        Debug.Log($"Adding {amount} {currency}...");
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
@@ -282,11 +282,15 @@ public class PlayFabManager : MonoBehaviour
                     Value = currency
                 }
             }
-        }, OnCurrencyAdd, OnRequestError);
+        }, res => {
+            Debug.Log("Done !");
+            GetCurrencies();
+        }, OnRequestError);
     }
 
     public void RemoveCurrency(string currency, int amount)
     {
+        Debug.Log($"Removing {amount} {currency}...");
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
@@ -299,21 +303,13 @@ public class PlayFabManager : MonoBehaviour
                     Value = currency
                 }
             }
-        }, OnCurrencySubtract, OnRequestError);
-    }
-
-    private void OnCurrencyAdd(AddInventoryItemsResponse response)
-    {
-        GetCurrency();
-    }
-
-    private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
-    {
-        GetCurrency();
-        //Update user inventory
+        }, res => {
+            Debug.Log("Done !");
+            GetCurrencies();
+        }, OnRequestError);
     }
     
-    public void GetCurrency()
+    public void GetCurrencies()
     {
         PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
         {
@@ -335,21 +331,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnGetCurrencySuccess(GetInventoryItemsResponse response)
     {
-
-        foreach (InventoryItem item in response.Items)
-        {
-            if (item.Id == _goldId)
-            {
-                ToolCurrencies.goldAmount = (int)item.Amount;
-
-            }
-            else if (item.Id == _crystalsId)
-            {
-                ToolCurrencies.crystalsAmount = (int)item.Amount;
-            }
-
-
-        }
+        OnGetCurrencies?.Invoke(response.Items);
     }
 
     public void GetEnergy()
@@ -362,35 +344,33 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnGetEnergySuccess(GetUserInventoryResult result)
     {
-        ToolCurrencies.energyAmount = result.VirtualCurrency["EN"];
+        OnGetEnergy?.Invoke(result.VirtualCurrency["EN"]);
     }
 
     public void AddEnergy(int amount)
     {
+        Debug.Log($"Adding {amount} energy...");
         PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest()
         {
             Amount = amount,
             VirtualCurrency = "EN"
-        }, OnAddEnergySuccess, OnRequestError);
-    }
-
-    private void OnAddEnergySuccess(ModifyUserVirtualCurrencyResult result)
-    {
-        ToolCurrencies.energyAmount = result.Balance;
+        }, res => {
+            Debug.Log("Done !");
+            GetEnergy();
+        }, OnRequestError);
     }
 
     public void RemoveEnergy(int amount)
     {
+        Debug.Log($"Removing {amount} energy...");
         PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
         {
             Amount = amount,
             VirtualCurrency = "EN"
-        }, OnRemoveEnergySuccess, OnRequestError);
-    }
-
-    private void OnRemoveEnergySuccess(ModifyUserVirtualCurrencyResult result)
-    {
-        ToolCurrencies.energyAmount = result.Balance;
+        }, res => {
+            Debug.Log("Done !");
+            GetEnergy();
+        }, OnRequestError);
     }
 
     public bool HasSupport(int id)
