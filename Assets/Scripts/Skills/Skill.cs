@@ -27,18 +27,18 @@ public class Skill : MonoBehaviour
 
     }
 
-    public virtual void Use(Entity target, Entity player,int turn)
+    public virtual float Use(Entity target, Entity player,int turn)
     {
-        
+        return 0;
 
     }
 
-    public virtual void AdditionalDamage(Entity target, Entity player, int turn)
+    public virtual float AdditionalDamage(Entity target, Entity player, int turn, float damage)
     {
-
+        return 0;
     }
 
-    public virtual void PassiveAfterAttack(Entity target, Entity player, int turn)
+    public virtual void PassiveAfterAttack(Entity target, Entity player, int turn, float damage)
     {
 
     }
