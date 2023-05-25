@@ -304,16 +304,16 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnCurrencyAdd(AddInventoryItemsResponse response)
     {
-        GetCurrency();
+        GetCurrencies();
     }
 
     private void OnCurrencySubtract(SubtractInventoryItemsResponse response)
     {
-        GetCurrency();
+        GetCurrencies();
         //Update user inventory
     }
     
-    public void GetCurrency()
+    public void GetCurrencies()
     {
         PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
         {

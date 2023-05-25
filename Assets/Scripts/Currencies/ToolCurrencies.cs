@@ -40,7 +40,7 @@ public class ToolCurrencies : EditorWindow
 
     private void Awake()
     {
-        PlayFabManager.Instance.GetCurrency();
+        PlayFabManager.Instance.GetCurrencies();
         PlayFabManager.Instance.GetEnergy();
     }
 
