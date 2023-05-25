@@ -163,8 +163,6 @@ GameObject:
   - component: {fileID: 1734719833657725555}
   - component: {fileID: 3544940840252231051}
   - component: {fileID: 3672379203989486092}
-  - component: {fileID: 3973906347330954876}
-  - component: {fileID: 5479567262180602594}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -186,7 +184,7 @@ Transform:
   m_Children:
   - {fileID: 4800080553468102744}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3544940840252231051
 SpriteRenderer:
@@ -285,36 +283,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8828125, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3973906347330954876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277427119332163025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b836051dab34072b624f318da70397f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5479567262180602594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277427119332163025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd660c6e7600654c91e35bf191dae9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Player
-  level: 1
-  damage: 10
-  maxHp: 100
-  currentHp: 100
-  speed: 5000
 --- !u!1 &2463002353914072636
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +422,6 @@ GameObject:
   - component: {fileID: 4531650360803999238}
   - component: {fileID: 6602197209266614591}
   - component: {fileID: 1414192855493307499}
-  - component: {fileID: 7781008418627689856}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -546,18 +513,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7781008418627689856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8586399011825290938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c36568b360545ec4796025b2647d9558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  lvlText: {fileID: 0}
-  hpSlider: {fileID: 0}
