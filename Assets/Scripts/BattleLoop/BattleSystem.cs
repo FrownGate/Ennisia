@@ -1,60 +1,97 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using BattleLoop.BattleStates;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using Update = UnityEngine.PlayerLoop.Update;
 
 public class BattleSystem : StateMachine
 {
     public Transform PlayerStation;
     public Transform EnemyStation;
     
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
-
-    public Entity PlayerData { get; private set; }
-    public Entity EnemyData { get; private set; }
-
+    public Entity Player { get; private set; }
     public List<Entity> Allies { get; private set; }
     public List<Entity> Enemies { get; private set; }
-    private int _maxEnemies => 10;
-
-    public Skill[] Skills;
+    public List<Entity> Targetables { get; private set; }
+    private int _maxEnemies => 1;
     
     public int ButtonId { get; private set; }
+    private int _selectedTargetNumber = 2;
+    public int _selected = 0;
     
     //UI
     public TextMeshProUGUI dialogueText;
-    public BattleHUD playerHUD;
-    public BattleHUD enemyHUD;
     
 
     private void Start()
     {
+        Player = new Player();
+        Enemies = new List<Entity>();
+        Targetables = new List<Entity>();
         //Entity
-        PlayerData = playerPrefab.GetComponent<Entity>();
-        EnemyData = enemyPrefab.GetComponent<Entity>();
-
-        Enemies = new List<Entity> { EnemyData };
-
-        /*SetupBattle();*/
-        InitBattleHUD();
+        EnemyContainer();
+        InitPlayer();
+        
         SetState(new WhoGoFirst(this));
     }
 
     private void Update()
     {
-        
+        if (_selected == _selectedTargetNumber)
+        {
+            Targetables = GetSelectedEnemies(Enemies);
+            StartCoroutine(State.Attack());
+            Targetables.Clear();
+        }
     }
 
-    private void InitBattleHUD()
+    private void LateUpdate()
     {
-        playerHUD.SetHUD(PlayerData);
-        enemyHUD.SetHUD(EnemyData);
+
     }
-    
+
+    private void EnemyContainer()
+    {
+        GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy");
+        Vector3 gridCenter = EnemyStation.position;
+        int numRows = 5;
+        int numColumns = 5;
+        float hexagonSize = 1f;
+        float hexagonSpacing = 1f;
+        
+        for (int row = 0; row < numRows; row++)
+        {
+            for (int col = 0; col < numColumns; col++)
+            {
+                // Calculate position based on row and column index
+                float xPos = col * (hexagonSize + hexagonSpacing);
+                float yPos = row * (hexagonSize + hexagonSpacing) * Mathf.Sqrt(3);
+                if (row % 2 == 1) // Offset every other row
+                    xPos += (hexagonSize + hexagonSpacing) / 2f;
+
+                Vector3 hexagonPosition = gridCenter + new Vector3(xPos, yPos, 0f);
+
+                GameObject enemyInstance = Instantiate(enemyPrefab, hexagonPosition, Quaternion.identity);
+                EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
+                Enemy tmp = enemyController._enemy;
+                Enemies.Add(tmp);
+            }
+        }
+    }
+
+    private void InitPlayer()
+    {
+        Allies = new List<Entity>();
+        GameObject playGo = GameObject.FindGameObjectWithTag("Player");
+        Player tmp = playGo.GetComponent<PlayerController>().Player;
+        Allies.Add(tmp);
+    }
+
+
     public void OnAttackButton()
     {
         ButtonId = 0;
@@ -75,7 +112,53 @@ public class BattleSystem : StateMachine
 
     public void OnMouseUp()
     {
-        StartCoroutine(State.Attack());
+        _selected++;
+        Debug.Log("You selected:" + _selected +"target");
+    }
+
+    public void NextTurn()
+    {
+        while (!IsEmpty(Enemies))
+        {
+            SetState(new EnemyTurn(this));
+        }
+        
+        SetState(new Won(this));
+    }
+
+    public bool IsEmpty<T>(List<T> list)
+    {
+        if (list == null)
+        {
+            return true;
+        }
+        return !list.Any();
+    }
+    
+    public void RemoveDeadEnemies()
+    {
+        for (int i = Enemies.Count - 1; i >= 0; i--)
+        {
+            if (Enemies[i].CurrentHp <= 0)
+            {
+                Enemies.RemoveAt(i);
+            }
+        }
+    }
+    
+    private List<Entity> GetSelectedEnemies(List<Entity> enemies)
+    {
+        foreach (var enemy in enemies)
+        {
+            if (enemy.HaveBeTargeted())
+            {
+                if (enemy != null && enemy.HaveBeTargeted())
+                {
+                    Targetables.Add(enemy);
+                }
+            }
+        }
+        return Targetables;
     }
 
 }
