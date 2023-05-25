@@ -1,12 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System;
-
-
-using Currencies;
 
 public class ToolCurrencies : EditorWindow
 {
@@ -14,9 +8,9 @@ public class ToolCurrencies : EditorWindow
     public static int crystalsAmount;
     public static int energyAmount;
 
-    private Label goldLabel;
-    private Label crystalsLabel;
-    private Label energyLabel;
+    private Label _goldLabel;
+    private Label _crystalsLabel;
+    private Label _energyLabel;
 
     [MenuItem("Currencies/Gestion")]
     public static void ShowWindow()
@@ -36,9 +30,9 @@ public class ToolCurrencies : EditorWindow
         // CreateFields();
         CreateButtons();
 
-        goldLabel.text = "Gold: " + goldAmount;
-        crystalsLabel.text = "Crystals: " + crystalsAmount;
-        energyLabel.text = "Energy: " + energyAmount + " / 140";
+        _goldLabel.text = "Gold: " + goldAmount;
+        _crystalsLabel.text = "Crystals: " + crystalsAmount;
+        _energyLabel.text = "Energy: " + energyAmount + " / 140";
 
         rootVisualElement.Add(main);
 
@@ -48,16 +42,14 @@ public class ToolCurrencies : EditorWindow
     {
         PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.GetEnergy();
-
     }
 
     private void Update()
     {
-        goldLabel.text = "Gold: " + goldAmount;
-        crystalsLabel.text = "Crystals: " + crystalsAmount;
-        energyLabel.text = "Energy: " + energyAmount + " / 140";
+        _goldLabel.text = "Gold: " + goldAmount;
+        _crystalsLabel.text = "Crystals: " + crystalsAmount;
+        _energyLabel.text = "Energy: " + energyAmount + " / 140";
         if (EditorApplication.isPlaying && !EditorApplication.isPaused) { Repaint(); }
-
     }
 
     private void CreateLabels()
@@ -82,8 +74,7 @@ public class ToolCurrencies : EditorWindow
             },
         };
 
-
-        goldLabel = new()
+        _goldLabel = new()
         {
             text = "Gold: ",
             style =
@@ -94,8 +85,7 @@ public class ToolCurrencies : EditorWindow
             }
         };
 
-
-        crystalsLabel = new()
+        _crystalsLabel = new()
         {
             text = "Crystals: ",
             style =
@@ -106,7 +96,7 @@ public class ToolCurrencies : EditorWindow
             }
         };
 
-        energyLabel = new()
+        _energyLabel = new()
         {
             text = "Energy: ",
             style =
@@ -117,19 +107,14 @@ public class ToolCurrencies : EditorWindow
             }
         };
 
-
-
         rootVisualElement.Add(currenciesLabel);
-        rootVisualElement.Add(goldLabel);
-        rootVisualElement.Add(crystalsLabel);
-        rootVisualElement.Add(energyLabel);
+        rootVisualElement.Add(_goldLabel);
+        rootVisualElement.Add(_crystalsLabel);
+        rootVisualElement.Add(_energyLabel);
     }
-
 
     private void CreateButtons()
     {
-
-
         Button addGold = new()
         {
             text = "Add 100 000 Gold",
@@ -164,7 +149,6 @@ public class ToolCurrencies : EditorWindow
             }
         };
         addGold.clicked += AddGold;
-
 
         Button addCrystals = new()
         {
@@ -233,7 +217,6 @@ public class ToolCurrencies : EditorWindow
             }
         };
         addEnergy.clicked += AddEnergy;
-
 
         Button removeGold = new()
         {
@@ -306,7 +289,6 @@ public class ToolCurrencies : EditorWindow
             }
         };
         removeCrystals.clicked += RemoveCrystals;
-
 
         Button removeEnergy = new()
         {
@@ -383,12 +365,12 @@ public class ToolCurrencies : EditorWindow
         rootVisualElement.Add(addGoldField);
     }
 
-
     private void AddGold()
     {
         PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.AddCurrency("Gold", 100000);
     }
+
     private void AddCrystals()
     {
         PlayFabManager.Instance.GetCurrency();
@@ -418,5 +400,4 @@ public class ToolCurrencies : EditorWindow
         PlayFabManager.Instance.GetEnergy();
         PlayFabManager.Instance.RemoveEnergy(40);
     }
-
 }
