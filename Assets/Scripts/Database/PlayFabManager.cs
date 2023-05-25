@@ -134,9 +134,6 @@ public class PlayFabManager : MonoBehaviour
 
         if (_authData != null) CreateSave();
 
-        LoggedIn = true;
-        OnLoginSuccess?.Invoke();
-
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
         Debug.Log("PlayFabId: " + result.PlayFabId);
@@ -204,6 +201,8 @@ public class PlayFabManager : MonoBehaviour
 
     private void CreateData()
     {
+        LoggedIn = true;
+        OnLoginSuccess?.Invoke();
         UpdateData();
         AddCurrency("Gold", 1000);
     }
@@ -249,14 +248,16 @@ public class PlayFabManager : MonoBehaviour
             {
                 _datas[i].UpdateData(response.Objects[_datas[i].ClassName].EscapedDataObject);
             }
+
+            LoggedIn = true;
+            OnLoginSuccess?.Invoke();
+            Debug.Log("data obtained");
         }
         catch
         {
             Debug.LogWarning("data missing - creating missing ones...");
             UpdateData();
         }
-
-        Debug.Log("data obtained");
     }
 
     private void UpdateName(string name)
@@ -373,14 +374,42 @@ public class PlayFabManager : MonoBehaviour
         }, OnRequestError);
     }
 
-    public bool HasSupport(int id)
+    public Dictionary<int, int> GetSupports()
     {
-        return Inventory.Supports.Contains(id);
+        Dictionary<int, int> supports = new();
+
+        foreach (SupportData support in Inventory.Supports)
+        {
+            supports[support.Id] = support.Level;
+        }
+
+        return supports;
     }
 
-    public void AddSupport(int id)
+    public int HasSupport(int id)
     {
-        Inventory.Supports.Add(id);
+        for (int i = 0; i < Inventory.Supports.Count; i++)
+        {
+            if (Inventory.Supports[i].Id == id) return i;
+        }
+
+        return 0;
+    }
+
+    public void AddSupports(Dictionary<int, int> pulledSupports)
+    {
+        List<SupportData> supports = new();
+
+        foreach (KeyValuePair<int, int> support in pulledSupports)
+        {
+            supports.Add(new()
+            {
+                Id = support.Key,
+                Level = support.Value
+            });
+        }
+
+        Inventory.Supports = supports;
         UpdateData();
     }
 }

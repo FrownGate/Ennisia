@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InventoryData : Data
 {
-    public List<int> Supports;
+    public List<SupportData> Supports;
 
     public InventoryData()
     {
