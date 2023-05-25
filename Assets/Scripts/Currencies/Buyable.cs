@@ -3,66 +3,64 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.EconomyModels;
 
-namespace Currencies
+public class Buyable : MonoBehaviour
 {
-    public class Buyable : MonoBehaviour
+    private EntityKey _entity;
+
+    private void Start()
     {
-        private EntityKey _entity;
+        _entity = new() { Id = PlayFabManager.Instance.Entity.Id, Type = PlayFabManager.Instance.Entity.Type };
+    }
+    public void AddItemToInventory(string itemAlternateId)
+    {
+        PlayFabEconomyAPI.AddInventoryItems(new()
+        {
+            // CatalogVersion = "Items",
+            // PlayFabId = PlayFabManager.Instance.PlayFabId,
+            // ItemIds = new List<string> { "607c7159-82a0-4796-97aa-1b1d77cbe4db" }
 
-        private void Awake()
-        {
-            _entity = new() { Id = PlayFabManager.Instance.Entity.Id, Type = PlayFabManager.Instance.Entity.Type };
-        }
-        public void AddItemToInventory(string itemAlternateId)
-        {
-            PlayFabEconomyAPI.AddInventoryItems(new()
+            Entity = _entity,
+            Item = new InventoryItemReference
             {
-                // CatalogVersion = "Items",
-                // PlayFabId = PlayFabManager.Instance.PlayFabId,
-                // ItemIds = new List<string> { "607c7159-82a0-4796-97aa-1b1d77cbe4db" }
-
-                Entity = _entity,
-                Item = new InventoryItemReference
+                AlternateId = new AlternateId
                 {
-                    AlternateId = new AlternateId
-                    {
-                        Type = "FriendlyId",
-                        Value = itemAlternateId
-                    },
-                    // Id = "b9c6d241-67e4-4fd4-b459-c3cb2a462fcf",
-                    // StackId = "TsStack1"
+                    Type = "FriendlyId",
+                    Value = itemAlternateId
                 },
-                // FIXME: The amount will be a return from an int function
-                Amount = 1
-            }, OnAddedItemToInventorySucess, PlayFabManager.Instance.OnRequestError);
-        }
+                // Id = "b9c6d241-67e4-4fd4-b459-c3cb2a462fcf",
+                // StackId = "TsStack1"
+            },
+            // FIXME: The amount will be a return from an int function
+            Amount = 1
+        }, OnAddedItemToInventorySucess, PlayFabManager.Instance.OnRequestError);
+    }
 
-        private void OnAddedItemToInventorySucess(AddInventoryItemsResponse result)
-        {
-            Debug.Log("Successfully granted item: ");
-        }
+    private void OnAddedItemToInventorySucess(AddInventoryItemsResponse result)
+    {
+        Debug.Log("Successfully granted item: ");
+    }
 
-        public void PurchaseItem(string itemAlternateId, int itemAmount, string currencyId, int currencyAmount)
+    public void PurchaseItem(string itemAlternateId, int itemAmount, string currencyId, int currencyAmount)
+    {
+        PlayFabEconomyAPI.PurchaseInventoryItems(new()
         {
-            PlayFabEconomyAPI.PurchaseInventoryItems(new()
+            // CatalogVersion = "Items",
+            // PlayFabId = PlayFabManager.Instance.PlayFabId,
+            // ItemIds = new List<string> { "607c7159-82a0-4796-97aa-1b1d77cbe4db" }
+
+            Entity = _entity,
+            Item = new()
             {
-                // CatalogVersion = "Items",
-                // PlayFabId = PlayFabManager.Instance.PlayFabId,
-                // ItemIds = new List<string> { "607c7159-82a0-4796-97aa-1b1d77cbe4db" }
-
-                Entity = _entity,
-                Item = new()
+                AlternateId = new AlternateId
                 {
-                    AlternateId = new AlternateId
-                    {
-                        Type = "FriendlyId",
-                        Value = itemAlternateId
-                    },
-                    // Id = "b9c6d241-67e4-4fd4-b459-c3cb2a462fcf",
-                    // StackId = "TsStack1"
+                    Type = "FriendlyId",
+                    Value = itemAlternateId
                 },
-                Amount = itemAmount,
-                PriceAmounts = new List<PurchasePriceAmount>
+                // Id = "b9c6d241-67e4-4fd4-b459-c3cb2a462fcf",
+                // StackId = "TsStack1"
+            },
+            Amount = itemAmount,
+            PriceAmounts = new List<PurchasePriceAmount>
             {
                 new PurchasePriceAmount
                 {
@@ -74,12 +72,11 @@ namespace Currencies
                 }
             }
 
-            }, OnPurchaseItemSucess, PlayFabManager.Instance.OnRequestError);
-        }
+        }, OnPurchaseItemSucess, PlayFabManager.Instance.OnRequestError);
+    }
 
-        private void OnPurchaseItemSucess(PurchaseInventoryItemsResponse result)
-        {
-            Debug.Log("Successfully purchased item: ");
-        }
+    private void OnPurchaseItemSucess(PurchaseInventoryItemsResponse result)
+    {
+        Debug.Log("Successfully purchased item: ");
     }
 }

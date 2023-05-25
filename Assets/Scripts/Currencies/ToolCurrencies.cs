@@ -1,26 +1,31 @@
+using PlayFab.EconomyModels;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System;
-
-
-using Currencies;
 
 public class ToolCurrencies : EditorWindow
 {
-    public static int goldAmount;
-    public static int crystalsAmount;
-    public static int energyAmount;
+    private int _gold;
+    private int _crystals;
+    private int _energy;
 
-    private Label goldLabel;
-    private Label crystalsLabel;
-    private Label energyLabel;
+    private Label _goldLabel;
+    private Label _crystalsLabel;
+    private Label _energyLabel;
 
-    [MenuItem("Currencies/Gestion")]
+    private const string GOLD_ID = "0dc3228a-78a9-4d26-a3ab-f7d1e5b5c4d3"; //temp
+    private const string CRYSTALS_ID = "0ec7fd19-4c26-4e0a-bd66-cf94f83ef060"; //temp
+
+    [MenuItem("Tools/Currencies")]
     public static void ShowWindow()
     {
+        if (!PlayFabManager.Instance)
+        {
+            Debug.LogError("Game needs to be open to use this tool.");
+            return;
+        }
+
         GetWindow<ToolCurrencies>("Currencies");
         ToolCurrencies window = GetWindow<ToolCurrencies>("Currencies");
         window.titleContent = new GUIContent("Currencies");
@@ -33,31 +38,65 @@ public class ToolCurrencies : EditorWindow
         VisualElement main = new();
 
         CreateLabels();
-        // CreateFields();
+        //CreateFields();
         CreateButtons();
 
-        goldLabel.text = "Gold: " + goldAmount;
-        crystalsLabel.text = "Crystals: " + crystalsAmount;
-        energyLabel.text = "Energy: " + energyAmount + " / 140";
+        UpdateLabels();
 
         rootVisualElement.Add(main);
-
     }
 
     private void Awake()
     {
-        PlayFabManager.Instance.GetCurrency();
-        PlayFabManager.Instance.GetEnergy();
+        PlayFabManager.OnGetCurrencies += UpdateCurrencies;
+        PlayFabManager.OnGetEnergy += UpdateEnergy;
 
+        PlayFabManager.Instance.GetCurrencies();
+        PlayFabManager.Instance.GetEnergy();
+    }
+
+    private void OnDestroy()
+    {
+        PlayFabManager.OnGetCurrencies -= UpdateCurrencies;
+        PlayFabManager.OnGetEnergy -= UpdateEnergy;
     }
 
     private void Update()
     {
-        goldLabel.text = "Gold: " + goldAmount;
-        crystalsLabel.text = "Crystals: " + crystalsAmount;
-        energyLabel.text = "Energy: " + energyAmount + " / 140";
-        if (EditorApplication.isPlaying && !EditorApplication.isPaused) { Repaint(); }
+        if (EditorApplication.isPlaying) return;
+        Close();
+    }
 
+    private void UpdateCurrencies(List<InventoryItem> currencies)
+    {
+        foreach (InventoryItem item in currencies)
+        {
+            switch(item.Id)
+            {
+                case GOLD_ID:
+                    _gold = (int)item.Amount;
+                    break;
+                case CRYSTALS_ID:
+                    _crystals = (int)item.Amount;
+                    break;
+                default: break;
+            }
+        }
+
+        UpdateLabels();
+    }
+
+    private void UpdateEnergy(int energy)
+    {
+        _energy = energy;
+        UpdateLabels();
+    }
+
+    private void UpdateLabels()
+    {
+        _goldLabel.text = "Gold: " + _gold;
+        _crystalsLabel.text = "Crystals: " + _crystals;
+        _energyLabel.text = "Energy: " + _energy + " / 140";
     }
 
     private void CreateLabels()
@@ -82,8 +121,7 @@ public class ToolCurrencies : EditorWindow
             },
         };
 
-
-        goldLabel = new()
+        _goldLabel = new()
         {
             text = "Gold: ",
             style =
@@ -94,8 +132,7 @@ public class ToolCurrencies : EditorWindow
             }
         };
 
-
-        crystalsLabel = new()
+        _crystalsLabel = new()
         {
             text = "Crystals: ",
             style =
@@ -106,7 +143,7 @@ public class ToolCurrencies : EditorWindow
             }
         };
 
-        energyLabel = new()
+        _energyLabel = new()
         {
             text = "Energy: ",
             style =
@@ -117,19 +154,14 @@ public class ToolCurrencies : EditorWindow
             }
         };
 
-
-
         rootVisualElement.Add(currenciesLabel);
-        rootVisualElement.Add(goldLabel);
-        rootVisualElement.Add(crystalsLabel);
-        rootVisualElement.Add(energyLabel);
+        rootVisualElement.Add(_goldLabel);
+        rootVisualElement.Add(_crystalsLabel);
+        rootVisualElement.Add(_energyLabel);
     }
-
 
     private void CreateButtons()
     {
-
-
         Button addGold = new()
         {
             text = "Add 100 000 Gold",
@@ -164,7 +196,6 @@ public class ToolCurrencies : EditorWindow
             }
         };
         addGold.clicked += AddGold;
-
 
         Button addCrystals = new()
         {
@@ -234,7 +265,6 @@ public class ToolCurrencies : EditorWindow
         };
         addEnergy.clicked += AddEnergy;
 
-
         Button removeGold = new()
         {
             text = "Remove 100 000 Gold",
@@ -270,9 +300,6 @@ public class ToolCurrencies : EditorWindow
         };
         removeGold.clicked += RemoveGold;
 
-
-
-
         Button removeCrystals = new()
         {
             text = "Remove 2000 Crystals",
@@ -306,7 +333,6 @@ public class ToolCurrencies : EditorWindow
             }
         };
         removeCrystals.clicked += RemoveCrystals;
-
 
         Button removeEnergy = new()
         {
@@ -383,40 +409,33 @@ public class ToolCurrencies : EditorWindow
         rootVisualElement.Add(addGoldField);
     }
 
-
     private void AddGold()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.AddCurrency("Gold", 100000);
     }
+
     private void AddCrystals()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.AddCurrency("Crystals", 2000);
     }
 
     private void RemoveGold()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.RemoveCurrency("Gold", 100000);
     }
 
     private void RemoveCrystals()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.RemoveCurrency("Crystals", 2000);
     }
 
     private void AddEnergy()
     {
-        PlayFabManager.Instance.GetEnergy();
         PlayFabManager.Instance.AddEnergy(40);
     }
 
     private void RemoveEnergy()
     {
-        PlayFabManager.Instance.GetEnergy();
         PlayFabManager.Instance.RemoveEnergy(40);
     }
-
 }
