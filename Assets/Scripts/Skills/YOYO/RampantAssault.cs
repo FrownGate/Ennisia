@@ -7,7 +7,10 @@ public class RampantAssault : Skill
     private const float _percentagePerTurn = 0.05f;
     private float _damagePercentage = 0.2f;
 
-    
+    private void Awake()
+    {
+        fileName = "RampantAssault";
+    }
     public override void Use(Entity target, Entity player, int turn)
     {
         damageModifier = target.maxHp * _damagePercentage;

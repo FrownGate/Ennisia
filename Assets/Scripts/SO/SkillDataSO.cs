@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New SkillData", menuName = "Skill/New")]
+[CreateAssetMenu(fileName = "New SkillData", menuName = "Skill/New Data")]
 public class SkillData : ScriptableObject
 {
     /*Weapon weapon;*/
@@ -13,7 +13,6 @@ public class SkillData : ScriptableObject
     public string skillName;
     public bool isAfter;
     public bool AOE;
-    public bool use;
     public bool isMagic;
     Texture2D texture;
 

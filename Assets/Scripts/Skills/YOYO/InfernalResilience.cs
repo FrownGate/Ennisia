@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CripplingBlow : Skill
+public class InfernalResilience : Skill
 {
-
-    //replace player.damage
 
     private void Awake()
     {
-        fileName = "CripplingBlow";
+        fileName = "RampantAssault";
     }
-
     public override void Use(Entity target, Entity player, int turn)
     {
-
+        float missingHealth = player.maxHp - player.currentHp;
+        //give shield for 3 turn for shieldamount
     }
 }
