@@ -1,35 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    public List<Quest> dailyQuests;
-    public List<Quest> weeklyQuests;
+    private int dailyButtonPressCount;
+    private int weeklyButtonPressCount;
+
+    private const int dailyButtonPressTarget = 10;
+    private const int weeklyButtonPressTarget = 20;
+
+    private bool dailyQuestCompleted;
+    private bool weeklyQuestCompleted;
 
     private void Start()
     {
-        GenerateDailyQuests();
-        GenerateWeeklyQuests();
+        dailyButtonPressCount = 0;
+        weeklyButtonPressCount = 0;
+
+        dailyQuestCompleted = false;
+        weeklyQuestCompleted = false;
     }
 
-    private void GenerateDailyQuests()
+    public void OnButtonPress()
     {
-        // Generate daily quests here
+        dailyButtonPressCount++;
+        weeklyButtonPressCount++;
+
+        if (dailyButtonPressCount >= dailyButtonPressTarget && !dailyQuestCompleted)
+        {
+            CompleteDailyQuest();
+        }
+
+        if (weeklyButtonPressCount >= weeklyButtonPressTarget && !weeklyQuestCompleted)
+        {
+            CompleteWeeklyQuest();
+        }
     }
 
-    private void GenerateWeeklyQuests()
+    private void CompleteDailyQuest()
     {
-        // Generate weekly quests here
+        dailyQuestCompleted = true;
+        Debug.Log("Daily quest completed!");
+        // Ajoutez ici le code pour récompenser le joueur pour la quête quotidienne
     }
 
-    public void CheckQuestCompletion(Quest quest)
+    private void CompleteWeeklyQuest()
     {
-        // Check if the quest is completed and update its status
-    }
-
-    public void GrantReward(Quest quest)
-    {
-        // Grant the reward for the completed quest
+        weeklyQuestCompleted = true;
+        Debug.Log("Weekly quest completed!");
+        // Ajoutez ici le code pour récompenser le joueur pour la quête hebdomadaire
     }
 }
