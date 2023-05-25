@@ -14,6 +14,14 @@ public class GachaSystem : MonoBehaviour
 
     public void Summon()
     {
+
+        // if (PlayFabManager.Instance.GetCurrency("Crystals") < 200)
+        // {
+        //     Debug.LogWarning("Not enough currency");
+        //     return;
+        // }
+        // else 
+        PlayFabManager.Instance.RemoveCurrency("Crystals", 200);
         foreach (var item in GetRandomHeroFromPool(GetGachaPool(PickRarity())))
         {
             Debug.Log(item.Value);
