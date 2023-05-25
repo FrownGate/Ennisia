@@ -24,17 +24,26 @@ public class GachaSystem : MonoBehaviour
         PlayFabManager.Instance.RemoveCurrency("Crystals", 200);
         foreach (var item in GetRandomHeroFromPool(GetGachaPool(PickRarity())))
         {
-            Debug.Log(item.Value);
-
             // if (PlayFabManager.Instance.HasSupport(item.Key)) return;
             if (PlayFabManager.Instance.HasSupport(item.Key))
             {
-                Debug.Log("You already have this support" + item.Value);
+                Debug.Log("You already have this support : " + item.Value);
                 return;
             }
-            PlayFabManager.Instance.AddSupport(item.Key);
-            Debug.Log("=====================================");
+
+            List<KeyValuePair<int, string>> pooledSupports = new()
+            {
+                item
+            };
+
+            foreach (var support in pooledSupports)
+            {
+                Debug.Log(support.Value);
+            }
+
         }
+        // PlayFabManager.Instance.AddSupport(pooledSupports);
+        // PlayFabManager.Instance.AddSupport(item.Key);
     }
 
 
