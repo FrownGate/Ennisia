@@ -21,7 +21,7 @@ public class BattleSystem : StateMachine
     public List<Entity> Enemies { get; private set; }
     private int _maxEnemies => 10;
 
-    public Spell[] Spells;
+    public Skill[] Skills;
     
     public int ButtonId { get; private set; }
     
