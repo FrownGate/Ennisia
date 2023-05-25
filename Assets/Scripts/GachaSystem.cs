@@ -76,7 +76,12 @@ public class GachaSystem : MonoBehaviour
                 gachaPool.Add(int.Parse(rowData["ID"]), rowData["Name"]);
             }
         }
-        return gachaPool;
+        // return gachaPool;
+        return gachaPool.OrderBy(x => Guid.NewGuid()).ToDictionary(item => item.Key, item => item.Value);
+
+
+
+
     }
 
     private string[] SplitCSVLine(string line)
