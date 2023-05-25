@@ -43,7 +43,7 @@ public class ExperienceSystem : MonoBehaviour
     {
         _levelExperienceMap = new Dictionary<int, int>();
 
-        string filePath = Path.Combine(Application.dataPath, "CSV/PlayerXpCSVExport.csv");
+        string filePath = Path.Combine(Application.dataPath, "Editor/CSV/PlayerXpCSVExport.csv");
 
         string[] csvLines = File.ReadAllLines(filePath);
 
