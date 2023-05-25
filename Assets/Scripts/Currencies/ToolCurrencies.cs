@@ -367,37 +367,31 @@ public class ToolCurrencies : EditorWindow
 
     private void AddGold()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.AddCurrency("Gold", 100000);
     }
 
     private void AddCrystals()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.AddCurrency("Crystals", 2000);
     }
 
     private void RemoveGold()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.RemoveCurrency("Gold", 100000);
     }
 
     private void RemoveCrystals()
     {
-        PlayFabManager.Instance.GetCurrency();
         PlayFabManager.Instance.RemoveCurrency("Crystals", 2000);
     }
 
     private void AddEnergy()
     {
-        PlayFabManager.Instance.GetEnergy();
         PlayFabManager.Instance.AddEnergy(40);
     }
 
     private void RemoveEnergy()
     {
-        PlayFabManager.Instance.GetEnergy();
         PlayFabManager.Instance.RemoveEnergy(40);
     }
 }
