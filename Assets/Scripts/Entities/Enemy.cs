@@ -22,10 +22,6 @@
 
     public override bool HaveBeTargeted()
     {
-        if (this.IsSelected && !this.IsDead)
-        {
-            return true;
-        }
-        return false;
+        return IsSelected && !IsDead;
     }
 }

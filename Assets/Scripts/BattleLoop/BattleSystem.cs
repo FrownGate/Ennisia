@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using BattleLoop.BattleStates;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
-using Update = UnityEngine.PlayerLoop.Update;
 
 public class BattleSystem : StateMachine
 {
@@ -77,7 +72,7 @@ public class BattleSystem : StateMachine
 
                 GameObject enemyInstance = Instantiate(enemyPrefab, hexagonPosition, Quaternion.identity);
                 EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
-                Enemy tmp = enemyController._enemy;
+                Enemy tmp = enemyController.Enemy;
                 Enemies.Add(tmp);
             }
         }
@@ -90,7 +85,6 @@ public class BattleSystem : StateMachine
         Player tmp = playGo.GetComponent<PlayerController>().Player;
         Allies.Add(tmp);
     }
-
 
     public void OnAttackButton()
     {
@@ -160,5 +154,4 @@ public class BattleSystem : StateMachine
         }
         return Targetables;
     }
-
 }

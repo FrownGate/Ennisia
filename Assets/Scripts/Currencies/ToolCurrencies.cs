@@ -44,7 +44,6 @@ public class ToolCurrencies : EditorWindow
         UpdateLabels();
 
         rootVisualElement.Add(main);
-
     }
 
     private void Awake()
