@@ -1,70 +1,60 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Entities;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace BattleLoop.BattleStates
+public class SelectTarget : SelectSpell
 {
-    public class SelectTarget : SelectSpell
+    public SelectTarget(BattleSystem battleSystem) : base(battleSystem) { }
+
+    public override IEnumerator Start()
     {
-        public SelectTarget(BattleSystem battleSystem) : base(battleSystem)
+        BattleSystem.dialogueText.text = "Select a target";
+
+        yield return new WaitForSeconds(2.0f);
+    }
+
+    public override IEnumerator Attack()
+    {
+        BattleSystem._selected = 0;
+        // Check if Player is not null
+        /*if (BattleSystem.Player == null)
         {
+            Debug.LogError("Player is null");
+            yield break;
+        }*/
+
+        // Check if Targetables is not null and contains items
+        if (BattleSystem.Targetables == null || BattleSystem.Targetables.Count == 0)
+        {
+            Debug.LogError("Targetables is null or empty");
+            yield break;
         }
 
-        public override IEnumerator Start()
+        //Attack Button
+        if (_spellNumber == 0)
         {
-            BattleSystem.dialogueText.text = "Select a target";
-
-            yield return new WaitForSeconds(2.0f);
-        }
-        
-        public override IEnumerator Attack()
-        {
-            BattleSystem._selected = 0;
-            // Check if Player is not null
-            /*if (BattleSystem.Player == null)
+            foreach (var enemy in BattleSystem.Targetables)
             {
-                Debug.LogError("Player is null");
-                yield break;
-            }*/
-        
-            // Check if Targetables is not null and contains items
-            if (BattleSystem.Targetables == null || BattleSystem.Targetables.Count == 0)
-            {
-                Debug.LogError("Targetables is null or empty");
-                yield break;
-            }
-        
-            //Attack Button
-            if (_spellNumber == 0 )
-            {
-                foreach (var enemy in BattleSystem.Targetables)
+                // Check if enemy is not null
+                if (enemy == null)
                 {
-                    // Check if enemy is not null
-                    if (enemy == null)
-                    {
-                        Debug.LogError("Enemy in Targetables is null");
-                        continue;
-                    }
-
-                    enemy.TakeDamage(BattleSystem.Player.Damage);
+                    Debug.LogError("Enemy in Targetables is null");
+                    continue;
                 }
-            }else if (_spellNumber == 1)//Spell Button 1 
-            {
-                
-            }else if (_spellNumber == 2)//Spell Button 2 
-            {
-                
+
+                enemy.TakeDamage(BattleSystem.Player.Damage);
             }
-            
-            yield return new WaitForSeconds(1f);
-            
-            //BattleSystem.NextTurn();
+        }
+        else if (_spellNumber == 1)//Spell Button 1 
+        {
+
+        }
+        else if (_spellNumber == 2)//Spell Button 2 
+        {
+
         }
 
+        yield return new WaitForSeconds(1f);
 
-
-
+        //BattleSystem.NextTurn();
     }
 }
