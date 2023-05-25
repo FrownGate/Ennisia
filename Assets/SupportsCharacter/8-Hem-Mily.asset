@@ -17,8 +17,8 @@ MonoBehaviour:
   rarity: Legendary
   race: Elf
   supportClass: Healer
-  passif: 0
-  skill: 0
+  passif: {fileID: 0}
+  skill: {fileID: 0}
   description: Hem and Mily are elven twins that cannot be separated. Even Though
     they are two different people, they share the same thoughts and thus consider
     themselves as one. Since their birth they have been very close to the forest

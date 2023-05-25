@@ -17,8 +17,8 @@ MonoBehaviour:
   rarity: Legendary
   race: Human
   supportClass: Sword-Master
-  passif: 0
-  skill: 0
+  passif: {fileID: 0}
+  skill: {fileID: 0}
   description: A general of the Human army, rumored to be the strongest; he is known
     for his great sword skills, and his cunning mind. He is very cocky and believes
     no one to be stronger than him. He has a very serious and intimidating nature;

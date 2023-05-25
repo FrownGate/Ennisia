@@ -17,8 +17,8 @@ MonoBehaviour:
   rarity: Legendary
   race: Elf
   supportClass: Shield-Bearer
-  passif: 0
-  skill: 0
+  passif: {fileID: 0}
+  skill: {fileID: 0}
   description: "Lukass is a high ranking noble in the kingdom of Xothio. At an early
     age he was scared of everything, and it wasn\u2019t until his father gave him
     a shield that he started leaving the house. He is now a great Shield-Bearer and

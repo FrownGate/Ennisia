@@ -10,8 +10,8 @@ public class SupportsCharactersSO : ScriptableObject
     public string rarity;
     public string race;
     public string supportClass;
-    public int passif;
-    public int skill;
+    public Skill passif;
+    public Skill skill;
     public string description;
     public string catchPhrase;
 }
