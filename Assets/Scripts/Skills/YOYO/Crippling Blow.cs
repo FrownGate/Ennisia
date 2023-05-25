@@ -7,7 +7,10 @@ public class CripplingBlow : Skill
 
     //replace player.damage
 
-   
+    private void Awake()
+    {
+        fileName = "CripplingBlow";
+    }
 
     public override void Use(Entity target, Entity player, int turn)
     {
