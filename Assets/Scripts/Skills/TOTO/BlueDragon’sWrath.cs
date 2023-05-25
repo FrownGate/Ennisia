@@ -6,21 +6,15 @@ public class BLueDragonWraith : Skill
 {
 
 
-    /*    private void Start()
-        {
-            damageAmount = 100;
-            description = "Deals 3 hits to all enemies, creating a huge tidal wave.";
-            name = "Tidal Crash";
-            isMagic= true;
-            AOE = true;
-        }*/
-    /*public  override void Use(Entity target, Entity player, int turn)
+    private void Start()
     {
-
-    }*/
-    public override void Use(Entity target, Entity player, int turn)
+        fileName = "BlueDragonWraith";
+    }
+    public override float Use(List<Entity> targets, Entity player, int turn)
     {
-
+        float damage = data.damageAmount;
+        targets[0].TakeDamage(damage);
+        return damage;
     }
 }
 

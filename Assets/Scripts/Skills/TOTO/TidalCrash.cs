@@ -11,9 +11,11 @@ public class TidalCrash : Skill
         fileName = "TidalCrash";
     }
 
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity player, int turn)
     {
-
+        float damage = data.damageAmount;
+        targets[0].TakeDamage(damage);
+        return damage;
     }
 }
 

@@ -10,10 +10,11 @@ public class HolyPrayer : Skill
     {
         fileName = "HolyPrayer";
     }
-    public virtual void Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity player, int turn)
     {
         //attacksBuff
-        healingModifier = target.maxHp * 10 / 100;
+        //healingModifier = target.maxHp * 10 / 100;
+        return 0;
     }
 
 }

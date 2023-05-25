@@ -11,9 +11,9 @@ public class BloodContract : Skill
         fileName = "BloodContract";
     }
 
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity player, int turn)
     {
-
+        return 0;
     }
 }
 
