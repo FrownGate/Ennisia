@@ -7,7 +7,7 @@
         protected internal int Damage{ get; protected set; }
         protected internal int Speed{ get; protected set; }
         protected internal int CurrentHp { get; set; }
-        public bool IsSelected { get;  set; }
+        public bool IsSelected { get; private set; } = false;
 
         public bool IsDead
         {
@@ -18,16 +18,17 @@
             }
             private set{}
         }
-        
-        public void TakeDamage(int damage)
+
+        public virtual void TakeDamage(int damage)
         {
             CurrentHp -= damage;
-            IsSelected = false;
         }
 
-        public void HaveBeSelected()
+        public virtual bool HaveBeTargeted()
         {
-            IsSelected = true;
+            return true;
         }
+
+
     }
 }

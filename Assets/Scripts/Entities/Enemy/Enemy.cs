@@ -4,6 +4,7 @@ namespace Entities
 {
     public class Enemy : Entity
     {
+        public  bool IsSelected { get; private set; } = false;
 
         public Enemy()
         {
@@ -15,13 +16,25 @@ namespace Entities
             
         }
 
-        private void InitStats()
+        public void HaveBeSelected()
         {
-            
+            IsSelected = true;
+        }
+
+        public override void TakeDamage(int damage)
+        {
+            CurrentHp -= damage;
+            IsSelected = false;
         }
         
-        
-        
+        public override bool HaveBeTargeted()
+        {
+            if (this.IsSelected && !this.IsDead)
+            {
+                return true;
+            }
+            return false;
+        }
         
     }
 }

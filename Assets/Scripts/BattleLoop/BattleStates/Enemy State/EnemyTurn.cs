@@ -11,6 +11,7 @@ namespace BattleLoop.BattleStates
 
         public override IEnumerator Start()
         {
+            BattleSystem.dialogueText.text = "Enemy turn";
             
             /*if (BattleSystem.PlayerData.IsDead)
             {

@@ -11,9 +11,13 @@ namespace Entities
         private Slider _hpBar;
         public Enemy _enemy { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             _enemy = new Enemy();
+        }
+
+        private void Start()
+        {
             InitHUD();
         }
 
@@ -26,7 +30,6 @@ namespace Entities
         {
             _enemy.HaveBeSelected();
             Debug.Log("Enemy is selected" + _enemy.IsSelected);
-            _enemy.TakeDamage(10);
         }
 
         private void InitHUD()
@@ -34,6 +37,12 @@ namespace Entities
             _hpBar = GetComponentInChildren<Slider>();
             _hpBar.maxValue = _enemy.MaxHp;
             _hpBar.value = _enemy.CurrentHp;
+        }
+
+        public void InitEnemy()
+        {
+            
+            
         }
 
         private void UpdateHUD()

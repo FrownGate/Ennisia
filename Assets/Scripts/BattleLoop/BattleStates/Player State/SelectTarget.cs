@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Entities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BattleLoop.BattleStates
@@ -15,23 +17,39 @@ namespace BattleLoop.BattleStates
             BattleSystem.dialogueText.text = "Select a target";
 
             yield return new WaitForSeconds(2.0f);
-            
-            
         }
         
         public override IEnumerator Attack()
         {
+            BattleSystem._selected = 0;
+            // Check if Player is not null
+            /*if (BattleSystem.Player == null)
+            {
+                Debug.LogError("Player is null");
+                yield break;
+            }*/
+        
+            // Check if Targetables is not null and contains items
+            if (BattleSystem.Targetables == null || BattleSystem.Targetables.Count == 0)
+            {
+                Debug.LogError("Targetables is null or empty");
+                yield break;
+            }
+        
             //Attack Button
             if (_spellNumber == 0 )
             {
-                /*foreach (var enemy in BattleSystem.Enemies)
+                foreach (var enemy in BattleSystem.Targetables)
                 {
-                    if(CheckEnemyIsDead(enemy)) continue;
-                    if (enemy.IsSelected)
+                    // Check if enemy is not null
+                    if (enemy == null)
                     {
-                        //enemy.TakeDamage(BattleSystem.PlayerData.damage);
+                        Debug.LogError("Enemy in Targetables is null");
+                        continue;
                     }
-                }*/
+
+                    enemy.TakeDamage(BattleSystem.Player.Damage);
+                }
             }else if (_spellNumber == 1)//Spell Button 1 
             {
                 
@@ -40,31 +58,13 @@ namespace BattleLoop.BattleStates
                 
             }
             
-            //Set HP bar
-            //BattleSystem.enemyHUD.SetHp(BattleSystem.EnemyData.currentHp);
-            
-            /*if (BattleSystem.EnemyData.IsDead)
-            {
-                BattleSystem.SetState(new Won(BattleSystem));
-            }
-            else
-            {
-                BattleSystem.SetState(new EnemyTurn(BattleSystem));
-            }*/
-            
-            
             yield return new WaitForSeconds(1f);
+            
+            //BattleSystem.NextTurn();
         }
 
-        
-        private bool CheckEnemyIsDead(Entity enemy)
-        {
-            if (enemy.IsDead)
-            {
-                return true;
-            }
-            
-            return false;
-        }
+
+
+
     }
 }
