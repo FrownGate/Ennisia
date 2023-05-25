@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
@@ -7,11 +6,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private ScriptableObject enemyModifier;
 
     private Slider _hpBar;
-    public Enemy _enemy { get; private set; }
+    public Enemy Enemy { get; private set; }
 
     private void Awake()
     {
-        _enemy = new Enemy();
+        Enemy = new Enemy();
     }
 
     private void Start()
@@ -26,15 +25,15 @@ public class EnemyController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _enemy.HaveBeSelected();
-        Debug.Log("Enemy is selected" + _enemy.IsSelected);
+        Enemy.HaveBeSelected();
+        Debug.Log("Enemy is selected" + Enemy.IsSelected);
     }
 
     private void InitHUD()
     {
         _hpBar = GetComponentInChildren<Slider>();
-        _hpBar.maxValue = _enemy.MaxHp;
-        _hpBar.value = _enemy.CurrentHp;
+        _hpBar.maxValue = Enemy.MaxHp;
+        _hpBar.value = Enemy.CurrentHp;
     }
 
     public void InitEnemy()
@@ -45,6 +44,6 @@ public class EnemyController : MonoBehaviour
 
     private void UpdateHUD()
     {
-        _hpBar.value = _enemy.CurrentHp;
+        _hpBar.value = Enemy.CurrentHp;
     }
 }

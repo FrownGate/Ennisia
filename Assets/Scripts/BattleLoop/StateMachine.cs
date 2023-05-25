@@ -1,19 +1,12 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
+public abstract class StateMachine : MonoBehaviour
+{
+    protected State State;
 
-    public abstract class StateMachine : MonoBehaviour
+    public void SetState(State state)
     {
-        protected State State;
-
-        public void SetState(State state)
-        {
-            State = state;
-            StartCoroutine(State.Start());
-        }
-
-
+        State = state;
+        StartCoroutine(State.Start());
     }
-    
-    
-    
+}
