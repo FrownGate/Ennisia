@@ -13,7 +13,9 @@ public class HolyPrayer : Skill
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         //attacksBuff
-        //healingModifier = target.maxHp * 10 / 100;
+
+        player.currentHp += player.maxHp * 10 / 100;
+
         return 0;
     }
 
