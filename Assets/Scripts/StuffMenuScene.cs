@@ -50,8 +50,8 @@ namespace DefaultNamespace
             {
                 PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Earrings.name);
-            } 
-            
+            }
+
             if (buttonPressed == Helmet)
             {
                 PopupEmpty.SetActive(!PopupEmpty.activeSelf);
@@ -74,24 +74,24 @@ namespace DefaultNamespace
             {
                 PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Chest.name);
-            } 
-            
+            }
+
             if (buttonPressed == Boots)
             {
                 PopupEmpty.SetActive(!PopupEmpty.activeSelf);
                 Debug.Log("Clicked: " + Boots.name);
-            } 
-            
+            }
+
             if (buttonPressed == Weapon)
             {
                 Debug.Log("Clicked: " + Weapon.name);
-            } 
-            
+            }
+
             if (buttonPressed == Supp1)
             {
                 Debug.Log("Clicked: " + Supp1.name);
-            } 
-            
+            }
+
             if (buttonPressed == Supp2)
             {
                 Debug.Log("Clicked: " + Supp2.name);
@@ -101,8 +101,8 @@ namespace DefaultNamespace
             {
                 SceneManager.LoadScene("MainMenu");
                 Debug.Log("Clicked: " + Return.name);
-            }  
-            
+            }
+
             if (buttonPressed == Close)
             {
                 PopupEmpty.SetActive(!PopupEmpty.activeSelf);
