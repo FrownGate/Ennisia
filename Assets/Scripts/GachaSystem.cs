@@ -12,7 +12,7 @@ public class GachaSystem : MonoBehaviour
     private double _rareChance = 90;
 
 
-    public void GachaRoll()
+    public void Summon()
     {
         int range = 100;
         System.Random random = new();
@@ -32,15 +32,15 @@ public class GachaSystem : MonoBehaviour
 
     }
 
-    public void GachaRoll(int amount)
+    public void Summon(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            GachaRoll();
+            Summon();
         }
     }
 
-    public void GachaRoll(int amount, int guarantee)
+    public void Summon(int amount, int guarantee)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -48,7 +48,7 @@ public class GachaSystem : MonoBehaviour
             {
                 // guarantee
             }
-            GachaRoll();
+            Summon();
         }
     }
 
@@ -60,13 +60,13 @@ public class GachaSystem : MonoBehaviour
         Dictionary<int, string> gachaPool = new Dictionary<int, string>();
         for (int i = 1; i < lines.Length; i++)
         {
-            string[] values = CSVToSO.SplitCSVLine(lines[i]);
+            string[] values = SplitCSVLine(lines[i]);
             if (values.Length != headers.Length)
             {
                 Debug.LogError($"Error parsing line {i + 1} in CSV file. The number of values does not match the number of headers.");
                 continue;
             }
-            Dictionary<string, string> rowData = new Dictionary<string, string>();
+            Dictionary<string, string> rowData = new();
             for (int j = 0; j < headers.Length; j++)
             {
                 rowData[headers[j]] = values[j];
@@ -77,6 +77,35 @@ public class GachaSystem : MonoBehaviour
             }
         }
         return gachaPool;
+    }
+
+    private string[] SplitCSVLine(string line)
+    {
+        List<string> values = new();
+        bool insideQuotes = false;
+        string currentValue = "";
+
+        for (int i = 0; i < line.Length; i++)
+        {
+            char c = line[i];
+
+            if (c == '\"')
+            {
+                insideQuotes = !insideQuotes;
+            }
+            else if (c == ',' && !insideQuotes)
+            {
+                values.Add(currentValue);
+                currentValue = "";
+            }
+            else
+            {
+                currentValue += c;
+            }
+        }
+
+        values.Add(currentValue);
+        return values.ToArray();
     }
 
 
