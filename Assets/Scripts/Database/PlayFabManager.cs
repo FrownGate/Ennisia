@@ -19,6 +19,7 @@ public class PlayFabManager : MonoBehaviour
     public InventoryData Inventory { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
+    public bool LoggedIn { get; private set; }
 
     private Data[] _datas;
     private AuthData _authData;
@@ -42,7 +43,9 @@ public class PlayFabManager : MonoBehaviour
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
+            LoggedIn = false;
 
+            //TODO : Parfois la save est faussement found
             if (HasSave()) return;
             Debug.Log("no save found");
             AnonymousLogin();
@@ -108,11 +111,12 @@ public class PlayFabManager : MonoBehaviour
     {
         _datas = new Data[3]
         {
-            new AccountData(CreateUsername()), new PlayerData(), new InventoryData()
+            Account = new AccountData(CreateUsername()),
+            Player = new PlayerData(),
+            Inventory = new InventoryData()
         };
 
         Debug.Log("login success");
-        OnLoginSuccess?.Invoke();
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
 
@@ -130,6 +134,9 @@ public class PlayFabManager : MonoBehaviour
         }
 
         if (_authData != null) CreateSave();
+
+        LoggedIn = true;
+        OnLoginSuccess?.Invoke();
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
@@ -384,5 +391,16 @@ public class PlayFabManager : MonoBehaviour
     private void OnRemoveEnergySuccess(ModifyUserVirtualCurrencyResult result)
     {
         ToolCurrencies.energyAmount = result.Balance;
+    }
+
+    public bool HasSupport(int id)
+    {
+        return Inventory.Supports.Contains(id);
+    }
+
+    public void AddSupport(int id)
+    {
+        Inventory.Supports.Add(id);
+        UpdateData();
     }
 }
