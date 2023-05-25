@@ -11,9 +11,11 @@ public class TidalCrash : Skill
         damageAmount = 100;
         description = "Deals 3 hits to all enemies, creating a huge tidal wave.";
         name = "Tidal Crash";
+        isMagic= true;
         AOE = true;
     }
-    public override void Use(Entity target, Entity player)
+
+    public override void Use(Entity target, Entity player, int turn)
     {
 
     }
