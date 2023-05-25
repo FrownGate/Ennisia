@@ -60,13 +60,13 @@ public class CSVToSO : EditorWindow
             switch (type)
             {
                 case TypeCSV.support:
-                     createSupportSO(rowData);
+                    createSupportSO(rowData);
                     break;
                 default:
                     break;
             }
 
-            
+
         }
     }
 
@@ -79,7 +79,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.race = rowData["Race"];
         scriptableObject.supportClass = rowData["Class"];
         scriptableObject.description = rowData["Description"].Replace("\"", string.Empty);
-        scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty); 
+        scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
         // Save the scriptable object
         string savePath = $"Assets/SupportsCharacter/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
@@ -88,7 +88,7 @@ public class CSVToSO : EditorWindow
         AssetDatabase.Refresh();
     }
 
-    private string[] SplitCSVLine(string line)
+    public static string[] SplitCSVLine(string line)
     {
         List<string> values = new List<string>();
         bool insideQuotes = false;
