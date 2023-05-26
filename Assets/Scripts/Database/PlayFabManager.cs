@@ -190,12 +190,8 @@ public class PlayFabManager : MonoBehaviour
         foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
         {
             GameCurrencies[item.Id] = item.AlternateIds[0].Value;
-
-            if (_newPlayer)
-            {
-                CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
-                Currencies[GameCurrencies[item.Id]] = data.Initial;
-            }
+            CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
+            Currencies[GameCurrencies[item.Id]] = data.Initial;
         }
 
         if (_newPlayer)
@@ -212,6 +208,8 @@ public class PlayFabManager : MonoBehaviour
     {
         foreach(KeyValuePair<string, int> currency in Currencies)
         {
+            if (currency.Value == 0) continue;
+
             PlayFabEconomyAPI.AddInventoryItems(new()
             {
                 Entity = new() { Id = Entity.Id, Type = Entity.Type },

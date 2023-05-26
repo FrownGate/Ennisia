@@ -7,22 +7,26 @@ public class GachaSystem : MonoBehaviour
     [SerializeField] private double _epicChance = 9.5;
     [SerializeField] private double _rareChance = 90;
     [SerializeField] private int _cost = 100;
+    [SerializeField] private int _fragmentsPerDuplicate = 10;
 
     private Dictionary<int, int> _supports;
+    private int _fragmentsMultiplier;
 
-    //private void Start()
-    //{
-    //    PlayFabManager.OnLoginSuccess += Summon; //testing only
-    //}
+    private void Start()
+    {
+        //PlayFabManager.OnLoginSuccess += Summon; //testing only
+    }
 
-    //private void OnDestroy()
-    //{
-    //    PlayFabManager.OnLoginSuccess -= Summon; //testing only
-    //}
+    private void OnDestroy()
+    {
+        //PlayFabManager.OnLoginSuccess -= Summon; //testing only
+    }
 
+    //public void Summon() //testing only
     public void Summon(int amount)
     {
-        //int amount = 1; //testing only
+        //int amount = 10; //testing only
+        int newFragments = 0;
 
         if (PlayFabManager.Instance.Currencies["Crystals"] < _cost * amount)
         {
@@ -50,7 +54,7 @@ public class GachaSystem : MonoBehaviour
                 }
                 else
                 {
-                    //TODO -> convert to fragments
+                    newFragments += _fragmentsPerDuplicate * _fragmentsMultiplier;
                 }
             }
             else
@@ -60,6 +64,9 @@ public class GachaSystem : MonoBehaviour
         }
 
         PlayFabManager.Instance.AddSupports(_supports);
+
+        if (newFragments == 0) return;
+        PlayFabManager.Instance.AddCurrency("Fragments", newFragments);
     }
 
     private SupportsCharactersSO GetSupport()
@@ -74,14 +81,17 @@ public class GachaSystem : MonoBehaviour
         if (roll <= _legendaryChance)
         {
             pickedRarity = "Legendary";
+            _fragmentsMultiplier = 3;
         }
         else if (roll <= _epicChance)
         {
             pickedRarity = "Epic";
+            _fragmentsMultiplier = 2;
         }
         else if (roll <= _rareChance)
         {
             pickedRarity = "Rare";
+            _fragmentsMultiplier = 1;
         }
 
         SupportsCharactersSO[] gachaPool = Resources.LoadAll<SupportsCharactersSO>($"SupportsCharacter/{pickedRarity}");
