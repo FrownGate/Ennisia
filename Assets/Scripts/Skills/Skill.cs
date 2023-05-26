@@ -39,6 +39,11 @@ public abstract class Skill : MonoBehaviour
         return 0;
     }
 
+    public virtual void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage)
+    {
+
+    }
+
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
 

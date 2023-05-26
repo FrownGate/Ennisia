@@ -1,4 +1,6 @@
-﻿public abstract class Entity
+﻿using System.Collections.Generic;
+
+public abstract class Entity
 {
     protected internal int Level { get; protected set; }
     protected internal float MaxHp { get; protected set; }
@@ -16,6 +18,7 @@
 
     //protected internal List<Debuff> DebuffsList
 
+    protected internal List<Skill> Skills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
 
     public bool IsDead
