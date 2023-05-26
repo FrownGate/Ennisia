@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightBomb : Skill
+public class FeathersFall : Skill
 {
 
 
     private void Awake()
     {
-        fileName = "LightBomb";
+        fileName = "FeathersFall";
     }
 
     public override float Use(List<Entity> targets, Entity player, int turn)

@@ -6,7 +6,7 @@ public class InAFlash : Skill
 {
 
 
-    private void Start()
+    private void Awake()
     {
         fileName = "InAFlash";
     }
@@ -16,6 +16,7 @@ public class InAFlash : Skill
         float damage = data.damageAmount;
         targets[0].TakeDamage(damage);
         //Take it back
+        cd = data.maxCooldown;
         return damage;
     }
 }

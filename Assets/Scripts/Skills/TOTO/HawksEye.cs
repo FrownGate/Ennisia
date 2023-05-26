@@ -1,23 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class HolyPrayer : Skill
+public class HawksEye : Skill
 {
+
 
     private void Awake()
     {
-        fileName = "HolyPrayer";
+        fileName = "HawksEye";
     }
+
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        //attacksBuff
-
-        player.currentHp += player.maxHp * 10 / 100;
-        cd = data.maxCooldown;
+        //give CR / CD / ATTACK Buff
+        //give additional turn
         return 0;
     }
-
 }
-    
+
