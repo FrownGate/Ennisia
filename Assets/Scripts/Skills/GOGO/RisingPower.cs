@@ -12,9 +12,10 @@ public class RisingPower : Skill
     {
         damageModifier = data.damageAmount;
     }
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> target, Entity player, int turn)
     {
         //add weapon conndition, if two handed sword equiped -> increase atk by 30%, else increase atk by 15%
         damageModifier = player.damage + player.damage*0.15f;
+        return 0;
     }
 }

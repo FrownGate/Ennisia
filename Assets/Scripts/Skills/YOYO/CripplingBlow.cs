@@ -5,15 +5,25 @@ using UnityEngine;
 public class CripplingBlow : Skill
 {
 
-    //replace player.damage
+    ///TO DO -> replace player.damage for physical damage
+    /// TO DO -> add defense debuff for x turns
+    /// 
+
 
     private void Awake()
     {
         fileName = "CripplingBlow";
     }
 
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        damageModifier = player.damage * data.damageAmount;
+        float damage = player.damage * data.damageAmount/100;
+
+        float debuffLuck = Random.Range(0, 1);
+        if (debuffLuck >= 0.8)
+        {
+            //debuff defense by 70%
+        }
+        return damage;
     }
 }

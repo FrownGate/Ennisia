@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class InfernalResilience : Skill
@@ -9,9 +10,11 @@ public class InfernalResilience : Skill
     {
         fileName = "RampantAssault";
     }
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> target, Entity player, int turn)
     {
         float missingHealth = player.maxHp - player.currentHp;
+        float shield = missingHealth * data.shieldAmount / 100;
         //give shield for 3 turn for shieldamount
+        return 0;
     }
 }

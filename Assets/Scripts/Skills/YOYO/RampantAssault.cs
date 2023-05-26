@@ -11,9 +11,9 @@ public class RampantAssault : Skill
     {
         fileName = "RampantAssault";
     }
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        damageModifier = target.maxHp * _damagePercentage;
+        damageModifier = targets[0].maxHp * _damagePercentage;
         float percOfAddDamage = _percentagePerTurn * turn;
 
         if (percOfAddDamage > 0.5f)
@@ -23,5 +23,6 @@ public class RampantAssault : Skill
 
         float damagePerTurn = damageModifier * percOfAddDamage;
         damageModifier += damagePerTurn;
+        return damageModifier;
     }
 }
