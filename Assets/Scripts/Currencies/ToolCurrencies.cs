@@ -51,7 +51,7 @@ public class ToolCurrencies : EditorWindow
         PlayFabManager.OnGetCurrencies += UpdateCurrencies;
         PlayFabManager.OnGetEnergy += UpdateEnergy;
 
-        PlayFabManager.Instance.GetCurrencies();
+        PlayFabManager.Instance.GetPlayerCurrencies();
         PlayFabManager.Instance.GetEnergy();
     }
 

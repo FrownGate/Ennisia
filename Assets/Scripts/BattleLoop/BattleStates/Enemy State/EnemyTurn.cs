@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTurn : State
@@ -9,16 +10,13 @@ public class EnemyTurn : State
     {
         BattleSystem.dialogueText.text = "Enemy turn";
 
-        /*if (BattleSystem.PlayerData.IsDead)
-        {
-            BattleSystem.SetState(new Lost(BattleSystem));
-        }
-        else
-        {
-            BattleSystem.SetState(new PlayerTurn(BattleSystem));
-        }*/
-
-        yield return new WaitForSeconds(1.5f);
+        BattleSystem.RemoveDeadEnemies();
+        
+        BattleSystem.Allies[0].TakeDamage(BattleSystem.Enemies[0].Damage);
+        
+        yield return new WaitForSeconds(0.5f);
+        
+        BattleSystem.SetState(new PlayerTurn(BattleSystem));
     }
 
     public override IEnumerator Attack()
