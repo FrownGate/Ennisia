@@ -9,8 +9,8 @@ public class Blessing : Skill
         fileName = "Blessing";
     }
 
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(Entity target, Entity player, int turn)
     {
-        damageModifier = player.damage * 0.05f;
+        return damageModifier = player.damage * 0.05f;
     }
 }

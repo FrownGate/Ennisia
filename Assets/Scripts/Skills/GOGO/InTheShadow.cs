@@ -9,8 +9,9 @@ public class InTheShadow : Skill
         fileName = "InTheShadow";
     }
 
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(Entity target, Entity player, int turn)
     {
         //if enemy is debuff, 50% chance to play again
+        return 0;
     }
 }
