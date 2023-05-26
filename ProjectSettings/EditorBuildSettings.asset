@@ -33,9 +33,9 @@ EditorBuildSettings:
     path: Assets/Scenes/RaidDifficulty.unity
     guid: abc10c5336e5fc54dacfe5ff797e929e
   - enabled: 1
-    path: Assets/Scenes/Settings.unity
+    path: Assets/Scenes/SettingsPopup.unity
     guid: c1e758dfa5282754a93a2b23908c3fd4
   - enabled: 1
-    path: Assets/Scenes/Profile.unity
+    path: Assets/Scenes/ProfilePopup.unity
     guid: a2d12d7d40bbbb945a67991d2cf73c6b
   m_configObjects: {}
