@@ -6,24 +6,35 @@ public class GachaSystem : MonoBehaviour
     [SerializeField] private double _legendaryChance = 0.5;
     [SerializeField] private double _epicChance = 9.5;
     [SerializeField] private double _rareChance = 90;
+    [SerializeField] private int _cost = 100;
 
     private Dictionary<int, int> _supports;
 
-    private void Start()
-    {
-        PlayFabManager.OnLoginSuccess += Summon; //testing only
-    }
+    //private void Start()
+    //{
+    //    PlayFabManager.OnLoginSuccess += Summon; //testing only
+    //}
 
-    private void OnDestroy()
-    {
-        PlayFabManager.OnLoginSuccess -= Summon; //testing only
-    }
+    //private void OnDestroy()
+    //{
+    //    PlayFabManager.OnLoginSuccess -= Summon; //testing only
+    //}
 
-    public void Summon()
+    public void Summon(int amount)
     {
-        int amount = 10;
-        //TODO -> check currencies
-        //Add amount in parameters
+        //int amount = 1; //testing only
+
+        if (PlayFabManager.Instance.Currencies["Crystals"] < _cost * amount)
+        {
+            Debug.LogError("not enough crystals");
+            //TODO -> Show UI error message
+            return;
+        }
+        else
+        {
+            PlayFabManager.Instance.RemoveCurrency("Crystals", _cost * amount);
+        }
+
         _supports = PlayFabManager.Instance.GetSupports();
 
         for (int i = 0; i < amount; i++)

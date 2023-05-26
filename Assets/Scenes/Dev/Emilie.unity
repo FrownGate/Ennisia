@@ -347,3 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288f1978c3b7554418003819d871924c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _legendaryChance: 0.5
+  _epicChance: 9.5
+  _rareChance: 90
+  _cost: 100
