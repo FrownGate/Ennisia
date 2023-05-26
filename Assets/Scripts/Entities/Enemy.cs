@@ -2,7 +2,7 @@
 {
     public Enemy()
     {
-        Damage = 20;
+        Attack = 20;
         MaxHp = 200;
         Level = 10;
         Speed = 200;
@@ -14,7 +14,7 @@
         IsSelected = true;
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         CurrentHp -= damage;
         IsSelected = false;

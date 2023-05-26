@@ -7,6 +7,7 @@ public class PlayerTurn : State
 
     public override IEnumerator Start()
     {
+        BattleSystem.turn += 1;
         BattleSystem.dialogueText.text = "Your turn";
         yield return new WaitForSeconds(1.0f);
     }
