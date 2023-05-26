@@ -7,6 +7,7 @@ public class ScenesManager : MonoBehaviour
 
     private Scene _activeScene;
     private Scene _previousScene;
+    private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
 
     private void Awake()
@@ -32,16 +33,29 @@ public class ScenesManager : MonoBehaviour
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
+    private LoadSceneMode SceneMode()
+    {
+        if (_sceneToLoad.Contains("Popup"))
+        {
+            return LoadSceneMode.Additive;
+        }
+        else
+        {
+            return LoadSceneMode.Single;
+        }
+    }
+
     public void SetScene(string scene)
     {
         _sceneToLoad = scene;
         Debug.Log($"Going to scene {_sceneToLoad}");
-        SceneManager.LoadScene(_sceneToLoad);
+        SceneManager.LoadScene(_sceneToLoad, SceneMode());
     }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
         _activeScene = scene;
+        _sceneMode = mode;
         Debug.Log($"{_activeScene.name} loaded !");
     }
 
