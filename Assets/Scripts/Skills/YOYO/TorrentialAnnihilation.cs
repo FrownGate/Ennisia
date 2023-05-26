@@ -14,7 +14,7 @@ public class TorrentialAnnihilation : Skill
     {
         for (int i = 0; i < targets.Count; i++)
         {
-            if (player.Damage > targets[i].Damage)
+            if (player.Attack > targets[i].Attack)
             {
                 //TODO -> cleanse target's buff
             }

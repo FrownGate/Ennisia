@@ -12,7 +12,7 @@ public class EnemyTurn : State
 
         BattleSystem.RemoveDeadEnemies();
         
-        BattleSystem.Allies[0].TakeDamage(BattleSystem.Enemies[0].Damage);
+        BattleSystem.Allies[0].TakeDamage(BattleSystem.Enemies[0].Attack);
         
         yield return new WaitForSeconds(0.5f);
         
