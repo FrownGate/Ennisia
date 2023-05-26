@@ -36,7 +36,8 @@ public class PlayFabManager : MonoBehaviour
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
-    private bool _newPlayer;
+    private bool _firstLogin;
+    private int _currenciesAdded;
 
     #region 1 - Login
     //HasLocalSave -> Login
@@ -53,6 +54,7 @@ public class PlayFabManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
 
+            _authData = new();
             _binaryFormatter = new();
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
@@ -60,7 +62,7 @@ public class PlayFabManager : MonoBehaviour
 
             //TODO : Parfois la save est faussement found
             if (HasLocalSave()) return;
-            Debug.Log("no save found");
+            Debug.Log("No local save found -> anonymous login");
             AnonymousLogin();
 
             //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
@@ -79,16 +81,21 @@ public class PlayFabManager : MonoBehaviour
             {
                 _authData = (AuthData)_binaryFormatter.Deserialize(file);
             }
+
+            Debug.Log("Loading local save...");
+            Login(_authData.email, _authData.password);
+            return true;
         }
         catch
         {
             File.Delete(_path);
             return false;
         }
+    }
 
-        Debug.Log("save found");
-        Login(_authData.email, _authData.password);
-        return true;
+    private bool HasAuthData()
+    {
+        return !string.IsNullOrEmpty(_authData.email) && !string.IsNullOrEmpty(_authData.email);
     }
 
     private void CreateAccountData(string email, string password)
@@ -118,7 +125,6 @@ public class PlayFabManager : MonoBehaviour
 
     private void AnonymousLogin()
     {
-        Debug.Log("anonymous login");
         PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
@@ -132,35 +138,32 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnLoginRequestSuccess(LoginResult result)
     {
+        Debug.Log("Login request success !");
+        string username = CreateUsername();
+
         _datas = new Data[3]
         {
-            Account = new AccountData(CreateUsername()),
+            Account = new AccountData(username),
             Player = new PlayerData(),
             Inventory = new InventoryData()
         };
 
-        Debug.Log("login success");
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
 
         UserAccountInfo info = result.InfoResultPayload.AccountInfo;
-        _newPlayer = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
+        _firstLogin = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
 
-        if (_authData != null) CreateSave();
+        if (HasAuthData()) CreateSave();
 
         GetCurrencies();
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
-        Debug.Log("PlayFabId: " + result.PlayFabId);
-        Debug.Log("SessionTicket: " + result.SessionTicket);
-        Debug.Log("EntityToken: " + result.EntityToken.EntityToken);
     }
 
     private void OnLoginRequestError(PlayFabError error)
     {
-        Debug.Log("success");
-
         OnRequestError(error);
         _authData ??= null;
 
@@ -194,7 +197,7 @@ public class PlayFabManager : MonoBehaviour
             Currencies[GameCurrencies[item.Id]] = data.Initial;
         }
 
-        if (_newPlayer)
+        if (_firstLogin)
         {
             CreateInitialCurrencies();
         }
@@ -284,7 +287,7 @@ public class PlayFabManager : MonoBehaviour
                 Id = Entity.Id,
                 Type = Entity.Type
             }
-        }, res => { Login(); }, OnRequestError);
+        }, res => { CompleteLogin(); }, OnRequestError);
     }
 
     private void GetUserDatas()
@@ -309,8 +312,7 @@ public class PlayFabManager : MonoBehaviour
                 _datas[i].UpdateLocalData(response.Objects[_datas[i].ClassName].EscapedDataObject);
             }
 
-            Login();
-            Debug.Log("data obtained");
+            CompleteLogin();
 
         }
         catch
@@ -320,12 +322,15 @@ public class PlayFabManager : MonoBehaviour
         }
     }
 
-    private void Login()
+    private void CompleteLogin()
     {
         if (!LoggedIn)
         {
+            if (_firstLogin) UpdateName(Account.Name);
+            _firstLogin = false;
             LoggedIn = true;
             OnLoginSuccess?.Invoke();
+            Debug.Log("Login complete !");
         }
     }
     #endregion
@@ -447,19 +452,25 @@ public class PlayFabManager : MonoBehaviour
     #region Account
     private void RegisterAccount(string email, string password) //This function will be registered to a button event
     {
+        Debug.Log("Register account...");
         CreateAccountData(email, password);
+        string username = CreateUsername(email);
 
         PlayFabClientAPI.AddUsernamePassword(new AddUsernamePasswordRequest()
         {
-            Username = CreateUsername(email), //Create unique username with email
+            Username = username, //Create unique username with email
             Email = email,
             Password = password //Password must be between 6 and 100 characters
         },
-        res => { CreateSave(); }, OnRequestError);
+        res => {
+            UpdateName(username);
+            CreateSave();
+        }, OnRequestError);
     }
 
     private void UpdateName(string name)
     {
+        Debug.Log("Updating username...");
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
         {
             DisplayName = name
@@ -472,19 +483,20 @@ public class PlayFabManager : MonoBehaviour
     {
         string name = email.Split('@')[0];
         name += SystemInfo.deviceUniqueIdentifier[..5];
-        Debug.Log($"creating username {name}");
-        UpdateName(name);
+        Debug.Log($"Creating username {name}...");
         return name;
     }
 
     private void CreateSave()
     {
+        Debug.Log("Creating local save...");
+
         using (FileStream file = new(_path, FileMode.OpenOrCreate))
         {
             _binaryFormatter.Serialize(file, _authData);
         }
 
-        _authData = null;
+        _authData = new();
     }
 
     public void OnRequestError(PlayFabError error)
