@@ -7,6 +7,7 @@ using UnityEngine;
 using PlayFab.DataModels;
 using PlayFab.EconomyModels;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class PlayFabManager : MonoBehaviour
     private BinaryFormatter _binaryFormatter;
     private string _path;
     private bool _firstLogin;
-    private int _currenciesAdded;
+    private bool _currencyAdded;
 
     #region 1 - Login
     //HasLocalSave -> Login
@@ -199,7 +200,7 @@ public class PlayFabManager : MonoBehaviour
 
         if (_firstLogin)
         {
-            CreateInitialCurrencies();
+            StartCoroutine(CreateInitialCurrencies());
         }
         else
         {
@@ -207,11 +208,14 @@ public class PlayFabManager : MonoBehaviour
         }
     }
 
-    private void CreateInitialCurrencies()
+    private IEnumerator CreateInitialCurrencies()
     {
         foreach(KeyValuePair<string, int> currency in Currencies)
         {
             if (currency.Value == 0) continue;
+
+            Debug.Log($"Giving initial {currency.Key}...");
+            _currencyAdded = false;
 
             PlayFabEconomyAPI.AddInventoryItems(new()
             {
@@ -225,10 +229,16 @@ public class PlayFabManager : MonoBehaviour
                         Value = currency.Key
                     }
                 }
-            }, null, OnRequestError);
+            }, res => {
+                Debug.Log($"{currency.Key} given !");
+                _currencyAdded = true;
+            }, OnRequestError);
+
+            yield return new WaitUntil(() => _currencyAdded);
         }
 
         UpdateData();
+        yield return null;
     }
 
     public void GetPlayerCurrencies()
