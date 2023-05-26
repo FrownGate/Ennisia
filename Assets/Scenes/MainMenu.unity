@@ -599,9 +599,8 @@ GameObject:
   - component: {fileID: 139167419}
   - component: {fileID: 139167418}
   - component: {fileID: 139167417}
-  - component: {fileID: 139167421}
   m_Layer: 5
-  m_Name: PcVers
+  m_Name: PC Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,18 +706,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &139167421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139167416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1370aed02165264bb10637e02e630e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &186476188 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7476373735756533189, guid: 9af52c4b9f8799848afcafb549952677, type: 3}
