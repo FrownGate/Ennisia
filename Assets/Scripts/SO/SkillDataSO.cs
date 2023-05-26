@@ -5,6 +5,7 @@ public class SkillData : ScriptableObject
 {
     /*Weapon weapon;*/
     public int hitNb;
+    public int maxCooldown;
     public float healingAmount;
     public float damageAmount;
     public float shieldAmount;
