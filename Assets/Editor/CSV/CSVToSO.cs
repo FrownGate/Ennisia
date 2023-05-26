@@ -78,7 +78,7 @@ public class CSVToSO : EditorWindow
                     break;
             }
 
-            
+
         }
     }
 
@@ -91,7 +91,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.race = rowData["Race"];
         scriptableObject.supportClass = rowData["Class"];
         scriptableObject.description = rowData["Description"].Replace("\"", string.Empty);
-        scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty); 
+        scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
         // Save the scriptable object
         string savePath = $"Assets/SupportsCharacter/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
