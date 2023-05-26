@@ -20,11 +20,7 @@ public class ImpregnableDefense : Skill
     public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn)
     {
 
-        if(turn !>4)
-        {
-            defenseAdded = defenseToAdd * turn;
-        }
-
+        defenseAdded = turn < 4 ? defenseToAdd * turn : defenseAdded;
         //need to add afterBattleFunction to take off stats
     }
 
