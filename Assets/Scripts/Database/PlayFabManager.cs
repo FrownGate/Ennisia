@@ -15,18 +15,32 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<PlayFabError> OnError;
     public static event Action<List<InventoryItem>> OnGetCurrencies;
     public static event Action<int> OnGetEnergy;
+    public static event Action OnCurrencyUpdate;
 
     public AccountData Account { get; private set; }
     public PlayerData Player { get; private set; }
     public InventoryData Inventory { get; private set; }
+    public Dictionary<string, string> GameCurrencies { get; private set; }
+    public Dictionary<string, int> Currencies { get; private set; }
+    public int Energy { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
     public bool LoggedIn { get; private set; }
+
+    private struct CurrencyData
+    {
+        public int Initial;
+    }
 
     private Data[] _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
+    private bool _newPlayer;
+
+    #region 1 - Login
+    //HasLocalSave -> Login
+    //Else -> Anonymous Login
 
     private void Awake()
     {
@@ -45,7 +59,7 @@ public class PlayFabManager : MonoBehaviour
             LoggedIn = false;
 
             //TODO : Parfois la save est faussement found
-            if (HasSave()) return;
+            if (HasLocalSave()) return;
             Debug.Log("no save found");
             AnonymousLogin();
 
@@ -54,7 +68,7 @@ public class PlayFabManager : MonoBehaviour
         }
     }
 
-    private bool HasSave()
+    private bool HasLocalSave()
     {
         //Check if binary file with user datas exists
         if (!File.Exists(_path)) return false;
@@ -75,6 +89,16 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log("save found");
         Login(_authData.email, _authData.password);
         return true;
+    }
+
+    private void CreateAccountData(string email, string password)
+    {
+        //Create binary file with user datas
+        _authData = new()
+        {
+            email = email,
+            password = password
+        };
     }
 
     private void Login(string email, string password)
@@ -120,19 +144,11 @@ public class PlayFabManager : MonoBehaviour
         Entity = result.EntityToken.Entity;
 
         UserAccountInfo info = result.InfoResultPayload.AccountInfo;
-        bool newPlayer = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
-
-        if (newPlayer)
-        {
-            Debug.Log("new player");
-            CreateData();
-        }
-        else
-        {
-            GetUserDatas();
-        }
+        _newPlayer = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
 
         if (_authData != null) CreateSave();
+
+        GetCurrencies();
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
@@ -150,75 +166,108 @@ public class PlayFabManager : MonoBehaviour
 
         if (File.Exists(_path)) File.Delete(_path);
     }
+    #endregion
 
-    public void OnRequestError(PlayFabError error)
+    #region 2 - Currencies
+    //Get game currencies
+    //New player -> Add initial currencies
+    //Else -> Get currencies
+
+    private void GetCurrencies()
     {
-        Debug.LogError(error.GenerateErrorReport());
-        OnError?.Invoke(error);
+        Debug.Log("Getting game currencies...");
+        PlayFabEconomyAPI.SearchItems(new()
+        {
+            Filter = $"ContentType eq 'currency'"
+        }, OnGetCurrencySuccess, OnRequestError);
     }
 
-    private void RegisterAccount(string email, string password) //This function will be registered to a button event
+    private void OnGetCurrencySuccess(SearchItemsResponse response)
     {
-        CreateAccountData(email, password);
+        GameCurrencies = new();
+        Currencies = new();
 
-        PlayFabClientAPI.AddUsernamePassword(new AddUsernamePasswordRequest()
+        foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
         {
-            Username = CreateUsername(email), //Create unique username with email
-            Email = email,
-            Password = password //Password must be between 6 and 100 characters
-        },
-        res => { CreateSave(); }, OnRequestError);
-    }
+            GameCurrencies[item.Id] = item.AlternateIds[0].Value;
 
-    private void CreateAccountData(string email, string password)
-    {
-        //Create binary file with user datas
-        _authData = new()
-        {
-            email = email,
-            password = password
-        };
-    }
-
-    private void CreateSave()
-    {
-        using (FileStream file = new(_path, FileMode.OpenOrCreate))
-        {
-            _binaryFormatter.Serialize(file, _authData);
+            if (_newPlayer)
+            {
+                CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
+                Currencies[GameCurrencies[item.Id]] = data.Initial;
+            }
         }
 
-        _authData = null;
-    }
-
-    private string CreateUsername(string email = "user")
-    {
-        string name = email.Split('@')[0];
-        name += SystemInfo.deviceUniqueIdentifier[..5];
-        Debug.Log($"creating username {name}");
-        UpdateName(name);
-        return name;
-    }
-
-    private void CreateData()
-    {
-        LoggedIn = true;
-        OnLoginSuccess?.Invoke();
-        UpdateData();
-        AddCurrency("Gold", 1000);
-    }
-
-    private void GetUserDatas()
-    {
-        PlayFabDataAPI.GetObjects(new GetObjectsRequest
+        if (_newPlayer)
         {
-            EscapeObject = true,
-            Entity = new()
-            {
-                Id = Entity.Id,
-                Type = Entity.Type
-            }
-        }, OnDataObtained, OnRequestError);
+            CreateInitialCurrencies();
+        }
+        else
+        {
+            GetPlayerCurrencies();
+        }
     }
+
+    private void CreateInitialCurrencies()
+    {
+        foreach(KeyValuePair<string, int> currency in Currencies)
+        {
+            PlayFabEconomyAPI.AddInventoryItems(new()
+            {
+                Entity = new() { Id = Entity.Id, Type = Entity.Type },
+                Amount = currency.Value,
+                Item = new()
+                {
+                    AlternateId = new()
+                    {
+                        Type = "FriendlyId",
+                        Value = currency.Key
+                    }
+                }
+            }, null, OnRequestError);
+        }
+
+        UpdateData();
+    }
+
+    public void GetPlayerCurrencies()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $"stackId eq 'currency'"
+        }, OnGetPlayerCurrenciesSuccess, OnRequestError);
+    }
+
+    private void OnGetPlayerCurrenciesSuccess(GetInventoryItemsResponse response)
+    {
+        foreach (InventoryItem item in response.Items)
+        {
+            Currencies[GameCurrencies[item.Id]] = (int)item.Amount;
+        }
+
+        OnGetCurrencies?.Invoke(response.Items); //temp
+        GetEnergy();
+    }
+
+    public void GetEnergy()
+    {
+        PlayFabClientAPI.GetUserInventory(new() { }, OnGetEnergySuccess, OnRequestError);
+    }
+
+    private void OnGetEnergySuccess(GetUserInventoryResult result)
+    {
+        Energy = result.VirtualCurrency["EN"];
+        OnGetEnergy?.Invoke(Energy); //temp ?
+        GetUserDatas();
+    }
+    #endregion
+
+    #region 3 - User Datas
+    //Datas = Account, Player, Inventory
+    //New player -> Create datas then Update
+    //Else -> Get existing datas
+    //Set LoggedIn as true and invoke Login event
 
     private void UpdateData()
     {
@@ -237,7 +286,20 @@ public class PlayFabManager : MonoBehaviour
                 Id = Entity.Id,
                 Type = Entity.Type
             }
-        }, res => { Debug.Log("data updated"); }, OnRequestError);
+        }, res => { Login(); }, OnRequestError);
+    }
+
+    private void GetUserDatas()
+    {
+        PlayFabDataAPI.GetObjects(new GetObjectsRequest
+        {
+            EscapeObject = true,
+            Entity = new()
+            {
+                Id = Entity.Id,
+                Type = Entity.Type
+            }
+        }, OnDataObtained, OnRequestError);
     }
 
     private void OnDataObtained(GetObjectsResponse response)
@@ -246,12 +308,12 @@ public class PlayFabManager : MonoBehaviour
         {
             for (int i = 0; i < _datas.Length; i++)
             {
-                _datas[i].UpdateData(response.Objects[_datas[i].ClassName].EscapedDataObject);
+                _datas[i].UpdateLocalData(response.Objects[_datas[i].ClassName].EscapedDataObject);
             }
 
-            LoggedIn = true;
-            OnLoginSuccess?.Invoke();
+            Login();
             Debug.Log("data obtained");
+
         }
         catch
         {
@@ -260,17 +322,21 @@ public class PlayFabManager : MonoBehaviour
         }
     }
 
-    private void UpdateName(string name)
+    private void Login()
     {
-        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
+        if (!LoggedIn)
         {
-            DisplayName = name
-        }, null, OnRequestError);
+            LoggedIn = true;
+            OnLoginSuccess?.Invoke();
+        }
     }
+    #endregion
 
+    #region Economy
     public void AddCurrency(string currency, int amount)
     {
         Debug.Log($"Adding {amount} {currency}...");
+
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
@@ -285,7 +351,8 @@ public class PlayFabManager : MonoBehaviour
             }
         }, res => {
             Debug.Log("Done !");
-            GetCurrencies();
+            Currencies[currency] += amount;
+            OnCurrencyUpdate?.Invoke();
         }, OnRequestError);
     }
 
@@ -306,46 +373,9 @@ public class PlayFabManager : MonoBehaviour
             }
         }, res => {
             Debug.Log("Done !");
-            GetCurrencies();
+            Currencies[currency] -= amount;
+            OnCurrencyUpdate?.Invoke();
         }, OnRequestError);
-    }
-    
-    public void GetCurrencies()
-    {
-        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
-        {
-            Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            Filter = $"stackId eq 'currency'"
-        }, OnGetCurrencySuccess, OnRequestError);
-
-    }
-
-    public void GetCurrency(string currency)
-    {
-        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
-        {
-            Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            Filter = $":{currency}"
-        }, OnGetCurrencySuccess, OnRequestError);
-
-    }
-
-    private void OnGetCurrencySuccess(GetInventoryItemsResponse response)
-    {
-        OnGetCurrencies?.Invoke(response.Items);
-    }
-
-    public void GetEnergy()
-    {
-        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
-        {
-        }, OnGetEnergySuccess, OnRequestError);
-
-    }
-
-    private void OnGetEnergySuccess(GetUserInventoryResult result)
-    {
-        OnGetEnergy?.Invoke(result.VirtualCurrency["EN"]);
     }
 
     public void AddEnergy(int amount)
@@ -357,7 +387,7 @@ public class PlayFabManager : MonoBehaviour
             VirtualCurrency = "EN"
         }, res => {
             Debug.Log("Done !");
-            GetEnergy();
+            Energy += amount;
         }, OnRequestError);
     }
 
@@ -370,10 +400,12 @@ public class PlayFabManager : MonoBehaviour
             VirtualCurrency = "EN"
         }, res => {
             Debug.Log("Done !");
-            GetEnergy();
+            Energy -= amount;
         }, OnRequestError);
     }
+    #endregion
 
+    #region Gacha
     public Dictionary<int, int> GetSupports()
     {
         Dictionary<int, int> supports = new();
@@ -412,4 +444,55 @@ public class PlayFabManager : MonoBehaviour
         Inventory.Supports = supports;
         UpdateData();
     }
+    #endregion
+
+    #region Account
+    private void RegisterAccount(string email, string password) //This function will be registered to a button event
+    {
+        CreateAccountData(email, password);
+
+        PlayFabClientAPI.AddUsernamePassword(new AddUsernamePasswordRequest()
+        {
+            Username = CreateUsername(email), //Create unique username with email
+            Email = email,
+            Password = password //Password must be between 6 and 100 characters
+        },
+        res => { CreateSave(); }, OnRequestError);
+    }
+
+    private void UpdateName(string name)
+    {
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = name
+        }, null, OnRequestError);
+    }
+    #endregion
+
+    #region General
+    private string CreateUsername(string email = "user")
+    {
+        string name = email.Split('@')[0];
+        name += SystemInfo.deviceUniqueIdentifier[..5];
+        Debug.Log($"creating username {name}");
+        UpdateName(name);
+        return name;
+    }
+
+    private void CreateSave()
+    {
+        using (FileStream file = new(_path, FileMode.OpenOrCreate))
+        {
+            _binaryFormatter.Serialize(file, _authData);
+        }
+
+        _authData = null;
+    }
+
+    public void OnRequestError(PlayFabError error)
+    {
+        Debug.LogError(error.GenerateErrorReport());
+        OnError?.Invoke(error);
+    }
+    #endregion
 }

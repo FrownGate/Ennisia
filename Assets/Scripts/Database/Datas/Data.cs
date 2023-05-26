@@ -15,5 +15,5 @@ public abstract class Data
         };
     }
 
-    public abstract void UpdateData(string json);
+    public abstract void UpdateLocalData(string json);
 }

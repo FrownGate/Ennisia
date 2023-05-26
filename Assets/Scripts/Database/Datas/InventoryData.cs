@@ -11,7 +11,7 @@ public class InventoryData : Data
         Supports = new();
     }
 
-    public override void UpdateData(string json)
+    public override void UpdateLocalData(string json)
     {
         InventoryData data = JsonUtility.FromJson<InventoryData>(json);
         Supports = data.Supports;
