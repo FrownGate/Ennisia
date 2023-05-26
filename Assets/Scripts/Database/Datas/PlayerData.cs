@@ -18,7 +18,7 @@ public class PlayerData : Data
         EquippedSupports = new int[2];
     }
 
-    public override void UpdateData(string json)
+    public override void UpdateLocalData(string json)
     {
         PlayerData data = JsonUtility.FromJson<PlayerData>(json);
         Level = data.Level;
