@@ -7,7 +7,7 @@ public class SelectTarget : SelectSpell
 
     public override IEnumerator Start()
     {
-        BattleSystem.dialogueText.text = "Select a target";
+        BattleSystem.dialogueText.text = "Select" + BattleSystem.SelectedTargetNumber + "  target";
 
         yield return new WaitForSeconds(2.0f);
     }
@@ -41,7 +41,7 @@ public class SelectTarget : SelectSpell
                     continue;
                 }
 
-                enemy.TakeDamage(BattleSystem.Player.Damage);
+                enemy.TakeDamage(BattleSystem.Allies[0].Damage);
             }
         }
         else if (_spellNumber == 1)//Spell Button 1 
@@ -52,9 +52,8 @@ public class SelectTarget : SelectSpell
         {
 
         }
-
-        yield return new WaitForSeconds(1f);
-
-        //BattleSystem.NextTurn();
+        BattleSystem.Targetables.Clear();
+        yield return new WaitForSeconds(0.5f);
+        BattleSystem.SetState(new EnemyTurn(BattleSystem)); 
     }
 }
