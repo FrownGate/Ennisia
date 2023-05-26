@@ -12,14 +12,14 @@ public class FatalCrash : Skill
     }
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        float damage = data.damageAmount *  ((targets[0].currentHp + 100) / targets[0].maxHp); //HUGO TO BALANCE -> make excel
+        float damage = data.damageAmount *  ((targets[0].CurrentHp + 100) / targets[0].MaxHp); //HUGO TO BALANCE -> make excel
         targets[0].TakeDamage(damage);
         cd = data.maxCooldown;
         return damage;
     }
     public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
-        player.currentHp += 80/100 * damage;
+        player.CurrentHp += 80/100 * damage;
     }
 }
 

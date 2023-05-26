@@ -14,7 +14,7 @@ public class HolyPrayer : Skill
     {
         //attacksBuff
 
-        player.currentHp += player.maxHp * 10 / 100;
+        player.CurrentHp += player.MaxHp * 10 / 100;
         cd = data.maxCooldown;
         return 0;
     }

@@ -25,7 +25,7 @@ public class BloodContract : Skill
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
-        player.currentHp += damage * 30 / 100;
+        player.CurrentHp += damage * 30 / 100;
     }
 }
 
