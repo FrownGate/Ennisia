@@ -18,6 +18,9 @@ public class BattleSystem : StateMachine
     public int ButtonId { get; private set; }
     public int SelectedTargetNumber { get; private set; } = 2;
     public int _selected = 0;
+
+    public int turn = 0;
+
     
     //UI
     public TextMeshProUGUI dialogueText;
@@ -31,6 +34,12 @@ public class BattleSystem : StateMachine
         EnemyContainer();
         InitPlayer();
         
+        foreach(var skill in Allies[0].Skills)
+        {
+            skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
+            skill.PassiveBeforeAttack(Enemies, Allies[0], 0);
+        }
+
         SetState(new WhoGoFirst(this));
     }
 

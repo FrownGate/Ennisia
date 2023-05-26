@@ -14,6 +14,7 @@ public class SelectTarget : SelectSpell
 
     public override IEnumerator Attack()
     {
+        float totalDamage = 0 ;
         BattleSystem._selected = 0;
         // Check if Player is not null
         /*if (BattleSystem.Player == null)
@@ -30,8 +31,7 @@ public class SelectTarget : SelectSpell
         }
 
         //Attack Button
-        if (_spellNumber == 0)
-        {
+        
             foreach (var enemy in BattleSystem.Targetables)
             {
                 // Check if enemy is not null
@@ -41,17 +41,26 @@ public class SelectTarget : SelectSpell
                     continue;
                 }
 
-                enemy.TakeDamage(BattleSystem.Allies[0].Damage);
+
+            foreach (var skill in BattleSystem.Allies[0].Skills)
+            {
+                skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
+            }
+
+            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn );
+            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn , totalDamage );
+            //skill after Attack
+
+
+            foreach (var skill in BattleSystem.Allies[0].Skills)
+            {
+                skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
             }
         }
-        else if (_spellNumber == 1)//Spell Button 1 
-        {
+        
 
-        }
-        else if (_spellNumber == 2)//Spell Button 2 
-        {
 
-        }
+
         BattleSystem.Targetables.Clear();
         yield return new WaitForSeconds(0.5f);
         BattleSystem.SetState(new EnemyTurn(BattleSystem)); 
