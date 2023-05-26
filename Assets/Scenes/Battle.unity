@@ -1068,8 +1068,8 @@ Canvas:
   m_GameObject: {fileID: 1111040469}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1507501028}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1127,9 +1127,6 @@ MonoBehaviour:
   Skill1: {fileID: 1311182859}
   Skill2: {fileID: 692802461}
   Ult: {fileID: 1437340197}
-  Settings: {fileID: 0}
-  popup: {fileID: 0}
-  Quit: {fileID: 0}
 --- !u!1 &1294023701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,7 +1537,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1577187045660764873, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Name
-      value: Settings
+      value: SettingsPopup
       objectReference: {fileID: 0}
     - target: {fileID: 2962257826348746222, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Pivot.x

@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 31100292}
   m_HandleRect: {fileID: 31100291}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1562,7 +1562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4530206186718206232, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4530206186718206232, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_Direction
@@ -2303,8 +2303,8 @@ Canvas:
   m_GameObject: {fileID: 559282110}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 131839188}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3154,7 +3154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -674.38, y: 23.224}
+  m_AnchoredPosition: {x: -674.38, y: 23.223999}
   m_SizeDelta: {x: 275.2406, y: 706.9926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &816498667
@@ -3509,7 +3509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00003886223}
+  m_AnchoredPosition: {x: -0.00079802255, y: 0.001651068}
   m_SizeDelta: {x: 0, y: 753.44}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &874260266
@@ -4141,7 +4141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1156981356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4526,7 +4526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -327, y: 23.224}
+  m_AnchoredPosition: {x: -327, y: 23.223999}
   m_SizeDelta: {x: 275.2406, y: 706.9926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1244778425
@@ -5514,7 +5514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Content: {fileID: 1124929568}
+  m_Content: {fileID: 873767781}
   m_Horizontal: 1
   m_Vertical: 0
   m_MovementType: 0
