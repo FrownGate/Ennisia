@@ -8,7 +8,6 @@ public class SelectTarget : SelectSpell
     public override IEnumerator Start()
     {
         BattleSystem.dialogueText.text = "Select" + BattleSystem.SelectedTargetNumber + "  target";
-
         yield return new WaitForSeconds(2.0f);
     }
 
@@ -31,35 +30,29 @@ public class SelectTarget : SelectSpell
         }
 
         //Attack Button
-        
-            foreach (var enemy in BattleSystem.Targetables)
+        foreach (var enemy in BattleSystem.Targetables)
+        {
+            // Check if enemy is not null
+            if (enemy == null)
             {
-                // Check if enemy is not null
-                if (enemy == null)
-                {
-                    Debug.LogError("Enemy in Targetables is null");
-                    continue;
-                }
-
+                Debug.LogError("Enemy in Targetables is null");
+                continue;
+            }
 
             foreach (var skill in BattleSystem.Allies[0].Skills)
             {
                 skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             }
 
-            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn );
-            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn , totalDamage );
+            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
+            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
             //skill after Attack
-
 
             foreach (var skill in BattleSystem.Allies[0].Skills)
             {
                 skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
             }
         }
-        
-
-
 
         BattleSystem.Targetables.Clear();
         yield return new WaitForSeconds(0.5f);
