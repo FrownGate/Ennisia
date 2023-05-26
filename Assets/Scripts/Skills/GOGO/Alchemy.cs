@@ -8,14 +8,14 @@ public class Alchemy : Skill
     {
         fileName = "Alchemy";
     }
-
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+        
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         float PhRatioBuff = 0.5f;
-        player.PhysicalRatio += PhRatioBuff;
+        player.PhysAtk += PhRatioBuff;
     }
 
-    public override void PassiveAfterAttack(Entity target, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
     {
         if(turn %2 == 0)
         {

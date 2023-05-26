@@ -2,18 +2,18 @@
 
 public abstract class Entity
 {
-    protected internal int Level { get; protected set; }
-    protected internal float MaxHp { get; protected set; }
-    protected internal float Attack { get; protected set; }
-    protected internal float PhysAtk { get; protected set; }
-    protected internal float MagicAtk { get; protected set; }
-    protected internal float PhysDef { get; protected set; }
-    protected internal float MagicDef { get; protected set; }
-    protected internal float CritRate { get; protected set; }
-    protected internal float CritDamage { get; protected set; }
-    protected internal float DefIgnored { get; protected set; }
-    protected internal float Shield { get; protected set; }
-    protected internal float Speed { get; protected set; }
+    protected internal int Level { get;  set; }
+    protected internal float MaxHp { get;  set; }
+    protected internal float Attack { get;  set; }
+    protected internal float PhysAtk { get; set; }
+    protected internal float MagicAtk { get; set; }
+    protected internal float PhysDef { get; set; }
+    protected internal float MagicDef { get; set; }
+    protected internal float CritRate { get; set; }
+    protected internal float CritDamage { get; set; }
+    protected internal float DefIgnored { get; set; }
+    protected internal float Shield { get; set; }
+    protected internal float Speed { get; set; }
     protected internal float CurrentHp { get; set; }
 
     //protected internal List<Debuff> DebuffsList

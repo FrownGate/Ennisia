@@ -9,10 +9,11 @@ public class Reinforcement : Skill
         fileName = "Reinforcement";
     }
 
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
-        float defBuff = player.Defense * 0.05f;
-        player.Damage = defBuff;
+        float PhdefBuff = player.PhysDef * 0.05f;
+        float MdefBuff = player.MagicDef * 0.05f;
+        player.Attack = PhdefBuff + MdefBuff;
     }
 
 }

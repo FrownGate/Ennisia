@@ -9,7 +9,7 @@ public class Blessing : Skill
         fileName = "Blessing";
     }
 
-    public override void PassiveAfterAttack(Entity target, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
     {
         healingModifier = damage * 0.1f;
 

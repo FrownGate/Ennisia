@@ -9,11 +9,11 @@ public class AllIn : Skill
         fileName = "AllIn";
     }
 
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         player.Speed = 10000;
-        float attackBuff = player.Defense * 0.5f;
-        player.Damage = attackBuff;
+        float attackBuff = player.PhysDef * 0.5f + player.MagicDef * 0.5f;
+        player.Attack = attackBuff;
     }
 
 }

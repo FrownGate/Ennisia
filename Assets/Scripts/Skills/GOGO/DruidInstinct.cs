@@ -8,13 +8,13 @@ public class DruidInstinct : Skill
     {
         fileName = "DruidInstinct";
     }
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
-        float MaxHpBuff = player.Damage * 1.5f;
+        float MaxHpBuff = player.Attack * 1.5f;
         player.MaxHp += MaxHpBuff;
     }
 
-    public override void PassiveAfterAttack(Entity target, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
     {
         healingModifier = damage * 0.05f;
     }

@@ -12,7 +12,7 @@ public class CripplingBlow : Skill
         fileName = "CripplingBlow";
     }
 
-    public override float Use(Entity target, Entity player, int turn)
+    public override float Use(List<Entity> target, Entity player, int turn)
     {
         return 0;
     }

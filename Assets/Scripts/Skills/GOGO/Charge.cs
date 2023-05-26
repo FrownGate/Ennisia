@@ -9,10 +9,10 @@ public class Charge : Skill
         fileName = "Charge";
     }
 
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
-        float attackBuff = player.Damage * 0.05f;
-        player.Damage = attackBuff;
+        float attackBuff = player.Attack * 0.05f;
+        player.Attack = attackBuff;
     }
 
 }

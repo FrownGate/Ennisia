@@ -9,10 +9,10 @@ public class Giant : Skill
         fileName = "Giant";
     }
 
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         float maxHpBuff = player.MaxHp * 0.05f;
-        player.Damage = maxHpBuff;
+        player.Attack = maxHpBuff;
     }
 
 }

@@ -8,12 +8,12 @@ public class RisingPower : Skill
     {
         fileName = "RisingPower";
     }
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         /*if(weapon != two-handed sword)*/
-        float AttackBuff = player.Damage * 0.15f;
+        float AttackBuff = player.Attack * 0.15f;
         /*if(weapon == two-handed sword)*/
         //float AttackBuff = player.Damage * 0.30f;
-        player.Damage += AttackBuff;
+        player.Attack += AttackBuff;
     }
 }

@@ -9,12 +9,14 @@ public class KnightOath : Skill
         fileName = "KnightOath";
     }
 
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         float buffMaxHp = player.MaxHp * 0.15f;
-        float buffDef = player.Defense * 0.15f;
+        float buffPhDef = player.PhysDef * 0.15f;
+        float buffMDef = player.MagicDef * 0.15f;
         player.MaxHp += buffMaxHp;
-        player.Defense += buffDef;
+        player.PhysDef += buffPhDef;
+        player.MagicDef += buffMDef;
     }
 
 

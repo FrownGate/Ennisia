@@ -11,7 +11,7 @@ public class LastHope : Skill
         fileName = "LastHope";
     }
 
-    public override void PassiveAfterAttack(Entity target, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
     {
         if(player.CurrentHp < player.MaxHp * 0.2f & isUsed)
         {

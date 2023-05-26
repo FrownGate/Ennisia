@@ -9,10 +9,9 @@ public class InTheShadow : Skill
         fileName = "InTheShadow";
     }
 
-    public override void ConstantPassive(Entity target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
-        float PenDefBuff = 0.4f;
-        player.PenetrationDefense += PenDefBuff;
+        player.DefIgnored = 0.4f;
     }
 
      // to do : if enemy is debuff, #% chance to play again

@@ -2,7 +2,7 @@
 {
     public Enemy()
     {
-        Damage = 20;
+        Attack = 20;
         MaxHp = 200;
         Level = 10;
         Speed = 200;

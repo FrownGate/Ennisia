@@ -9,7 +9,7 @@ public class purifyingWard : Skill
         fileName = "purifyingWard";
     }
 
-    public override void PassiveAfterAttack(Entity target, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
     {
         // to do : cleanse one debuff every turn
     }
