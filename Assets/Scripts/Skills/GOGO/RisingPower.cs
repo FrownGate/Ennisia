@@ -8,13 +8,12 @@ public class RisingPower : Skill
     {
         fileName = "RisingPower";
     }
-    private void Start()
+    public override void ConstantPassive(Entity target, Entity player, int turn)
     {
-        damageModifier = data.damageAmount;
-    }
-    public override float Use(Entity target, Entity player, int turn)
-    {
-        //add weapon conndition, if two handed sword equiped -> increase atk by 30%, else increase atk by 15%
-        return damageModifier = player.damage + player.damage*0.15f;
+        /*if(weapon != two-handed sword)*/
+        float AttackBuff = player.Damage * 0.15f;
+        /*if(weapon == two-handed sword)*/
+        //float AttackBuff = player.Damage * 0.30f;
+        player.Damage += AttackBuff;
     }
 }

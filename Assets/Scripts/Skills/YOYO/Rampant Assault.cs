@@ -3,7 +3,7 @@ public class RampantAssault : Skill
     private const float _percentagePerTurn = 0.05f;
     private readonly float _damagePercentage = 0.2f;
 
-    public override void Use(Entity target, Entity player, int turn)
+    public override float Use(Entity target, Entity player, int turn)
     {
         damageModifier = target.MaxHp * _damagePercentage;
         float percOfAddDamage = _percentagePerTurn * turn;
@@ -16,6 +16,6 @@ public class RampantAssault : Skill
         }
 
         float damagePerTurn = damageModifier * percOfAddDamage;
-        damageModifier += damagePerTurn;
+        return  damageModifier += damagePerTurn;
     }
 }

@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InTheShadow : Skill
+public class Charge : Skill
 {
     private void Awake()
     {
-        fileName = "InTheShadow";
+        fileName = "Charge";
     }
 
     public override void ConstantPassive(Entity target, Entity player, int turn)
     {
-        float PenDefBuff = 0.4f;
-        player.PenetrationDefense += PenDefBuff;
+        float attackBuff = player.Damage * 0.05f;
+        player.Damage = attackBuff;
     }
 
-     // to do : if enemy is debuff, #% chance to play again
 }

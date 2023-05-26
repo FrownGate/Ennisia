@@ -14,7 +14,7 @@
         IsSelected = true;
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         CurrentHp -= damage;
         IsSelected = false;

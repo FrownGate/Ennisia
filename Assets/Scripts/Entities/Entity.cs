@@ -1,10 +1,14 @@
 ﻿public abstract class Entity
 {
-    protected internal int Level { get; protected set; }
-    protected internal int MaxHp { get; protected set; }
-    protected internal int Damage { get; protected set; }
-    protected internal int Speed { get; protected set; }
-    protected internal int CurrentHp { get; set; }
+    protected internal float Level { get;  set; }
+    protected internal float MaxHp { get;  set; }
+    protected internal float Damage { get;  set; }
+    protected internal float PhysicalRatio { get;  set; }
+    protected internal float MagicalRatio { get;  set; }
+    protected internal float Defense { get;  set; }
+    protected internal float PenetrationDefense { get;  set; }
+    protected internal float Speed { get;  set; }
+    protected internal float CurrentHp { get; set; }
     public bool IsSelected { get; protected set; } = false;
 
     public bool IsDead
@@ -16,7 +20,7 @@
         private set { }
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(float damage)
     {
         CurrentHp -= damage;
     }

@@ -2,20 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Blessing : Skill
+public class ForceBalancing : Skill
 {
     private void Awake()
     {
-        fileName = "Blessing";
+        fileName = "ForceBalancing";
     }
 
     public override void PassiveAfterAttack(Entity target, Entity player, int turn, float damage)
     {
-        healingModifier = damage * 0.1f;
-
-        if(turn % 2 == 0)
-        {
-            // to do : give immunity
-        }
+        
     }
+
 }
