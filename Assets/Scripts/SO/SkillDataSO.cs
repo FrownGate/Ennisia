@@ -17,6 +17,4 @@ public class SkillData : ScriptableObject
     public bool AOE;
     public bool isMagic;
     Texture2D texture;
-
-
 }

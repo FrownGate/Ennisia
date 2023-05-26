@@ -9,6 +9,6 @@
 
         Skills.Add(new Bonk());
         Skills.Add(new TidalCrash());
-        Skills.Add(new BLueDragonWraith());
+        Skills.Add(new BlueDragonWraith());
     }
 }

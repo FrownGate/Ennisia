@@ -1,28 +1,23 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BattleHUD : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI nameText;
-    [SerializeField] TextMeshProUGUI lvlText;
-    [SerializeField] Slider hpSlider;
+    [SerializeField] private TextMeshProUGUI _nameText;
+    [SerializeField] private TextMeshProUGUI _lvlText;
+    [SerializeField] private Slider _hpSlider;
     
     public void SetHUD(Entity target)
     {
         /*nameText.text = target.entityName;
         lvlText.text = target.level.ToString();*/
-        hpSlider.maxValue = target.MaxHp;
-        hpSlider.value = target.CurrentHp;
+        _hpSlider.maxValue = target.MaxHp;
+        _hpSlider.value = target.CurrentHp;
     }
 
     public void SetHp(float hp)
     {
-        hpSlider.value = hp;
+        _hpSlider.value = hp;
     }
-
 }
