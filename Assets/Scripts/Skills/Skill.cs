@@ -14,7 +14,7 @@ public abstract class Skill : MonoBehaviour
 
     private void Start()
     {
-        data = AssetDatabase.LoadAssetAtPath<SkillData>(Application.dataPath + "/Skills/SO/" + fileName + ".asset");
+        data = AssetDatabase.LoadAssetAtPath<SkillData>(Application.dataPath + "/Resources/SO/Skills/" + fileName + ".asset");
 
     }
     public virtual void ConstantPassive(List<Entity> targets, Entity player, int turn)

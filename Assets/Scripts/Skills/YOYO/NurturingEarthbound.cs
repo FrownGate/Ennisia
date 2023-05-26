@@ -13,8 +13,8 @@ public class NurturingEarthbound : Skill
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        float lostHealt = player.maxHp - player.currentHp;
-        player.currentHp += lostHealt * data.healingAmount / 100;
+        float lostHealt = player.MaxHp - player.CurrentHp;
+        player.CurrentHp += lostHealt * data.healingAmount / 100;
         return 0;
     }
 }

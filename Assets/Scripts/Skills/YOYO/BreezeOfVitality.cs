@@ -16,14 +16,14 @@ public class BreezeOfVitality : Skill
         float addHeal = 0;
         for (int i = 0; i < targets.Count; i++)
         {
-            if (targets[i].currentHp > 0)
+            if (targets[i].CurrentHp > 0)
             {
                 addHeal += _increaseHealPerc;
             }
         }
-        float heal = player.maxHp * (data.healingAmount + addHeal) / 100;
+        float heal = player.MaxHp * (data.healingAmount + addHeal) / 100;
 
-        player.currentHp += heal;
+        player.CurrentHp += heal;
 
         return 0;
     }

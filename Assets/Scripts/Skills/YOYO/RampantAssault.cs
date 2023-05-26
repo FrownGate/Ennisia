@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class RampantAssault : Skill
 {
     private const float _percentagePerTurn = 0.05f;
@@ -9,7 +13,7 @@ public class RampantAssault : Skill
     }
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        damageModifier = targets[0].maxHp * _damagePercentage;
+        damageModifier = targets[0].MaxHp * _damagePercentage;
         float percOfAddDamage = _percentagePerTurn * turn;
 
         percOfAddDamage = percOfAddDamage > 0.5f ? 0.5f : percOfAddDamage;

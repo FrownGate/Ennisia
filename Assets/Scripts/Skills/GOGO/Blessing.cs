@@ -11,7 +11,7 @@ public class Blessing : Skill
 
     public override float Use(List<Entity> target, Entity player, int turn)
     {
-        damageModifier = player.damage * 0.05f;
+        damageModifier = player.Damage * 0.05f;
         return 0;
     }
 }
