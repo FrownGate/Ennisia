@@ -12,15 +12,12 @@ namespace DefaultNamespace
         public Button Skill2;
         public Button Ult;
 
-
-
         private void OnEnable()
         {
             //Register Button Events
             Skill1.onClick.AddListener(() => buttonCallBack(Skill1));
             Skill2.onClick.AddListener(() => buttonCallBack(Skill2));
             Ult.onClick.AddListener(() => buttonCallBack(Ult));
-
         }
 
         private void buttonCallBack(Button buttonPressed)
