@@ -348,7 +348,7 @@ public class PlayFabManager : MonoBehaviour
                 }
             }
         }, res => {
-            Debug.Log("Done !");
+            Debug.Log($"Added {amount} {currency} !");
             Currencies[currency] += amount;
             OnCurrencyUpdate?.Invoke();
         }, OnRequestError);
@@ -370,7 +370,7 @@ public class PlayFabManager : MonoBehaviour
                 }
             }
         }, res => {
-            Debug.Log("Done !");
+            Debug.Log($"Removed {amount} {currency} !");
             Currencies[currency] -= amount;
             OnCurrencyUpdate?.Invoke();
         }, OnRequestError);
@@ -384,7 +384,7 @@ public class PlayFabManager : MonoBehaviour
             Amount = amount,
             VirtualCurrency = "EN"
         }, res => {
-            Debug.Log("Done !");
+            Debug.Log($"Added {amount} energy !");
             Energy += amount;
         }, OnRequestError);
     }
@@ -397,7 +397,7 @@ public class PlayFabManager : MonoBehaviour
             Amount = amount,
             VirtualCurrency = "EN"
         }, res => {
-            Debug.Log("Done !");
+            Debug.Log($"Removed {amount} energy !");
             Energy -= amount;
         }, OnRequestError);
     }
