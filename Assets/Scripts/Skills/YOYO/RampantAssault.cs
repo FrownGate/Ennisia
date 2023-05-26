@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class RampantAssault : Skill
 {
     private const float _percentagePerTurn = 0.05f;
-    private float _damagePercentage = 0.2f;
+    private readonly float _damagePercentage = 0.2f;
 
     private void Awake()
     {
@@ -15,6 +11,8 @@ public class RampantAssault : Skill
     {
         damageModifier = targets[0].maxHp * _damagePercentage;
         float percOfAddDamage = _percentagePerTurn * turn;
+
+        percOfAddDamage = percOfAddDamage > 0.5f ? 0.5f : percOfAddDamage;
 
         if (percOfAddDamage > 0.5f)
         {
