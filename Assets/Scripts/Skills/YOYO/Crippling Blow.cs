@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Blessing : Skill
+public class CripplingBlow : Skill
 {
+
+    //replace player.damage
+
     private void Awake()
     {
-        fileName = "Blessing";
+        fileName = "CripplingBlow";
     }
 
     public override float Use(Entity target, Entity player, int turn)
     {
-        return damageModifier = player.damage * 0.05f;
+        return 0;
     }
 }

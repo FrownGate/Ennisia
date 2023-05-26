@@ -12,7 +12,7 @@ public class DruidInstinct : Skill
     {
         
     }
-    public override float Use(List<Entity> target, Entity player, int turn)
+    public override float Use(Entity target, Entity player, int turn)
     {
 
         return 0;
