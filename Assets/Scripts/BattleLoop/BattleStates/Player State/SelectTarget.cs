@@ -41,7 +41,7 @@ public class SelectTarget : SelectSpell
                     continue;
                 }
 
-                enemy.TakeDamage(BattleSystem.Allies[0].Damage);
+                enemy.TakeDamage(BattleSystem.Allies[0].Attack);
             }
         }
         else if (_spellNumber == 1)//Spell Button 1 
