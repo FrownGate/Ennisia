@@ -191,7 +191,6 @@ GameObject:
   - component: {fileID: 6917924949622175754}
   - component: {fileID: 2354811239645441520}
   - component: {fileID: 8451062153709070712}
-  - component: {fileID: 225976490456301251}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -214,7 +213,7 @@ Transform:
   - {fileID: 3720113448215589424}
   - {fileID: 1163411387495086197}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6917924949622175754
 SpriteRenderer:
@@ -340,24 +339,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &225976490456301251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3790394792616838198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd660c6e7600654c91e35bf191dae9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Mob
-  level: 1
-  damage: 5
-  maxHp: 200
-  currentHp: 100
-  speed: 400
 --- !u!1 &4044081634066610045
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +427,6 @@ GameObject:
   - component: {fileID: 6667326727224382285}
   - component: {fileID: 3880875981782302055}
   - component: {fileID: 6639171004469423036}
-  - component: {fileID: 6420589361721044394}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -538,21 +518,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6420589361721044394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4956832924160331237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c36568b360545ec4796025b2647d9558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  lvlText: {fileID: 0}
-  hpSlider: {fileID: 2723759016540965643}
 --- !u!1 &5602845032936509251
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,8 +687,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000038147, y: -9.2}
-  m_SizeDelta: {x: 46.351, y: 10}
+  m_AnchoredPosition: {x: -0.00000023842, y: 6}
+  m_SizeDelta: {x: 23.175, y: 5.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2723759016540965643
 MonoBehaviour:

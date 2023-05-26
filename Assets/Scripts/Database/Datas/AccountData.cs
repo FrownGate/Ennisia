@@ -18,7 +18,7 @@ public class AccountData : Data
         Tutorial = false;
     }
 
-    public override void UpdateData(string json)
+    public override void UpdateLocalData(string json)
     {
         AccountData data = JsonUtility.FromJson<AccountData>(json);
         Name = data.Name;
