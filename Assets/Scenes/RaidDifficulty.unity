@@ -1877,7 +1877,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1577187045660764873, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Name
-      value: Settings
+      value: SettingsPopup
       objectReference: {fileID: 0}
     - target: {fileID: 2962257826348746222, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Pivot.x
@@ -2864,7 +2864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4530206186718206232, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4530206186718206232, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_Value

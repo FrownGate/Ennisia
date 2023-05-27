@@ -1903,7 +1903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8176523475930119976, guid: 7beb3af981363054e8a2d60e2b61813f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -71.001
+      value: -71.00101
       objectReference: {fileID: 0}
     - target: {fileID: 8176523475930119976, guid: 7beb3af981363054e8a2d60e2b61813f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2365,7 +2365,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1577187045660764873, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Name
-      value: Settings
+      value: SettingsPopup
       objectReference: {fileID: 0}
     - target: {fileID: 2962257826348746222, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Pivot.x

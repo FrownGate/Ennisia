@@ -1549,11 +1549,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294564512488731682, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 904.21
+      value: 1242.49
       objectReference: {fileID: 0}
     - target: {fileID: 1294564512488731682, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 32.71997
+      value: 34.87
       objectReference: {fileID: 0}
     - target: {fileID: 1294564512488731682, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1585,11 +1585,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294564512488731682, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1364.9
+      value: -1195.76
       objectReference: {fileID: 0}
     - target: {fileID: 1294564512488731682, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -469
+      value: -470.08
       objectReference: {fileID: 0}
     - target: {fileID: 1294564512488731682, guid: 27a0bb3a925338b49a01b298877cd942, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4642,8 +4642,8 @@ MonoBehaviour:
   m_Content: {fileID: 873767781}
   m_Horizontal: 1
   m_Vertical: 0
-  m_MovementType: 0
-  m_Elasticity: 0
+  m_MovementType: 1
+  m_Elasticity: 5
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
@@ -6984,7 +6984,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1577187045660764873, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Name
-      value: Settings
+      value: SettingsPopup
       objectReference: {fileID: 0}
     - target: {fileID: 2962257826348746222, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
       propertyPath: m_Pivot.x
