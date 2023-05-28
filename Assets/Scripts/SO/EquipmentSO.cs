@@ -10,4 +10,5 @@ public class EquipmentSO : ScriptableObject
     public string attribute;
     public float value;
     public string description;
+    public Sprite Icon;
 }
