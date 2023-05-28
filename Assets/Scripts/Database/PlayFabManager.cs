@@ -297,7 +297,10 @@ public class PlayFabManager : MonoBehaviour
                 Id = Entity.Id,
                 Type = Entity.Type
             }
-        }, res => { CompleteLogin(); }, OnRequestError);
+        }, res => {
+            Debug.Log("Data updated !");
+            CompleteLogin();
+        }, OnRequestError);
     }
 
     private void GetUserDatas()
@@ -341,6 +344,7 @@ public class PlayFabManager : MonoBehaviour
             LoggedIn = true;
             OnLoginSuccess?.Invoke();
             Debug.Log("Login complete !");
+            Testing();
         }
     }
     #endregion
@@ -459,6 +463,50 @@ public class PlayFabManager : MonoBehaviour
     }
     #endregion
 
+    #region Equipment
+    public void AddGear(GearData gear)
+    {
+        if (!gear.IsValid()) return;
+        gear.Id = Inventory.Gears.Count + 1;
+        Inventory.Gears.Add(gear);
+        UpdateData();
+    }
+
+    public void SetGearData(EquipmentSO equipment, int id)
+    {
+        foreach (GearData inventoryGear in Inventory.Gears)
+        {
+            if (inventoryGear.Id == id)
+            {
+                equipment.Id = inventoryGear.Id;
+                equipment.equipmentName = inventoryGear.Name;
+                equipment.type = inventoryGear.Type;
+                equipment.rarity = inventoryGear.Rarity;
+                equipment.attribute = inventoryGear.Attribute;
+                equipment.value = inventoryGear.Value;
+                equipment.description = inventoryGear.Description;
+                break;
+            }
+        }
+    }
+
+    public GearData GetGear(int id)
+    {
+        GearData gear = new();
+
+        foreach (GearData inventoryGear in Inventory.Gears)
+        {
+            if (gear.Id == id)
+            {
+                gear = inventoryGear;
+                break;
+            }
+        }
+
+        return gear;
+    }
+    #endregion
+
     #region Account
     private void RegisterAccount(string email, string password) //This function will be registered to a button event
     {
@@ -515,4 +563,10 @@ public class PlayFabManager : MonoBehaviour
         OnError?.Invoke(error);
     }
     #endregion
+
+    //Called after login success to test code
+    private void Testing()
+    {
+        AddGear(new GearData());
+    }
 }
