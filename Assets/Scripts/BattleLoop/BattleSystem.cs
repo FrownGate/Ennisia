@@ -18,10 +18,10 @@ public class BattleSystem : StateMachine
     public int ButtonId { get; private set; }
     public int SelectedTargetNumber { get; private set; } = 2;
     public int _selected = 0;
-    
+    public int turn = 0;
+
     //UI
     public TextMeshProUGUI dialogueText;
-    
 
     private void Start()
     {
@@ -31,6 +31,12 @@ public class BattleSystem : StateMachine
         EnemyContainer();
         InitPlayer();
         
+        foreach(var skill in Allies[0].Skills)
+        {
+            skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
+            skill.PassiveBeforeAttack(Enemies, Allies[0], 0);
+        }
+
         SetState(new WhoGoFirst(this));
     }
 
@@ -46,7 +52,7 @@ public class BattleSystem : StateMachine
 
     private void LateUpdate()
     {
-
+        //
     }
 
     private void EnemyContainer()
@@ -109,7 +115,6 @@ public class BattleSystem : StateMachine
         _selected++;
         Debug.Log("You selected:" + _selected +"target");
     }
-    
 
     public void RemoveDeadEnemies()
     {

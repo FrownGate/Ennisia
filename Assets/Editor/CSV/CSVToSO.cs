@@ -7,7 +7,7 @@ public class CSVToSO : EditorWindow
 {
     enum TypeCSV
     {
-        supports,enemies
+        supports,enemies,skills
     }
     [MenuItem("Tools/CSV to SO")]
     public static void ShowWindow()
@@ -33,7 +33,16 @@ public class CSVToSO : EditorWindow
             string path = Application.dataPath + "/Editor/CSV/Enemies.csv"; // EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
             if (!string.IsNullOrEmpty(path))
             {
-                CreateScriptableObjectsFromCSV(TypeCSV.supports, path);
+                CreateScriptableObjectsFromCSV(TypeCSV.enemies, path);
+            }
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Skills"))
+        {
+            string path = Application.dataPath + "/Editor/CSV/Skills.csv"; // EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
+            if (!string.IsNullOrEmpty(path))
+            {
+                CreateScriptableObjectsFromCSV(TypeCSV.skills, path);
             }
         }
     }
@@ -74,6 +83,9 @@ public class CSVToSO : EditorWindow
                 case TypeCSV.enemies:
                     createEnemySO(rowData);
                     break;
+                case TypeCSV.skills:
+                    createSkillDataSO(rowData);
+                    break;
                 default:
                     break;
             }
@@ -93,8 +105,8 @@ public class CSVToSO : EditorWindow
         scriptableObject.description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
-        // Save the scriptable object
-        string savePath = $"Assets/SupportsCharacter/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
+        
+        string savePath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.rarity}/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -113,12 +125,33 @@ public class CSVToSO : EditorWindow
         //scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
         //// Save the scriptable object
-        //string savePath = $"Assets/SupportsCharacter/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
+        //string savePath = $"Assets/Resources/SO/Enemies/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
         //AssetDatabase.CreateAsset(scriptableObject, savePath);
         //AssetDatabase.SaveAssets();
         //AssetDatabase.Refresh();
-    }
+    }  
+    private static void createSkillDataSO(Dictionary<string, string> rowData)
+    {
+        SkillData scriptableObject = ScriptableObject.CreateInstance<SkillData>();
+        scriptableObject.id = int.Parse(rowData["ID"]);
+        scriptableObject.skillName = rowData["skillName"];
+        scriptableObject.description = rowData["description"].Replace("\"", string.Empty);
+        scriptableObject.damageAmount = float.Parse( rowData["damageAmount"]);
+        scriptableObject.shieldAmount = float.Parse( rowData["shieldAmount"]);
+        scriptableObject.healingAmount = float.Parse( rowData["healingAmount"]);
+        scriptableObject.penDef = float.Parse( rowData["penDef"]);
+        scriptableObject.hitNb = int.Parse( rowData["hitNb"]);
+        scriptableObject.maxCooldown = int.Parse( rowData["maxCooldown"]);
+        scriptableObject.isAfter = bool.Parse( rowData["isAfter"]);
+        scriptableObject.AOE = bool.Parse( rowData["AOE"]);
+        scriptableObject.isMagic = bool.Parse( rowData["isMagic"]);
 
+        // Save the scriptable object
+        string savePath = $"Assets/Resources/SO/Skills/{scriptableObject.skillName.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty)}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
     private string[] SplitCSVLine(string line)
     {
         List<string> values = new List<string>();

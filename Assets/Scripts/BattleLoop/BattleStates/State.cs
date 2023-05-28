@@ -8,6 +8,7 @@ public abstract class State
     {
         BattleSystem = battleSystem;
     }
+
     public virtual IEnumerator Start()
     {
         yield break;
