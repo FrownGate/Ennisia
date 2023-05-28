@@ -10,7 +10,7 @@ namespace DefaultNamespace
     public class HideOnPc : MonoBehaviour
     {
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_STANDALONE
         void Awake( ) 
         { 
             gameObject.SetActive(false);

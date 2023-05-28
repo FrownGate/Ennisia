@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SummonMenu.unity
     guid: feacd5e5cd9c95b40897c9cd78a5e001
   - enabled: 1
+    path: Assets/Scenes/SummonPopup.unity
+    guid: bd69628cd9c85b0469db253ca14f5c52
+  - enabled: 1
     path: Assets/Scenes/ShopMenu.unity
     guid: 91687e3abef33b547b352c3e26beccfa
   - enabled: 1
@@ -32,4 +35,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RaidDifficulty.unity
     guid: abc10c5336e5fc54dacfe5ff797e929e
+  - enabled: 1
+    path: Assets/Scenes/SettingsPopup.unity
+    guid: c1e758dfa5282754a93a2b23908c3fd4
+  - enabled: 1
+    path: Assets/Scenes/ProfilePopup.unity
+    guid: a2d12d7d40bbbb945a67991d2cf73c6b
   m_configObjects: {}
