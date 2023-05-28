@@ -1627,7 +1627,7 @@ GameObject:
   - component: {fileID: 1080852733}
   - component: {fileID: 1080852732}
   m_Layer: 5
-  m_Name: Pull
+  m_Name: SummonPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1763,7 +1763,7 @@ GameObject:
   - component: {fileID: 1106676835}
   - component: {fileID: 1106676834}
   m_Layer: 5
-  m_Name: TenPull
+  m_Name: SummonPopup#10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

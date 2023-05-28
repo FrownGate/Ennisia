@@ -1,20 +1,36 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-public class GachaSystem : MonoBehaviour
+public class SummonSystem : MonoBehaviour
 {
     [SerializeField] private double _legendaryChance = 0.5;
     [SerializeField] private double _epicChance = 9.5;
     [SerializeField] private double _rareChance = 90;
     [SerializeField] private int _cost = 100;
     [SerializeField] private int _fragmentsPerDuplicate = 10;
+    [SerializeField] private int _rareFragmentsMultiplier = 1;
+    [SerializeField] private int _epicFragmentsMultiplier = 2;
+    [SerializeField] private int _legendaryFragmentsMultiplier = 3;
 
     private Dictionary<int, int> _supports;
     private int _fragmentsMultiplier;
+    private int _amount;
 
     private void Start()
     {
         //PlayFabManager.OnLoginSuccess += Summon; //testing only
+
+        if (ScenesManager.Instance.HasParams())
+        {
+            _amount = int.Parse(ScenesManager.Instance.Params);
+        }
+        else
+        {
+            _amount = 1;
+        }
+
+        Summon();
     }
 
     private void OnDestroy()
@@ -22,13 +38,12 @@ public class GachaSystem : MonoBehaviour
         //PlayFabManager.OnLoginSuccess -= Summon; //testing only
     }
 
-    //public void Summon() //testing only
-    public void Summon(int amount)
+    public void Summon()
     {
-        //int amount = 10; //testing only
+        //_amount = 10; //testing only
         int newFragments = 0;
 
-        if (PlayFabManager.Instance.Currencies["Crystals"] < _cost * amount)
+        if (PlayFabManager.Instance.Currencies["Crystals"] < _cost * _amount)
         {
             Debug.LogError("not enough crystals");
             //TODO -> Show UI error message
@@ -36,12 +51,12 @@ public class GachaSystem : MonoBehaviour
         }
         else
         {
-            PlayFabManager.Instance.RemoveCurrency("Crystals", _cost * amount);
+            PlayFabManager.Instance.RemoveCurrency("Crystals", _cost * _amount);
         }
 
         _supports = PlayFabManager.Instance.GetSupports();
 
-        for (int i = 0; i < amount; i++)
+        for (int i = 0; i < _amount; i++)
         {
             SupportsCharactersSO pulledSupport = GetSupport();
             Debug.Log($"{pulledSupport.suppportName} has been pulled !");
@@ -72,29 +87,31 @@ public class GachaSystem : MonoBehaviour
     private SupportsCharactersSO GetSupport()
     {
         System.Random random = new();
-        double roll = random.NextDouble() * 100;
-        Debug.Log($"gacha rolled : {roll}");
+        double rarityRoll = random.NextDouble() * 100;
+        Debug.Log($"rarity roll : {rarityRoll}");
         //TODO -> add guaranteed rarity modifier
 
         string pickedRarity = "";
 
-        if (roll <= _legendaryChance)
+        if (rarityRoll <= _legendaryChance)
         {
             pickedRarity = "Legendary";
-            _fragmentsMultiplier = 3;
+            _fragmentsMultiplier = _legendaryFragmentsMultiplier;
         }
-        else if (roll <= _epicChance)
+        else if (rarityRoll <= _epicChance)
         {
             pickedRarity = "Epic";
-            _fragmentsMultiplier = 2;
+            _fragmentsMultiplier = _epicFragmentsMultiplier;
         }
-        else if (roll <= _rareChance)
+        else if (rarityRoll <= _rareChance)
         {
             pickedRarity = "Rare";
-            _fragmentsMultiplier = 1;
+            _fragmentsMultiplier = _rareFragmentsMultiplier;
         }
 
-        SupportsCharactersSO[] gachaPool = Resources.LoadAll<SupportsCharactersSO>($"SupportsCharacter/{pickedRarity}");
-        return gachaPool[random.Next(gachaPool.Length)];
+        SupportsCharactersSO[] gachaPool = Resources.LoadAll<SupportsCharactersSO>($"SO/SupportsCharacter/{pickedRarity}");
+        int characterRoll = random.Next(gachaPool.Length);
+        Debug.Log($"character roll : {characterRoll}");
+        return gachaPool[characterRoll - 1];
     }
 }
