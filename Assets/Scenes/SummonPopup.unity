@@ -157,6 +157,9 @@ MonoBehaviour:
   _rareChance: 90
   _cost: 100
   _fragmentsPerDuplicate: 10
+  _rareFragmentsMultiplier: 1
+  _epicFragmentsMultiplier: 2
+  _legendaryFragmentsMultiplier: 3
 --- !u!4 &240874593
 Transform:
   m_ObjectHideFlags: 0
@@ -190,7 +193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &323320499
 MonoBehaviour:
   m_ObjectHideFlags: 0
