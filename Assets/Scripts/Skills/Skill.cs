@@ -25,5 +25,5 @@ public abstract class Skill
     public virtual float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }
     public virtual void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }
-    public virtual void TakeOffStats() { }
+    public virtual void TakeOffStats(List<Entity> targets, Entity player, int turn) { }
 }

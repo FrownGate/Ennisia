@@ -34,7 +34,6 @@ public class BattleSystem : StateMachine
         foreach(var skill in Allies[0].Skills)
         {
             skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
-            skill.PassiveBeforeAttack(Enemies, Allies[0], 0);
         }
 
         SetState(new WhoGoFirst(this));
