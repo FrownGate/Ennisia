@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5431aed841f94fe4c9884e845246f751, type: 3}
   m_Name: 42-Demonic Slime
   m_EditorClassIdentifier: 
-  id: 42
-  suppportName: Demonic Slime
-  rarity: Rare
-  race: none
-  supportClass: none
-  passif: {fileID: 0}
-  skill: {fileID: 0}
-  description: none
-  catchPhrase: none
+  Id: 42
+  Name: Demonic Slime
+  Rarity: Rare
+  Race: none
+  Job: none
+  Element: ???
+  PrimarySkill: {fileID: 0}
+  SecondarySkill: {fileID: 0}
+  Description: none
+  Catchphrase: none
+  Icon: {fileID: 0}
