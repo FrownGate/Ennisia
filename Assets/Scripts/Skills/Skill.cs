@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public abstract class Skill : MonoBehaviour
+public abstract class Skill
 {
     /*Weapon weapon;*/
     public SkillData data;
@@ -12,10 +12,9 @@ public abstract class Skill : MonoBehaviour
     public float cd;
     public string fileName;
 
-    private void Start()
+    Skill()
     {
         data = AssetDatabase.LoadAssetAtPath<SkillData>(Application.dataPath + "/Skills/SO/" + fileName + ".asset");
-
     }
     public virtual void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
@@ -25,9 +24,13 @@ public abstract class Skill : MonoBehaviour
     public virtual void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn)
     {
 
-
     }
 
+    public virtual float SkillBefore(List<Entity> targets, Entity player, int turn)
+    {
+        return 0;
+
+    }
     public virtual float Use(List<Entity> targets, Entity player,int turn)
     {
         return 0;
@@ -45,6 +48,11 @@ public abstract class Skill : MonoBehaviour
     }
 
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
+    {
+
+    }
+
+    public virtual void TakeOffStats()
     {
 
     }
