@@ -7,6 +7,10 @@ public class Lost : State
 
     public override IEnumerator Start()
     {
+        foreach (var skill in BattleSystem.Allies[0].Skills)
+        {
+            skill.TakeOffStats(BattleSystem.Enemies, BattleSystem.Allies[0], 0); // constant passive at battle end
+        }
         Debug.Log("You were defeated");
         yield break;
     }

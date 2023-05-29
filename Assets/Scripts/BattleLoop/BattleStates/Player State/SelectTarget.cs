@@ -43,7 +43,7 @@ public class SelectTarget : SelectSpell
             {
                 skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             }
-
+            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].SkillBeforeUse(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
             //skill after Attack
