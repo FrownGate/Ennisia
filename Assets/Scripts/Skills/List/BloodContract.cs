@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class BloodContract : Skill
 {
-    private void Awake()
-    {
-        FileName = "BloodContract";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
        float TotalDamage = 0;

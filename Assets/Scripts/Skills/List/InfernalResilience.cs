@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class InfernalResilience : Skill
 {
-    private void Awake()
-    {
-        FileName = "RampantAssault";
-    }
-
     public override float Use(List<Entity> target, Entity player, int turn)
     {
         float missingHealth = player.MaxHp - player.CurrentHp;

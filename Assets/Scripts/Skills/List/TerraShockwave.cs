@@ -7,11 +7,6 @@ public class TerraShockwave: Skill
     private float _increaseCDPerc = 0.75f;
     private int _stunTurn;
 
-    private void Awake()
-    {
-        FileName = "TerraShockwave";
-    }
-
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
         if (turn <= _stunTurn)

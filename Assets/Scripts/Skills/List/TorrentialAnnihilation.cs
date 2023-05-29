@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class TorrentialAnnihilation : Skill
 {
-    private void Awake()
-    {
-        FileName = "TorrentialAnnihilation";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         for (int i = 0; i < targets.Count; i++)

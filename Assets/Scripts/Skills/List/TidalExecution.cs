@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class TidalExecution : Skill
 {
-    private void Awake()
-    {
-        FileName = "TidalExecution";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         float percHPRemaining = targets[0].CurrentHp / targets[0].MaxHp;

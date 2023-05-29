@@ -14,6 +14,7 @@ public abstract class Skill : MonoBehaviour
 
     private void Start()
     {
+        FileName = GetType().Name;
         Data = Resources.Load<SkillData>("SO/Skills/" + FileName + ".asset");
     }
 

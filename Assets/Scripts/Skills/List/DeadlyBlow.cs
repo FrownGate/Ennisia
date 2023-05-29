@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class DeadlyBlow : Skill
 {
-    private void Start()
-    {
-        FileName = "DeadlyBlow";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         float damage = Data.DamageAmount;

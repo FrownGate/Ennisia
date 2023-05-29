@@ -6,11 +6,6 @@ public class QuakingSuppression : Skill
     private float _stunPerc = 0.7f;
     private int _silenceTurn;
 
-    private void Awake()
-    {
-        FileName = "QuakingSuppression";
-    }
-
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
         if (turn <= _silenceTurn)

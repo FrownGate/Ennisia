@@ -4,11 +4,6 @@ public class BreezeOfVitality : Skill
 {
     private readonly float _increaseHealPerc = 10f;
 
-    private void Awake()
-    {
-        FileName = "BreezeOfVitality";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         float addHeal = 0;

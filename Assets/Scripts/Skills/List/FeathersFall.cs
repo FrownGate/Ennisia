@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class FeathersFall : Skill
 {
-    private void Awake()
-    {
-        FileName = "FeathersFall";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         float totalDamage = 0;

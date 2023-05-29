@@ -7,7 +7,6 @@ public class ImpregnableDefense : Skill
 
     private void Awake()
     {
-        FileName = "ImpregnableDefense";
         _defenseAdded= 0;
     }
 

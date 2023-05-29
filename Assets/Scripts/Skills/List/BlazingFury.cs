@@ -4,11 +4,6 @@ public class BlazingFury : Skill
 {
     private int _increaseAttTurn;
 
-    private void Awake()
-    {
-        FileName = "BlazingFury";
-    }
-
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
         if (turn <= _increaseAttTurn)

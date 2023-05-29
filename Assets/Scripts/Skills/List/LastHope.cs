@@ -7,7 +7,6 @@ public class LastHope : Skill
     private void Awake()
     {
         _isUsed = false;
-        FileName = "LastHope";
     }
 
     public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)

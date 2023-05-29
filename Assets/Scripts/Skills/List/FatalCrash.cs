@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class FatalCrash : Skill
 {
-    private void Start()
-    {
-        FileName = "FatalCrash";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         float damage = Data.DamageAmount * ((targets[0].CurrentHp + 100) / targets[0].MaxHp); //HUGO TO BALANCE -> make excel
