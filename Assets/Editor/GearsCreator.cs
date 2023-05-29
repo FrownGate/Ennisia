@@ -352,11 +352,11 @@ public class GearsCreator : EditorWindow
             // Determine the path for saving the asset based on the equipment name and type
             if (string.IsNullOrEmpty(equipmentSO.Name))
             {
-                path = "Assets/Ressources/SO/EquippedGears/" + equipment.type + ".asset";
+                path = "Assets/Resources/SO/EquippedGears/" + equipment.type + ".asset";
             }
             else
             {
-                path = "Assets/Ressources/SO/EquippedGears/" + equipment.type + "-" + equipment.equipmentName + ".asset";
+                path = "Assets/Resources/SO/EquippedGears/" + equipment.type + "-" + equipment.equipmentName + ".asset";
             }
 
             AssetDatabase.CreateAsset(equipmentSO, path);  // Create the asset at the specified path
@@ -376,11 +376,11 @@ public class GearsCreator : EditorWindow
         // Determine the path for saving the asset based on the equipment name and type
         if (string.IsNullOrEmpty(equipmentSO.Name))
         {
-            path = "Assets/Ressources/SO/EquippedGears/" + equipment.type + ".asset";
+            path = "Assets/Resources/SO/EquippedGears/" + equipment.type + ".asset";
         }
         else
         {
-            path = "Assets/Ressources/SO/EquippedGears/" + equipment.equipmentName + ".asset";
+            path = "Assets/Resources/SO/EquippedGears/" + equipment.equipmentName + ".asset";
         }
 
         AssetDatabase.CreateAsset(equipmentSO, path);  // Create the asset at the specified path
