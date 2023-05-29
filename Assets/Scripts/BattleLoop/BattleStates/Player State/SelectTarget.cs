@@ -46,6 +46,7 @@ public class SelectTarget : SelectSpell
             totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].SkillBeforeUse(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
+            BattleSystem.Allies[0].Skills[_spellNumber].SkillAfterDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
             //skill after Attack
 
             foreach (var skill in BattleSystem.Allies[0].Skills)
