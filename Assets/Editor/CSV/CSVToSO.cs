@@ -97,16 +97,16 @@ public class CSVToSO : EditorWindow
     private static void createSupportSO(Dictionary<string, string> rowData)
     {
         SupportsCharactersSO scriptableObject = ScriptableObject.CreateInstance<SupportsCharactersSO>();
-        scriptableObject.id = int.Parse(rowData["ID"]);
-        scriptableObject.suppportName = rowData["Name"];
-        scriptableObject.rarity = rowData["Rarity"];
-        scriptableObject.race = rowData["Race"];
-        scriptableObject.supportClass = rowData["Class"];
-        scriptableObject.description = rowData["Description"].Replace("\"", string.Empty);
-        scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
+        scriptableObject.Id = int.Parse(rowData["ID"]);
+        scriptableObject.Name = rowData["Name"];
+        scriptableObject.Rarity = rowData["Rarity"];
+        scriptableObject.Race = rowData["Race"];
+        scriptableObject.Job = rowData["Class"];
+        scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
+        scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
         
-        string savePath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.rarity}/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
+        string savePath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}/{scriptableObject.Id}-{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

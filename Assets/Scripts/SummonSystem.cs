@@ -59,13 +59,13 @@ public class SummonSystem : MonoBehaviour
         for (int i = 0; i < _amount; i++)
         {
             SupportsCharactersSO pulledSupport = GetSupport();
-            Debug.Log($"{pulledSupport.suppportName} has been pulled !");
+            Debug.Log($"{pulledSupport.Name} has been pulled !");
 
-            if (_supports.ContainsKey(pulledSupport.id))
+            if (_supports.ContainsKey(pulledSupport.Id))
             {
-                if (_supports[pulledSupport.id] < 5)
+                if (_supports[pulledSupport.Id] < 5)
                 {
-                    _supports[pulledSupport.id]++;
+                    _supports[pulledSupport.Id]++;
                 }
                 else
                 {
@@ -74,7 +74,7 @@ public class SummonSystem : MonoBehaviour
             }
             else
             {
-                _supports[pulledSupport.id] = 1;
+                _supports[pulledSupport.Id] = 1;
             }
         }
 
