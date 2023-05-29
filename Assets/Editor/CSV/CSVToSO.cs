@@ -122,6 +122,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Rarity = rowData["Rarity"];
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
+        scriptableObject.Element = rowData["Element"];
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 

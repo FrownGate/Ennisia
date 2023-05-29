@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5431aed841f94fe4c9884e845246f751, type: 3}
   m_Name: 3-Veronika
   m_EditorClassIdentifier: 
-  id: 3
-  suppportName: Veronika
-  rarity: Legendary
-  race: Human
-  supportClass: Healer
-  passif: {fileID: 0}
-  skill: {fileID: 0}
-  description: "Veronika is the King of Anthrena\u2019s second daughter; however,
+  Id: 3
+  Name: Veronika
+  Rarity: Legendary
+  Race: Human
+  Job: Healer
+  Element: Fire
+  PrimarySkill: {fileID: 0}
+  SecondarySkill: {fileID: 0}
+  Description: "Veronika is the King of Anthrena\u2019s second daughter; however,
     she wants nothing to do with royalty or the castle. Her dream is to travel and
     adventure with the people she loves. However with the rise of the demons she
     has become the general of the health department. Her beauty is unmatched and
     often seen with Djeamy, is it a general\u2019s meeting or more?..."
-  catchPhrase: "I am not a klutz, my legs just get tired very easily\u2026 *falls*
+  Catchphrase: "I am not a klutz, my legs just get tired very easily\u2026 *falls*
     Oops!"
+  Icon: {fileID: 0}
