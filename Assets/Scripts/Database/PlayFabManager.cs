@@ -479,12 +479,12 @@ public class PlayFabManager : MonoBehaviour
             if (inventoryGear.Id == id)
             {
                 equipment.Id = inventoryGear.Id;
-                equipment.equipmentName = inventoryGear.Name;
-                equipment.type = inventoryGear.Type;
-                equipment.rarity = inventoryGear.Rarity;
-                equipment.attribute = inventoryGear.Attribute;
-                equipment.value = inventoryGear.Value;
-                equipment.description = inventoryGear.Description;
+                equipment.Name = inventoryGear.Name;
+                equipment.Type = inventoryGear.Type;
+                equipment.Rarity = inventoryGear.Rarity;
+                equipment.Attribute = inventoryGear.Attribute;
+                equipment.Value = inventoryGear.Value;
+                equipment.Description = inventoryGear.Description;
                 break;
             }
         }
