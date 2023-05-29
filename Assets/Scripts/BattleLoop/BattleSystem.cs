@@ -16,7 +16,7 @@ public class BattleSystem : StateMachine
     private int _maxEnemies => 1;
     
     public int ButtonId { get; private set; }
-    public int SelectedTargetNumber { get; private set; } = 2;
+    public int SelectedTargetNumber { get; private set; } = 1;
     public int _selected = 0;
     public int turn = 0;
 
