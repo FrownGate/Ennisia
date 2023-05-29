@@ -10,10 +10,10 @@ public class InAFlash : Skill
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         //give 50% ignoreDef to Enemy
-        float damage = Data.damageAmount;
+        float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
         //Take it back
-        Cooldown = Data.maxCooldown;
+        Cooldown = Data.MaxCooldown;
         return damage;
     }
 }

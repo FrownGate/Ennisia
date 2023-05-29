@@ -12,7 +12,7 @@ public class CripplingBlow : Skill
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        float damage = player.PhysAtk * Data.damageAmount/100;
+        float damage = player.PhysAtk * Data.DamageAmount/100;
 
         float debuffLuck = Random.Range(0, 1);
 

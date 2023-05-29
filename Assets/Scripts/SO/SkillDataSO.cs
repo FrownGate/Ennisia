@@ -4,17 +4,17 @@ using UnityEngine;
 public class SkillData : ScriptableObject
 {
     /*Weapon weapon;*/
-    public int id;
-    public string skillName;
-    public string description;
-    public float damageAmount;
-    public float shieldAmount;
-    public float healingAmount;
-    public int maxCooldown;
-    public float penDef;
-    public int hitNb;
-    public bool isAfter;
+    public int Id;
+    public string Name;
+    public string Description;
+    public float DamageAmount;
+    public float ShieldAmount;
+    public float HealingAmount;
+    public int MaxCooldown;
+    public float IgnoreDef;
+    public int HitNumber;
+    public bool IsAfter;
     public bool AOE;
-    public bool isMagic;
-    Texture2D texture;
+    public bool IsMagic;
+    public Sprite Icon;
 }

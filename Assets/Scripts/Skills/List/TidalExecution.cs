@@ -18,7 +18,7 @@ public class TidalExecution : Skill
         }
 
         float missingHealth = targets[0].MaxHp - targets[0].CurrentHp;
-        float damage = Data.damageAmount * missingHealth;
+        float damage = Data.DamageAmount * missingHealth;
         targets[0].TakeDamage(damage);
 
         return damage;

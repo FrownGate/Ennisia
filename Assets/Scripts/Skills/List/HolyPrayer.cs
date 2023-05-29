@@ -12,7 +12,7 @@ public class HolyPrayer : Skill
         //attacksBuff
 
         player.CurrentHp += player.MaxHp * 10 / 100;
-        Cooldown = Data.maxCooldown;
+        Cooldown = Data.MaxCooldown;
         return 0;
     }
 }

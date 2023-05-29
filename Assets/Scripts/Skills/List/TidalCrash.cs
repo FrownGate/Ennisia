@@ -13,12 +13,12 @@ public class TidalCrash : Skill
 
         for (int i = 0; i < targets.Count; i++)
         {
-            float damage = Data.damageAmount;
+            float damage = Data.DamageAmount;
             targets[i].TakeDamage(damage);
             TotalDamage += damage;
         }
 
-        Cooldown = Data.maxCooldown;
+        Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
 }
