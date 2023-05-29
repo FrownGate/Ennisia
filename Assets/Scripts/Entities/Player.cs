@@ -15,5 +15,6 @@ public class Player : Entity
     {
         Skills = new List<Skill>();
         Skills.Add(new Bonk());
+        Skills.Add(new BlueDragonWraith());
     }
 }
