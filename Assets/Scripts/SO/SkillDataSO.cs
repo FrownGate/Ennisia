@@ -1,21 +1,20 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New SkillData", menuName = "Skill/New")]
+[CreateAssetMenu(fileName = "New SkillData", menuName = "Skill/New Data")]
 public class SkillData : ScriptableObject
 {
     /*Weapon weapon;*/
-    public int hitNb;
-    public float healingAmount;
-    public float damageAmount;
-    public float shieldAmount;
-    public float penDef;
-    public string description;
-    public string skillName;
-    public bool isAfter;
+    public int Id;
+    public string Name;
+    public string Description;
+    public float DamageAmount;
+    public float ShieldAmount;
+    public float HealingAmount;
+    public int MaxCooldown;
+    public float IgnoreDef;
+    public int HitNumber;
+    public bool IsAfter;
     public bool AOE;
-    public bool use;
-    public bool isMagic;
-    Texture2D texture;
-
-
+    public bool IsMagic;
+    public Sprite Icon;
 }

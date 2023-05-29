@@ -350,7 +350,7 @@ public class GearsCreator : EditorWindow
             EquipmentSO equipmentSO = CreateEquipment(equipment);  // Create an EquipmentSO instance based on the EquipmentData
 
             // Determine the path for saving the asset based on the equipment name and type
-            if (string.IsNullOrEmpty(equipmentSO.equipmentName))
+            if (string.IsNullOrEmpty(equipmentSO.Name))
             {
                 path = "Assets/Equipments/DebugGears/" + equipment.type + ".asset";
             }
@@ -374,7 +374,7 @@ public class GearsCreator : EditorWindow
         EquipmentSO equipmentSO = CreateEquipment(equipment);  // Create an EquipmentSO instance based on the EquipmentData
 
         // Determine the path for saving the asset based on the equipment name and type
-        if (string.IsNullOrEmpty(equipmentSO.equipmentName))
+        if (string.IsNullOrEmpty(equipmentSO.Name))
         {
             path = "Assets/Equipments/DebugGears/" + equipment.type + ".asset";
         }
@@ -395,12 +395,12 @@ public class GearsCreator : EditorWindow
         EquipmentSO equipment = CreateInstance<EquipmentSO>();  // Create a new instance of EquipmentSO
 
         // Set the properties of the EquipmentSO based on the EquipmentData
-        equipment.equipmentName = equipmentData.equipmentName;
-        equipment.type = equipmentData.type;
-        equipment.rarity = _selectedRarity[equipmentData];
-        equipment.attribute = equipmentData.attribute;
-        equipment.value = equipmentData.value;
-        equipment.description = equipmentData.description;
+        equipment.Name = equipmentData.equipmentName;
+        equipment.Type = equipmentData.type;
+        equipment.Rarity = _selectedRarity[equipmentData];
+        equipment.Attribute = equipmentData.attribute;
+        equipment.Value = equipmentData.value;
+        equipment.Description = equipmentData.description;
 
         return equipment;
     }
