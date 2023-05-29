@@ -1,4 +1,6 @@
-﻿public class Player : Entity
+﻿using System.Collections.Generic;
+
+public class Player : Entity
 {
     public Player()
     {
@@ -6,9 +8,18 @@
         Attack = 15;
         Speed = 30000;
         CurrentHp = MaxHp / 2;
+        GetSkill();
+    }
 
-        Skills.Add(new Bonk());
-        Skills.Add(new TidalCrash());
-        Skills.Add(new BlueDragonWraith());
+    private void GetSkill()
+    {
+        Skills = new List<Skill>
+        {
+            new Bonk(),
+            new TidalCrash(),
+            new BlueDragonWraith()
+        };
+
+        //weapon //getSkills
     }
 }

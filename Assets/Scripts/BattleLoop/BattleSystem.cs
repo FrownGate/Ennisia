@@ -34,7 +34,6 @@ public class BattleSystem : StateMachine
         foreach(var skill in Allies[0].Skills)
         {
             skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
-            skill.PassiveBeforeAttack(Enemies, Allies[0], 0);
         }
 
         SetState(new WhoGoFirst(this));
@@ -42,17 +41,7 @@ public class BattleSystem : StateMachine
 
     private void Update()
     {
-        if (_selected == SelectedTargetNumber)
-        {
-            Targetables = GetSelectedEnemies(Enemies);
-            StartCoroutine(State.Attack());
-            
-        }
-    }
-
-    private void LateUpdate()
-    {
-        //
+        
     }
 
     private void EnemyContainer()
@@ -74,7 +63,7 @@ public class BattleSystem : StateMachine
                 if (row % 2 == 1) 
                     xPos += (hexagonSize + hexagonSpacing) / 2f;
 
-                Vector3 hexagonPosition = gridCenter + new Vector3(xPos + 5, yPos, 0f);
+                Vector3 hexagonPosition = gridCenter + new Vector3(xPos + 2, yPos, 0f);
 
                 GameObject enemyInstance = Instantiate(enemyPrefab, hexagonPosition, Quaternion.identity);
                 EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
@@ -113,6 +102,11 @@ public class BattleSystem : StateMachine
     public void OnMouseUp()
     {
         _selected++;
+        if (_selected == SelectedTargetNumber)
+        {
+            Targetables = GetSelectedEnemies(Enemies);
+            StartCoroutine(State.Attack());
+        }
         Debug.Log("You selected:" + _selected +"target");
     }
 
