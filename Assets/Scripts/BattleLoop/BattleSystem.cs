@@ -5,6 +5,8 @@ using TMPro;
 
 public class BattleSystem : StateMachine
 {
+    [SerializeField] private GameObject Support1;
+    [SerializeField] private GameObject Support2;
     public Transform PlayerStation;
     public Transform EnemyStation;
     
