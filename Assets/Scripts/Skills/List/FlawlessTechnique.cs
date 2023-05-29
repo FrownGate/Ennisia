@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class FlawlessTechnique : Skill
 {
-    private void Awake()
-    {
-        FileName = "FlawlessTechnique";
-    }
-
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
         //critRate + 15%

@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class KnightOath : Skill
 {
-    private void Awake()
-    {
-        FileName = "KnightOath";
-    }
-
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         float buffMaxHp = player.MaxHp * 0.15f;

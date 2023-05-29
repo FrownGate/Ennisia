@@ -2,16 +2,11 @@ using System.Collections.Generic;
 
 public class ShieldBump : Skill
 {
-    private void Awake()
-    {
-        FileName = "ShieldBump";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        float damage = Data.damageAmount;
+        float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
-        Cooldown = Data.maxCooldown;
+        Cooldown = Data.MaxCooldown;
         return damage;
     }   
 

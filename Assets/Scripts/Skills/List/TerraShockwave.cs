@@ -7,11 +7,6 @@ public class TerraShockwave: Skill
     private float _increaseCDPerc = 0.75f;
     private int _stunTurn;
 
-    private void Awake()
-    {
-        FileName = "TerraShockwave";
-    }
-
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
         if (turn <= _stunTurn)
@@ -22,7 +17,7 @@ public class TerraShockwave: Skill
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        float damage = player.MagicAtk * Data.damageAmount / 100;
+        float damage = player.MagicAtk * Data.DamageAmount / 100;
         targets[0].TakeDamage(damage);
         float stunLuck = Random.Range(0, 1);
 

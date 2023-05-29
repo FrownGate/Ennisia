@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class Alchemy : Skill
 {
-    private void Awake()
-    {
-        FileName = "Alchemy";
-    }
-        
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         float PhRatioBuff = 0.5f;

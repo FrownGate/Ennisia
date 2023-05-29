@@ -4,11 +4,6 @@ public class BreezeOfVitality : Skill
 {
     private readonly float _increaseHealPerc = 10f;
 
-    private void Awake()
-    {
-        FileName = "BreezeOfVitality";
-    }
-
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
         float addHeal = 0;
@@ -21,7 +16,7 @@ public class BreezeOfVitality : Skill
             }
         }
 
-        float heal = player.MaxHp * (Data.healingAmount + addHeal) / 100;
+        float heal = player.MaxHp * (Data.HealingAmount + addHeal) / 100;
         player.CurrentHp += heal;
 
         return 0;

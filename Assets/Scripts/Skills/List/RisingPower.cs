@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class RisingPower : Skill
 {
-    private void Awake()
-    {
-        FileName = "RisingPower";
-    }
-
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         /*if(weapon != two-handed sword)*/

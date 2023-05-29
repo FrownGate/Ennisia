@@ -84,7 +84,7 @@ public class PlayFabManager : MonoBehaviour
             }
 
             Debug.Log("Loading local save...");
-            Login(_authData.email, _authData.password);
+            Login(_authData.Email, _authData.Password);
             return true;
         }
         catch
@@ -96,7 +96,7 @@ public class PlayFabManager : MonoBehaviour
 
     private bool HasAuthData()
     {
-        return !string.IsNullOrEmpty(_authData.email) && !string.IsNullOrEmpty(_authData.email);
+        return !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Email);
     }
 
     private void CreateAccountData(string email, string password)
@@ -104,8 +104,8 @@ public class PlayFabManager : MonoBehaviour
         //Create binary file with user datas
         _authData = new()
         {
-            email = email,
-            password = password
+            Email = email,
+            Password = password
         };
     }
 
@@ -479,12 +479,12 @@ public class PlayFabManager : MonoBehaviour
             if (inventoryGear.Id == id)
             {
                 equipment.Id = inventoryGear.Id;
-                equipment.equipmentName = inventoryGear.Name;
-                equipment.type = inventoryGear.Type;
-                equipment.rarity = inventoryGear.Rarity;
-                equipment.attribute = inventoryGear.Attribute;
-                equipment.value = inventoryGear.Value;
-                equipment.description = inventoryGear.Description;
+                equipment.Name = inventoryGear.Name;
+                equipment.Type = inventoryGear.Type;
+                equipment.Rarity = inventoryGear.Rarity;
+                equipment.Attribute = inventoryGear.Attribute;
+                equipment.Value = inventoryGear.Value;
+                equipment.Description = inventoryGear.Description;
                 break;
             }
         }

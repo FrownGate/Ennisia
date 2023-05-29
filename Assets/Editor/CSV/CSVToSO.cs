@@ -133,21 +133,21 @@ public class CSVToSO : EditorWindow
     private static void createSkillDataSO(Dictionary<string, string> rowData)
     {
         SkillData scriptableObject = ScriptableObject.CreateInstance<SkillData>();
-        scriptableObject.id = int.Parse(rowData["ID"]);
-        scriptableObject.skillName = rowData["skillName"];
-        scriptableObject.description = rowData["description"].Replace("\"", string.Empty);
-        scriptableObject.damageAmount = float.Parse( rowData["damageAmount"]);
-        scriptableObject.shieldAmount = float.Parse( rowData["shieldAmount"]);
-        scriptableObject.healingAmount = float.Parse( rowData["healingAmount"]);
-        scriptableObject.penDef = float.Parse( rowData["penDef"]);
-        scriptableObject.hitNb = int.Parse( rowData["hitNb"]);
-        scriptableObject.maxCooldown = int.Parse( rowData["maxCooldown"]);
-        scriptableObject.isAfter = bool.Parse( rowData["isAfter"]);
+        scriptableObject.Id = int.Parse(rowData["ID"]);
+        scriptableObject.Name = rowData["skillName"];
+        scriptableObject.Description = rowData["description"].Replace("\"", string.Empty);
+        scriptableObject.DamageAmount = float.Parse( rowData["damageAmount"]);
+        scriptableObject.ShieldAmount = float.Parse( rowData["shieldAmount"]);
+        scriptableObject.HealingAmount = float.Parse( rowData["healingAmount"]);
+        scriptableObject.IgnoreDef = float.Parse( rowData["penDef"]);
+        scriptableObject.HitNumber = int.Parse( rowData["hitNb"]);
+        scriptableObject.MaxCooldown = int.Parse( rowData["maxCooldown"]);
+        scriptableObject.IsAfter = bool.Parse( rowData["isAfter"]);
         scriptableObject.AOE = bool.Parse( rowData["AOE"]);
-        scriptableObject.isMagic = bool.Parse( rowData["isMagic"]);
+        scriptableObject.IsMagic = bool.Parse( rowData["isMagic"]);
 
         // Save the scriptable object
-        string savePath = $"Assets/Resources/SO/Skills/{scriptableObject.skillName.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty)}.asset";
+        string savePath = $"Assets/Resources/SO/Skills/{scriptableObject.Name.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty)}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

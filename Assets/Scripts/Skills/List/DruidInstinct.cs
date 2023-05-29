@@ -2,11 +2,6 @@ using System.Collections.Generic;
 
 public class DruidInstinct : Skill
 {
-    private void Awake()
-    {
-        FileName = "DruidInstinct";
-    }
-
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         float MaxHpBuff = player.Attack * 1.5f;
