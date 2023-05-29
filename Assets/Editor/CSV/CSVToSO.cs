@@ -5,9 +5,13 @@ using System.Collections.Generic;
 
 public class CSVToSO : EditorWindow
 {
+    private static Dictionary<string, List<string>> _equipmentTypes;
+    private static int _currentLine;
+    private static int _lines;
+
     enum TypeCSV
     {
-        supports,enemies,skills
+        supports,enemies,skills,equipment
     }
     [MenuItem("Tools/CSV to SO")]
     public static void ShowWindow()
@@ -45,11 +49,22 @@ public class CSVToSO : EditorWindow
                 CreateScriptableObjectsFromCSV(TypeCSV.skills, path);
             }
         }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Equipment Stats"))
+        {
+            _equipmentTypes = new();
+            string path = Application.dataPath + "/Editor/CSV/EquipmentStats.csv"; // EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
+            if (!string.IsNullOrEmpty(path))
+            {
+                CreateScriptableObjectsFromCSV(TypeCSV.equipment, path);
+            }
+        }
     }
 
     private void CreateScriptableObjectsFromCSV(TypeCSV type, string filePath)
     {
         string[] lines = System.IO.File.ReadAllLines(filePath);
+        _lines = lines.Length;
 
         if (lines.Length <= 1)
         {
@@ -61,6 +76,7 @@ public class CSVToSO : EditorWindow
 
         for (int i = 1; i < lines.Length; i++)
         {
+            _currentLine = i + 1;
             string[] values = SplitCSVLine(lines[i]);
 
             if (values.Length != headers.Length)
@@ -86,12 +102,16 @@ public class CSVToSO : EditorWindow
                 case TypeCSV.skills:
                     createSkillDataSO(rowData);
                     break;
+                case TypeCSV.equipment:
+                    CreateEquipmentStatDataSO(rowData);
+                    break;
                 default:
                     break;
             }
-
-
         }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
     private static void createSupportSO(Dictionary<string, string> rowData)
@@ -151,6 +171,48 @@ public class CSVToSO : EditorWindow
         AssetDatabase.CreateAsset(scriptableObject, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+    }
+    private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
+    {
+        string[] rarities = new string[4] { "Common", "Rare", "Epic", "Legendary" };
+
+        //Equipment Stat Attribute
+        if (!_equipmentTypes.ContainsKey($"{rowData["type"]}"))
+        {
+            Debug.Log("type missing");
+            _equipmentTypes[$"{rowData["type"]}"] = new()
+            {
+                rowData["attribute"].Replace(" ", string.Empty)
+            };
+        }
+        else
+        {
+            _equipmentTypes[$"{rowData["type"]}"].Add(rowData["attribute"].Replace(" ", string.Empty));
+        }
+
+        if (_currentLine == _lines)
+        {
+            foreach (KeyValuePair<string, List<string>> type in _equipmentTypes)
+            {
+                EquipmentAttributeSO attributeSO = CreateInstance<EquipmentAttributeSO>();
+                attributeSO.Attributes = type.Value;
+
+                string savePath = $"Assets/Resources/SO/EquipmentStats/Attributes/{type.Key}.asset";
+                AssetDatabase.CreateAsset(attributeSO, savePath);
+            }
+        }
+
+        //Equipment Stat Value
+        for (int i = 0; i < rarities.Length; i++)
+        {
+            EquipmentValueSO valueSO = CreateInstance<EquipmentValueSO>();
+            valueSO.MinValue = int.Parse(rowData[$"{rarities[i].ToLower()}Min"]);
+            valueSO.MaxValue = int.Parse(rowData[$"{rarities[i].ToLower()}Max"]);
+
+            // Save the scriptable object
+            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rowData["type"]}_{rarities[i]}_{rowData["attribute"]}.asset";
+            AssetDatabase.CreateAsset(valueSO, savePath);
+        }
     }
     private string[] SplitCSVLine(string line)
     {
