@@ -1,4 +1,6 @@
+using PlayFab.EconomyModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,6 +15,39 @@ public class GearData
     public float Value;
     public string Description;
     public string Icon;
+
+    public GearData() { }
+
+    public GearData(string type, string rarity, int id)
+    {
+        Id = id;
+        Name = $"[{rarity}] {type}";
+        Type = type;
+        Rarity = rarity;
+        Description = "";
+    }
+
+    public GearData(InventoryItem item)
+    {
+        Id = int.Parse(item.StackId);
+        //Name = name;
+        //Type = type;
+        //Rarity = rarity;
+        //Attribute = attribute;
+        //Value = value;
+        //Description = description;
+        //Icon = icon;
+    }
+
+    private int SetAttribute()
+    {
+        return 0;
+    }
+
+    private int SetValue()
+    {
+        return 0;
+    }
 
     public bool IsValid()
     {

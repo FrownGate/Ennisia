@@ -7,7 +7,7 @@ public class CSVToSO : EditorWindow
 {
     enum TypeCSV
     {
-        supports,enemies,skills
+        supports,enemies,skills,equipment
     }
     [MenuItem("Tools/CSV to SO")]
     public static void ShowWindow()
@@ -43,6 +43,15 @@ public class CSVToSO : EditorWindow
             if (!string.IsNullOrEmpty(path))
             {
                 CreateScriptableObjectsFromCSV(TypeCSV.skills, path);
+            }
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Equipment Stats"))
+        {
+            string path = Application.dataPath + "/Editor/CSV/EquipmentStats.csv"; // EditorUtility.OpenFilePanel("Select CSV File", "", "csv");
+            if (!string.IsNullOrEmpty(path))
+            {
+                CreateScriptableObjectsFromCSV(TypeCSV.equipment, path);
             }
         }
     }
@@ -85,6 +94,9 @@ public class CSVToSO : EditorWindow
                     break;
                 case TypeCSV.skills:
                     createSkillDataSO(rowData);
+                    break;
+                case TypeCSV.equipment:
+                    CreateEquipmentStatDataSO(rowData);
                     break;
                 default:
                     break;
@@ -151,6 +163,23 @@ public class CSVToSO : EditorWindow
         AssetDatabase.CreateAsset(scriptableObject, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+    }
+    private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
+    {
+        string[] rarities = new string[4] { "common", "rare", "epic", "legendary" };
+
+        for (int i = 0; i < rarities.Length; i++)
+        {
+            EquipmentValueSO scriptableObject = CreateInstance<EquipmentValueSO>();
+            scriptableObject.MinValue = int.Parse(rowData[$"{rarities[i]}Min"]);
+            scriptableObject.MaxValue = int.Parse(rowData[$"{rarities[i]}Max"]);
+
+            // Save the scriptable object
+            string savePath = $"Assets/Resources/SO/EquipmentStats/{rowData["type"]}{rowData["attribute"].Replace(" ", string.Empty)} ({rarities[i]}).asset";
+            AssetDatabase.CreateAsset(scriptableObject, savePath);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
     }
     private string[] SplitCSVLine(string line)
     {
