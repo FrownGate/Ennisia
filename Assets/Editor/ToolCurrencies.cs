@@ -1,5 +1,3 @@
-using PlayFab.EconomyModels;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,9 +11,6 @@ public class ToolCurrencies : EditorWindow
     private Label _goldLabel;
     private Label _crystalsLabel;
     private Label _energyLabel;
-
-    private const string GOLD_ID = "0dc3228a-78a9-4d26-a3ab-f7d1e5b5c4d3"; //temp
-    private const string CRYSTALS_ID = "0ec7fd19-4c26-4e0a-bd66-cf94f83ef060"; //temp
 
     [MenuItem("Tools/Currencies")]
     public static void ShowWindow()
@@ -37,28 +32,26 @@ public class ToolCurrencies : EditorWindow
         rootVisualElement.Clear();
         VisualElement main = new();
 
+        _gold = 0;
+        _crystals = 0;
+        _energy = 0;
+
         CreateLabels();
         //CreateFields();
         CreateButtons();
 
-        UpdateLabels();
-
         rootVisualElement.Add(main);
-    }
 
-    private void Awake()
-    {
-        PlayFabManager.OnGetCurrencies += UpdateCurrencies;
-        PlayFabManager.OnGetEnergy += UpdateEnergy;
-
-        PlayFabManager.Instance.GetPlayerCurrencies();
-        PlayFabManager.Instance.GetEnergy();
+        PlayFabManager.OnCurrencyUpdate += UpdateCurrencies;
+        PlayFabManager.OnEnergyUpdate += UpdateEnergy;
+        UpdateCurrencies();
+        UpdateEnergy();
     }
 
     private void OnDestroy()
     {
-        PlayFabManager.OnGetCurrencies -= UpdateCurrencies;
-        PlayFabManager.OnGetEnergy -= UpdateEnergy;
+        PlayFabManager.OnCurrencyUpdate -= UpdateCurrencies;
+        PlayFabManager.OnEnergyUpdate -= UpdateEnergy;
     }
 
     private void Update()
@@ -67,28 +60,16 @@ public class ToolCurrencies : EditorWindow
         Close();
     }
 
-    private void UpdateCurrencies(List<InventoryItem> currencies)
+    private void UpdateCurrencies()
     {
-        foreach (InventoryItem item in currencies)
-        {
-            switch(item.Id)
-            {
-                case GOLD_ID:
-                    _gold = (int)item.Amount;
-                    break;
-                case CRYSTALS_ID:
-                    _crystals = (int)item.Amount;
-                    break;
-                default: break;
-            }
-        }
-
+        _gold = PlayFabManager.Instance.Currencies["Gold"];
+        _crystals = PlayFabManager.Instance.Currencies["Crystals"];
         UpdateLabels();
     }
 
-    private void UpdateEnergy(int energy)
+    private void UpdateEnergy()
     {
-        _energy = energy;
+        _energy = PlayFabManager.Instance.Energy;
         UpdateLabels();
     }
 

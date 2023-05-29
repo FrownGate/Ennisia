@@ -12,7 +12,7 @@ public abstract class Skill
     public float Cooldown { get; protected set; }
     public string FileName { get; protected set; }
 
-    Skill()
+    public Skill()
     {
         FileName = GetType().Name;
         Data = Resources.Load<SkillData>("SO/Skills/" + FileName + ".asset");
