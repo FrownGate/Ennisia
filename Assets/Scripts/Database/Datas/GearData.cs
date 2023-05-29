@@ -11,20 +11,34 @@ public class GearData
     public string Name;
     public string Type;
     public string Rarity;
-    public string Attribute;
+    public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;
-    public string Icon;
+    public string Icon; //TODO -> create function to return icon path with name
 
     public GearData() { }
 
     public GearData(string type, string rarity, int id)
     {
         Id = id;
-        Name = $"[{rarity}] {type}";
         Type = type;
         Rarity = rarity;
         Description = "";
+        Attribute = SetAttribute();
+        Value = SetValue();
+        Name = $"[{rarity}] {type}";
+    }
+
+    private string SetAttribute()
+    {
+        List<string> possiblesAttributes = Resources.Load<EquipmentAttributeSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
+        return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
+    }
+
+    private int SetValue()
+    {
+        EquipmentValueSO possibleValues = Resources.Load<EquipmentValueSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
+        return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
     }
 
     public GearData(InventoryItem item)
@@ -37,16 +51,6 @@ public class GearData
         //Value = value;
         //Description = description;
         //Icon = icon;
-    }
-
-    private int SetAttribute()
-    {
-        return 0;
-    }
-
-    private int SetValue()
-    {
-        return 0;
     }
 
     public bool IsValid()

@@ -174,7 +174,7 @@ public class CSVToSO : EditorWindow
     }
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
     {
-        string[] rarities = new string[4] { "common", "rare", "epic", "legendary" };
+        string[] rarities = new string[4] { "Common", "Rare", "Epic", "Legendary" };
 
         //Equipment Stat Attribute
         if (!_equipmentTypes.ContainsKey($"{rowData["type"]}"))
@@ -206,11 +206,11 @@ public class CSVToSO : EditorWindow
         for (int i = 0; i < rarities.Length; i++)
         {
             EquipmentValueSO valueSO = CreateInstance<EquipmentValueSO>();
-            valueSO.MinValue = int.Parse(rowData[$"{rarities[i]}Min"]);
-            valueSO.MaxValue = int.Parse(rowData[$"{rarities[i]}Max"]);
+            valueSO.MinValue = int.Parse(rowData[$"{rarities[i].ToLower()}Min"]);
+            valueSO.MaxValue = int.Parse(rowData[$"{rarities[i].ToLower()}Max"]);
 
             // Save the scriptable object
-            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rowData["type"]}{rowData["attribute"].Replace(" ", string.Empty)} ({rarities[i]}).asset";
+            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rowData["type"]}_{rarities[i]}_{rowData["attribute"]}.asset";
             AssetDatabase.CreateAsset(valueSO, savePath);
         }
     }
