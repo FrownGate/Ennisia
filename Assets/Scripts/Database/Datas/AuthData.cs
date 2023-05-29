@@ -3,6 +3,6 @@ using System;
 [Serializable]
 public class AuthData
 {
-    public string email;
-    public string password;
+    public string Email;
+    public string Password;
 }
