@@ -13,7 +13,13 @@ public class Player : Entity
 
     private void GetSkill()
     {
-        Skills = new List<Skill>();
-        Skills.Add(new Bonk());
+        Skills = new List<Skill>
+        {
+            new Bonk(),
+            new TidalCrash(),
+            new BlueDragonWraith()
+        };
+
+        //weapon //getSkills
     }
 }
