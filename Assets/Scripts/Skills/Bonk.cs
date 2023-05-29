@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Bonk : Skill
 {
-    
+    public Bonk() : base()
+    {
+        
+    } 
 }
