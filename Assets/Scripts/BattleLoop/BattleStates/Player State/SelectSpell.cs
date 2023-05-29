@@ -8,7 +8,6 @@ public class SelectSpell : PlayerTurn
     public SelectSpell(BattleSystem battleSystem) : base(battleSystem)
     {
         _spellNumber = battleSystem.ButtonId;
-        
     }
 
     public override IEnumerator Start()

@@ -1,0 +1,45 @@
+ID,skillName,description,damageAmount,shieldAmount,healingAmount,maxCooldown,penDef,hitNb,isAfter,AOE,isMagic
+1,Bonk,Deals one slight hit to an enemy. Deals physical or magical damages depending on the weapon held.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+2,Tidal Crash,"deals 3 hits to all enemies, creating a huge tidal wave.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+3,Blue Dragon's Wrath,deals 5 hits to an enemy with a majestic blue dragon.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+4,Holy Prayer,grants attack buff and heals the user by 10% of their max health.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+5,Light Bomb,deals 1 hit to all enemies with a light explosion.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+6,Blood Contract,"deals 4 hits to all enemies with a quick attack, recovering the user’s hp by 30% of damage dealt.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+7,In A Flash,"deals 2 hits to an enemy with a powerful attack, penetrating his soul and his defense by 50%.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+8,Flawless Technique," increase critical rate of the player by 15%. When an enemy is killed, grants Attack buff",0,0,0,0,0,0,FALSE,FALSE,FALSE
+9,Deadly Blow,"sneaks behind an enemy and stabs them, dealing 5 hits. If the enemy is killed by this skill, reset its cooldown.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+10,Bones Breaker,"deals one heavy hit to an enemy, debuffs his defense.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+11,Fatal Crash,"deals one charged hit to an enemy, divided by the missing hp% then heals hp according to damage dealt.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+12,Impregnable Defense," increases defense of the player by 5% every turn, up to 20%.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+13,Shield Bump,"deals 1 hit to an enemy with all of their strength. If the enemy has a defense debuff, deals an additional 50% damage.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+14,Feathers’ Fall, Deals 10 hits to all enemies with sharp feathers.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+15,Hawk’s Eye,"increases user’s critical damage, attack and critical rate (buff), then gives an additional turn.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+16,Rising Power,"increases base attack by 15%, or by 30% if a two-handed sword is equipped.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+17,In The Shadow,"penetrates the target’s defense by 40% on third skill; if the enemy is debuffed, has a 50% chance to play again.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+18,Druid Instinct, increases hp by 150% of base attack. Heals 5% of damage dealt.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+19,Soul Convertion,Inverts the  current weapon’s damage type and increases it by 20%.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+20,Knight Oath,"Increase hp and defense by 15%. After receiving damage, give a shield equivalent to 5% of max health.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+21,Alchemy,"increases magical damages by 50%. Every 2 turns, decreases the third skill cooldown by 1 turn.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+22,All In,"Always take the first turn, and convert 50% of defense into attack.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+23,Blessing,"heal for 10% of max health at the end of the turn. Once every 2 turns, give immunity.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+24,Force Balancing,"If an enemy heals himself, increase the attack by 5%, up to 5 stack.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+25,Fast Shield,"After an enemy attack, gives a shield, the shield strength is equivalent to 20% of the damage received  ",0,0,0,0,0,0,FALSE,FALSE,FALSE
+26,Purifying Ward,Once every turn; cleanse one debuff when attacked,0,0,0,0,0,0,FALSE,FALSE,FALSE
+27,Last Hope,Heals the player by 30% when falling under 20% of max HP // One time use,0,0,0,0,0,0,FALSE,FALSE,FALSE
+28,Charge!,increase attack by 5%.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+29,Reinforcement,increase defense by 5%.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+30,Giant,increase hp by 5%.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+31,Rampant Assault,"deals damage equivalent to 20% of the target’s max health. For every turn that has passed, damage increases by 5%, up to 50%.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+32,Crippling Blow,Deals 50% of physical attack before a 80% chance to decrease the target’s defense by 70% for 2 turns.  // debuff,0,0,0,0,0,0,FALSE,FALSE,FALSE
+33,Infernal Resilience,Gives a shield equivalent to 50% of missing health for 3 turns.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+34,Torrential Annihilation,"Deals 25% of physical/magic att as true damage. If the player’s physical damage is higher than the enemy, remove all debuffs.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+35,Quaking Suppression,Has a 70% chance to stun for 1 turn and a 100% chance to silence for 2 turns.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+36,Terra Shockwave,"deals 50% of magical attack, has a 50% chance to stun the target for 1 turn, and has a 75% chance to increase the target’s third skill cooldown by 2 turns.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+37,Thunderstrike Assassination,Empower your next single target attack by giving a 100% defense penetration rate. Does not work on bosses.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+38,Breeze of Vitality,heal for 30% of max health. Increase heal by 10% for each enemy still alive.,0,0,0,0,0,0,FALSE,FALSE,FALSE
+39,Tidal Execution,"Deals damage scaling by the target’s lost health, if the target has 5% hp or lower, execute the target.",0,0,0,0,0,0,FALSE,FALSE,FALSE
+40,Flame Purification,Cleanse all debuffs,0,0,0,0,0,0,FALSE,FALSE,FALSE
+41,Gale Disruption,Remove all buffs from target,0,0,0,0,0,0,FALSE,FALSE,FALSE
+42,Nurturing Earthbound,Heals 80% of lost health,0,0,0,0,0,0,FALSE,FALSE,FALSE
+43,Blazing Fury,Increase attack of player for 3 turns,0,0,0,0,0,0,FALSE,FALSE,FALSE
+44,Thunderous Impact,Stun the enemy for 1 turn // High CD,0,0,0,0,0,0,FALSE,FALSE,FALSE

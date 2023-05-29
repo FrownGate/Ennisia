@@ -38,8 +38,7 @@ public class EnemyController : MonoBehaviour
 
     public void InitEnemy()
     {
-
-
+        //
     }
 
     private void UpdateHUD()
