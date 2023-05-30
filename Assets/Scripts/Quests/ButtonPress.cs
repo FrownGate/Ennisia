@@ -1,18 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ButtonPress : MonoBehaviour
 {
-    public Button button;
-    public QuestManager questManager;
+    public QuestManager questManager; // Référence au script QuestManager
 
-    private void Start()
+    private void OnMouseDown()
     {
-        button.onClick.AddListener(OnButtonClick);
-    }
-
-    private void OnButtonClick()
-    {
-        questManager.OnButtonPress();
+        if (!questManager.IsDailyQuestCompleted)
+        {
+            questManager.CompleteQuest("daily"); // Compléter la quête quotidienne
+        }
+        else if (!questManager.IsWeeklyQuestCompleted)
+        {
+            questManager.CompleteQuest("weekly"); // Compléter la quête hebdomadaire
+        }
     }
 }

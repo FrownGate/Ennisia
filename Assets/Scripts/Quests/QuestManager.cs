@@ -2,120 +2,125 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    private int dailyButtonPressCount;
-    private int weeklyButtonPressCount;
+    public int dailyQuestClicksNeeded = 3; // Nombre de clics nécessaires pour compléter la quête quotidienne
+    public int weeklyQuestClicksNeeded = 5; // Nombre de clics nécessaires pour compléter la quête hebdomadaire
 
-    private const int dailyButtonPressTarget = 10;
-    private const int weeklyButtonPressTarget = 20;
+    private int buttonClickCount = 0; // Compteur de clics
 
-    private bool dailyQuestCompleted;
-    private bool weeklyQuestCompleted;
+    private bool isDailyQuestCompleted = false; // Indique si la quête quotidienne est complétée
+    private bool isWeeklyQuestCompleted = false; // Indique si la quête hebdomadaire est complétée
 
-    private float lastDailyQuestCompletionTime;
-    private float lastWeeklyQuestCompletionTime;
+    private bool isDailyQuestOnCooldown = false; // Indique si la quête quotidienne est en cooldown
+    private bool isWeeklyQuestOnCooldown = false; // Indique si la quête hebdomadaire est en cooldown
 
-    private const float dailyQuestCooldownDuration = 24f * 60f * 60f; // Durée du cooldown pour la quête quotidienne en secondes
-    private const float weeklyQuestCooldownDuration = 7f * 24f * 60f * 60f; // Durée du cooldown pour la quête hebdomadaire en secondes
+    public float dailyQuestCooldownDuration = 10f; // Durée du cooldown de la quête quotidienne en secondes
+    public float weeklyQuestCooldownDuration = 20f; // Durée du cooldown de la quête hebdomadaire en secondes
 
-    private float dailyQuestTimer;
-    private float weeklyQuestTimer;
-
-    private void Start()
-    {
-        dailyButtonPressCount = 0;
-        weeklyButtonPressCount = 0;
-
-        dailyQuestCompleted = false;
-        weeklyQuestCompleted = false;
-
-        lastDailyQuestCompletionTime = PlayerPrefs.GetFloat("LastDailyQuestCompletionTime", 0f);
-        lastWeeklyQuestCompletionTime = PlayerPrefs.GetFloat("LastWeeklyQuestCompletionTime", 0f);
-
-        dailyQuestTimer = 0f;
-        weeklyQuestTimer = 0f;
-    }
+    private float dailyQuestCooldownTimer = 0f; // Timer du cooldown de la quête quotidienne
+    private float weeklyQuestCooldownTimer = 0f; // Timer du cooldown de la quête hebdomadaire
 
     private void Update()
     {
-        if (!dailyQuestCompleted && CanCompleteDailyQuest())
+        // Gestion du cooldown de la quête quotidienne
+        if (isDailyQuestOnCooldown)
         {
-            Debug.Log("Daily quest is ready to be completed!");
+            dailyQuestCooldownTimer -= Time.deltaTime;
+            if (dailyQuestCooldownTimer <= 0f)
+            {
+                isDailyQuestOnCooldown = false;
+                Debug.Log("Le cooldown de la quête quotidienne est terminé. Vous pouvez commencer la quête à nouveau.");
+            }
         }
 
-        if (!weeklyQuestCompleted && CanCompleteWeeklyQuest())
+        // Gestion du cooldown de la quête hebdomadaire
+        if (isWeeklyQuestOnCooldown)
         {
-            Debug.Log("Weekly quest is ready to be completed!");
+            weeklyQuestCooldownTimer -= Time.deltaTime;
+            if (weeklyQuestCooldownTimer <= 0f)
+            {
+                isWeeklyQuestOnCooldown = false;
+                Debug.Log("Le cooldown de la quête hebdomadaire est terminé. Vous pouvez commencer la quête à nouveau.");
+            }
         }
     }
 
     public void OnButtonPress()
     {
-        dailyButtonPressCount++;
-        weeklyButtonPressCount++;
-
-        if (dailyButtonPressCount >= dailyButtonPressTarget && !dailyQuestCompleted && CanCompleteDailyQuest())
+        // Vérification de la complétion de la quête quotidienne
+        if (isDailyQuestCompleted && !isDailyQuestOnCooldown)
         {
-            CompleteDailyQuest();
+            buttonClickCount++;
+
+            if (buttonClickCount >= dailyQuestClicksNeeded)
+            {
+                CompleteQuest("daily");
+                StartQuestCooldown("daily", dailyQuestCooldownDuration);
+            }
         }
 
-        if (weeklyButtonPressCount >= weeklyButtonPressTarget && !weeklyQuestCompleted && CanCompleteWeeklyQuest())
+        // Vérification de la complétion de la quête hebdomadaire
+        if (isWeeklyQuestCompleted && !isWeeklyQuestOnCooldown)
         {
-            CompleteWeeklyQuest();
+            buttonClickCount++;
+
+            if (buttonClickCount >= weeklyQuestClicksNeeded)
+            {
+                CompleteQuest("weekly");
+                StartQuestCooldown("weekly", weeklyQuestCooldownDuration);
+            }
         }
     }
 
-    private bool CanCompleteDailyQuest()
+    public void CompleteQuest(string questType)
     {
-        return Time.time >= lastDailyQuestCompletionTime + dailyQuestCooldownDuration;
+        // Réinitialisation de la quête spécifiée
+        switch (questType)
+        {
+            case "daily":
+                isDailyQuestCompleted = true; // Marquer la quête quotidienne comme complétée
+                Debug.Log("Quête quotidienne complétée !");
+                break;
+            case "weekly":
+                isWeeklyQuestCompleted = true; // Marquer la quête hebdomadaire comme complétée
+                Debug.Log("Quête hebdomadaire complétée !");
+                break;
+            default:
+                Debug.LogError("Type de quête invalide !");
+                break;
+        }
+
+        // Réinitialisation du compteur de clics
+        buttonClickCount = 0;
     }
 
-    private bool CanCompleteWeeklyQuest()
+    private void StartQuestCooldown(string questType, float cooldownDuration)
     {
-        return Time.time >= lastWeeklyQuestCompletionTime + weeklyQuestCooldownDuration;
+        // Lancement du cooldown de la quête spécifiée
+        switch (questType)
+        {
+            case "daily":
+                isDailyQuestOnCooldown = true;
+                dailyQuestCooldownTimer = cooldownDuration;
+                Debug.Log("Le cooldown de la quête quotidienne est en cours. Attendez " + cooldownDuration + " secondes.");
+                break;
+            case "weekly":
+                isWeeklyQuestOnCooldown = true;
+                weeklyQuestCooldownTimer = cooldownDuration;
+                Debug.Log("Le cooldown de la quête hebdomadaire est en cours. Attendez " + cooldownDuration + " secondes.");
+                break;
+            default:
+                Debug.LogError("Type de quête invalide !");
+                break;
+        }
     }
 
-    private float GetTimeRemainingForDailyQuest()
+    public bool IsDailyQuestCompleted
     {
-        return Mathf.Max(0f, lastDailyQuestCompletionTime + dailyQuestCooldownDuration - Time.time);
+        get { return isDailyQuestCompleted; }
     }
 
-    private float GetTimeRemainingForWeeklyQuest()
+    public bool IsWeeklyQuestCompleted
     {
-        return Mathf.Max(0f, lastWeeklyQuestCompletionTime + weeklyQuestCooldownDuration - Time.time);
-    }
-
-    private string FormatTime(float time)
-    {
-        int hours = Mathf.FloorToInt(time / 3600);
-        int minutes = Mathf.FloorToInt((time % 3600) / 60);
-        int seconds = Mathf.FloorToInt(time % 60);
-
-        return string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
-    }
-
-    private void CompleteDailyQuest()
-    {
-        dailyQuestCompleted = true;
-        lastDailyQuestCompletionTime = Time.time;
-        PlayerPrefs.SetFloat("LastDailyQuestCompletionTime", lastDailyQuestCompletionTime);
-        Debug.Log("Daily quest completed!");
-
-        // Ajoutez ici le code pour récompenser le joueur pour la quête quotidienne
-
-        // Initialiser le compteur de pressions quotidiennes
-        dailyButtonPressCount = 0;
-    }
-
-    private void CompleteWeeklyQuest()
-    {
-        weeklyQuestCompleted = true;
-        lastWeeklyQuestCompletionTime = Time.time;
-        PlayerPrefs.SetFloat("LastWeeklyQuestCompletionTime", lastWeeklyQuestCompletionTime);
-        Debug.Log("Weekly quest completed!");
-
-        // Ajoutez ici le code pour récompenser le joueur pour la quête hebdomadaire
-
-        // Initialiser le compteur de pressions hebdomadaires
-        weeklyButtonPressCount = 0;
+        get { return isWeeklyQuestCompleted; }
     }
 }
