@@ -12,8 +12,11 @@ public class SelectSpell : PlayerTurn
 
     public override IEnumerator Start()
     {
-        Debug.Log("You choose : " + BattleSystem.Allies[0].Skills[_spellNumber].FileName);
+    
+
         BattleSystem.dialogueText.text = "Select a spell";
+        Debug.Log("You choose : " + BattleSystem.Allies[0].Skills[_spellNumber].FileName);
+        Debug.Log("Number : " + _spellNumber);
         BattleSystem.SetState(new SelectTarget(BattleSystem));
         yield break;
     }

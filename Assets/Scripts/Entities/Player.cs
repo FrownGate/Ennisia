@@ -17,7 +17,7 @@ public class Player : Entity
         {
             new Bonk(),
             new TidalCrash(),
-            new BlueDragonWraith()
+            new BlueDragonsWrath()
         };
 
         //weapon //getSkills

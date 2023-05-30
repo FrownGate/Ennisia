@@ -8,6 +8,12 @@ public class EnemyTurn : State
 
     public override IEnumerator Start()
     {
+
+
+        foreach (var skill in BattleSystem.SkillsButton)
+        {
+            skill.SetActive(false);
+        }
         BattleSystem.dialogueText.text = "Enemy turn";
 
         BattleSystem.RemoveDeadEnemies();

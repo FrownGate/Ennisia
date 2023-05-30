@@ -7,6 +7,9 @@ public class BattleSystem : StateMachine
 {
     [SerializeField] private GameObject Support1;
     [SerializeField] private GameObject Support2;
+
+    [SerializeField] public GameObject[] SkillsButton;
+
     public Transform PlayerStation;
     public Transform EnemyStation;
     
@@ -65,7 +68,7 @@ public class BattleSystem : StateMachine
                 if (row % 2 == 1) 
                     xPos += (hexagonSize + hexagonSpacing) / 2f;
 
-                Vector3 hexagonPosition = gridCenter + new Vector3(xPos + 2, yPos, 0f);
+                Vector3 hexagonPosition = gridCenter + new Vector3(xPos + 10, yPos, 0f);
 
                 GameObject enemyInstance = Instantiate(enemyPrefab, hexagonPosition, Quaternion.identity);
                 EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
@@ -104,12 +107,13 @@ public class BattleSystem : StateMachine
     public void OnMouseUp()
     {
         _selected++;
+        Debug.Log("You selected:" + _selected + "target");
         if (_selected == SelectedTargetNumber)
         {
             Targetables = GetSelectedEnemies(Enemies);
             StartCoroutine(State.Attack());
         }
-        Debug.Log("You selected:" + _selected +"target");
+       
     }
 
     public void RemoveDeadEnemies()
