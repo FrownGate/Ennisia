@@ -7,7 +7,8 @@ public class SelectTarget : SelectSpell
 
     public override IEnumerator Start()
     {
-        BattleSystem.dialogueText.text = "Select" + BattleSystem.SelectedTargetNumber + "  target";
+        BattleSystem.dialogueText.text = "Select " + BattleSystem.SelectedTargetNumber + "  target";
+        Debug.Log(BattleSystem.Allies[0].Skills[1].Data);
         yield return new WaitForSeconds(2.0f);
     }
 
