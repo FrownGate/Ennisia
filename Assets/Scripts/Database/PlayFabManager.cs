@@ -480,7 +480,7 @@ public class PlayFabManager : MonoBehaviour
                 equipment.Type = inventoryGear.Type;
                 equipment.Rarity = inventoryGear.Rarity;
                 equipment.Attribute = inventoryGear.Attribute;
-                equipment.Value = inventoryGear.Value;
+                equipment.statValue = inventoryGear.Value;
                 equipment.Description = inventoryGear.Description;
                 break;
             }

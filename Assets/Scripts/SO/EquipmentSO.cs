@@ -9,7 +9,11 @@ public class EquipmentSO : ScriptableObject
     public string Type;
     public string Rarity;
     public string Attribute;
-    public float Value;
+    public string statName;
+    public float statValue;
+    public float statUpgrade;
+    public float ratioUpgrade;
+    public int level;
     public string Description;
     public Sprite Icon;
 
@@ -21,5 +25,23 @@ public class EquipmentSO : ScriptableObject
         };
 
         return types[Type];
+    }
+
+    public void Upgrade()
+    {
+        if (level <= 50)
+        {
+            statValue += (statUpgrade * level) + (statValue * ratioUpgrade);
+        }
+        else { }
+    }
+
+    public void Upgrade(int _level)
+    {
+        if (_level <= 50)
+        {
+            statValue += (statUpgrade * _level) + (statValue * ratioUpgrade);
+        }
+        else { }
     }
 }
