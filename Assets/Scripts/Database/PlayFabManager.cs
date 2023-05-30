@@ -267,7 +267,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnGetEnergySuccess(GetUserInventoryResult result)
     {
         Energy = result.VirtualCurrency["EN"];
-        GetUserDatas();
+        GetInventoryItems();
     }
     #endregion
 
@@ -298,6 +298,25 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log("Data updated !");
             CompleteLogin();
         }, OnRequestError);
+    }
+
+    private void GetInventoryItems()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $"id eq 'b2548442-2a71-4e97-88e6-fb52656311e4'"
+        }, OnGetInventoryItems, OnRequestError);
+    }
+
+    private void OnGetInventoryItems(GetInventoryItemsResponse response)
+    {
+        foreach (InventoryItem item in response.Items)
+        {
+            Inventory.Gears.Add(new(item));
+        }
+
+        GetUserDatas();
     }
 
     private void GetUserDatas()

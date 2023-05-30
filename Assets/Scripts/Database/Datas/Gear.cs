@@ -48,6 +48,20 @@ public class Gear
         };
     }
 
+    public Gear(InventoryItem item)
+    {
+        Id = int.Parse(item.StackId);
+
+        Data = JsonUtility.FromJson<GearData>(item.DisplayProperties.ToString());
+        Name = Data.Name;
+        Type = Data.Type;
+        Rarity = Data.Rarity;
+        Attribute = Data.Attribute;
+        Value = Data.Value;
+
+        Debug.Log($"Getting {Name} item !");
+    }
+
     private string SetAttribute()
     {
         List<string> possiblesAttributes = Resources.Load<EquipmentAttributeSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
@@ -58,18 +72,6 @@ public class Gear
     {
         EquipmentValueSO possibleValues = Resources.Load<EquipmentValueSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
-    }
-
-    public Gear(InventoryItem item)
-    {
-        Id = int.Parse(item.StackId);
-        //Name = name;
-        //Type = type;
-        //Rarity = rarity;
-        //Attribute = attribute;
-        //Value = value;
-        //Description = description;
-        //Icon = icon;
     }
 
     public bool IsValid()
