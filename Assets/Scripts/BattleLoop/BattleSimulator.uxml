@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;">
+        <ui:GroupBox name="Allies" style="height: 100%; width: 50%; max-width: 50%; max-height: 100%; min-width: 50%; min-height: 100%; align-items: center; flex-direction: row; justify-content: space-between; flex-grow: 0; left: 0; bottom: 0; position: absolute; top: 0;">
+            <ui:Label tabindex="-1" text="Allies" display-tooltip-when-elided="true" name="Title" style="flex-direction: column; justify-content: space-around; align-self: stretch; align-items: stretch; flex-wrap: nowrap; height: 37px; width: 153px; display: flex; top: auto; left: auto; -unity-text-align: middle-center; white-space: nowrap; text-overflow: clip; flex-shrink: 0; flex-basis: 100%;" />
+        </ui:GroupBox>
+        <ui:GroupBox name="Enemies" style="flex-direction: row; justify-content: space-between; width: 50%; height: 100%; align-items: center; flex-wrap: nowrap; align-self: auto; max-width: 50%; max-height: 100%; min-height: 100%; min-width: 50%; flex-basis: auto; right: 0; bottom: 0; position: absolute; left: 50%;">
+            <ui:Label tabindex="-1" text="Enemies" display-tooltip-when-elided="true" name="Title" style="flex-direction: row; justify-content: flex-start; align-self: stretch; align-items: auto; flex-wrap: nowrap; height: 37px; width: 153px; display: flex; top: auto; left: auto; -unity-text-align: middle-center; white-space: nowrap; text-overflow: clip; flex-basis: 100%;" />
+            <ui:GroupBox name="FirstEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: 0; left: auto;">
+                <ui:DropdownField label="Enemy 1 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="first-enemy-dropdown" />
+                <ui:Foldout text="Foldout" name="first-enemy-foldout" style="width: 100%;" />
+            </ui:GroupBox>
+            <ui:GroupBox name="SecondEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 160px; right: 0; left: auto;">
+                <ui:DropdownField label="Enemy 2 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="second-enemy-dropdown" />
+                <ui:Foldout text="Foldout" name="second-enemy-foldout" style="width: 100%;" />
+            </ui:GroupBox>
+            <ui:GroupBox name="ThirdEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 260px; right: 0; left: auto;">
+                <ui:DropdownField label="Enemy 3 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="third-enemy-dropdown" />
+                <ui:Foldout text="Foldout" name="third-enemy-foldout" style="width: 100%;" />
+            </ui:GroupBox>
+            <ui:GroupBox name="FourthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 360px; right: 0; left: auto;">
+                <ui:DropdownField label="Enemy 4 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="fourth-enemy-dropdown" />
+                <ui:Foldout text="Foldout" name="fourth-enemy-foldout" style="width: 100%;" />
+            </ui:GroupBox>
+            <ui:GroupBox name="FifthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 460px; right: 0; left: auto;">
+                <ui:DropdownField label="Enemy 5 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="fifth-enemy-dropdown" style="justify-content: space-around;" />
+                <ui:Foldout text="Foldout" name="fifth-enemy-foldout" style="width: 100%;" />
+            </ui:GroupBox>
+            <ui:GroupBox name="sixthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 560px; left: auto; right: 0;">
+                <ui:DropdownField label="Enemy 6 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="sixth-enemy-dropdown" style="justify-content: space-around;" />
+                <ui:Foldout text="Foldout" name="sixth-enemy-foldout" style="width: 100%;" />
+            </ui:GroupBox>
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>
