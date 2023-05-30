@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5431aed841f94fe4c9884e845246f751, type: 3}
+  m_Name: 2-Theaume
+  m_EditorClassIdentifier: 
+  id: 2
+  suppportName: Theaume
+  rarity: Legendary
+  race: Human
+  supportClass: Assassin
+  passif: {fileID: 0}
+  skill: {fileID: 0}
+  description: "A young promising assassin that is said to have lived and trained
+    in the legendary temple of Skotnaos. No one has ever admitted to have seen it
+    as they are sworn to secrecy. However, he is now serving as the general, Djeamy\u2019s,
+    right hand. He is known for killing his prey with a single blow and is so fast
+    that his targets do not feel a thing."
+  catchPhrase: Be careful of the shadows, you never know who might be lurking

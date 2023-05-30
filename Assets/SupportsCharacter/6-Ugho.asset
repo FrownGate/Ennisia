@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5431aed841f94fe4c9884e845246f751, type: 3}
+  m_Name: 6-Ugho
+  m_EditorClassIdentifier: 
+  id: 6
+  suppportName: Ugho
+  rarity: Legendary
+  race: Beast
+  supportClass: Mage
+  passif: {fileID: 0}
+  skill: {fileID: 0}
+  description: "No one knows how old Ugho truly is as no one has ever seen his face,
+    it is rumored that he fought the demon king 1000 years ago and that he hasn\u2019t
+    died because the demon king still lives. His raw magic is rumored to be limitless
+    and so powerful that he secludes himself in the mountains, waiting for the demon
+    king\u2019s return."
+  catchPhrase: The demon king will pay for his crimes, and I will be the judge.
