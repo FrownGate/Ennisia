@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class SelectTarget : SelectSpell
+public class SelectTarget : State
 {
-    public SelectTarget(BattleSystem battleSystem) : base(battleSystem) { }
+    private Skill _selectedSkill;
+
+    public SelectTarget(BattleSystem battleSystem, Skill selectedSkill) : base(battleSystem)
+    {
+        _selectedSkill = selectedSkill;
+    }
 
     public override IEnumerator Start()
     {
@@ -32,14 +37,17 @@ public class SelectTarget : SelectSpell
         //Attack Button
         foreach (var enemy in BattleSystem.Targetables)
         {
-            // Check if enemy is not null
-            if (enemy == null)
+            if (BattleSystem.Targetables.Count == 0)
             {
-                Debug.LogError("Enemy in Targetables is null");
-                continue;
+                BattleSystem.dialogueText.text = "No targets selected";
+                yield break;
             }
 
-            foreach (var skill in BattleSystem.Allies[0].Skills)
+          
+            _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Allies[0],BattleSystem.turn);
+                
+
+            /*foreach (var skill in BattleSystem.Allies[0].Skills)
             {
                 skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             }
@@ -52,9 +60,9 @@ public class SelectTarget : SelectSpell
             foreach (var skill in BattleSystem.Allies[0].Skills)
             {
                 skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
-            }
+            }*/
         }
-
+        BattleSystem.RemoveDeadEnemies();
         BattleSystem.Targetables.Clear();
         yield return new WaitForSeconds(0.5f);
         BattleSystem.SetState(new EnemyTurn(BattleSystem)); 

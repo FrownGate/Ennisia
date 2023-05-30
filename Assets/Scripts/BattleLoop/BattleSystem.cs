@@ -20,7 +20,7 @@ public class BattleSystem : StateMachine
     public List<Entity> Targetables { get; private set; }
     private int _maxEnemies => 1;
     
-    public int ButtonId { get; private set; }
+
     public int SelectedTargetNumber { get; private set; } = 1;
     public int _selected = 0;
     public int turn = 0;
@@ -42,11 +42,6 @@ public class BattleSystem : StateMachine
         }
 
         SetState(new WhoGoFirst(this));
-    }
-
-    private void Update()
-    {
-        
     }
 
     private void EnemyContainer()
@@ -88,20 +83,17 @@ public class BattleSystem : StateMachine
 
     public void OnAttackButton()
     {
-        ButtonId = 0;
-        SetState(new SelectSpell(this));
+        SetState(new SelectSpell(this,0));
     }
 
     public void OnFirstSkillButton()
     {
-        ButtonId = 1;
-        SetState(new SelectSpell(this));
+        SetState(new SelectSpell(this,1));
     }
 
     public void OnSecondSkillButton()
     {
-        ButtonId = 2;
-        SetState(new SelectSpell(this));
+        SetState(new SelectSpell(this,2));
     }
 
     public void OnMouseUp()
@@ -140,5 +132,16 @@ public class BattleSystem : StateMachine
             }
         }
         return Targetables;
+    }
+
+    public Skill GetSelectedSkill(int buttonId)
+    {
+        if (buttonId < 0 || buttonId >= Allies[0].Skills.Count)
+        {
+            Debug.LogError("Invalid button ID");
+            return null;
+        }
+
+        return Allies[0].Skills[buttonId];
     }
 }
