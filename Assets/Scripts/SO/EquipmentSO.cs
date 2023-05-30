@@ -31,7 +31,7 @@ public class EquipmentSO : ScriptableObject
     {
         if (level <= 50)
         {
-            statValue += (statUpgrade * level) + (statValue * ratioUpgrade);
+            statValue += (statUpgrade * level) + (statValue * ratioUpgrade * level);
         }
         else { }
     }
@@ -40,7 +40,7 @@ public class EquipmentSO : ScriptableObject
     {
         if (_level <= 50)
         {
-            statValue += (statUpgrade * _level) + (statValue * ratioUpgrade);
+            statValue += (statUpgrade * _level) + (statValue * ratioUpgrade * _level);
         }
         else { }
     }

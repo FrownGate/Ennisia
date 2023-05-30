@@ -7,10 +7,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon/New Data")]
 public class WeaponSO : ScriptableObject
 {
+    public enum WeaponType
+    {
+        SWORD = 0,
+        STAFF = 1,
+        SCHYTHE = 2,
+        DAGGERS = 3,
+        HAMMER = 4,
+        SHIELD = 5,
+        BOW = 6,
+    }
+    public enum StatType
+    {
+        PHYSICAL = 0,
+        MAGICAL = 1,
+        ATTACK = 2,
+        HEALTH = 3,
+        DEFENSE = 4,
+        CRITICALRATE = 5,
+        CRITICALDAMAGE = 6,
+        SPEED = 7,
+    }
+
     public string weaponName;
-    public string weaponType;
+    public WeaponType weaponType;
     public bool isMagic;
-    public string statName;
+    public StatType statType;
     public float statValue; 
     public float statUpgrade;
     public float ratioUpgrade;
@@ -33,7 +55,7 @@ public class WeaponSO : ScriptableObject
     {
         if (level <= 50)
         {
-            statValue += (statUpgrade * level) + (statValue * ratioUpgrade);
+            statValue += (statUpgrade * level) + (statValue * ratioUpgrade * level);
         }
         else { }
     }
@@ -42,7 +64,7 @@ public class WeaponSO : ScriptableObject
     {
         if(_level <= 50)
         {
-            statValue += (statUpgrade * _level) + (statValue * ratioUpgrade);
+            statValue += (statUpgrade * _level) + (statValue * ratioUpgrade * _level);
         }
         else { } 
     }
