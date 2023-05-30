@@ -5,8 +5,17 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class GearData
+public class Gear
 {
+    public struct GearData
+    {
+        public string Name;
+        public string Type;
+        public string Rarity;
+        public string Attribute;
+        public float Value;
+    }
+
     public int Id;
     public string Name;
     public string Type;
@@ -15,10 +24,11 @@ public class GearData
     public float Value;
     public string Description;
     public string Icon; //TODO -> create function to return icon path with name
+    public GearData Data;
 
-    public GearData() { }
+    public Gear() { }
 
-    public GearData(string type, string rarity, int id)
+    public Gear(string type, string rarity, int id)
     {
         Id = id;
         Type = type;
@@ -27,6 +37,29 @@ public class GearData
         Attribute = SetAttribute();
         Value = SetValue();
         Name = $"[{rarity}] {type}";
+
+        Data = new()
+        {
+            Name = Name,
+            Type = Type,
+            Rarity = Rarity,
+            Attribute = Attribute,
+            Value = Value
+        };
+    }
+
+    public Gear(InventoryItem item)
+    {
+        Id = int.Parse(item.StackId);
+
+        Data = JsonUtility.FromJson<GearData>(item.DisplayProperties.ToString());
+        Name = Data.Name;
+        Type = Data.Type;
+        Rarity = Data.Rarity;
+        Attribute = Data.Attribute;
+        Value = Data.Value;
+
+        Debug.Log($"Getting {Name} item !");
     }
 
     private string SetAttribute()
@@ -39,18 +72,6 @@ public class GearData
     {
         EquipmentValueSO possibleValues = Resources.Load<EquipmentValueSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
-    }
-
-    public GearData(InventoryItem item)
-    {
-        Id = int.Parse(item.StackId);
-        //Name = name;
-        //Type = type;
-        //Rarity = rarity;
-        //Attribute = attribute;
-        //Value = value;
-        //Description = description;
-        //Icon = icon;
     }
 
     public bool IsValid()

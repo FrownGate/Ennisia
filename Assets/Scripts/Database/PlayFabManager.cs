@@ -267,7 +267,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnGetEnergySuccess(GetUserInventoryResult result)
     {
         Energy = result.VirtualCurrency["EN"];
-        GetUserDatas();
+        GetInventoryItems();
     }
     #endregion
 
@@ -298,6 +298,25 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log("Data updated !");
             CompleteLogin();
         }, OnRequestError);
+    }
+
+    private void GetInventoryItems()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Filter = $"id eq 'b2548442-2a71-4e97-88e6-fb52656311e4'"
+        }, OnGetInventoryItems, OnRequestError);
+    }
+
+    private void OnGetInventoryItems(GetInventoryItemsResponse response)
+    {
+        foreach (InventoryItem item in response.Items)
+        {
+            Inventory.Gears.Add(new(item));
+        }
+
+        GetUserDatas();
     }
 
     private void GetUserDatas()
@@ -465,13 +484,39 @@ public class PlayFabManager : MonoBehaviour
     #region Equipment
     public void DropGear(string type, string rarity)
     {
-        Inventory.Gears.Add(new(type, rarity, Inventory.Gears.Count + 1));
-        //Add to database with stack id = id
+        Gear gear = new(type, rarity, Inventory.Gears.Count + 1);
+        Inventory.Gears.Add(gear);
+        AddInventoryItem("Gear", 1, gear.Data, gear.Id);
+    }
+
+    private void AddInventoryItem(string item, int amount = 1, object properties = null, int stack = 0)
+    {
+        PlayFabEconomyAPI.AddInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Item = new InventoryItemReference
+            {
+                AlternateId = new AlternateId
+                {
+                    Type = "FriendlyId",
+                    Value = item
+                },
+                StackId = stack > 0 ? stack.ToString() : ""
+            },
+            NewStackValues = properties != null ? new()
+            {
+                DisplayProperties = properties
+            } : new(),
+            Amount = amount
+        }, res =>
+        {
+            Debug.Log("inventory added");
+        }, OnRequestError);
     }
 
     public void SetGearData(EquipmentSO equipment, int id)
     {
-        foreach (GearData inventoryGear in Inventory.Gears)
+        foreach (Gear inventoryGear in Inventory.Gears)
         {
             if (inventoryGear.Id == id)
             {
@@ -487,11 +532,11 @@ public class PlayFabManager : MonoBehaviour
         }
     }
 
-    public GearData GetGear(int id)
+    public Gear GetGear(int id)
     {
-        GearData gear = new();
+        Gear gear = new();
 
-        foreach (GearData inventoryGear in Inventory.Gears)
+        foreach (Gear inventoryGear in Inventory.Gears)
         {
             if (gear.Id == id)
             {
@@ -564,6 +609,6 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        //
+        DropGear("Helmet", "Common");
     }
 }
