@@ -2,24 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
-    public TMP_Text nameText;
-    public TMP_Text dialogueText;
 
+    private TMP_Text nameText;
+    private TMP_Text dialogueText;
+    private Queue<string> _names;
     private Queue<string> _dialogues;
 
-    void Start()
+    private void Awake()
     {
-        _dialogues = new Queue<string>();
+        // add events, events need an int for the CSVid
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(int CSVid)
     {
-        nameText.text = dialogue.name; //changes with csv
+        Dialogue dialogue = new();
+
+        dialogue.readCSVFile(CSVid);
+
+        _dialogues = new Queue<string>();
+        _names = new Queue<string>();
+
+        _names.Clear();
 
         _dialogues.Clear();
+
+        foreach (var item in dialogue.name)
+        {
+            _names.Enqueue(item);
+        }
 
         foreach (var item in dialogue.dialogues)
         {
@@ -32,12 +46,21 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextDialogue()
     {
+        if (_names.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
 
         if (_dialogues.Count == 0)
         {
             EndDialogue();
             return;
         }
+
+        string name = _names.Dequeue();
+        nameText.text = name;
+        Debug.Log(name);
 
         string dialogue = _dialogues.Dequeue();
         StopAllCoroutines();
