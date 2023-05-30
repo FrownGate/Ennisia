@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38b4c452aef9e02479da45c5d7b2001e, type: 3}
-  m_Name: Necklace
+  m_Name: Ring-qgf
   m_EditorClassIdentifier: 
   Id: 1
-  Name: 
-  Type: Necklace
+  Name: qgf
+  Type: Ring
   Rarity: Common
   Attribute: Physical Damages
-  Value: 4
-  Description: 
+  Value: 7.5
+  Description: qg
   Icon: {fileID: 0}
