@@ -7,7 +7,8 @@ public class SelectTarget : SelectSpell
 
     public override IEnumerator Start()
     {
-        BattleSystem.dialogueText.text = "Select" + BattleSystem.SelectedTargetNumber + "  target";
+        BattleSystem.dialogueText.text = "Select " + BattleSystem.SelectedTargetNumber + "  target";
+        Debug.Log(BattleSystem.Allies[0].Skills[1].Data);
         yield return new WaitForSeconds(2.0f);
     }
 
@@ -43,9 +44,10 @@ public class SelectTarget : SelectSpell
             {
                 skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             }
-
+            totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].SkillBeforeUse(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
             totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
+            BattleSystem.Allies[0].Skills[_spellNumber].SkillAfterDamage(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
             //skill after Attack
 
             foreach (var skill in BattleSystem.Allies[0].Skills)

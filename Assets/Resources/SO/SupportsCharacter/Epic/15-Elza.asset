@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5431aed841f94fe4c9884e845246f751, type: 3}
   m_Name: 15-Elza
   m_EditorClassIdentifier: 
-  id: 15
-  suppportName: Elza
-  rarity: Epic
-  race: Elf
-  supportClass: Mage
-  passif: {fileID: 0}
-  skill: {fileID: 0}
-  description: none
-  catchPhrase: none
+  Id: 15
+  Name: Elza
+  Rarity: Epic
+  Race: Elf
+  Job: Mage
+  Element: ???
+  PrimarySkill: {fileID: 0}
+  SecondarySkill: {fileID: 0}
+  Description: none
+  Catchphrase: none
+  Icon: {fileID: 0}
