@@ -463,12 +463,10 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Equipment
-    public void AddGear(GearData gear)
+    public void DropGear(string type, string rarity)
     {
-        if (!gear.IsValid()) return;
-        gear.Id = Inventory.Gears.Count + 1;
-        Inventory.Gears.Add(gear);
-        UpdateData();
+        Inventory.Gears.Add(new(type, rarity, Inventory.Gears.Count + 1));
+        //Add to database with stack id = id
     }
 
     public void SetGearData(EquipmentSO equipment, int id)
@@ -566,6 +564,6 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        AddGear(new GearData());
+        //
     }
 }
