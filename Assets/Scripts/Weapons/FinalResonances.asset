@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: FinalResonances
   m_EditorClassIdentifier: 
   weaponName: Final Resonances
+  weaponType: 3
   isMagic: 0
-  statName: 
+  statType: 5
   statValue: 0
   statUpgrade: 0
   ratioUpgrade: 0

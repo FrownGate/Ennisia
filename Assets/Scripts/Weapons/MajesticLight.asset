@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MajesticLight
   m_EditorClassIdentifier: 
   weaponName: Majestic Light
-  weaponType: Staff
+  weaponType: 1
   isMagic: 1
-  statName: Magical damage
+  statType: 1
   statValue: 0
   statUpgrade: 0
   ratioUpgrade: 0

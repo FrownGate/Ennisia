@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: FaintedFantasy
   m_EditorClassIdentifier: 
   weaponName: Fainted Fantasy
+  weaponType: 6
   isMagic: 1
-  statName: 
+  statType: 2
   statValue: 0
   statUpgrade: 0
   ratioUpgrade: 0

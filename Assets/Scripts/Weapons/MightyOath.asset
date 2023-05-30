@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: MightyOath
   m_EditorClassIdentifier: 
   weaponName: Mighty Oath
+  weaponType: 5
   isMagic: 0
-  statName: 
+  statType: 4
   statValue: 0
   statUpgrade: 0
   ratioUpgrade: 0

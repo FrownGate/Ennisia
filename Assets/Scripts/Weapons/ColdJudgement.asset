@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ColdJudgement
   m_EditorClassIdentifier: 
   weaponName: Cold Judgement
-  weaponType: Scythe
-  isMagic: 1
-  statName: Critical damage
+  weaponType: 4
+  isMagic: 0
+  statType: 3
   statValue: 0
   statUpgrade: 0
   ratioUpgrade: 0

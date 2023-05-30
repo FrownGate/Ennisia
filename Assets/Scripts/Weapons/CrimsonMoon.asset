@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: CrimsonMoon
   m_EditorClassIdentifier: 
   weaponName: Crimson Moon
+  weaponType: 2
   isMagic: 1
-  statName: 
+  statType: 6
   statValue: 0
   statUpgrade: 0
   ratioUpgrade: 0
