@@ -1,17 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Support", menuName = "Support/New")]
 public class SupportsCharactersSO : ScriptableObject
 {
-    public int id = 1;
-    public string suppportName;
-    public string rarity;
-    public string race;
-    public string supportClass;
-    public int passif;
-    public int skill;
-    public string description;
-    public string catchPhrase;
+    public int Id = 1;
+    public string Name;
+    public string Rarity;
+    public string Race;
+    public string Job;
+    public string Element;
+    public Skill PrimarySkill;
+    public Skill SecondarySkill;
+    public string Description;
+    public string Catchphrase;
+    public Sprite Icon;
 }
