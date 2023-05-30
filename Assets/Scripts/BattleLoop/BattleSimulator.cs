@@ -19,6 +19,11 @@ public class BattleSimulator : EditorWindow
     private GroupBox _fifthEnemyGroupBox;
     private GroupBox _sixthEnemyGroupBox;
 
+    // create a dictionary of stats for the enemies
+    private Dictionary<string, int> _firstEnemyStats = new();
+
+
+
     private DropdownField _firstEnemyDropdown;
     private DropdownField _secondEnemyDropdown;
     private DropdownField _thirdEnemyDropdown;
@@ -31,6 +36,7 @@ public class BattleSimulator : EditorWindow
     private Foldout _fourthEnemyFoldout;
     private Foldout _fifthEnemyFoldout;
     private Foldout _sixthEnemyFoldout;
+
 
 
     private Button _simulateButton;
@@ -48,7 +54,7 @@ public class BattleSimulator : EditorWindow
         GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
         window.titleContent = new GUIContent("Battle Simulator", icon.image, "Battle Simulator");
 
-        window.position = new Rect(Screen.width / 2, Screen.height / 2, 700, 700);
+        window.position = new Rect(Screen.width / 2, Screen.height / 2, 1000, 1000);
     }
 
     private void CreateGUI()
@@ -63,10 +69,21 @@ public class BattleSimulator : EditorWindow
         // root.styleSheets.Add(styleSheet);
 
         // add values in _allies for testing
+        _allies.Add("No Enemy");
         for (int i = 0; i < 10; i++)
         {
-            _allies.Add($"Ally {i}");
+            _allies.Add($"Enemy {i + 1}");
         }
+
+        // init numbers for the stats of the first enemy
+        _firstEnemyStats.Add("HP", 100);
+        _firstEnemyStats.Add("MP", 10);
+        _firstEnemyStats.Add("ATK", 20);
+        _firstEnemyStats.Add("DEF", 0);
+        _firstEnemyStats.Add("MAG", 0);
+        _firstEnemyStats.Add("RES", 0);
+        _firstEnemyStats.Add("SPD", 0);
+
 
         _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
         _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
@@ -89,8 +106,8 @@ public class BattleSimulator : EditorWindow
         _secondEnemyFoldout = root.Q<Foldout>("second-enemy-foldout");
         _thirdEnemyFoldout = root.Q<Foldout>("third-enemy-foldout");
         _fourthEnemyFoldout = root.Q<Foldout>("fourth-enemy-foldout");
-        _fifthEnemyDropdown = root.Q<DropdownField>("fifth-enemy-dropdown");
-        _sixthEnemyDropdown = root.Q<DropdownField>("sixth-enemy-dropdown");
+        _fifthEnemyFoldout = root.Q<Foldout>("fifth-enemy-foldout");
+        _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
 
 
         // TODO: add enemies to dropdown
@@ -102,118 +119,87 @@ public class BattleSimulator : EditorWindow
         // _fifthEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
         // _sixthEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
 
+        // set foldouts to the same text
+        _firstEnemyFoldout.text = "Enemy Stats";
+
+        _secondEnemyFoldout.text = "Enemy Stats";
+        _thirdEnemyFoldout.text = "Enemy Stats";
+        _fourthEnemyFoldout.text = "Enemy Stats";
+        _fifthEnemyFoldout.text = "Enemy Stats";
+        _sixthEnemyFoldout.text = "Enemy Stats";
+
+
+
+    }
+
+    public void OnGUI()
+    {
+
+        // if the dropdown is changed, change the foldout text
+        ChangeFoldoutOnDropdown();
+
+
+    }
+
+    private void ChangeFoldoutOnDropdown()
+    {
+        _firstEnemyDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Enemy")
+            {
+                _firstEnemyFoldout.visible = true;
+                _firstEnemyFoldout.text = evt.newValue;
+                // create input fields for the stats of the enemy
+                foreach (KeyValuePair<string, int> stat in _firstEnemyStats)
+                {
+                    // create a label for the stat
+
+
+
+
+
+                }
+            }
+            else
+            {
+                _firstEnemyFoldout.visible = false;
+            }
+        });
+        _secondEnemyDropdown.RegisterValueChangedCallback(evt =>
+        {
+            Debug.Log("coucou");
+            _secondEnemyFoldout.text = evt.newValue;
+        });
+        _thirdEnemyDropdown.RegisterValueChangedCallback(evt =>
+        {
+            _thirdEnemyFoldout.text = evt.newValue;
+        });
+        _fourthEnemyDropdown.RegisterValueChangedCallback(evt =>
+        {
+            _fourthEnemyFoldout.text = evt.newValue;
+        });
+        _fifthEnemyDropdown.RegisterValueChangedCallback(evt =>
+        {
+            _fifthEnemyFoldout.text = evt.newValue;
+        });
+        _sixthEnemyDropdown.RegisterValueChangedCallback(evt =>
+        {
+            _sixthEnemyFoldout.text = evt.newValue;
+        });
+
+
+    }
+
+    private void OnInspectorUpdate()
+    {
+        // EditorGUILayout.Foldout(_firstEnemyFoldout.visible, "First Enemy Foldout");
+        this.Repaint();
+
 
 
     }
 
 
-    // private void OnGUI()
-    // {
-    //     // create random enemies for testing
-    //     for (int i = 0; i < 10; i++)
-    //     {
-    //         _enemies.Add($"Enemy {i}");
-    //     }
-    //     rootVisualElement.Clear();
-    //     VisualElement main = rootVisualElement;
 
-
-    //     float splitPosition = 0.5f; // Split position as a normalized value (0 to 1)
-
-    //     float splitPixelPosition = splitPosition * Screen.width;
-
-    //     // LEFT PANEL
-    //     GUI.BeginGroup(new Rect(0, 0, splitPixelPosition, Screen.height));
-    //     GUI.Box(new Rect(0, 0, splitPixelPosition, Screen.height), "");
-    //     // Add left panel contents here
-
-    //     AlliesGUI();
-
-    //     // simulateButton.clicked += () => { Debug.Log("Simulate"); };
-    //     GUI.EndGroup();
-
-    //     // RIGHT PANEL
-    //     GUI.BeginGroup(new Rect(splitPixelPosition, 0, Screen.width - splitPixelPosition, Screen.height));
-    //     GUI.Box(new Rect(0, 0, Screen.width - splitPixelPosition, Screen.height), "");
-    //     // Add right panel contents here
-
-    //     EnemiesGUI();
-
-    //     UpdateEnemySelectionGUI();
-    //     GUI.EndGroup();
-
-
-    // }
-
-    // private void AlliesGUI()
-    // {
-    //     // EditorGUILayout.BeginHorizontal();
-    //     EditorGUILayout.BeginVertical();
-
-    //     // create guilayout label centered
-    //     GUILayout.Label("Allies",
-    //        EditorStyles.boldLabel,
-    //        GUILayout.Width(200),
-    //        GUILayout.Height(30),
-    //        GUILayout.ExpandWidth(true),
-    //        GUILayout.ExpandHeight(false)
-    //        );
-
-    //     // EditorGUILayout.EndHorizontal();
-    //     EditorGUILayout.EndVertical();
-
-
-    // }
-
-    // private void EnemiesGUI()
-    // {
-    //     // EditorGUILayout.BeginHorizontal();
-    //     EditorGUILayout.BeginVertical();
-    //     GUILayout.Label("Enemies",
-    //        EditorStyles.boldLabel,
-    //        GUILayout.Width(200),
-    //        GUILayout.Height(30),
-    //        GUILayout.ExpandWidth(true),
-    //        GUILayout.ExpandHeight(false)
-    //        );
-    //     // EditorGUILayout.EndHorizontal();
-    //     EditorGUILayout.EndVertical();
-
-    // }
-
-    // private void UpdateEnemySelectionGUI()
-    // {
-
-    //     EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-
-
-    //     EditorGUILayout.LabelField("Enemies", EditorStyles.boldLabel);
-
-    //     // foreach (string enemy in _enemies)
-    //     // {
-    //     //     Button enemyButton = new()
-    //     //     {
-    //     //         text = enemy,
-    //     //         style =
-    //     //         {
-    //     //             width = 100,
-    //     //             height = 30,
-    //     //             marginBottom = 30,
-    //     //             marginTop = 15,
-    //     //             paddingLeft = 5,
-    //     //             paddingRight = 5,
-    //     //             paddingTop = 5,
-    //     //             paddingBottom = 5,
-    //     //             alignItems = Align.Center,
-    //     //             justifyContent = Justify.Center,
-    //     //         },
-    //     //     };
-    //     //     _rightPane.Add(enemyButton);
-    //     // }
-
-
-    //     EditorGUILayout.EndVertical();
-
-    // }
 
 }
