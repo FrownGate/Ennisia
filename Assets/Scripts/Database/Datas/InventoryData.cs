@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryData : Data
 {
     public List<SupportData> Supports;
-    [NonSerialized] public List<GearData> Gears;
+    [NonSerialized] public List<Gear> Gears;
 
     public InventoryData()
     {
