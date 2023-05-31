@@ -38,6 +38,6 @@ public class Material : Item
 
     private string SetName()
     {
-        return $"[{Type}] {Rarity} {GetType().Name}";
+        return $"[{Rarity}] {Type} {GetType().Name}";
     }
 }
