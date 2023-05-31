@@ -144,6 +144,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnMouseUp
       objectReference: {fileID: 0}
+    - target: {fileID: 3785603738576124611, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 106.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785603738576124611, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 114.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785603738576124611, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785603738576124611, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.385
+      objectReference: {fileID: 0}
     - target: {fileID: 3790394792616838198, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1652,6 +1668,10 @@ PrefabInstance:
     - target: {fileID: 875580410290774944, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 875580410290774944, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 1277427119332163025, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
       propertyPath: m_Name

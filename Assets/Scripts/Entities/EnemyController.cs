@@ -21,7 +21,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        
+        UpdateHUD();
     }
 
     private void OnMouseDown()
@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour
 
     public void UpdateHUD()
     {
-        _hpBar.value = Enemy.CurrentHp;
+        _hpBar.value = Enemy.CurrentHp >=0 ?Enemy.CurrentHp : 0;
     }
 
     public void ResetStats()
