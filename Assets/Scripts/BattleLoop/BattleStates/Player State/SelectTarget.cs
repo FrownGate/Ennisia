@@ -12,14 +12,14 @@ public class SelectTarget : State
 
     public override IEnumerator Start()
     {
-        BattleSystem.dialogueText.text = "Select " + BattleSystem.SelectedTargetNumber + "  target";
+        BattleSystem.dialogueText.text = "Select a target";
         yield return new WaitForSeconds(2.0f);
     }
 
     public override IEnumerator Attack()
     {
-        float totalDamage = 0 ;
-        BattleSystem._selected = 0;
+        float totalDamage = 0;
+        BattleSystem._selected = false;
         // Check if Player is not null
         /*if (BattleSystem.Player == null)
         {
@@ -43,9 +43,9 @@ public class SelectTarget : State
                 yield break;
             }
 
-          
-            _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Allies[0],BattleSystem.turn);
-                
+
+            _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn);
+
 
             /*foreach (var skill in BattleSystem.Allies[0].Skills)
             {
@@ -63,8 +63,10 @@ public class SelectTarget : State
             }*/
         }
         BattleSystem.RemoveDeadEnemies();
+        Debug.LogWarning("Before clear : " + BattleSystem.Targetables.Count);
         BattleSystem.Targetables.Clear();
+        Debug.LogWarning("After clear : " + BattleSystem.Targetables.Count);
         yield return new WaitForSeconds(0.5f);
-        BattleSystem.SetState(new EnemyTurn(BattleSystem)); 
+        BattleSystem.SetState(new EnemyTurn(BattleSystem));
     }
 }

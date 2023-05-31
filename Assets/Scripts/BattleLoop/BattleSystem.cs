@@ -12,17 +12,16 @@ public class BattleSystem : StateMachine
 
     public Transform PlayerStation;
     public Transform EnemyStation;
-    
+
     //public Entity Player { get; private set; }
     //->To access the player data, for the moment use Allies[0].data you want access 
     public List<Entity> Allies { get; private set; }
     public List<Entity> Enemies { get; private set; }
     public List<Entity> Targetables { get; private set; }
     private int _maxEnemies => 1;
-    
 
-    public int SelectedTargetNumber { get; private set; } = 1;
-    public int _selected = 0;
+
+    public bool _selected = false;
     public int turn = 0;
 
     //UI
@@ -35,8 +34,8 @@ public class BattleSystem : StateMachine
         //Entity
         EnemyContainer();
         InitPlayer();
-        
-        foreach(var skill in Allies[0].Skills)
+
+        foreach (var skill in Allies[0].Skills)
         {
             skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
         }
@@ -51,16 +50,16 @@ public class BattleSystem : StateMachine
         Vector3 gridCenter = EnemyStation.position;
         int numRows = 1;
         int numColumns = 1;
-        float hexagonSize =1f;
+        float hexagonSize = 1f;
         float hexagonSpacing = 5f;
-        
+
         for (int row = 0; row < numRows; row++)
         {
             for (int col = 0; col < numColumns; col++)
             {
                 float xPos = col * (hexagonSize + hexagonSpacing);
                 float yPos = row * (hexagonSize + hexagonSpacing) * Mathf.Sqrt(3);
-                if (row % 2 == 1) 
+                if (row % 2 == 1)
                     xPos += (hexagonSize + hexagonSpacing) / 2f;
 
                 Vector3 hexagonPosition = gridCenter + new Vector3(xPos + 10, yPos, 0f);
@@ -83,29 +82,33 @@ public class BattleSystem : StateMachine
 
     public void OnAttackButton()
     {
-        SetState(new SelectSpell(this,0));
+        SetState(new SelectSpell(this, 0));
     }
 
     public void OnFirstSkillButton()
     {
-        SetState(new SelectSpell(this,1));
+        SetState(new SelectSpell(this, 1));
     }
 
     public void OnSecondSkillButton()
     {
-        SetState(new SelectSpell(this,2));
+        SetState(new SelectSpell(this, 2));
     }
 
     public void OnMouseUp()
     {
-        _selected++;
-        Debug.Log("You selected:" + _selected + "target");
-        if (_selected == SelectedTargetNumber)
+        _selected = true;
+        if (_selected)
         {
             Targetables = GetSelectedEnemies(Enemies);
+            foreach (var enemies in Targetables)
+            {
+                Debug.Log(enemies);
+            }
+
             StartCoroutine(State.Attack());
         }
-       
+
     }
 
     public void RemoveDeadEnemies()
@@ -118,7 +121,7 @@ public class BattleSystem : StateMachine
             }
         }
     }
-    
+
     private List<Entity> GetSelectedEnemies(List<Entity> enemies)
     {
         foreach (var enemy in enemies)
