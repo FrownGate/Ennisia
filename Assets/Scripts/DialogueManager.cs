@@ -5,6 +5,8 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Instance { get; private set; }
+
     [SerializeField] private TMP_Text _nameText;
     [SerializeField] private TMP_Text _dialogueText;
     private Queue<string> _names;
@@ -12,8 +14,18 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        // add events, events need an int for the CSVid
-        StartDialogue(1); //testing only
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+
+            // add events, events need an int for the CSVid
+            StartDialogue(1); //testing only
+        }
     }
 
     public void StartDialogue(int CSVid)
