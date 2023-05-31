@@ -5,8 +5,8 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    private TMP_Text _nameText;
-    private TMP_Text _dialogueText;
+    [SerializeField] private TMP_Text _nameText;
+    [SerializeField] private TMP_Text _dialogueText;
     private Queue<string> _names;
     private Queue<string> _dialogues;
 
