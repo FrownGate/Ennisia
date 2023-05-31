@@ -39,6 +39,8 @@ public class PlayFabManager : MonoBehaviour
     private bool _firstLogin;
     private bool _currencyAdded;
 
+    //TODO -> update items
+
     #region 1 - Login
     //HasLocalSave -> Login
     //Else -> Anonymous Login
@@ -486,32 +488,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Gear gear = new(type, rarity, Inventory.Gears.Count + 1);
         Inventory.Gears.Add(gear);
-        AddInventoryItem(gear.GetType().Name, 1, gear, gear.Id);
-    }
-
-    private void AddInventoryItem(string item, int amount = 1, object properties = null, int stack = 0)
-    {
-        PlayFabEconomyAPI.AddInventoryItems(new()
-        {
-            Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            Item = new InventoryItemReference
-            {
-                AlternateId = new AlternateId
-                {
-                    Type = "FriendlyId",
-                    Value = item
-                },
-                StackId = stack > 0 ? stack.ToString() : ""
-            },
-            NewStackValues = properties != null ? new()
-            {
-                DisplayProperties = properties
-            } : new(),
-            Amount = amount
-        }, res =>
-        {
-            Debug.Log("inventory added");
-        }, OnRequestError);
+        AddInventoryItem(gear.GetType().Name, 1, gear, gear.Id.ToString());
     }
 
     public void SetGearData(EquipmentSO equipment, int id)
@@ -546,6 +523,40 @@ public class PlayFabManager : MonoBehaviour
         }
 
         return gear;
+    }
+    #endregion
+
+    #region Items
+    public void AddMaterial(int type, int rarity, int amount)
+    {
+        Material material = new(type, rarity);
+        //Inventory.Gears.Add(gear);
+        AddInventoryItem(material.GetType().Name, amount, material, material.Stack);
+    }
+
+    private void AddInventoryItem(string item, int amount = 1, object properties = null, string stack = null)
+    {
+        PlayFabEconomyAPI.AddInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Item = new InventoryItemReference
+            {
+                AlternateId = new AlternateId
+                {
+                    Type = "FriendlyId",
+                    Value = item
+                },
+                StackId = stack != null ? stack : ""
+            },
+            NewStackValues = properties != null ? new()
+            {
+                DisplayProperties = properties
+            } : new(),
+            Amount = amount
+        }, res =>
+        {
+            Debug.Log("inventory added");
+        }, OnRequestError);
     }
     #endregion
 
@@ -609,6 +620,7 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        DropGear("Helmet", "Common");
+        //DropGear("Helmet", "Common");
+        AddMaterial(0, 0, 1);
     }
 }
