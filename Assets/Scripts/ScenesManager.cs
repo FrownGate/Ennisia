@@ -61,7 +61,7 @@ public class ScenesManager : MonoBehaviour
         {
             case "MainMenu":
             case "Battle":
-                StartCoroutine(LoadingStart(_sceneToLoad));
+                StartCoroutine(Loading(_sceneToLoad));
                 break;
 
             default:
@@ -103,9 +103,9 @@ public class ScenesManager : MonoBehaviour
         return !string.IsNullOrEmpty(Params);
     }
 
-    private IEnumerator LoadingStart(string scene)
+    private IEnumerator Loading(string scene)
     {
-        string loadScene = GetSceneName("LoadingPopup");
+        string loadScene = GetSceneName("LoadingScene");
         Debug.Log($"Going to scene {loadScene}");
         startTime = Time.time;
 
@@ -140,21 +140,21 @@ public class ScenesManager : MonoBehaviour
             yield break;
         }
 
-        AsyncOperation mainSceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-        mainSceneOperation.allowSceneActivation = false;
+        AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
+        sceneOperation.allowSceneActivation = false;
 
-        while (!mainSceneOperation.isDone)
+        while (!sceneOperation.isDone)
         {
             // Update your loading progress UI here (e.g., progress bar, text)
-            progressBar.value = mainSceneOperation.progress;
+            progressBar.value = sceneOperation.progress;
 
-            if (mainSceneOperation.progress >= 0.9f)
+            if (sceneOperation.progress >= 0.9f)
             {
                 // Optional: Ensure the loading screen is displayed for a minimum duration
                 float elapsedTime = Time.time - startTime;
                 if (elapsedTime >= minLoadingTime)
                 {
-                    mainSceneOperation.allowSceneActivation = true; // Activate the main scene
+                    sceneOperation.allowSceneActivation = true; // Activate the  scene
                 }
             }
 
