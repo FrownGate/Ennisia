@@ -7,6 +7,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
 
+    [SerializeField] private GameObject _dialogueBox;
     [SerializeField] private TMP_Text _nameText;
     [SerializeField] private TMP_Text _dialogueText;
     private Queue<string> _names;
@@ -33,6 +34,8 @@ public class DialogueManager : MonoBehaviour
         _dialogues = new Queue<string>();
         _names = new Queue<string>();
 
+        _dialogueBox.SetActive(true);
+
         //_names.Clear();
 
         //_dialogues.Clear();
@@ -52,13 +55,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextDialogue()
     {
-        if (_names.Count == 0)
-        {
-            EndDialogue();
-            return;
-        }
-
-        if (_dialogues.Count == 0)
+        if (_names.Count == 0 || _dialogues.Count == 0)
         {
             EndDialogue();
             return;
@@ -85,6 +82,6 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        // add end state
+        _dialogueBox.SetActive(false);
     }
 }

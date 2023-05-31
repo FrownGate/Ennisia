@@ -504,6 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8c4f130b4ed4cb29dedebfeae9a896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dialogueBox: {fileID: 4254038291009773263}
   _nameText: {fileID: 2355712266675240754}
   _dialogueText: {fileID: 5262643702900675575}
 --- !u!1 &6854173440679340727
