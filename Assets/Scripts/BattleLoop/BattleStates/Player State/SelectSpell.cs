@@ -16,7 +16,8 @@ public class SelectSpell : PlayerTurn
         BattleSystem.dialogueText.text = "Select a spell";
         Debug.Log("You choose : " + BattleSystem.Allies[0].Skills[ButtonId].FileName);
         Debug.Log("Number : " + ButtonId);
-        yield return new WaitForSeconds(1.0f);
         BattleSystem.SetState(new SelectTarget(BattleSystem,selectedSkill ));
+        yield break;
+        
     }
 }

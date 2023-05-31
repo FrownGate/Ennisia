@@ -8,7 +8,7 @@ public class EnemyTurn : State
 
     public override IEnumerator Start()
     {
-
+        BattleSystem.ResetSelectedEnemies();
 
         foreach (var skill in BattleSystem.SkillsButton)
         {

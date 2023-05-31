@@ -13,7 +13,7 @@ public class SelectTarget : State
     public override IEnumerator Start()
     {
         BattleSystem.dialogueText.text = "Select " + BattleSystem.SelectedTargetNumber + "  target";
-        yield return new WaitForSeconds(2.0f);
+        yield break;
     }
 
     public override IEnumerator Attack()

@@ -98,14 +98,9 @@ public class BattleSystem : StateMachine
 
     public void OnMouseUp()
     {
-        _selected++;
-        Debug.Log("You selected:" + _selected + "target");
-        if (_selected == SelectedTargetNumber)
-        {
-            Targetables = GetSelectedEnemies(Enemies);
-            StartCoroutine(State.Attack());
-        }
-       
+        Targetables = GetSelectedEnemies(Enemies);
+        
+        StartCoroutine(State.Attack());
     }
 
     public void RemoveDeadEnemies()
@@ -141,7 +136,14 @@ public class BattleSystem : StateMachine
             Debug.LogError("Invalid button ID");
             return null;
         }
-
         return Allies[0].Skills[buttonId];
+    }
+    
+    public void ResetSelectedEnemies()
+    {
+        foreach(var enemy in Enemies)
+        {
+            enemy.ResetTargetedState();
+        }
     }
 }
