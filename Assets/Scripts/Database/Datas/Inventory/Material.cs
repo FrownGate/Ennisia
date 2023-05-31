@@ -32,6 +32,7 @@ public class Material : Item
         Rarity = material.Rarity;
         Name = SetName();
 
+        PlayFabManager.Instance.Inventory.Materials.Add(this);
         Debug.Log($"Getting {Name} item !");
     }
 

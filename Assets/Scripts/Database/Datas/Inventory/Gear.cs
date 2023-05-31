@@ -38,7 +38,8 @@ public class Gear
         Attribute = gear.Attribute;
         Value = gear.Value;
 
-        //Debug.Log($"Getting {Name} item !");
+        PlayFabManager.Instance.Inventory.Gears.Add(this);
+        Debug.Log($"Getting {Name} item !");
     }
 
     private string SetAttribute()
