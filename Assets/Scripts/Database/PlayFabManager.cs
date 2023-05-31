@@ -486,7 +486,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Gear gear = new(type, rarity, Inventory.Gears.Count + 1);
         Inventory.Gears.Add(gear);
-        AddInventoryItem("Gear", 1, gear.Data, gear.Id);
+        AddInventoryItem(gear.GetType().Name, 1, gear, gear.Id);
     }
 
     private void AddInventoryItem(string item, int amount = 1, object properties = null, int stack = 0)
@@ -534,7 +534,7 @@ public class PlayFabManager : MonoBehaviour
 
     public Gear GetGear(int id)
     {
-        Gear gear = new();
+        Gear gear = null;
 
         foreach (Gear inventoryGear in Inventory.Gears)
         {

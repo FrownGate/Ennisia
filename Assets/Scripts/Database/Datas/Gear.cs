@@ -7,26 +7,14 @@ using UnityEngine;
 [Serializable]
 public class Gear
 {
-    public struct GearData
-    {
-        public string Name;
-        public string Type;
-        public string Rarity;
-        public string Attribute;
-        public float Value;
-    }
-
-    public int Id;
+    [NonSerialized] public int Id;
+    [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
     public string Name;
     public string Type;
     public string Rarity;
     public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;
-    public string Icon; //TODO -> create function to return icon path with name
-    public GearData Data;
-
-    public Gear() { }
 
     public Gear(string type, string rarity, int id)
     {
@@ -37,29 +25,20 @@ public class Gear
         Attribute = SetAttribute();
         Value = SetValue();
         Name = $"[{rarity}] {type}";
-
-        Data = new()
-        {
-            Name = Name,
-            Type = Type,
-            Rarity = Rarity,
-            Attribute = Attribute,
-            Value = Value
-        };
     }
 
     public Gear(InventoryItem item)
     {
+        Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
+
         Id = int.Parse(item.StackId);
+        Name = gear.Name;
+        Type = gear.Type;
+        Rarity = gear.Rarity;
+        Attribute = gear.Attribute;
+        Value = gear.Value;
 
-        Data = JsonUtility.FromJson<GearData>(item.DisplayProperties.ToString());
-        Name = Data.Name;
-        Type = Data.Type;
-        Rarity = Data.Rarity;
-        Attribute = Data.Attribute;
-        Value = Data.Value;
-
-        Debug.Log($"Getting {Name} item !");
+        //Debug.Log($"Getting {Name} item !");
     }
 
     private string SetAttribute()
