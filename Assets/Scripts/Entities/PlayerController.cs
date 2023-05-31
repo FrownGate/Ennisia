@@ -27,4 +27,9 @@ public class PlayerController : MonoBehaviour
     {
         _hpBar.value = Player.CurrentHp;
     }
+    
+    public void ResetStats()
+    {
+        Player = new Player();
+    }
 }

@@ -12,8 +12,8 @@ public class SelectTarget : State
 
     public override IEnumerator Start()
     {
-        BattleSystem.dialogueText.text = "Select a target";
-        yield return new WaitForSeconds(2.0f);
+        BattleSystem.dialogueText.text = "You choose " + _selectedSkill;
+        yield return new WaitForSeconds(1.0f);
     }
 
     public override IEnumerator Attack()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
@@ -20,7 +21,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        UpdateHUD();
+        
     }
 
     private void OnMouseDown()
@@ -41,8 +42,13 @@ public class EnemyController : MonoBehaviour
         //
     }
 
-    private void UpdateHUD()
+    public void UpdateHUD()
     {
         _hpBar.value = Enemy.CurrentHp;
+    }
+
+    public void ResetStats()
+    {
+        Enemy = new Enemy();
     }
 }

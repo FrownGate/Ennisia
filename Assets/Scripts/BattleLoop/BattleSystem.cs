@@ -132,4 +132,31 @@ public class BattleSystem : StateMachine
             enemy.ResetTargetedState();
         }
     }
+
+    public void ReStart()
+    {
+        Enemies.Clear();
+        Allies.Clear();
+        Targetables.Clear();
+        _selected = false;
+        turn = 0;
+
+        _lostPopUp.SetActive(false);
+        _wonPopUp.SetActive(false);
+        
+        GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy");
+        enemyPrefab.GetComponent<EnemyController>().ResetStats();
+        Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Enemy);
+
+        GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player");
+        playerPrefab.GetComponent<PlayerController>().ResetStats();
+        Allies.Add(playerPrefab.GetComponent<PlayerController>().Player);
+        
+        foreach (var skill in Allies[0].Skills)
+        {
+            skill.ConstantPassive(Enemies, Allies[0], 0);
+        }
+        
+        SetState(new WhoGoFirst(this));
+    }
 }
