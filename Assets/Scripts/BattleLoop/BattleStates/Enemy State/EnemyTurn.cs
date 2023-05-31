@@ -8,7 +8,7 @@ public class EnemyTurn : State
 
     public override IEnumerator Start()
     {
-
+        BattleSystem.ResetSelectedEnemies();
 
         foreach (var skill in BattleSystem.SkillsButton)
         {
@@ -16,12 +16,13 @@ public class EnemyTurn : State
         }
         BattleSystem.dialogueText.text = "Enemy turn";
 
-        BattleSystem.RemoveDeadEnemies();
-        
+        Debug.LogError("Enemy : " + BattleSystem.Enemies.Count);
+
+        //FIXME: CAUSING: ArgumentOutOfRangeException
         BattleSystem.Allies[0].TakeDamage(BattleSystem.Enemies[0].Attack);
-        
+
         yield return new WaitForSeconds(0.5f);
-        
+
         BattleSystem.SetState(new PlayerTurn(BattleSystem));
     }
 

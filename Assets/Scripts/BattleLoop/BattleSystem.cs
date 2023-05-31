@@ -46,30 +46,24 @@ public class BattleSystem : StateMachine
     private void EnemyContainer()
     {
         GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy");
+        // Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Enemy);
+
+
+
+
+
+
+        // GameObject enemyInstance = Instantiate(enemyPrefab, EnemyStation.position, Quaternion.identity);
+        // EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
+        // Enemy tmp = enemyController.Enemy;
+        // // Enemies.Add(tmp);
+        Debug.Log("EnemyContainer call : ");
         Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Enemy);
-        Vector3 gridCenter = EnemyStation.position;
-        int numRows = 1;
-        int numColumns = 1;
-        float hexagonSize = 1f;
-        float hexagonSpacing = 5f;
-
-        for (int row = 0; row < numRows; row++)
+        foreach (var enemy in Enemies)
         {
-            for (int col = 0; col < numColumns; col++)
-            {
-                float xPos = col * (hexagonSize + hexagonSpacing);
-                float yPos = row * (hexagonSize + hexagonSpacing) * Mathf.Sqrt(3);
-                if (row % 2 == 1)
-                    xPos += (hexagonSize + hexagonSpacing) / 2f;
-
-                Vector3 hexagonPosition = gridCenter + new Vector3(xPos + 10, yPos, 0f);
-
-                GameObject enemyInstance = Instantiate(enemyPrefab, hexagonPosition, Quaternion.identity);
-                EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
-                Enemy tmp = enemyController.Enemy;
-                Enemies.Add(tmp);
-            }
+            Debug.LogWarning("BattleSystem call : " + enemy);
         }
+
     }
 
     private void InitPlayer()
@@ -100,11 +94,12 @@ public class BattleSystem : StateMachine
         _selected = true;
         if (_selected)
         {
+            // foreach (var enemies in GetSelectedEnemies(Enemies))
+            // {
+            //     Debug.Log("BattleSystem : " + enemies);
+            //     Debug.Log("BattleSystem : " + GetSelectedEnemies(Enemies).Count);
+            // }
             Targetables = GetSelectedEnemies(Enemies);
-            foreach (var enemies in Targetables)
-            {
-                Debug.Log(enemies);
-            }
 
             StartCoroutine(State.Attack());
         }
@@ -144,7 +139,14 @@ public class BattleSystem : StateMachine
             Debug.LogError("Invalid button ID");
             return null;
         }
-
         return Allies[0].Skills[buttonId];
+    }
+
+    public void ResetSelectedEnemies()
+    {
+        foreach (var enemy in Enemies)
+        {
+            enemy.ResetTargetedState();
+        }
     }
 }

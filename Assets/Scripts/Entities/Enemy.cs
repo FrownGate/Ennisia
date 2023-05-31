@@ -24,4 +24,11 @@
     {
         return IsSelected && !IsDead;
     }
+
+    public override void ResetTargetedState()
+    {
+        IsSelected = false;
+    }
+    
+    
 }
