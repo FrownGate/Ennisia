@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
+            _dialogueBox.SetActive(false);
             //StartDialogue(1); //testing only
         }
     }
