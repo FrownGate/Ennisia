@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
+    public static event Action OnDialogueEnd;
 
     [SerializeField] private GameObject _dialogueBox;
     [SerializeField] private TMP_Text _nameText;
@@ -83,5 +85,6 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         _dialogueBox.SetActive(false);
+        OnDialogueEnd?.Invoke();
     }
 }
