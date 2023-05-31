@@ -17,9 +17,7 @@ MonoBehaviour:
   Rarity: Rare
   Race: none
   Job: none
-  Element: ???
-  PrimarySkill: {fileID: 0}
-  SecondarySkill: {fileID: 0}
+  Element: Fire
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}
