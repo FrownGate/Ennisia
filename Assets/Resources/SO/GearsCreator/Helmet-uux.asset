@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38b4c452aef9e02479da45c5d7b2001e, type: 3}
-  m_Name: Earrings
+  m_Name: Helmet-uux
   m_EditorClassIdentifier: 
   Id: 1
-  Name: 
-  Type: Earrings
+  Name: uux
+  Type: Helmet
   Rarity: Common
-  Attribute: Crit Rate
-  Value: 7.5
+  Attribute: HP
+  Value: 1200
   Description: 
   Icon: {fileID: 0}
