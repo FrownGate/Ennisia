@@ -69,7 +69,7 @@ public class SelectTarget : State
 
         if (BattleSystem.Enemies.Count == 0)
         {
-            Debug.LogWarning("YOU WON THE FIGHT");
+            BattleSystem.SetState(new Won(BattleSystem));
 
             // BattleSystem.SetState(new WinState(BattleSystem));
             // yield break;

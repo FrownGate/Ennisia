@@ -10,6 +10,9 @@ public class BattleSystem : StateMachine
 
     [SerializeField] public GameObject[] SkillsButton;
 
+    [SerializeField] public GameObject _wonPopUp;
+    [SerializeField] public GameObject _lostPopUp;
+
     public Transform PlayerStation;
     public Transform EnemyStation;
 
@@ -27,10 +30,12 @@ public class BattleSystem : StateMachine
     //UI
     public TextMeshProUGUI dialogueText;
 
-    private void Start()
+    public void Start()
     {
         Enemies = new List<Entity>();
         Targetables = new List<Entity>();
+        _lostPopUp.SetActive(false);
+        _wonPopUp.SetActive(false);
         //Entity
         EnemyContainer();
         InitPlayer();
