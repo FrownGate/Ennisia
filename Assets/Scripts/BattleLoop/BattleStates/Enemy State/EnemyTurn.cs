@@ -16,9 +16,7 @@ public class EnemyTurn : State
         }
         BattleSystem.dialogueText.text = "Enemy turn";
 
-        Debug.LogError("Enemy : " + BattleSystem.Enemies.Count);
 
-        //FIXME: CAUSING: ArgumentOutOfRangeException
         BattleSystem.Allies[0].TakeDamage(BattleSystem.Enemies[0].Attack);
 
         yield return new WaitForSeconds(0.5f);

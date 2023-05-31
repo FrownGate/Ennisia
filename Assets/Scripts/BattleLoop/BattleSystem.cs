@@ -46,24 +46,7 @@ public class BattleSystem : StateMachine
     private void EnemyContainer()
     {
         GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy");
-        // Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Enemy);
-
-
-
-
-
-
-        // GameObject enemyInstance = Instantiate(enemyPrefab, EnemyStation.position, Quaternion.identity);
-        // EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
-        // Enemy tmp = enemyController.Enemy;
-        // // Enemies.Add(tmp);
-        Debug.Log("EnemyContainer call : ");
         Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Enemy);
-        foreach (var enemy in Enemies)
-        {
-            Debug.LogWarning("BattleSystem call : " + enemy);
-        }
-
     }
 
     private void InitPlayer()
@@ -94,11 +77,6 @@ public class BattleSystem : StateMachine
         _selected = true;
         if (_selected)
         {
-            // foreach (var enemies in GetSelectedEnemies(Enemies))
-            // {
-            //     Debug.Log("BattleSystem : " + enemies);
-            //     Debug.Log("BattleSystem : " + GetSelectedEnemies(Enemies).Count);
-            // }
             Targetables = GetSelectedEnemies(Enemies);
 
             StartCoroutine(State.Attack());

@@ -25,14 +25,6 @@ public class SelectTarget : State
             Debug.LogError("Player is null");
             yield break;
         }*/
-        foreach (var enemy in BattleSystem.Enemies)
-        {
-            Debug.LogWarning(enemy + " BattleSystem.Enemies");
-        }
-        foreach (var target in BattleSystem.Targetables)
-        {
-            Debug.LogWarning(target + " BattleSystem.Targetables");
-        }
 
         // Check if Targetables is not null and contains items
         if (BattleSystem.Targetables == null || BattleSystem.Targetables.Count == 0)
@@ -68,17 +60,23 @@ public class SelectTarget : State
             skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
         }*/
         Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
-        Debug.LogWarning("Before clear : " + BattleSystem.Targetables.Count);
         BattleSystem.Targetables.Clear();
-        Debug.LogWarning("After clear : " + BattleSystem.Targetables.Count);
         BattleSystem._selected = false;
 
         yield return new WaitForSeconds(0.5f);
-        
-        BattleSystem.RemoveDeadEnemies();
-        //TODO: Check if all enemies are dead
 
-        
-        BattleSystem.SetState(new EnemyTurn(BattleSystem));
+        BattleSystem.RemoveDeadEnemies();
+
+        if (BattleSystem.Enemies.Count == 0)
+        {
+            Debug.LogWarning("YOU WON THE FIGHT");
+
+            // BattleSystem.SetState(new WinState(BattleSystem));
+            // yield break;
+        }
+        else
+        {
+            BattleSystem.SetState(new EnemyTurn(BattleSystem));
+        }
     }
 }
