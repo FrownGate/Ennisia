@@ -9,7 +9,7 @@ public abstract class Skill
     public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
-    public float Cooldown { get; protected set; }
+    public float Cooldown { get; set; }
     public string FileName { get; protected set; }
 
     public Skill()
