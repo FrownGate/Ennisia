@@ -1,28 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Dialogue 
 {
     public List<string> name;
     public List<string> dialogues;
 
-    public Dialogue()
+    public Dialogue(int id)
     {
         name = new();
         dialogues = new();
+        ReadCSVFile(id);
     }
 
-    public void readCSVFile(int id)
+    public void ReadCSVFile(int id)
     {
-        Debug.Log(Application.dataPath);
-
         string path = Application.dataPath + $"/Resources/CSV/DialogueSystem_{id}.csv";
-        Debug.Log(path);
-
-
         string[] lines = System.IO.File.ReadAllLines(path);
 
         if (lines.Length <= 1)
@@ -45,7 +38,6 @@ public class Dialogue
 
             name.Add(values[0]);
             dialogues.Add(values[1]);
-
         }
     }
 

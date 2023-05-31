@@ -6,29 +6,41 @@ using System;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Instance { get; private set; }
+    public static event Action OnDialogueEnd;
 
-    private TMP_Text nameText;
-    private TMP_Text dialogueText;
+    [SerializeField] private GameObject _dialogueBox;
+    [SerializeField] private TMP_Text _nameText;
+    [SerializeField] private TMP_Text _dialogueText;
     private Queue<string> _names;
     private Queue<string> _dialogues;
 
     private void Awake()
     {
-        // add events, events need an int for the CSVid
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+            //StartDialogue(1); //testing only
+        }
     }
 
     public void StartDialogue(int CSVid)
     {
-        Dialogue dialogue = new();
-
-        dialogue.readCSVFile(CSVid);
+        Dialogue dialogue = new(CSVid);
 
         _dialogues = new Queue<string>();
         _names = new Queue<string>();
 
-        _names.Clear();
+        _dialogueBox.SetActive(true);
 
-        _dialogues.Clear();
+        //_names.Clear();
+
+        //_dialogues.Clear();
 
         foreach (var item in dialogue.name)
         {
@@ -41,26 +53,18 @@ public class DialogueManager : MonoBehaviour
         }
 
         DisplayNextDialogue();
-
     }
 
     public void DisplayNextDialogue()
     {
-        if (_names.Count == 0)
-        {
-            EndDialogue();
-            return;
-        }
-
-        if (_dialogues.Count == 0)
+        if (_names.Count == 0 || _dialogues.Count == 0)
         {
             EndDialogue();
             return;
         }
 
         string name = _names.Dequeue();
-        nameText.text = name;
-        Debug.Log(name);
+        _nameText.text = name;
 
         string dialogue = _dialogues.Dequeue();
         StopAllCoroutines();
@@ -69,16 +73,18 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeDialogue(string dialogue)
     {
-        dialogueText.text = "";
+        _dialogueText.text = "";
+
         foreach (char letter in dialogue.ToCharArray())
         {
-            dialogueText.text += letter;
+            _dialogueText.text += letter;
             yield return null;
         }
     }
 
     public void EndDialogue()
     {
-        // add end state
+        _dialogueBox.SetActive(false);
+        OnDialogueEnd?.Invoke();
     }
 }
