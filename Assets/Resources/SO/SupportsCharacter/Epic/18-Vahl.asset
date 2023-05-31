@@ -15,11 +15,9 @@ MonoBehaviour:
   Id: 18
   Name: Vahl
   Rarity: Epic
-  Race: none
-  Job: none
-  Element: ???
-  PrimarySkill: {fileID: 0}
-  SecondarySkill: {fileID: 0}
+  Race: Elf
+  Job: Mage
+  Element: Thunder
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

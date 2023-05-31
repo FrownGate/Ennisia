@@ -15,11 +15,9 @@ MonoBehaviour:
   Id: 16
   Name: Alexit
   Rarity: Epic
-  Race: none
-  Job: none
-  Element: ???
-  PrimarySkill: {fileID: 0}
-  SecondarySkill: {fileID: 0}
+  Race: Beast
+  Job: Sword-Master
+  Element: Wind
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

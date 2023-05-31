@@ -15,11 +15,9 @@ MonoBehaviour:
   Id: 17
   Name: Yo-wan
   Rarity: Epic
-  Race: none
-  Job: none
-  Element: ???
-  PrimarySkill: {fileID: 0}
-  SecondarySkill: {fileID: 0}
+  Race: Human
+  Job: Shield-Bearer
+  Element: Earth
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}
