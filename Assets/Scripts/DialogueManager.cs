@@ -22,9 +22,7 @@ public class DialogueManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-
-            // add events, events need an int for the CSVid
-            StartDialogue(1); //testing only
+            //StartDialogue(1); //testing only
         }
     }
 
