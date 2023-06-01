@@ -13,9 +13,9 @@ public class Material : Item
 
     public Material(int type, int rarity, int amount)
     {
-        Stack = $"{Type}_{Rarity}";
         Type = (MaterialType)type;
         Rarity = (ItemRarity)rarity;
+        Stack = $"{Type}_{Rarity}";
         Amount = amount;
 
         AddToInventory();
