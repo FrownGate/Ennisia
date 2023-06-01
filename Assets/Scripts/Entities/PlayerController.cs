@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateHUD()
     {
-        _hpBar.value = Player.CurrentHp;
+        _hpBar.value = Player.CurrentHp>=0 ?Player.CurrentHp : 0;
+    }
+    
+    public void ResetStats()
+    {
+        Player = new Player();
     }
 }
