@@ -7,13 +7,16 @@ public class InventoryData : Data
     public List<SupportData> Supports;
     [NonSerialized] public List<Gear> Gears;
     [NonSerialized] public List<Material> Materials;
+    [NonSerialized] public List<SummonTicket> SummonTickets;
+    //TODO -> replace with dicitonary of list object ?
 
     public InventoryData()
     {
-        ClassName = "Inventory";
+        ClassName = "Inventory"; //TODO -> replace with GetType name
         Supports = new();
         Gears = new();
         Materials = new();
+        SummonTickets = new();
     }
 
     public override void UpdateLocalData(string json)

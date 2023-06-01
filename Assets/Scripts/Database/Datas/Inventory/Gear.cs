@@ -5,26 +5,28 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class Gear
+public class Gear : Item
 {
     [NonSerialized] public int Id;
     [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
     public string Name;
     public string Type;
-    public string Rarity;
     public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;
 
-    public Gear(string type, string rarity, int id)
+    public Gear(string type, int rarity)
     {
-        Id = id;
+        Id = PlayFabManager.Instance.Inventory.Gears.Count + 1;
         Type = type;
-        Rarity = rarity;
+        Rarity = (ItemRarity)rarity;
         Description = "";
         Attribute = SetAttribute();
         Value = SetValue();
         Name = $"[{rarity}] {type}";
+        Stack = Id.ToString();
+
+        PlayFabManager.Instance.Inventory.Gears.Add(this);
     }
 
     public Gear(InventoryItem item)
@@ -32,6 +34,7 @@ public class Gear
         Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
 
         Id = int.Parse(item.StackId);
+        Stack = item.StackId;
         Name = gear.Name;
         Type = gear.Type;
         Rarity = gear.Rarity;
@@ -52,18 +55,5 @@ public class Gear
     {
         EquipmentValueSO possibleValues = Resources.Load<EquipmentValueSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
-    }
-
-    public bool IsValid()
-    {
-        bool isValid = !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Type) && CheckRarity() && !string.IsNullOrEmpty(Attribute) && Value > 0f && string.IsNullOrEmpty(Description) & !string.IsNullOrEmpty(Icon);
-        if (!isValid) Debug.LogError("Gear isn't valid !");
-        return isValid;
-    }
-
-    private bool CheckRarity()
-    {
-        string[] rarities = new string[3] { "Legendary", "Epic", "Rare" };
-        return rarities.Contains(Rarity);
     }
 }

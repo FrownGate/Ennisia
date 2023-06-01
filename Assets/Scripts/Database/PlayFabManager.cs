@@ -486,13 +486,6 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Equipment
-    public void DropGear(string type, string rarity)
-    {
-        Gear gear = new(type, rarity, Inventory.Gears.Count + 1);
-        Inventory.Gears.Add(gear);
-        AddInventoryItem(gear.GetType().Name, 1, gear, gear.Id.ToString());
-    }
-
     public void SetGearData(EquipmentSO equipment, int id)
     {
         foreach (Gear inventoryGear in Inventory.Gears)
@@ -502,7 +495,7 @@ public class PlayFabManager : MonoBehaviour
                 equipment.Id = inventoryGear.Id;
                 equipment.Name = inventoryGear.Name;
                 equipment.Type = inventoryGear.Type;
-                equipment.Rarity = inventoryGear.Rarity;
+                equipment.Rarity = inventoryGear.Rarity.ToString(); //TODO -> Update Equipment SO
                 equipment.Attribute = inventoryGear.Attribute;
                 equipment.statValue = inventoryGear.Value;
                 equipment.Description = inventoryGear.Description;
@@ -529,14 +522,7 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Items
-    public void AddMaterial(int type, int rarity, int amount)
-    {
-        Material material = new(type, rarity);
-        //Inventory.Gears.Add(gear);
-        AddInventoryItem(material.GetType().Name, amount, material, material.Stack);
-    }
-
-    private void AddInventoryItem(string item, int amount = 1, object properties = null, string stack = null)
+    public void AddInventoryItem(Item item, int amount = 1)
     {
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
@@ -546,13 +532,13 @@ public class PlayFabManager : MonoBehaviour
                 AlternateId = new AlternateId
                 {
                     Type = "FriendlyId",
-                    Value = item
+                    Value = item.GetType().Name,
                 },
-                StackId = stack != null ? stack : ""
+                StackId = item.Stack ?? ""
             },
-            NewStackValues = properties != null ? new()
+            NewStackValues = item != null ? new()
             {
-                DisplayProperties = properties
+                DisplayProperties = item
             } : new(),
             Amount = amount
         }, res =>
@@ -622,7 +608,8 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        //DropGear("Helmet", "Common");
-        AddMaterial(0, 0, 1);
+        AddInventoryItem(new Gear("Helmet", 1));
+        //AddInventoryItem(new Material(1, 1), 5);
+        //AddInventoryItem(new SummonTicket(1));
     }
 }

@@ -10,8 +10,6 @@ public class Material : Item
     }
 
     [NonSerialized] public string Name;
-    [NonSerialized] public string Stack;
-    [NonSerialized] public int Amount;
     public MaterialType Type;
 
     public Material(int type, int rarity)
