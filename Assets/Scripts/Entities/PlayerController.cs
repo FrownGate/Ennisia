@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public Player Player { get; private set; }
     private Slider _hpBar;
-    private void Start()
+    private void Awake()
     {
         Player = new Player();
         InitHUD();
