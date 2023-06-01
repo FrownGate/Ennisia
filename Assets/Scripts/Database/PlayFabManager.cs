@@ -611,6 +611,6 @@ public class PlayFabManager : MonoBehaviour
     {
         //AddInventoryItem(new Gear("Helmet", 1));
         //AddInventoryItem(new Material(1, 1, 5));
-        AddInventoryItem(new SummonTicket(1));
+        //AddInventoryItem(new SummonTicket(1));
     }
 }
