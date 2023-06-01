@@ -216,9 +216,36 @@ public class PlayFabManager : MonoBehaviour
             GetPlayerInventory();
         }
     }
+
+    public void GetPlayerInventory()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type }
+        }, OnGetPlayerInventorySuccess, OnRequestError);
+    }
+
+    private void OnGetPlayerInventorySuccess(GetInventoryItemsResponse response)
+    {
+        foreach (InventoryItem item in response.Items)
+        {
+            if (item.Type == "currency")
+            {
+                Currencies[_currencies[item.Id]] = (int)item.Amount;
+            }
+            else if (item.Type == "catalogItem")
+            {
+                Debug.Log("Creating item instance");
+                Type type = Type.GetType(_itemsById[item.Id]);
+                Activator.CreateInstance(type, item);
+            }
+        }
+
+        GetEnergy();
+    }
     #endregion
 
-    #region 2 - Currencies
+    #region 3 - Currencies
     //Get game currencies
     //New player -> Add initial currencies
     //Else -> Get currencies
@@ -256,32 +283,6 @@ public class PlayFabManager : MonoBehaviour
         yield return null;
     }
 
-    public void GetPlayerInventory()
-    {
-        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
-        {
-            Entity = new() { Id = Entity.Id, Type = Entity.Type }
-        }, OnGetPlayerInventorySuccess, OnRequestError);
-    }
-
-    private void OnGetPlayerInventorySuccess(GetInventoryItemsResponse response)
-    {
-        foreach (InventoryItem item in response.Items)
-        {
-            if (item.Type == "currency")
-            {
-                Currencies[_currencies[item.Id]] = (int)item.Amount;
-            }
-            else if (item.Type == "catalogItem")
-            {
-                Type type = Type.GetType(_itemsById[item.Id]);
-                Activator.CreateInstance(type, item);
-            }
-        }
-
-        GetEnergy();
-    }
-
     public void GetEnergy()
     {
         PlayFabClientAPI.GetUserInventory(new() { }, OnGetEnergySuccess, OnRequestError);
@@ -294,7 +295,7 @@ public class PlayFabManager : MonoBehaviour
     }
     #endregion
 
-    #region 3 - User Datas
+    #region 4 - User Datas
     //Datas = Account, Player, Inventory
     //New player -> Create datas then Update
     //Else -> Get existing datas
@@ -342,7 +343,7 @@ public class PlayFabManager : MonoBehaviour
         {
             for (int i = 0; i < _datas.Length; i++)
             {
-                _datas[i].UpdateLocalData(response.Objects[_datas[i].ClassName].EscapedDataObject);
+                _datas[i].UpdateLocalData(response.Objects[_datas[i].GetName()].EscapedDataObject);
             }
 
             CompleteLogin();
@@ -486,23 +487,16 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Equipment
-    public void DropGear(string type, string rarity)
-    {
-        Gear gear = new(type, rarity, Inventory.Gears.Count + 1);
-        Inventory.Gears.Add(gear);
-        AddInventoryItem(gear.GetType().Name, 1, gear, gear.Id.ToString());
-    }
-
     public void SetGearData(EquipmentSO equipment, int id)
     {
-        foreach (Gear inventoryGear in Inventory.Gears)
+        foreach (Gear inventoryGear in Inventory.GetGears())
         {
             if (inventoryGear.Id == id)
             {
                 equipment.Id = inventoryGear.Id;
                 equipment.Name = inventoryGear.Name;
                 equipment.Type = inventoryGear.Type;
-                equipment.Rarity = inventoryGear.Rarity;
+                equipment.Rarity = inventoryGear.Rarity.ToString(); //TODO -> Update Equipment SO
                 equipment.Attribute = inventoryGear.Attribute;
                 equipment.statValue = inventoryGear.Value;
                 equipment.Description = inventoryGear.Description;
@@ -515,7 +509,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Gear gear = null;
 
-        foreach (Gear inventoryGear in Inventory.Gears)
+        foreach (Gear inventoryGear in Inventory.GetGears())
         {
             if (gear.Id == id)
             {
@@ -529,14 +523,7 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Items
-    public void AddMaterial(int type, int rarity, int amount)
-    {
-        Material material = new(type, rarity);
-        //Inventory.Gears.Add(gear);
-        AddInventoryItem(material.GetType().Name, amount, material, material.Stack);
-    }
-
-    private void AddInventoryItem(string item, int amount = 1, object properties = null, string stack = null)
+    public void AddInventoryItem(Item item)
     {
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
@@ -546,15 +533,15 @@ public class PlayFabManager : MonoBehaviour
                 AlternateId = new AlternateId
                 {
                     Type = "FriendlyId",
-                    Value = item
+                    Value = item.GetType().Name,
                 },
-                StackId = stack != null ? stack : ""
+                StackId = item.Stack ?? ""
             },
-            NewStackValues = properties != null ? new()
+            NewStackValues = item != null ? new()
             {
-                DisplayProperties = properties
+                DisplayProperties = item
             } : new(),
-            Amount = amount
+            Amount = item.Amount
         }, res =>
         {
             Debug.Log("inventory added");
@@ -622,7 +609,8 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        //DropGear("Helmet", "Common");
-        AddMaterial(0, 0, 1);
+        //AddInventoryItem(new Gear("Helmet", 1));
+        //AddInventoryItem(new Material(1, 1, 5));
+        //AddInventoryItem(new SummonTicket(1));
     }
 }
