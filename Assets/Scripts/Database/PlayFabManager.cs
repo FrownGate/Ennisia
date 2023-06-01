@@ -610,7 +610,7 @@ public class PlayFabManager : MonoBehaviour
     private void Testing()
     {
         //AddInventoryItem(new Gear("Helmet", 1));
-        AddInventoryItem(new Material(1, 1, 5));
-        //AddInventoryItem(new SummonTicket(1));
+        //AddInventoryItem(new Material(1, 1, 5));
+        AddInventoryItem(new SummonTicket(1));
     }
 }

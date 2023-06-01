@@ -11,7 +11,7 @@ public class Material : Item
 
     public MaterialType Type;
 
-    public Material(int type, int rarity, int amount)
+    public Material(int type, int rarity, int amount = 1)
     {
         Type = (MaterialType)type;
         Rarity = (ItemRarity)rarity;

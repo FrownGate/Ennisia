@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SummonTicket : Item
 {
-    public SummonTicket(int rarity, int amount)
+    public SummonTicket(int rarity, int amount = 1)
     {
         Rarity = (ItemRarity)rarity;
         Stack = Rarity.ToString();
