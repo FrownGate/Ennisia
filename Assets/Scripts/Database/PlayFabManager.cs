@@ -216,6 +216,33 @@ public class PlayFabManager : MonoBehaviour
             GetPlayerInventory();
         }
     }
+
+    public void GetPlayerInventory()
+    {
+        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type }
+        }, OnGetPlayerInventorySuccess, OnRequestError);
+    }
+
+    private void OnGetPlayerInventorySuccess(GetInventoryItemsResponse response)
+    {
+        foreach (InventoryItem item in response.Items)
+        {
+            if (item.Type == "currency")
+            {
+                Currencies[_currencies[item.Id]] = (int)item.Amount;
+            }
+            else if (item.Type == "catalogItem")
+            {
+                Debug.Log("Creating item instance");
+                Type type = Type.GetType(_itemsById[item.Id]);
+                Activator.CreateInstance(type, item);
+            }
+        }
+
+        GetEnergy();
+    }
     #endregion
 
     #region 3 - Currencies
@@ -254,32 +281,6 @@ public class PlayFabManager : MonoBehaviour
 
         UpdateData();
         yield return null;
-    }
-
-    public void GetPlayerInventory()
-    {
-        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
-        {
-            Entity = new() { Id = Entity.Id, Type = Entity.Type }
-        }, OnGetPlayerInventorySuccess, OnRequestError);
-    }
-
-    private void OnGetPlayerInventorySuccess(GetInventoryItemsResponse response)
-    {
-        foreach (InventoryItem item in response.Items)
-        {
-            if (item.Type == "currency")
-            {
-                Currencies[_currencies[item.Id]] = (int)item.Amount;
-            }
-            else if (item.Type == "catalogItem")
-            {
-                Type type = Type.GetType(_itemsById[item.Id]);
-                Activator.CreateInstance(type, item);
-            }
-        }
-
-        GetEnergy();
     }
 
     public void GetEnergy()

@@ -12,6 +12,7 @@ public class InventoryData : Data
     {
         ClassName = "Inventory"; //TODO -> replace with GetType name
         Supports = new();
+        Items = new();
     }
 
     public override void UpdateLocalData(string json)
