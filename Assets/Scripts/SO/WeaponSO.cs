@@ -43,7 +43,7 @@ public class WeaponSO : ScriptableObject
     Type _type2;
     [HideInInspector] public Skill _skill1;
     [HideInInspector] public Skill _skill2;
-    private void Awake()
+    public void Init()
     {
         _type1 = Type.GetType(skillName1);
         _skill1 = (Skill)Activator.CreateInstance(_type1);
