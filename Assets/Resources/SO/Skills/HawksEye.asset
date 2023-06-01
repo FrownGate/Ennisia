@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: HawksEye
   m_EditorClassIdentifier: 
-  id: 15
-  hitNb: 0
-  maxCooldown: 0
-  healingAmount: 0
-  damageAmount: 0
-  shieldAmount: 0
-  penDef: 0
-  description: "increases user\u2019s critical damage, attack and critical rate (buff),
+  Id: 15
+  Name: "Hawk\u2019s Eye"
+  Description: "increases user\u2019s critical damage, attack and critical rate (buff),
     then gives an additional turn."
-  skillName: "Hawk\u2019s Eye"
-  isAfter: 0
+  DamageAmount: 0
+  ShieldAmount: 0
+  HealingAmount: 0
+  MaxCooldown: 0
+  IgnoreDef: 0
+  HitNumber: 0
+  IsAfter: 0
   AOE: 0
-  isMagic: 0
+  IsMagic: 0
+  Icon: {fileID: 0}

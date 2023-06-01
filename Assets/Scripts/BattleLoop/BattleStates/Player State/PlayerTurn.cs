@@ -8,6 +8,10 @@ public class PlayerTurn : State
     public override IEnumerator Start()
     {
         BattleSystem.turn += 1;
+        foreach (var skill in BattleSystem.SkillsButton)
+        {
+            skill.SetActive(true);
+        }
         BattleSystem.dialogueText.text = "Your turn";
         yield return new WaitForSeconds(1.0f);
     }
