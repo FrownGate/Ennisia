@@ -1,15 +1,12 @@
 using PlayFab.EconomyModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-[Serializable]
 public class Gear : Item
 {
     [NonSerialized] public int Id;
     [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
-    public string Name;
     public string Type;
     public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
@@ -17,16 +14,15 @@ public class Gear : Item
 
     public Gear(string type, int rarity)
     {
-        Id = PlayFabManager.Instance.Inventory.Gears.Count + 1;
+        Id = PlayFabManager.Instance.Inventory.GetGears().Count + 1;
         Type = type;
         Rarity = (ItemRarity)rarity;
         Description = "";
         Attribute = SetAttribute();
         Value = SetValue();
-        Name = $"[{rarity}] {type}";
         Stack = Id.ToString();
 
-        PlayFabManager.Instance.Inventory.Gears.Add(this);
+        AddToInventory();
     }
 
     public Gear(InventoryItem item)
@@ -35,14 +31,12 @@ public class Gear : Item
 
         Id = int.Parse(item.StackId);
         Stack = item.StackId;
-        Name = gear.Name;
         Type = gear.Type;
         Rarity = gear.Rarity;
         Attribute = gear.Attribute;
         Value = gear.Value;
 
-        PlayFabManager.Instance.Inventory.Gears.Add(this);
-        Debug.Log($"Getting {Name} item !");
+        AddToInventory();
     }
 
     private string SetAttribute()
@@ -55,5 +49,10 @@ public class Gear : Item
     {
         EquipmentValueSO possibleValues = Resources.Load<EquipmentValueSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
+    }
+
+    protected override void SetName()
+    {
+        Name = $"[{Rarity}] {Type}";
     }
 }

@@ -488,7 +488,7 @@ public class PlayFabManager : MonoBehaviour
     #region Equipment
     public void SetGearData(EquipmentSO equipment, int id)
     {
-        foreach (Gear inventoryGear in Inventory.Gears)
+        foreach (Gear inventoryGear in Inventory.GetGears())
         {
             if (inventoryGear.Id == id)
             {
@@ -508,7 +508,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Gear gear = null;
 
-        foreach (Gear inventoryGear in Inventory.Gears)
+        foreach (Gear inventoryGear in Inventory.GetGears())
         {
             if (gear.Id == id)
             {
@@ -522,7 +522,7 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Items
-    public void AddInventoryItem(Item item, int amount = 1)
+    public void AddInventoryItem(Item item)
     {
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
@@ -540,7 +540,7 @@ public class PlayFabManager : MonoBehaviour
             {
                 DisplayProperties = item
             } : new(),
-            Amount = amount
+            Amount = item.Amount
         }, res =>
         {
             Debug.Log("inventory added");
@@ -608,8 +608,8 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        AddInventoryItem(new Gear("Helmet", 1));
-        //AddInventoryItem(new Material(1, 1), 5);
+        //AddInventoryItem(new Gear("Helmet", 1));
+        AddInventoryItem(new Material(1, 1, 5));
         //AddInventoryItem(new SummonTicket(1));
     }
 }

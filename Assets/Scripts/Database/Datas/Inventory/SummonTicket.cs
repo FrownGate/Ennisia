@@ -1,16 +1,15 @@
 using PlayFab.EconomyModels;
-using System;
 using UnityEngine;
 
 public class SummonTicket : Item
 {
-    public string Name;
-
-    public SummonTicket(int rarity)
+    public SummonTicket(int rarity, int amount)
     {
         Rarity = (ItemRarity)rarity;
-        Name = $"{Rarity} Summon Ticket";
         Stack = Rarity.ToString();
+        Amount = amount;
+
+        AddToInventory();
     }
 
     public SummonTicket(InventoryItem item)
@@ -20,9 +19,12 @@ public class SummonTicket : Item
         Stack = item.StackId;
         Amount = (int)item.Amount;
         Rarity = summonTicket.Rarity;
-        Name = summonTicket.Name;
 
-        PlayFabManager.Instance.Inventory.SummonTickets.Add(this);
-        Debug.Log($"Getting {Name} item !");
+        AddToInventory();
+    }
+
+    protected override void SetName()
+    {
+        Name = $"{Rarity} Summon Ticket";
     }
 }
