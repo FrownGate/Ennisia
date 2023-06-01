@@ -1,65 +1,82 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
-    public static event System.Action<Mission> MissionStarted;
-    public static event System.Action<Mission> MissionCompleted;
+    public static event Action<Mission> MissionStarted;
+    public static event Action<Mission> MissionCompleted;
 
-    // Singleton instance of the MissionManager
     public static MissionManager Instance { get; private set; }
 
-    // List of available missions
-    [SerializeField] private HashSet<MissionSO> missions;
-
-    private readonly Dictionary<int, MissionSO> missionDictionary = new Dictionary<int, MissionSO>();
-    // Current mission the player is playing
-    private Mission currentMission;
-
-    // Energy required to play missions
-    private int energy;
+    private readonly Dictionary<MissionType, List<Mission>> _missionLists = new();
+    public Mission CurrentMission;
+    public int CurrentWave;
+    private int _energy;
 
     private void Awake()
     {
-        // Singleton pattern
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
+            return;
         }
 
-        // Populate the mission dictionary
-        foreach (MissionSO missionSO in missions)
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        string path = "SO/Missions/";
+
+        foreach (MissionType missionType in Enum.GetValues(typeof(MissionType)))
         {
-            missionDictionary.Add(missionSO.ID, missionSO);
+            LoadMissionsFromFolder(path, missionType);
         }
     }
 
-    public void StartMission(int missionID)
+    private void LoadMissionsFromFolder(string folderName, MissionType missionType)
     {
-        if (missionDictionary.TryGetValue(missionID, out MissionSO missionSO))
+        MissionSO[] missionSOs = Resources.LoadAll<MissionSO>(folderName + missionType);
+        List<Mission> missionList = new List<Mission>();
+
+        foreach (MissionSO missionSO in missionSOs)
         {
             Mission mission = new Mission(missionSO);
-            currentMission = mission;
-            energy -= mission.EnergyCost;
-
-            // Display the mission narrative or cutscene
-            DisplayMissionNarrative(mission);
-
-            // Start the mission waves with enemies
-            StartMissionWaves(mission);
-
-            // Invoke the MissionStarted event
-            MissionStarted?.Invoke(mission);
+            missionList.Add(mission);
         }
-        else
+
+        _missionLists.Add(missionType, missionList);
+    }
+
+    public void StartMission(MissionType missionType, int missionID)
+    {
+        if (!_missionLists.TryGetValue(missionType, out List<Mission> missionList))
+        {
+            Debug.LogError("Invalid mission type: " + missionType);
+            return;
+        }
+
+        Mission mission = missionList.Find(m => m.ID == missionID);
+
+        if (mission == null)
         {
             Debug.LogError("Mission not found with ID: " + missionID);
+            return;
         }
+
+        if (mission.State != MissionState.Unlocked)
+        {
+            Debug.LogError("Cannot start mission. Mission is either locked or already completed: " + missionID);
+            return;
+        }
+
+        CurrentMission = mission;
+        _energy -= mission.EnergyCost;
+
+        DisplayMissionNarrative(mission);
+
+        StartMissionWaves(mission);
+
+        MissionStarted?.Invoke(mission);
     }
 
     private void StartMissionWaves(Mission mission)
@@ -70,27 +87,51 @@ public class MissionManager : MonoBehaviour
 
     public void CompleteMission()
     {
-        // Handle mission completion logic
+        if (CurrentMission == null)
+        {
+            Debug.LogError("No mission in progress");
+            return;
+        }
 
-        // Unlock next mission
-        UnlockNextMission();
+        CurrentMission.State = MissionState.Completed;
+        Debug.Log("Mission completed");
 
-        // Invoke the MissionCompleted event
-        MissionCompleted?.Invoke(currentMission);
+        UnlockNextMission(CurrentMission);
+
+        MissionCompleted?.Invoke(CurrentMission);
     }
 
-    private void UnlockNextMission()
+    private void UnlockNextMission(Mission completedMission)
     {
-        if (missionDictionary.Count > 1)
+        MissionType missionType = completedMission.MissionType;
+
+        if (!_missionLists.TryGetValue(missionType, out List<Mission> missionList))
         {
-            if (missionDictionary.TryGetValue(currentMission.MissionSO.ID + 1, out MissionSO nextMissionSO))
+            Debug.LogError("Invalid mission type: " + missionType);
+            return;
+        }
+
+        int completedMissionIndex = missionList.IndexOf(completedMission);
+
+        if (completedMissionIndex == -1)
+        {
+            Debug.LogError("Completed mission not found in the mission list");
+            return;
+        }
+
+        if (completedMissionIndex + 1 < missionList.Count)
+        {
+            Mission nextMission = missionList[completedMissionIndex + 1];
+
+            if (nextMission.State == MissionState.Locked)
             {
-                nextMissionSO.Unlocked = true;
+                nextMission.State = MissionState.Unlocked;
+                Debug.Log("Next mission unlocked: " + nextMission.ID);
             }
-            else
-            {
-                Debug.Log("No more missions available.");
-            }
+        }
+        else
+        {
+            Debug.Log("No more missions available in the " + missionType + " category.");
         }
     }
 
@@ -101,13 +142,12 @@ public class MissionManager : MonoBehaviour
         if (mission.DialogueID != -1)
         {
             // Show dialogue based on mission's DialogueID
-            DialogueManager.Instance.StartDialogue(mission.DialogueID);
+            //DialogueManager.Instance.StartDialogue(mission.DialogueID);
+            Debug.Log("Displaying mission narrative or cutscene");
         }
     }
 }
 
-
-// Mission Type Enum
 public enum MissionType
 {
     MainStory,
@@ -118,3 +158,10 @@ public enum MissionType
     Expedition
 }
 
+public enum MissionState
+{
+    Locked,
+    Unlocked,
+    InProgress,
+    Completed
+}

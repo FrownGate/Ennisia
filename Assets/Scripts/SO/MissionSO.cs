@@ -12,6 +12,7 @@ public class MissionSO : ScriptableObject
     public MissionType MissionType;
     public int EnergyCost;
     public bool Unlocked;
-    public List<int> EnemiesId;
+    public List<WavesSO> Waves;
+    public int DialogueID;
     // Add additional mission data as needed
 }
