@@ -10,7 +10,6 @@ public class InventoryData : Data
 
     public InventoryData()
     {
-        ClassName = "Inventory"; //TODO -> replace with GetType name
         Supports = new();
         Items = new();
     }

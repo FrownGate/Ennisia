@@ -343,7 +343,7 @@ public class PlayFabManager : MonoBehaviour
         {
             for (int i = 0; i < _datas.Length; i++)
             {
-                _datas[i].UpdateLocalData(response.Objects[_datas[i].ClassName].EscapedDataObject);
+                _datas[i].UpdateLocalData(response.Objects[_datas[i].GetType().Name.Replace("Data", string.Empty)].EscapedDataObject);
             }
 
             CompleteLogin();

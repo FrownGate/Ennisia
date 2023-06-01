@@ -5,12 +5,11 @@ using System;
 [Serializable]
 public abstract class Data
 {
-    public string ClassName;
     public SetObject Serialize()
     {
         return new SetObject
         {
-            ObjectName = ClassName,
+            ObjectName = GetType().Name.Replace("Data", string.Empty),
             EscapedDataObject = JsonUtility.ToJson(this)
         };
     }

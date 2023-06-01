@@ -16,6 +16,8 @@ public class Item
     [NonSerialized] public int Amount; //Amount of item to add
     public ItemRarity Rarity;
 
+    //TODO -> Remove item if amount == 0
+
     protected void AddToInventory()
     {
         Dictionary<string, List<object>> inventory = PlayFabManager.Instance.Inventory.Items;
