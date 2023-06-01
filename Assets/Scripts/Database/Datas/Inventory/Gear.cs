@@ -5,20 +5,18 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class GearData
+public class Gear
 {
-    public int Id;
+    [NonSerialized] public int Id;
+    [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
     public string Name;
     public string Type;
     public string Rarity;
     public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;
-    public string Icon; //TODO -> create function to return icon path with name
 
-    public GearData() { }
-
-    public GearData(string type, string rarity, int id)
+    public Gear(string type, string rarity, int id)
     {
         Id = id;
         Type = type;
@@ -27,6 +25,21 @@ public class GearData
         Attribute = SetAttribute();
         Value = SetValue();
         Name = $"[{rarity}] {type}";
+    }
+
+    public Gear(InventoryItem item)
+    {
+        Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
+
+        Id = int.Parse(item.StackId);
+        Name = gear.Name;
+        Type = gear.Type;
+        Rarity = gear.Rarity;
+        Attribute = gear.Attribute;
+        Value = gear.Value;
+
+        PlayFabManager.Instance.Inventory.Gears.Add(this);
+        Debug.Log($"Getting {Name} item !");
     }
 
     private string SetAttribute()
@@ -39,18 +52,6 @@ public class GearData
     {
         EquipmentValueSO possibleValues = Resources.Load<EquipmentValueSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
-    }
-
-    public GearData(InventoryItem item)
-    {
-        Id = int.Parse(item.StackId);
-        //Name = name;
-        //Type = type;
-        //Rarity = rarity;
-        //Attribute = attribute;
-        //Value = value;
-        //Description = description;
-        //Icon = icon;
     }
 
     public bool IsValid()

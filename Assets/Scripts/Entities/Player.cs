@@ -16,10 +16,9 @@ public class Player : Entity
         Skills = new List<Skill>
         {
             new Bonk(),
-            new TidalCrash(),
-            new BlueDragonsWrath()
+            WeaponSO._skill1,
+            WeaponSO._skill2
         };
 
-        //weapon //getSkills
     }
 }
