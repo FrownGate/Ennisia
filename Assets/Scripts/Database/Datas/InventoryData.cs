@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryData : Data
 {
     public List<SupportData> Supports;
-    public List<GearData> Gears;
+    [NonSerialized] public List<GearData> Gears;
 
     public InventoryData()
     {
@@ -17,6 +18,5 @@ public class InventoryData : Data
     {
         InventoryData data = JsonUtility.FromJson<InventoryData>(json);
         Supports = data.Supports;
-        Gears = data.Gears;
     }
 }

@@ -8,6 +8,7 @@ public class SupportsCharactersSO : ScriptableObject
     public string Rarity;
     public string Race;
     public string Job;
+    public string Element;
     public Skill PrimarySkill;
     public Skill SecondarySkill;
     public string Description;

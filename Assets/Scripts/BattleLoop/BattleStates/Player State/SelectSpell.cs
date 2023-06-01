@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class SelectSpell : PlayerTurn
 {
-    protected int _spellNumber;
+    protected int ButtonId;
 
-    public SelectSpell(BattleSystem battleSystem) : base(battleSystem)
+    public SelectSpell(BattleSystem battleSystem, int buttonId) : base(battleSystem)
     {
-        _spellNumber = battleSystem.ButtonId;
+        ButtonId = buttonId;
     }
 
     public override IEnumerator Start()
     {
-        Debug.Log("You choose spell" + _spellNumber);
+        Skill selectedSkill = BattleSystem.GetSelectedSkill(ButtonId);
         BattleSystem.dialogueText.text = "Select a spell";
-        BattleSystem.SetState(new SelectTarget(BattleSystem));
+        Debug.Log("You choose : " + BattleSystem.Allies[0].Skills[ButtonId].FileName);
+        Debug.Log("Number : " + ButtonId);
+        BattleSystem.SetState(new SelectTarget(BattleSystem,selectedSkill ));
         yield break;
+        
     }
 }

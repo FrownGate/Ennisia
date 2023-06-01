@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5431aed841f94fe4c9884e845246f751, type: 3}
   m_Name: 40-Demon Archer
   m_EditorClassIdentifier: 
-  id: 40
-  suppportName: Demon Archer
-  rarity: Rare
-  race: Demon
-  supportClass: none
-  passif: {fileID: 0}
-  skill: {fileID: 0}
-  description: none
-  catchPhrase: none
+  Id: 40
+  Name: Demon Archer
+  Rarity: Rare
+  Race: Demon
+  Job: none
+  Element: ???
+  PrimarySkill: {fileID: 0}
+  SecondarySkill: {fileID: 0}
+  Description: none
+  Catchphrase: none
+  Icon: {fileID: 0}

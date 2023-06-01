@@ -14,9 +14,8 @@ public class PlayFabManager : MonoBehaviour
     public static PlayFabManager Instance { get; private set; }
     public static event Action OnLoginSuccess;
     public static event Action<PlayFabError> OnError;
-    public static event Action<List<InventoryItem>> OnGetCurrencies;
-    public static event Action<int> OnGetEnergy;
     public static event Action OnCurrencyUpdate;
+    public static event Action OnEnergyUpdate;
 
     public AccountData Account { get; private set; }
     public PlayerData Player { get; private set; }
@@ -257,7 +256,6 @@ public class PlayFabManager : MonoBehaviour
             Currencies[GameCurrencies[item.Id]] = (int)item.Amount;
         }
 
-        OnGetCurrencies?.Invoke(response.Items); //temp
         GetEnergy();
     }
 
@@ -269,7 +267,6 @@ public class PlayFabManager : MonoBehaviour
     private void OnGetEnergySuccess(GetUserInventoryResult result)
     {
         Energy = result.VirtualCurrency["EN"];
-        OnGetEnergy?.Invoke(Energy); //temp ?
         GetUserDatas();
     }
     #endregion
@@ -405,6 +402,7 @@ public class PlayFabManager : MonoBehaviour
         }, res => {
             Debug.Log($"Added {amount} energy !");
             Energy += amount;
+            OnEnergyUpdate?.Invoke();
         }, OnRequestError);
     }
 
@@ -418,6 +416,7 @@ public class PlayFabManager : MonoBehaviour
         }, res => {
             Debug.Log($"Removed {amount} energy !");
             Energy -= amount;
+            OnEnergyUpdate?.Invoke();
         }, OnRequestError);
     }
     #endregion
@@ -464,12 +463,10 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Equipment
-    public void AddGear(GearData gear)
+    public void DropGear(string type, string rarity)
     {
-        if (!gear.IsValid()) return;
-        gear.Id = Inventory.Gears.Count + 1;
-        Inventory.Gears.Add(gear);
-        UpdateData();
+        Inventory.Gears.Add(new(type, rarity, Inventory.Gears.Count + 1));
+        //Add to database with stack id = id
     }
 
     public void SetGearData(EquipmentSO equipment, int id)
@@ -567,6 +564,6 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        AddGear(new GearData());
+        //
     }
 }
