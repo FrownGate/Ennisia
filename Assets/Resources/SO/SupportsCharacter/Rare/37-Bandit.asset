@@ -17,9 +17,7 @@ MonoBehaviour:
   Rarity: Rare
   Race: Human
   Job: none
-  Element: ???
-  PrimarySkill: {fileID: 0}
-  SecondarySkill: {fileID: 0}
+  Element: Thunder
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}
