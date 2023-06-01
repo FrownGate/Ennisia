@@ -218,7 +218,7 @@ public class PlayFabManager : MonoBehaviour
     }
     #endregion
 
-    #region 2 - Currencies
+    #region 3 - Currencies
     //Get game currencies
     //New player -> Add initial currencies
     //Else -> Get currencies
@@ -294,7 +294,7 @@ public class PlayFabManager : MonoBehaviour
     }
     #endregion
 
-    #region 3 - User Datas
+    #region 4 - User Datas
     //Datas = Account, Player, Inventory
     //New player -> Create datas then Update
     //Else -> Get existing datas
