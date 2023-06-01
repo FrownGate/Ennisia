@@ -8,6 +8,8 @@ using System.IO;
 
 public class BattleSimulator : EditorWindow
 {
+
+    public static BattleSystem Instance;
     private List<string> _allies = new();
     private DropdownField _alliesDropdown;
 
@@ -137,6 +139,7 @@ public class BattleSimulator : EditorWindow
 
         // if the dropdown is changed, change the foldout text
         ChangeFoldoutOnDropdown();
+        // BattleSystem.Instance.SimulateBattle();
 
 
     }
@@ -167,7 +170,6 @@ public class BattleSimulator : EditorWindow
         });
         _secondEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
-            Debug.Log("coucou");
             _secondEnemyFoldout.text = evt.newValue;
         });
         _thirdEnemyDropdown.RegisterValueChangedCallback(evt =>

@@ -8,85 +8,85 @@
             <ui:GroupBox name="FirstEnemy" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: auto; left: auto; flex-basis: 0;">
                 <ui:DropdownField label="Enemy 1 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="first-enemy-dropdown" />
                 <ui:Foldout text="Foldout" name="first-enemy-foldout" style="width: 100%;">
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MaxHp " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Attack " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritRate " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritDamage " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Speed " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="SecondEnemy" style="width: auto; align-items: auto; align-self: auto; justify-content: space-around; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: auto; left: auto;">
                 <ui:DropdownField label="Enemy 2 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="second-enemy-dropdown" />
                 <ui:Foldout text="Foldout" name="second-enemy-foldout" style="width: 100%;">
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MaxHp " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Attack " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritRate " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritDamage " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Speed " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="ThirdEnemy" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; right: auto; left: auto;">
                 <ui:DropdownField label="Enemy 3 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="third-enemy-dropdown" />
                 <ui:Foldout text="Foldout" name="third-enemy-foldout" style="width: 100%;">
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MaxHp " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Attack " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritRate " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritDamage " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Speed " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="FourthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: 20px; left: auto;">
                 <ui:DropdownField label="Enemy 4 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="fourth-enemy-dropdown" />
                 <ui:Foldout text="Foldout" name="fourth-enemy-foldout" style="width: 100%;">
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MaxHp " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Attack " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritRate " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritDamage " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Speed " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="FifthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: 20px; left: auto;">
                 <ui:DropdownField label="Enemy 5 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="fifth-enemy-dropdown" style="justify-content: space-around;" />
                 <ui:Foldout text="Foldout" name="fifth-enemy-foldout" style="width: 100%;">
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MaxHp " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Attack " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritRate " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritDamage " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Speed " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="SixthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; left: auto; right: 20px;">
                 <ui:DropdownField label="Enemy 6 :" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="sixth-enemy-dropdown" style="justify-content: space-around;" />
-                <ui:Foldout text="Foldout" name="sixth-enemy-foldout" value="false" style="width: 100%;">
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                <ui:Foldout text="Foldout" name="sixth-enemy-foldout" value="true" style="width: 100%;">
+                    <ui:TextField picking-mode="Ignore" label="MaxHp " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Attack " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="PhysDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicAtk " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="MagicDef " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritRate " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="CritDamage " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
+                    <ui:TextField picking-mode="Ignore" label="Speed " value="filler text" is-delayed="false" keyboard-type="NumberPad" style="width: 100%; height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
         </ui:GroupBox>
