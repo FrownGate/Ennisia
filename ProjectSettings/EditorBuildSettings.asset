@@ -15,25 +15,25 @@ EditorBuildSettings:
     path: Assets/Scenes/Battle.unity
     guid: 3a5f7fd03cb1ec142b3944e7e2cd5a2d
   - enabled: 1
-    path: Assets/Scenes/RaidBoss.unity
+    path: Assets/Scenes/Missions/Raids.unity
     guid: 2e81c5566a4cf7e4eb328b097aba487c
   - enabled: 1
-    path: Assets/Scenes/StuffMenu.unity
+    path: Assets/Scenes/Inventory/StuffMenu.unity
     guid: 13df4a1a9f7f930478f0cfe13443000d
   - enabled: 1
-    path: Assets/Scenes/SummonMenu.unity
+    path: Assets/Scenes/Supports/Summon.unity
     guid: feacd5e5cd9c95b40897c9cd78a5e001
   - enabled: 1
-    path: Assets/Scenes/SummonPopup.unity
+    path: Assets/Scenes/Supports/SummonPopup.unity
     guid: bd69628cd9c85b0469db253ca14f5c52
   - enabled: 1
     path: Assets/Scenes/ShopMenu.unity
     guid: 91687e3abef33b547b352c3e26beccfa
   - enabled: 1
-    path: Assets/Scenes/GamemodeSelection.unity
+    path: Assets/Scenes/Missions/GameModeSelection.unity
     guid: 55d6fa4e1512ab041bdccdb546105acd
   - enabled: 1
-    path: Assets/Scenes/RaidDifficulty.unity
+    path: Assets/Scenes/Missions/RaidsDifficulty.unity
     guid: abc10c5336e5fc54dacfe5ff797e929e
   - enabled: 1
     path: Assets/Scenes/SettingsPopup.unity
@@ -45,31 +45,31 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 19f45cabb60b2e643838eaa7a7879245
   - enabled: 1
-    path: Assets/Scenes/MissionSelection.unity
+    path: Assets/Scenes/Missions/StoryChapter.unity
     guid: 724968815362d7c4688de4df3987eb20
   - enabled: 1
-    path: Assets/Scenes/MissionSelectionPopup.unity
+    path: Assets/Scenes/Missions/StoryChapterPopup.unity
     guid: 108a621212bcaac42a971078564f5435
   - enabled: 1
     path: Assets/Scenes/PetScene.unity
     guid: 3c9309ffef9a5154783cee365ff7231b
   - enabled: 1
-    path: Assets/Scenes/StoryMenu.unity
+    path: Assets/Scenes/Missions/MainStory.unity
     guid: 7541eecf0941bb9479a12b61d6250444
   - enabled: 1
-    path: Assets/Scenes/EndlessTowerScene.unity
+    path: Assets/Scenes/Missions/EndlessTower.unity
     guid: 8461a66818b9f1f4ba83fa4c9b878dbb
   - enabled: 1
-    path: Assets/Scenes/GearSelectionPopup.unity
+    path: Assets/Scenes/Inventory/GearSelectionPopup.unity
     guid: 81b8947530d81c44b8a672388ccd99e3
   - enabled: 1
     path: Assets/Scenes/GenderSelection.unity
     guid: c4bbf528714eeff4ebd876947d4f6e19
   - enabled: 1
-    path: Assets/Scenes/InventoryPopup.unity
+    path: Assets/Scenes/Inventory/InventoryPopup.unity
     guid: 5b26c1450d625164e884692e3cfa42f7
   - enabled: 1
-    path: Assets/Scenes/SupportSelectionPopup.unity
+    path: Assets/Scenes/Supports/SupportSelectionPopup.unity
     guid: d12afcbd6ca77db4f93ecf4a555d70b4
   - enabled: 1
     path: Assets/Scenes/GuildScene.unity
