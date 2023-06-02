@@ -11,6 +11,7 @@ public class BattleSimulator : EditorWindow
 
     public static BattleSystem Instance;
     private List<string> _allies = new();
+    private List<Enemy> _enemies = new();
     private DropdownField _alliesDropdown;
 
     // ENEMIES
@@ -136,6 +137,14 @@ public class BattleSimulator : EditorWindow
 
     public void OnGUI()
     {
+        EnemyLoader enemyLoader = new();
+        _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
+
+        foreach (Enemy enemy in _enemies)
+        {
+            _firstEnemyDropdown.choices.Add(enemy.Name);
+
+        }
 
         // if the dropdown is changed, change the foldout text
         ChangeFoldoutOnDropdown();
@@ -200,6 +209,9 @@ public class BattleSimulator : EditorWindow
 
 
     }
+
+    // create a function to parse the Enemies.csv file and create a list of enemies
+
 
 
 

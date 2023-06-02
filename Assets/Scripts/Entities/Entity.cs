@@ -2,9 +2,13 @@
 
 public abstract class Entity
 {
-    protected internal int Level { get;  set; }
-    protected internal float MaxHp { get;  set; }
-    protected internal float Attack { get;  set; }
+
+    protected internal int Id { get; set; }
+    protected internal string Name { get; set; }
+    protected internal string Description { get; set; }
+    protected internal int Level { get; set; }
+    protected internal float MaxHp { get; set; }
+    protected internal float Attack { get; set; }
     protected internal float PhysAtk { get; set; }
     protected internal float MagicAtk { get; set; }
     protected internal float PhysDef { get; set; }
@@ -39,7 +43,7 @@ public abstract class Entity
     {
         return true;
     }
-    
+
     public virtual void ResetTargetedState()
     {
         return;
