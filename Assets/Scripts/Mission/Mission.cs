@@ -22,3 +22,13 @@ public class Mission
 
     // Add any additional methods or logic needed for the mission
 }
+
+public enum MissionType
+{
+    MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
+}
+
+public enum MissionState
+{
+    Locked, Unlocked, InProgress, Completed
+}

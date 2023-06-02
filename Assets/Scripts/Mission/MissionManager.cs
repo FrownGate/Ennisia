@@ -14,6 +14,8 @@ public class MissionManager : MonoBehaviour
     public int CurrentWave;
     private int _energy;
 
+    private readonly string _path = "SO/Missions/";
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,22 +27,20 @@ public class MissionManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        string path = "SO/Missions/";
-
         foreach (MissionType missionType in Enum.GetValues(typeof(MissionType)))
         {
-            LoadMissionsFromFolder(path, missionType);
+            LoadMissionsFromFolder(missionType);
         }
     }
 
-    private void LoadMissionsFromFolder(string folderName, MissionType missionType)
+    private void LoadMissionsFromFolder(MissionType missionType)
     {
-        MissionSO[] missionSOs = Resources.LoadAll<MissionSO>(folderName + missionType);
-        List<Mission> missionList = new List<Mission>();
+        MissionSO[] missionSOs = Resources.LoadAll<MissionSO>(_path + missionType);
+        List<Mission> missionList = new();
 
         foreach (MissionSO missionSO in missionSOs)
         {
-            Mission mission = new Mission(missionSO);
+            Mission mission = new(missionSO);
             missionList.Add(mission);
         }
 
@@ -146,22 +146,4 @@ public class MissionManager : MonoBehaviour
             Debug.Log("Displaying mission narrative or cutscene");
         }
     }
-}
-
-public enum MissionType
-{
-    MainStory,
-    SideStory,
-    AlternativeStory,
-    Dungeon,
-    Raid,
-    Expedition
-}
-
-public enum MissionState
-{
-    Locked,
-    Unlocked,
-    InProgress,
-    Completed
 }
