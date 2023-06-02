@@ -2,6 +2,16 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    //TODO -> ajouter instance QuestManager
+
+    //No need to create timers -> We'll use PlayFab to reset timers at specific date and time
+    //Daily timer around 16:00
+    //Weekly timer around 16:00 on Monday
+
+    //Only check in database if quest is completed or not
+    //Set quest state -> same system as Missions
+    //Give rewards to player depending on CSV datas ?
+
     public int dailyQuestClicksNeeded = 3; // Nombre de clics nécessaires pour compléter la quête quotidienne
     public int weeklyQuestClicksNeeded = 5; // Nombre de clics nécessaires pour compléter la quête hebdomadaire
 
