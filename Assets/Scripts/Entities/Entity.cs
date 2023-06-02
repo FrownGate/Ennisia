@@ -2,9 +2,13 @@
 
 public abstract class Entity
 {
-    protected internal int Level { get;  set; }
-    protected internal float MaxHp { get;  set; }
-    protected internal float Attack { get;  set; }
+
+    protected internal int Id { get; set; }
+    protected internal string Name { get; set; }
+    protected internal string Description { get; set; }
+    protected internal int Level { get; set; }
+    protected internal float MaxHp { get; set; }
+    protected internal float Attack { get; set; }
     protected internal float PhysAtk { get; set; }
     protected internal float MagicAtk { get; set; }
     protected internal float PhysDef { get; set; }
@@ -39,9 +43,33 @@ public abstract class Entity
     {
         return true;
     }
-    
+
     public virtual void ResetTargetedState()
     {
         return;
+    }
+
+    public virtual void HaveBeSelected()
+    {
+        return;
+    }
+    public virtual Dictionary<string, int> GetAllStats()
+    {
+        Dictionary<string, int> stats = new()
+        {
+            { "MaxHp", (int)MaxHp },
+            { "Atk", (int)Attack },
+            { "PhysAtk", (int)PhysAtk },
+            { "PhysDef", (int)PhysDef },
+            { "MagicAtk", (int)MagicAtk },
+            { "MagicDef", (int)MagicDef },
+            { "CritRate", (int)CritRate },
+            { "CritDamage", (int)CritDamage },
+            { "Speed", (int)Speed },
+            // { "CurrentHp", (int)CurrentHp },
+            // { "Shield", (int)Shield },
+            // { "DefIgnored", (int)DefIgnored },
+        };
+        return stats;
     }
 }
