@@ -7,7 +7,7 @@ public class Gear : Item
 {
     [NonSerialized] public int Id;
     [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
-    public string Type;
+    public new string Type;
     public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;

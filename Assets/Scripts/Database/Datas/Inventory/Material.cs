@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class Material : Item
 {
-    public enum MaterialType
-    {
-        Weapon, Gear, Accessory
-    }
-
-    public MaterialType Type;
+    public Material() { }
 
     public Material(int type, int rarity, int amount = 1)
     {

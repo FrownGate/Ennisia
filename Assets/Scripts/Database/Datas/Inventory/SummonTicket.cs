@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SummonTicket : Item
 {
+    public SummonTicket() { }
+
     public SummonTicket(int rarity, int amount = 1)
     {
         Rarity = (ItemRarity)rarity;
