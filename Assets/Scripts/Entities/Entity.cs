@@ -48,9 +48,28 @@ public abstract class Entity
     {
         return;
     }
-    
+
     public virtual void HaveBeSelected()
     {
         return;
+    }
+    public virtual Dictionary<string, int> GetAllStats()
+    {
+        Dictionary<string, int> stats = new()
+        {
+            { "MaxHp", (int)MaxHp },
+            { "Attack", (int)Attack },
+            { "PhysAtk", (int)PhysAtk },
+            { "PhysDef", (int)PhysDef },
+            { "MagicAtk", (int)MagicAtk },
+            { "MagicDef", (int)MagicDef },
+            { "CritRate", (int)CritRate },
+            { "CritDamage", (int)CritDamage },
+            { "Speed", (int)Speed },
+            // { "CurrentHp", (int)CurrentHp },
+            // { "Shield", (int)Shield },
+            // { "DefIgnored", (int)DefIgnored },
+        };
+        return stats;
     }
 }

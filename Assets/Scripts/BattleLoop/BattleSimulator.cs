@@ -94,66 +94,67 @@ public class BattleSimulator : EditorWindow
 
 
         // get the stats fields for all the enemies
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-hp"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-atk"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-physatk"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-physdef"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-magicatk"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-magicdef"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-critrate"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-critdamage"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-spd"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MaxHp"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Atk"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysAtk"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysDef"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MagicAtk"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MagicDef"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritRate"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritDamage"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Speed"));
 
 
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-hp"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-atk"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-physatk"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-physdef"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-magicatk"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-magicdef"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-critrate"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-critdamage"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-spd"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MaxHp"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("Atk"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("PhysAtk"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("PhysDef"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MagicAtk"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MagicDef"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("CritRate"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("CritDamage"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("Speed"));
 
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-hp"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-atk"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-physatk"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-physdef"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-magicatk"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-magicdef"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-critrate"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-critdamage"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-spd"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("MaxHp"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("Atk"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("PhysAtk"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("PhysDef"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("MagicAtk"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("MagicDef"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("CritRate"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("CritDamage"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("Speed"));
 
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-hp"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-atk"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-physatk"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-physdef"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-magicatk"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-magicdef"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-critrate"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-critdamage"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-spd"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("MaxHp"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("Atk"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("PhysAtk"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("PhysDef"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("MagicAtk"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("MagicDef"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("CritRate"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("CritDamage"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("Speed"));
 
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-hp"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-atk"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-physatk"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-physdef"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-magicatk"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-magicdef"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-critrate"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-critdamage"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-spd"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("MaxHp"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("Atk"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("PhysAtk"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("PhysDef"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("MagicAtk"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("MagicDef"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("CritRate"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("CritDamage"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("Speed"));
 
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-hp"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-atk"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-physatk"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-physdef"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-magicatk"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-magicdef"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-critrate"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-critdamage"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-spd"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MaxHp"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Atk"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("PhysAtk"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("PhysDef"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MagicAtk"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MagicDef"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritRate"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDamage"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));
+
 
 
 
@@ -322,17 +323,23 @@ public class BattleSimulator : EditorWindow
     {
 
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
-        // foreach (var item in enemy)
-        // {
+        Debug.Log("Enemy : " + enemy.Name);
 
-        // }
-
-        // loop through all the IntegerField of the foldout and set the value to the enemy stats
-
-        for (int i = 0; i < enemyStatsField.Count; i++)
+        foreach (var item in enemy.GetAllStats())
         {
-            enemyStatsField[i].value = (int)enemy.Attack;
+            // assign the stats to the fields
+
+            Debug.Log("Item key : " + item.Key);
+            foreach (var field in enemyStatsField)
+            {
+                Debug.Log("Field name : " + field.name);
+                if (field.name == item.Key)
+                {
+                    field.SetValueWithoutNotify(item.Value);
+                }
+            }
         }
+
 
 
     }

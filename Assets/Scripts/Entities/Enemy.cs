@@ -11,24 +11,54 @@ public class Enemy : Entity
     }
     public Enemy(int id, string name, Dictionary<string, int> stats, string description)
     {
-        // assign all parameters to the enemy
+
         Id = id;
         Name = name;
         Description = description;
         Level = 1;
 
-
-        // assign stats
-        MaxHp = stats["MaxHp"];
-        CurrentHp = MaxHp;
-        Attack = stats["Attack"];
-        PhysAtk = stats["PhysAtk"];
-        PhysDef = stats["PhysDef"];
-        MagicAtk = stats["MagicAtk"];
-        MagicDef = stats["MagicDef"];
-        CritRate = stats["CritRate"];
-        CritDamage = stats["CritDamage"];
-        Speed = stats["Speed"];
+        // insert values from stats into the Enemy's stats
+        foreach (KeyValuePair<string, int> stat in stats)
+        {
+            switch (stat.Key)
+            {
+                case "Hp":
+                    MaxHp = stat.Value;
+                    break;
+                case "Atk":
+                    Attack = stat.Value;
+                    break;
+                case "PhysAtk":
+                    PhysAtk = stat.Value;
+                    break;
+                case "MagicAtk":
+                    MagicAtk = stat.Value;
+                    break;
+                case "PhysDef":
+                    PhysDef = stat.Value;
+                    break;
+                case "MagicDef":
+                    MagicDef = stat.Value;
+                    break;
+                case "CritRate":
+                    CritRate = stat.Value;
+                    break;
+                case "CritDamage":
+                    CritDamage = stat.Value;
+                    break;
+                case "DefIgnored":
+                    DefIgnored = stat.Value;
+                    break;
+                case "Shield":
+                    Shield = stat.Value;
+                    break;
+                case "Speed":
+                    Speed = stat.Value;
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
 
