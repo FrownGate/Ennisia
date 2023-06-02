@@ -222,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8176523475930119976, guid: 7beb3af981363054e8a2d60e2b61813f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -64.693
+      value: -64.69299
       objectReference: {fileID: 0}
     - target: {fileID: 8176523475930119976, guid: 7beb3af981363054e8a2d60e2b61813f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -430,7 +430,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 582.41, y: 423.87}
   m_EdgeRadius: 0
 --- !u!114 &382227426
 MonoBehaviour:
@@ -633,7 +633,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 120.513245, y: 99.468124}
   m_EdgeRadius: 0
 --- !u!114 &618284365
 MonoBehaviour:
@@ -862,7 +862,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 582.41, y: 423.87}
   m_EdgeRadius: 0
 --- !u!114 &1071540047
 MonoBehaviour:
@@ -1095,7 +1095,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 582.41, y: 423.88}
   m_EdgeRadius: 0
 --- !u!114 &1226090667
 MonoBehaviour:
@@ -1308,7 +1308,7 @@ GameObject:
   - component: {fileID: 1466756057}
   - component: {fileID: 1466756056}
   m_Layer: 5
-  m_Name: Raids
+  m_Name: RaidBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1378,7 +1378,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 582.41, y: 423.87}
   m_EdgeRadius: 0
 --- !u!114 &1466756057
 MonoBehaviour:
