@@ -40,6 +40,14 @@ public class BattleSimulator : EditorWindow
     private Foldout _fifthEnemyFoldout;
     private Foldout _sixthEnemyFoldout;
 
+    private List<IntegerField> _firstEnemyStatsField = new();
+    private List<IntegerField> _secondEnemyStatsField = new();
+    private List<IntegerField> _thirdEnemyStatsField = new();
+    private List<IntegerField> _fourthEnemyStatsField = new();
+    private List<IntegerField> _fifthEnemyStatsField = new();
+    private List<IntegerField> _sixthEnemyStatsField = new();
+
+
 
 
     private Button _simulateButton;
@@ -72,20 +80,9 @@ public class BattleSimulator : EditorWindow
         // root.styleSheets.Add(styleSheet);
 
         // add values in _allies for testing
-        _allies.Add("No Enemy");
-        for (int i = 0; i < 10; i++)
-        {
-            _allies.Add($"Enemy {i + 1}");
-        }
 
-        // init numbers for the stats of the first enemy
-        _firstEnemyStats.Add("HP", 100);
-        _firstEnemyStats.Add("MP", 10);
-        _firstEnemyStats.Add("ATK", 20);
-        _firstEnemyStats.Add("DEF", 0);
-        _firstEnemyStats.Add("MAG", 0);
-        _firstEnemyStats.Add("RES", 0);
-        _firstEnemyStats.Add("SPD", 0);
+
+
 
 
         _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
@@ -94,6 +91,71 @@ public class BattleSimulator : EditorWindow
         _fourthEnemyGroupBox = root.Q<GroupBox>("FourthEnemy");
         _fifthEnemyGroupBox = root.Q<GroupBox>("FifthEnemy");
         _sixthEnemyGroupBox = root.Q<GroupBox>("SixthEnemy");
+
+
+        // get the stats fields for all the enemies
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-hp"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-atk"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-physatk"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-physdef"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-magicatk"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-magicdef"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-critrate"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-critdamage"));
+        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("first-enemy-spd"));
+
+
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-hp"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-atk"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-physatk"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-physdef"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-magicatk"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-magicdef"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-critrate"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-critdamage"));
+        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("second-enemy-spd"));
+
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-hp"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-atk"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-physatk"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-physdef"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-magicatk"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-magicdef"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-critrate"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-critdamage"));
+        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("third-enemy-spd"));
+
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-hp"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-atk"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-physatk"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-physdef"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-magicatk"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-magicdef"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-critrate"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-critdamage"));
+        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("fourth-enemy-spd"));
+
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-hp"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-atk"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-physatk"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-physdef"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-magicatk"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-magicdef"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-critrate"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-critdamage"));
+        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("fifth-enemy-spd"));
+
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-hp"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-atk"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-physatk"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-physdef"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-magicatk"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-magicdef"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-critrate"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-critdamage"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("sixth-enemy-spd"));
+
+
 
 
 
@@ -113,18 +175,9 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
 
 
-        // TODO: add enemies to dropdown
-        _firstEnemyDropdown.choices = new List<string>(_allies);
-        // _firstEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
-        // _secondEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
-        // _thirdEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
-        // _fourthEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
-        // _fifthEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
-        // _sixthEnemyDropdown.choices = new List<string>(Enum.GetNames(typeof(EnemyType)));
 
-        // set foldouts to the same text
+        // Set Base value for the foldouts
         _firstEnemyFoldout.text = "Enemy Stats";
-
         _secondEnemyFoldout.text = "Enemy Stats";
         _thirdEnemyFoldout.text = "Enemy Stats";
         _fourthEnemyFoldout.text = "Enemy Stats";
@@ -140,15 +193,31 @@ public class BattleSimulator : EditorWindow
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
+        // TODO: add enemies to dropdown
         foreach (Enemy enemy in _enemies)
         {
+            _firstEnemyDropdown.choices.Add("No Enemy");
             _firstEnemyDropdown.choices.Add(enemy.Name);
+            _secondEnemyDropdown.choices.Add("No Enemy");
+            _secondEnemyDropdown.choices.Add(enemy.Name);
+            _thirdEnemyDropdown.choices.Add("No Enemy");
+            _thirdEnemyDropdown.choices.Add(enemy.Name);
+            _fourthEnemyDropdown.choices.Add("No Enemy");
+            _fourthEnemyDropdown.choices.Add(enemy.Name);
+            _fifthEnemyDropdown.choices.Add("No Enemy");
+            _fifthEnemyDropdown.choices.Add(enemy.Name);
+            _sixthEnemyDropdown.choices.Add("No Enemy");
+            _sixthEnemyDropdown.choices.Add(enemy.Name);
+
 
         }
 
         // if the dropdown is changed, change the foldout text
         ChangeFoldoutOnDropdown();
         // BattleSystem.Instance.SimulateBattle();
+
+        // Set the first enemy stats
+
 
 
     }
@@ -161,16 +230,9 @@ public class BattleSimulator : EditorWindow
             {
                 _firstEnemyFoldout.visible = true;
                 _firstEnemyFoldout.text = evt.newValue;
-                // create input fields for the stats of the enemy
-                foreach (KeyValuePair<string, int> stat in _firstEnemyStats)
-                {
-                    // create a label for the stat
 
+                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
 
-
-
-
-                }
             }
             else
             {
@@ -179,24 +241,93 @@ public class BattleSimulator : EditorWindow
         });
         _secondEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
-            _secondEnemyFoldout.text = evt.newValue;
+            if (evt.newValue != "No Enemy")
+            {
+                _firstEnemyFoldout.visible = true;
+                _firstEnemyFoldout.text = evt.newValue;
+
+                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+
+            }
+            else
+            {
+                _firstEnemyFoldout.visible = false;
+            }
         });
         _thirdEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
-            _thirdEnemyFoldout.text = evt.newValue;
+            if (evt.newValue != "No Enemy")
+            {
+                _firstEnemyFoldout.visible = true;
+                _firstEnemyFoldout.text = evt.newValue;
+
+                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+
+            }
+            else
+            {
+                _firstEnemyFoldout.visible = false;
+            }
         });
         _fourthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
-            _fourthEnemyFoldout.text = evt.newValue;
+            if (evt.newValue != "No Enemy")
+            {
+                _firstEnemyFoldout.visible = true;
+                _firstEnemyFoldout.text = evt.newValue;
+
+                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+
+            }
+            else
+            {
+                _firstEnemyFoldout.visible = false;
+            }
         });
         _fifthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
-            _fifthEnemyFoldout.text = evt.newValue;
+            if (evt.newValue != "No Enemy")
+            {
+                _firstEnemyFoldout.visible = true;
+                _firstEnemyFoldout.text = evt.newValue;
+
+                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+
+            }
+            else
+            {
+                _firstEnemyFoldout.visible = false;
+            }
         });
         _sixthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
-            _sixthEnemyFoldout.text = evt.newValue;
+            if (evt.newValue != "No Enemy")
+            {
+                _firstEnemyFoldout.visible = true;
+                _firstEnemyFoldout.text = evt.newValue;
+
+                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+
+            }
+            else
+            {
+                _firstEnemyFoldout.visible = false;
+            }
         });
+
+
+    }
+
+    private void ChangeStatsOfEnemy(string enemyName, List<IntegerField> enemyStatsField)
+    {
+
+        Enemy enemy = _enemies.Find(x => x.Name == enemyName);
+
+        // loop through all the IntegerField of the foldout and set the value to the enemy stats
+        for (int i = 0; i < enemyStatsField.Count; i++)
+        {
+            enemyStatsField[i].value = (int)enemy.GetType().GetField(enemyStatsField[i].name).GetValue(enemy);
+        }
 
 
     }

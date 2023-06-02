@@ -7,7 +7,7 @@ public class EnemyLoader
 
     public Enemy LoadEnemyByName(string filePath, string enemyName)
     {
-        using (StreamReader reader = new StreamReader(filePath))
+        using (StreamReader reader = new(filePath))
         {
             string headerLine = reader.ReadLine(); // Skip the header line
 
@@ -44,11 +44,19 @@ public class EnemyLoader
 
     public List<Enemy> LoadEnemies(string filePath)
     {
-        List<Enemy> enemies = new List<Enemy>();
+        List<Enemy> enemies = new();
 
-        using (StreamReader reader = new StreamReader(filePath))
+        using (StreamReader reader = new(filePath))
         {
             string headerLine = reader.ReadLine(); // Skip the header line
+            string[] headers = headerLine.Split(',');
+            string[] stats = new string[9];
+
+            for (int i = 2; i < 11; i++)
+            {
+                // Skip the first two columns Id and Name
+                stats[i - 2] = headers[i];
+            }
 
             while (!reader.EndOfStream)
             {
@@ -57,28 +65,21 @@ public class EnemyLoader
 
                 int id = int.Parse(values[0]);
                 string name = values[1];
-                string[] stats = new string[9];
                 int[] statNumbers = new int[9];
 
+
+
+                // Loop through the statNumbers arrays    
                 for (int i = 2; i < 11; i++)
                 {
-                    stats[i - 2] = values[i];
                     statNumbers[i - 2] = int.Parse(values[i]);
                 }
 
-                //for (int i = 2; i < 8; i++)
-                //{
-                //    stats[i - 2] = values[i];
-                //}
 
-                //for (int i = 8; i < 14; i++)
-                //{
-                //    statNumbers[i - 8] = int.Parse(values[i]);
-                //}
 
                 string description = values[11];
 
-                Enemy enemy = new Enemy(id, name, stats, statNumbers, description);
+                Enemy enemy = new(id, name, stats, statNumbers, description);
                 enemies.Add(enemy);
             }
         }
