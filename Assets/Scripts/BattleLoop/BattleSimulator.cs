@@ -244,75 +244,75 @@ public class BattleSimulator : EditorWindow
         {
             if (evt.newValue != "No Enemy")
             {
-                _firstEnemyFoldout.visible = true;
-                _firstEnemyFoldout.text = evt.newValue;
+                _secondEnemyFoldout.visible = true;
+                _secondEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+                ChangeStatsOfEnemy(evt.newValue, _secondEnemyStatsField);
 
             }
             else
             {
-                _firstEnemyFoldout.visible = false;
+                _secondEnemyFoldout.visible = false;
             }
         });
         _thirdEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
             {
-                _firstEnemyFoldout.visible = true;
-                _firstEnemyFoldout.text = evt.newValue;
+                _thirdEnemyFoldout.visible = true;
+                _thirdEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+                ChangeStatsOfEnemy(evt.newValue, _thirdEnemyStatsField);
 
             }
             else
             {
-                _firstEnemyFoldout.visible = false;
+                _thirdEnemyFoldout.visible = false;
             }
         });
         _fourthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
             {
-                _firstEnemyFoldout.visible = true;
-                _firstEnemyFoldout.text = evt.newValue;
+                _fourthEnemyFoldout.visible = true;
+                _fourthEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+                ChangeStatsOfEnemy(evt.newValue, _fourthEnemyStatsField);
 
             }
             else
             {
-                _firstEnemyFoldout.visible = false;
+                _fourthEnemyFoldout.visible = false;
             }
         });
         _fifthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
             {
-                _firstEnemyFoldout.visible = true;
-                _firstEnemyFoldout.text = evt.newValue;
+                _fifthEnemyFoldout.visible = true;
+                _fifthEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+                ChangeStatsOfEnemy(evt.newValue, _fifthEnemyStatsField);
 
             }
             else
             {
-                _firstEnemyFoldout.visible = false;
+                _fifthEnemyFoldout.visible = false;
             }
         });
         _sixthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
             {
-                _firstEnemyFoldout.visible = true;
-                _firstEnemyFoldout.text = evt.newValue;
+                _sixthEnemyFoldout.visible = true;
+                _sixthEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+                ChangeStatsOfEnemy(evt.newValue, _sixthEnemyStatsField);
 
             }
             else
             {
-                _firstEnemyFoldout.visible = false;
+                _sixthEnemyFoldout.visible = false;
             }
         });
 
