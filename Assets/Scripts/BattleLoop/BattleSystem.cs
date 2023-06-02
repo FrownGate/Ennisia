@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
@@ -77,6 +78,16 @@ public class BattleSystem : StateMachine
     {
         SetState(new SelectSpell(this, 2));
     }
+    
+    public void SetSkillButtonsActive(bool isActive)
+    {
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("SkillButton");
+
+        foreach (GameObject buttonObject in buttons)
+        {
+            buttonObject.SetActive(isActive);
+        }
+    }
 
     public void OnMouseUp()
     {
@@ -141,7 +152,7 @@ public class BattleSystem : StateMachine
         Targetables.Clear();
         _selected = false;
         turn = 0;
-
+        
         _lostPopUp.SetActive(false);
         _wonPopUp.SetActive(false);
         
@@ -161,7 +172,7 @@ public class BattleSystem : StateMachine
         SetState(new WhoGoFirst(this));
     }
 
-    public void SimulateBattle()
+    private void SimulateBattle()
     {
         SetState(new AutoBattle(this));
     }
@@ -173,22 +184,17 @@ public class BattleSystem : StateMachine
         
         foreach (var ally in Allies)
         {
-            if (!ally.IsDead)
-            {
-                allAlliesDead = false;
-                break;
-            }
+            if (ally.IsDead) continue;
+            allAlliesDead = false;
+            break;
         }
         
         foreach (var enemy in Enemies)
         {
-            if (!enemy.IsDead)
-            {
-                allEnemiesDead = false;
-                break;
-            }
+            if (enemy.IsDead) continue;
+            allEnemiesDead = false;
+            break;
         }
-
         return allAlliesDead || allEnemiesDead;
     }
     
@@ -204,7 +210,6 @@ public class BattleSystem : StateMachine
                 break;
             }
         }
-
         return allEnemiesDead;
     }
 }

@@ -26,16 +26,16 @@ using UnityEngine;
             }
         }
 
-        public void AISelectSkillAndEnemy()
+        private void AISelectSkillAndEnemy()
         {
             if (BattleSystem.Allies.Any() && BattleSystem.Allies[0].Skills.Any())
             {
-                int selectedSkillIndex = UnityEngine.Random.Range(0, BattleSystem.Allies[0].Skills.Count); 
+                int selectedSkillIndex = Random.Range(0, BattleSystem.Allies[0].Skills.Count); 
                 BattleSystem.SetState(new SelectSpell(BattleSystem, selectedSkillIndex));
             
                 if (BattleSystem.Enemies.Any())
                 {
-                    int selectedEnemyIndex = UnityEngine.Random.Range(0, BattleSystem.Enemies.Count);
+                    int selectedEnemyIndex = Random.Range(0, BattleSystem.Enemies.Count);
                     BattleSystem.Enemies[selectedEnemyIndex].HaveBeSelected();
                     BattleSystem.GetSelectedEnemies(BattleSystem.Enemies);
                     BattleSystem.StartCoroutine(new SelectTarget(BattleSystem, BattleSystem.GetSelectedSkill(selectedSkillIndex)).Attack());
