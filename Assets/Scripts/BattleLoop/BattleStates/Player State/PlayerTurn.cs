@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerTurn : State
@@ -7,6 +8,14 @@ public class PlayerTurn : State
 
     public override IEnumerator Start()
     {
+        bool allAlliesDead = BattleSystem.Allies.All(ally => ally.IsDead);
+
+        if (allAlliesDead)
+        {
+            BattleSystem.SetState(new Lost(BattleSystem));
+            yield break;
+        }
+        
         BattleSystem.turn += 1;
         foreach (var skill in BattleSystem.SkillsButton)
         {

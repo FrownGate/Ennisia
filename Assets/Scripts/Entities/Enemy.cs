@@ -1,4 +1,5 @@
-﻿public class Enemy : Entity
+﻿using System.Collections.Generic;
+public class Enemy : Entity
 {
     public Enemy()
     {
@@ -8,8 +9,62 @@
         Speed = 200;
         CurrentHp = MaxHp / 2;
     }
+    public Enemy(int id, string name, Dictionary<string, int> stats, string description)
+    {
 
-    public void HaveBeSelected()
+        Id = id;
+        Name = name;
+        Description = description;
+        Level = 1;
+
+        // insert values from stats into the Enemy's stats
+        foreach (KeyValuePair<string, int> stat in stats)
+        {
+            switch (stat.Key)
+            {
+                case "Hp":
+                    MaxHp = stat.Value;
+                    break;
+                case "Atk":
+                    Attack = stat.Value;
+                    break;
+                case "PhysAtk":
+                    PhysAtk = stat.Value;
+                    break;
+                case "MagicAtk":
+                    MagicAtk = stat.Value;
+                    break;
+                case "PhysDef":
+                    PhysDef = stat.Value;
+                    break;
+                case "MagicDef":
+                    MagicDef = stat.Value;
+                    break;
+                case "CritRate":
+                    CritRate = stat.Value;
+                    break;
+                case "CritDamage":
+                    CritDamage = stat.Value;
+                    break;
+                case "DefIgnored":
+                    DefIgnored = stat.Value;
+                    break;
+                case "Shield":
+                    Shield = stat.Value;
+                    break;
+                case "Speed":
+                    Speed = stat.Value;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+    }
+
+    public override void HaveBeSelected()
     {
         IsSelected = true;
     }
@@ -29,6 +84,6 @@
     {
         IsSelected = false;
     }
-    
-    
+
+
 }

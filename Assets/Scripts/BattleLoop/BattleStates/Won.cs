@@ -12,10 +12,9 @@ public class Won : State
         {
             skill.TakeOffStats(BattleSystem.Enemies, BattleSystem.Allies[0], 0); // constant passive at battle end
         }
+        
         BattleSystem.dialogueText.text = "YOU WON THE FIGHT";
         BattleSystem._wonPopUp.SetActive(true);
-
-    
         yield break;
     }
 }
