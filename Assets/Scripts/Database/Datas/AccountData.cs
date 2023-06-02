@@ -10,7 +10,6 @@ public class AccountData : Data
 
     public AccountData(string username)
     {
-        ClassName = "Account";
         Name = username;
         Level = 1;
         Exp = 0;
