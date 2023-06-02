@@ -45,7 +45,8 @@ public class BattleSystem : StateMachine
             skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
         }
 
-        SetState(new WhoGoFirst(this));
+        //SetState(new WhoGoFirst(this));
+        SimulateBattle();
     }
 
     private void EnemyContainer()
@@ -82,7 +83,7 @@ public class BattleSystem : StateMachine
         _selected = true;
         if (_selected)
         {
-            Targetables = GetSelectedEnemies(Enemies);
+            GetSelectedEnemies(Enemies);
 
             StartCoroutine(State.Attack());
         }
@@ -100,8 +101,9 @@ public class BattleSystem : StateMachine
         }
     }
 
-    private List<Entity> GetSelectedEnemies(List<Entity> enemies)
+    public void GetSelectedEnemies(List<Entity> enemies)
     {
+        Targetables.Clear();
         foreach (var enemy in enemies)
         {
             if (enemy.HaveBeTargeted())
@@ -112,7 +114,6 @@ public class BattleSystem : StateMachine
                 }
             }
         }
-        return Targetables;
     }
 
     public Skill GetSelectedSkill(int buttonId)
@@ -158,5 +159,52 @@ public class BattleSystem : StateMachine
         }
         
         SetState(new WhoGoFirst(this));
+    }
+
+    public void SimulateBattle()
+    {
+        SetState(new AutoBattle(this));
+    }
+    
+    public bool IsBattleOver()
+    {
+        bool allAlliesDead = true;
+        bool allEnemiesDead = true;
+        
+        foreach (var ally in Allies)
+        {
+            if (!ally.IsDead)
+            {
+                allAlliesDead = false;
+                break;
+            }
+        }
+        
+        foreach (var enemy in Enemies)
+        {
+            if (!enemy.IsDead)
+            {
+                allEnemiesDead = false;
+                break;
+            }
+        }
+
+        return allAlliesDead || allEnemiesDead;
+    }
+    
+    public bool DidPlayerWin()
+    {
+        bool allEnemiesDead = true;
+        
+        foreach (var enemy in Enemies)
+        {
+            if (!enemy.IsDead)
+            {
+                allEnemiesDead = false;
+                break;
+            }
+        }
+
+        return allEnemiesDead;
     }
 }

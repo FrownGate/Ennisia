@@ -48,4 +48,9 @@ public abstract class Entity
     {
         return;
     }
+    
+    public virtual void HaveBeSelected()
+    {
+        return;
+    }
 }
