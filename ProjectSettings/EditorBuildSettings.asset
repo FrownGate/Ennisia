@@ -21,16 +21,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Inventory/StuffMenu.unity
     guid: 13df4a1a9f7f930478f0cfe13443000d
   - enabled: 1
-    path: Assets/Scenes/Supports/Summon.unity
+    path: Assets/Scenes/Summon/Summon.unity
     guid: feacd5e5cd9c95b40897c9cd78a5e001
   - enabled: 1
-    path: Assets/Scenes/Supports/SummonPopup.unity
+    path: Assets/Scenes/Summon/SummonPopup.unity
     guid: bd69628cd9c85b0469db253ca14f5c52
   - enabled: 1
-    path: Assets/Scenes/ShopMenu.unity
+    path: Assets/Scenes/Shop.unity
     guid: 91687e3abef33b547b352c3e26beccfa
   - enabled: 1
-    path: Assets/Scenes/Missions/GameModeSelection.unity
+    path: Assets/Scenes/Missions/BattleModeSelection.unity
     guid: 55d6fa4e1512ab041bdccdb546105acd
   - enabled: 1
     path: Assets/Scenes/Missions/RaidsDifficulty.unity
@@ -42,7 +42,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ProfilePopup.unity
     guid: a2d12d7d40bbbb945a67991d2cf73c6b
   - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
+    path: Assets/Scenes/Loading.unity
     guid: 19f45cabb60b2e643838eaa7a7879245
   - enabled: 1
     path: Assets/Scenes/Missions/StoryChapter.unity
@@ -51,7 +51,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Missions/StoryChapterPopup.unity
     guid: 108a621212bcaac42a971078564f5435
   - enabled: 1
-    path: Assets/Scenes/PetScene.unity
+    path: Assets/Scenes/Pets.unity
     guid: 3c9309ffef9a5154783cee365ff7231b
   - enabled: 1
     path: Assets/Scenes/Missions/MainStory.unity
@@ -69,12 +69,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Inventory/InventoryPopup.unity
     guid: 5b26c1450d625164e884692e3cfa42f7
   - enabled: 1
-    path: Assets/Scenes/Supports/SupportSelectionPopup.unity
+    path: Assets/Scenes/Inventory/SupportSelectionPopup.unity
     guid: d12afcbd6ca77db4f93ecf4a555d70b4
   - enabled: 1
-    path: Assets/Scenes/GuildScene.unity
+    path: Assets/Scenes/Guilds/PlayerGuild.unity
     guid: fd2266221b4879d438068fc08193a1b2
   - enabled: 1
-    path: Assets/Scenes/CreateGuildScene.unity
+    path: Assets/Scenes/Guilds/GuildsList.unity
     guid: a65a5679c6f78ef479ed679c5bddf2ba
   m_configObjects: {}
