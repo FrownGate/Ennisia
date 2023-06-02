@@ -40,4 +40,14 @@ public class InventoryData : Data
 
         return material;
     }
+
+    public bool HasItem(Item item)
+    {
+        return Items.ContainsKey(item.GetType().Name);
+    }
+
+    public Item GetItem(Item itemType)
+    {
+        return itemType;
+    }
 }
