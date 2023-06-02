@@ -2,17 +2,27 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MissionType
+{
+    MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
+}
+
+public enum MissionState
+{
+    Locked, Unlocked, InProgress, Completed
+}
+
 public class MissionManager : MonoBehaviour
 {
-    public static event Action<Mission> MissionStarted;
-    public static event Action<Mission> MissionCompleted;
-
     public static MissionManager Instance { get; private set; }
+    public static event Action<MissionSO> OnMissionStart; //Not used yet
+    public static event Action<MissionSO> OnMissionComplete; //Not used yet
 
-    private readonly Dictionary<MissionType, List<Mission>> _missionLists = new();
-    public Mission CurrentMission;
+    public MissionSO CurrentMission;
     public int CurrentWave;
-    private int _energy;
+
+    private readonly Dictionary<MissionType, MissionSO[]> _missionLists = new();
+    private readonly string _path = "SO/Missions/";
 
     private void Awake()
     {
@@ -25,37 +35,34 @@ public class MissionManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        string path = "SO/Missions/";
-
+        //Init missions list with MissionSO
         foreach (MissionType missionType in Enum.GetValues(typeof(MissionType)))
         {
-            LoadMissionsFromFolder(path, missionType);
+            LoadMissionsFromFolder(missionType);
         }
     }
 
-    private void LoadMissionsFromFolder(string folderName, MissionType missionType)
+    private void LoadMissionsFromFolder(MissionType missionType)
     {
-        MissionSO[] missionSOs = Resources.LoadAll<MissionSO>(folderName + missionType);
-        List<Mission> missionList = new List<Mission>();
+        MissionSO[] missions = Resources.LoadAll<MissionSO>(_path + missionType);
 
-        foreach (MissionSO missionSO in missionSOs)
+        foreach (MissionSO mission in missions)
         {
-            Mission mission = new Mission(missionSO);
-            missionList.Add(mission);
+            //TODO -> Update SO with database datas
         }
 
-        _missionLists.Add(missionType, missionList);
+        _missionLists.Add(missionType, missions);
     }
 
     public void StartMission(MissionType missionType, int missionID)
     {
-        if (!_missionLists.TryGetValue(missionType, out List<Mission> missionList))
+        if (!_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
         {
             Debug.LogError("Invalid mission type: " + missionType);
             return;
         }
 
-        Mission mission = missionList.Find(m => m.ID == missionID);
+        MissionSO mission = Array.Find(missionList, m => m.Id == missionID);
 
         if (mission == null)
         {
@@ -69,24 +76,40 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        CurrentMission = mission;
-        _energy -= mission.EnergyCost;
+        if (PlayFabManager.Instance.EnergyIsUsed(mission.EnergyCost))
+        {
+            CurrentMission = mission;
+            CurrentWave = 1;
 
-        DisplayMissionNarrative(mission);
-
-        StartMissionWaves(mission);
-
-        MissionStarted?.Invoke(mission);
+            DisplayMissionNarrative(CurrentMission);
+            StartMission(CurrentMission);
+            OnMissionStart?.Invoke(CurrentMission);
+        }
     }
 
-    private void StartMissionWaves(Mission mission)
+    private void StartMission(MissionSO mission)
     {
         // Start the mission waves with enemies
-        // ...
+        //TODO -> Load Battle scene
     }
 
-    public void CompleteMission()
+    public bool NextWave()
     {
+        if (CurrentWave < CurrentMission.Waves.Count)
+        {
+            CurrentWave++;
+            return true;
+        }
+        else
+        {
+            CompleteMission();
+            return false;
+        }
+    }
+
+    private void CompleteMission()
+    {
+        //TODO -> Load Main Menu Scene, maybe end mission popup
         if (CurrentMission == null)
         {
             Debug.LogError("No mission in progress");
@@ -95,23 +118,23 @@ public class MissionManager : MonoBehaviour
 
         CurrentMission.State = MissionState.Completed;
         Debug.Log("Mission completed");
+        //TODO -> Update database
 
         UnlockNextMission(CurrentMission);
-
-        MissionCompleted?.Invoke(CurrentMission);
+        OnMissionComplete?.Invoke(CurrentMission);
     }
 
-    private void UnlockNextMission(Mission completedMission)
+    private void UnlockNextMission(MissionSO completedMission)
     {
-        MissionType missionType = completedMission.MissionType;
+        MissionType missionType = completedMission.Type;
 
-        if (!_missionLists.TryGetValue(missionType, out List<Mission> missionList))
+        if (!_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
         {
             Debug.LogError("Invalid mission type: " + missionType);
             return;
         }
 
-        int completedMissionIndex = missionList.IndexOf(completedMission);
+        int completedMissionIndex = Array.IndexOf(missionList, completedMission);
 
         if (completedMissionIndex == -1)
         {
@@ -119,14 +142,15 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        if (completedMissionIndex + 1 < missionList.Count)
+        if (completedMissionIndex + 1 < missionList.Length)
         {
-            Mission nextMission = missionList[completedMissionIndex + 1];
+            MissionSO nextMission = missionList[completedMissionIndex + 1];
 
             if (nextMission.State == MissionState.Locked)
             {
                 nextMission.State = MissionState.Unlocked;
-                Debug.Log("Next mission unlocked: " + nextMission.ID);
+                Debug.Log("Next mission unlocked: " + nextMission.Id);
+                //TODO -> Update database
             }
         }
         else
@@ -135,33 +159,14 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    private void DisplayMissionNarrative(Mission mission)
+    private void DisplayMissionNarrative(MissionSO mission)
     {
         // Display the mission narrative or cutscene
-        // ...
-        if (mission.DialogueID != -1)
+        if (mission.DialogueId != -1)
         {
-            // Show dialogue based on mission's DialogueID
-            //DialogueManager.Instance.StartDialogue(mission.DialogueID);
             Debug.Log("Displaying mission narrative or cutscene");
+            //TODO -> check if narrative is already played (in DialogueManager)
+            //DialogueManager.Instance.StartDialogue(mission.DialogueID);
         }
     }
-}
-
-public enum MissionType
-{
-    MainStory,
-    SideStory,
-    AlternativeStory,
-    Dungeon,
-    Raid,
-    Expedition
-}
-
-public enum MissionState
-{
-    Locked,
-    Unlocked,
-    InProgress,
-    Completed
 }

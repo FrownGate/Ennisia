@@ -1,18 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// Mission Scriptable Object Class
 [CreateAssetMenu(fileName = "New Mission", menuName = "Game/Mission")]
 public class MissionSO : ScriptableObject
 {
-    public int ID;
+    public int Id;
     public string Name;
-    public MissionType MissionType;
+    public MissionType Type;
+    public MissionState State;
     public int EnergyCost;
     public bool Unlocked;
     public List<WavesSO> Waves;
-    public int DialogueID;
+    public int DialogueId;
     // Add additional mission data as needed
 }
