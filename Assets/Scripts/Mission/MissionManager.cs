@@ -62,7 +62,7 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        MissionSO mission = Array.Find(missionList, m => m.Id == missionID);
+        MissionSO mission = Array.Find(missionList, m => m.ID == missionID);
 
         if (mission == null)
         {
@@ -91,6 +91,7 @@ public class MissionManager : MonoBehaviour
     {
         // Start the mission waves with enemies
         //TODO -> Load Battle scene
+
     }
 
     public bool NextWave()
@@ -148,9 +149,14 @@ public class MissionManager : MonoBehaviour
 
             if (nextMission.State == MissionState.Locked)
             {
-                nextMission.State = MissionState.Unlocked;
-                Debug.Log("Next mission unlocked: " + nextMission.Id);
-                //TODO -> Update database
+                if (nextMission.ChapID != completedMission.ChapID) { Debug.Log("chapter End"); }
+                else
+                {
+                    nextMission.State = MissionState.Unlocked;
+                    Debug.Log("Next mission unlocked: " + nextMission.ID);
+                    //TODO -> Update database
+
+                }
             }
         }
         else
