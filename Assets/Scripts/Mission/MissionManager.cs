@@ -62,7 +62,7 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        MissionSO mission = Array.Find(missionList, m => m.Id == missionID);
+        MissionSO mission = Array.Find(missionList, m => m.ID == missionID);
 
         if (mission == null)
         {
@@ -153,7 +153,7 @@ public class MissionManager : MonoBehaviour
                 else
                 {
                     nextMission.State = MissionState.Unlocked;
-                    Debug.Log("Next mission unlocked: " + nextMission.Id);
+                    Debug.Log("Next mission unlocked: " + nextMission.ID);
                     //TODO -> Update database
 
                 }
