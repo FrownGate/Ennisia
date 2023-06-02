@@ -43,13 +43,13 @@ public class CSVToSO : EditorWindow
         GUILayout.Space(25);
         if (GUILayout.Button("Equipment Stats"))
         {
-            _equipmentTypes = new Dictionary<string, List<string>>();
+            _equipmentTypes = new ();
             CreateScriptableObjectsFromCSV(TypeCSV.equipment, "EquipmentStats");
         }
         GUILayout.Space(25);
         if (GUILayout.Button("Mission"))
         {
-            _equipmentTypes = new Dictionary<string, List<string>>();
+            _equipmentTypes = new ();
             CreateScriptableObjectsFromCSV(TypeCSV.missions, "Mission");
         }
     }
