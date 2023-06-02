@@ -399,7 +399,7 @@ public class GearsCreator : EditorWindow
         equipment.Type = equipmentData.type;
         equipment.Rarity = _selectedRarity[equipmentData];
         equipment.Attribute = equipmentData.attribute;
-        equipment.statValue = equipmentData.value;
+        equipment.StatValue = equipmentData.value;
         equipment.Description = equipmentData.description;
 
         return equipment;
