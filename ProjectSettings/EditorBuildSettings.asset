@@ -71,4 +71,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SupportSelectionPopup.unity
     guid: d12afcbd6ca77db4f93ecf4a555d70b4
+  - enabled: 1
+    path: Assets/Scenes/GuildScene.unity
+    guid: fd2266221b4879d438068fc08193a1b2
+  - enabled: 1
+    path: Assets/Scenes/CreateGuildScene.unity
+    guid: a65a5679c6f78ef479ed679c5bddf2ba
   m_configObjects: {}
