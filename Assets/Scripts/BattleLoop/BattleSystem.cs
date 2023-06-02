@@ -18,8 +18,8 @@ public class BattleSystem : StateMachine
     public Transform EnemyStation;
 
     //public Entity Player { get; private set; }
-    //->To access the player data, for the moment use Allies[0].data you want access 
-    public List<Entity> Allies { get; private set; }
+    //->To access the player data, for the moment use Player.data you want access 
+    public Entity Player { get; private set; }
     public List<Entity> Enemies { get; private set; }
     public List<Entity> Targetables { get; private set; }
     private int _maxEnemies => 1;
@@ -41,9 +41,9 @@ public class BattleSystem : StateMachine
         EnemyContainer();
         InitPlayer();
 
-        foreach (var skill in Allies[0].Skills)
+        foreach (var skill in Player.Skills)
         {
-            skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
+            skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
         }
 
         //SetState(new WhoGoFirst(this));
@@ -58,10 +58,10 @@ public class BattleSystem : StateMachine
 
     private void InitPlayer()
     {
-        Allies = new List<Entity>();
+        
         GameObject playGo = GameObject.FindGameObjectWithTag("Player");
         Player tmp = playGo.GetComponent<PlayerController>().Player;
-        Allies.Add(tmp);
+        Player = tmp;
     }
 
     public void OnAttackButton()
@@ -129,12 +129,12 @@ public class BattleSystem : StateMachine
 
     public Skill GetSelectedSkill(int buttonId)
     {
-        if (buttonId < 0 || buttonId >= Allies[0].Skills.Count)
+        if (buttonId < 0 || buttonId >= Player.Skills.Count)
         {
             Debug.LogError("Invalid button ID");
             return null;
         }
-        return Allies[0].Skills[buttonId];
+        return Player.Skills[buttonId];
     }
 
     public void ResetSelectedEnemies()
@@ -148,7 +148,6 @@ public class BattleSystem : StateMachine
     public void ReStart()
     {
         Enemies.Clear();
-        Allies.Clear();
         Targetables.Clear();
         _selected = false;
         turn = 0;
@@ -162,11 +161,11 @@ public class BattleSystem : StateMachine
 
         GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player");
         playerPrefab.GetComponent<PlayerController>().ResetStats();
-        Allies.Add(playerPrefab.GetComponent<PlayerController>().Player);
+        Player = playerPrefab.GetComponent<PlayerController>().Player;
         
-        foreach (var skill in Allies[0].Skills)
+        foreach (var skill in Player.Skills)
         {
-            skill.ConstantPassive(Enemies, Allies[0], 0);
+            skill.ConstantPassive(Enemies, Player, 0);
         }
         
         SetState(new WhoGoFirst(this));

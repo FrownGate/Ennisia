@@ -21,6 +21,10 @@ public class PlayerTurn : State
         {
             skill.SetActive(true);
         }
+        foreach (var skill in BattleSystem.Player.Skills)
+        {
+            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : skill.Cooldown;
+        }
         BattleSystem.dialogueText.text = "Your turn";
         yield return new WaitForSeconds(1.0f);
     }

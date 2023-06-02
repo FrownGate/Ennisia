@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Entity
@@ -19,9 +20,9 @@ public class Player : Entity
         Skills = new List<Skill>
         {
             new Bonk(),
-            WeaponSO._skill1,
-            WeaponSO._skill2
+            (Skill)Activator.CreateInstance(Type.GetType(WeaponSO.skillName1)),
+            (Skill)Activator.CreateInstance(Type.GetType(WeaponSO.skillName1)),
         };
-
+        
     }
 }
