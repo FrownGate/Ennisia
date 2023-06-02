@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : Entity
 {
@@ -8,6 +9,7 @@ public class Player : Entity
         Attack = 15;
         Speed = 30000;
         CurrentHp = MaxHp / 2;
+        WeaponSO = Resources.Load<WeaponSO>("SO/Weapon"); //TODO-> get Equipped Weapon
         GetSkill();
     }
 
@@ -16,10 +18,9 @@ public class Player : Entity
         Skills = new List<Skill>
         {
             new Bonk(),
-            new TidalCrash(),
-            new BlueDragonWraith()
+            WeaponSO._skill1,
+            WeaponSO._skill2
         };
 
-        //weapon //getSkills
     }
 }

@@ -18,8 +18,6 @@ MonoBehaviour:
   Race: none
   Job: none
   Element: Water
-  PrimarySkill: {fileID: 0}
-  SecondarySkill: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

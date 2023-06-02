@@ -9,13 +9,13 @@ public abstract class Skill
     public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
-    public float Cooldown { get; protected set; }
+    public float Cooldown { get; set; }
     public string FileName { get; protected set; }
 
     public Skill()
     {
         FileName = GetType().Name;
-        Data = Resources.Load<SkillData>("SO/Skills/" + FileName + ".asset");
+        Data = Resources.Load<SkillData>("SO/Skills/" + FileName);
     }
 
     public virtual void ConstantPassive(List<Entity> targets, Entity player, int turn) { }

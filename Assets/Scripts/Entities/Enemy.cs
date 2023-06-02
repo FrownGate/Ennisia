@@ -3,7 +3,7 @@
     public Enemy()
     {
         Attack = 20;
-        MaxHp = 200;
+        MaxHp = 5000;
         Level = 10;
         Speed = 200;
         CurrentHp = MaxHp / 2;
@@ -24,4 +24,11 @@
     {
         return IsSelected && !IsDead;
     }
+
+    public override void ResetTargetedState()
+    {
+        IsSelected = false;
+    }
+    
+    
 }
