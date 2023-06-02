@@ -58,7 +58,7 @@ public abstract class Entity
         Dictionary<string, int> stats = new()
         {
             { "MaxHp", (int)MaxHp },
-            { "Attack", (int)Attack },
+            { "Atk", (int)Attack },
             { "PhysAtk", (int)PhysAtk },
             { "PhysDef", (int)PhysDef },
             { "MagicAtk", (int)MagicAtk },
