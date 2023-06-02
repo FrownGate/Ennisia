@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public Player Player { get; private set; }
     private Slider _hpBar;
-    private void Start()
+    private void Awake()
     {
         Player = new Player();
         InitHUD();
@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateHUD()
     {
-        _hpBar.value = Player.CurrentHp;
+        _hpBar.value = Player.CurrentHp>=0 ?Player.CurrentHp : 0;
+    }
+    
+    public void ResetStats()
+    {
+        Player = new Player();
     }
 }

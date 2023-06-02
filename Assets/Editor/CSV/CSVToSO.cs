@@ -168,7 +168,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.IsMagic = bool.Parse( rowData["isMagic"]);
 
         // Save the scriptable object
-        string savePath = $"Assets/Resources/SO/Skills/{scriptableObject.Name.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty)}.asset";
+        string savePath = $"Assets/Resources/SO/Skills/{scriptableObject.Name.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty).Replace("'", string.Empty)}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

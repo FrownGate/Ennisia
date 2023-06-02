@@ -39,4 +39,9 @@ public abstract class Entity
     {
         return true;
     }
+    
+    public virtual void ResetTargetedState()
+    {
+        return;
+    }
 }

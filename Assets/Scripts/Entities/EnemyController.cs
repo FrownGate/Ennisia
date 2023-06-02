@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
@@ -41,8 +42,13 @@ public class EnemyController : MonoBehaviour
         //
     }
 
-    private void UpdateHUD()
+    public void UpdateHUD()
     {
-        _hpBar.value = Enemy.CurrentHp;
+        _hpBar.value = Enemy.CurrentHp >=0 ?Enemy.CurrentHp : 0;
+    }
+
+    public void ResetStats()
+    {
+        Enemy = new Enemy();
     }
 }

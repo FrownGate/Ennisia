@@ -10,7 +10,6 @@ public class PlayerData : Data
 
     public PlayerData()
     {
-        ClassName = "Player";
         Level = 1;
         Exp = 0;
         EquippedWeapon = 0;
