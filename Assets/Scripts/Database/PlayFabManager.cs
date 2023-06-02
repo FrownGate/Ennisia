@@ -443,6 +443,20 @@ public class PlayFabManager : MonoBehaviour
             OnEnergyUpdate?.Invoke();
         }, OnRequestError);
     }
+
+    public bool EnergyIsUsed(int amount)
+    {
+        if (amount >= Energy)
+        {
+            RemoveEnergy(amount);
+        }
+        else
+        {
+            Debug.LogError("Not enough energy");
+        }
+
+        return amount >= Energy;
+    }
     #endregion
 
     #region Gacha
