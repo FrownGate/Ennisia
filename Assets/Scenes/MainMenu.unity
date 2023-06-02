@@ -2098,7 +2098,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 66257801169152258, guid: a58d676930ead5847a3ad884d9a21977, type: 3}
       propertyPath: m_Name
-      value: Forge
+      value: ForgeScene
       objectReference: {fileID: 0}
     - target: {fileID: 8108511970213306214, guid: a58d676930ead5847a3ad884d9a21977, type: 3}
       propertyPath: m_Pivot.x
@@ -2485,7 +2485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5458420128247901845, guid: b18ec82c8a6b80244a3d0e9c4f257244, type: 3}
       propertyPath: m_Name
-      value: Guild
+      value: GuildScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

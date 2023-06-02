@@ -11,7 +11,10 @@ public class Lost : State
         {
             skill.TakeOffStats(BattleSystem.Enemies, BattleSystem.Allies[0], 0); // constant passive at battle end
         }
-        Debug.Log("You were defeated");
+
+        
+        BattleSystem.dialogueText.text = "YOU LOST THE FIGHT";
+        BattleSystem._lostPopUp.SetActive(true);
         yield break;
     }
 }

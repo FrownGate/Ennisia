@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1457744299401567789}
   m_Layer: 5
   m_Name: AttackButton
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 5617718522197541739}
   m_Layer: 5
   m_Name: SecondSkill
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 5907850618421494995}
   m_Layer: 5
   m_Name: FirstSkill
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

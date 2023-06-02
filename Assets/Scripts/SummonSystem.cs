@@ -6,7 +6,7 @@ public class SummonSystem : MonoBehaviour
 {
     [SerializeField] private double _legendaryChance = 0.5;
     [SerializeField] private double _epicChance = 9.5;
-    [SerializeField] private double _rareChance = 90;
+    //[SerializeField] private double _rareChance = 90;
     [SerializeField] private int _cost = 100;
     [SerializeField] private int _fragmentsPerDuplicate = 10;
     [SerializeField] private int _rareFragmentsMultiplier = 1;
@@ -16,10 +16,11 @@ public class SummonSystem : MonoBehaviour
     private Dictionary<int, int> _supports;
     private int _fragmentsMultiplier;
     private int _amount;
+    private double _chance;
 
     private void Start()
     {
-        //PlayFabManager.OnLoginSuccess += Summon; //testing only
+        PlayFabManager.OnLoginSuccess += Testing; //testing only
 
         if (ScenesManager.Instance.HasParams())
         {
@@ -30,12 +31,27 @@ public class SummonSystem : MonoBehaviour
             _amount = 1;
         }
 
+        //_chance = GetChance();
+
+        //Summon();
+    }
+
+    private void Testing()
+    {
+        _chance = GetChance();
         Summon();
+    }
+
+    private double GetChance()
+    {
+        if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Legendary) != null) return _legendaryChance;
+        if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Epic) != null) return _epicChance;
+        return 100;
     }
 
     private void OnDestroy()
     {
-        //PlayFabManager.OnLoginSuccess -= Summon; //testing only
+        PlayFabManager.OnLoginSuccess -= Testing; //testing only
     }
 
     public void Summon()
@@ -43,6 +59,7 @@ public class SummonSystem : MonoBehaviour
         //_amount = 10; //testing only
         int newFragments = 0;
 
+        //TODO -> Use tickets instead of crystals if _chance is < 100
         if (PlayFabManager.Instance.Currencies["Crystals"] < _cost * _amount)
         {
             Debug.LogError("not enough crystals");
@@ -87,11 +104,12 @@ public class SummonSystem : MonoBehaviour
     private SupportsCharactersSO GetSupport()
     {
         System.Random random = new();
-        double rarityRoll = random.NextDouble() * 100;
+        double rarityRoll = random.NextDouble() * _chance;
         Debug.Log($"rarity roll : {rarityRoll}");
         //TODO -> add guaranteed rarity modifier
 
-        string pickedRarity = "";
+        string pickedRarity = "Rare";
+        _fragmentsMultiplier = _rareFragmentsMultiplier;
 
         if (rarityRoll <= _legendaryChance)
         {
@@ -102,11 +120,6 @@ public class SummonSystem : MonoBehaviour
         {
             pickedRarity = "Epic";
             _fragmentsMultiplier = _epicFragmentsMultiplier;
-        }
-        else if (rarityRoll <= _rareChance)
-        {
-            pickedRarity = "Rare";
-            _fragmentsMultiplier = _rareFragmentsMultiplier;
         }
 
         SupportsCharactersSO[] gachaPool = Resources.LoadAll<SupportsCharactersSO>($"SO/SupportsCharacter/{pickedRarity}");

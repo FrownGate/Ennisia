@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -8,19 +7,25 @@ public class Item
 {
     public enum ItemRarity
     {
-        Common, Rare, Epic, Legendary
+        Null, Common, Rare, Epic, Legendary
+    }
+
+    public enum MaterialType
+    {
+        Null, Weapon, Gear, Accessory
     }
 
     [NonSerialized] public string Stack;
     [NonSerialized] public string Name;
     [NonSerialized] public int Amount; //Amount of item to add
     public ItemRarity Rarity;
+    public MaterialType Type;
 
     //TODO -> Remove item if amount == 0
 
     protected void AddToInventory()
     {
-        Dictionary<string, List<object>> inventory = PlayFabManager.Instance.Inventory.Items;
+        Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Inventory.Items;
         SetName();
 
         Debug.Log($"Adding {Name} to inventory !");
@@ -31,7 +36,7 @@ public class Item
         }
         else
         {
-            foreach (Item item in inventory[GetType().Name].Cast<Item>())
+            foreach (Item item in inventory[GetType().Name])
             {
                 if (item.Stack == Stack)
                 {
