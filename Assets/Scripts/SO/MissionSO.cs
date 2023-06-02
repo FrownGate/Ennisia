@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Mission", menuName = "Game/Mission")]
@@ -10,7 +11,8 @@ public class MissionSO : ScriptableObject
     public MissionState State;
     public int EnergyCost;
     public bool Unlocked;
-    public List<WavesSO> Waves;
+    public Dictionary<int,string> Waves;
     public int DialogueId;
+    public int ChapID;
     // Add additional mission data as needed
 }
