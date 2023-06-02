@@ -39,6 +39,17 @@ public class WeaponSO : ScriptableObject
     public int level;
     public string skillName1;
     public string skillName2;
+    Type _type1;
+    Type _type2;
+    [HideInInspector] public Skill _skill1;
+    [HideInInspector] public Skill _skill2;
+    public void Init()
+    {
+        _type1 = Type.GetType(skillName1);
+        _skill1 = (Skill)Activator.CreateInstance(_type1);
+        _type2 = Type.GetType(skillName2);
+        _skill2 = (Skill)Activator.CreateInstance(_type2);
+    }
 
     public void Upgrade()
     {
