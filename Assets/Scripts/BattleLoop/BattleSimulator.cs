@@ -322,11 +322,16 @@ public class BattleSimulator : EditorWindow
     {
 
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
+        // foreach (var item in enemy)
+        // {
+
+        // }
 
         // loop through all the IntegerField of the foldout and set the value to the enemy stats
+
         for (int i = 0; i < enemyStatsField.Count; i++)
         {
-            enemyStatsField[i].value = (int)enemy.GetType().GetField(enemyStatsField[i].name).GetValue(enemy);
+            enemyStatsField[i].value = (int)enemy.Attack;
         }
 
 

@@ -1,4 +1,5 @@
-﻿public class Enemy : Entity
+﻿using System.Collections.Generic;
+public class Enemy : Entity
 {
     public Enemy()
     {
@@ -8,7 +9,7 @@
         Speed = 200;
         CurrentHp = MaxHp / 2;
     }
-    public Enemy(int id, string name, string[] stats, int[] statNumbers, string description)
+    public Enemy(int id, string name, Dictionary<string, int> stats, string description)
     {
         // assign all parameters to the enemy
         Id = id;
@@ -16,42 +17,19 @@
         Description = description;
         Level = 1;
 
-        for (int i = 0; i < stats.Length; i++)
-        {
-            switch (stats[i])
-            {
-                case "Hp":
-                    MaxHp = statNumbers[i];
-                    CurrentHp = MaxHp;
-                    break;
-                case "Atk":
-                    Attack = statNumbers[i];
-                    break;
-                case "Phys Atk":
-                    PhysAtk = statNumbers[i];
-                    break;
-                case "Phys Def":
-                    PhysDef = statNumbers[i];
-                    break;
-                case "Magic Atk":
-                    MagicAtk = statNumbers[i];
-                    break;
-                case "Magic Def":
-                    MagicDef = statNumbers[i];
-                    break;
-                case "Crit Rate":
-                    CritRate = statNumbers[i];
-                    break;
-                case "Crit Damage":
-                    CritDamage = statNumbers[i];
-                    break;
-                case "SPD":
-                    Speed = statNumbers[i];
-                    break;
-                default:
-                    break;
-            }
-        }
+
+        // assign stats
+        MaxHp = stats["MaxHp"];
+        CurrentHp = MaxHp;
+        Attack = stats["Attack"];
+        PhysAtk = stats["PhysAtk"];
+        PhysDef = stats["PhysDef"];
+        MagicAtk = stats["MagicAtk"];
+        MagicDef = stats["MagicDef"];
+        CritRate = stats["CritRate"];
+        CritDamage = stats["CritDamage"];
+        Speed = stats["Speed"];
+
 
 
     }

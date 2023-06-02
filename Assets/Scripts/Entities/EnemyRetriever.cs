@@ -10,6 +10,16 @@ public class EnemyLoader
         using (StreamReader reader = new(filePath))
         {
             string headerLine = reader.ReadLine(); // Skip the header line
+            string[] headers = headerLine.Split(',');
+
+            Dictionary<string, int> stats = new();
+
+            for (int i = 2; i < 11; i++)
+            {
+                // Skip the first two columns Id and Name
+                stats.Add(headers[i], 0);
+            }
+
 
             while (!reader.EndOfStream)
             {
@@ -21,18 +31,59 @@ public class EnemyLoader
                 if (name == enemyName)
                 {
                     int id = int.Parse(values[0]);
-                    string[] stats = new string[9];
-                    int[] statNumbers = new int[9];
+
 
                     for (int i = 2; i < 11; i++)
                     {
-                        stats[i - 2] = values[i];
-                        statNumbers[i - 2] = int.Parse(values[i]);
+                        stats[headers[i]] = int.Parse(values[i]);
                     }
 
                     string description = values[11];
 
-                    return new Enemy(id, name, stats, statNumbers, description);
+                    return new Enemy(id, name, stats, description);
+                }
+            }
+        }
+
+        return null; // Enemy with the specified name was not found
+    }
+
+    public Enemy LoadEnemyById(string filePath, int enemyId)
+    {
+        using (StreamReader reader = new(filePath))
+        {
+            string headerLine = reader.ReadLine(); // Skip the header line
+            string[] headers = headerLine.Split(',');
+
+            Dictionary<string, int> stats = new();
+
+            for (int i = 2; i < 11; i++)
+            {
+                // Skip the first two columns Id and Name
+                stats.Add(headers[i], 0);
+            }
+
+
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                string[] values = line.Split(',');
+
+                int id = int.Parse(values[0]);
+
+                if (id == enemyId)
+                {
+                    string name = values[1];
+
+
+                    for (int i = 2; i < 11; i++)
+                    {
+                        stats[headers[i]] = int.Parse(values[i]);
+                    }
+
+                    string description = values[11];
+
+                    return new Enemy(id, name, stats, description);
                 }
             }
         }
@@ -50,12 +101,12 @@ public class EnemyLoader
         {
             string headerLine = reader.ReadLine(); // Skip the header line
             string[] headers = headerLine.Split(',');
-            string[] stats = new string[9];
+            Dictionary<string, int> stats = new();
 
             for (int i = 2; i < 11; i++)
             {
                 // Skip the first two columns Id and Name
-                stats[i - 2] = headers[i];
+                stats.Add(headers[i], 0);
             }
 
             while (!reader.EndOfStream)
@@ -65,21 +116,20 @@ public class EnemyLoader
 
                 int id = int.Parse(values[0]);
                 string name = values[1];
-                int[] statNumbers = new int[9];
 
 
 
                 // Loop through the statNumbers arrays    
                 for (int i = 2; i < 11; i++)
                 {
-                    statNumbers[i - 2] = int.Parse(values[i]);
+                    stats[headers[i]] = int.Parse(values[i]);
                 }
 
 
 
                 string description = values[11];
 
-                Enemy enemy = new(id, name, stats, statNumbers, description);
+                Enemy enemy = new(id, name, stats, description);
                 enemies.Add(enemy);
             }
         }
