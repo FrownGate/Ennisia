@@ -9,7 +9,7 @@
         CurrentHp = MaxHp / 2;
     }
 
-    public void HaveBeSelected()
+    public override void HaveBeSelected()
     {
         IsSelected = true;
     }
