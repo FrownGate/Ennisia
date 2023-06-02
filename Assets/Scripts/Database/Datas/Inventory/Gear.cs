@@ -1,30 +1,28 @@
 using PlayFab.EconomyModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-[Serializable]
-public class Gear
+public class Gear : Item
 {
     [NonSerialized] public int Id;
     [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
-    public string Name;
     public string Type;
-    public string Rarity;
     public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;
 
-    public Gear(string type, string rarity, int id)
+    public Gear(string type, int rarity)
     {
-        Id = id;
+        Id = PlayFabManager.Instance.Inventory.GetGears().Count + 1;
         Type = type;
-        Rarity = rarity;
+        Rarity = (ItemRarity)rarity;
         Description = "";
         Attribute = SetAttribute();
         Value = SetValue();
-        Name = $"[{rarity}] {type}";
+        Stack = Id.ToString();
+
+        AddToInventory();
     }
 
     public Gear(InventoryItem item)
@@ -32,14 +30,13 @@ public class Gear
         Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
 
         Id = int.Parse(item.StackId);
-        Name = gear.Name;
+        Stack = item.StackId;
         Type = gear.Type;
         Rarity = gear.Rarity;
         Attribute = gear.Attribute;
         Value = gear.Value;
 
-        PlayFabManager.Instance.Inventory.Gears.Add(this);
-        Debug.Log($"Getting {Name} item !");
+        AddToInventory();
     }
 
     private string SetAttribute()
@@ -54,16 +51,8 @@ public class Gear
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
     }
 
-    public bool IsValid()
+    protected override void SetName()
     {
-        bool isValid = !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Type) && CheckRarity() && !string.IsNullOrEmpty(Attribute) && Value > 0f && string.IsNullOrEmpty(Description) & !string.IsNullOrEmpty(Icon);
-        if (!isValid) Debug.LogError("Gear isn't valid !");
-        return isValid;
-    }
-
-    private bool CheckRarity()
-    {
-        string[] rarities = new string[3] { "Legendary", "Epic", "Rare" };
-        return rarities.Contains(Rarity);
+        Name = $"[{Rarity}] {Type}";
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 public class RampantAssault : Skill
 {
     private const float _percentagePerTurn = 0.05f;
-    private readonly float _damagePercentage = 0.2f;
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

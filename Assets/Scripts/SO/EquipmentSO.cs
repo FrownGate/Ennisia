@@ -9,13 +9,15 @@ public class EquipmentSO : ScriptableObject
     public string Type;
     public string Rarity;
     public string Attribute;
-    public string statName;
-    public float statValue;
-    public float statUpgrade;
-    public float ratioUpgrade;
-    public int level;
+    public string StatName;
+    public float StatValue;
+    public float StatUpgrade;
+    public float RatioUpgrade;
+    public int Level;
     public string Description;
     public Sprite Icon;
+
+    //TODO -> Move Level and Upgrade system to Gear class
 
     public int TypeIndex()
     {
@@ -29,9 +31,9 @@ public class EquipmentSO : ScriptableObject
 
     public void Upgrade()
     {
-        if (level <= 50)
+        if (Level <= 50)
         {
-            statValue += (statUpgrade * level) + (statValue * ratioUpgrade * level);
+            StatValue += (StatUpgrade * Level) + (StatValue * RatioUpgrade * Level);
         }
         else { }
     }
@@ -40,7 +42,7 @@ public class EquipmentSO : ScriptableObject
     {
         if (_level <= 50)
         {
-            statValue += (statUpgrade * _level) + (statValue * ratioUpgrade * _level);
+            StatValue += (StatUpgrade * _level) + (StatValue * RatioUpgrade * _level);
         }
         else { }
     }

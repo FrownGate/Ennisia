@@ -44,4 +44,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 19f45cabb60b2e643838eaa7a7879245
+  - enabled: 1
+    path: Assets/Scenes/MissionSelection.unity
+    guid: 724968815362d7c4688de4df3987eb20
+  - enabled: 1
+    path: Assets/Scenes/MissionSelectionPopup.unity
+    guid: 108a621212bcaac42a971078564f5435
+  - enabled: 1
+    path: Assets/Scenes/PetScene.unity
+    guid: 3c9309ffef9a5154783cee365ff7231b
+  - enabled: 1
+    path: Assets/Scenes/StoryMenu.unity
+    guid: 7541eecf0941bb9479a12b61d6250444
+  - enabled: 1
+    path: Assets/Scenes/EndlessTowerScene.unity
+    guid: 8461a66818b9f1f4ba83fa4c9b878dbb
+  - enabled: 1
+    path: Assets/Scenes/GearSelectionPopup.unity
+    guid: 81b8947530d81c44b8a672388ccd99e3
+  - enabled: 1
+    path: Assets/Scenes/GenderSelection.unity
+    guid: c4bbf528714eeff4ebd876947d4f6e19
+  - enabled: 1
+    path: Assets/Scenes/InventoryPopup.unity
+    guid: 5b26c1450d625164e884692e3cfa42f7
+  - enabled: 1
+    path: Assets/Scenes/SupportSelectionPopup.unity
+    guid: d12afcbd6ca77db4f93ecf4a555d70b4
+  - enabled: 1
+    path: Assets/Scenes/GuildScene.unity
+    guid: fd2266221b4879d438068fc08193a1b2
+  - enabled: 1
+    path: Assets/Scenes/CreateGuildScene.unity
+    guid: a65a5679c6f78ef479ed679c5bddf2ba
   m_configObjects: {}

@@ -9,17 +9,16 @@ public class Material : Item
         Weapon, Gear, Accessory
     }
 
-    [NonSerialized] public string Name;
-    [NonSerialized] public string Stack;
-    [NonSerialized] public int Amount;
     public MaterialType Type;
 
-    public Material(int type, int rarity)
+    public Material(int type, int rarity, int amount = 1)
     {
-        Stack = $"{Type}_{Rarity}";
         Type = (MaterialType)type;
         Rarity = (ItemRarity)rarity;
-        Name = SetName();
+        Stack = $"{Type}_{Rarity}";
+        Amount = amount;
+
+        AddToInventory();
     }
 
     public Material(InventoryItem item)
@@ -30,14 +29,12 @@ public class Material : Item
         Amount = (int)item.Amount;
         Type = material.Type;
         Rarity = material.Rarity;
-        Name = SetName();
 
-        PlayFabManager.Instance.Inventory.Materials.Add(this);
-        Debug.Log($"Getting {Name} item !");
+        AddToInventory();
     }
 
-    private string SetName()
+    protected override void SetName()
     {
-        return $"[{Rarity}] {Type} {GetType().Name}";
+        Name = $"[{Rarity}] {Type} {GetType().Name}";
     }
 }
