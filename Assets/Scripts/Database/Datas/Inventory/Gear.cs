@@ -7,20 +7,20 @@ public class Gear : Item
 {
     [NonSerialized] public int Id;
     [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
-    public new string Type;
-    public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;
 
-    public Gear(string type, int rarity)
+    public Gear(GearType type, ItemRarity rarity)
     {
-        Id = PlayFabManager.Instance.Inventory.GetGears().Count + 1;
+        Id = SetId();
         Type = type;
-        Rarity = (ItemRarity)rarity;
+        Rarity = rarity;
         Description = "";
         Attribute = SetAttribute();
         Value = SetValue();
         Stack = Id.ToString();
+        Amount = 1;
+        //TODO -> Set Category function
 
         AddToInventory();
     }
@@ -28,6 +28,7 @@ public class Gear : Item
     public Gear(InventoryItem item)
     {
         Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
+        gear.Deserialize();
 
         Id = int.Parse(item.StackId);
         Stack = item.StackId;
@@ -39,15 +40,28 @@ public class Gear : Item
         AddToInventory();
     }
 
-    private string SetAttribute()
+    private int SetId()
     {
-        List<string> possiblesAttributes = Resources.Load<EquipmentAttributeSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
+        if (PlayFabManager.Instance.Inventory.Items.ContainsKey("Gear"))
+        {
+            return PlayFabManager.Instance.Inventory.Items["Gear"].Count + 1;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+    private AttributeStat SetAttribute()
+    {
+        //TODO -> save attributes as int in csv and add function to return attribute name
+        List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
     private int SetValue()
     {
-        EquipmentValueSO possibleValues = Resources.Load<EquipmentValueSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
+        StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
     }
 

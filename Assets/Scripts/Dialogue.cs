@@ -28,7 +28,7 @@ public class Dialogue
 
         for (int i = 1; i < lines.Length; i++)
         {
-            string[] values = SplitCSVLine(lines[i]);
+            string[] values = CSVUtils.SplitCSVLine(lines[i]);
 
             if (values.Length != headers.Length)
             {
@@ -39,35 +39,5 @@ public class Dialogue
             name.Add(values[0]);
             dialogues.Add(values[1]);
         }
-    }
-
-    private string[] SplitCSVLine(string line)
-    {
-        List<string> values = new List<string>();
-        bool insideQuotes = false;
-        string currentValue = "";
-
-        for (int i = 0; i < line.Length; i++)
-        {
-            char c = line[i];
-
-            if (c == '\"')
-            {
-                insideQuotes = !insideQuotes;
-            }
-            else if (c == ',' && !insideQuotes)
-            {
-                values.Add(currentValue);
-                currentValue = "";
-            }
-            else
-            {
-                currentValue += c;
-            }
-        }
-
-        values.Add(currentValue);
-
-        return values.ToArray();
     }
 }

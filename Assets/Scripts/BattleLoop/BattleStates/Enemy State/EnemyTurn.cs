@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTurn : State
@@ -9,14 +8,8 @@ public class EnemyTurn : State
     public override IEnumerator Start()
     {
         BattleSystem.ResetSelectedEnemies();
-
-        foreach (var skill in BattleSystem.SkillsButton)
-        {
-            skill.SetActive(false);
-        }
-        BattleSystem.dialogueText.text = "Enemy turn";
-
-
+        BattleSystem.SetSkillButtonsActive(false);
+        BattleSystem.DialogueText.text = "Enemy turn";
         BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
 
         yield return new WaitForSeconds(0.5f);

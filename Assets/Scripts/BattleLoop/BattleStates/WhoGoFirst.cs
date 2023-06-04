@@ -6,6 +6,7 @@ public class WhoGoFirst : State
 {
     private List<Entity> _enemiesList;
     private List<Entity> _playerList;
+
     public WhoGoFirst(BattleSystem battleSystem) : base(battleSystem)
     {
         _enemiesList = BattleSystem.Enemies;
@@ -26,6 +27,7 @@ public class WhoGoFirst : State
     {
         float enemiesSpeed = 0;
         float playerSpeed = 0;
+
         foreach (var enemy in _enemiesList)
         {
             enemiesSpeed += enemy.Speed;
@@ -36,8 +38,8 @@ public class WhoGoFirst : State
             playerSpeed += ally.Speed;
         }
 
-        if (playerSpeed > enemiesSpeed) { BattleSystem.SetState(new PlayerTurn(BattleSystem)); }
-        else { BattleSystem.SetState(new EnemyTurn(BattleSystem)); }
+        State state = playerSpeed > enemiesSpeed ? new PlayerTurn(BattleSystem) : new EnemyTurn(BattleSystem);
+        BattleSystem.SetState(state);
 
         //TO DO: ATB system in order to decide who start 
     }

@@ -1,14 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewEquipment", menuName = "Equipment/New")]
+[CreateAssetMenu(fileName = "NewEquipment", menuName = "Ennisia/Equipment")]
 public class EquipmentSO : ScriptableObject
 {
     public int Id = 1;
     public string Name;
-    public string Type;
-    public string Rarity;
-    public string Attribute;
+    public Item.GearType Type;
+    public Item.ItemRarity Rarity;
+    public Item.AttributeStat Attribute;
     public string StatName;
     public float StatValue;
     public float StatUpgrade;
@@ -18,16 +17,6 @@ public class EquipmentSO : ScriptableObject
     public Sprite Icon;
 
     //TODO -> Move Level and Upgrade system to Gear class
-
-    public int TypeIndex()
-    {
-        Dictionary<string, int> types = new()
-        {
-            { "Helmet", 0 }, { "Chest", 1 }, { "Boots", 2 }, { "Earrings", 3 }, { "Necklace", 4 }, { "Ring", 5 }
-        };
-
-        return types[Type];
-    }
 
     public void Upgrade()
     {
