@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
+    //TODO -> use id instead of scenes names if possible
+
     public static ScenesManager Instance { get; private set; }
     public string Params { get; private set; }
 
@@ -68,9 +70,6 @@ public class ScenesManager : MonoBehaviour
                 SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
                 break;
         }
-
-
-        //
     }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
@@ -105,7 +104,7 @@ public class ScenesManager : MonoBehaviour
 
     private IEnumerator Loading(string scene)
     {
-        string loadScene = GetSceneName("LoadingScene");
+        string loadScene = GetSceneName("Loading");
         Debug.Log($"Going to scene {loadScene}");
         startTime = Time.time;
 
@@ -143,6 +142,7 @@ public class ScenesManager : MonoBehaviour
         AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
         sceneOperation.allowSceneActivation = false;
 
+        //TODO -> fix progress bar ui
         while (!sceneOperation.isDone)
         {
             // Update your loading progress UI here (e.g., progress bar, text)
