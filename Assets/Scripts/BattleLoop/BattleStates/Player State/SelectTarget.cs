@@ -62,6 +62,7 @@ public class SelectTarget : State
         foreach (var skill in BattleSystem.Player.Skills)        
         {
             skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Player, BattleSystem.Turn, totalDamage);
+            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
         }
         Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
 
