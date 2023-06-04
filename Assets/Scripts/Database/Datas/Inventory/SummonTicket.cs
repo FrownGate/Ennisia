@@ -17,6 +17,7 @@ public class SummonTicket : Item
     public SummonTicket(InventoryItem item)
     {
         SummonTicket summonTicket = JsonUtility.FromJson<SummonTicket>(item.DisplayProperties.ToString());
+        summonTicket.Deserialize();
 
         Stack = item.StackId;
         Amount = (int)item.Amount;

@@ -20,11 +20,6 @@ public class InventoryData : Data
         Supports = data.Supports;
     }
 
-    public List<Gear> GetGears()
-    {
-        return (List<Gear>)Items["Gears"].Cast<Gear>();
-    }
-
     public Material GetMaterial(int type, int rarity)
     {
         Material material = null;

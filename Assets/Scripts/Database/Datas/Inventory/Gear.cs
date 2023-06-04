@@ -12,13 +12,14 @@ public class Gear : Item
 
     public Gear(GearType type, ItemRarity rarity)
     {
-        Id = PlayFabManager.Instance.Inventory.GetGears().Count + 1;
+        Id = SetId();
         Type = type;
         Rarity = rarity;
         Description = "";
         Attribute = SetAttribute();
         Value = SetValue();
         Stack = Id.ToString();
+        Amount = 1;
         //TODO -> Set Category function
 
         AddToInventory();
@@ -27,6 +28,7 @@ public class Gear : Item
     public Gear(InventoryItem item)
     {
         Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
+        gear.Deserialize();
 
         Id = int.Parse(item.StackId);
         Stack = item.StackId;
@@ -36,6 +38,18 @@ public class Gear : Item
         Value = gear.Value;
 
         AddToInventory();
+    }
+
+    private int SetId()
+    {
+        if (PlayFabManager.Instance.Inventory.Items.ContainsKey("Gear"))
+        {
+            return PlayFabManager.Instance.Inventory.Items["Gear"].Count + 1;
+        }
+        else
+        {
+            return 1;
+        }
     }
 
     private AttributeStat SetAttribute()

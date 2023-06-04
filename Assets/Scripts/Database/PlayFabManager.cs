@@ -346,14 +346,14 @@ public class PlayFabManager : MonoBehaviour
                 _datas[i].UpdateLocalData(response.Objects[_datas[i].GetName()].EscapedDataObject);
             }
 
-            CompleteLogin();
-
         }
         catch
         {
             Debug.LogWarning("data missing - creating missing ones...");
             UpdateData();
         }
+
+        CompleteLogin();
     }
 
     private void CompleteLogin()
@@ -503,42 +503,29 @@ public class PlayFabManager : MonoBehaviour
     #region Equipment
     public void SetGearData(EquipmentSO equipment, int id)
     {
-        foreach (Gear inventoryGear in Inventory.GetGears())
-        {
-            if (inventoryGear.Id == id)
-            {
-                equipment.Id = inventoryGear.Id;
-                equipment.Name = inventoryGear.Name;
-                equipment.Type = (Item.GearType)inventoryGear.Type;
-                equipment.Rarity = (Item.ItemRarity)inventoryGear.Rarity; //TODO -> Update Equipment SO
-                equipment.Attribute = (Item.AttributeStat)inventoryGear.Attribute;
-                equipment.StatValue = inventoryGear.Value;
-                equipment.Description = inventoryGear.Description;
-                break;
-            }
-        }
-    }
-
-    public Gear GetGear(int id)
-    {
-        Gear gear = null;
-
-        foreach (Gear inventoryGear in Inventory.GetGears())
-        {
-            if (gear.Id == id)
-            {
-                gear = inventoryGear;
-                break;
-            }
-        }
-
-        return gear;
+        //TODO -> Use find
+        //foreach (Gear inventoryGear in Inventory.GetGears())
+        //{
+        //    if (inventoryGear.Id == id)
+        //    {
+        //        equipment.Id = inventoryGear.Id;
+        //        equipment.Name = inventoryGear.Name;
+        //        equipment.Type = (Item.GearType)inventoryGear.Type;
+        //        equipment.Rarity = (Item.ItemRarity)inventoryGear.Rarity; //TODO -> Update Equipment SO
+        //        equipment.Attribute = (Item.AttributeStat)inventoryGear.Attribute;
+        //        equipment.StatValue = inventoryGear.Value;
+        //        equipment.Description = inventoryGear.Description;
+        //        break;
+        //    }
+        //}
     }
     #endregion
 
     #region Items
     public void AddInventoryItem(Item item)
     {
+        item.Serialize();
+
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
@@ -623,8 +610,9 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        //AddInventoryItem(new Gear("Helmet", 1));
-        //AddInventoryItem(new Material(1, 1, 5));
-        //AddInventoryItem(new SummonTicket(1));
+        //Debug.Log("Testing");
+        //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
+        //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
+        //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
     }
 }

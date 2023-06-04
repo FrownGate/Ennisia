@@ -1,4 +1,5 @@
 using PlayFab.EconomyModels;
+using System;
 using UnityEngine;
 
 public class Material : Item
@@ -18,6 +19,7 @@ public class Material : Item
     public Material(InventoryItem item)
     {
         Material material = JsonUtility.FromJson<Material>(item.DisplayProperties.ToString());
+        material.Deserialize();
 
         Stack = item.StackId;
         Amount = (int)item.Amount;
