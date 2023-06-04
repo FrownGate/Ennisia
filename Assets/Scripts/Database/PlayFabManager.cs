@@ -16,6 +16,9 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<PlayFabError> OnError;
     public static event Action OnCurrencyUpdate;
     public static event Action OnEnergyUpdate;
+    public static event Action OnLoadingStart;
+    public static event Action OnBigLoadingStart;
+    public static event Action OnLoadingEnd;
 
     public AccountData Account { get; private set; }
     public PlayerData Player { get; private set; }
@@ -64,15 +67,19 @@ public class PlayFabManager : MonoBehaviour
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
             LoggedIn = false;
-
-            //TODO : Parfois la save est faussement found
-            if (HasLocalSave()) return;
-            Debug.Log("No local save found -> anonymous login");
-            AnonymousLogin();
-
-            //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
-            //Login("testing@gmail.com", "Testing");
         }
+    }
+
+    private void Start()
+    {
+        OnBigLoadingStart?.Invoke();
+
+        if (HasLocalSave()) return;
+        Debug.Log("No local save found -> anonymous login");
+        AnonymousLogin();
+
+        //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
+        //Login("testing@gmail.com", "Testing");
     }
 
     private bool HasLocalSave()
