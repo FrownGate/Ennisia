@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GearIcon : MonoBehaviour
+public class ShowGearIcon : MonoBehaviour
 {
     [SerializeField] private EquipmentSO _equipment;
     [SerializeField] private Image _icon;

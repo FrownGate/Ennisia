@@ -2,7 +2,6 @@
 
 public abstract class Entity
 {
-
     protected internal int Id { get; set; }
     protected internal string Name { get; set; }
     protected internal string Description { get; set; }
@@ -39,20 +38,10 @@ public abstract class Entity
         CurrentHp -= damage;
     }
 
-    public virtual bool HaveBeTargeted()
-    {
-        return true;
-    }
+    public virtual bool HaveBeenTargeted() { return true; }
+    public virtual void ResetTargetedState() { }
+    public virtual void HaveBeenSelected() { }
 
-    public virtual void ResetTargetedState()
-    {
-        return;
-    }
-
-    public virtual void HaveBeSelected()
-    {
-        return;
-    }
     public virtual Dictionary<string, int> GetAllStats()
     {
         Dictionary<string, int> stats = new()
@@ -70,6 +59,7 @@ public abstract class Entity
             // { "Shield", (int)Shield },
             // { "DefIgnored", (int)DefIgnored },
         };
+
         return stats;
     }
 }

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b552102840d7d3843a0c6700957f2ff0, type: 3}
   m_Name: Weapon
   m_EditorClassIdentifier: 
-  weaponName: 
-  weaponType: 0
-  isMagic: 0
-  statType: 0
-  statValue: 0
-  statUpgrade: 0
-  ratioUpgrade: 0
-  level: 0
-  skillName1: TidalCrash
-  skillName2: BlueDragonsWrath
+  Name: 
+  Type: 0
+  IsMagic: 0
+  Stat: 0
+  StatValue: 0
+  StatUpgrade: 0
+  RatioUpgrade: 0
+  Level: 0
+  FirstSkillData: {fileID: 11400000, guid: 80b9e4ef4067ab249a1092127c865f22, type: 2}
+  SecondSkillData: {fileID: 11400000, guid: 7b6dddad4f8a8694985ecffa77695789, type: 2}

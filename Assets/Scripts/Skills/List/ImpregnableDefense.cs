@@ -2,13 +2,8 @@ using System.Collections.Generic;
 
 public class ImpregnableDefense : Skill
 {
-    private float _defenseAdded;
+    private float _defenseAdded = 0;
     private float _defenseToAdd;
-
-    private void Awake()
-    {
-        _defenseAdded= 0;
-    }
 
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {

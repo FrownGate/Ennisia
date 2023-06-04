@@ -1,54 +1,17 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : EntityController
 {
-    [SerializeField] private ScriptableObject enemyModifier;
+    [SerializeField] private ScriptableObject _enemyModifier;
 
-    private Slider _hpBar;
-    public Enemy Enemy { get; private set; }
-
-    private void Awake()
+    public override void InitEntity()
     {
-        Enemy = new Enemy();
-    }
-
-    private void Start()
-    {
-        InitHUD();
-    }
-
-    private void Update()
-    {
-        UpdateHUD();
+        Entity = new Enemy();
     }
 
     private void OnMouseDown()
     {
-        Enemy.HaveBeSelected();
-        Debug.Log("Enemy is selected" + Enemy.IsSelected);
-    }
-
-    private void InitHUD()
-    {
-        _hpBar = GetComponentInChildren<Slider>();
-        _hpBar.maxValue = Enemy.MaxHp;
-        _hpBar.value = Enemy.CurrentHp;
-    }
-
-    public void InitEnemy()
-    {
-        //
-    }
-
-    public void UpdateHUD()
-    {
-        _hpBar.value = Enemy.CurrentHp >=0 ?Enemy.CurrentHp : 0;
-    }
-
-    public void ResetStats()
-    {
-        Enemy = new Enemy();
+        Entity.HaveBeenSelected();
+        Debug.Log("Enemy is selected" + Entity.IsSelected);
     }
 }

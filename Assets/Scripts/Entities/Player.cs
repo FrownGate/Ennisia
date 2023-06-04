@@ -1,27 +1,28 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : Entity
 {
     public Player()
     {
+        //TODO -> Set stats with CSV or another method
         MaxHp = 300;
         Attack = 15;
         Speed = 30000;
         CurrentHp = MaxHp / 2;
-        WeaponSO = Resources.Load<WeaponSO>("SO/Weapon"); //TODO-> get Equipped Weapon
+
+        WeaponSO = Resources.Load<WeaponSO>("SO/EquippedGears/Weapon");
         WeaponSO.Init();
-        GetSkill();
+
+        InitSkills();
     }
 
-    private void GetSkill()
+    private void InitSkills()
     {
-        Skills = new List<Skill>
+        Skills = new()
         {
             new Bonk(),
-            WeaponSO._skill1,
-            WeaponSO._skill2
+            WeaponSO.FirstSkill,
+            WeaponSO.SecondSkill
         };
-
     }
 }

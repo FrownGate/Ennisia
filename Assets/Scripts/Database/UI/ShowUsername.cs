@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Username : MonoBehaviour
+public class ShowUsername : MonoBehaviour
 {
     private TextMeshProUGUI _text;
 

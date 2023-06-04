@@ -6,7 +6,7 @@ public class RisingPower : Skill
     {
         float AttackBuff = 0;
         /*if(weapon != two-handed sword)*/
-        if (player.WeaponSO.weaponType != 0)
+        if (player.WeaponSO.Type != 0)
         {
             AttackBuff = player.Attack * 0.15f;
         }else

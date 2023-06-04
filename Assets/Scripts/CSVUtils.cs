@@ -32,4 +32,9 @@ public static class CSVUtils
 
         return values.ToArray();
     }
+
+    public static string GetFileName(string name)
+    {
+        return name.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty).Replace("'", string.Empty);
+    }
 }

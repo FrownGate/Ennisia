@@ -1,21 +1,19 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public abstract class Skill
 {
-    /*Weapon weapon;*/
-    public SkillData Data { get; protected set; }
+    public SkillSO Data { get; protected set; }
     public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
     public float Cooldown { get; set; }
-    public string FileName { get; protected set; }
+    public string FileName { get; private set; }
 
     public Skill()
     {
         FileName = GetType().Name;
-        Data = Resources.Load<SkillData>("SO/Skills/" + FileName);
+        Data = Resources.Load<SkillSO>("SO/Skills/" + FileName);
     }
 
     public virtual void ConstantPassive(List<Entity> targets, Entity player, int turn) { }

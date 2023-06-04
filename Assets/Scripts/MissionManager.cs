@@ -2,18 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MissionType
-{
-    MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
-}
-
-public enum MissionState
-{
-    Locked, Unlocked, InProgress, Completed
-}
-
 public class MissionManager : MonoBehaviour
 {
+    public enum MissionType
+    {
+        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
+    }
+
+    public enum MissionState
+    {
+        Locked, Unlocked, InProgress, Completed
+    }
+
     public static MissionManager Instance { get; private set; }
     public static event Action<MissionSO> OnMissionStart; //Not used yet
     public static event Action<MissionSO> OnMissionComplete; //Not used yet
@@ -62,7 +62,7 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        MissionSO mission = Array.Find(missionList, m => m.ID == missionID);
+        MissionSO mission = Array.Find(missionList, m => m.Id == missionID);
 
         if (mission == null)
         {
@@ -149,11 +149,11 @@ public class MissionManager : MonoBehaviour
 
             if (nextMission.State == MissionState.Locked)
             {
-                if (nextMission.ChapID != completedMission.ChapID) { Debug.Log("chapter End"); }
+                if (nextMission.ChapterId != completedMission.ChapterId) { Debug.Log("chapter End"); }
                 else
                 {
                     nextMission.State = MissionState.Unlocked;
-                    Debug.Log("Next mission unlocked: " + nextMission.ID);
+                    Debug.Log("Next mission unlocked: " + nextMission.Id);
                     //TODO -> Update database
 
                 }

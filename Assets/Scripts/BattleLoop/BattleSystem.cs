@@ -1,45 +1,63 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using System.Linq;
 
 public class BattleSystem : StateMachine
 {
-    [SerializeField] private GameObject Support1;
-    [SerializeField] private GameObject Support2;
+    [SerializeField] private GameObject _firstSupport;
+    [SerializeField] private GameObject _secondSupport;
+    [SerializeField] private GameObject[] _skillsButtons;
+    //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
 
-    [SerializeField] public GameObject[] SkillsButton;
-
-    [SerializeField] public GameObject _wonPopUp;
-    [SerializeField] public GameObject _lostPopUp;
-
+    //UI
+    public TextMeshProUGUI DialogueText;
+    public GameObject WonPopUp;
+    public GameObject LostPopUp;
     public Transform PlayerStation;
     public Transform EnemyStation;
 
+    public bool PlayerHasWin { get; private set; }
+    public bool Selected { get; set; }
+    public int Turn { get; set; }
+
     //public Entity Player { get; private set; }
-    //->To access the player data, for the moment use Allies[0].data you want access 
-    public List<Entity> Allies { get; private set; }
+    //->To access the player data, for the moment use Allies[0].data you want access
+
+    public List<Entity> Allies { get; private set; } //TODO -> Replace with Player class
     public List<Entity> Enemies { get; private set; }
     public List<Entity> Targetables { get; private set; }
-    private int _maxEnemies => 1;
 
-
-    public bool _selected = false;
-    public int turn = 0;
-
-    //UI
-    public TextMeshProUGUI dialogueText;
+    private int _maxEnemies => 1; //Is it used ?
 
     public void Start()
     {
-        Enemies = new List<Entity>();
-        Targetables = new List<Entity>();
-        _lostPopUp.SetActive(false);
-        _wonPopUp.SetActive(false);
-        //Entity
-        EnemyContainer();
-        InitPlayer();
+        InitBattle();
+    }
+
+    //Init all battle elements -> used on restart button
+    public void InitBattle()
+    {
+        Allies = new();
+        Enemies = new();
+        Targetables = new();
+
+        LostPopUp.SetActive(false);
+        WonPopUp.SetActive(false);
+
+        PlayerHasWin = false;
+        Selected = false;
+        Turn = 0;
+
+        GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy"); //TODO -> use serialized field
+        enemyPrefab.GetComponent<EnemyController>().InitEntity(); //TODO -> use serialized field
+        Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
+
+        GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player"); //TODO -> use serialized field
+        playerPrefab.GetComponent<PlayerController>().InitEntity(); //TODO -> use serialized field
+        Allies.Add((Player)playerPrefab.GetComponent<PlayerController>().Entity); //TODO -> use serialized field
+
+        SetSkillButtonsActive(true);
 
         foreach (var skill in Allies[0].Skills)
         {
@@ -48,20 +66,6 @@ public class BattleSystem : StateMachine
 
         //SetState(new WhoGoFirst(this));
         SimulateBattle();
-    }
-
-    private void EnemyContainer()
-    {
-        GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy");
-        Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Enemy);
-    }
-
-    private void InitPlayer()
-    {
-        Allies = new List<Entity>();
-        GameObject playGo = GameObject.FindGameObjectWithTag("Player");
-        Player tmp = playGo.GetComponent<PlayerController>().Player;
-        Allies.Add(tmp);
     }
 
     public void OnAttackButton()
@@ -81,48 +85,39 @@ public class BattleSystem : StateMachine
     
     public void SetSkillButtonsActive(bool isActive)
     {
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("SkillButton");
-
-        foreach (GameObject buttonObject in buttons)
+        foreach (GameObject button in _skillsButtons)
         {
-            buttonObject.SetActive(isActive);
+            button.SetActive(isActive);
         }
     }
 
     public void OnMouseUp()
     {
-        _selected = true;
-        if (_selected)
+        if (!IsBattleOver())
         {
+            Selected = true;
             GetSelectedEnemies(Enemies);
-
             StartCoroutine(State.Attack());
         }
-
     }
 
     public void RemoveDeadEnemies()
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].CurrentHp <= 0)
-            {
-                Enemies.RemoveAt(i);
-            }
+            if (Enemies[i].IsDead) Enemies.RemoveAt(i);
         }
     }
 
     public void GetSelectedEnemies(List<Entity> enemies)
     {
         Targetables.Clear();
+
         foreach (var enemy in enemies)
         {
-            if (enemy.HaveBeTargeted())
+            if (enemy != null && enemy.HaveBeenTargeted())
             {
-                if (enemy != null && enemy.HaveBeTargeted())
-                {
-                    Targetables.Add(enemy);
-                }
+                Targetables.Add(enemy);
             }
         }
     }
@@ -145,71 +140,25 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void ReStart()
-    {
-        Enemies.Clear();
-        Allies.Clear();
-        Targetables.Clear();
-        _selected = false;
-        turn = 0;
-        
-        _lostPopUp.SetActive(false);
-        _wonPopUp.SetActive(false);
-        
-        GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy");
-        enemyPrefab.GetComponent<EnemyController>().ResetStats();
-        Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Enemy);
-
-        GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player");
-        playerPrefab.GetComponent<PlayerController>().ResetStats();
-        Allies.Add(playerPrefab.GetComponent<PlayerController>().Player);
-        
-        foreach (var skill in Allies[0].Skills)
-        {
-            skill.ConstantPassive(Enemies, Allies[0], 0);
-        }
-        
-        SetState(new WhoGoFirst(this));
-    }
-
     private void SimulateBattle()
     {
         SetState(new AutoBattle(this));
     }
-    
+
+    public bool AllAlliesDead()
+    {
+        return Allies.All(ally => ally.IsDead);
+    }
+
+    public bool AllEnemiesDead()
+    {
+        //Check Enemies.Count ?
+        PlayerHasWin = Enemies.All(enemy => enemy.IsDead);
+        return PlayerHasWin;
+    }
+
     public bool IsBattleOver()
     {
-        bool allAlliesDead = true;
-        bool allEnemiesDead = true;
-        
-        foreach (var ally in Allies)
-        {
-            if (ally.IsDead) continue;
-            allAlliesDead = false;
-            break;
-        }
-        
-        foreach (var enemy in Enemies)
-        {
-            if (enemy.IsDead) continue;
-            allEnemiesDead = false;
-            break;
-        }
-        return allAlliesDead || allEnemiesDead;
-    }
-    
-    public bool DidPlayerWin()
-    {
-        bool allEnemiesDead = true;
-        
-        foreach (var enemy in Enemies)
-        {
-            if (!enemy.IsDead)
-            {
-                allEnemiesDead = false;
-                break;
-            }
-        }
-        return allEnemiesDead;
+        return AllAlliesDead() || AllEnemiesDead();
     }
 }

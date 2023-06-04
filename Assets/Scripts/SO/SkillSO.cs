@@ -1,9 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New SkillData", menuName = "Skill/New Data")]
-public class SkillData : ScriptableObject
+[CreateAssetMenu(fileName = "New SkillData", menuName = "Ennisia/Skill")]
+public class SkillSO : ScriptableObject
 {
-    /*Weapon weapon;*/
     public int Id;
     public string Name;
     public string Description;

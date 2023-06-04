@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Support", menuName = "Support/New")]
-public class SupportsCharactersSO : ScriptableObject
+[CreateAssetMenu(fileName = "New Support", menuName = "Ennisia/Support")]
+public class SupportCharacterSO : ScriptableObject
 {
     public int Id = 1;
     public string Name;

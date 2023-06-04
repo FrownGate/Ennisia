@@ -75,7 +75,7 @@ public class SummonSystem : MonoBehaviour
 
         for (int i = 0; i < _amount; i++)
         {
-            SupportsCharactersSO pulledSupport = GetSupport();
+            SupportCharacterSO pulledSupport = GetSupport();
             Debug.Log($"{pulledSupport.Name} has been pulled !");
 
             if (_supports.ContainsKey(pulledSupport.Id))
@@ -101,7 +101,7 @@ public class SummonSystem : MonoBehaviour
         PlayFabManager.Instance.AddCurrency("Fragments", newFragments);
     }
 
-    private SupportsCharactersSO GetSupport()
+    private SupportCharacterSO GetSupport()
     {
         System.Random random = new();
         double rarityRoll = random.NextDouble() * _chance;
@@ -122,7 +122,7 @@ public class SummonSystem : MonoBehaviour
             _fragmentsMultiplier = _epicFragmentsMultiplier;
         }
 
-        SupportsCharactersSO[] gachaPool = Resources.LoadAll<SupportsCharactersSO>($"SO/SupportsCharacter/{pickedRarity}");
+        SupportCharacterSO[] gachaPool = Resources.LoadAll<SupportCharacterSO>($"SO/SupportsCharacter/{pickedRarity}");
         int characterRoll = random.Next(gachaPool.Length);
         Debug.Log($"character roll : {characterRoll}");
         return gachaPool[characterRoll - 1];

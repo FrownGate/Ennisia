@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c8439cd6cf28449a7e98a2761877c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e2a6f6fadc386b4aa47d4195832f942, type: 3}
   m_Name: Boots
   m_EditorClassIdentifier: 
   Attributes:
