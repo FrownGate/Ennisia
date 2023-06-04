@@ -140,7 +140,7 @@ public class ScenesManager : MonoBehaviour
         }
 
         AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-        sceneOperation.allowSceneActivation = false;
+        //sceneOperation.allowSceneActivation = false;
 
         //TODO -> fix progress bar ui
         while (!sceneOperation.isDone)
@@ -148,16 +148,16 @@ public class ScenesManager : MonoBehaviour
             // Update your loading progress UI here (e.g., progress bar, text)
             progressBar.value = sceneOperation.progress;
 
-            if (sceneOperation.progress >= 0.9f)
-            {
-                // Optional: Ensure the loading screen is displayed for a minimum duration
-                float elapsedTime = Time.time - startTime;
+            //if (sceneOperation.progress >= 0.9f)
+            //{
+            //    // Optional: Ensure the loading screen is displayed for a minimum duration
+            //    float elapsedTime = Time.time - startTime;
 
-                if (elapsedTime >= minLoadingTime)
-                {
-                    sceneOperation.allowSceneActivation = true; // Activate the  scene
-                }
-            }
+            //    if (elapsedTime >= minLoadingTime)
+            //    {
+            //        sceneOperation.allowSceneActivation = true; // Activate the  scene
+            //    }
+            //}
 
             yield return null;
         }
