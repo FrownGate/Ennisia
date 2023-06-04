@@ -1,16 +1,14 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public abstract class Skill
 {
-    /*Weapon weapon;*/
     public SkillSO Data { get; protected set; }
     public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
     public float Cooldown { get; set; }
-    public string FileName { get; protected set; }
+    public string FileName { get; private set; }
 
     public Skill()
     {
