@@ -12,9 +12,9 @@ public class ScenesManager : MonoBehaviour
 
     private Scene _activeScene;
     private Scene _previousScene;
-    private LoadSceneMode _sceneMode;
+    private LoadSceneMode _sceneMode; //Used ?
     private string _sceneToLoad;
-    private bool _loading;
+    private bool _loading; //Used ?
     public float minLoadingTime = 2f; // Optional: Minimum duration to display the loading screen
 
     private float startTime;
@@ -63,7 +63,7 @@ public class ScenesManager : MonoBehaviour
         {
             case "MainMenu":
             case "Battle":
-                StartCoroutine(Loading(_sceneToLoad));
+                StartCoroutine(Loading());
                 break;
 
             default:
@@ -102,7 +102,7 @@ public class ScenesManager : MonoBehaviour
         return !string.IsNullOrEmpty(Params);
     }
 
-    private IEnumerator Loading(string scene)
+    private IEnumerator Loading()
     {
         string loadScene = GetSceneName("Loading");
         Debug.Log($"Going to scene {loadScene}");
@@ -152,6 +152,7 @@ public class ScenesManager : MonoBehaviour
             {
                 // Optional: Ensure the loading screen is displayed for a minimum duration
                 float elapsedTime = Time.time - startTime;
+
                 if (elapsedTime >= minLoadingTime)
                 {
                     sceneOperation.allowSceneActivation = true; // Activate the  scene
@@ -161,6 +162,4 @@ public class ScenesManager : MonoBehaviour
             yield return null;
         }
     }
-
 }
-
