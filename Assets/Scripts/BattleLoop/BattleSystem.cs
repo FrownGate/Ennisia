@@ -21,8 +21,6 @@ public class BattleSystem : StateMachine
     public bool Selected { get; set; }
     public int Turn { get; set; }
 
-    //public Entity Player { get; private set; }
-    //->To access the player data, for the moment use Player.data you want access 
     public Entity Player { get; private set; }
     public List<Entity> Enemies { get; private set; }
     public List<Entity> Targetables { get; private set; }
