@@ -167,7 +167,7 @@ public class CSVToSO : EditorWindow
 
     private static void CreateSupportSO(Dictionary<string, string> rowData)
     {
-        SupportCharacterSO scriptableObject = ScriptableObject.CreateInstance<SupportCharacterSO>();
+        SupportCharacterSO scriptableObject = CreateInstance<SupportCharacterSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
         scriptableObject.Rarity = rowData["Rarity"];
@@ -200,7 +200,7 @@ public class CSVToSO : EditorWindow
 
     private static void CreateSkillDataSO(Dictionary<string, string> rowData)
     {
-        SkillSO scriptableObject = ScriptableObject.CreateInstance<SkillSO>();
+        SkillSO scriptableObject = CreateInstance<SkillSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["skillName"];
         scriptableObject.Description = rowData["description"].Replace("\"", string.Empty);
@@ -214,7 +214,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.AOE = bool.Parse(rowData["AOE"]);
         scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
 
-        string savePath = $"Assets/Resources/SO/Skills/{scriptableObject.Name.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty).Replace("'", string.Empty)}.asset";
+        string savePath = $"Assets/Resources/SO/Skills/{CSVUtils.GetFileName(scriptableObject.Name)}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 

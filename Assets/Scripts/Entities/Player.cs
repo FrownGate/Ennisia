@@ -10,7 +10,7 @@ public class Player : Entity
         Speed = 30000;
         CurrentHp = MaxHp / 2;
 
-        WeaponSO = Resources.Load<WeaponSO>("SO/Weapon"); //TODO -> get Equipped Weapon
+        WeaponSO = Resources.Load<WeaponSO>("SO/EquippedGears/Weapon");
         WeaponSO.Init();
 
         InitSkills();

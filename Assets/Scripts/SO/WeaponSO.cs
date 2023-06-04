@@ -31,9 +31,9 @@ public class WeaponSO : ScriptableObject
 
     public void Init()
     {
-        Type type = System.Type.GetType(FirstSkillData.Name);
+        Type type = System.Type.GetType(CSVUtils.GetFileName(FirstSkillData.Name));
         FirstSkill = (Skill)Activator.CreateInstance(type);
-        type = System.Type.GetType(SecondSkillData.Name);
+        type = System.Type.GetType(CSVUtils.GetFileName(SecondSkillData.Name));
         SecondSkill = (Skill)Activator.CreateInstance(type);
     }
 
