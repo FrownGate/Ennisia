@@ -10,7 +10,10 @@ public class WhoGoFirst : State
     public WhoGoFirst(BattleSystem battleSystem) : base(battleSystem)
     {
         _enemiesList = BattleSystem.Enemies;
-        _playerList = BattleSystem.Allies;
+        _playerList = new List<Entity>
+        {
+            BattleSystem.Player
+        };
     }
 
     public override IEnumerator Start()

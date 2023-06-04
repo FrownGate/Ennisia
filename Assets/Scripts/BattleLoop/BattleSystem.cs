@@ -22,9 +22,8 @@ public class BattleSystem : StateMachine
     public int Turn { get; set; }
 
     //public Entity Player { get; private set; }
-    //->To access the player data, for the moment use Allies[0].data you want access
-
-    public List<Entity> Allies { get; private set; } //TODO -> Replace with Player class
+    //->To access the player data, for the moment use Player.data you want access 
+    public Entity Player { get; private set; }
     public List<Entity> Enemies { get; private set; }
     public List<Entity> Targetables { get; private set; }
 
@@ -38,7 +37,6 @@ public class BattleSystem : StateMachine
     //Init all battle elements -> used on restart button
     public void InitBattle()
     {
-        Allies = new();
         Enemies = new();
         Targetables = new();
 
@@ -55,17 +53,17 @@ public class BattleSystem : StateMachine
 
         GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player"); //TODO -> use serialized field
         playerPrefab.GetComponent<PlayerController>().InitEntity(); //TODO -> use serialized field
-        Allies.Add((Player)playerPrefab.GetComponent<PlayerController>().Entity); //TODO -> use serialized field
+        Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
         SetSkillButtonsActive(true);
 
-        foreach (var skill in Allies[0].Skills)
+        foreach (var skill in Player.Skills)
         {
-            skill.ConstantPassive(Enemies, Allies[0], 0); // constant passive at battle start
+            skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
         }
 
-        //SetState(new WhoGoFirst(this));
-        SimulateBattle();
+        SetState(new WhoGoFirst(this));
+        //SimulateBattle();
     }
 
     public void OnAttackButton()
@@ -124,12 +122,12 @@ public class BattleSystem : StateMachine
 
     public Skill GetSelectedSkill(int buttonId)
     {
-        if (buttonId < 0 || buttonId >= Allies[0].Skills.Count)
+        if (buttonId < 0 || buttonId >= Player.Skills.Count)
         {
             Debug.LogError("Invalid button ID");
             return null;
         }
-        return Allies[0].Skills[buttonId];
+        return Player.Skills[buttonId];
     }
 
     public void ResetSelectedEnemies()
@@ -145,9 +143,9 @@ public class BattleSystem : StateMachine
         SetState(new AutoBattle(this));
     }
 
-    public bool AllAlliesDead()
+    public bool PlayerIsDead()
     {
-        return Allies.All(ally => ally.IsDead);
+        return Player.IsDead;
     }
 
     public bool AllEnemiesDead()
@@ -159,6 +157,6 @@ public class BattleSystem : StateMachine
 
     public bool IsBattleOver()
     {
-        return AllAlliesDead() || AllEnemiesDead();
+        return PlayerIsDead() || AllEnemiesDead();
     }
 }

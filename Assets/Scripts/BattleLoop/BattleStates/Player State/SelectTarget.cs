@@ -18,7 +18,7 @@ public class SelectTarget : State
 
     public override IEnumerator Attack()
     {
-        float totalDamage = 0; //Used ?
+        float totalDamage = 0;
 
         // Check if Player is not null
         /*if (BattleSystem.Player == null)
@@ -41,24 +41,29 @@ public class SelectTarget : State
             BattleSystem.DialogueText.text = "No targets selected";
             yield break;
         }
-
-        _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.Turn);
-
-        /*foreach (var skill in BattleSystem.Allies[0].Skills)
+        if (_selectedSkill.Cooldown > 0)
         {
-            skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
+            BattleSystem.DialogueText.text = "Skill in Cooldown";
+            yield break;
         }
-        totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].SkillBeforeUse(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn);
-        totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn);
-        totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
-        BattleSystem.Allies[0].Skills[_spellNumber].SkillAfterDamage(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
-        //skill after Attack
 
-        foreach (var skill in BattleSystem.Allies[0].Skills)        
+        _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
+
+
+        foreach (var skill in BattleSystem.Player.Skills)
         {
-            skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
-        }*/
+            skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Player, BattleSystem.Turn);
+        }
+        totalDamage += _selectedSkill.SkillBeforeUse(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
+        totalDamage += _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
+        totalDamage += _selectedSkill.AdditionalDamage(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn, totalDamage);
+        _selectedSkill.SkillAfterDamage(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn, totalDamage);
 
+        foreach (var skill in BattleSystem.Player.Skills)        
+        {
+            skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Player, BattleSystem.Turn, totalDamage);
+            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
+        }
         Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
 
         BattleSystem.Targetables.Clear();
