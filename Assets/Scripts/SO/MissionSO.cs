@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Mission", menuName = "Game/Mission")]
+[CreateAssetMenu(fileName = "New Mission", menuName = "Ennisia/Mission")]
 public class MissionSO : ScriptableObject
 {
-    public int ID;
+    public int Id;
     public string Name;
     public MissionType Type;
     public MissionState State;
@@ -14,6 +13,6 @@ public class MissionSO : ScriptableObject
     public Dictionary<int,string> Waves;
     public int WavesCount;
     public int DialogueId;
-    public int ChapID;
+    public int ChapterId;
     // Add additional mission data as needed
 }

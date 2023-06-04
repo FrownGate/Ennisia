@@ -167,7 +167,7 @@ public class CSVToSO : EditorWindow
 
     private static void CreateSupportSO(Dictionary<string, string> rowData)
     {
-        SupportsCharactersSO scriptableObject = ScriptableObject.CreateInstance<SupportsCharactersSO>();
+        SupportCharacterSO scriptableObject = ScriptableObject.CreateInstance<SupportCharacterSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
         scriptableObject.Rarity = rowData["Rarity"];
@@ -200,7 +200,7 @@ public class CSVToSO : EditorWindow
 
     private static void CreateSkillDataSO(Dictionary<string, string> rowData)
     {
-        SkillData scriptableObject = ScriptableObject.CreateInstance<SkillData>();
+        SkillSO scriptableObject = ScriptableObject.CreateInstance<SkillSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["skillName"];
         scriptableObject.Description = rowData["description"].Replace("\"", string.Empty);
@@ -235,7 +235,7 @@ public class CSVToSO : EditorWindow
         {
             foreach (KeyValuePair<string, List<string>> type in _equipmentTypes)
             {
-                EquipmentAttributeSO attributeSO = CreateInstance<EquipmentAttributeSO>();
+                EquipmentAttributesSO attributeSO = CreateInstance<EquipmentAttributesSO>();
                 attributeSO.Attributes = type.Value;
 
                 string savePath = $"Assets/Resources/SO/EquipmentStats/Attributes/{type.Key}.asset";
@@ -245,7 +245,7 @@ public class CSVToSO : EditorWindow
 
         for (int i = 0; i < rarities.Length; i++)
         {
-            EquipmentValueSO valueSO = CreateInstance<EquipmentValueSO>();
+            StatMinMaxValuesSO valueSO = CreateInstance<StatMinMaxValuesSO>();
             valueSO.MinValue = int.Parse(rowData[$"{rarities[i].ToLower()}Min"]);
             valueSO.MaxValue = int.Parse(rowData[$"{rarities[i].ToLower()}Max"]);
 
@@ -256,7 +256,7 @@ public class CSVToSO : EditorWindow
     private static void CreateMissionSO(Dictionary<string, string> rowData,MissionType type)
     {
         MissionSO scriptableObject = ScriptableObject.CreateInstance<MissionSO>();
-        scriptableObject.ID = int.Parse(rowData["ID"]);
+        scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
         scriptableObject.EnergyCost = int.Parse(rowData["EnergyCost"]);
         scriptableObject.Unlocked = rowData["Unlocked"] == "VRAI";
@@ -276,7 +276,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.WavesCount = waveCount;
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
-        scriptableObject.ChapID = int.Parse(rowData["IDChap"]);
+        scriptableObject.ChapterId = int.Parse(rowData["IDChap"]);
 
         scriptableObject.Type = type;
         // Remove special characters and spaces from the mission name
@@ -284,7 +284,7 @@ public class CSVToSO : EditorWindow
         missionName = Regex.Replace(missionName, @"[^0-9a-zA-Z]+", ""); // Remove non-alphanumeric characters
         missionName = missionName.Replace(" ", ""); // Remove spaces
 
-        string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapID}-{missionName}.asset";
+        string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}-{missionName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 

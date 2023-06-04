@@ -22,10 +22,12 @@ public class WeaponSO : ScriptableObject
     public float StatUpgrade;
     public float RatioUpgrade;
     public int Level;
-    public SkillData FirstSkillData;
-    public SkillData SecondSkillData;
+    public SkillSO FirstSkillData;
+    public SkillSO SecondSkillData;
     [HideInInspector] public Skill FirstSkill;
     [HideInInspector] public Skill SecondSkill;
+
+    //TODO -> Move Level and Upgrade system to Gear class
 
     public void Init()
     {

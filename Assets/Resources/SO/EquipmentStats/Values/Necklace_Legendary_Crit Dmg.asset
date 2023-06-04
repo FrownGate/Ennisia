@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4677fac5235d71a459d077086ff878d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7ed059b19d7e24cb1766c9214fcc18, type: 3}
   m_Name: Necklace_Legendary_Crit Dmg
   m_EditorClassIdentifier: 
   MinValue: 34
