@@ -4,24 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon", menuName = "Ennisia/Weapon")]
 public class WeaponSO : ScriptableObject
 {
-    public enum WeaponType //TODO -> move elsewhere for better maintenance
-    {
-        Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
-    }
-
-    public enum StatType //TODO -> move elsewhere for better maintenance
-    {
-        Physical, Magical, Attack, Health, Defense, CriticalRate, CriticalDamage, Speed
-    }
-
     public string Name;
-    public WeaponType Type;
+    public Item.GearType Type;
+    public Item.AttributeStat Stat;
     public bool IsMagic;
-    public StatType Stat;
     public float StatValue; 
     public float StatUpgrade;
     public float RatioUpgrade;
-    public int Level;
+    public int Level = 1;
     public SkillSO FirstSkillData;
     public SkillSO SecondSkillData;
     [HideInInspector] public Skill FirstSkill;
