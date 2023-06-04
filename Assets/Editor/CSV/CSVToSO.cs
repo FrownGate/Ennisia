@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 public class CSVToSO : EditorWindow
 {
-    private static Dictionary<string, List<string>> _equipmentTypes;
+    private static Dictionary<string, List<Item.AttributeStat>> _equipmentTypes;
     private static int _currentLine;
     private static int _lines;
 
@@ -224,16 +224,16 @@ public class CSVToSO : EditorWindow
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
         {
-            _equipmentTypes[rowData["type"]] = new List<string> { rowData["attribute"].Replace(" ", string.Empty) };
+            _equipmentTypes[rowData["type"]] = new List<Item.AttributeStat> { Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(rowData["attribute"])) };
         }
         else
         {
-            _equipmentTypes[rowData["type"]].Add(rowData["attribute"].Replace(" ", string.Empty));
+            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(rowData["attribute"])));
         }
 
         if (_currentLine == _lines)
         {
-            foreach (KeyValuePair<string, List<string>> type in _equipmentTypes)
+            foreach (KeyValuePair<string, List<Item.AttributeStat>> type in _equipmentTypes)
             {
                 EquipmentAttributesSO attributeSO = CreateInstance<EquipmentAttributesSO>();
                 attributeSO.Attributes = type.Value;

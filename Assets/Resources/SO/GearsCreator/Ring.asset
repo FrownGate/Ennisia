@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38b4c452aef9e02479da45c5d7b2001e, type: 3}
-  m_Name: Earrings-gqghh
+  m_Name: Ring
   m_EditorClassIdentifier: 
   Id: 1
-  Name: gqghh
-  Type: Earrings
-  Rarity: Common
-  Attribute: Crit Rate
-  Value: 7.5
+  Name: 
+  Type: 5
+  Rarity: 0
+  Attribute: 0
+  StatName: 
+  StatValue: 7.5
+  StatUpgrade: 0
+  RatioUpgrade: 0
+  Level: 0
   Description: 
   Icon: {fileID: 0}

@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b4c452aef9e02479da45c5d7b2001e, type: 3}
   m_Name: Chest
   m_EditorClassIdentifier: 
-  Id: 0
-  equipmentName: 
-  type: Chest
-  rarity: Common
-  attribute: Defense
-  value: 64
-  description: 
+  Id: 1
+  Name: 
+  Type: 1
+  Rarity: 0
+  Attribute: 4
+  StatName: 
+  StatValue: 64
+  StatUpgrade: 0
+  RatioUpgrade: 0
+  Level: 0
+  Description: 
+  Icon: {fileID: 0}

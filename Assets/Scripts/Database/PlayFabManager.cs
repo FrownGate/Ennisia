@@ -509,9 +509,9 @@ public class PlayFabManager : MonoBehaviour
             {
                 equipment.Id = inventoryGear.Id;
                 equipment.Name = inventoryGear.Name;
-                equipment.Type = inventoryGear.Type;
-                equipment.Rarity = inventoryGear.Rarity.ToString(); //TODO -> Update Equipment SO
-                equipment.Attribute = inventoryGear.Attribute;
+                equipment.Type = (Item.GearType)inventoryGear.Type;
+                equipment.Rarity = (Item.ItemRarity)inventoryGear.Rarity; //TODO -> Update Equipment SO
+                equipment.Attribute = (Item.AttributeStat)inventoryGear.Attribute;
                 equipment.StatValue = inventoryGear.Value;
                 equipment.Description = inventoryGear.Description;
                 break;

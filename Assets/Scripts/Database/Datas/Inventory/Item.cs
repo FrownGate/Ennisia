@@ -7,21 +7,41 @@ public class Item
 {
     public enum ItemRarity
     {
-        Null, Common, Rare, Epic, Legendary
+        Common, Rare, Epic, Legendary
     }
 
-    public enum MaterialType
+    public enum ItemCategory
     {
-        Null, Weapon, Gear, Accessory
+        Weapon, Armor, Accessory
+    }
+
+    public enum GearType
+    {
+        Helmet, Chest, Boots, Earrings, Necklace, Ring,
+        Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
+    }
+
+    public enum AttributeStat
+    {
+        PhysicalDamages, MagicalDamages, Attack, HP, Defense, CritRate, CritDmg, Speed
     }
 
     [NonSerialized] public string Stack;
     [NonSerialized] public string Name;
     [NonSerialized] public int Amount; //Amount of item to add
-    public ItemRarity Rarity;
-    public MaterialType Type;
+    public ItemRarity? Rarity;
+    public ItemCategory? Category;
+    public GearType? Type;
+    public AttributeStat? Attribute;
 
     //TODO -> Remove item if amount == 0
+
+    public Item()
+    {
+        Rarity = null;
+        Category = null;
+        Debug.Log(Attribute);
+    }
 
     protected void AddToInventory()
     {

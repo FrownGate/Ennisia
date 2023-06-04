@@ -7,20 +7,19 @@ public class Gear : Item
 {
     [NonSerialized] public int Id;
     [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
-    public new string Type;
-    public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
     public float Value;
     public string Description;
 
-    public Gear(string type, int rarity)
+    public Gear(GearType type, ItemRarity rarity)
     {
         Id = PlayFabManager.Instance.Inventory.GetGears().Count + 1;
         Type = type;
-        Rarity = (ItemRarity)rarity;
+        Rarity = rarity;
         Description = "";
         Attribute = SetAttribute();
         Value = SetValue();
         Stack = Id.ToString();
+        //TODO -> Set Category function
 
         AddToInventory();
     }
@@ -39,9 +38,10 @@ public class Gear : Item
         AddToInventory();
     }
 
-    private string SetAttribute()
+    private AttributeStat SetAttribute()
     {
-        List<string> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
+        //TODO -> save attributes as int in csv and add function to return attribute name
+        List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 

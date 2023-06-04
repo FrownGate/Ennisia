@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b552102840d7d3843a0c6700957f2ff0, type: 3}
   m_Name: PureInnocence
   m_EditorClassIdentifier: 
-  weaponName: Pure Innocence
-  weaponType: Two-Handed Sword
-  isMagic: 0
-  statName: 
-  statValue: 0
-  statUpgrade: 0
-  ratioUpgrade: 0
-  level: 0
-  skillName1: TidalCrash
-  skillName2: "BlueDragon\u2019sWrath"
+  Name: 
+  Type: 6
+  Stat: 0
+  IsMagic: 0
+  StatValue: 0
+  StatUpgrade: 0
+  RatioUpgrade: 0
+  Level: 1
+  FirstSkillData: {fileID: 0}
+  SecondSkillData: {fileID: 0}

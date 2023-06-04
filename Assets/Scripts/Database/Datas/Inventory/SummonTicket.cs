@@ -5,9 +5,9 @@ public class SummonTicket : Item
 {
     public SummonTicket() { }
 
-    public SummonTicket(int rarity, int amount = 1)
+    public SummonTicket(ItemRarity rarity, int amount = 1)
     {
-        Rarity = (ItemRarity)rarity;
+        Rarity = rarity;
         Stack = Rarity.ToString();
         Amount = amount;
 

@@ -1,16 +1,15 @@
 using PlayFab.EconomyModels;
-using System;
 using UnityEngine;
 
 public class Material : Item
 {
     public Material() { }
 
-    public Material(int type, int rarity, int amount = 1)
+    public Material(ItemCategory category, ItemRarity rarity, int amount = 1)
     {
-        Type = (MaterialType)type;
-        Rarity = (ItemRarity)rarity;
-        Stack = $"{Type}_{Rarity}";
+        Category = category;
+        Rarity = rarity;
+        Stack = $"{Category}_{Rarity}";
         Amount = amount;
 
         AddToInventory();
@@ -22,7 +21,7 @@ public class Material : Item
 
         Stack = item.StackId;
         Amount = (int)item.Amount;
-        Type = material.Type;
+        Category = material.Category;
         Rarity = material.Rarity;
 
         AddToInventory();
@@ -30,6 +29,6 @@ public class Material : Item
 
     protected override void SetName()
     {
-        Name = $"[{Rarity}] {Type} {GetType().Name}";
+        Name = $"[{Rarity}] {Category} {GetType().Name}";
     }
 }
