@@ -27,9 +27,9 @@ public class AutoBattle : State
 
     private void AISelectSkillAndEnemy()
     {
-        if (BattleSystem.Allies.Any() && BattleSystem.Allies[0].Skills.Any())
+        if (!BattleSystem.PlayerIsDead() && BattleSystem.Player.Skills.Any())
         {
-            int selectedSkillIndex = Random.Range(0, BattleSystem.Allies[0].Skills.Count);
+            int selectedSkillIndex = Random.Range(0, BattleSystem.Player.Skills.Count);
             BattleSystem.SetState(new SelectSpell(BattleSystem, selectedSkillIndex));
 
             if (BattleSystem.Enemies.Any())

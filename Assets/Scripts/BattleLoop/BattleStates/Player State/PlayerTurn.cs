@@ -7,7 +7,7 @@ public class PlayerTurn : State
 
     public override IEnumerator Start()
     {
-        if (BattleSystem.AllAlliesDead())
+        if (BattleSystem.PlayerIsDead())
         {
             BattleSystem.SetState(new Lost(BattleSystem));
             yield break;

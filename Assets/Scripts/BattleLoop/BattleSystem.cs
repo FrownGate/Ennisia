@@ -37,7 +37,6 @@ public class BattleSystem : StateMachine
     //Init all battle elements -> used on restart button
     public void InitBattle()
     {
-        Allies = new();
         Enemies = new();
         Targetables = new();
 
@@ -54,17 +53,17 @@ public class BattleSystem : StateMachine
 
         GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player"); //TODO -> use serialized field
         playerPrefab.GetComponent<PlayerController>().InitEntity(); //TODO -> use serialized field
-        Allies.Add((Player)playerPrefab.GetComponent<PlayerController>().Entity); //TODO -> use serialized field
+        Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
         SetSkillButtonsActive(true);
 
-        foreach (var skill in Allies[0].Skills)
+        foreach (var skill in Player.Skills)
         {
             skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
         }
 
-        //SetState(new WhoGoFirst(this));
-        SimulateBattle();
+        SetState(new WhoGoFirst(this));
+        //SimulateBattle();
     }
 
     public void OnAttackButton()
@@ -144,9 +143,9 @@ public class BattleSystem : StateMachine
         SetState(new AutoBattle(this));
     }
 
-    public bool AllAlliesDead()
+    public bool PlayerIsDead()
     {
-        return Allies.All(ally => ally.IsDead);
+        return Player.IsDead;
     }
 
     public bool AllEnemiesDead()
@@ -158,6 +157,6 @@ public class BattleSystem : StateMachine
 
     public bool IsBattleOver()
     {
-        return AllAlliesDead() || AllEnemiesDead();
+        return PlayerIsDead() || AllEnemiesDead();
     }
 }
