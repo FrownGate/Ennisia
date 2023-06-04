@@ -276,7 +276,8 @@ public class CSVToSO : EditorWindow
         scriptableObject.WavesCount = waveCount;
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
-        scriptableObject.ChapterId = int.Parse(rowData["IDChap"]);
+        scriptableObject.ChapterId = int.Parse(rowData["IDChapter"]);
+        scriptableObject.NumInChapter = int.Parse(rowData["Num"]);
 
         scriptableObject.Type = type;
         // Remove special characters and spaces from the mission name
@@ -284,7 +285,7 @@ public class CSVToSO : EditorWindow
         missionName = Regex.Replace(missionName, @"[^0-9a-zA-Z]+", ""); // Remove non-alphanumeric characters
         missionName = missionName.Replace(" ", ""); // Remove spaces
 
-        string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}-{missionName}.asset";
+        string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
