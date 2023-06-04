@@ -1,72 +1,53 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapon", menuName = "Weapon/New Data")]
+[CreateAssetMenu(fileName = "Weapon", menuName = "Ennisia/Weapon")]
 public class WeaponSO : ScriptableObject
 {
-    public enum WeaponType
+    public enum WeaponType //TODO -> move elsewhere for better maintenance
     {
-        SWORD = 0,
-        STAFF = 1,
-        SCHYTHE = 2,
-        DAGGERS = 3,
-        HAMMER = 4,
-        SHIELD = 5,
-        BOW = 6,
-    }
-    public enum StatType
-    {
-        PHYSICAL = 0,
-        MAGICAL = 1,
-        ATTACK = 2,
-        HEALTH = 3,
-        DEFENSE = 4,
-        CRITICALRATE = 5,
-        CRITICALDAMAGE = 6,
-        SPEED = 7,
+        Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
     }
 
-    public string weaponName;
-    public WeaponType weaponType;
-    public bool isMagic;
-    public StatType statType;
-    public float statValue; 
-    public float statUpgrade;
-    public float ratioUpgrade;
-    public int level;
-    public string skillName1;
-    public string skillName2;
-    Type _type1;
-    Type _type2;
-    [HideInInspector] public Skill _skill1;
-    [HideInInspector] public Skill _skill2;
+    public enum StatType //TODO -> move elsewhere for better maintenance
+    {
+        Physical, Magical, Attack, Health, Defense, CriticalRate, CriticalDamage, Speed
+    }
+
+    public string Name;
+    public WeaponType Type;
+    public bool IsMagic;
+    public StatType Stat;
+    public float StatValue; 
+    public float StatUpgrade;
+    public float RatioUpgrade;
+    public int Level;
+    public SkillData FirstSkillData;
+    public SkillData SecondSkillData;
+    [HideInInspector] public Skill FirstSkill;
+    [HideInInspector] public Skill SecondSkill;
+
     public void Init()
     {
-        _type1 = Type.GetType(skillName1);
-        _skill1 = (Skill)Activator.CreateInstance(_type1);
-        _type2 = Type.GetType(skillName2);
-        _skill2 = (Skill)Activator.CreateInstance(_type2);
+        Type type = System.Type.GetType(FirstSkillData.Name);
+        FirstSkill = (Skill)Activator.CreateInstance(type);
+        type = System.Type.GetType(SecondSkillData.Name);
+        SecondSkill = (Skill)Activator.CreateInstance(type);
     }
 
     public void Upgrade()
     {
+        if (Level <= 50)
+        {
+            StatValue += (StatUpgrade * Level) + (StatValue * RatioUpgrade * Level);
+        }
+    }
+
+    public void Upgrade(int level)
+    {
         if (level <= 50)
         {
-            statValue += (statUpgrade * level) + (statValue * ratioUpgrade * level);
+            StatValue += (StatUpgrade * level) + (StatValue * RatioUpgrade * level);
         }
-        else { }
     }
-
-    public void Upgrade(int _level)
-    {
-        if(_level <= 50)
-        {
-            statValue += (statUpgrade * _level) + (statValue * ratioUpgrade * _level);
-        }
-        else { } 
-    }
-
 }

@@ -21,8 +21,8 @@ public class Player : Entity
         Skills = new()
         {
             new Bonk(),
-            WeaponSO._skill1,
-            WeaponSO._skill2
+            WeaponSO.FirstSkill,
+            WeaponSO.SecondSkill
         };
     }
 }
