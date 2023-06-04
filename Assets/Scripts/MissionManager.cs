@@ -18,8 +18,8 @@ public class MissionManager : MonoBehaviour
     public static event Action<MissionSO> OnMissionStart; //Not used yet
     public static event Action<MissionSO> OnMissionComplete; //Not used yet
 
-    public MissionSO CurrentMission;
-    public int CurrentWave;
+    public MissionSO CurrentMission { get; private set; }
+    public int CurrentWave { get; private set; }
 
     private readonly Dictionary<MissionType, MissionSO[]> _missionLists = new();
     private readonly string _path = "SO/Missions/";
