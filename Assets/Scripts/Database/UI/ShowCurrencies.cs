@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Currencies : MonoBehaviour
+public class ShowCurrencies : MonoBehaviour
 {
     private void Awake()
     {
