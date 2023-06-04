@@ -6,8 +6,8 @@ public class MissionSO : ScriptableObject
 {
     public int Id;
     public string Name;
-    public MissionType Type;
-    public MissionState State;
+    public MissionManager.MissionType Type;
+    public MissionManager.MissionState State;
     public int EnergyCost;
     public bool Unlocked;
     public Dictionary<int,string> Waves;

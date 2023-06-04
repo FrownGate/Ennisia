@@ -2,18 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MissionType
-{
-    MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
-}
-
-public enum MissionState
-{
-    Locked, Unlocked, InProgress, Completed
-}
-
 public class MissionManager : MonoBehaviour
 {
+    public enum MissionType
+    {
+        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
+    }
+
+    public enum MissionState
+    {
+        Locked, Unlocked, InProgress, Completed
+    }
+
     public static MissionManager Instance { get; private set; }
     public static event Action<MissionSO> OnMissionStart; //Not used yet
     public static event Action<MissionSO> OnMissionComplete; //Not used yet

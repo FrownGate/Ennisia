@@ -64,7 +64,7 @@ public class CSVToSO : EditorWindow
             {
                 string[] lines = File.ReadAllLines(filePath);
                 _lines = lines.Length;
-                MissionType missionType = GetMissionTypeFromFilePath(filePath);
+                MissionManager.MissionType missionType = GetMissionTypeFromFilePath(filePath);
                 if (lines.Length <= 1)
                 {
                     Debug.LogError($"CSV file '{Path.GetFileName(filePath)}' is empty or missing headers.");
@@ -150,19 +150,19 @@ public class CSVToSO : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
-    private MissionType GetMissionTypeFromFilePath(string filePath)
+    private MissionManager.MissionType GetMissionTypeFromFilePath(string filePath)
     {
         // Extract the mission type from the file name (e.g., "Mission-Explore" => "Explore")
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
         string[] parts = fileNameWithoutExtension.Split('-');
         if (parts.Length >= 2)
         {
-            if (Enum.TryParse<MissionType>(parts[1], out MissionType missionType))
+            if (Enum.TryParse(parts[1], out MissionManager.MissionType missionType))
             {
                 return missionType;
             }
         }
-        return MissionType.MainStory;
+        return MissionManager.MissionType.MainStory;
     }
 
     private static void CreateSupportSO(Dictionary<string, string> rowData)
@@ -253,9 +253,9 @@ public class CSVToSO : EditorWindow
             AssetDatabase.CreateAsset(valueSO, savePath);
         }
     }
-    private static void CreateMissionSO(Dictionary<string, string> rowData,MissionType type)
+    private static void CreateMissionSO(Dictionary<string, string> rowData, MissionManager.MissionType type)
     {
-        MissionSO scriptableObject = ScriptableObject.CreateInstance<MissionSO>();
+        MissionSO scriptableObject = CreateInstance<MissionSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
         scriptableObject.EnergyCost = int.Parse(rowData["EnergyCost"]);
