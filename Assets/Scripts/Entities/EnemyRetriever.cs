@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 
 public class EnemyLoader
 {
+    //TODO -> Use FileManager to get headers and lines
 
     public Enemy LoadEnemyByName(string filePath, string enemyName)
     {
@@ -19,7 +19,6 @@ public class EnemyLoader
                 // Skip the first two columns Id and Name
                 stats.Add(headers[i], 0);
             }
-
 
             while (!reader.EndOfStream)
             {
@@ -63,7 +62,6 @@ public class EnemyLoader
                 stats.Add(headers[i], 0);
             }
 
-
             while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine();
@@ -74,7 +72,6 @@ public class EnemyLoader
                 if (id == enemyId)
                 {
                     string name = values[1];
-
 
                     for (int i = 2; i < 11; i++)
                     {
@@ -90,8 +87,6 @@ public class EnemyLoader
 
         return null; // Enemy with the specified name was not found
     }
-
-
 
     public List<Enemy> LoadEnemies(string filePath)
     {
@@ -117,15 +112,11 @@ public class EnemyLoader
                 int id = int.Parse(values[0]);
                 string name = values[1];
 
-
-
                 // Loop through the statNumbers arrays    
                 for (int i = 2; i < 11; i++)
                 {
                     stats[headers[i]] = int.Parse(values[i]);
                 }
-
-
 
                 string description = values[11];
 
@@ -136,7 +127,6 @@ public class EnemyLoader
 
         return enemies;
     }
-
 
     // private List<string[]> LoadCSV(string filePath)
     // {

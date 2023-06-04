@@ -12,13 +12,14 @@ public class SelectTarget : State
 
     public override IEnumerator Start()
     {
-        BattleSystem.dialogueText.text = "You choose " + _selectedSkill;
+        BattleSystem.DialogueText.text = "You choose " + _selectedSkill;
         yield return new WaitForSeconds(1.0f);
     }
 
     public override IEnumerator Attack()
     {
-        float totalDamage = 0;
+        float totalDamage = 0; //Used ?
+
         // Check if Player is not null
         /*if (BattleSystem.Player == null)
         {
@@ -37,13 +38,11 @@ public class SelectTarget : State
         //Attack Button
         if (BattleSystem.Targetables.Count == 0)
         {
-            BattleSystem.dialogueText.text = "No targets selected";
+            BattleSystem.DialogueText.text = "No targets selected";
             yield break;
         }
 
-
-        _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn);
-
+        _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.Turn);
 
         /*foreach (var skill in BattleSystem.Allies[0].Skills)
         {
@@ -59,15 +58,17 @@ public class SelectTarget : State
         {
             skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
         }*/
-        Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
-        BattleSystem.Targetables.Clear();
-        BattleSystem._selected = false;
 
-        yield return new WaitForSeconds(0.5f);
+        Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
+
+        BattleSystem.Targetables.Clear();
+        BattleSystem.Selected = false;
+
+        yield return new WaitForSeconds(0.5f); //TODO -> remove this wait on battle simulation
 
         BattleSystem.RemoveDeadEnemies();
 
-        if (BattleSystem.Enemies.Count == 0)
+        if (BattleSystem.Enemies.Count == 0) //TODO -> use BattleSystem.AllEnemiesDead()
         {
             BattleSystem.SetState(new Won(BattleSystem));
 

@@ -1,18 +1,14 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
-using System.IO;
-
 
 public class BattleSimulator : EditorWindow
 {
-
     public static BattleSystem Instance;
-    private List<string> _allies = new();
+    private List<string> _allies = new(); //Used ?
     private List<Enemy> _enemies = new();
-    private DropdownField _alliesDropdown;
+    private DropdownField _alliesDropdown; //Used ?
 
     // ENEMIES
     private GroupBox _firstEnemyGroupBox;
@@ -23,9 +19,7 @@ public class BattleSimulator : EditorWindow
     private GroupBox _sixthEnemyGroupBox;
 
     // create a dictionary of stats for the enemies
-    private Dictionary<string, int> _firstEnemyStats = new();
-
-
+    private Dictionary<string, int> _firstEnemyStats = new(); //Used ?
 
     private DropdownField _firstEnemyDropdown;
     private DropdownField _secondEnemyDropdown;
@@ -47,10 +41,9 @@ public class BattleSimulator : EditorWindow
     private List<IntegerField> _fifthEnemyStatsField = new();
     private List<IntegerField> _sixthEnemyStatsField = new();
 
+    private Button _simulateButton; //Used ?
 
-
-
-    private Button _simulateButton;
+    //TODO -> Optimize stored datas
 
     [MenuItem("Tools/Battle Simulator")]
     public static void ShowWindow()
@@ -80,18 +73,12 @@ public class BattleSimulator : EditorWindow
         // root.styleSheets.Add(styleSheet);
 
         // add values in _allies for testing
-
-
-
-
-
         _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
         _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
         _thirdEnemyGroupBox = root.Q<GroupBox>("ThirdEnemy");
         _fourthEnemyGroupBox = root.Q<GroupBox>("FourthEnemy");
         _fifthEnemyGroupBox = root.Q<GroupBox>("FifthEnemy");
         _sixthEnemyGroupBox = root.Q<GroupBox>("SixthEnemy");
-
 
         // get the stats fields for all the enemies
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MaxHp"));
@@ -103,7 +90,6 @@ public class BattleSimulator : EditorWindow
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritRate"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritDamage"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Speed"));
-
 
         _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MaxHp"));
         _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("Atk"));
@@ -155,12 +141,6 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDamage"));
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));
 
-
-
-
-
-
-
         _firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
         _secondEnemyDropdown = root.Q<DropdownField>("second-enemy-dropdown");
         _thirdEnemyDropdown = root.Q<DropdownField>("third-enemy-dropdown");
@@ -175,8 +155,6 @@ public class BattleSimulator : EditorWindow
         _fifthEnemyFoldout = root.Q<Foldout>("fifth-enemy-foldout");
         _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
 
-
-
         // Set Base value for the foldouts
         _firstEnemyFoldout.text = "Enemy Stats";
         _secondEnemyFoldout.text = "Enemy Stats";
@@ -184,9 +162,6 @@ public class BattleSimulator : EditorWindow
         _fourthEnemyFoldout.text = "Enemy Stats";
         _fifthEnemyFoldout.text = "Enemy Stats";
         _sixthEnemyFoldout.text = "Enemy Stats";
-
-
-
     }
 
     public void OnGUI()
@@ -209,8 +184,6 @@ public class BattleSimulator : EditorWindow
             _fifthEnemyDropdown.choices.Add(enemy.Name);
             _sixthEnemyDropdown.choices.Add("No Enemy");
             _sixthEnemyDropdown.choices.Add(enemy.Name);
-
-
         }
 
         // if the dropdown is changed, change the foldout text
@@ -218,9 +191,6 @@ public class BattleSimulator : EditorWindow
         // BattleSystem.Instance.SimulateBattle();
 
         // Set the first enemy stats
-
-
-
     }
 
     private void ChangeFoldoutOnDropdown()
@@ -233,7 +203,6 @@ public class BattleSimulator : EditorWindow
                 _firstEnemyFoldout.text = evt.newValue;
 
                 ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
-
             }
             else
             {
@@ -263,7 +232,6 @@ public class BattleSimulator : EditorWindow
                 _thirdEnemyFoldout.text = evt.newValue;
 
                 ChangeStatsOfEnemy(evt.newValue, _thirdEnemyStatsField);
-
             }
             else
             {
@@ -278,7 +246,6 @@ public class BattleSimulator : EditorWindow
                 _fourthEnemyFoldout.text = evt.newValue;
 
                 ChangeStatsOfEnemy(evt.newValue, _fourthEnemyStatsField);
-
             }
             else
             {
@@ -293,7 +260,6 @@ public class BattleSimulator : EditorWindow
                 _fifthEnemyFoldout.text = evt.newValue;
 
                 ChangeStatsOfEnemy(evt.newValue, _fifthEnemyStatsField);
-
             }
             else
             {
@@ -308,20 +274,16 @@ public class BattleSimulator : EditorWindow
                 _sixthEnemyFoldout.text = evt.newValue;
 
                 ChangeStatsOfEnemy(evt.newValue, _sixthEnemyStatsField);
-
             }
             else
             {
                 _sixthEnemyFoldout.visible = false;
             }
         });
-
-
     }
 
     private void ChangeStatsOfEnemy(string enemyName, List<IntegerField> enemyStatsField)
     {
-
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
         Debug.Log("Enemy : " + enemy.Name);
 
@@ -339,24 +301,13 @@ public class BattleSimulator : EditorWindow
                 }
             }
         }
-
-
-
     }
 
     private void OnInspectorUpdate()
     {
         // EditorGUILayout.Foldout(_firstEnemyFoldout.visible, "First Enemy Foldout");
         this.Repaint();
-
-
-
     }
 
     // create a function to parse the Enemies.csv file and create a list of enemies
-
-
-
-
-
 }
