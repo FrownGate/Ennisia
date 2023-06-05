@@ -258,9 +258,7 @@ public class CSVToSO : EditorWindow
 
         scriptableObject.Type = type;
         // Remove special characters and spaces from the mission name
-        string missionName = rowData["Name"];
-        missionName = Regex.Replace(missionName, @"[^0-9a-zA-Z]+", ""); // Remove non-alphanumeric characters
-        missionName = missionName.Replace(" ", ""); // Remove spaces
+        string missionName = CSVUtils.GetFileName(rowData["Name"]);
 
         string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
