@@ -157,4 +157,30 @@ public class BattleSystem : StateMachine
     {
         return PlayerIsDead() || AllEnemiesDead();
     }
+
+    public void ReduceCooldown()
+    {
+        foreach (var skill in Player.Skills)
+        {
+            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
+        }
+    }
+
+    public void SkillOnTurn(Skill selectedSkill)
+    {
+        float totalDamage = 0;
+        foreach (var skill in Player.Skills)
+        {
+            skill.PassiveBeforeAttack(Enemies, Player, Turn);
+        }
+        totalDamage += selectedSkill.SkillBeforeUse(Targetables, Player, Turn);
+        totalDamage += selectedSkill.Use(Targetables, Player,  Turn);
+        totalDamage += selectedSkill.AdditionalDamage(Targetables, Player, Turn, totalDamage);
+        selectedSkill.SkillAfterDamage(Targetables, Player, Turn, totalDamage);
+
+        foreach (var skill in Player.Skills)
+        {
+            skill.PassiveAfterAttack(Enemies, Player, Turn, totalDamage);
+        }
+    }
 }
