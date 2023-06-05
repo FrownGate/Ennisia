@@ -21,7 +21,6 @@ public class Gear : Item
         Value = SetValue();
         Stack = Id.ToString();
         Amount = 1;
-        //TODO -> Set Category function
 
         AddToInventory();
     }
