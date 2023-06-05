@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
+    //TODO -> use id instead of scenes names if possible
+
     public static ScenesManager Instance { get; private set; }
     public string Params { get; private set; }
 
     private Scene _activeScene;
     private Scene _previousScene;
-    private LoadSceneMode _sceneMode;
+    private LoadSceneMode _sceneMode; //Used ?
     private string _sceneToLoad;
-    private bool _loading;
+    private bool _loading; //Used ?
     public float minLoadingTime = 2f; // Optional: Minimum duration to display the loading screen
 
     private float startTime;
@@ -61,16 +63,13 @@ public class ScenesManager : MonoBehaviour
         {
             case "MainMenu":
             case "Battle":
-                StartCoroutine(Loading(_sceneToLoad));
+                StartCoroutine(Loading());
                 break;
 
             default:
                 SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
                 break;
         }
-
-
-        //
     }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
@@ -103,9 +102,9 @@ public class ScenesManager : MonoBehaviour
         return !string.IsNullOrEmpty(Params);
     }
 
-    private IEnumerator Loading(string scene)
+    private IEnumerator Loading()
     {
-        string loadScene = GetSceneName("LoadingScene");
+        string loadScene = GetSceneName("Loading");
         Debug.Log($"Going to scene {loadScene}");
         startTime = Time.time;
 
@@ -141,26 +140,26 @@ public class ScenesManager : MonoBehaviour
         }
 
         AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-        sceneOperation.allowSceneActivation = false;
+        //sceneOperation.allowSceneActivation = false;
 
+        //TODO -> fix progress bar ui
         while (!sceneOperation.isDone)
         {
             // Update your loading progress UI here (e.g., progress bar, text)
             progressBar.value = sceneOperation.progress;
 
-            if (sceneOperation.progress >= 0.9f)
-            {
-                // Optional: Ensure the loading screen is displayed for a minimum duration
-                float elapsedTime = Time.time - startTime;
-                if (elapsedTime >= minLoadingTime)
-                {
-                    sceneOperation.allowSceneActivation = true; // Activate the  scene
-                }
-            }
+            //if (sceneOperation.progress >= 0.9f)
+            //{
+            //    // Optional: Ensure the loading screen is displayed for a minimum duration
+            //    float elapsedTime = Time.time - startTime;
+
+            //    if (elapsedTime >= minLoadingTime)
+            //    {
+            //        sceneOperation.allowSceneActivation = true; // Activate the  scene
+            //    }
+            //}
 
             yield return null;
         }
     }
-
 }
-

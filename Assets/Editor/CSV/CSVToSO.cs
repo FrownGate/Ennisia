@@ -7,13 +7,13 @@ using System.Text.RegularExpressions;
 
 public class CSVToSO : EditorWindow
 {
-    private static Dictionary<string, List<string>> _equipmentTypes;
+    private static Dictionary<string, List<Item.AttributeStat>> _equipmentTypes;
     private static int _currentLine;
     private static int _lines;
 
     enum TypeCSV
     {
-        supports, enemies, skills, equipment, missions
+        supports, skills, equipment, missions
     }
 
     [MenuItem("Tools/CSV to SO")]
@@ -29,11 +29,6 @@ public class CSVToSO : EditorWindow
         if (GUILayout.Button("Supports"))
         {
             CreateScriptableObjectsFromCSV(TypeCSV.supports, "Supports");
-        }
-        GUILayout.Space(25);
-        if (GUILayout.Button("Enemies"))
-        {
-            CreateScriptableObjectsFromCSV(TypeCSV.enemies, "Enemies");
         }
         GUILayout.Space(25);
         if (GUILayout.Button("Skills"))
@@ -64,7 +59,7 @@ public class CSVToSO : EditorWindow
             {
                 string[] lines = File.ReadAllLines(filePath);
                 _lines = lines.Length;
-                MissionType missionType = GetMissionTypeFromFilePath(filePath);
+                MissionManager.MissionType missionType = GetMissionTypeFromFilePath(filePath);
                 if (lines.Length <= 1)
                 {
                     Debug.LogError($"CSV file '{Path.GetFileName(filePath)}' is empty or missing headers.");
@@ -132,9 +127,6 @@ public class CSVToSO : EditorWindow
                     case TypeCSV.supports:
                         CreateSupportSO(rowData);
                         break;
-                    case TypeCSV.enemies:
-                        CreateEnemySO(rowData);
-                        break;
                     case TypeCSV.skills:
                         CreateSkillDataSO(rowData);
                         break;
@@ -150,24 +142,24 @@ public class CSVToSO : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
-    private MissionType GetMissionTypeFromFilePath(string filePath)
+    private MissionManager.MissionType GetMissionTypeFromFilePath(string filePath)
     {
         // Extract the mission type from the file name (e.g., "Mission-Explore" => "Explore")
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
         string[] parts = fileNameWithoutExtension.Split('-');
         if (parts.Length >= 2)
         {
-            if (Enum.TryParse<MissionType>(parts[1], out MissionType missionType))
+            if (Enum.TryParse(parts[1], out MissionManager.MissionType missionType))
             {
                 return missionType;
             }
         }
-        return MissionType.MainStory;
+        return MissionManager.MissionType.MainStory;
     }
 
     private static void CreateSupportSO(Dictionary<string, string> rowData)
     {
-        SupportsCharactersSO scriptableObject = ScriptableObject.CreateInstance<SupportsCharactersSO>();
+        SupportCharacterSO scriptableObject = CreateInstance<SupportCharacterSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
         scriptableObject.Rarity = rowData["Rarity"];
@@ -181,26 +173,11 @@ public class CSVToSO : EditorWindow
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
-    private static void CreateEnemySO(Dictionary<string, string> rowData)
-    {
-        //EnemiesSO scriptableObject = ScriptableObject.CreateInstance<EnemiesSO>();
-        //scriptableObject.id = int.Parse(rowData["ID"]);
-        //scriptableObject.suppportName = rowData["Name"];
-        //scriptableObject.rarity = rowData["Rarity"];
-        //scriptableObject.race = rowData["Race"];
-        //scriptableObject.supportClass = rowData["Class"];
-        //scriptableObject.passif = int.Parse(rowData["Passif"]);
-        //scriptableObject.skill = int.Parse(rowData["Skill"]);
-        //scriptableObject.description = rowData["Description"].Replace("\"", string.Empty);
-        //scriptableObject.catchPhrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
-
-        //string savePath = $"Assets/Resources/SO/Enemies/{scriptableObject.id}-{scriptableObject.suppportName}.asset";
-        //AssetDatabase.CreateAsset(scriptableObject, savePath);
-    }
+   
 
     private static void CreateSkillDataSO(Dictionary<string, string> rowData)
     {
-        SkillData scriptableObject = ScriptableObject.CreateInstance<SkillData>();
+        SkillSO scriptableObject = CreateInstance<SkillSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["skillName"];
         scriptableObject.Description = rowData["description"].Replace("\"", string.Empty);
@@ -214,7 +191,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.AOE = bool.Parse(rowData["AOE"]);
         scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
 
-        string savePath = $"Assets/Resources/SO/Skills/{scriptableObject.Name.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty).Replace("'", string.Empty)}.asset";
+        string savePath = $"Assets/Resources/SO/Skills/{CSVUtils.GetFileName(scriptableObject.Name)}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
@@ -224,18 +201,18 @@ public class CSVToSO : EditorWindow
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
         {
-            _equipmentTypes[rowData["type"]] = new List<string> { rowData["attribute"].Replace(" ", string.Empty) };
+            _equipmentTypes[rowData["type"]] = new List<Item.AttributeStat> { Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(rowData["attribute"])) };
         }
         else
         {
-            _equipmentTypes[rowData["type"]].Add(rowData["attribute"].Replace(" ", string.Empty));
+            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(rowData["attribute"])));
         }
 
         if (_currentLine == _lines)
         {
-            foreach (KeyValuePair<string, List<string>> type in _equipmentTypes)
+            foreach (KeyValuePair<string, List<Item.AttributeStat>> type in _equipmentTypes)
             {
-                EquipmentAttributeSO attributeSO = CreateInstance<EquipmentAttributeSO>();
+                EquipmentAttributesSO attributeSO = CreateInstance<EquipmentAttributesSO>();
                 attributeSO.Attributes = type.Value;
 
                 string savePath = $"Assets/Resources/SO/EquipmentStats/Attributes/{type.Key}.asset";
@@ -245,7 +222,7 @@ public class CSVToSO : EditorWindow
 
         for (int i = 0; i < rarities.Length; i++)
         {
-            EquipmentValueSO valueSO = CreateInstance<EquipmentValueSO>();
+            StatMinMaxValuesSO valueSO = CreateInstance<StatMinMaxValuesSO>();
             valueSO.MinValue = int.Parse(rowData[$"{rarities[i].ToLower()}Min"]);
             valueSO.MaxValue = int.Parse(rowData[$"{rarities[i].ToLower()}Max"]);
 
@@ -253,10 +230,10 @@ public class CSVToSO : EditorWindow
             AssetDatabase.CreateAsset(valueSO, savePath);
         }
     }
-    private static void CreateMissionSO(Dictionary<string, string> rowData,MissionType type)
+    private static void CreateMissionSO(Dictionary<string, string> rowData, MissionManager.MissionType type)
     {
-        MissionSO scriptableObject = ScriptableObject.CreateInstance<MissionSO>();
-        scriptableObject.ID = int.Parse(rowData["ID"]);
+        MissionSO scriptableObject = CreateInstance<MissionSO>();
+        scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
         scriptableObject.EnergyCost = int.Parse(rowData["EnergyCost"]);
         scriptableObject.Unlocked = rowData["Unlocked"] == "VRAI";
@@ -276,15 +253,14 @@ public class CSVToSO : EditorWindow
         scriptableObject.WavesCount = waveCount;
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
-        scriptableObject.ChapID = int.Parse(rowData["IDChap"]);
+        scriptableObject.ChapterId = int.Parse(rowData["IDChapter"]);
+        scriptableObject.NumInChapter = int.Parse(rowData["Num"]);
 
         scriptableObject.Type = type;
         // Remove special characters and spaces from the mission name
-        string missionName = rowData["Name"];
-        missionName = Regex.Replace(missionName, @"[^0-9a-zA-Z]+", ""); // Remove non-alphanumeric characters
-        missionName = missionName.Replace(" ", ""); // Remove spaces
+        string missionName = CSVUtils.GetFileName(rowData["Name"]);
 
-        string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapID}-{missionName}.asset";
+        string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 

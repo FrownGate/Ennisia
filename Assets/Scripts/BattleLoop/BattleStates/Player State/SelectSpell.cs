@@ -13,11 +13,12 @@ public class SelectSpell : PlayerTurn
     public override IEnumerator Start()
     {
         Skill selectedSkill = BattleSystem.GetSelectedSkill(ButtonId);
-        BattleSystem.dialogueText.text = "Select a spell";
-        Debug.Log("You choose : " + BattleSystem.Allies[0].Skills[ButtonId].FileName);
+        BattleSystem.DialogueText.text = "Select a spell";
+
+        Debug.Log("You choose : " + BattleSystem.Player.Skills[ButtonId].FileName);
         Debug.Log("Number : " + ButtonId);
+
         BattleSystem.SetState(new SelectTarget(BattleSystem,selectedSkill ));
         yield break;
-        
     }
 }

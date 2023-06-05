@@ -9,7 +9,7 @@ public class ExperienceSystem : MonoBehaviour
     public Text ExpText; // Référence au texte de l'expérience
     public Text LevelText; // Référence au texte du niveau
 
-    [SerializeField] private int experienceToAdd = 5; // Montant d'expérience à ajouter lorsque le bouton est cliqué
+    [SerializeField] private int _expToAdd = 5; // Montant d'expérience à ajouter lorsque le bouton est cliqué
 
     private int _level = 1;
     private int _experience = 0;
@@ -28,7 +28,7 @@ public class ExperienceSystem : MonoBehaviour
             return;
         }
 
-        _experience += experienceToAdd; // Ajoute l'expérience spécifiée
+        _experience += _expToAdd; // Ajoute l'expérience spécifiée
 
         while (_levelExperienceMap.ContainsKey(_level + 1) && _experience >= _levelExperienceMap[_level + 1])
         {
@@ -41,6 +41,7 @@ public class ExperienceSystem : MonoBehaviour
 
     private void LoadLevelExperienceMap()
     {
+        //TODO -> Use CSVUtils
         _levelExperienceMap = new Dictionary<int, int>();
 
         string filePath = Path.Combine(Application.dataPath, "Editor/CSV/PlayerXpCSVExport.csv");

@@ -1,19 +1,19 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Mission", menuName = "Game/Mission")]
+[CreateAssetMenu(fileName = "New Mission", menuName = "Ennisia/Mission")]
 public class MissionSO : ScriptableObject
 {
-    public int ID;
+    public int Id;
     public string Name;
-    public MissionType Type;
-    public MissionState State;
+    public MissionManager.MissionType Type;
+    public MissionManager.MissionState State;
     public int EnergyCost;
     public bool Unlocked;
     public Dictionary<int,string> Waves;
     public int WavesCount;
     public int DialogueId;
-    public int ChapID;
+    public int ChapterId;
+    public int NumInChapter;
     // Add additional mission data as needed
 }

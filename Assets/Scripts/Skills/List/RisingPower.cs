@@ -8,7 +8,7 @@ public class RisingPower : Skill
         float attackBuffRatio = AttackBaseRatio + (StatUpgrade1 * Level);
         float attackBuff;
         /*if(weapon != two-handed sword)*/
-        if (player.WeaponSO.weaponType != 0)
+        if (player.WeaponSO.Type != 0)
         {
             attackBuff = player.Attack * attackBuffRatio;
         }else

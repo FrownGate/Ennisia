@@ -13,7 +13,7 @@ public class Alchemy : Skill
     {
         if (turn %2 == 0)
         {
-            player.WeaponSO._skill2.Cooldown -= 1;
+            player.Skills[2].Cooldown -= 1;
         }
     }
 }
