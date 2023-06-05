@@ -7,19 +7,38 @@ public class Item
 {
     public enum ItemRarity
     {
-        Null, Common, Rare, Epic, Legendary
+        Common, Rare, Epic, Legendary
     }
 
-    public enum MaterialType
+    public enum ItemCategory
     {
-        Null, Weapon, Gear, Accessory
+        Weapon, Armor, Accessory
     }
 
-    [NonSerialized] public string Stack;
-    [NonSerialized] public string Name;
-    [NonSerialized] public int Amount; //Amount of item to add
-    public ItemRarity Rarity;
-    public MaterialType Type;
+    public enum GearType
+    {
+        Helmet, Chest, Boots, Earrings, Necklace, Ring,
+        Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
+    }
+
+    public enum AttributeStat
+    {
+        PhysicalDamages, MagicalDamages, Attack, HP, Defense, CritRate, CritDmg, Speed
+    }
+
+    public string Stack;
+    public string Name;
+    public int Amount; //Amount of item to add
+    public ItemRarity? Rarity;
+    public ItemCategory? Category;
+    public GearType? Type;
+    public AttributeStat? Attribute;
+
+    //Json Utility
+    public string JsonRarity;
+    public string JsonCategory;
+    public string JsonType;
+    public string JsonAttribute;
 
     //TODO -> Remove item if amount == 0
 
@@ -47,6 +66,22 @@ public class Item
 
             inventory[GetType().Name].Add(this);
         }
+    }
+
+    public void Serialize()
+    {
+        JsonRarity = Rarity.ToString();
+        JsonCategory = Category.ToString();
+        JsonType = Type.ToString();
+        JsonAttribute = Attribute.ToString();
+    }
+
+    public void Deserialize()
+    {
+        Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<ItemRarity>(JsonRarity);
+        Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
+        Type = string.IsNullOrEmpty(JsonType) ? null : Enum.Parse<GearType>(JsonType);
+        Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<AttributeStat>(JsonAttribute);
     }
 
     protected virtual void SetName() { }

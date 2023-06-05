@@ -12,13 +12,14 @@ public class SelectTarget : State
 
     public override IEnumerator Start()
     {
-        BattleSystem.dialogueText.text = "You choose " + _selectedSkill;
+        BattleSystem.DialogueText.text = "You choose " + _selectedSkill;
         yield return new WaitForSeconds(1.0f);
     }
 
     public override IEnumerator Attack()
     {
         float totalDamage = 0;
+
         // Check if Player is not null
         /*if (BattleSystem.Player == null)
         {
@@ -37,37 +38,42 @@ public class SelectTarget : State
         //Attack Button
         if (BattleSystem.Targetables.Count == 0)
         {
-            BattleSystem.dialogueText.text = "No targets selected";
+            BattleSystem.DialogueText.text = "No targets selected";
+            yield break;
+        }
+        if (_selectedSkill.Cooldown > 0)
+        {
+            BattleSystem.DialogueText.text = "Skill in Cooldown";
             yield break;
         }
 
+        _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
 
-        _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn);
 
-
-        /*foreach (var skill in BattleSystem.Allies[0].Skills)
+        foreach (var skill in BattleSystem.Player.Skills)
         {
-            skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn);
+            skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Player, BattleSystem.Turn);
         }
-        totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].SkillBeforeUse(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn);
-        totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].Use(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn);
-        totalDamage += BattleSystem.Allies[0].Skills[_spellNumber].AdditionalDamage(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
-        BattleSystem.Allies[0].Skills[_spellNumber].SkillAfterDamage(BattleSystem.Targetables, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
-        //skill after Attack
+        totalDamage += _selectedSkill.SkillBeforeUse(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
+        totalDamage += _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
+        totalDamage += _selectedSkill.AdditionalDamage(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn, totalDamage);
+        _selectedSkill.SkillAfterDamage(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn, totalDamage);
 
-        foreach (var skill in BattleSystem.Allies[0].Skills)        
+        foreach (var skill in BattleSystem.Player.Skills)        
         {
-            skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Allies[0], BattleSystem.turn, totalDamage);
-        }*/
+            skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Player, BattleSystem.Turn, totalDamage);
+            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
+        }
         Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
-        BattleSystem.Targetables.Clear();
-        BattleSystem._selected = false;
 
-        yield return new WaitForSeconds(0.5f);
+        BattleSystem.Targetables.Clear();
+        BattleSystem.Selected = false;
+
+        yield return new WaitForSeconds(0.5f); //TODO -> remove this wait on battle simulation
 
         BattleSystem.RemoveDeadEnemies();
 
-        if (BattleSystem.Enemies.Count == 0)
+        if (BattleSystem.Enemies.Count == 0) //TODO -> use BattleSystem.AllEnemiesDead()
         {
             BattleSystem.SetState(new Won(BattleSystem));
 

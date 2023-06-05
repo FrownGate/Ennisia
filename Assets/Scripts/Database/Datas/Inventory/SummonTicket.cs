@@ -5,9 +5,9 @@ public class SummonTicket : Item
 {
     public SummonTicket() { }
 
-    public SummonTicket(int rarity, int amount = 1)
+    public SummonTicket(ItemRarity rarity, int amount = 1)
     {
-        Rarity = (ItemRarity)rarity;
+        Rarity = rarity;
         Stack = Rarity.ToString();
         Amount = amount;
 
@@ -17,6 +17,7 @@ public class SummonTicket : Item
     public SummonTicket(InventoryItem item)
     {
         SummonTicket summonTicket = JsonUtility.FromJson<SummonTicket>(item.DisplayProperties.ToString());
+        summonTicket.Deserialize();
 
         Stack = item.StackId;
         Amount = (int)item.Amount;

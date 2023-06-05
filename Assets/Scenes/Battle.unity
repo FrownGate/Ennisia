@@ -317,6 +317,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 308558579533809490, guid: 08218f0fc58420a4c994616c712a2196, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 478278502886424693, guid: 08218f0fc58420a4c994616c712a2196, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -498,6 +502,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de67527f20dbfba419777314104fabef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &446692070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4144745397060242780, guid: 08218f0fc58420a4c994616c712a2196, type: 3}
+  m_PrefabInstance: {fileID: 365148048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &472326258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1016,6 +1025,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1208787520}
     - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: WonPopUp
+      value: 
+      objectReference: {fileID: 546398871}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: LostPopUp
+      value: 
+      objectReference: {fileID: 1294023701}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
       propertyPath: _wonPopUp
       value: 
       objectReference: {fileID: 546398871}
@@ -1023,6 +1040,10 @@ PrefabInstance:
       propertyPath: _lostPopUp
       value: 
       objectReference: {fileID: 1294023701}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: DialogueText
+      value: 
+      objectReference: {fileID: 939390321}
     - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
       propertyPath: EnemyStation
       value: 
@@ -1035,6 +1056,46 @@ PrefabInstance:
       propertyPath: PlayerStation
       value: 
       objectReference: {fileID: 105432496}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: _firstSupport
+      value: 
+      objectReference: {fileID: 986474581}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: _secondSupport
+      value: 
+      objectReference: {fileID: 1208787520}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: SkillsButton.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: _skillsButtons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: SkillsButton.Array.data[0]
+      value: 
+      objectReference: {fileID: 1581758378}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: SkillsButton.Array.data[1]
+      value: 
+      objectReference: {fileID: 446692070}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: SkillsButton.Array.data[2]
+      value: 
+      objectReference: {fileID: 1989777507}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: _skillsButtons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1581758378}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: _skillsButtons.Array.data[1]
+      value: 
+      objectReference: {fileID: 446692070}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: _skillsButtons.Array.data[2]
+      value: 
+      objectReference: {fileID: 1989777507}
     - target: {fileID: 7252963842459278109, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
       propertyPath: m_Name
       value: BattleSystem
@@ -1742,6 +1803,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
+--- !u!1 &1581758378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 408137844913865763, guid: 08218f0fc58420a4c994616c712a2196, type: 3}
+  m_PrefabInstance: {fileID: 365148048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1643343030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,7 +2029,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 410500885}
         m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
-        m_MethodName: ReStart
+        m_MethodName: InitBattle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2083,4 +2149,9 @@ Transform:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2962257826348746222, guid: 92660d17eb611324083a99323c8f7ff0, type: 3}
   m_PrefabInstance: {fileID: 1381220655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1989777507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1911114085256373126, guid: 08218f0fc58420a4c994616c712a2196, type: 3}
+  m_PrefabInstance: {fileID: 365148048}
   m_PrefabAsset: {fileID: 0}
