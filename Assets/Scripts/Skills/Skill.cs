@@ -12,6 +12,7 @@ public abstract class Skill
 
     public Skill()
     {
+        Debug.Log("creating skill");
         FileName = GetType().Name;
         Data = Resources.Load<SkillSO>("SO/Skills/" + FileName);
     }

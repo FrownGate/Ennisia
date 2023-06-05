@@ -6,9 +6,9 @@ public class Won : State
 
     public override IEnumerator Start()
     {
-        foreach (var skill in BattleSystem.Allies[0].Skills)
+        foreach (var skill in BattleSystem.Player.Skills)
         {
-            skill.TakeOffStats(BattleSystem.Enemies, BattleSystem.Allies[0], 0); // constant passive at battle end
+            skill.TakeOffStats(BattleSystem.Enemies, BattleSystem.Player, 0); // constant passive at battle end
         }
 
         BattleSystem.SetSkillButtonsActive(false);
