@@ -2,9 +2,10 @@ using System.Collections.Generic;
 
 public class Alchemy : Skill
 {
+    public float magicAtkBaseRatio;
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
-        float MRatioBuff = player.MagicAtk * 0.5f;
+        float MRatioBuff = player.MagicAtk * (magicAtkBaseRatio + StatUpgrade1 * Level);
         player.MagicAtk += MRatioBuff;
     }
 

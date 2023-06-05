@@ -405,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1277229218
 Transform:
   m_ObjectHideFlags: 0
@@ -435,7 +435,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _legendaryChance: 0.5
   _epicChance: 9.5
-  _rareChance: 90
   _cost: 100
   _fragmentsPerDuplicate: 10
   _rareFragmentsMultiplier: 1
