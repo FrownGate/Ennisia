@@ -122,8 +122,8 @@ public class SummonSystem : MonoBehaviour
             _fragmentsMultiplier = _epicFragmentsMultiplier;
         }
 
-        SupportsCharactersSO[] gachaPool = Resources.LoadAll<SupportsCharactersSO>($"SO/SupportsCharacter/{pickedRarity}");
-        int characterRoll = random.Next(gachaPool.Length);
+        SupportCharacterSO[] gachaPool = Resources.LoadAll<SupportCharacterSO>($"SO/SupportsCharacter/{pickedRarity}");
+        int characterRoll = random.Next(1, gachaPool.Length);
         Debug.Log($"character roll : {characterRoll}");
         return gachaPool[characterRoll - 1];
     }
