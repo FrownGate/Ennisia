@@ -16,6 +16,7 @@ public class Gear : Item
         Type = type;
         Rarity = rarity;
         Description = "";
+        Category = SetCategory();
         Attribute = SetAttribute();
         Value = SetValue();
         Stack = Id.ToString();
@@ -52,9 +53,15 @@ public class Gear : Item
         }
     }
 
+    private ItemCategory SetCategory()
+    {
+        if ((int)Type < 3) return ItemCategory.Armor;
+        else if ((int)Type < 6) return ItemCategory.Accessory;
+        else return ItemCategory.Weapon;
+    }
+
     private AttributeStat SetAttribute()
     {
-        //TODO -> save attributes as int in csv and add function to return attribute name
         List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
