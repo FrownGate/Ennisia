@@ -6,9 +6,22 @@ using UnityEngine.UIElements;
 public class BattleSimulator : EditorWindow
 {
     public static BattleSystem Instance;
-    private List<string> _allies = new(); //Used ?
+    private List<SupportCharacterSO> _supports = new();
     private List<Enemy> _enemies = new();
-    private DropdownField _alliesDropdown; //Used ?
+    private DropdownField _playerDropdown; //Used ?
+
+    // SUPPORTS
+    private GroupBox _firstSupportGroupBox;
+    private GroupBox _secondSupportGroupBox;
+
+    private DropdownField _firstSupportDropdown;
+    private DropdownField _secondSupportDropdown;
+    private Foldout _firstSupportFoldout;
+    private Foldout _secondSupportFoldout;
+    private readonly List<TextField> _firstSupportStatsField = new();
+    private readonly List<TextField> _secondSupportStatsField = new();
+
+
 
     // ENEMIES
     private GroupBox _firstEnemyGroupBox;
@@ -18,8 +31,6 @@ public class BattleSimulator : EditorWindow
     private GroupBox _fifthEnemyGroupBox;
     private GroupBox _sixthEnemyGroupBox;
 
-    // create a dictionary of stats for the enemies
-    private Dictionary<string, int> _firstEnemyStats = new(); //Used ?
 
     private DropdownField _firstEnemyDropdown;
     private DropdownField _secondEnemyDropdown;
@@ -34,16 +45,16 @@ public class BattleSimulator : EditorWindow
     private Foldout _fifthEnemyFoldout;
     private Foldout _sixthEnemyFoldout;
 
-    private List<IntegerField> _firstEnemyStatsField = new();
-    private List<IntegerField> _secondEnemyStatsField = new();
-    private List<IntegerField> _thirdEnemyStatsField = new();
-    private List<IntegerField> _fourthEnemyStatsField = new();
-    private List<IntegerField> _fifthEnemyStatsField = new();
-    private List<IntegerField> _sixthEnemyStatsField = new();
+    private readonly List<IntegerField> _firstEnemyStatsField = new();
+    private readonly List<IntegerField> _secondEnemyStatsField = new();
+    private readonly List<IntegerField> _thirdEnemyStatsField = new();
+    private readonly List<IntegerField> _fourthEnemyStatsField = new();
+    private readonly List<IntegerField> _fifthEnemyStatsField = new();
+    private readonly List<IntegerField> _sixthEnemyStatsField = new();
 
     private Button _simulateButton; //Used ?
 
-    //TODO -> Optimize stored datas
+    //TODO: -> Optimize stored datas
 
     [MenuItem("Tools/Battle Simulator")]
     public static void ShowWindow()
@@ -69,10 +80,27 @@ public class BattleSimulator : EditorWindow
         TemplateContainer labelFromUXML = visualTree.CloneTree();
         root.Add(labelFromUXML);
 
-        // StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/BattleLoop/BattleSimulator.uss");
-        // root.styleSheets.Add(styleSheet);
+        _firstSupportGroupBox = root.Q<GroupBox>("FirstSupport");
+        _secondSupportGroupBox = root.Q<GroupBox>("SecondSupport");
 
-        // add values in _allies for testing
+        _firstSupportStatsField.Add(_firstSupportGroupBox.Q<TextField>("Skill1"));
+        _firstSupportStatsField.Add(_firstSupportGroupBox.Q<TextField>("Skill2"));
+
+        _secondSupportStatsField.Add(_secondSupportGroupBox.Q<TextField>("Skill1"));
+        _secondSupportStatsField.Add(_secondSupportGroupBox.Q<TextField>("Skill2"));
+
+        _firstSupportDropdown = root.Q<DropdownField>("first-support-dropdown");
+        _secondSupportDropdown = root.Q<DropdownField>("second-support-dropdown");
+
+        _firstSupportFoldout = root.Q<Foldout>("first-support-foldout");
+        _secondSupportFoldout = root.Q<Foldout>("second-support-foldout");
+
+        // Set Base value for the foldouts
+        _firstSupportFoldout.text = "Support Skills";
+        _secondSupportFoldout.text = "Support Skills";
+
+
+
         _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
         _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
         _thirdEnemyGroupBox = root.Q<GroupBox>("ThirdEnemy");
@@ -169,7 +197,6 @@ public class BattleSimulator : EditorWindow
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
-        // TODO: add enemies to dropdown
         foreach (Enemy enemy in _enemies)
         {
             _firstEnemyDropdown.choices.Add("No Enemy");
@@ -186,15 +213,53 @@ public class BattleSimulator : EditorWindow
             _sixthEnemyDropdown.choices.Add(enemy.Name);
         }
 
-        // if the dropdown is changed, change the foldout text
-        ChangeFoldoutOnDropdown();
-        // BattleSystem.Instance.SimulateBattle();
+        _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
 
-        // Set the first enemy stats
+        foreach (SupportCharacterSO support in _supports)
+        {
+            _firstSupportDropdown.choices.Add("No Support");
+            _firstSupportDropdown.choices.Add(support.Name);
+            _secondSupportDropdown.choices.Add("No Support");
+            _secondSupportDropdown.choices.Add(support.Name);
+        }
+
+
+
+        ChangeFoldoutOnDropdown();
     }
 
     private void ChangeFoldoutOnDropdown()
     {
+        _firstSupportDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Support")
+            {
+                _firstSupportFoldout.visible = true;
+                _firstSupportFoldout.text = evt.newValue;
+
+                ChangeSkillOfSupport(evt.newValue, _firstSupportStatsField);
+            }
+            else
+            {
+                _firstSupportFoldout.visible = false;
+            }
+        });
+
+        _secondEnemyDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Support")
+            {
+                _secondSupportFoldout.visible = true;
+                _secondSupportFoldout.text = evt.newValue;
+
+                ChangeSkillOfSupport(evt.newValue, _secondSupportStatsField);
+            }
+            else
+            {
+                _secondSupportFoldout.visible = false;
+            }
+        });
+
         _firstEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -303,11 +368,21 @@ public class BattleSimulator : EditorWindow
         }
     }
 
-    private void OnInspectorUpdate()
+    private void ChangeSkillOfSupport(string supportName, List<TextField> supportStatsField)
     {
-        // EditorGUILayout.Foldout(_firstEnemyFoldout.visible, "First Enemy Foldout");
-        this.Repaint();
+        SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
+        Debug.Log("Support : " + support.Name);
+
+        // set the fields to the name of the skills
+
+        // TODO: -> Set the fields to the name of the skills
+        // Waiting the empowering of the SupportCharacterSO to have the IDs of the skills
+        // -> Use the IDs to get the name of the skills
+        
     }
 
-    // create a function to parse the Enemies.csv file and create a list of enemies
+    private void OnInspectorUpdate()
+    {
+        this.Repaint();
+    }
 }
