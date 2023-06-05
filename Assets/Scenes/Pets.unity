@@ -1806,7 +1806,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OriginPets: {fileID: 734441622}
-  Spawn: {fileID: 734441623}
 --- !u!114 &734441627
 MonoBehaviour:
   m_ObjectHideFlags: 0
