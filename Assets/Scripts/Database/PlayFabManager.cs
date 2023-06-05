@@ -8,6 +8,7 @@ using PlayFab.DataModels;
 using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class PlayFabManager : MonoBehaviour
         public int Initial;
     }
 
-    private Data[] _datas;
+    private Dictionary<string, Data> _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -144,14 +145,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginRequestSuccess(LoginResult result)
     {
         Debug.Log("Login request success !");
-        string username = CreateUsername();
-
-        _datas = new Data[3]
-        {
-            Account = new AccountData(username),
-            Player = new PlayerData(),
-            Inventory = new InventoryData()
-        };
+        CreateLocalData(CreateUsername());
 
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
@@ -165,6 +159,20 @@ public class PlayFabManager : MonoBehaviour
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
+    }
+
+    private void CreateLocalData(string username)
+    {
+        Account = new AccountData(username);
+        Player = new PlayerData();
+        Inventory = new InventoryData();
+
+        _datas = new()
+        {
+            [Account.GetName()] = Account,
+            [Player.GetName()] = Player,
+            [Inventory.GetName()] = Inventory
+        };
     }
 
     private void OnLoginRequestError(PlayFabError error)
@@ -303,16 +311,16 @@ public class PlayFabManager : MonoBehaviour
 
     private void UpdateData()
     {
-        List<SetObject> data = new();
+        List<SetObject> objects = new();
 
-        for (int i = 0; i < _datas.Length; i++)
+        foreach (KeyValuePair<string, Data> data in _datas)
         {
-            data.Add(_datas[i].Serialize());
+            objects.Add(data.Value.Serialize());
         }
 
         PlayFabDataAPI.SetObjects(new SetObjectsRequest
         {
-            Objects = data,
+            Objects = objects,
             Entity = new()
             {
                 Id = Entity.Id,
@@ -339,18 +347,24 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnDataObtained(GetObjectsResponse response)
     {
-        try
+        bool DataIsUpdated = true;
+
+        foreach (KeyValuePair<string, Data> data in _datas)
         {
-            for (int i = 0; i < _datas.Length; i++)
+            if (!response.Objects.ContainsKey(data.Key))
             {
-                _datas[i].UpdateLocalData(response.Objects[_datas[i].GetName()].EscapedDataObject);
+                DataIsUpdated = false;
+                continue;
             }
 
+            _datas[data.Key].UpdateLocalData(response.Objects[data.Key].EscapedDataObject);
         }
-        catch
+
+        if (!DataIsUpdated)
         {
             Debug.LogWarning("data missing - creating missing ones...");
             UpdateData();
+            return;
         }
 
         CompleteLogin();
