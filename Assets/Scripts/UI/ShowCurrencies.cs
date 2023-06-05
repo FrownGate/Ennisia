@@ -24,6 +24,8 @@ public class ShowCurrencies : MonoBehaviour
             TextMeshProUGUI text = currencyObject.GetComponentInChildren<TextMeshProUGUI>();
             text.text = currency.Value.ToString(); //TODO -> crop currency amount if too big
 
+            //TODO -> Change sprite depending on currency name
+
             position += 180;
         }
     }
