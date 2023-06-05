@@ -1,25 +1,28 @@
 using PlayFab.EconomyModels;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Gear : Item
 {
-    [NonSerialized] public int Id;
-    [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
+    public int Id;
+    public string Icon; //TODO -> create function to return icon path with name
     public float Value;
     public string Description;
+    public int Level;
+    public float StatUpgrade;
+    public float RatioUpgrade;
 
     public Gear(GearType type, ItemRarity rarity)
     {
         Id = SetId();
+        Stack = Id.ToString();
         Type = type;
         Rarity = rarity;
         Description = "";
         Category = SetCategory();
         Attribute = SetAttribute();
         Value = SetValue();
-        Stack = Id.ToString();
+        Level = 1;
         Amount = 1;
 
         AddToInventory();
@@ -34,8 +37,12 @@ public class Gear : Item
         Stack = item.StackId;
         Type = gear.Type;
         Rarity = gear.Rarity;
+        Description = gear.Description;
+        Category = gear.Category;
         Attribute = gear.Attribute;
         Value = gear.Value;
+        Level = gear.Level;
+        Amount = gear.Amount;
 
         AddToInventory();
     }
@@ -74,5 +81,28 @@ public class Gear : Item
     protected override void SetName()
     {
         Name = $"[{Rarity}] {Type}";
+    }
+
+    public void Upgrade()
+    {
+        if (Level <= 50)
+        {
+            Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
+        }
+        else { }
+    }
+
+    public void Upgrade(int _level)
+    {
+        if (_level <= 50)
+        {
+            Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
+        }
+        else { }
+    }
+
+    public void Equip()
+    {
+        //TODO -> Set EquippedGear SO datas
     }
 }
