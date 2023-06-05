@@ -14,5 +14,6 @@ public class MissionSO : ScriptableObject
     public int WavesCount;
     public int DialogueId;
     public int ChapterId;
+    public int NumInChapter;
     // Add additional mission data as needed
 }

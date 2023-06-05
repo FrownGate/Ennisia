@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 public static class CSVUtils
 {
@@ -35,6 +36,8 @@ public static class CSVUtils
 
     public static string GetFileName(string name)
     {
-        return name.Replace(" ", string.Empty).Replace("\u2019", string.Empty).Replace("!", string.Empty).Replace("'", string.Empty);
+        name = Regex.Replace(name, @"[^0-9a-zA-Z]+", ""); // Remove non-alphanumeric characters
+        name = name.Replace(" ", ""); // Remove spaces
+        return name;
     }
 }
