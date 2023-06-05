@@ -44,6 +44,7 @@ public class PlayFabManager : MonoBehaviour
     private bool _currencyAdded;
 
     //TODO -> update items
+    //TODO -> use Player Datas for Supports instead ?
 
     #region 1 - Login
     //HasLocalSave -> Login
@@ -480,7 +481,7 @@ public class PlayFabManager : MonoBehaviour
 
         foreach (SupportData support in Inventory.Supports)
         {
-            supports[support.Id] = support.Level;
+            supports[support.Id] = support.Lvl;
         }
 
         return supports;
@@ -505,7 +506,7 @@ public class PlayFabManager : MonoBehaviour
             supports.Add(new()
             {
                 Id = support.Key,
-                Level = support.Value
+                Lvl = support.Value
             });
         }
 
