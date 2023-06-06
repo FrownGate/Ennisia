@@ -25,4 +25,5 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
+  IsPassive: 0
   Icon: {fileID: 0}

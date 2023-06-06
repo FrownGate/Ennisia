@@ -45,8 +45,11 @@ EditorBuildSettings:
     path: Assets/Scenes/ProfilePopup.unity
     guid: a2d12d7d40bbbb945a67991d2cf73c6b
   - enabled: 1
-    path: Assets/Scenes/Loading.unity
+    path: Assets/Scenes/Loading_Big.unity
     guid: 19f45cabb60b2e643838eaa7a7879245
+  - enabled: 1
+    path: Assets/Scenes/Loading_Mini.unity
+    guid: 1a8dc37abfb99c54987e098715972d00
   - enabled: 1
     path: Assets/Scenes/Missions/StoryChapter.unity
     guid: 724968815362d7c4688de4df3987eb20

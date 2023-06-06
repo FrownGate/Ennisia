@@ -112,27 +112,28 @@ public class ScenesManager : MonoBehaviour
 
     private void BigLoading()
     {
-        SceneManager.LoadSceneAsync("Loading", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("Loading_Big", LoadSceneMode.Additive);
     }
 
     private void MiniLoading()
     {
-        SceneManager.LoadSceneAsync("LoadingPopup", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("Loading_Mini", LoadSceneMode.Additive);
     }
 
     private void StopLoading()
     {
-        if (SceneManager.GetSceneByName("Loading").isLoaded) SceneManager.UnloadSceneAsync("Loading");
-        if (SceneManager.GetSceneByName("LoadingPopup").isLoaded) SceneManager.UnloadSceneAsync("LoadingPopup");
+        if (SceneManager.GetSceneByName("Loading_Big").isLoaded) SceneManager.UnloadSceneAsync("Loading_Big");
+        if (SceneManager.GetSceneByName("Loading_Mini").isLoaded) SceneManager.UnloadSceneAsync("Loading_Mini");
     }
 
     private IEnumerator Loading()
     {
-        string loadScene = GetSceneName("Loading");
+        //TODO -> Replace AsyncOperation with events ?
+        string loadScene = GetSceneName("Loading_Big");
         Debug.Log($"Going to scene {loadScene}");
         startTime = Time.time;
 
-        AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene);
+        AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
 
         while (!loadingScreenOperation.isDone)
         {

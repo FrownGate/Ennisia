@@ -190,6 +190,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.IsAfter = bool.Parse(rowData["isAfter"]);
         scriptableObject.AOE = bool.Parse(rowData["AOE"]);
         scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
+        scriptableObject.IsPassive = bool.Parse(rowData["isPassive"]);
 
         string savePath = $"Assets/Resources/SO/Skills/{CSVUtils.GetFileName(scriptableObject.Name)}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
