@@ -2,21 +2,17 @@ using System.Collections.Generic;
 
 public class RampantAssault : Skill
 {
-    private const float _percentagePerTurn = 0.05f;
+    public float targetMaxHpBaseRatio;
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        //damageModifier = target.MaxHp * _damagePercentage;
-        float percOfAddDamage = _percentagePerTurn * turn;
+        DamageModifier = targets[0].MaxHp * (targetMaxHpBaseRatio * StatUpgrade1 * Level);
+        float percOfAddDamage = StatUpgrade2 * turn;
 
-        percOfAddDamage = percOfAddDamage > 0.5f ? 0.5f : percOfAddDamage;
-
-        if (percOfAddDamage > 0.5f)
-        {
-            percOfAddDamage = 0.5f;
-        }
+        percOfAddDamage = percOfAddDamage > (percOfAddDamage*5) ? (percOfAddDamage*5) : percOfAddDamage;
 
         float damagePerTurn = DamageModifier * percOfAddDamage;
-        return  DamageModifier += damagePerTurn;
+        DamageModifier += damagePerTurn;
+        return  0;
     }
 }

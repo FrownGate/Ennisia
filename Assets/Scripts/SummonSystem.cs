@@ -123,7 +123,7 @@ public class SummonSystem : MonoBehaviour
         }
 
         SupportCharacterSO[] gachaPool = Resources.LoadAll<SupportCharacterSO>($"SO/SupportsCharacter/{pickedRarity}");
-        int characterRoll = random.Next(gachaPool.Length);
+        int characterRoll = random.Next(1, gachaPool.Length);
         Debug.Log($"character roll : {characterRoll}");
         return gachaPool[characterRoll - 1];
     }

@@ -1069,15 +1069,15 @@ RectTransform:
   m_LocalScale: {x: 1.0000799, y: 1.0000799, z: 1.0000799}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 122034088}
-  - {fileID: 2083725678}
   - {fileID: 764352943}
+  - {fileID: 122034088}
   - {fileID: 834442803}
-  - {fileID: 731603101}
   - {fileID: 1600672544}
   - {fileID: 152786566}
-  - {fileID: 1963191066}
+  - {fileID: 2083725678}
   - {fileID: 431863634}
+  - {fileID: 1963191066}
+  - {fileID: 731603101}
   m_Father: {fileID: 1519403130}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1329,7 +1329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8108511970213306214, guid: a58d676930ead5847a3ad884d9a21977, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 419
+      value: 436.72
       objectReference: {fileID: 0}
     - target: {fileID: 8108511970213306214, guid: a58d676930ead5847a3ad884d9a21977, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
