@@ -57,8 +57,8 @@ public class InventoryData
 
         foreach (Item item in Items[itemToGet.GetType().Name])
         {
-            if (type != null && type != item.Category) continue;
-            if (rarity != null && rarity != item.Rarity) continue;
+            if (type != item.Category) continue;
+            if (rarity != item.Rarity) continue;
 
             Debug.Log("Item found !");
 

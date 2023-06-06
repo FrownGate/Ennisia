@@ -568,7 +568,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void UpdateItem(Item item)
     {
-        if (!Data.Inventory.HasItem(item))
+        if (item == null || !Data.Inventory.HasItem(item))
         {
             Debug.LogError("Item not found !");
             return;
@@ -588,9 +588,31 @@ public class PlayFabManager : MonoBehaviour
         }, res => Debug.Log("Item updated !"), OnRequestError);
     }
 
-    public void UseItem(Item item)
+    public void UseItem(Item item, int amount = 1)
     {
-        //
+        if (item == null || !Data.Inventory.HasItem(item))
+        {
+            Debug.LogError("Item not found !");
+            return;
+        }
+
+        //TODO -> Remove from local inventory
+
+        PlayFabEconomyAPI.SubtractInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Item = new InventoryItemReference
+            {
+                AlternateId = new AlternateId
+                {
+                    Type = "FriendlyId",
+                    Value = item.GetType().Name,
+                },
+                StackId = item.Stack
+            },
+            DeleteEmptyStacks = true,
+            Amount = amount
+        }, res => Debug.Log("Item used !"), OnRequestError);
     }
     #endregion
 
@@ -656,6 +678,7 @@ public class PlayFabManager : MonoBehaviour
     {
         //Debug.Log("Testing");
         Debug.Log(Data.Inventory.Items.Count);
+        //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Legendary));
         //Data.Inventory.Items["Gear"][0].Upgrade();
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
