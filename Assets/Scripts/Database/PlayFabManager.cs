@@ -38,13 +38,11 @@ public class PlayFabManager : MonoBehaviour
         public int Initial;
     }
 
-    private Dictionary<string, Data> _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
     private bool _firstLogin;
     private bool _currencyAdded;
-    private string _jsonFile;
 
     //TODO -> update items
 
