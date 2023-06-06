@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b552102840d7d3843a0c6700957f2ff0, type: 3}
   m_Name: CrimsonMoon
   m_EditorClassIdentifier: 
-  weaponName: Crimson Moon
-  weaponType: 2
-  isMagic: 1
-  statType: 6
-  statValue: 0
-  statUpgrade: 0
-  ratioUpgrade: 0
-  level: 0
-  skillName1: BloodContract
-  skillName2: InAFlash
+  Name: 
+  Type: 8
+  Stat: 6
+  IsMagic: 1
+  StatValue: 0
+  StatUpgrade: 0
+  RatioUpgrade: 0
+  Level: 1
+  FirstSkillData: {fileID: 0}
+  SecondSkillData: {fileID: 0}

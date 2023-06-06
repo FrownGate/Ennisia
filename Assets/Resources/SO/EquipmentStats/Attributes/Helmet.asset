@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2a6f6fadc386b4aa47d4195832f942, type: 3}
   m_Name: Helmet
   m_EditorClassIdentifier: 
-  Attributes:
-  - HP
+  Attributes: 03000000

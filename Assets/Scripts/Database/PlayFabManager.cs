@@ -8,6 +8,7 @@ using PlayFab.DataModels;
 using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class PlayFabManager : MonoBehaviour
         public int Initial;
     }
 
-    private Data[] _datas;
+    private Dictionary<string, Data> _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -46,6 +47,7 @@ public class PlayFabManager : MonoBehaviour
     private bool _currencyAdded;
 
     //TODO -> update items
+    //TODO -> use Player Datas for Supports instead ?
 
     #region 1 - Login
     //HasLocalSave -> Login
@@ -151,14 +153,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginRequestSuccess(LoginResult result)
     {
         Debug.Log("Login request success !");
-        string username = CreateUsername();
-
-        _datas = new Data[3]
-        {
-            Account = new AccountData(username),
-            Player = new PlayerData(),
-            Inventory = new InventoryData()
-        };
+        CreateLocalData(CreateUsername());
 
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
@@ -172,6 +167,20 @@ public class PlayFabManager : MonoBehaviour
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
+    }
+
+    private void CreateLocalData(string username)
+    {
+        Account = new AccountData(username);
+        Player = new PlayerData();
+        Inventory = new InventoryData();
+
+        _datas = new()
+        {
+            [Account.GetName()] = Account,
+            [Player.GetName()] = Player,
+            [Inventory.GetName()] = Inventory
+        };
     }
 
     private void OnLoginRequestError(PlayFabError error)
@@ -310,16 +319,16 @@ public class PlayFabManager : MonoBehaviour
 
     private void UpdateData()
     {
-        List<SetObject> data = new();
+        List<SetObject> objects = new();
 
-        for (int i = 0; i < _datas.Length; i++)
+        foreach (KeyValuePair<string, Data> data in _datas)
         {
-            data.Add(_datas[i].Serialize());
+            objects.Add(data.Value.Serialize());
         }
 
         PlayFabDataAPI.SetObjects(new SetObjectsRequest
         {
-            Objects = data,
+            Objects = objects,
             Entity = new()
             {
                 Id = Entity.Id,
@@ -346,21 +355,27 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnDataObtained(GetObjectsResponse response)
     {
-        try
+        bool DataIsUpdated = true;
+
+        foreach (KeyValuePair<string, Data> data in _datas)
         {
-            for (int i = 0; i < _datas.Length; i++)
+            if (!response.Objects.ContainsKey(data.Key))
             {
-                _datas[i].UpdateLocalData(response.Objects[_datas[i].GetName()].EscapedDataObject);
+                DataIsUpdated = false;
+                continue;
             }
 
-            CompleteLogin();
-
+            _datas[data.Key].UpdateLocalData(response.Objects[data.Key].EscapedDataObject);
         }
-        catch
+
+        if (!DataIsUpdated)
         {
             Debug.LogWarning("data missing - creating missing ones...");
             UpdateData();
+            return;
         }
+
+        CompleteLogin();
     }
 
     private void CompleteLogin()
@@ -473,7 +488,7 @@ public class PlayFabManager : MonoBehaviour
 
         foreach (SupportData support in Inventory.Supports)
         {
-            supports[support.Id] = support.Level;
+            supports[support.Id] = support.Lvl;
         }
 
         return supports;
@@ -498,7 +513,7 @@ public class PlayFabManager : MonoBehaviour
             supports.Add(new()
             {
                 Id = support.Key,
-                Level = support.Value
+                Lvl = support.Value
             });
         }
 
@@ -510,42 +525,29 @@ public class PlayFabManager : MonoBehaviour
     #region Equipment
     public void SetGearData(EquipmentSO equipment, int id)
     {
-        foreach (Gear inventoryGear in Inventory.GetGears())
-        {
-            if (inventoryGear.Id == id)
-            {
-                equipment.Id = inventoryGear.Id;
-                equipment.Name = inventoryGear.Name;
-                equipment.Type = inventoryGear.Type;
-                equipment.Rarity = inventoryGear.Rarity.ToString(); //TODO -> Update Equipment SO
-                equipment.Attribute = inventoryGear.Attribute;
-                equipment.StatValue = inventoryGear.Value;
-                equipment.Description = inventoryGear.Description;
-                break;
-            }
-        }
-    }
-
-    public Gear GetGear(int id)
-    {
-        Gear gear = null;
-
-        foreach (Gear inventoryGear in Inventory.GetGears())
-        {
-            if (gear.Id == id)
-            {
-                gear = inventoryGear;
-                break;
-            }
-        }
-
-        return gear;
+        //TODO -> Use find
+        //foreach (Gear inventoryGear in Inventory.GetGears())
+        //{
+        //    if (inventoryGear.Id == id)
+        //    {
+        //        equipment.Id = inventoryGear.Id;
+        //        equipment.Name = inventoryGear.Name;
+        //        equipment.Type = (Item.GearType)inventoryGear.Type;
+        //        equipment.Rarity = (Item.ItemRarity)inventoryGear.Rarity; //TODO -> Update Equipment SO
+        //        equipment.Attribute = (Item.AttributeStat)inventoryGear.Attribute;
+        //        equipment.StatValue = inventoryGear.Value;
+        //        equipment.Description = inventoryGear.Description;
+        //        break;
+        //    }
+        //}
     }
     #endregion
 
     #region Items
     public void AddInventoryItem(Item item)
     {
+        item.Serialize();
+
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
@@ -630,8 +632,9 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     private void Testing()
     {
-        //AddInventoryItem(new Gear("Helmet", 1));
-        //AddInventoryItem(new Material(1, 1, 5));
-        //AddInventoryItem(new SummonTicket(1));
+        //Debug.Log("Testing");
+        //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
+        //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
+        //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
     }
 }

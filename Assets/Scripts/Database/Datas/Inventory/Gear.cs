@@ -1,26 +1,29 @@
 using PlayFab.EconomyModels;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Gear : Item
 {
-    [NonSerialized] public int Id;
-    [NonSerialized] public string Icon; //TODO -> create function to return icon path with name
-    public new string Type;
-    public string Attribute; //TODO -> save attributes as int in csv and add function to return attribute name
+    public int Id;
+    public string Icon; //TODO -> create function to return icon path with name
     public float Value;
     public string Description;
+    public int Level;
+    public float StatUpgrade;
+    public float RatioUpgrade;
 
-    public Gear(string type, int rarity)
+    public Gear(GearType type, ItemRarity rarity)
     {
-        Id = PlayFabManager.Instance.Inventory.GetGears().Count + 1;
+        Id = SetId();
+        Stack = Id.ToString();
         Type = type;
-        Rarity = (ItemRarity)rarity;
+        Rarity = rarity;
         Description = "";
+        Category = SetCategory();
         Attribute = SetAttribute();
         Value = SetValue();
-        Stack = Id.ToString();
+        Level = 1;
+        Amount = 1;
 
         AddToInventory();
     }
@@ -28,20 +31,44 @@ public class Gear : Item
     public Gear(InventoryItem item)
     {
         Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
+        gear.Deserialize();
 
         Id = int.Parse(item.StackId);
         Stack = item.StackId;
         Type = gear.Type;
         Rarity = gear.Rarity;
+        Description = gear.Description;
+        Category = gear.Category;
         Attribute = gear.Attribute;
         Value = gear.Value;
+        Level = gear.Level;
+        Amount = gear.Amount;
 
         AddToInventory();
     }
 
-    private string SetAttribute()
+    private int SetId()
     {
-        List<string> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
+        if (PlayFabManager.Instance.Inventory.Items.ContainsKey("Gear"))
+        {
+            return PlayFabManager.Instance.Inventory.Items["Gear"].Count + 1;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+    private ItemCategory SetCategory()
+    {
+        if ((int)Type < 3) return ItemCategory.Armor;
+        else if ((int)Type < 6) return ItemCategory.Accessory;
+        else return ItemCategory.Weapon;
+    }
+
+    private AttributeStat SetAttribute()
+    {
+        List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
@@ -54,5 +81,28 @@ public class Gear : Item
     protected override void SetName()
     {
         Name = $"[{Rarity}] {Type}";
+    }
+
+    public void Upgrade()
+    {
+        if (Level <= 50)
+        {
+            Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
+        }
+        else { }
+    }
+
+    public void Upgrade(int _level)
+    {
+        if (_level <= 50)
+        {
+            Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
+        }
+        else { }
+    }
+
+    public void Equip()
+    {
+        //TODO -> Set EquippedGear SO datas
     }
 }
