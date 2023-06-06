@@ -51,6 +51,7 @@ public class InventoryData
     //Get an item with corresponding Type and/or Rarity
     public Item GetItem(Item itemToGet, Item.ItemCategory? type, Item.ItemRarity? rarity)
     {
+        //TODO -> use Find function instead
         Debug.Log($"Looking for item -> Rarity : {rarity} - Type : {type}");
 
         Item foundItem = null;
@@ -67,5 +68,13 @@ public class InventoryData
         }
 
         return foundItem;
+    }
+
+    public void RemoveItem(Item itemToRemove)
+    {
+        if (Items.TryGetValue(itemToRemove.GetType().Name, out List<Item> items))
+        {
+            items.Remove(itemToRemove);
+        }
     }
 }

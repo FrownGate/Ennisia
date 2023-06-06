@@ -44,6 +44,7 @@ public class PlayFabManager : MonoBehaviour
     private string _path;
     private bool _firstLogin;
     private bool _currencyAdded;
+    private Item _item;
 
     //TODO -> update items
 
@@ -596,7 +597,7 @@ public class PlayFabManager : MonoBehaviour
             return;
         }
 
-        //TODO -> Remove from local inventory
+        _item = item;
 
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
@@ -612,7 +613,11 @@ public class PlayFabManager : MonoBehaviour
             },
             DeleteEmptyStacks = true,
             Amount = amount
-        }, res => Debug.Log("Item used !"), OnRequestError);
+        }, res =>
+        {
+            Data.Inventory.RemoveItem(_item);
+            Debug.Log("Item used !");
+        }, OnRequestError);
     }
     #endregion
 
@@ -678,7 +683,7 @@ public class PlayFabManager : MonoBehaviour
     {
         //Debug.Log("Testing");
         Debug.Log(Data.Inventory.Items.Count);
-        //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Legendary));
+        //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Common));
         //Data.Inventory.Items["Gear"][0].Upgrade();
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
