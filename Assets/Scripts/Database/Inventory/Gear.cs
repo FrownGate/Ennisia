@@ -49,6 +49,7 @@ public class Gear : Item
 
     private int SetId()
     {
+        //TODO -> Use last item in inventory ID + 1
         if (PlayFabManager.Instance.Data.Inventory.Items.ContainsKey("Gear"))
         {
             return PlayFabManager.Instance.Data.Inventory.Items["Gear"].Count + 1;
