@@ -245,7 +245,7 @@ public class BattleSimulator : EditorWindow
             }
         });
 
-        _secondEnemyDropdown.RegisterValueChangedCallback(evt =>
+        _secondSupportDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Support")
             {
@@ -378,7 +378,7 @@ public class BattleSimulator : EditorWindow
         // TODO: -> Set the fields to the name of the skills
         // Waiting the empowering of the SupportCharacterSO to have the IDs of the skills
         // -> Use the IDs to get the name of the skills
-        
+
     }
 
     private void OnInspectorUpdate()
