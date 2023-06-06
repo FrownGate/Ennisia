@@ -18,7 +18,7 @@ public class MissionManager : MonoBehaviour
     public static event Action<MissionSO> OnMissionStart; //Not used yet
     public static event Action<MissionSO> OnMissionComplete; //Not used yet
 
-    public ChapterSO CurrentChapter { get; private set; }
+    public ChapterSO CurrentChapter;
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
 
@@ -180,4 +180,26 @@ public class MissionManager : MonoBehaviour
     {
         CurrentChapter = chapter;
     }
+    public List<MissionSO> GetMissionsByChapterId(MissionType missionType, int chapterId)
+    {
+        if (!_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
+        {
+            Debug.LogError("Invalid mission type: " + missionType);
+            return new List<MissionSO>();
+        }
+
+        List<MissionSO> missions = new();
+
+        foreach (MissionSO missionSO in missionList)
+        {
+            if (missionSO.ChapterId == chapterId)
+            {
+                missions.Add(missionSO);
+            }
+        }
+
+        return missions;
+    }
+
+
 }

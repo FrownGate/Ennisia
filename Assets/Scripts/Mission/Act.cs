@@ -1,18 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Act : MonoBehaviour
 {
     public int TargetActId;
     public GameObject ButtonPrefab; // The prefab for the UI button
-    private Transform _buttonsContainer; // The container for the buttons
 
     public void Start()
     {
-        _buttonsContainer = GetComponent<Transform>();
         // Retrieve all ScriptableObjects of type ChapterSO
         ChapterSO[] scriptableObjects = Resources.LoadAll<ChapterSO>($"SO/Chapters/Act {TargetActId}/");
-        Text actText = GetComponentInChildren<Text>();
+        TextMeshProUGUI actText = GetComponentInChildren<TextMeshProUGUI>();
         actText.text = $"ACT {TargetActId}";
         if (scriptableObjects.Length > 0)
         {
@@ -33,20 +32,20 @@ public class Act : MonoBehaviour
 
     private void CreateCommingSoon()
     {
-        GameObject buttonObj = Instantiate(ButtonPrefab, _buttonsContainer);
+        GameObject buttonObj = Instantiate(ButtonPrefab, transform);
         buttonObj.name = "upcomming";
         // Get the Button component of the created UI button
         Button buttonComponent = buttonObj.GetComponent<Button>();
 
         // Set the text of the button as desired
-        Text buttonText = buttonComponent.GetComponentInChildren<Text>();
-        buttonText.text = "Comming Soon";
+        TextMeshProUGUI buttonText = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.text = "Coming Soon";
     }
 
     private void CreateUIButton(ChapterSO scriptableObject)
     {
         // Instantiate the button prefab
-        GameObject buttonObj = Instantiate(ButtonPrefab, _buttonsContainer);
+        GameObject buttonObj = Instantiate(ButtonPrefab, transform);
 
         // Set the name of the button using the ScriptableObject's name
         buttonObj.name = scriptableObject.name;
@@ -55,7 +54,7 @@ public class Act : MonoBehaviour
         Button buttonComponent = buttonObj.GetComponent<Button>();
 
         // Set the text of the button as desired
-        Text buttonText = buttonComponent.GetComponentInChildren<Text>();
+        TextMeshProUGUI buttonText = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = scriptableObject.name.Replace("-", " ");
 
         // Add an onClick event listener to the button
