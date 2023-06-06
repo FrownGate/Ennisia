@@ -83,22 +83,26 @@ public class Gear : Item
         Name = $"[{Rarity}] {Type}";
     }
 
-    public void Upgrade()
+    public override void Upgrade()
     {
-        if (Level <= 50)
-        {
-            Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
-        }
-        else { }
+        if (Level >= 50) return;
+        Debug.Log($"Upgrading {Name}...");
+
+        Level++;
+        Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
+
+        PlayFabManager.Instance.UpdateItem(this);
     }
 
-    public void Upgrade(int _level)
+    public void Upgrade(int _level) //Used ?
     {
-        if (_level <= 50)
-        {
-            Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
-        }
-        else { }
+        if (_level >= 50) return;
+        Debug.Log($"Upgrading {Name}...");
+
+        Level++;
+        Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
+
+        PlayFabManager.Instance.UpdateItem(this);
     }
 
     public void Equip()

@@ -85,4 +85,5 @@ public class Item
     }
 
     protected virtual void SetName() { }
+    public virtual void Upgrade() { }
 }
