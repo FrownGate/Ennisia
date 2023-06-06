@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public abstract class Skill
 {
@@ -9,6 +11,8 @@ public abstract class Skill
     public float HealingModifier { get; protected set; }
     public float Cooldown { get; set; }
     public string FileName { get; private set; }
+    
+    public Button SkillButton { get; set; }
 
     public Skill()
     {
@@ -25,4 +29,13 @@ public abstract class Skill
     public virtual void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }
     public virtual void TakeOffStats(List<Entity> targets, Entity player, int turn) { }
+    public void Tick()
+    {
+        Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
+        
+        if(SkillButton != null)
+        {
+            SkillButton.interactable = Cooldown == 0;
+        }
+    }
 }

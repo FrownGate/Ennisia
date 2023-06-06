@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
@@ -54,7 +55,7 @@ public class BattleSystem : StateMachine
         Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
         SetSkillButtonsActive(true);
-
+        AssignSkillButton();
         foreach (var skill in Player.Skills)
         {
             skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
@@ -84,6 +85,14 @@ public class BattleSystem : StateMachine
         foreach (GameObject button in _skillsButtons)
         {
             button.SetActive(isActive);
+        }
+    }
+
+    public void AssignSkillButton()
+    {
+        for (int i = 0; i < Player.Skills.Count; i++)
+        {
+            Player.Skills[i].SkillButton = _skillsButtons[i].GetComponent<Button>();
         }
     }
 
@@ -162,7 +171,7 @@ public class BattleSystem : StateMachine
     {
         foreach (var skill in Player.Skills)
         {
-            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
+            skill.Tick();
         }
     }
 
