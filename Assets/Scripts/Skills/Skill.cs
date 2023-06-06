@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public abstract class Skill
 {
-    /*Weapon weapon;*/
-    public SkillData Data { get; protected set; }
+    public SkillSO Data { get; protected set; }
     public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
@@ -19,7 +17,7 @@ public abstract class Skill
     {
         Level = 0;
         FileName = GetType().Name;
-        Data = Resources.Load<SkillData>("SO/Skills/" + FileName);
+        Data = Resources.Load<SkillSO>("SO/Skills/" + FileName);
     }
 
     public virtual void ConstantPassive(List<Entity> targets, Entity player, int turn) { }
@@ -30,6 +28,7 @@ public abstract class Skill
     public virtual void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }
     public virtual void TakeOffStats(List<Entity> targets, Entity player, int turn) { }
+
     public virtual void Upgrade()
     {
         if (Level < 5)
@@ -45,5 +44,6 @@ public abstract class Skill
             Level = 0;
         }
     }
+
     public virtual void Upgrade(int _Level) { Level = _Level; }
 }

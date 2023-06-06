@@ -1571,7 +1571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3021571573489443679, guid: d6f9191e9d6d0794ca4ee6a61c1eb2c0, type: 3}
       propertyPath: m_Name
-      value: Raids
+      value: RaidBoss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2361,7 +2361,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2433335223155519358, guid: a925c828cd4e0eb4f9053a59b93e1822, type: 3}
       propertyPath: m_Name
-      value: StoryChapter
+      value: BattleModeSelection
       objectReference: {fileID: 0}
     - target: {fileID: 4871496115277725163, guid: a925c828cd4e0eb4f9053a59b93e1822, type: 3}
       propertyPath: m_Pivot.x
@@ -2546,7 +2546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5458420128247901845, guid: b18ec82c8a6b80244a3d0e9c4f257244, type: 3}
       propertyPath: m_Name
-      value: GuildsList
+      value: PlayerGuild
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
