@@ -83,22 +83,18 @@ public class Gear : Item
         Name = $"[{Rarity}] {Type}";
     }
 
-    public void Upgrade()
+    public override void Upgrade()
     {
-        if (Level <= 50)
-        {
-            Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
-        }
-        else { }
+        if (Level >= 50) return;
+        Debug.Log($"Upgrading {Name}...");
+        Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
+        //TODO -> Update Item
     }
 
     public void Upgrade(int _level)
     {
-        if (_level <= 50)
-        {
-            Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
-        }
-        else { }
+        if (_level >= 50) return;
+        Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
     }
 
     public void Equip()
