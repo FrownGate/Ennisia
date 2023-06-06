@@ -36,6 +36,7 @@ public class ScenesManager : MonoBehaviour
             PlayFabManager.OnBigLoadingStart += BigLoading;
             PlayFabManager.OnLoginSuccess += StopLoading;
 
+            Params = null;
             _activeScene = SceneManager.GetActiveScene();
         }
     }
@@ -100,6 +101,10 @@ public class ScenesManager : MonoBehaviour
         if (splittedName.Length > 1)
         {
             Params = splittedName[1];
+        }
+        else
+        {
+            Params = null;
         }
 
         return splittedName[0];
