@@ -87,14 +87,22 @@ public class Gear : Item
     {
         if (Level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
+
+        Level++;
         Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
-        //TODO -> Update Item
+
+        PlayFabManager.Instance.UpdateItem(this);
     }
 
-    public void Upgrade(int _level)
+    public void Upgrade(int _level) //Used ?
     {
         if (_level >= 50) return;
+        Debug.Log($"Upgrading {Name}...");
+
+        Level++;
         Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
+
+        PlayFabManager.Instance.UpdateItem(this);
     }
 
     public void Equip()

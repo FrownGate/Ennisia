@@ -563,10 +563,23 @@ public class PlayFabManager : MonoBehaviour
                 DisplayProperties = item
             } : new(),
             Amount = item.Amount
-        }, res =>
+        }, res => Debug.Log($"Item added to inventory !"), OnRequestError);
+    }
+
+    public void UpdateItem(Item item)
+    {
+        item.Serialize();
+
+        PlayFabEconomyAPI.UpdateInventoryItems(new()
         {
-            Debug.Log("inventory added");
-        }, OnRequestError);
+            Item = new()
+            {
+                Id = _itemsByName[item.GetType().Name],
+                Amount = item.Amount,
+                DisplayProperties = item,
+                StackId = item.Stack
+            }
+        }, res => Debug.Log("Item updated !"), OnRequestError);
     }
     #endregion
 
