@@ -277,7 +277,7 @@ public class BattleSimulator : EditorWindow
             }
         });
 
-        // SUPPORTSg
+        // SUPPORTS
         _firstSupportDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Support")
