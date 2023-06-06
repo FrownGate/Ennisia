@@ -30,9 +30,12 @@ public class InventoryData
         return material;
     }
 
-    public bool HasItem(Item item)
+    public bool HasItem(Item itemToFound)
     {
-        return Items.ContainsKey(item.GetType().Name);
+        if (Items.TryGetValue(itemToFound.GetType().Name, out List<Item> items)) {
+            return items.Contains(itemToFound);
+        }
+        return false;
     }
 
     public Item GetItem(Item itemToGet, Item.ItemCategory type)

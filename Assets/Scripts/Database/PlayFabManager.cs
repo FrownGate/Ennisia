@@ -568,6 +568,12 @@ public class PlayFabManager : MonoBehaviour
 
     public void UpdateItem(Item item)
     {
+        if (!Data.Inventory.HasItem(item))
+        {
+            Debug.LogError("Item not found !");
+            return;
+        }
+
         item.Serialize();
 
         PlayFabEconomyAPI.UpdateInventoryItems(new()
@@ -580,6 +586,11 @@ public class PlayFabManager : MonoBehaviour
                 StackId = item.Stack
             }
         }, res => Debug.Log("Item updated !"), OnRequestError);
+    }
+
+    public void UseItem(Item item)
+    {
+        //
     }
     #endregion
 
