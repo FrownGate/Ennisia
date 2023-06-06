@@ -18,6 +18,7 @@ public class MissionManager : MonoBehaviour
     public static event Action<MissionSO> OnMissionStart; //Not used yet
     public static event Action<MissionSO> OnMissionComplete; //Not used yet
 
+    public ChapterSO CurrentChapter { get; private set; }
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
 
@@ -174,5 +175,9 @@ public class MissionManager : MonoBehaviour
             //TODO -> check if narrative is already played (in DialogueManager)
             //DialogueManager.Instance.StartDialogue(mission.DialogueID);
         }
+    }
+    public void SetChapter(ChapterSO chapter)
+    {
+        CurrentChapter = chapter;
     }
 }
