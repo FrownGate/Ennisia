@@ -18,6 +18,7 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<PlayFabError> OnError;
     public static event Action OnCurrencyUpdate;
     public static event Action OnEnergyUpdate;
+    public static event Action OnEnergyUsed;
     public static event Action OnLoadingStart;
     public static event Action OnBigLoadingStart;
     public static event Action OnLoadingEnd;
@@ -459,6 +460,7 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log($"Removed {amount} energy !");
             Energy -= amount;
             OnEnergyUpdate?.Invoke();
+            OnEnergyUsed?.Invoke();
         }, OnRequestError);
     }
 
