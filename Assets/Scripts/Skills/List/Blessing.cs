@@ -2,9 +2,11 @@ using System.Collections.Generic;
 
 public class Blessing : Skill
 {
+    public float healBaseRatio;
     public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
     {
-        HealingModifier = damage * 0.1f;
+        float healBuffRatio = healBaseRatio + StatUpgrade1 * Level;
+        HealingModifier = damage * healBuffRatio;
 
         if (turn % 2 == 0)
         {

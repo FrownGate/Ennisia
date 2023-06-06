@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class SummonSystem : MonoBehaviour
 {
@@ -14,13 +13,14 @@ public class SummonSystem : MonoBehaviour
     [SerializeField] private int _legendaryFragmentsMultiplier = 3;
 
     private Dictionary<int, int> _supports;
+    private List<SupportCharacterSO> _supportsPulled;
     private int _fragmentsMultiplier;
     private int _amount;
     private double _chance;
 
     private void Start()
     {
-        PlayFabManager.OnLoginSuccess += Testing; //testing only
+        //PlayFabManager.OnLoginSuccess += Testing; //testing only
 
         if (ScenesManager.Instance.HasParams())
         {
@@ -31,9 +31,9 @@ public class SummonSystem : MonoBehaviour
             _amount = 1;
         }
 
-        //_chance = GetChance();
+        _chance = GetChance();
 
-        //Summon();
+        Summon();
     }
 
     private void Testing()
@@ -44,14 +44,14 @@ public class SummonSystem : MonoBehaviour
 
     private double GetChance()
     {
-        if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Legendary) != null) return _legendaryChance;
-        if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Epic) != null) return _epicChance;
+        //if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Legendary) != null) return _legendaryChance;
+        //if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Epic) != null) return _epicChance;
         return 100;
     }
 
     private void OnDestroy()
     {
-        PlayFabManager.OnLoginSuccess -= Testing; //testing only
+        //PlayFabManager.OnLoginSuccess -= Testing; //testing only
     }
 
     public void Summon()
@@ -72,10 +72,12 @@ public class SummonSystem : MonoBehaviour
         }
 
         _supports = PlayFabManager.Instance.GetSupports();
+        _supportsPulled = new();
 
         for (int i = 0; i < _amount; i++)
         {
             SupportCharacterSO pulledSupport = GetSupport();
+            _supportsPulled.Add(pulledSupport);
             Debug.Log($"{pulledSupport.Name} has been pulled !");
 
             if (_supports.ContainsKey(pulledSupport.Id))
@@ -106,7 +108,6 @@ public class SummonSystem : MonoBehaviour
         System.Random random = new();
         double rarityRoll = random.NextDouble() * _chance;
         Debug.Log($"rarity roll : {rarityRoll}");
-        //TODO -> add guaranteed rarity modifier
 
         string pickedRarity = "Rare";
         _fragmentsMultiplier = _rareFragmentsMultiplier;
@@ -123,7 +124,7 @@ public class SummonSystem : MonoBehaviour
         }
 
         SupportCharacterSO[] gachaPool = Resources.LoadAll<SupportCharacterSO>($"SO/SupportsCharacter/{pickedRarity}");
-        int characterRoll = random.Next(gachaPool.Length);
+        int characterRoll = random.Next(1, gachaPool.Length);
         Debug.Log($"character roll : {characterRoll}");
         return gachaPool[characterRoll - 1];
     }

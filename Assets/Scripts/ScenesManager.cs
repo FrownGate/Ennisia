@@ -18,6 +18,7 @@ public class ScenesManager : MonoBehaviour
     public float minLoadingTime = 2f; // Optional: Minimum duration to display the loading screen
 
     private float startTime;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,8 +29,12 @@ public class ScenesManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
+
             SceneManager.sceneLoaded += OnSceneLoad;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
+            PlayFabManager.OnLoadingStart += MiniLoading;
+            PlayFabManager.OnBigLoadingStart += BigLoading;
+            PlayFabManager.OnLoginSuccess += StopLoading;
 
             _activeScene = SceneManager.GetActiveScene();
         }
@@ -39,6 +44,9 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoad;
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        PlayFabManager.OnLoadingStart -= MiniLoading;
+        PlayFabManager.OnBigLoadingStart -= BigLoading;
+        PlayFabManager.OnLoginSuccess -= StopLoading;
     }
 
     private LoadSceneMode SceneMode()
@@ -102,13 +110,30 @@ public class ScenesManager : MonoBehaviour
         return !string.IsNullOrEmpty(Params);
     }
 
+    private void BigLoading()
+    {
+        SceneManager.LoadSceneAsync("Loading_Big", LoadSceneMode.Additive);
+    }
+
+    private void MiniLoading()
+    {
+        SceneManager.LoadSceneAsync("Loading_Mini", LoadSceneMode.Additive);
+    }
+
+    private void StopLoading()
+    {
+        if (SceneManager.GetSceneByName("Loading_Big").isLoaded) SceneManager.UnloadSceneAsync("Loading_Big");
+        if (SceneManager.GetSceneByName("Loading_Mini").isLoaded) SceneManager.UnloadSceneAsync("Loading_Mini");
+    }
+
     private IEnumerator Loading()
     {
-        string loadScene = GetSceneName("Loading");
+        //TODO -> Replace AsyncOperation with events ?
+        string loadScene = GetSceneName("Loading_Big");
         Debug.Log($"Going to scene {loadScene}");
         startTime = Time.time;
 
-        AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene);
+        AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
 
         while (!loadingScreenOperation.isDone)
         {

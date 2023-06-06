@@ -18,7 +18,7 @@ public class SelectTarget : State
 
     public override IEnumerator Attack()
     {
-        float totalDamage = 0;
+       
 
         // Check if Player is not null
         /*if (BattleSystem.Player == null)
@@ -47,23 +47,8 @@ public class SelectTarget : State
             yield break;
         }
 
-        _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
-
-
-        foreach (var skill in BattleSystem.Player.Skills)
-        {
-            skill.PassiveBeforeAttack(BattleSystem.Enemies, BattleSystem.Player, BattleSystem.Turn);
-        }
-        totalDamage += _selectedSkill.SkillBeforeUse(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
-        totalDamage += _selectedSkill.Use(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn);
-        totalDamage += _selectedSkill.AdditionalDamage(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn, totalDamage);
-        _selectedSkill.SkillAfterDamage(BattleSystem.Targetables, BattleSystem.Player, BattleSystem.Turn, totalDamage);
-
-        foreach (var skill in BattleSystem.Player.Skills)        
-        {
-            skill.PassiveAfterAttack(BattleSystem.Enemies, BattleSystem.Player, BattleSystem.Turn, totalDamage);
-            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
-        }
+        BattleSystem.SkillOnTurn(_selectedSkill);
+        BattleSystem.ReduceCooldown();
         Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
 
         BattleSystem.Targetables.Clear();
