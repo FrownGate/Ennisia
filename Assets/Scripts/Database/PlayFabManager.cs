@@ -8,6 +8,7 @@ using PlayFab.DataModels;
 using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<PlayFabError> OnError;
     public static event Action OnCurrencyUpdate;
     public static event Action OnEnergyUpdate;
+    public static event Action OnLoadingStart;
+    public static event Action OnBigLoadingStart;
+    public static event Action OnLoadingEnd;
 
     public AccountData Account { get; private set; }
     public PlayerData Player { get; private set; }
@@ -35,7 +39,7 @@ public class PlayFabManager : MonoBehaviour
         public int Initial;
     }
 
-    private Data[] _datas;
+    private Dictionary<string, Data> _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -43,6 +47,7 @@ public class PlayFabManager : MonoBehaviour
     private bool _currencyAdded;
 
     //TODO -> update items
+    //TODO -> use Player Datas for Supports instead ?
 
     #region 1 - Login
     //HasLocalSave -> Login
@@ -64,15 +69,19 @@ public class PlayFabManager : MonoBehaviour
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
             LoggedIn = false;
-
-            //TODO : Parfois la save est faussement found
-            if (HasLocalSave()) return;
-            Debug.Log("No local save found -> anonymous login");
-            AnonymousLogin();
-
-            //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
-            //Login("testing@gmail.com", "Testing");
         }
+    }
+
+    private void Start()
+    {
+        OnBigLoadingStart?.Invoke();
+
+        if (HasLocalSave()) return;
+        Debug.Log("No local save found -> anonymous login");
+        AnonymousLogin();
+
+        //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
+        //Login("testing@gmail.com", "Testing");
     }
 
     private bool HasLocalSave()
@@ -144,14 +153,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginRequestSuccess(LoginResult result)
     {
         Debug.Log("Login request success !");
-        string username = CreateUsername();
-
-        _datas = new Data[3]
-        {
-            Account = new AccountData(username),
-            Player = new PlayerData(),
-            Inventory = new InventoryData()
-        };
+        CreateLocalData(CreateUsername());
 
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
@@ -165,6 +167,20 @@ public class PlayFabManager : MonoBehaviour
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
+    }
+
+    private void CreateLocalData(string username)
+    {
+        Account = new AccountData(username);
+        Player = new PlayerData();
+        Inventory = new InventoryData();
+
+        _datas = new()
+        {
+            [Account.GetName()] = Account,
+            [Player.GetName()] = Player,
+            [Inventory.GetName()] = Inventory
+        };
     }
 
     private void OnLoginRequestError(PlayFabError error)
@@ -303,16 +319,16 @@ public class PlayFabManager : MonoBehaviour
 
     private void UpdateData()
     {
-        List<SetObject> data = new();
+        List<SetObject> objects = new();
 
-        for (int i = 0; i < _datas.Length; i++)
+        foreach (KeyValuePair<string, Data> data in _datas)
         {
-            data.Add(_datas[i].Serialize());
+            objects.Add(data.Value.Serialize());
         }
 
         PlayFabDataAPI.SetObjects(new SetObjectsRequest
         {
-            Objects = data,
+            Objects = objects,
             Entity = new()
             {
                 Id = Entity.Id,
@@ -339,18 +355,24 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnDataObtained(GetObjectsResponse response)
     {
-        try
+        bool DataIsUpdated = true;
+
+        foreach (KeyValuePair<string, Data> data in _datas)
         {
-            for (int i = 0; i < _datas.Length; i++)
+            if (!response.Objects.ContainsKey(data.Key))
             {
-                _datas[i].UpdateLocalData(response.Objects[_datas[i].GetName()].EscapedDataObject);
+                DataIsUpdated = false;
+                continue;
             }
 
+            _datas[data.Key].UpdateLocalData(response.Objects[data.Key].EscapedDataObject);
         }
-        catch
+
+        if (!DataIsUpdated)
         {
             Debug.LogWarning("data missing - creating missing ones...");
             UpdateData();
+            return;
         }
 
         CompleteLogin();
@@ -466,7 +488,7 @@ public class PlayFabManager : MonoBehaviour
 
         foreach (SupportData support in Inventory.Supports)
         {
-            supports[support.Id] = support.Level;
+            supports[support.Id] = support.Lvl;
         }
 
         return supports;
@@ -491,7 +513,7 @@ public class PlayFabManager : MonoBehaviour
             supports.Add(new()
             {
                 Id = support.Key,
-                Level = support.Value
+                Lvl = support.Value
             });
         }
 

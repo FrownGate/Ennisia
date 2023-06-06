@@ -4,5 +4,5 @@ using System;
 public class SupportData
 {
     public int Id;
-    public int Level;
+    public int Lvl;
 }

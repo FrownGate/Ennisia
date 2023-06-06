@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Shop.unity
     guid: 91687e3abef33b547b352c3e26beccfa
   - enabled: 1
+    path: Assets/Scenes/Forge.unity
+    guid: f605877a7d36bfd4fbb79b7e342dddb9
+  - enabled: 1
     path: Assets/Scenes/Missions/BattleModeSelection.unity
     guid: 55d6fa4e1512ab041bdccdb546105acd
   - enabled: 1
@@ -74,6 +77,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Guilds/PlayerGuild.unity
     guid: fd2266221b4879d438068fc08193a1b2
+  - enabled: 1
+    path: Assets/Scenes/Forge.unity
+    guid: f605877a7d36bfd4fbb79b7e342dddb9
   - enabled: 1
     path: Assets/Scenes/Guilds/GuildsList.unity
     guid: a65a5679c6f78ef479ed679c5bddf2ba
