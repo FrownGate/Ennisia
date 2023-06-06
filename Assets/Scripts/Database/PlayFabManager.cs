@@ -8,7 +8,8 @@ using PlayFab.DataModels;
 using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using System.Collections;
-using Unity.VisualScripting;
+using PlayFab.Internal;
+using System.Text;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -17,13 +18,12 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<PlayFabError> OnError;
     public static event Action OnCurrencyUpdate;
     public static event Action OnEnergyUpdate;
+    public static event Action OnEnergyUsed;
     public static event Action OnLoadingStart;
     public static event Action OnBigLoadingStart;
     public static event Action OnLoadingEnd;
 
-    public AccountData Account { get; private set; }
-    public PlayerData Player { get; private set; }
-    public InventoryData Inventory { get; private set; }
+    public Data Data { get; private set; }
     public Dictionary<string, int> Currencies { get; private set; }
     public int Energy { get; private set; }
     public string PlayFabId { get; private set; }
@@ -39,7 +39,6 @@ public class PlayFabManager : MonoBehaviour
         public int Initial;
     }
 
-    private Dictionary<string, Data> _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path;
@@ -47,7 +46,6 @@ public class PlayFabManager : MonoBehaviour
     private bool _currencyAdded;
 
     //TODO -> update items
-    //TODO -> use Player Datas for Supports instead ?
 
     #region 1 - Login
     //HasLocalSave -> Login
@@ -171,16 +169,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void CreateLocalData(string username)
     {
-        Account = new AccountData(username);
-        Player = new PlayerData();
-        Inventory = new InventoryData();
-
-        _datas = new()
-        {
-            [Account.GetName()] = Account,
-            [Player.GetName()] = Player,
-            [Inventory.GetName()] = Inventory
-        };
+        Data = new(username);
     }
 
     private void OnLoginRequestError(PlayFabError error)
@@ -251,7 +240,6 @@ public class PlayFabManager : MonoBehaviour
             }
             else if (item.Type == "catalogItem")
             {
-                Debug.Log("Creating item instance");
                 Type type = Type.GetType(_itemsById[item.Id]);
                 Activator.CreateInstance(type, item);
             }
@@ -307,7 +295,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnGetEnergySuccess(GetUserInventoryResult result)
     {
         Energy = result.VirtualCurrency["EN"];
-        GetUserDatas();
+        GetUserFiles();
     }
     #endregion
 
@@ -319,70 +307,79 @@ public class PlayFabManager : MonoBehaviour
 
     private void UpdateData()
     {
-        List<SetObject> objects = new();
+        Debug.Log("Initiating data update...");
 
-        foreach (KeyValuePair<string, Data> data in _datas)
+        PlayFabDataAPI.InitiateFileUploads(new()
         {
-            objects.Add(data.Value.Serialize());
-        }
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            FileNames = new() { Data.GetType().Name }
+        }, OnInitFileUploads, OnRequestError);
+    }
 
-        PlayFabDataAPI.SetObjects(new SetObjectsRequest
+    private void OnInitFileUploads(InitiateFileUploadsResponse response)
+    {
+        byte[] payload = Encoding.UTF8.GetBytes(JsonUtility.ToJson(Data));
+        PlayFabHttp.SimplePutCall(response.UploadDetails[0].UploadUrl, payload, success => UploadFiles(), error => Debug.LogError(error));
+    }
+
+    private void UploadFiles()
+    {
+        Debug.Log("Uploading files...");
+
+        PlayFabDataAPI.FinalizeFileUploads(new()
         {
-            Objects = objects,
-            Entity = new()
-            {
-                Id = Entity.Id,
-                Type = Entity.Type
-            }
-        }, res => {
-            Debug.Log("Data updated !");
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            FileNames = new() { Data.GetType().Name }
+        }, res =>
+        {
+            Debug.Log("Files uploaded !");
             CompleteLogin();
         }, OnRequestError);
     }
 
-    private void GetUserDatas()
+    private void GetUserFiles()
     {
-        PlayFabDataAPI.GetObjects(new GetObjectsRequest
+        Debug.Log("Getting user files...");
+
+        PlayFabDataAPI.GetFiles(new()
         {
-            EscapeObject = true,
-            Entity = new()
-            {
-                Id = Entity.Id,
-                Type = Entity.Type
-            }
-        }, OnDataObtained, OnRequestError);
+            Entity = new() { Id = Entity.Id, Type = Entity.Type }
+        }, OnFileObtained, OnRequestError);
     }
 
-    private void OnDataObtained(GetObjectsResponse response)
+    private void OnFileObtained(GetFilesResponse response)
     {
-        bool DataIsUpdated = true;
+        Debug.Log($"Obtained {response.Metadata.Count} file(s) !");
 
-        foreach (KeyValuePair<string, Data> data in _datas)
+        if (response.Metadata.Count == 0)
         {
-            if (!response.Objects.ContainsKey(data.Key))
-            {
-                DataIsUpdated = false;
-                continue;
-            }
-
-            _datas[data.Key].UpdateLocalData(response.Objects[data.Key].EscapedDataObject);
-        }
-
-        if (!DataIsUpdated)
-        {
-            Debug.LogWarning("data missing - creating missing ones...");
+            Debug.LogWarning("Missing datas - creating ones...");
             UpdateData();
             return;
         }
+        else
+        {
+            GetFilesDatas(response.Metadata[Data.GetType().Name]);
+        }
+    }
 
-        CompleteLogin();
+    private void GetFilesDatas(GetFileMetadata file)
+    {
+        PlayFabHttp.SimpleGetCall(file.DownloadUrl, res =>
+        {
+            //TODO -> check if there's no missing datas
+            Data.UpdateLocalData(Encoding.UTF8.GetString(res));
+            Debug.Log("Local datas updated !");
+
+            CompleteLogin();
+        }, error => Debug.LogError(error));
     }
 
     private void CompleteLogin()
     {
         if (!LoggedIn)
         {
-            if (_firstLogin) UpdateName(Account.Name);
+            if (_firstLogin) UpdateName(Data.Account.Name);
             _firstLogin = false;
             LoggedIn = true;
             OnLoginSuccess?.Invoke();
@@ -463,6 +460,7 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log($"Removed {amount} energy !");
             Energy -= amount;
             OnEnergyUpdate?.Invoke();
+            OnEnergyUsed?.Invoke();
         }, OnRequestError);
     }
 
@@ -486,7 +484,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Dictionary<int, int> supports = new();
 
-        foreach (SupportData support in Inventory.Supports)
+        foreach (SupportData support in Data.Inventory.Supports)
         {
             supports[support.Id] = support.Lvl;
         }
@@ -496,9 +494,9 @@ public class PlayFabManager : MonoBehaviour
 
     public int HasSupport(int id)
     {
-        for (int i = 0; i < Inventory.Supports.Count; i++)
+        for (int i = 0; i < Data.Inventory.Supports.Count; i++)
         {
-            if (Inventory.Supports[i].Id == id) return i;
+            if (Data.Inventory.Supports[i].Id == id) return i;
         }
 
         return 0;
@@ -517,7 +515,7 @@ public class PlayFabManager : MonoBehaviour
             });
         }
 
-        Inventory.Supports = supports;
+        Data.Inventory.Supports = supports;
         UpdateData();
     }
     #endregion

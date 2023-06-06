@@ -1,6 +1,7 @@
-using UnityEngine;
+using System;
 
-public class AccountData : Data
+[Serializable]
+public class AccountData
 {
     public string Name;
     public int Level;
@@ -15,15 +16,5 @@ public class AccountData : Data
         Exp = 0;
         Gender = 0;
         Tutorial = false;
-    }
-
-    public override void UpdateLocalData(string json)
-    {
-        AccountData data = JsonUtility.FromJson<AccountData>(json);
-        Name = data.Name;
-        Level = data.Level;
-        Exp = data.Exp;
-        Gender = data.Gender;
-        Tutorial = data.Tutorial;
     }
 }
