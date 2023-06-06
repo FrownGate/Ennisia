@@ -44,7 +44,7 @@ public class Item
 
     protected void AddToInventory()
     {
-        Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Inventory.Items;
+        Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
         SetName();
 
         Debug.Log($"Adding {Name} to inventory...");

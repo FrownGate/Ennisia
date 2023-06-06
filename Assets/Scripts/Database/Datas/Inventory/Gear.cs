@@ -49,9 +49,9 @@ public class Gear : Item
 
     private int SetId()
     {
-        if (PlayFabManager.Instance.Inventory.Items.ContainsKey("Gear"))
+        if (PlayFabManager.Instance.Data.Inventory.Items.ContainsKey("Gear"))
         {
-            return PlayFabManager.Instance.Inventory.Items["Gear"].Count + 1;
+            return PlayFabManager.Instance.Data.Inventory.Items["Gear"].Count + 1;
         }
         else
         {

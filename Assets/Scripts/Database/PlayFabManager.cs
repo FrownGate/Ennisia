@@ -22,9 +22,7 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnBigLoadingStart;
     public static event Action OnLoadingEnd;
 
-    public AccountData Account { get; private set; }
-    public PlayerData Player { get; private set; }
-    public InventoryData Inventory { get; private set; }
+    public Data Data { get; private set; }
     public Dictionary<string, int> Currencies { get; private set; }
     public int Energy { get; private set; }
     public string PlayFabId { get; private set; }
@@ -40,7 +38,6 @@ public class PlayFabManager : MonoBehaviour
         public int Initial;
     }
 
-    private Data _data;
     private Dictionary<string, Data> _datas;
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
@@ -173,10 +170,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void CreateLocalData(string username)
     {
-        _data = new(username);
-        Account = _data.Account;
-        Player = _data.Player;
-        Inventory = _data.Inventory;
+        Data = new(username);
     }
 
     private void OnLoginRequestError(PlayFabError error)
@@ -319,13 +313,13 @@ public class PlayFabManager : MonoBehaviour
         PlayFabDataAPI.InitiateFileUploads(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            FileNames = new() { _data.GetType().Name }
+            FileNames = new() { Data.GetType().Name }
         }, OnInitFileUploads, OnRequestError);
     }
 
     private void OnInitFileUploads(InitiateFileUploadsResponse response)
     {
-        byte[] payload = Encoding.UTF8.GetBytes(JsonUtility.ToJson(_data));
+        byte[] payload = Encoding.UTF8.GetBytes(JsonUtility.ToJson(Data));
         PlayFabHttp.SimplePutCall(response.UploadDetails[0].UploadUrl, payload, success => UploadFiles(), error => Debug.LogError(error));
     }
 
@@ -336,7 +330,7 @@ public class PlayFabManager : MonoBehaviour
         PlayFabDataAPI.FinalizeFileUploads(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            FileNames = new() { _data.GetType().Name }
+            FileNames = new() { Data.GetType().Name }
         }, res =>
         {
             Debug.Log("Files uploaded !");
@@ -366,7 +360,7 @@ public class PlayFabManager : MonoBehaviour
         }
         else
         {
-            GetFilesDatas(response.Metadata[_data.GetType().Name]);
+            GetFilesDatas(response.Metadata[Data.GetType().Name]);
         }
     }
 
@@ -375,7 +369,7 @@ public class PlayFabManager : MonoBehaviour
         PlayFabHttp.SimpleGetCall(file.DownloadUrl, res =>
         {
             //TODO -> check if there's no missing datas
-            _data.UpdateLocalData(Encoding.UTF8.GetString(res));
+            Data.UpdateLocalData(Encoding.UTF8.GetString(res));
             Debug.Log("Local datas updated !");
 
             CompleteLogin();
@@ -386,7 +380,7 @@ public class PlayFabManager : MonoBehaviour
     {
         if (!LoggedIn)
         {
-            if (_firstLogin) UpdateName(Account.Name);
+            if (_firstLogin) UpdateName(Data.Account.Name);
             _firstLogin = false;
             LoggedIn = true;
             OnLoginSuccess?.Invoke();
@@ -490,7 +484,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Dictionary<int, int> supports = new();
 
-        foreach (SupportData support in Inventory.Supports)
+        foreach (SupportData support in Data.Inventory.Supports)
         {
             supports[support.Id] = support.Lvl;
         }
@@ -500,9 +494,9 @@ public class PlayFabManager : MonoBehaviour
 
     public int HasSupport(int id)
     {
-        for (int i = 0; i < Inventory.Supports.Count; i++)
+        for (int i = 0; i < Data.Inventory.Supports.Count; i++)
         {
-            if (Inventory.Supports[i].Id == id) return i;
+            if (Data.Inventory.Supports[i].Id == id) return i;
         }
 
         return 0;
@@ -521,7 +515,7 @@ public class PlayFabManager : MonoBehaviour
             });
         }
 
-        Inventory.Supports = supports;
+        Data.Inventory.Supports = supports;
         UpdateData();
     }
     #endregion
