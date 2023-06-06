@@ -97,16 +97,7 @@ public class ScenesManager : MonoBehaviour
     private string GetSceneName(string scene)
     {
         string[] splittedName = scene.Split('#');
-
-        if (splittedName.Length > 1)
-        {
-            Params = splittedName[1];
-        }
-        else
-        {
-            Params = null;
-        }
-
+        Params = splittedName.Length > 1 ? splittedName[1] : null;
         return splittedName[0];
     }
 
