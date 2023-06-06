@@ -3,21 +3,35 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public abstract class Data
+public class Data
 {
+    public AccountData Account;
+    public PlayerData Player;
+    public InventoryData Inventory;
+
+    public Data(string username)
+    {
+        Account = new(username);
+        Player = new();
+        Inventory = new();
+    }
+
     public SetObject Serialize()
     {
         return new SetObject
         {
-            ObjectName = GetName(),
+            ObjectName = GetType().Name,
             EscapedDataObject = JsonUtility.ToJson(this)
         };
     }
 
-    public abstract void UpdateLocalData(string json);
-
-    public string GetName()
+    public void UpdateLocalData(string json)
     {
-        return GetType().Name.Replace("Data", string.Empty);
+        Data data = JsonUtility.FromJson<Data>(json);
+        Account = data.Account;
+        Player = data.Player;
+        Inventory = data.Inventory;
+
+        Debug.Log($"User has {Inventory.Supports.Count} support(s).");
     }
 }

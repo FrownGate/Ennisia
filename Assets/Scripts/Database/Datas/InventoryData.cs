@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryData : Data
+[Serializable]
+public class InventoryData
 {
     public List<SupportData> Supports;
     [NonSerialized] public Dictionary<string, List<Item>> Items;
@@ -11,12 +12,6 @@ public class InventoryData : Data
     {
         Supports = new();
         Items = new();
-    }
-
-    public override void UpdateLocalData(string json)
-    {
-        InventoryData data = JsonUtility.FromJson<InventoryData>(json);
-        Supports = data.Supports;
     }
 
     public Material GetMaterial(int type, int rarity)
