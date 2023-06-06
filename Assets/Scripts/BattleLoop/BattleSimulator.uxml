@@ -16,6 +16,14 @@
                     <ui:TextField picking-mode="Ignore" label="Skill 2" value="filler text" name="Skill2" style="top: 10px;" />
                 </ui:Foldout>
             </ui:GroupBox>
+            <ui:GroupBox name="Weapon" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 470px; right: auto; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Weapon" index="-1" name="weapon-dropdown" />
+                <ui:Foldout text="Foldout" name="weapon-foldout" style="width: 100%;">
+                    <ui:IntegerField label="Stat" value="42" name="MainStat" />
+                    <ui:TextField picking-mode="Ignore" label="Skill 1" value="filler text" name="Skill1" style="top: 10px;" />
+                    <ui:TextField picking-mode="Ignore" label="Skill 2" value="filler text" name="Skill2" style="top: 10px;" />
+                </ui:Foldout>
+            </ui:GroupBox>
         </ui:GroupBox>
         <ui:GroupBox name="Enemies" style="flex-direction: row; justify-content: flex-start; width: 50%; height: 100%; align-items: flex-end; flex-wrap: nowrap; align-self: auto; max-width: 50%; max-height: 100%; min-height: 100%; min-width: 50%; flex-basis: auto; right: 0; bottom: 0; position: absolute; left: 50%;">
             <ui:Label tabindex="-1" text="Enemies" display-tooltip-when-elided="true" name="Title" style="flex-direction: row; justify-content: flex-start; align-self: stretch; align-items: auto; flex-wrap: nowrap; height: 37px; width: 153px; display: flex; top: auto; left: auto; -unity-text-align: middle-center; white-space: nowrap; text-overflow: clip; flex-basis: 100%;" />

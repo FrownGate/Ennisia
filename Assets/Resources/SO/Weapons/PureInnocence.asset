@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b552102840d7d3843a0c6700957f2ff0, type: 3}
   m_Name: PureInnocence
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Pure Innocence
   Type: 6
   Stat: 0
   IsMagic: 0
   StatValue: 0
-  StatUpgrade: 0
-  RatioUpgrade: 0
   Level: 1
   FirstSkillData: {fileID: 0}
   SecondSkillData: {fileID: 0}
