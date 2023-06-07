@@ -57,12 +57,12 @@ public class Gear : Item
         Value = gear.Value;
         Substats = gear.Substats;
         Level = gear.Level;
+        Name = gear.Name;
 
         if (Category == ItemCategory.Weapon)
         {
-            string weaponName = Name.Split(" ")[1];
-            Debug.Log(weaponName);
-            Weapon = Resources.Load<GearSO>($"SO/Weapons/{weaponName}");
+            string weaponName = Name.Split($"[{Rarity}] ")[1];
+            Weapon = Resources.Load<GearSO>($"SO/Weapons/{CSVUtils.GetFileName(weaponName)}");
         }
 
         AddToInventory();
@@ -70,29 +70,32 @@ public class Gear : Item
 
     public override void Serialize()
     {
-        base.Serialize();
-
-        if (Rarity == ItemRarity.Common) return;
-        JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
-        int i = 0;
-
-        foreach (KeyValuePair<AttributeStat, float> substat in Substats)
+        if (Category != ItemCategory.Weapon && Rarity != ItemRarity.Common)
         {
-            JsonSubstats[i] = new JsonSubstatsDictionary
-            {
-                Key = substat.Key.ToString(),
-                Value = substat.Value
-            };
+            JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
+            int i = 0;
 
-            i++;
+            foreach (KeyValuePair<AttributeStat, float> substat in Substats)
+            {
+                JsonSubstats[i] = new JsonSubstatsDictionary
+                {
+                    Key = substat.Key.ToString(),
+                    Value = substat.Value
+                };
+
+                i++;
+            }
         }
+
+        Weapon = null;
+        base.Serialize();
     }
 
     public override void Deserialize()
     {
         base.Deserialize();
 
-        if (Rarity == ItemRarity.Common) return;
+        if (Category == ItemCategory.Weapon || Rarity == ItemRarity.Common) return;
         Substats = new();
 
         for (int i = 0; i < JsonSubstats.Length; i++)
@@ -141,7 +144,7 @@ public class Gear : Item
     private Dictionary<AttributeStat, float> SetSubstats()
     {
         Dictionary<AttributeStat, float> substats = new();
-        if (Category == ItemCategory.Weapon) return substats;
+        if (Category == ItemCategory.Weapon) return null;
 
         for (int i = 0; i < (int)Rarity; i++)
         {

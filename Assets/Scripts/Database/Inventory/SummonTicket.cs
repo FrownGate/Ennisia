@@ -22,6 +22,7 @@ public class SummonTicket : Item
         Stack = item.StackId;
         Amount = (int)item.Amount;
         Rarity = summonTicket.Rarity;
+        Name = summonTicket.Name;
 
         AddToInventory();
     }
