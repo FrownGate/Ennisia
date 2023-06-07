@@ -2,14 +2,9 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Ennisia/Weapon")]
-public class WeaponSO : ScriptableObject
+public class WeaponSO : GearSO
 {
-    public string Name;
-    public Item.GearType Type;
-    public Item.AttributeStat Stat;
     public bool IsMagic;
-    public float StatValue; 
-    public int Level = 1;
     public SkillSO FirstSkillData;
     public SkillSO SecondSkillData;
     [HideInInspector] public Skill FirstSkill;

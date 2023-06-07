@@ -358,7 +358,7 @@ public class GearsCreator : EditorWindow
             }
             else
             {
-                path = "Assets/Resources/SO/GearsCreator/" + gear.type + "-" + gear.gearName + ".asset";
+                path = "Assets/Resources/SO/GearsCreator/" + gear.type + "-" + gear.equipmentName + ".asset";
             }
 
             AssetDatabase.CreateAsset(gearSO, path);  // Create the asset at the specified path
@@ -382,7 +382,7 @@ public class GearsCreator : EditorWindow
         }
         else
         {
-            path = "Assets/Resources/SO/GearsCreator/" + gear.gearName + ".asset";
+            path = "Assets/Resources/SO/GearsCreator/" + gear.equipmentName + ".asset";
         }
 
         AssetDatabase.CreateAsset(gearSO, path);  // Create the asset at the specified path
@@ -397,7 +397,7 @@ public class GearsCreator : EditorWindow
         GearSO gear = CreateInstance<GearSO>();  // Create a new instance of EquipmentSO
 
         // Set the properties of the EquipmentSO based on the EquipmentData
-        gear.Name = gearData.gearName;
+        gear.Name = gearData.equipmentName;
         gear.Type = gearData.type;
         gear.Rarity = _selectedRarity[gearData];
         gear.Attribute = gearData.attribute;
@@ -411,7 +411,7 @@ public class GearsCreator : EditorWindow
 
 public class GearData : ScriptableObject
 {
-    public string gearName;
+    public string equipmentName;
     public Item.GearType type;
     public Item.AttributeStat attribute;
     public float commonMin;
