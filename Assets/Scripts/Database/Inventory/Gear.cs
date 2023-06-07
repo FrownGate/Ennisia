@@ -7,10 +7,19 @@ public class Gear : Item
     public int Id;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
+    public Dictionary<AttributeStat, float> Substats;
+    public JsonSubstatsDictionary[] JsonSubstats;
     public string Description;
     public int Level;
     public float StatUpgrade;
     public float RatioUpgrade;
+
+    [System.Serializable]
+    public class JsonSubstatsDictionary
+    {
+        public string Key;
+        public float Value;
+    }
 
     public Gear(GearType type, ItemRarity rarity)
     {
@@ -22,6 +31,7 @@ public class Gear : Item
         Category = SetCategory();
         Attribute = SetAttribute();
         Value = SetValue();
+        Substats = SetSubstats();
         Level = 1;
         Amount = 1;
 
@@ -41,10 +51,45 @@ public class Gear : Item
         Category = gear.Category;
         Attribute = gear.Attribute;
         Value = gear.Value;
+        Substats = gear.Substats;
         Level = gear.Level;
         Amount = gear.Amount;
 
         AddToInventory();
+    }
+
+    public override void Serialize()
+    {
+        base.Serialize();
+
+        if (Rarity == ItemRarity.Common) return;
+        JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
+        int i = 0;
+
+        foreach (KeyValuePair<AttributeStat, float> substat in Substats)
+        {
+            JsonSubstats[i] = new JsonSubstatsDictionary
+            {
+                Key = substat.Key.ToString(),
+                Value = substat.Value
+            };
+
+            i++;
+        }
+    }
+
+    public override void Deserialize()
+    {
+        base.Deserialize();
+
+        if (Rarity == ItemRarity.Common) return;
+        Substats = new();
+
+        for (int i = 0; i < JsonSubstats.Length; i++)
+        {
+            Substats[System.Enum.Parse<AttributeStat>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
+            Debug.Log(JsonSubstats[i].Key);
+        }
     }
 
     private int SetId()
@@ -70,13 +115,26 @@ public class Gear : Item
     private AttributeStat SetAttribute()
     {
         List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
-        return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
+        return possiblesAttributes[Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
     private int SetValue()
     {
         StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
-        return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
+        return Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
+    }
+
+    private Dictionary<AttributeStat, float> SetSubstats()
+    {
+        Dictionary<AttributeStat, float> substats = new();
+
+        for (int i = 0; i < (int)Rarity; i++)
+        {
+            AttributeStat stat = (AttributeStat)Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
+            substats[stat] = 1; //Temp
+        }
+
+        return substats;
     }
 
     protected override void SetName()
@@ -86,6 +144,9 @@ public class Gear : Item
 
     public override void Upgrade()
     {
+        //TODO -> add upgrade chances (50%)
+        //TODO -> check and use materials
+        //TODO -> substats upgrade formula
         if (Level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
 
@@ -95,7 +156,7 @@ public class Gear : Item
         PlayFabManager.Instance.UpdateItem(this);
     }
 
-    public void Upgrade(int _level) //Used ?
+    public void Upgrade(int _level) //Testing only
     {
         if (_level >= 50) return;
         Debug.Log($"Upgrading {Name}...");

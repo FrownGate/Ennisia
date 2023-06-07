@@ -689,10 +689,11 @@ public class PlayFabManager : MonoBehaviour
     private void Testing()
     {
         //Debug.Log("Testing");
-        Debug.Log(Data.Inventory.Items.Count);
+        //Debug.Log(Data.Inventory.Items.Count);
         //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Common));
         //Data.Inventory.Items["Gear"][0].Upgrade();
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
+        //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
     }
