@@ -7,7 +7,7 @@ public class BattleSimulator : EditorWindow
 {
     public static BattleSystem Instance;
     private List<SupportCharacterSO> _supports = new();
-    private List<WeaponSO> _weapons = new();
+    private List<GearSO> _weapons = new();
     private List<Enemy> _enemies = new();
     private DropdownField _playerDropdown; //Used ?
 
@@ -245,8 +245,8 @@ public class BattleSimulator : EditorWindow
             _secondSupportDropdown.choices.Add(support.Name);
         }
 
-        _weapons = new List<WeaponSO>(Resources.LoadAll<WeaponSO>("SO/Weapons"));
-        foreach (WeaponSO weapon in _weapons)
+        _weapons = new List<GearSO>(Resources.LoadAll<GearSO>("SO/Weapons"));
+        foreach (GearSO weapon in _weapons)
         {
             _weaponDropdown.choices.Add("No Weapon");
             _weaponDropdown.choices.Add(weapon.Name);
@@ -267,7 +267,7 @@ public class BattleSimulator : EditorWindow
                 _weaponFoldout.visible = true;
                 _weaponFoldout.text = evt.newValue;
 
-                WeaponSO weapon = _weapons.Find(x => x.Name == evt.newValue);
+                GearSO weapon = _weapons.Find(x => x.Name == evt.newValue);
 
                 ChangeFieldsOfWeapon(evt.newValue, _weaponSkillField, _weaponStatField);
             }
@@ -429,10 +429,10 @@ public class BattleSimulator : EditorWindow
 
     private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
     {
-        WeaponSO weapon = _weapons.Find(x => x.Name == weaponName);
+        GearSO weapon = _weapons.Find(x => x.Name == weaponName);
 
         // Change the name of the stat field to the name of the stat
-        weaponStatFields[0].label = weapon.Stat.ToString();
+        weaponStatFields[0].label = weapon.Attribute.ToString();
         weaponStatFields[0].SetValueWithoutNotify((int)weapon.StatValue);
 
         // FIXME: -> The skills are not assigned to the weapon
