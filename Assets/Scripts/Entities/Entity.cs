@@ -20,7 +20,7 @@ public abstract class Entity
     protected internal float CurrentHp { get; set; }
 
     //protected internal List<Debuff> DebuffsList
-    protected internal WeaponSO WeaponSO { get; set; }
+    protected internal GearSO Weapon { get; set; }
     protected internal List<Skill> Skills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
 

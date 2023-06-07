@@ -13,6 +13,7 @@ public class Gear : Item
     public int Level;
     public float StatUpgrade;
     public float RatioUpgrade;
+    public GearSO Weapon;
 
     [System.Serializable]
     public class JsonSubstatsDictionary
@@ -21,8 +22,9 @@ public class Gear : Item
         public float Value;
     }
 
-    public Gear(GearType type, ItemRarity rarity)
+    public Gear(GearType type, ItemRarity rarity, GearSO weapon = null)
     {
+        Weapon = weapon;
         Id = SetId();
         Stack = Id.ToString();
         Type = type;
@@ -37,6 +39,8 @@ public class Gear : Item
 
         AddToInventory();
     }
+
+    public Gear(GearSO weapon, ItemRarity rarity) : this(weapon.Type, rarity, weapon) { }
 
     public Gear(InventoryItem item)
     {
@@ -53,7 +57,13 @@ public class Gear : Item
         Value = gear.Value;
         Substats = gear.Substats;
         Level = gear.Level;
-        Amount = gear.Amount;
+
+        if (Category == ItemCategory.Weapon)
+        {
+            string weaponName = Name.Split(" ")[1];
+            Debug.Log(weaponName);
+            Weapon = Resources.Load<GearSO>($"SO/Weapons/{weaponName}");
+        }
 
         AddToInventory();
     }
@@ -114,12 +124,16 @@ public class Gear : Item
 
     private AttributeStat SetAttribute()
     {
+        if (Category == ItemCategory.Weapon) return Weapon.Attribute;
+
         List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
-    private int SetValue()
+    private float SetValue()
     {
+        if (Category == ItemCategory.Weapon) return Weapon.StatValue;
+
         StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
         return Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
@@ -127,6 +141,7 @@ public class Gear : Item
     private Dictionary<AttributeStat, float> SetSubstats()
     {
         Dictionary<AttributeStat, float> substats = new();
+        if (Category == ItemCategory.Weapon) return substats;
 
         for (int i = 0; i < (int)Rarity; i++)
         {
@@ -139,7 +154,7 @@ public class Gear : Item
 
     protected override void SetName()
     {
-        Name = $"[{Rarity}] {Type}";
+        Name = Category == ItemCategory.Weapon ? $"[{Rarity}] {Weapon.Name}" : $"[{Rarity}] {Type}";
     }
 
     public override void Upgrade()
@@ -169,6 +184,25 @@ public class Gear : Item
 
     public void Equip()
     {
-        //TODO -> Set EquippedGear SO datas
+        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{Type}");
+
+        equippedGear.Id = Id;
+        equippedGear.Level = Level;
+        equippedGear.Name = Name;
+        equippedGear.Type = (GearType)Type;
+        equippedGear.Rarity = (ItemRarity)Rarity;
+        equippedGear.Attribute = (AttributeStat)Attribute;
+        equippedGear.StatValue = Value;
+        equippedGear.Description = Description;
+        equippedGear.Substats = Substats;
+        equippedGear.FirstSkillData = Weapon != null ? Weapon.FirstSkillData : null;
+        equippedGear.SecondSkillData = Weapon != null ? Weapon.SecondSkillData : null;
+        //TODO -> add Icon path
+    }
+
+    public void Unequip()
+    {
+        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{Type}");
+        equippedGear.Unequip();
     }
 }

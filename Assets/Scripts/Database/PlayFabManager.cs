@@ -696,6 +696,8 @@ public class PlayFabManager : MonoBehaviour
         //Data.Inventory.Items["Gear"][0].Upgrade();
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
+        GearSO weapon = Resources.Load<GearSO>("SO/Weapons/PureInnocence");
+        AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
     }
