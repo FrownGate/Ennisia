@@ -51,7 +51,7 @@ public class Popup : MonoBehaviour
                 Scene scene = scenes[i];
                 if (scene != popupScene && scene.isLoaded)
                 {
-                    ScenesManager.Instance.UnloadPopupScene(scene.name);
+                    ScenesManager.Instance.UnloadScene(scene.name);
                     break;
                 }
             }

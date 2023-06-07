@@ -12,7 +12,6 @@ public class ScenesManager : MonoBehaviour
     private Scene _previousScene;
     private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
-    private bool _isPopupSceneActive = false;
 
     private bool _loading;
     public float minLoadingTime = 2f;
@@ -76,10 +75,7 @@ public class ScenesManager : MonoBehaviour
                 break;
 
             default:
-                if (IsPopupSceneLoaded(_sceneToLoad))
-                {
-                    UnloadPopupScene(_sceneToLoad);
-                }
+                if (IsPopupLoaded()) UnloadScene(_sceneToLoad);
                 SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
                 break;
         }
@@ -89,10 +85,6 @@ public class ScenesManager : MonoBehaviour
     {
         _activeScene = scene;
         _sceneMode = mode;
-        if (mode == LoadSceneMode.Additive && scene.name.Contains("Popup"))
-        {
-            _isPopupSceneActive = true;
-        }
 
         Debug.Log($"{_activeScene.name} loaded !");
     }
@@ -100,10 +92,6 @@ public class ScenesManager : MonoBehaviour
     private void OnSceneUnloaded(Scene scene)
     {
         _previousScene = scene;
-        if (scene.name.Contains("Popup"))
-        {
-            _isPopupSceneActive = false;
-        }
         Debug.Log($"{_previousScene.name} unloaded !");
     }
 
@@ -181,12 +169,12 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
-    public bool IsPopupSceneLoaded(string sceneToLoad)
+    public bool IsPopupLoaded()
     {
-        return _isPopupSceneActive;
+        return _sceneMode == LoadSceneMode.Additive;
     }
 
-    public void UnloadPopupScene(string scene)
+    public void UnloadScene(string scene)
     {
         SceneManager.UnloadSceneAsync(scene);
     }
