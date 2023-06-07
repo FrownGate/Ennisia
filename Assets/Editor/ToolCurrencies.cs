@@ -62,8 +62,8 @@ public class ToolCurrencies : EditorWindow
 
     private void UpdateCurrencies()
     {
-        _gold = PlayFabManager.Instance.Currencies["Gold"];
-        _crystals = PlayFabManager.Instance.Currencies["Crystals"];
+        _gold = PlayFabManager.Instance.Currencies[PlayFabManager.Currency.Gold];
+        _crystals = PlayFabManager.Instance.Currencies[PlayFabManager.Currency.Crystals];
         UpdateLabels();
     }
 
@@ -392,22 +392,22 @@ public class ToolCurrencies : EditorWindow
 
     private void AddGold()
     {
-        PlayFabManager.Instance.AddCurrency("Gold", 100000);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Gold, 100000);
     }
 
     private void AddCrystals()
     {
-        PlayFabManager.Instance.AddCurrency("Crystals", 2000);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, 2000);
     }
 
     private void RemoveGold()
     {
-        PlayFabManager.Instance.RemoveCurrency("Gold", 100000);
+        PlayFabManager.Instance.RemoveCurrency(PlayFabManager.Currency.Gold, 100000);
     }
 
     private void RemoveCrystals()
     {
-        PlayFabManager.Instance.RemoveCurrency("Crystals", 2000);
+        PlayFabManager.Instance.RemoveCurrency(PlayFabManager.Currency.Crystals, 2000);
     }
 
     private void AddEnergy()

@@ -44,10 +44,10 @@ public class Item
 
     protected void AddToInventory()
     {
-        Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Inventory.Items;
+        Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
         SetName();
 
-        Debug.Log($"Adding {Name} to inventory !");
+        Debug.Log($"Adding {Name} to inventory...");
 
         if (!inventory.ContainsKey(GetType().Name))
         {
@@ -68,7 +68,7 @@ public class Item
         }
     }
 
-    public void Serialize()
+    public virtual void Serialize()
     {
         JsonRarity = Rarity.ToString();
         JsonCategory = Category.ToString();
@@ -76,7 +76,7 @@ public class Item
         JsonAttribute = Attribute.ToString();
     }
 
-    public void Deserialize()
+    public virtual void Deserialize()
     {
         Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<ItemRarity>(JsonRarity);
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
@@ -85,4 +85,5 @@ public class Item
     }
 
     protected virtual void SetName() { }
+    public virtual void Upgrade() { }
 }
