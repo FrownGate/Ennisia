@@ -77,8 +77,8 @@ public class WeekliesCheck : MonoBehaviour
 
     private void GiveRewards()
     {
-        PlayFabManager.Instance.AddCurrency("Gold", goldAmount);
-        PlayFabManager.Instance.AddCurrency("Crystals", goldAmount);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Gold, goldAmount);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, goldAmount);
     }
 
     private void OnEnable()

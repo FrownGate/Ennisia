@@ -132,7 +132,7 @@ public class Gear : Item
         if (Category == ItemCategory.Weapon) return Weapon.Attribute;
 
         List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
-        return possiblesAttributes[Random.Range(0, possiblesAttributes.Count - 1)];
+        return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
     private float SetValue()
@@ -140,7 +140,7 @@ public class Gear : Item
         if (Category == ItemCategory.Weapon) return Weapon.StatValue;
 
         StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
-        return Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
+        return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
     private Dictionary<AttributeStat, float> SetSubstats()
@@ -150,7 +150,7 @@ public class Gear : Item
 
         for (int i = 0; i < (int)Rarity; i++)
         {
-            AttributeStat stat = (AttributeStat)Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
+            AttributeStat stat = (AttributeStat)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
             substats[stat] = 1; //Temp
         }
 
