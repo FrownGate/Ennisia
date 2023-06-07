@@ -19,10 +19,18 @@ public abstract class Entity
     protected internal float Speed { get; set; }
     protected internal float CurrentHp { get; set; }
 
+    private readonly Dictionary<string, float> _baseValues;
+
     //protected internal List<Debuff> DebuffsList
     protected internal WeaponSO WeaponSO { get; set; }
     protected internal List<Skill> Skills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
+    
+    public Entity()
+    {
+        _baseValues = new Dictionary<string, float>();
+        StoreBaseValues();
+    }
 
     public bool IsDead
     {
@@ -62,4 +70,44 @@ public abstract class Entity
 
         return stats;
     }
+    private void StoreBaseValues()
+    {
+        _baseValues["MaxHp"] = MaxHp;
+        _baseValues["Atk"] = Attack;
+        _baseValues["PhysAtk"] = PhysAtk;
+        _baseValues["PhysDef"] = PhysDef;
+        _baseValues["MagicAtk"] = MagicAtk;
+        _baseValues["MagicDef"] = MagicDef;
+        _baseValues["CritRate"] = CritRate;
+        _baseValues["CritDamage"] = CritDamage;
+        _baseValues["Speed"] = Speed;
+    }
+    
+    public void ResetToBaseValues()
+    {
+        MaxHp = _baseValues["MaxHp"];
+        Attack = _baseValues["Attack"];
+        PhysAtk = _baseValues["PhysAtk"];
+        MagicAtk = _baseValues["MagicAtk"];
+        PhysDef = _baseValues["PhysDef"];
+        MagicDef = _baseValues["MagicDef"];
+        CritRate = _baseValues["CritRate"];
+        CritDamage = _baseValues["CritDamage"];
+        Speed = _baseValues["Speed"];
+    }
+
+    public void ApplyEffect(Effect effectToApply)
+    {
+        switch (effectToApply._effectType)
+        {
+            
+        }
+    }
+
+    public void RemoveEffect()
+    {
+        
+    }
+    
+    
 }
