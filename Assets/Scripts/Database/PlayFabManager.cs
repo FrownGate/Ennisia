@@ -19,36 +19,42 @@ public class PlayFabManager : MonoBehaviour
     }
 
     public static PlayFabManager Instance { get; private set; }
+
+    //Requests events
     public static event Action OnLoginSuccess;
     public static event Action<PlayFabError> OnError;
+
+    //Currencies events
     public static event Action OnCurrencyUpdate;
     public static event Action<Currency> OnCurrencyUsed;
     public static event Action<Currency> OnCurrencyGained;
     public static event Action OnEnergyUpdate;
     public static event Action OnEnergyUsed;
+
+    //Loading events
     public static event Action OnLoadingStart;
     public static event Action OnBigLoadingStart;
     public static event Action OnLoadingEnd;
 
-    public Data Data { get; private set; }
-    public Dictionary<Currency, int> Currencies { get; private set; }
-    public int Energy { get; private set; }
+    public Data Data { get; private set; } //Account, Player and Inventory datas
+    public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
+    public int Energy { get; private set; } //Player's energy
+
+    //PlayFab Account datas
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
     public bool LoggedIn { get; private set; }
 
+    //PlayFab catalog
     private Dictionary<string, string> _currencies;
     private Dictionary<string, string> _itemsById;
     private Dictionary<string, string> _itemsByName;
+    private struct CurrencyData { public int Initial; } //TODO -> move elsewhere ?
 
-    private struct CurrencyData //TODO -> move elsewhere
-    {
-        public int Initial;
-    }
-
+    //Utilities
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
-    private string _path;
+    private string _path; //Local save path
     private bool _firstLogin;
     private bool _currencyAdded;
     private Item _item;
