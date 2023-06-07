@@ -1,9 +1,11 @@
 using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Gear : Item
 {
+    public static event Action LevelUp;
     public int Id;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
@@ -88,7 +90,7 @@ public class Gear : Item
     {
         if (Level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
-
+        LevelUp?.Invoke();
         Level++;
         Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
 
