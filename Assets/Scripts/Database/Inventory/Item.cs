@@ -40,12 +40,10 @@ public class Item
     public string JsonType;
     public string JsonAttribute;
 
-    //TODO -> Remove item if amount == 0
-
     protected void AddToInventory()
     {
         Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
-        SetName();
+        if (string.IsNullOrEmpty(Name)) SetName();
 
         Debug.Log($"Adding {Name} to inventory...");
 

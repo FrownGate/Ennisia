@@ -205,6 +205,7 @@ public class PlayFabManager : MonoBehaviour
 
         foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
         {
+            //TODO -> Get bundle items and shops
             if (item.Type == "currency")
             {
                 _currencies[item.Id] = item.AlternateIds[0].Value;
@@ -218,6 +219,7 @@ public class PlayFabManager : MonoBehaviour
             }
         }
 
+        //TODO -> check initial value of new currencies for existing players
         if (_firstLogin)
         {
             StartCoroutine(CreateInitialCurrencies());
@@ -529,7 +531,7 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Equipment
-    public void SetGearData(EquipmentSO equipment, int id)
+    public void SetGearData(GearSO equipment, int id)
     {
         //TODO -> Use find
         //foreach (Gear inventoryGear in Inventory.GetGears())
@@ -690,10 +692,16 @@ public class PlayFabManager : MonoBehaviour
     {
         //Debug.Log("Testing");
         //Debug.Log(Data.Inventory.Items.Count);
+
         //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Common));
         //Data.Inventory.Items["Gear"][0].Upgrade();
+
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
+
+        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/PureInnocence");
+        //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
+
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
     }
