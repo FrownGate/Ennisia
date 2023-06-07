@@ -121,7 +121,7 @@ public class Gear : Item
     private int SetValue()
     {
         StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
-        return Random.Range(possibleValues.MinValue, possibleValues.MaxValue);
+        return Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
     private Dictionary<AttributeStat, float> SetSubstats()
