@@ -68,7 +68,7 @@ public class Item
         }
     }
 
-    public void Serialize()
+    public virtual void Serialize()
     {
         JsonRarity = Rarity.ToString();
         JsonCategory = Category.ToString();
@@ -76,7 +76,7 @@ public class Item
         JsonAttribute = Attribute.ToString();
     }
 
-    public void Deserialize()
+    public virtual void Deserialize()
     {
         Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<ItemRarity>(JsonRarity);
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
