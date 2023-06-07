@@ -10,6 +10,7 @@ public class DailiesCheck : MonoBehaviour
     public static event Action daily2;
     public static event Action daily3;
     public static event Action daily4;
+    public static event Action daily5;
 
     public int goldAmount;
     public int crystalsAmount;
@@ -37,9 +38,15 @@ public class DailiesCheck : MonoBehaviour
         {
             _mainStoryCount++;
         }
-        if (_mainStoryCount >= mainStoryNeeded || _dungeonCount >= dungeonNeeded)
+        if (_mainStoryCount >= mainStoryNeeded)
         {
             GiveRewards();
+            daily1?.Invoke();
+        }
+        if(_dungeonCount >= dungeonNeeded)
+        {
+            GiveRewards();
+            daily2?.Invoke();
         }
     }
 
@@ -48,6 +55,7 @@ public class DailiesCheck : MonoBehaviour
         if (_gearUpgradeCount >= gearUpgradeNeeded)
         {
             GiveRewards();
+            daily3?.Invoke();
         }
         else
         {
@@ -61,6 +69,7 @@ public class DailiesCheck : MonoBehaviour
         if (_enemyKilledCount >= enemyKilledNeeded)
         {
             GiveRewards();
+            daily4?.Invoke();
         }
         else
         {
@@ -73,6 +82,7 @@ public class DailiesCheck : MonoBehaviour
         if(_energyUsedCount >= energyUsedNeeded)
         {
             GiveRewards();
+            daily5?.Invoke();
         }
         else
         {
