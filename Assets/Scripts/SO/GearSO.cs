@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewEquipment", menuName = "Ennisia/Equipment")]
@@ -12,4 +13,5 @@ public class GearSO : ScriptableObject
     public float StatValue;
     public string Description;
     public Sprite Icon;
+    public Dictionary<Item.AttributeStat, int> Substats;
 }
