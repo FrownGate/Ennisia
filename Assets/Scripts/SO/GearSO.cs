@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewEquipment", menuName = "Ennisia/Equipment")]
-public class EquipmentSO : ScriptableObject
+public class GearSO : ScriptableObject
 {
     public int Id = 1;
     public string Name;

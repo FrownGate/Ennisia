@@ -531,7 +531,7 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Equipment
-    public void SetGearData(EquipmentSO equipment, int id)
+    public void SetGearData(GearSO equipment, int id)
     {
         //TODO -> Use find
         //foreach (Gear inventoryGear in Inventory.GetGears())
