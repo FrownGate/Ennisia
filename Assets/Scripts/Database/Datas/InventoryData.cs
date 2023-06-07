@@ -30,9 +30,12 @@ public class InventoryData
         return material;
     }
 
-    public bool HasItem(Item item)
+    public bool HasItem(Item itemToFound)
     {
-        return Items.ContainsKey(item.GetType().Name);
+        if (Items.TryGetValue(itemToFound.GetType().Name, out List<Item> items)) {
+            return items.Contains(itemToFound);
+        }
+        return false;
     }
 
     public Item GetItem(Item itemToGet, Item.ItemCategory type)
@@ -48,14 +51,15 @@ public class InventoryData
     //Get an item with corresponding Type and/or Rarity
     public Item GetItem(Item itemToGet, Item.ItemCategory? type, Item.ItemRarity? rarity)
     {
+        //TODO -> use Find function instead
         Debug.Log($"Looking for item -> Rarity : {rarity} - Type : {type}");
 
         Item foundItem = null;
 
         foreach (Item item in Items[itemToGet.GetType().Name])
         {
-            if (type != null && type != item.Category) continue;
-            if (rarity != null && rarity != item.Rarity) continue;
+            if (type != item.Category) continue;
+            if (rarity != item.Rarity) continue;
 
             Debug.Log("Item found !");
 
@@ -64,5 +68,13 @@ public class InventoryData
         }
 
         return foundItem;
+    }
+
+    public void RemoveItem(Item itemToRemove)
+    {
+        if (Items.TryGetValue(itemToRemove.GetType().Name, out List<Item> items))
+        {
+            items.Remove(itemToRemove);
+        }
     }
 }
