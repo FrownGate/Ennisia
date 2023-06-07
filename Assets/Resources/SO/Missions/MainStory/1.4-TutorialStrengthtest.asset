@@ -19,6 +19,12 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   WavesCount: 4
+  Enemies:
+  - Elven Knight
+  - Elven Archer
+  - Even Archer
+  - Oliver
+  - Elven Mage
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 4

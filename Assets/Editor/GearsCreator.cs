@@ -15,11 +15,11 @@ public class GearsCreator : EditorWindow
         new GUIContent("One Gear")
     };
 
-    private List<EquipmentData> _equipmentList = new List<EquipmentData>();  // List to store equipment data
-    private Dictionary<EquipmentData, SerializedObject> _serializedObjects = new();  // Dictionary to store serialized objects for equipment data
+    private List<GearData> _gearList = new();  // List to store equipment data
+    private Dictionary<GearData, SerializedObject> _serializedObjects = new();  // Dictionary to store serialized objects for equipment data
     private Dictionary<string, GUIContent[]> _rarityOptions = new();  // Dictionary to store rarity options for each equipment type
     private Dictionary<string, Item.ItemRarity[]> _rarityPropertyNames = new();  // Dictionary to store rarity property names for each equipment type
-    private Dictionary<EquipmentData, Item.ItemRarity> _selectedRarity = new();  // Dictionary to store the selected rarity for each equipment data
+    private Dictionary<GearData, Item.ItemRarity> _selectedRarity = new();  // Dictionary to store the selected rarity for each equipment data
     private Dictionary<string, string> _selectedAttribute = new();  // Dictionary to store the selected attribute for each equipment type
     private Dictionary<string, List<string>> _availableAttributes = new();  // Dictionary to store available attributes for each equipment type
     private Vector2 _scrollPosition = Vector2.zero;  // Scroll position for the GUI
@@ -38,7 +38,7 @@ public class GearsCreator : EditorWindow
         _rarityOptions.Clear();  // Clear the rarity options dictionary
         _rarityPropertyNames.Clear();  // Clear the rarity property names dictionary
 
-        foreach (EquipmentData equipment in _equipmentList)
+        foreach (GearData gear in _gearList)
         {
             Item.ItemRarity[] properties = new Item.ItemRarity[] { //TODO -> optimize
                 Item.ItemRarity.Common, Item.ItemRarity.Rare, Item.ItemRarity.Epic, Item.ItemRarity.Legendary
@@ -50,8 +50,8 @@ public class GearsCreator : EditorWindow
                 options[i] = new GUIContent(properties[i].ToString());  // Create GUI content for each rarity option
             }
 
-            _rarityOptions[equipment.type.ToString()] = options;  // Add rarity options to the dictionary for the equipment type
-            _rarityPropertyNames[equipment.type.ToString()] = properties;  // Add rarity property names to the dictionary for the equipment type
+            _rarityOptions[gear.type.ToString()] = options;  // Add rarity options to the dictionary for the equipment type
+            _rarityPropertyNames[gear.type.ToString()] = properties;  // Add rarity property names to the dictionary for the equipment type
         }
     }
 
@@ -81,7 +81,7 @@ public class GearsCreator : EditorWindow
         }
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Equipment List:");  // Display label for equipment list
+        GUILayout.Label("Gear List:");  // Display label for equipment list
         if (GUILayout.Button("Update"))
         {
             ReadCSV();  // Button to update the equipment list by calling the ReadCSV() method
@@ -90,14 +90,14 @@ public class GearsCreator : EditorWindow
 
         // Dropdown menu for selecting the equipment type
         int selectedTypeIndex = 0;
-        string[] equipmentTypes = _equipmentList.Select(e => e.type.ToString()).ToArray();  // Get the list of equipment types
+        string[] gearTypes = _gearList.Select(g => g.type.ToString()).ToArray();  // Get the list of equipment types
         if (_displayedTypes.Count > 0)
         {
             string currentType = _displayedTypes.First();  // Get the first displayed equipment type
-            selectedTypeIndex = Array.IndexOf(equipmentTypes, currentType);  // Get the index of the current type in the equipmentTypes array
+            selectedTypeIndex = Array.IndexOf(gearTypes, currentType);  // Get the index of the current type in the equipmentTypes array
         }
-        int newSelectedTypeIndex = EditorGUILayout.Popup("Equipment Type:", selectedTypeIndex, equipmentTypes);  // Display a dropdown menu for selecting the equipment type
-        string newSelectedType = equipmentTypes[newSelectedTypeIndex];  // Get the selected equipment type from the dropdown
+        int newSelectedTypeIndex = EditorGUILayout.Popup("Gear Type:", selectedTypeIndex, gearTypes);  // Display a dropdown menu for selecting the equipment type
+        string newSelectedType = gearTypes[newSelectedTypeIndex];  // Get the selected equipment type from the dropdown
 
         // Clear displayed types and selected attributes if the type selection changes
         if (newSelectedType != _displayedTypes.First())
@@ -109,31 +109,31 @@ public class GearsCreator : EditorWindow
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);  // Begin a scroll view
 
         // Filter equipment list based on selected type
-        List<EquipmentData> filteredEquipment = _equipmentList.Where(e => e.type.ToString() == newSelectedType).ToList();  // Filter the equipment list based on the selected type
-        EquipmentData selectedEquipment = _equipmentList[0];  // Default selected equipment (first item in the equipment list)
-        foreach (EquipmentData equipment in filteredEquipment)
+        List<GearData> filteredGear = _gearList.Where(g => g.type.ToString() == newSelectedType).ToList();  // Filter the equipment list based on the selected type
+        GearData selectedGear = _gearList[0];  // Default selected equipment (first item in the equipment list)
+        foreach (GearData gear in filteredGear)
         {
-            if (_displayedTypes.Contains(equipment.type.ToString()) && _selectedAttribute[equipment.type.ToString()] != equipment.attribute.ToString())
+            if (_displayedTypes.Contains(gear.type.ToString()) && _selectedAttribute[gear.type.ToString()] != gear.attribute.ToString())
             {
                 continue;  // If the equipment type is already displayed and the selected attribute is different, skip this equipment
             }
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);  // Begin a vertical group with a help box style
 
-            EditorGUILayout.LabelField("Equipment: " + equipment.type);  // Display the equipment type label
-            UpdateEquipmentPropertiesGUI(equipment);  // Call a method to update and display the equipment properties GUI
+            EditorGUILayout.LabelField("Gear: " + gear.type);  // Display the equipment type label
+            UpdateEquipmentPropertiesGUI(gear);  // Call a method to update and display the equipment properties GUI
 
             EditorGUILayout.EndVertical();  // End the vertical group
 
-            _displayedTypes.Add(equipment.type.ToString());  // Add the equipment type to the displayed types set
-            selectedEquipment = equipment;  // Set the selected equipment to the current equipment
+            _displayedTypes.Add(gear.type.ToString());  // Add the equipment type to the displayed types set
+            selectedGear = gear;  // Set the selected equipment to the current equipment
         }
 
         EditorGUILayout.EndScrollView();  // End the scroll view
 
-        if (GUILayout.Button("Create Equipment Assets"))
+        if (GUILayout.Button("Create Gear Assets"))
         {
-            CreateGearAssets(selectedEquipment);  // Button to create equipment assets by calling the CreateGearAssets() method with the selected equipment
+            CreateGearAssets(selectedGear);  // Button to create equipment assets by calling the CreateGearAssets() method with the selected equipment
         }
     }
 
@@ -146,7 +146,7 @@ public class GearsCreator : EditorWindow
         }
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Equipment List:");  // Display label for equipment list
+        GUILayout.Label("Gear List:");  // Display label for equipment list
         if (GUILayout.Button("Update"))
         {
             ReadCSV();  // Button to update the equipment list by calling the ReadCSV() method
@@ -155,107 +155,107 @@ public class GearsCreator : EditorWindow
 
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);  // Begin a scroll view
 
-        foreach (EquipmentData equipment in _equipmentList)
+        foreach (GearData gear in _gearList)
         {
-            if (_displayedTypes.Contains(equipment.type.ToString()) && _selectedAttribute[equipment.type.ToString()] != equipment.attribute.ToString())
+            if (_displayedTypes.Contains(gear.type.ToString()) && _selectedAttribute[gear.type.ToString()] != gear.attribute.ToString())
             {
                 continue;  // If the equipment type is already displayed and the selected attribute is different, skip this equipment
             }
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);  // Begin a vertical group with a help box style
 
-            EditorGUILayout.LabelField("Equipment: " + equipment.type);  // Display the equipment type label
-            UpdateEquipmentPropertiesGUI(equipment);  // Call a method to update and display the equipment properties GUI
+            EditorGUILayout.LabelField("Gear: " + gear.type);  // Display the equipment type label
+            UpdateEquipmentPropertiesGUI(gear);  // Call a method to update and display the equipment properties GUI
 
             EditorGUILayout.EndVertical();  // End the vertical group
 
-            _displayedTypes.Add(equipment.type.ToString());  // Add the equipment type to the displayed types set
+            _displayedTypes.Add(gear.type.ToString());  // Add the equipment type to the displayed types set
         }
 
         EditorGUILayout.EndScrollView();  // End the scroll view
 
-        if (GUILayout.Button("Create Equipment Assets"))
+        if (GUILayout.Button("Create Gear Assets"))
         {
             CreateFullSetGearAssets();  // Button to create full set gear assets by calling the CreateFullSetGearAssets() method
         }
     }
 
-    private void UpdateEquipmentPropertiesGUI(EquipmentData equipment)
+    private void UpdateEquipmentPropertiesGUI(GearData gear)
     {
-        _serializedObjects[equipment].Update();  // Update the serialized object for the equipment
+        _serializedObjects[gear].Update();  // Update the serialized object for the equipment
 
-        string name = _serializedObjects[equipment].FindProperty("equipmentName").stringValue;  // Get the name property from the serialized object
+        string name = _serializedObjects[gear].FindProperty("equipmentName").stringValue;  // Get the name property from the serialized object
         EditorGUI.BeginChangeCheck();
         name = EditorGUILayout.TextField("Name", name);  // Display a text field for editing the name
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(equipment, "Change name Value");  // Record an undo action for changing the name
-            _serializedObjects[equipment].FindProperty("equipmentName").stringValue = name;  // Update the name property in the serialized object
-            _serializedObjects[equipment].ApplyModifiedProperties();  // Apply modified properties to the serialized object
+            Undo.RecordObject(gear, "Change name Value");  // Record an undo action for changing the name
+            _serializedObjects[gear].FindProperty("equipmentName").stringValue = name;  // Update the name property in the serialized object
+            _serializedObjects[gear].ApplyModifiedProperties();  // Apply modified properties to the serialized object
         }
 
         // Dropdown menu for selecting the rarity
         EditorGUILayout.BeginHorizontal();
-        Item.ItemRarity[] properties = _rarityPropertyNames[equipment.type.ToString()];  // Get the rarity property names based on the equipment type
-        GUIContent[] options = _rarityOptions[equipment.type.ToString()];  // Get the rarity options based on the equipment type
+        Item.ItemRarity[] properties = _rarityPropertyNames[gear.type.ToString()];  // Get the rarity property names based on the equipment type
+        GUIContent[] options = _rarityOptions[gear.type.ToString()];  // Get the rarity options based on the equipment type
 
-        int selectedRarityIndex = GetSelectedRarityIndex(equipment);  // Get the index of the selected rarity
+        int selectedRarityIndex = GetSelectedRarityIndex(gear);  // Get the index of the selected rarity
         EditorGUILayout.LabelField("Rarity: ");
         int newSelectedRarityIndex = EditorGUILayout.Popup(selectedRarityIndex, options);  // Display a dropdown menu for selecting the rarity
         Item.ItemRarity newSelectedRarity = properties[newSelectedRarityIndex];  // Get the selected rarity from the dropdown
 
-        if (newSelectedRarity != _selectedRarity[equipment])
+        if (newSelectedRarity != _selectedRarity[gear])
         {
-            Undo.RecordObject(equipment, "Change Rarity");  // Record an undo action for changing the rarity
-            UpdateMinMaxValues(equipment, newSelectedRarity);  // Update the min/max values based on the selected rarity
-            _selectedRarity[equipment] = newSelectedRarity;  // Update the selected rarity in the dictionary
+            Undo.RecordObject(gear, "Change Rarity");  // Record an undo action for changing the rarity
+            UpdateMinMaxValues(gear, newSelectedRarity);  // Update the min/max values based on the selected rarity
+            _selectedRarity[gear] = newSelectedRarity;  // Update the selected rarity in the dictionary
         }
         EditorGUILayout.EndHorizontal();
 
         // Dropdown menu for selecting the attribute
-        List<string> availableAttributes = _availableAttributes[equipment.type.ToString()];  // Get the available attributes based on the equipment type
-        int selectedAttributeIndex = availableAttributes.IndexOf(equipment.attribute.ToString());  // Get the index of the selected attribute
+        List<string> availableAttributes = _availableAttributes[gear.type.ToString()];  // Get the available attributes based on the equipment type
+        int selectedAttributeIndex = availableAttributes.IndexOf(gear.attribute.ToString());  // Get the index of the selected attribute
         int newSelectedAttributeIndex = EditorGUILayout.Popup("Attribute:", selectedAttributeIndex, availableAttributes.ToArray());  // Display a dropdown menu for selecting the attribute
         string newSelectedAttribute = availableAttributes[newSelectedAttributeIndex];  // Get the selected attribute from the dropdown
 
         float min, max;
-        _selectedAttribute[equipment.type.ToString()] = equipment.attribute.ToString();  // Update the selected attribute in the dictionary
+        _selectedAttribute[gear.type.ToString()] = gear.attribute.ToString();  // Update the selected attribute in the dictionary
 
-        if (newSelectedAttribute != equipment.attribute.ToString())
+        if (newSelectedAttribute != gear.attribute.ToString())
         {
-            Undo.RecordObject(equipment, "Change Attribute");  // Record an undo action for changing the attribute
-            _selectedAttribute[equipment.type.ToString()] = newSelectedAttribute;  // Update the selected attribute in the dictionary
-            UpdateMinMaxValues(equipment, newSelectedRarity);  // Update the min/max values based on the selected rarity
+            Undo.RecordObject(gear, "Change Attribute");  // Record an undo action for changing the attribute
+            _selectedAttribute[gear.type.ToString()] = newSelectedAttribute;  // Update the selected attribute in the dictionary
+            UpdateMinMaxValues(gear, newSelectedRarity);  // Update the min/max values based on the selected rarity
         }
 
-        min = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment].ToString().ToLower() + "Min").floatValue;  // Get the minimum value based on the selected rarity
-        max = _serializedObjects[equipment].FindProperty(_selectedRarity[equipment].ToString().ToLower() + "Max").floatValue;  // Get the maximum value based on the selected rarity
-        float value = _serializedObjects[equipment].FindProperty("value").floatValue;  // Get the current value property
+        min = _serializedObjects[gear].FindProperty(_selectedRarity[gear].ToString().ToLower() + "Min").floatValue;  // Get the minimum value based on the selected rarity
+        max = _serializedObjects[gear].FindProperty(_selectedRarity[gear].ToString().ToLower() + "Max").floatValue;  // Get the maximum value based on the selected rarity
+        float value = _serializedObjects[gear].FindProperty("value").floatValue;  // Get the current value property
 
         // Update the corresponding min/max property
         EditorGUI.BeginChangeCheck();
         float newValue = EditorGUILayout.Slider(newSelectedRarity + " Value", value, min, max);  // Display a slider for editing the value within the min/max range
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(equipment, "Change Slider Value");  // Record an undo action for changing the value
-            _serializedObjects[equipment].FindProperty("value").floatValue = newValue;  // Update the value property in the serialized object
-            _serializedObjects[equipment].ApplyModifiedProperties();  // Apply modified properties to the serialized object
+            Undo.RecordObject(gear, "Change Slider Value");  // Record an undo action for changing the value
+            _serializedObjects[gear].FindProperty("value").floatValue = newValue;  // Update the value property in the serialized object
+            _serializedObjects[gear].ApplyModifiedProperties();  // Apply modified properties to the serialized object
         }
 
-        string description = _serializedObjects[equipment].FindProperty("description").stringValue;  // Get the description property from the serialized object
+        string description = _serializedObjects[gear].FindProperty("description").stringValue;  // Get the description property from the serialized object
         EditorGUI.BeginChangeCheck();
         description = EditorGUILayout.TextField("Description", description);  // Display a text field for editing the description
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(equipment, "Change description Value");  // Record an undo action for changing the description
-            _serializedObjects[equipment].FindProperty("description").stringValue = description;  // Update the description property in the serialized object
-            _serializedObjects[equipment].ApplyModifiedProperties();  // Apply modified properties to the serialized object
+            Undo.RecordObject(gear, "Change description Value");  // Record an undo action for changing the description
+            _serializedObjects[gear].FindProperty("description").stringValue = description;  // Update the description property in the serialized object
+            _serializedObjects[gear].ApplyModifiedProperties();  // Apply modified properties to the serialized object
         }
     }
 
-    private void UpdateMinMaxValues(EquipmentData equipment, Item.ItemRarity newRarity)
+    private void UpdateMinMaxValues(GearData gear, Item.ItemRarity newRarity)
     {
-        SerializedObject serializedObject = _serializedObjects[equipment];  // Get the serialized object for the equipment
+        SerializedObject serializedObject = _serializedObjects[gear];  // Get the serialized object for the equipment
         SerializedProperty minProperty = serializedObject.FindProperty(newRarity.ToString().ToLower() + "Min");  // Find the serialized property for the new rarity's minimum value
         SerializedProperty maxProperty = serializedObject.FindProperty(newRarity.ToString().ToLower() + "Max");  // Find the serialized property for the new rarity's maximum value
         SerializedProperty valueProperty = serializedObject.FindProperty("value");  // Find the serialized property for the value
@@ -271,10 +271,10 @@ public class GearsCreator : EditorWindow
         serializedObject.ApplyModifiedProperties();
     }
 
-    private int GetSelectedRarityIndex(EquipmentData equipment)
+    private int GetSelectedRarityIndex(GearData gear)
     {
-        Item.ItemRarity[] properties = _rarityPropertyNames[equipment.type.ToString()];  // Get the rarity property names based on the equipment type
-        Item.ItemRarity selectedRarity = _selectedRarity[equipment];  // Get the selected rarity for the equipment
+        Item.ItemRarity[] properties = _rarityPropertyNames[gear.type.ToString()];  // Get the rarity property names based on the equipment type
+        Item.ItemRarity selectedRarity = _selectedRarity[gear];  // Get the selected rarity for the equipment
 
         for (int i = 0; i < properties.Length; i++)
         {
@@ -289,7 +289,7 @@ public class GearsCreator : EditorWindow
 
     private void ReadCSV()
     {
-        _equipmentList.Clear();
+        _gearList.Clear();
         _serializedObjects.Clear();
         _selectedRarity.Clear();
         _availableAttributes.Clear();
@@ -303,36 +303,36 @@ public class GearsCreator : EditorWindow
         {
             string[] values = lines[i].Split(',');  // Split each line into values based on the comma delimiter
 
-            EquipmentData equipment = CreateInstance<EquipmentData>();  // Create a new instance of EquipmentData
+            GearData gear = CreateInstance<GearData>();  // Create a new instance of EquipmentData
 
             // Set the properties of the equipment based on the CSV values
-            equipment.type = Enum.Parse<Item.GearType>(CSVUtils.GetFileName(values[0]));
-            equipment.attribute = Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(values[1]));
-            equipment.commonMin = float.Parse(values[2]);
-            equipment.commonMax = float.Parse(values[3]);
-            equipment.rareMin = float.Parse(values[4]);
-            equipment.rareMax = float.Parse(values[5]);
-            equipment.epicMin = float.Parse(values[6]);
-            equipment.epicMax = float.Parse(values[7]);
-            equipment.legendaryMin = float.Parse(values[8]);
-            equipment.legendaryMax = float.Parse(values[9]);
-            equipment.value = (equipment.commonMin + equipment.commonMax) / 2;
+            gear.type = Enum.Parse<Item.GearType>(CSVUtils.GetFileName(values[0]));
+            gear.attribute = Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(values[1]));
+            gear.commonMin = float.Parse(values[2]);
+            gear.commonMax = float.Parse(values[3]);
+            gear.rareMin = float.Parse(values[4]);
+            gear.rareMax = float.Parse(values[5]);
+            gear.epicMin = float.Parse(values[6]);
+            gear.epicMax = float.Parse(values[7]);
+            gear.legendaryMin = float.Parse(values[8]);
+            gear.legendaryMax = float.Parse(values[9]);
+            gear.value = (gear.commonMin + gear.commonMax) / 2;
 
-            _equipmentList.Add(equipment);  // Add the equipment to the list
+            _gearList.Add(gear);  // Add the equipment to the list
 
-            SerializedObject serializedObject = new SerializedObject(equipment);  // Create a serialized object for the equipment
-            _serializedObjects[equipment] = serializedObject;  // Add the serialized object to the dictionary
-            _selectedRarity[equipment] = Item.ItemRarity.Common;  // Set the selected rarity for the equipment as "Common"
+            SerializedObject serializedObject = new SerializedObject(gear);  // Create a serialized object for the equipment
+            _serializedObjects[gear] = serializedObject;  // Add the serialized object to the dictionary
+            _selectedRarity[gear] = Item.ItemRarity.Common;  // Set the selected rarity for the equipment as "Common"
 
             // Add the attribute to the list of available attributes for the equipment type
-            if (!_availableAttributes.ContainsKey(equipment.type.ToString()))
+            if (!_availableAttributes.ContainsKey(gear.type.ToString()))
             {
-                _availableAttributes[equipment.type.ToString()] = new List<string>();
+                _availableAttributes[gear.type.ToString()] = new List<string>();
             }
 
-            if (!_availableAttributes[equipment.type.ToString()].Contains(equipment.attribute.ToString()))
+            if (!_availableAttributes[gear.type.ToString()].Contains(gear.attribute.ToString()))
             {
-                _availableAttributes[equipment.type.ToString()].Add(equipment.attribute.ToString());
+                _availableAttributes[gear.type.ToString()].Add(gear.attribute.ToString());
             }
         }
 
@@ -342,26 +342,26 @@ public class GearsCreator : EditorWindow
     private void CreateFullSetGearAssets()
     {
         string path;
-        foreach (EquipmentData equipment in _equipmentList)
+        foreach (GearData gear in _gearList)
         {
-            if (_displayedTypes.Contains(equipment.type.ToString()) && _selectedAttribute[equipment.type.ToString()] != equipment.attribute.ToString())
+            if (_displayedTypes.Contains(gear.type.ToString()) && _selectedAttribute[gear.type.ToString()] != gear.attribute.ToString())
             {
                 continue;
             }
 
-            EquipmentSO equipmentSO = CreateEquipment(equipment);  // Create an EquipmentSO instance based on the EquipmentData
+            GearSO gearSO = CreateGear(gear);  // Create an EquipmentSO instance based on the EquipmentData
 
             // Determine the path for saving the asset based on the equipment name and type
-            if (string.IsNullOrEmpty(equipmentSO.Name))
+            if (string.IsNullOrEmpty(gearSO.Name))
             {
-                path = "Assets/Resources/SO/GearsCreator/" + equipment.type + ".asset";
+                path = "Assets/Resources/SO/GearsCreator/" + gear.type + ".asset";
             }
             else
             {
-                path = "Assets/Resources/SO/GearsCreator/" + equipment.type + "-" + equipment.equipmentName + ".asset";
+                path = "Assets/Resources/SO/GearsCreator/" + gear.type + "-" + gear.equipmentName + ".asset";
             }
 
-            AssetDatabase.CreateAsset(equipmentSO, path);  // Create the asset at the specified path
+            AssetDatabase.CreateAsset(gearSO, path);  // Create the asset at the specified path
         }
 
         AssetDatabase.SaveAssets();  // Save all created assets
@@ -369,47 +369,47 @@ public class GearsCreator : EditorWindow
         EditorSceneManager.MarkAllScenesDirty();  // Mark all scenes as dirty to ensure changes are saved
     }
 
-    private void CreateGearAssets(EquipmentData equipment)
+    private void CreateGearAssets(GearData gear)
     {
         string path;
 
-        EquipmentSO equipmentSO = CreateEquipment(equipment);  // Create an EquipmentSO instance based on the EquipmentData
+        GearSO gearSO = CreateGear(gear);  // Create an EquipmentSO instance based on the EquipmentData
 
         // Determine the path for saving the asset based on the equipment name and type
-        if (string.IsNullOrEmpty(equipmentSO.Name))
+        if (string.IsNullOrEmpty(gearSO.Name))
         {
-            path = "Assets/Resources/SO/GearsCreator/" + equipment.type + ".asset";
+            path = "Assets/Resources/SO/GearsCreator/" + gear.type + ".asset";
         }
         else
         {
-            path = "Assets/Resources/SO/GearsCreator/" + equipment.equipmentName + ".asset";
+            path = "Assets/Resources/SO/GearsCreator/" + gear.equipmentName + ".asset";
         }
 
-        AssetDatabase.CreateAsset(equipmentSO, path);  // Create the asset at the specified path
+        AssetDatabase.CreateAsset(gearSO, path);  // Create the asset at the specified path
 
         AssetDatabase.SaveAssets();  // Save all created assets
         AssetDatabase.Refresh();  // Refresh the Asset Database
         EditorSceneManager.MarkAllScenesDirty();  // Mark all scenes as dirty to ensure changes are saved
     }
 
-    private EquipmentSO CreateEquipment(EquipmentData equipmentData)
+    private GearSO CreateGear(GearData gearData)
     {
-        EquipmentSO equipment = CreateInstance<EquipmentSO>();  // Create a new instance of EquipmentSO
+        GearSO gear = CreateInstance<GearSO>();  // Create a new instance of EquipmentSO
 
         // Set the properties of the EquipmentSO based on the EquipmentData
-        equipment.Name = equipmentData.equipmentName;
-        equipment.Type = equipmentData.type;
-        equipment.Rarity = _selectedRarity[equipmentData];
-        equipment.Attribute = equipmentData.attribute;
-        equipment.StatValue = equipmentData.value;
-        equipment.Description = equipmentData.description;
+        gear.Name = gearData.equipmentName;
+        gear.Type = gearData.type;
+        gear.Rarity = _selectedRarity[gearData];
+        gear.Attribute = gearData.attribute;
+        gear.StatValue = gearData.value;
+        gear.Description = gearData.description;
 
-        return equipment;
+        return gear;
     }
 
 }
 
-public class EquipmentData : ScriptableObject
+public class GearData : ScriptableObject
 {
     public string equipmentName;
     public Item.GearType type;

@@ -25,6 +25,7 @@ public class Material : Item
         Amount = (int)item.Amount;
         Category = material.Category;
         Rarity = material.Rarity;
+        Name = material.Name;
 
         AddToInventory();
     }

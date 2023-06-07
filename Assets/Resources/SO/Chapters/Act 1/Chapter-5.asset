@@ -9,16 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b552102840d7d3843a0c6700957f2ff0, type: 3}
-  m_Name: MightyOath
+  m_Script: {fileID: 11500000, guid: 96c7d9e8eb3ecf14ba3fcd5c65c1d10b, type: 3}
+  m_Name: Chapter-5
   m_EditorClassIdentifier: 
-  Name: 
-  Type: 11
-  Stat: 4
-  IsMagic: 0
-  StatValue: 0
-  StatUpgrade: 0
-  RatioUpgrade: 0
-  Level: 1
-  FirstSkillData: {fileID: 0}
-  SecondSkillData: {fileID: 0}
+  Id: 5
+  ActId: 1
+  Name: "Chapter 5 \u2013 The Encounter"
+  NumberOfMission: 5

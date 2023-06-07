@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ShowGearIcon : MonoBehaviour
 {
-    [SerializeField] private EquipmentSO _equipment;
+    [SerializeField] private GearSO _equipment;
     [SerializeField] private Image _icon;
 
     private void Awake()
