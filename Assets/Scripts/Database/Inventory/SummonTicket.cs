@@ -29,6 +29,6 @@ public class SummonTicket : Item
 
     protected override void SetName()
     {
-        Name = $"{Rarity} Summon Ticket";
+        Name = Rarity == ItemRarity.Common ? "Summon Ticket" : $"{Rarity} Summon Ticket";
     }
 }
