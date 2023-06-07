@@ -40,12 +40,10 @@ public class Item
     public string JsonType;
     public string JsonAttribute;
 
-    //TODO -> Remove item if amount == 0
-
     protected void AddToInventory()
     {
         Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
-        SetName();
+        if (string.IsNullOrEmpty(Name)) SetName();
 
         Debug.Log($"Adding {Name} to inventory...");
 
@@ -68,7 +66,7 @@ public class Item
         }
     }
 
-    public void Serialize()
+    public virtual void Serialize()
     {
         JsonRarity = Rarity.ToString();
         JsonCategory = Category.ToString();
@@ -76,7 +74,7 @@ public class Item
         JsonAttribute = Attribute.ToString();
     }
 
-    public void Deserialize()
+    public virtual void Deserialize()
     {
         Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<ItemRarity>(JsonRarity);
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);

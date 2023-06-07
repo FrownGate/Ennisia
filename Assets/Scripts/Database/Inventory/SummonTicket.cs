@@ -22,12 +22,13 @@ public class SummonTicket : Item
         Stack = item.StackId;
         Amount = (int)item.Amount;
         Rarity = summonTicket.Rarity;
+        Name = summonTicket.Name;
 
         AddToInventory();
     }
 
     protected override void SetName()
     {
-        Name = $"{Rarity} Summon Ticket";
+        Name = Rarity == ItemRarity.Common ? "Summon Ticket" : $"{Rarity} Summon Ticket";
     }
 }
