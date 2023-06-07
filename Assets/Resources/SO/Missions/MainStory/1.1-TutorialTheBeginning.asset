@@ -19,6 +19,9 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   WavesCount: 4
+  Enemies:
+  - Wolf
+  - Wolf Pack Leader
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 1
