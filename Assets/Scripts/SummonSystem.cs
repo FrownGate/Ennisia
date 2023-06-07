@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SummonSystem : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class SummonSystem : MonoBehaviour
     [SerializeField] private int _rareFragmentsMultiplier = 1;
     [SerializeField] private int _epicFragmentsMultiplier = 2;
     [SerializeField] private int _legendaryFragmentsMultiplier = 3;
+    [SerializeField] public GameObject _supportImage;
+    [SerializeField] public GameObject _canvasParent;
 
     private Dictionary<int, int> _supports;
     private List<SupportCharacterSO> _supportsPulled;
@@ -60,7 +63,7 @@ public class SummonSystem : MonoBehaviour
         int newFragments = 0;
 
         //TODO -> Use tickets instead of crystals if _chance is < 100
-        if (PlayFabManager.Instance.Currencies["Crystals"] < _cost * _amount)
+        if (PlayFabManager.Instance.Currencies[PlayFabManager.Currency.Crystals] < _cost * _amount)
         {
             Debug.LogError("not enough crystals");
             //TODO -> Show UI error message
@@ -68,7 +71,7 @@ public class SummonSystem : MonoBehaviour
         }
         else
         {
-            PlayFabManager.Instance.RemoveCurrency("Crystals", _cost * _amount);
+            PlayFabManager.Instance.RemoveCurrency(PlayFabManager.Currency.Crystals, _cost * _amount);
         }
 
         _supports = PlayFabManager.Instance.GetSupports();
@@ -98,9 +101,11 @@ public class SummonSystem : MonoBehaviour
         }
 
         PlayFabManager.Instance.AddSupports(_supports);
+        DisplayPull();
 
         if (newFragments == 0) return;
-        PlayFabManager.Instance.AddCurrency("Fragments", newFragments);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Fragments, newFragments);
+        
     }
 
     private SupportCharacterSO GetSupport()
@@ -127,5 +132,22 @@ public class SummonSystem : MonoBehaviour
         int characterRoll = random.Next(1, gachaPool.Length);
         Debug.Log($"character roll : {characterRoll}");
         return gachaPool[characterRoll - 1];
+    }
+    private void DisplayPull()
+
+    {
+        int row = 0;
+        int pos = 150;
+                   
+        for(int i = 0; i < _supportsPulled.Count; i++) 
+        {
+            row = i % 5 == 0 ? row +1 : row;
+            pos = i % 5 == 0 ? 0 : pos + 190 ;
+            Vector3 position = new Vector3(500 + pos, 300 + 190 * row ,3);
+
+            GameObject suppportImage = _supportImage;
+           // _supportImage.GetComponent<Image>().sprite = //_supportsPulled[i].sprite
+            Instantiate(_supportImage, position, Quaternion.identity, _canvasParent.transform);
+        }
     }
 }
