@@ -205,6 +205,7 @@ public class PlayFabManager : MonoBehaviour
 
         foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
         {
+            //TODO -> Get bundle items and shops
             if (item.Type == "currency")
             {
                 _currencies[item.Id] = item.AlternateIds[0].Value;
@@ -218,6 +219,7 @@ public class PlayFabManager : MonoBehaviour
             }
         }
 
+        //TODO -> check initial value of new currencies for existing players
         if (_firstLogin)
         {
             StartCoroutine(CreateInitialCurrencies());
