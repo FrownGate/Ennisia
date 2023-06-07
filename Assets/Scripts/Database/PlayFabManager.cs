@@ -13,10 +13,17 @@ using System.Text;
 
 public class PlayFabManager : MonoBehaviour
 {
+    public enum Currency //TODO -> move elsewhere
+    {
+        Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency
+    }
+
     public static PlayFabManager Instance { get; private set; }
     public static event Action OnLoginSuccess;
     public static event Action<PlayFabError> OnError;
     public static event Action OnCurrencyUpdate;
+    public static event Action<Currency> OnCurrencyUsed;
+    public static event Action<Currency> OnCurrencyGained;
     public static event Action OnEnergyUpdate;
     public static event Action OnEnergyUsed;
     public static event Action OnLoadingStart;
@@ -24,7 +31,7 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnLoadingEnd;
 
     public Data Data { get; private set; }
-    public Dictionary<string, int> Currencies { get; private set; }
+    public Dictionary<Currency, int> Currencies { get; private set; }
     public int Energy { get; private set; }
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
@@ -34,7 +41,7 @@ public class PlayFabManager : MonoBehaviour
     private Dictionary<string, string> _itemsById;
     private Dictionary<string, string> _itemsByName;
 
-    private struct CurrencyData
+    private struct CurrencyData //TODO -> move elsewhere
     {
         public int Initial;
     }
@@ -44,8 +51,7 @@ public class PlayFabManager : MonoBehaviour
     private string _path;
     private bool _firstLogin;
     private bool _currencyAdded;
-
-    //TODO -> update items
+    private Item _item;
 
     #region 1 - Login
     //HasLocalSave -> Login
@@ -199,11 +205,12 @@ public class PlayFabManager : MonoBehaviour
 
         foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
         {
+            //TODO -> Get bundle items and shops
             if (item.Type == "currency")
             {
                 _currencies[item.Id] = item.AlternateIds[0].Value;
                 CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
-                Currencies[_currencies[item.Id]] = data.Initial;
+                Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = data.Initial;
             }
             else if (item.Type == "catalogItem")
             {
@@ -212,6 +219,7 @@ public class PlayFabManager : MonoBehaviour
             }
         }
 
+        //TODO -> check initial value of new currencies for existing players
         if (_firstLogin)
         {
             StartCoroutine(CreateInitialCurrencies());
@@ -230,7 +238,7 @@ public class PlayFabManager : MonoBehaviour
 
     private IEnumerator CreateInitialCurrencies()
     {
-        foreach(KeyValuePair<string, int> currency in Currencies)
+        foreach(KeyValuePair<Currency, int> currency in Currencies)
         {
             if (currency.Value == 0) continue;
 
@@ -246,7 +254,7 @@ public class PlayFabManager : MonoBehaviour
                     AlternateId = new()
                     {
                         Type = "FriendlyId",
-                        Value = currency.Key
+                        Value = currency.Key.ToString()
                     }
                 }
             }, res => {
@@ -363,7 +371,7 @@ public class PlayFabManager : MonoBehaviour
         {
             if (item.Type == "currency")
             {
-                Currencies[_currencies[item.Id]] = (int)item.Amount;
+                Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = (int)item.Amount;
             }
             else if (item.Type == "catalogItem")
             {
@@ -390,7 +398,7 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Economy
-    public void AddCurrency(string currency, int amount)
+    public void AddCurrency(Currency currency, int amount)
     {
         Debug.Log($"Adding {amount} {currency}...");
 
@@ -403,17 +411,18 @@ public class PlayFabManager : MonoBehaviour
                 AlternateId = new()
                 {
                     Type = "FriendlyId",
-                    Value = currency
+                    Value = currency.ToString()
                 }
             }
         }, res => {
             Debug.Log($"Added {amount} {currency} !");
             Currencies[currency] += amount;
             OnCurrencyUpdate?.Invoke();
+            OnCurrencyGained?.Invoke(currency);
         }, OnRequestError);
     }
 
-    public void RemoveCurrency(string currency, int amount)
+    public void RemoveCurrency(Currency currency, int amount)
     {
         Debug.Log($"Removing {amount} {currency}...");
         PlayFabEconomyAPI.SubtractInventoryItems(new()
@@ -425,13 +434,14 @@ public class PlayFabManager : MonoBehaviour
                 AlternateId = new()
                 {
                     Type = "FriendlyId",
-                    Value = currency
+                    Value = currency.ToString()
                 }
             }
         }, res => {
             Debug.Log($"Removed {amount} {currency} !");
             Currencies[currency] -= amount;
             OnCurrencyUpdate?.Invoke();
+            OnCurrencyUsed?.Invoke(currency);
         }, OnRequestError);
     }
 
@@ -521,7 +531,7 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Equipment
-    public void SetGearData(EquipmentSO equipment, int id)
+    public void SetGearData(GearSO equipment, int id)
     {
         //TODO -> Use find
         //foreach (Gear inventoryGear in Inventory.GetGears())
@@ -568,6 +578,12 @@ public class PlayFabManager : MonoBehaviour
 
     public void UpdateItem(Item item)
     {
+        if (item == null || !Data.Inventory.HasItem(item))
+        {
+            Debug.LogError("Item not found !");
+            return;
+        }
+
         item.Serialize();
 
         PlayFabEconomyAPI.UpdateInventoryItems(new()
@@ -580,6 +596,37 @@ public class PlayFabManager : MonoBehaviour
                 StackId = item.Stack
             }
         }, res => Debug.Log("Item updated !"), OnRequestError);
+    }
+
+    public void UseItem(Item item, int amount = 1)
+    {
+        if (item == null || !Data.Inventory.HasItem(item))
+        {
+            Debug.LogError("Item not found !");
+            return;
+        }
+
+        _item = item;
+
+        PlayFabEconomyAPI.SubtractInventoryItems(new()
+        {
+            Entity = new() { Id = Entity.Id, Type = Entity.Type },
+            Item = new InventoryItemReference
+            {
+                AlternateId = new AlternateId
+                {
+                    Type = "FriendlyId",
+                    Value = item.GetType().Name,
+                },
+                StackId = item.Stack
+            },
+            DeleteEmptyStacks = true,
+            Amount = amount
+        }, res =>
+        {
+            Data.Inventory.RemoveItem(_item);
+            Debug.Log("Item used !");
+        }, OnRequestError);
     }
     #endregion
 
@@ -644,9 +691,17 @@ public class PlayFabManager : MonoBehaviour
     private void Testing()
     {
         //Debug.Log("Testing");
-        Debug.Log(Data.Inventory.Items.Count);
+        //Debug.Log(Data.Inventory.Items.Count);
+
+        //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Common));
         //Data.Inventory.Items["Gear"][0].Upgrade();
+
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
+        //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
+
+        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/PureInnocence");
+        //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
+
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
     }

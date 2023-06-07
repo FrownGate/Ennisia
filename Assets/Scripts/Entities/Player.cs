@@ -10,8 +10,8 @@ public class Player : Entity
         Speed = 30000;
         CurrentHp = MaxHp / 2;
 
-        WeaponSO = Resources.Load<WeaponSO>("SO/EquippedGears/Weapon");
-        WeaponSO.Init();
+        Weapon = Resources.Load<GearSO>("SO/EquippedGears/Weapon");
+        Weapon.Init();
 
         InitSkills();
     }
@@ -21,8 +21,8 @@ public class Player : Entity
         Skills = new()
         {
             new Bonk(),
-            WeaponSO.FirstSkill,
-            WeaponSO.SecondSkill
+            Weapon.FirstSkill,
+            Weapon.SecondSkill
         };
     }
 }
