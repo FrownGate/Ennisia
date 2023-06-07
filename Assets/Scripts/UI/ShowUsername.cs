@@ -18,6 +18,6 @@ public class ShowUsername : MonoBehaviour
 
     private void SetUsername()
     {
-        _text.text = $"Logged in as {PlayFabManager.Instance.Account.Name}";
+        _text.text = $"Logged in as {PlayFabManager.Instance.Data.Account.Name}";
     }
 }
