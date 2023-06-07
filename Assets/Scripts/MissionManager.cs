@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
@@ -18,7 +19,7 @@ public class MissionManager : MonoBehaviour
     public static event Action<MissionSO> OnMissionStart; //Not used yet
     public static event Action<MissionSO> OnMissionComplete; //Not used yet
 
-    public ChapterSO CurrentChapter;
+    public ChapterSO CurrentChapter { get; private set; }
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
 
@@ -79,7 +80,7 @@ public class MissionManager : MonoBehaviour
 
         if (PlayFabManager.Instance.EnergyIsUsed(mission.EnergyCost))
         {
-            CurrentMission = mission;
+           
             CurrentWave = 1;
 
             DisplayMissionNarrative(CurrentMission);
@@ -179,6 +180,10 @@ public class MissionManager : MonoBehaviour
     public void SetChapter(ChapterSO chapter)
     {
         CurrentChapter = chapter;
+    }
+    public void SetMission(MissionSO mission)
+    {
+        CurrentMission = mission;
     }
     public List<MissionSO> GetMissionsByChapterId(MissionType missionType, int chapterId)
     {

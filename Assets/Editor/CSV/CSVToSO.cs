@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class CSVToSO : EditorWindow
 {
@@ -247,6 +248,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Unlocked = rowData["Unlocked"] == "VRAI";
 
         Dictionary<int, string> waves = new();
+        HashSet<string> enemies = new HashSet<string>(); // Use HashSet to avoid duplicates
         int waveCount = 1;
         for (int i = 1; i <= 3; i++)
         {
@@ -255,10 +257,17 @@ public class CSVToSO : EditorWindow
             {
                 waves.Add(waveCount, wave);
                 waveCount++;
+
+                string[] waveEnemies = wave.Split(',');
+                foreach (string enemy in waveEnemies)
+                {
+                    enemies.Add(enemy);
+                }
             }
         }
         scriptableObject.Waves = waves;
         scriptableObject.WavesCount = waveCount;
+        scriptableObject.Enemies = enemies.ToList();
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
         scriptableObject.ChapterId = int.Parse(rowData["IDChapter"]);

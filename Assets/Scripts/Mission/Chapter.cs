@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class Chapter : MonoBehaviour
 {
-    public GameObject spritePrefab;
+    private const string SceneToLoad = "StoryChapterPopup";
+    public GameObject SpritePrefab;
+
     ChapterSO CurrentChapter;
     void Start()
     {
@@ -14,14 +16,14 @@ public class Chapter : MonoBehaviour
 
         RectTransform parentRect = GetComponent<RectTransform>();
         List<MissionSO> missions = MissionManager.Instance.GetMissionsByChapterId(CurrentChapter.MissionType, CurrentChapter.Id);
-        
+
         foreach (MissionSO missionSO in missions)
         {
             //Temp
-            Vector2 randomPosition = new Vector2(Random.Range(-parentRect.rect.width / 2, parentRect.rect.width / 2),
+            Vector2 randomPosition = new(Random.Range(-parentRect.rect.width / 2, parentRect.rect.width / 2),
                                                  Random.Range(-parentRect.rect.height / 2, parentRect.rect.height / 2));
 
-            GameObject newMissionBtn = Instantiate(spritePrefab, transform);
+            GameObject newMissionBtn = Instantiate(SpritePrefab, transform);
             RectTransform spriteRect = newMissionBtn.GetComponent<RectTransform>();
             spriteRect.anchoredPosition = randomPosition;
 
@@ -32,12 +34,19 @@ public class Chapter : MonoBehaviour
 
             // Add an onClick event listener to the button
             buttonComponent.onClick.AddListener(() => ButtonClicked(missionSO));
-
         }
     }
+
     private void ButtonClicked(MissionSO scriptableObject)
     {
         Debug.Log("Button clicked: " + scriptableObject.Name);
-        //TODO -> start mission
+
+
+        // Set the new mission
+        MissionManager.Instance.SetMission(scriptableObject);
+
+        // Load the new popup scene
+        ScenesManager.Instance.SetScene(SceneToLoad);
+
     }
 }

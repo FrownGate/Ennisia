@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
-    //TODO -> use id instead of scenes names if possible
-
     public static ScenesManager Instance { get; private set; }
     public string Params { get; private set; }
 
     private Scene _activeScene;
     private Scene _previousScene;
-    private LoadSceneMode _sceneMode; //Used ?
+    private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
-    private bool _loading; //Used ?
-    public float minLoadingTime = 2f; // Optional: Minimum duration to display the loading screen
+    private bool _isPopupSceneActive = false;
+
+    private bool _loading;
+    public float minLoadingTime = 2f;
 
     private float startTime;
 
@@ -76,6 +76,10 @@ public class ScenesManager : MonoBehaviour
                 break;
 
             default:
+                if (IsPopupSceneLoaded(_sceneToLoad))
+                {
+                    UnloadPopupScene(_sceneToLoad);
+                }
                 SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
                 break;
         }
@@ -85,12 +89,21 @@ public class ScenesManager : MonoBehaviour
     {
         _activeScene = scene;
         _sceneMode = mode;
+        if (mode == LoadSceneMode.Additive && scene.name.Contains("Popup"))
+        {
+            _isPopupSceneActive = true;
+        }
+
         Debug.Log($"{_activeScene.name} loaded !");
     }
 
     private void OnSceneUnloaded(Scene scene)
     {
         _previousScene = scene;
+        if (scene.name.Contains("Popup"))
+        {
+            _isPopupSceneActive = false;
+        }
         Debug.Log($"{_previousScene.name} unloaded !");
     }
 
@@ -124,7 +137,6 @@ public class ScenesManager : MonoBehaviour
 
     private IEnumerator Loading()
     {
-        //TODO -> Replace AsyncOperation with events ?
         string loadScene = GetSceneName("Loading_Big");
         Debug.Log($"Going to scene {loadScene}");
         startTime = Time.time;
@@ -161,26 +173,21 @@ public class ScenesManager : MonoBehaviour
         }
 
         AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-        //sceneOperation.allowSceneActivation = false;
 
-        //TODO -> fix progress bar ui
         while (!sceneOperation.isDone)
         {
-            // Update your loading progress UI here (e.g., progress bar, text)
             progressBar.value = sceneOperation.progress;
-
-            //if (sceneOperation.progress >= 0.9f)
-            //{
-            //    // Optional: Ensure the loading screen is displayed for a minimum duration
-            //    float elapsedTime = Time.time - startTime;
-
-            //    if (elapsedTime >= minLoadingTime)
-            //    {
-            //        sceneOperation.allowSceneActivation = true; // Activate the  scene
-            //    }
-            //}
-
             yield return null;
         }
+    }
+
+    public bool IsPopupSceneLoaded(string sceneToLoad)
+    {
+        return _isPopupSceneActive;
+    }
+
+    public void UnloadPopupScene(string scene)
+    {
+        SceneManager.UnloadSceneAsync(scene);
     }
 }

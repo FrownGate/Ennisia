@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2036d612ae433439adfce11a2b5dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritePrefab: {fileID: 3967508107991593183, guid: 59ec81ed74da5c74baf93ec9df784635, type: 3}
+  SpritePrefab: {fileID: 3967508107991593183, guid: 59ec81ed74da5c74baf93ec9df784635, type: 3}
 --- !u!1 &480498529
 GameObject:
   m_ObjectHideFlags: 0
