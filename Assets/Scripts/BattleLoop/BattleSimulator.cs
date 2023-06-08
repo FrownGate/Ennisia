@@ -9,8 +9,7 @@ public class BattleSimulator : EditorWindow
     private List<SupportCharacterSO> _supports = new();
     private List<GearSO> _weapons = new();
     private List<Enemy> _enemies = new();
-    private DropdownField _playerDropdown; //Used ?
-
+    private List<GearSO> _gears = new();
     // SUPPORTS
     private GroupBox _firstSupportGroupBox;
     private GroupBox _secondSupportGroupBox;
@@ -29,8 +28,31 @@ public class BattleSimulator : EditorWindow
     private readonly List<IntegerField> _weaponStatField = new();
     private readonly List<TextField> _weaponSkillField = new();
 
-
-
+    // GEARS
+    private GroupBox _helmetGroupBox;
+    private GroupBox _chestGroupBox;
+    private GroupBox _bootsGroupBox;
+    private GroupBox _necklaceGroupBox;
+    private GroupBox _ringGroupBox;
+    private GroupBox _earringsGroupBox;
+    private Foldout _helmetFoldout;
+    private Foldout _chestFoldout;
+    private Foldout _bootsFoldout;
+    private Foldout _necklaceFoldout;
+    private Foldout _ringFoldout;
+    private Foldout _earringsFoldout;
+    private DropdownField _helmetDropdown;
+    private DropdownField _chestDropdown;
+    private DropdownField _bootsDropdown;
+    private DropdownField _necklaceDropdown;
+    private DropdownField _ringDropdown;
+    private DropdownField _earringsDropdown;
+    private readonly List<IntegerField> _helmetStatsField = new();
+    private readonly List<IntegerField> _chestStatsField = new();
+    private readonly List<IntegerField> _bootsStatsField = new();
+    private readonly List<IntegerField> _necklaceStatsField = new();
+    private readonly List<IntegerField> _ringStatsField = new();
+    private readonly List<IntegerField> _earringsStatsField = new();
 
 
     // ENEMIES
@@ -40,8 +62,6 @@ public class BattleSimulator : EditorWindow
     private GroupBox _fourthEnemyGroupBox;
     private GroupBox _fifthEnemyGroupBox;
     private GroupBox _sixthEnemyGroupBox;
-
-
     private DropdownField _firstEnemyDropdown;
     private DropdownField _secondEnemyDropdown;
     private DropdownField _thirdEnemyDropdown;
@@ -122,6 +142,65 @@ public class BattleSimulator : EditorWindow
 
         _weaponFoldout.text = "Weapon Skills";
 
+        // GEAR
+        _helmetGroupBox = root.Q<GroupBox>("Helmet");
+        _chestGroupBox = root.Q<GroupBox>("Chest");
+        _bootsGroupBox = root.Q<GroupBox>("Boots");
+        _necklaceGroupBox = root.Q<GroupBox>("Necklace");
+        _ringGroupBox = root.Q<GroupBox>("Ring");
+        _earringsGroupBox = root.Q<GroupBox>("Earrings");
+
+        _helmetStatsField.Add(_helmetGroupBox.Q<IntegerField>("Hp"));
+        _helmetStatsField.Add(_helmetGroupBox.Q<IntegerField>("SubStat1"));
+        _helmetStatsField.Add(_helmetGroupBox.Q<IntegerField>("SubStat2"));
+        _helmetStatsField.Add(_helmetGroupBox.Q<IntegerField>("SubStat3"));
+        _helmetStatsField.Add(_helmetGroupBox.Q<IntegerField>("SubStat4"));
+
+        _chestStatsField.Add(_chestGroupBox.Q<IntegerField>("MainStat"));
+        _chestStatsField.Add(_chestGroupBox.Q<IntegerField>("SubStat1"));
+        _chestStatsField.Add(_chestGroupBox.Q<IntegerField>("SubStat2"));
+        _chestStatsField.Add(_chestGroupBox.Q<IntegerField>("SubStat3"));
+        _chestStatsField.Add(_chestGroupBox.Q<IntegerField>("SubStat4"));
+
+        _bootsStatsField.Add(_bootsGroupBox.Q<IntegerField>("Defense"));
+        _bootsStatsField.Add(_bootsGroupBox.Q<IntegerField>("SubStat1"));
+        _bootsStatsField.Add(_bootsGroupBox.Q<IntegerField>("SubStat2"));
+        _bootsStatsField.Add(_bootsGroupBox.Q<IntegerField>("SubStat3"));
+        _bootsStatsField.Add(_bootsGroupBox.Q<IntegerField>("SubStat4"));
+
+        _necklaceStatsField.Add(_necklaceGroupBox.Q<IntegerField>("MainStat"));
+        _necklaceStatsField.Add(_necklaceGroupBox.Q<IntegerField>("SubStat1"));
+        _necklaceStatsField.Add(_necklaceGroupBox.Q<IntegerField>("SubStat2"));
+        _necklaceStatsField.Add(_necklaceGroupBox.Q<IntegerField>("SubStat3"));
+        _necklaceStatsField.Add(_necklaceGroupBox.Q<IntegerField>("SubStat4"));
+
+        _ringStatsField.Add(_ringGroupBox.Q<IntegerField>("MainStat"));
+        _ringStatsField.Add(_ringGroupBox.Q<IntegerField>("SubStat1"));
+        _ringStatsField.Add(_ringGroupBox.Q<IntegerField>("SubStat2"));
+        _ringStatsField.Add(_ringGroupBox.Q<IntegerField>("SubStat3"));
+        _ringStatsField.Add(_ringGroupBox.Q<IntegerField>("SubStat4"));
+
+        _earringsStatsField.Add(_earringsGroupBox.Q<IntegerField>("MainStat"));
+        _earringsStatsField.Add(_earringsGroupBox.Q<IntegerField>("SubStat1"));
+        _earringsStatsField.Add(_earringsGroupBox.Q<IntegerField>("SubStat2"));
+        _earringsStatsField.Add(_earringsGroupBox.Q<IntegerField>("SubStat3"));
+        _earringsStatsField.Add(_earringsGroupBox.Q<IntegerField>("SubStat4"));
+
+        _helmetFoldout = root.Q<Foldout>("helmet-foldout");
+        _chestFoldout = root.Q<Foldout>("chest-foldout");
+        _bootsFoldout = root.Q<Foldout>("boots-foldout");
+        _necklaceFoldout = root.Q<Foldout>("necklace-foldout");
+        _ringFoldout = root.Q<Foldout>("ring-foldout");
+        _earringsFoldout = root.Q<Foldout>("earrings-foldout");
+
+        _helmetDropdown = root.Q<DropdownField>("helmet-dropdown");
+        _chestDropdown = root.Q<DropdownField>("chest-dropdown");
+        _bootsDropdown = root.Q<DropdownField>("boots-dropdown");
+        _necklaceDropdown = root.Q<DropdownField>("necklace-dropdown");
+        _ringDropdown = root.Q<DropdownField>("ring-dropdown");
+        _earringsDropdown = root.Q<DropdownField>("earrings-dropdown");
+
+
 
         _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
         _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
@@ -130,7 +209,6 @@ public class BattleSimulator : EditorWindow
         _fifthEnemyGroupBox = root.Q<GroupBox>("FifthEnemy");
         _sixthEnemyGroupBox = root.Q<GroupBox>("SixthEnemy");
 
-        // get the stats fields for all the enemies
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MaxHp"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Atk"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysAtk"));
@@ -252,12 +330,147 @@ public class BattleSimulator : EditorWindow
             _weaponDropdown.choices.Add(weapon.Name);
         }
 
+        _gears = new List<GearSO>(Resources.LoadAll<GearSO>("SO/GearsCreator"));
+        // loop through all the gears and assign them to the correct fields depending on their type
+        foreach (GearSO gear in _gears)
+        {
+            switch (gear.Type)
+            {
+                case Item.GearType.Helmet:
+                    _helmetDropdown.choices.Add("No Helmet");
+                    _helmetDropdown.choices.Add(gear.Name);
+                    break;
+                case Item.GearType.Chest:
+                    _chestDropdown.choices.Add("No Chest");
+                    _chestDropdown.choices.Add(gear.Name);
+                    break;
+                case Item.GearType.Boots:
+                    _bootsDropdown.choices.Add("No Boots");
+                    _bootsDropdown.choices.Add(gear.Name);
+                    break;
+                case Item.GearType.Necklace:
+                    _necklaceDropdown.choices.Add("No Necklace");
+                    _necklaceDropdown.choices.Add(gear.Name);
+                    break;
+                case Item.GearType.Ring:
+                    _ringDropdown.choices.Add("No Ring");
+                    _ringDropdown.choices.Add(gear.Name);
+                    break;
+                case Item.GearType.Earrings:
+                    _earringsDropdown.choices.Add("No Earrings");
+                    _earringsDropdown.choices.Add(gear.Name);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
 
         ChangeFoldoutOnDropdown();
     }
 
     private void ChangeFoldoutOnDropdown()
     {
+
+        // GEARS
+        _helmetDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Helmet")
+            {
+                _helmetFoldout.visible = true;
+                _helmetFoldout.text = evt.newValue;
+
+                GearSO helmet = _gears.Find(x => x.Name == evt.newValue);
+
+                ChangeFieldsOfGear(evt.newValue, _helmetStatsField);
+            }
+            else
+            {
+                _helmetFoldout.visible = false;
+            }
+        });
+
+        _chestDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Chest")
+            {
+                _chestFoldout.visible = true;
+                _chestFoldout.text = evt.newValue;
+
+                GearSO chest = _gears.Find(x => x.Name == evt.newValue);
+
+                ChangeFieldsOfGear(evt.newValue, _chestStatsField);
+            }
+            else
+            {
+                _chestFoldout.visible = false;
+            }
+        });
+        _bootsDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Boots")
+            {
+                _bootsFoldout.visible = true;
+                _bootsFoldout.text = evt.newValue;
+
+                GearSO boots = _gears.Find(x => x.Name == evt.newValue);
+
+                ChangeFieldsOfGear(evt.newValue, _bootsStatsField);
+            }
+            else
+            {
+                _bootsFoldout.visible = false;
+            }
+        });
+        _necklaceDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Necklace")
+            {
+                _necklaceFoldout.visible = true;
+                _necklaceFoldout.text = evt.newValue;
+
+                GearSO necklace = _gears.Find(x => x.Name == evt.newValue);
+
+                ChangeFieldsOfGear(evt.newValue, _necklaceStatsField);
+            }
+            else
+            {
+                _necklaceFoldout.visible = false;
+            }
+        });
+        _ringDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Ring")
+            {
+                _ringFoldout.visible = true;
+                _ringFoldout.text = evt.newValue;
+
+                GearSO ring = _gears.Find(x => x.Name == evt.newValue);
+
+                ChangeFieldsOfGear(evt.newValue, _ringStatsField);
+            }
+            else
+            {
+                _ringFoldout.visible = false;
+            }
+        });
+        _earringsDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Earrings")
+            {
+                _earringsFoldout.visible = true;
+                _earringsFoldout.text = evt.newValue;
+
+                GearSO earrings = _gears.Find(x => x.Name == evt.newValue);
+
+                ChangeFieldsOfGear(evt.newValue, _earringsStatsField);
+            }
+            else
+            {
+                _earringsFoldout.visible = false;
+            }
+        });
 
         // WEAPON
         _weaponDropdown.RegisterValueChangedCallback(evt =>
@@ -425,6 +638,23 @@ public class BattleSimulator : EditorWindow
 
 
 
+    }
+    private void ChangeFieldsOfGear(string gearName, List<IntegerField> gearStatFields)
+    {
+        GearSO gear = _gears.Find(x => x.Name == gearName);
+
+        // Change the name of all the stat field to the name of the stat
+        gearStatFields[0].label = gear.Attribute.ToString();
+        gearStatFields[0].SetValueWithoutNotify((int)gear.StatValue);
+
+        foreach (var substat in gear.Substats)
+        {
+            foreach (var field in gearStatFields)
+            {
+                field.label = substat.Key.ToString();
+                field.SetValueWithoutNotify((int)substat.Value);
+            }
+        }
     }
 
     private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)

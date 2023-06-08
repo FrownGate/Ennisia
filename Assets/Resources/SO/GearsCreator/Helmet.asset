@@ -20,4 +20,6 @@ MonoBehaviour:
   Attribute: 3
   StatValue: 1200
   Description: 
-  Icon: {fileID: 0}
+  IsMagic: 0
+  FirstSkillData: {fileID: 0}
+  SecondSkillData: {fileID: 0}
