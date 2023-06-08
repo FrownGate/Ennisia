@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Collections;
 using PlayFab.Internal;
 using System.Text;
+using PlayFab.GroupsModels;
+using Unity.VisualScripting;
+using UnityEngine.Android;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -36,6 +39,9 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnBigLoadingStart;
     public static event Action OnLoadingEnd;
 
+    //Guilds events
+    public static event Action OnGetGuilds;
+
     public Data Data { get; private set; } //Account, Player and Inventory datas
     public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
     public int Energy { get; private set; } //Player's energy
@@ -46,6 +52,7 @@ public class PlayFabManager : MonoBehaviour
     public bool LoggedIn { get; private set; }
 
     //PlayFab catalog
+    public List<GroupWithRoles> Guilds { get; private set; }
     private Dictionary<string, string> _currencies;
     private Dictionary<string, string> _itemsById;
     private Dictionary<string, string> _itemsByName;
@@ -58,6 +65,8 @@ public class PlayFabManager : MonoBehaviour
     private bool _firstLogin;
     private bool _currencyAdded;
     private Item _item;
+
+    private PlayFab.ClientModels.EntityKey _adminEntity;
 
     //TODO -> event when file upload is finished, prevent double uploads
 
@@ -81,6 +90,12 @@ public class PlayFabManager : MonoBehaviour
             _path = Application.persistentDataPath + "/ennisia.save";
             Debug.Log($"Your save path is : {_path}");
             LoggedIn = false;
+
+            _adminEntity = new()
+            {
+                Id = "2641E2E5FB9FA5C2",
+                Type = "title_player_account"
+            }; //TODO -> encrypt datas
         }
     }
 
@@ -169,6 +184,7 @@ public class PlayFabManager : MonoBehaviour
 
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
+        Debug.Log(Entity.Id);
 
         UserAccountInfo info = result.InfoResultPayload.AccountInfo;
         _firstLogin = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
@@ -645,6 +661,52 @@ public class PlayFabManager : MonoBehaviour
     }
     #endregion
 
+    #region Guilds
+    public void GetGuilds()
+    {
+        PlayFabGroupsAPI.ListMembership(new()
+        {
+            Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type }
+        }, res =>
+        {
+            Guilds = res.Groups;
+            OnGetGuilds?.Invoke();
+        }, OnRequestError);
+    }
+    public void CreateGuild(string name)
+    {
+        Debug.Log("Creating guild...");
+
+        //TODO -> Check if name already exists
+
+        PlayFabGroupsAPI.CreateGroup(new()
+        {
+            GroupName = name,
+            //Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type }
+        }, OnCreateGuild, OnRequestError);
+    }
+
+    private void OnCreateGuild(CreateGroupResponse response)
+    {
+        Debug.Log($"Guild {response.GroupName} created !");
+
+        //TODO -> add fake player to new guild
+
+        /*PlayFabGroupsAPI.AddMembers(new()
+        {
+            Members = new() { new() { Id = _adminEntity.Id, Type = _adminEntity.Type } },
+            Group = response.Group
+        }, res =>
+        {
+            PlayFabGroupsAPI.IsMember(new()
+            {
+                Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type },
+                Group = response.Group
+            }, res => Debug.Log(res.IsMember), OnRequestError);
+        }, OnRequestError);*/
+    }
+    #endregion
+
     #region Account
     private void RegisterAccount(string email, string password) //This function will be registered to a button event
     {
@@ -724,5 +786,7 @@ public class PlayFabManager : MonoBehaviour
 
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
+
+        CreateGuild("Test");
     }
 }
