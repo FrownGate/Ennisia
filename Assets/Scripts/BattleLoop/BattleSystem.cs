@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using System;
 
 public class BattleSystem : StateMachine
 {
@@ -16,6 +17,8 @@ public class BattleSystem : StateMachine
     public GameObject LostPopUp;
     public Transform PlayerStation;
     public Transform EnemyStation;
+
+    public static event Action enemyKilled;
 
     public bool PlayerHasWin { get; private set; }
     public bool Selected { get; set; }
@@ -101,7 +104,7 @@ public class BattleSystem : StateMachine
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].IsDead) Enemies.RemoveAt(i);
+            if (Enemies[i].IsDead) Enemies.RemoveAt(i); enemyKilled?.Invoke(); 
         }
     }
 
