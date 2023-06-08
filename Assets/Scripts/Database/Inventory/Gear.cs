@@ -189,7 +189,7 @@ public class Gear : Item
 
     public void Equip()
     {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{Type}");
+        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
 
         equippedGear.Id = Id;
         equippedGear.Level = Level;
@@ -209,7 +209,7 @@ public class Gear : Item
 
     public void Unequip()
     {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{Type}");
+        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
         equippedGear.Unequip();
 
         PlayFabManager.Instance.UpdateEquippedGears(this, true);

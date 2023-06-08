@@ -59,6 +59,8 @@ public class PlayFabManager : MonoBehaviour
     private bool _currencyAdded;
     private Item _item;
 
+    //TODO -> event when file upload is finished, prevent double uploads
+
     #region 1 - Login
     //HasLocalSave -> Login
     //Else -> Anonymous Login
@@ -705,7 +707,7 @@ public class PlayFabManager : MonoBehaviour
     {
         //Debug.Log("Testing");
         //Debug.Log(Data.Inventory.Items.Count);
-        Debug.Log(Data.Player.EquippedGears);
+        //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId);  }
 
         //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Common));
         //Data.Inventory.Items["Gear"][0].Upgrade();
@@ -713,8 +715,12 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
 
-        GearSO weapon = Resources.Load<GearSO>("SO/Weapons/PureInnocence");
-        AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
+        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/PureInnocence");
+        //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
+        //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
+        //gear.Equip();
+
+        //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
 
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
