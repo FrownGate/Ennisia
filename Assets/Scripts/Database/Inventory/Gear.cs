@@ -201,11 +201,15 @@ public class Gear : Item
         equippedGear.FirstSkillData = Weapon != null ? Weapon.FirstSkillData : null;
         equippedGear.SecondSkillData = Weapon != null ? Weapon.SecondSkillData : null;
         //TODO -> add Icon path
+
+        PlayFabManager.Instance.UpdateEquippedGears(this);
     }
 
     public void Unequip()
     {
         GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{Type}");
         equippedGear.Unequip();
+
+        PlayFabManager.Instance.UpdateEquippedGears(this, true);
     }
 }
