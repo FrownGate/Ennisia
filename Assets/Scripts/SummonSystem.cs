@@ -145,9 +145,9 @@ public class SummonSystem : MonoBehaviour
             pos = i % 5 == 0 ? 0 : pos + 190 ;
             Vector3 position = new Vector3(500 + pos, 300 + 190 * row ,3);
 
-            GameObject suppportImage = _supportImage;
-           // _supportImage.GetComponent<Image>().sprite = //_supportsPulled[i].sprite
-            Instantiate(_supportImage, position, Quaternion.identity, _canvasParent.transform);
+            GameObject suppportImage = Instantiate(_supportImage, position, Quaternion.identity, _canvasParent.transform);
+            // supportImage.GetComponent<Image>().sprite = //_supportsPulled[i].sprite
+
         }
     }
 }
