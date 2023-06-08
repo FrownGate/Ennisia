@@ -11,8 +11,6 @@ using System.Collections;
 using PlayFab.Internal;
 using System.Text;
 using PlayFab.GroupsModels;
-using Unity.VisualScripting;
-using UnityEngine.Android;
 
 public class PlayFabManager : MonoBehaviour
 {
