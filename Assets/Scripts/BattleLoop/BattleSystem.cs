@@ -192,4 +192,12 @@ public class BattleSystem : StateMachine
             skill.PassiveAfterAttack(Enemies, Player, Turn, totalDamage);
         }
     }
+
+    public void ReduceEffectDuration(List<Effect> effects, List<Effect> targetEffects = null)
+    {
+        foreach (var e in effects)
+        {
+            e.Tick();
+        }
+    }
 }

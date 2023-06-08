@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Entity
 {
@@ -21,7 +22,8 @@ public abstract class Entity
 
     private readonly Dictionary<string, float> _baseValues;
 
-    //protected internal List<Debuff> DebuffsList
+    protected internal List<Effect> EffectList{ get; protected set; }
+    
     protected internal WeaponSO WeaponSO { get; set; }
     protected internal List<Skill> Skills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
@@ -29,6 +31,7 @@ public abstract class Entity
     public Entity()
     {
         _baseValues = new Dictionary<string, float>();
+        EffectList = new List<Effect>();
         StoreBaseValues();
     }
 
@@ -70,6 +73,32 @@ public abstract class Entity
 
         return stats;
     }
+    
+    public void ApplyEffect(Effect effectToApply)
+    {
+        var existingEffect = EffectList.FirstOrDefault(e => e.GetType() == effectToApply.GetType());
+        
+        if (existingEffect != null)
+        {
+            existingEffect.ResetDuration(effectToApply.Duration);
+        }
+        else
+        {
+            EffectList.Add(effectToApply);
+        }
+    }
+
+    public void RemoveEffect(Effect effectToRemove)
+    {
+        EffectList.Remove(effectToRemove);
+        
+        foreach (var stat in effectToRemove.ModifiedStats)
+        {
+            ResetValueToBase(stat);
+        }
+        
+    }
+    
     private void StoreBaseValues()
     {
         _baseValues["MaxHp"] = MaxHp;
@@ -82,32 +111,41 @@ public abstract class Entity
         _baseValues["CritDamage"] = CritDamage;
         _baseValues["Speed"] = Speed;
     }
-    
-    public void ResetToBaseValues()
-    {
-        MaxHp = _baseValues["MaxHp"];
-        Attack = _baseValues["Attack"];
-        PhysAtk = _baseValues["PhysAtk"];
-        MagicAtk = _baseValues["MagicAtk"];
-        PhysDef = _baseValues["PhysDef"];
-        MagicDef = _baseValues["MagicDef"];
-        CritRate = _baseValues["CritRate"];
-        CritDamage = _baseValues["CritDamage"];
-        Speed = _baseValues["Speed"];
-    }
 
-    public void ApplyEffect(Effect effectToApply)
+    private void ResetValueToBase(string valueName)
     {
-        switch (effectToApply._effectType)
+        if (!_baseValues.ContainsKey(valueName)) return;
+        switch (valueName)
         {
-            
+            case "MaxHp":
+                MaxHp = _baseValues[valueName];
+                break;
+            case "Attack":
+                Attack = _baseValues[valueName];
+                break;
+            case "PhysAtk":
+                PhysAtk = _baseValues[valueName];
+                break;
+            case "MagicAtk":
+                MagicAtk = _baseValues[valueName];
+                break;
+            case "PhysDef":
+                PhysDef = _baseValues[valueName];
+                break;
+            case "MagicDef":
+                MagicDef = _baseValues[valueName];
+                break;
+            case "CritRate":
+                CritRate = _baseValues[valueName];
+                break;
+            case "CritDamage":
+                CritDamage = _baseValues[valueName];
+                break;
+            case "Speed":
+                Speed = _baseValues[valueName];
+                break;
         }
-    }
 
-    public void RemoveEffect()
-    {
-        
     }
-    
     
 }
