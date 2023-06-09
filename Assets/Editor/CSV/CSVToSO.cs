@@ -136,6 +136,7 @@ public class CSVToSO : EditorWindow
                 switch (type)
                 {
                     case TypeCSV.supports:
+                        LoadSkillSOs();
                         CreateSupportSO(rowData);
                         break;
                     case TypeCSV.skills:
@@ -196,6 +197,23 @@ public class CSVToSO : EditorWindow
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
         scriptableObject.Element = rowData["Element"];
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill1"]), out SkillSO skill1))
+        {
+            scriptableObject.PrimarySkillData = skill1;
+        }
+        else
+        {
+            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill1"])} not found.");
+        }
+
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill2"]), out SkillSO skill2))
+        {
+            scriptableObject.SecondarySkillData = skill2;
+        }
+        else
+        {
+            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill2"])} not found.");
+        }
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
@@ -264,7 +282,7 @@ public class CSVToSO : EditorWindow
 
     private static void CreateWeaponSO(Dictionary<string, string> rowData)
     {
-        WeaponSO scriptableObject = CreateInstance<WeaponSO>();
+        GearSO scriptableObject = CreateInstance<GearSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
 
