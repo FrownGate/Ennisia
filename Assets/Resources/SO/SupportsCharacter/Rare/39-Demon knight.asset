@@ -15,9 +15,11 @@ MonoBehaviour:
   Id: 39
   Name: Demon knight
   Rarity: Rare
-  Race: Demon
+  Race: none
   Job: none
   Element: Fire
+  PrimarySkillData: {fileID: 0}
+  SecondarySkillData: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

@@ -15,9 +15,11 @@ MonoBehaviour:
   Id: 35
   Name: Elven Archer
   Rarity: Rare
-  Race: elf
+  Race: none
   Job: none
   Element: Wind
+  PrimarySkillData: {fileID: 0}
+  SecondarySkillData: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

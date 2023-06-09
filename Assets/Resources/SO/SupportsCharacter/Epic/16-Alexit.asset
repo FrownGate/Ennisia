@@ -18,6 +18,8 @@ MonoBehaviour:
   Race: Beast
   Job: Sword-Master
   Element: Wind
+  PrimarySkillData: {fileID: 0}
+  SecondarySkillData: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

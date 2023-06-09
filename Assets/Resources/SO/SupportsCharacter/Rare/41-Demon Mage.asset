@@ -15,9 +15,11 @@ MonoBehaviour:
   Id: 41
   Name: Demon Mage
   Rarity: Rare
-  Race: Demon
+  Race: none
   Job: none
   Element: Earth
+  PrimarySkillData: {fileID: 11400000, guid: fb8df59d9ef23db499976b31145095c3, type: 2}
+  SecondarySkillData: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

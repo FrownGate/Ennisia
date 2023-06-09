@@ -40,7 +40,7 @@ public class CSVToSO : EditorWindow
         GUILayout.Space(25);
         if (GUILayout.Button("Equipment Stats"))
         {
-            _equipmentTypes = new ();
+            _equipmentTypes = new();
             CreateScriptableObjectsFromCSV(TypeCSV.equipment, "EquipmentStats");
         }
         GUILayout.Space(25);
@@ -187,7 +187,21 @@ public class CSVToSO : EditorWindow
             _skillSOMap[skillSO.Id] = skillSO;
         }
     }
-
+    private static void AssignSkillData(Dictionary<string, string> rowData, string skillKey, ref SkillSO skillData)
+    {
+        int skillId;
+        if (int.TryParse(rowData[skillKey], out skillId) && skillId != 0)
+    {
+        if (_skillSOMap.TryGetValue(skillId, out SkillSO skill))
+        {
+            skillData = skill;
+        }
+        else
+{
+    Debug.LogError($"Skill with ID {skillId} not found.");
+}
+    }
+}
     private static void CreateSupportSO(Dictionary<string, string> rowData)
     {
         SupportCharacterSO scriptableObject = CreateInstance<SupportCharacterSO>();
@@ -197,23 +211,9 @@ public class CSVToSO : EditorWindow
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
         scriptableObject.Element = rowData["Element"];
-        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill1"]), out SkillSO skill1))
-        {
-            scriptableObject.PrimarySkillData = skill1;
-        }
-        else
-        {
-            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill1"])} not found.");
-        }
+        AssignSkillData(rowData, "PrimarySkill", ref scriptableObject.PrimarySkillData);
+        AssignSkillData(rowData, "SecondarySkill", ref scriptableObject.SecondarySkillData);
 
-        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill2"]), out SkillSO skill2))
-        {
-            scriptableObject.SecondarySkillData = skill2;
-        }
-        else
-        {
-            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill2"])} not found.");
-        }
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
@@ -221,7 +221,7 @@ public class CSVToSO : EditorWindow
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
-   
+
 
     private static void CreateSkillDataSO(Dictionary<string, string> rowData)
     {
@@ -309,24 +309,8 @@ public class CSVToSO : EditorWindow
         scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
         scriptableObject.StatValue = int.Parse(rowData["Value"]);
 
-        // Get the skill SOs based on the IDs
-        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill1"]), out SkillSO skill1))
-        {
-            scriptableObject.FirstSkillData = skill1;
-        }
-        else
-        {
-            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill1"])} not found.");
-        }
-
-        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill2"]), out SkillSO skill2))
-        {
-            scriptableObject.SecondSkillData = skill2;
-        }
-        else
-        {
-            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill2"])} not found.");
-        }
+        AssignSkillData(rowData, "Skill1", ref scriptableObject.FirstSkillData);
+        AssignSkillData(rowData, "Skill2", ref scriptableObject.SecondSkillData);
 
         scriptableObject.Description = rowData["Description"];
 

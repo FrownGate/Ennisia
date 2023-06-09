@@ -1,45 +1,45 @@
-ID,Name,Rarity,Race,Class,Element,PassiveSkill,Description,CatchPhrase
-1,Djeamy,Legendary,Human,Sword-Master,Fire,1,"A general of the Human army, rumored to be the strongest; he is known for his great sword skills, and his cunning mind. He is very cocky and believes no one to be stronger than him. He has a very serious and intimidating nature; however, he has a heart of gold, and would do anything for his Queen.","Know your place, peasant! You are unworthy of facing me."
-2,Theaume,Legendary,Human,Assassin,Thunder,2,"A young promising assassin that is said to have lived and trained in the legendary temple of Skotnaos. No one has ever admitted to have seen it as they are sworn to secrecy. However, he is now serving as the general, Djeamy’s, right hand. He is known for killing his prey with a single blow and is so fast that his targets do not feel a thing.","Be careful of the shadows, you never know who might be lurking"
-3,Veronika,Legendary,Human,Healer,Fire,3,"Veronika is the King of Anthrena’s second daughter; however, she wants nothing to do with royalty or the castle. Her dream is to travel and adventure with the people she loves. However with the rise of the demons she has become the general of the health department. Her beauty is unmatched and often seen with Djeamy, is it a general’s meeting or more?...","I am not a klutz, my legs just get tired very easily… *falls* Oops!"
-4,Amilya,Legendary,Human,Mage,Water,4,"Amilya is the King’s first daughter, and is very proud to be. She has great magic affinity and became a general very fast. She is always accompanied by someone due to her short term memory problem. She is also in love with Theaume, but due to his social status, their relationship is impossible. ",Aw man! This isn’t my wand.. it’s a random stick.
-5,Lukass,Legendary,Elf,Shield-Bearer,Earth,5,"Lukass is a high ranking noble in the kingdom of Xothio. At an early age he was scared of everything, and it wasn’t until his father gave him a shield that he started leaving the house. He is now a great Shield-Bearer and protects the people of Xothio with his shield. He has a great sense of justice and chivalry.",What is pain? I have never even been scratched
-6,Ugho,Legendary,Beast,Mage,Earth,6,"No one knows how old Ugho truly is as no one has ever seen his face, it is rumored that he fought the demon king 1000 years ago and that he hasn’t died because the demon king still lives. His raw magic is rumored to be limitless and so powerful that he secludes himself in the mountains, waiting for the demon king’s return.","The demon king will pay for his crimes, and I will be the judge."
-7,Leyahn,Legendary,Beast,Assassin,Thunder,7,"Leyahn is one of the fastest people in Ennisia, and also the sneakiest. She can fall from the top of a roof and make no noise, and can kill someone before he feels the pain of her claws. Leyahn lost her family from a young age and resorted to theft to survive. Thus she had to run and hide all her life, until a famous thief found her and raised her.","If I need a weapon, then I need more training."
-8,Hem-Mily,Legendary,Elf,Healer,Wind,8,"Hem and Mily are elven twins that cannot be separated. Even Though they are two different people, they share the same thoughts and thus consider themselves as one. Since their birth they have been very close to the forest of Xothio, and developed a knack for healing and herb treatments. It is said that they can heal any wound and cure any sickness.","Hi! Tell us what’s wrong, I know we can make you feel better"
-9,Elvan,Legendary,Elf,Sword-Master,Water,9,"He is the son of the Elven chief, and next in line to become chief. To subdue the pressure he decided to learn the way of the sword. He became unrivaled by any other elves, the only one that came close was Oliver before his injury. He has great respect for his father and his goal in life is to make him proud.","I cannot disappoint my father, I will lead the elven kingdom to greatness."
-10,Alekzandar,Epic,Human,Healer,Fire,10,none,none
-11,Rave,Epic,Elf,Assassin,Wind,11,none,none
-12,Kichy,Epic,Beast,Healer,Earth,12,none,none
-13,Oliver,Epic,Elf,Sword-Master,Fire,13,none,none
-14,Amenda,Epic,Human,Shield-Bearer,Thunder,14,none,none
-15,Elza,Epic,Elf,Mage,Water,15,none,none
-16,Alexit,Epic,Beast,Sword-Master,Wind,16,none,none
-17,Yo-wan,Epic,Human,Shield-Bearer,Earth,17,none,none
-18,Vahl,Epic,Elf,Mage,Thunder,18,none,none
-19,Joone,Epic,Elf,Healer,Water,19,none,none
-20,Red Slime,Rare,none,none,Fire,20,none,none
-21,Blue Slime,Rare,none,none,Water,21,none,none
-22,Green Slime,Rare,none,none,Earth,22,none,none
-23,Goblin,Rare,none,none,Earth,23,none,none
-24,Higher Goblin,Rare,none,none,Earth,24,none,none
-25,Goblin Chief,Rare,none,none,Fire,25,none,none
-26,Wolf,Rare,none,none,Thunder,26,none,none
-27,Wolf Pack Leader,Rare,none,none,Fire,27,none,none
-28,Rock Golem,Rare,none,none,Earth,28,none,none
-29,Lava Golem,Rare,none,none,Fire,29,none,none
-30,Water Golem,Rare,none,none,Water,30,none,none
-31,Haunted Tree,Rare,none,none,Thunder,31,none,none
-32,Small Mushroom,Rare,none,none,Earth,32,none,none
-33,Giant Mushroom,Rare,none,none,Earth,33,none,none
-34,Elven Knight,Rare,elf,none,Wind,34,none,none
-35,Elven Archer,Rare,elf,none,Wind,35,none,none
-36,Elven Mage,Rare,elf,none,Wind,36,none,none
-37,Bandit,Rare,Human,none,Thunder,37,none,none
-38,Bandit Chief,Rare,Human,none,Fire,38,none,none
-39,Demon knight,Rare,Demon,none,Fire,39,none,none
-40,Demon Archer,Rare,Demon,none,Wind,40,none,none
-41,Demon Mage,Rare,Demon,none,Earth,41,none,none
-42,Demonic Slime,Rare,none,none,Water,42,none,none
-43,Demonic Goblin,Rare,none,none,Earth,43,none,none
-44,Demonic Wolf,Rare,none,none,Thunder,44,none,none
+ID,Name,Rarity,Race,Class,Element,PrimarySkill,SecondarySkill,Description,CatchPhrase
+1,Djeamy,Legendary,Human,Sword-Master,Fire,16,31,"A general of the Human army, rumored to be the strongest; he is known for his great sword skills, and his cunning mind. He is very cocky and believes no one to be stronger than him. He has a very serious and intimidating nature; however, he has a heart of gold, and would do anything for his Queen.","Know your place, peasant! You are unworthy of facing me."
+2,Theaume,Legendary,Human,Assassin,Thunder,17,32,"A young promising assassin that is said to have lived and trained in the legendary temple of Skotnaos. No one has ever admitted to have seen it as they are sworn to secrecy. However, he is now serving as the general, Djeamy’s, right hand. He is known for killing his prey with a single blow and is so fast that his targets do not feel a thing.","Be careful of the shadows, you never know who might be lurking"
+3,Veronika,Legendary,Human,Healer,Fire,18,33,"Veronika is the King of Anthrena’s second daughter; however, she wants nothing to do with royalty or the castle. Her dream is to travel and adventure with the people she loves. However with the rise of the demons she has become the general of the health department. Her beauty is unmatched and often seen with Djeamy, is it a general’s meeting or more?...","I am not a klutz, my legs just get tired very easily… *falls* Oops!"
+4,Amilya,Legendary,Human,Mage,Water,19,34,"Amilya is the King’s first daughter, and is very proud to be. She has great magic affinity and became a general very fast. She is always accompanied by someone due to her short term memory problem. She is also in love with Theaume, but due to his social status, their relationship is impossible. ",Aw man! This isn’t my wand.. it’s a random stick.
+5,Lukass,Legendary,Human,Shield-Bearer,Earth,20,35,"Lukass is a high ranking noble in the kingdom of Xothio. At an early age he was scared of everything, and it wasn’t until his father gave him a shield that he started leaving the house. He is now a great Shield-Bearer and protects the people of Xothio with his shield. He has a great sense of justice and chivalry.",What is pain? I have never even been scratched
+6,Ugho,Legendary,Beast,Mage,Earth,21,36,"No one knows how old Ugho truly is as no one has ever seen his face, it is rumored that he fought the demon king 1000 years ago and that he hasn’t died because the demon king still lives. His raw magic is rumored to be limitless and so powerful that he secludes himself in the mountains, waiting for the demon king’s return.","The demon king will pay for his crimes, and I will be the judge."
+7,Leyahn,Legendary,Beast,Assassin,Thunder,22,37,"Leyahn is one of the fastest people in Ennisia, and also the sneakiest. She can fall from the top of a roof and make no noise, and can kill someone before he feels the pain of her claws. Leyahn lost her family from a young age and resorted to theft to survive. Thus she had to run and hide all her life, until a famous thief found her and raised her.","If I need a weapon, then I need more training."
+8,Hem-Mily,Legendary,Elf,Healer,Wind,23,38,"Hem and Mily are elven twins that cannot be separated. Even Though they are two different people, they share the same thoughts and thus consider themselves as one. Since their birth they have been very close to the forest of Xothio, and developed a knack for healing and herb treatments. It is said that they can heal any wound and cure any sickness.","Hi! Tell us what’s wrong, I know we can make you feel better"
+9,Elvan,Legendary,Elf,Sword-Master,Water,24,39,"He is the son of the Elven chief, and next in line to become chief. To subdue the pressure he decided to learn the way of the sword. He became unrivaled by any other elves, the only one that came close was Oliver before his injury. He has great respect for his father and his goal in life is to make him proud.","I cannot disappoint my father, I will lead the elven kingdom to greatness."
+10,Alekzandar,Epic,Human,Healer,Fire,25,40,Alekzandar is Veronika’s right hand and is in love with her. Thus he is very jealous of Djeamy who spends lots of time with her. His specialty is status effects and shields.,"Give me your hand, I have the magic touch."
+11,Rave,Epic,Elf,Assassin,Wind,26,0,"Rave knows how to use his opponent’s strength against them. Making him a great assassin, and duelist.",I even the odds against any foe
+12,Kichy,Epic,Beast,Healer,Earth,27,42,"Kichy has always been alone, and is looking for someone to spend her time with. She has lived in the woods all her life and has learned a great deal in healing from herbs.","If you take me with you, you’ll never get hurt."
+13,Oliver,Epic,Elf,Sword-Master,Fire,0,43,An elven officer that specializes in training new recruits. He was a very promising swordsman but due to an injury he lost a lot of his capabilities. Thus he retired from combat and became the best teacher.,"If you’re feeling down, let me raise you to new heights"
+14,Amenda,Epic,Human,Shield-Bearer,Thunder,27,44,Amenda is Amilya’s best friend and right hand. Most of the time she is there to remember when Amilya forgets something. But is  also a great Shield-Bearer that protects mages like Amilya from attacks while they cast spells,None shall lay a hand on you without going through me first
+15,Elza,Epic,Elf,Mage,Water,26,41,none,none
+16,Alexit,Epic,Beast,Sword-Master,Wind,0,0,none,none
+17,Yo-wan,Epic,Human,Shield-Bearer,Earth,0,0,none,none
+18,Vahl,Epic,Elf,Mage,Thunder,0,0,none,none
+19,Joone,Epic,Elf,Healer,Water,0,0,none,none
+20,Red Slime,Rare,none,none,Fire,28,0,none,none
+21,Blue Slime,Rare,none,none,Water,29,0,none,none
+22,Green Slime,Rare,none,none,Earth,30,0,none,none
+23,Goblin,Rare,none,none,Earth,0,0,none,none
+24,Higher Goblin,Rare,none,none,Earth,28,0,none,none
+25,Goblin Chief,Rare,none,none,Fire,29,0,none,none
+26,Wolf,Rare,none,none,Thunder,30,0,none,none
+27,Wolf Pack Leader,Rare,none,none,Fire,0,0,none,none
+28,Rock Golem,Rare,none,none,Earth,28,0,none,none
+29,Lava Golem,Rare,none,none,Fire,29,0,none,none
+30,Water Golem,Rare,none,none,Water,30,0,none,none
+31,Haunted Tree,Rare,none,none,Thunder,0,0,none,none
+32,Small Mushroom,Rare,none,none,Earth,28,0,none,none
+33,Giant Mushroom,Rare,none,none,Earth,29,0,none,none
+34,Elven Knight,Rare,none,none,Wind,30,0,none,none
+35,Elven Archer,Rare,none,none,Wind,0,0,none,none
+36,Elven Mage,Rare,none,none,Wind,28,0,none,none
+37,Bandit,Rare,none,none,Thunder,29,0,none,none
+38,Bandit Chief,Rare,none,none,Fire,30,0,none,none
+39,Demon knight,Rare,none,none,Fire,0,0,none,none
+40,Demon Archer,Rare,none,none,Wind,28,0,none,none
+41,Demon Mage,Rare,none,none,Earth,29,0,none,none
+42,Demonic Slime,Rare,none,none,Water,30,0,none,none
+43,Demonic Goblin,Rare,none,none,Earth,0,0,none,none
+44,Demonic Wolf,Rare,none,none,Thunder,28,0,none,none

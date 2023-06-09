@@ -18,6 +18,8 @@ MonoBehaviour:
   Race: Elf
   Job: Healer
   Element: Water
+  PrimarySkillData: {fileID: 0}
+  SecondarySkillData: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

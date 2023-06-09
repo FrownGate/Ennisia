@@ -18,6 +18,8 @@ MonoBehaviour:
   Race: Elf
   Job: Mage
   Element: Water
+  PrimarySkillData: {fileID: 11400000, guid: 657590ddc9375fb43ba691c3af99bc92, type: 2}
+  SecondarySkillData: {fileID: 11400000, guid: 08fad258ec290634bb7aec1271205f95, type: 2}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

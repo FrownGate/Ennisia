@@ -18,6 +18,8 @@ MonoBehaviour:
   Race: none
   Job: none
   Element: Fire
+  PrimarySkillData: {fileID: 0}
+  SecondarySkillData: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}
