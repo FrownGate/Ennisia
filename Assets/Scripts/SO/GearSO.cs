@@ -6,8 +6,8 @@ using UnityEngine;
 public class GearSO : ScriptableObject
 {
     public int Id;
-    public int Level = 1;
     public string Name;
+    public int Level = 1;
     public Item.GearType Type;
     public Item.ItemRarity Rarity;
     public Item.AttributeStat Attribute;

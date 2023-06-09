@@ -1,9 +1,11 @@
 using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Gear : Item
 {
+    public static event Action LevelUp;
     public int Id;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
@@ -130,7 +132,7 @@ public class Gear : Item
         if (Category == ItemCategory.Weapon) return Weapon.Attribute;
 
         List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
-        return possiblesAttributes[Random.Range(0, possiblesAttributes.Count - 1)];
+        return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
     private float SetValue()
@@ -138,7 +140,7 @@ public class Gear : Item
         if (Category == ItemCategory.Weapon) return Weapon.StatValue;
 
         StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
-        return Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
+        return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
     private Dictionary<AttributeStat, float> SetSubstats()
@@ -148,7 +150,7 @@ public class Gear : Item
 
         for (int i = 0; i < (int)Rarity; i++)
         {
-            AttributeStat stat = (AttributeStat)Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
+            AttributeStat stat = (AttributeStat)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
             substats[stat] = 1; //Temp
         }
 
@@ -167,7 +169,7 @@ public class Gear : Item
         //TODO -> substats upgrade formula
         if (Level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
-
+        LevelUp?.Invoke();
         Level++;
         Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
 
@@ -187,7 +189,7 @@ public class Gear : Item
 
     public void Equip()
     {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{Type}");
+        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
 
         equippedGear.Id = Id;
         equippedGear.Level = Level;
@@ -201,11 +203,15 @@ public class Gear : Item
         equippedGear.FirstSkillData = Weapon != null ? Weapon.FirstSkillData : null;
         equippedGear.SecondSkillData = Weapon != null ? Weapon.SecondSkillData : null;
         //TODO -> add Icon path
+
+        PlayFabManager.Instance.UpdateEquippedGears(this);
     }
 
     public void Unequip()
     {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{Type}");
+        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
         equippedGear.Unequip();
+
+        PlayFabManager.Instance.UpdateEquippedGears(this, true);
     }
 }

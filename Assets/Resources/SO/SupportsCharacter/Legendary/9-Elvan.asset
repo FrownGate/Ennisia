@@ -18,6 +18,8 @@ MonoBehaviour:
   Race: Elf
   Job: Sword-Master
   Element: Water
+  PrimarySkillData: {fileID: 11400000, guid: 30d510372b39d2047a9f6e108d9208e0, type: 2}
+  SecondarySkillData: {fileID: 11400000, guid: 9cc040eef52a7ee4db7d367ed283e67c, type: 2}
   Description: He is the son of the Elven chief, and next in line to become chief.
     To subdue the pressure he decided to learn the way of the sword. He became unrivaled
     by any other elves, the only one that came close was Oliver before his injury.

@@ -17,7 +17,7 @@ public class SelectSpell : PlayerTurn
 
         Debug.Log("You choose : " + BattleSystem.Player.Skills[ButtonId].FileName);
         Debug.Log("Number : " + ButtonId);
-
+        
         BattleSystem.SetState(new SelectTarget(BattleSystem,selectedSkill ));
         yield break;
     }
