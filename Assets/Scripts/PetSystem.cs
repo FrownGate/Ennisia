@@ -5,7 +5,11 @@ public class Pets : MonoBehaviour
 {
     [SerializeField] public GameObject GameButton;
     [SerializeField] public GameObject GameParent;
-    Object[] PetList;
+
+    [SerializeField] public GameObject Canvas; 
+
+
+    Object[] PetList;  
     public void Awake()
     {
         PetList = Resources.LoadAll("SO/Pets", typeof(PetSO));
@@ -17,6 +21,7 @@ public class Pets : MonoBehaviour
             //Do work on the files here
             GameObject ActualButton = Instantiate(GameButton, transform.position, transform.rotation, GameParent.transform);
             ActualButton.transform.GetChild(0).transform.GetComponent<TextMeshProUGUI>().text = file.Name;
+            ActualButton.GetComponent<OnClickPet>().Canvas = Canvas;
 
         }
     }
