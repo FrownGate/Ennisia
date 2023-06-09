@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054951e5d58e49644856f43b9ed87d10, type: 3}
+  m_Name: Mighty Oath
+  m_EditorClassIdentifier: 
+  Id: 6
+  Name: Mighty Oath
+  Level: 1
+  Type: 11
+  Rarity: 0
+  Attribute: 4
+  StatValue: 0
+  Description: none
+  IsMagic: 0
+  FirstSkillData: {fileID: 11400000, guid: 74b26012eccac1845b8fccfbbf587e0c, type: 2}
+  SecondSkillData: {fileID: 11400000, guid: c7c56b3badae38d439d9a680f93b1aba, type: 2}
