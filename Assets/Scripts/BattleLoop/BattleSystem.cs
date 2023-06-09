@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
@@ -57,6 +58,8 @@ public class BattleSystem : StateMachine
         Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
         SetSkillButtonsActive(true);
+        
+        AssignSkillButton();
 
         foreach (var skill in Player.Skills)
         {
@@ -87,6 +90,14 @@ public class BattleSystem : StateMachine
         foreach (GameObject button in _skillsButtons)
         {
             button.SetActive(isActive);
+        }
+    }
+
+    public void AssignSkillButton()
+    {
+        for (int i = 0; i < Player.Skills.Count; i++)
+        {
+            Player.Skills[i].SkillButton = _skillsButtons[i].GetComponent<Button>();
         }
     }
 
@@ -165,7 +176,7 @@ public class BattleSystem : StateMachine
     {
         foreach (var skill in Player.Skills)
         {
-            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
+            skill.Tick();
         }
     }
 
@@ -184,6 +195,14 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             skill.PassiveAfterAttack(Enemies, Player, Turn, totalDamage);
+        }
+    }
+
+    public void ReduceEffectDuration(List<Effect> effects, List<Effect> targetEffects = null)
+    {
+        foreach (var e in effects)
+        {
+            e.Tick();
         }
     }
 }

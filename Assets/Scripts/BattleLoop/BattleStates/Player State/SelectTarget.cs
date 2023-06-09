@@ -41,14 +41,15 @@ public class SelectTarget : State
             BattleSystem.DialogueText.text = "No targets selected";
             yield break;
         }
-        if (_selectedSkill.Cooldown > 0)
+        /*if (_selectedSkill.Cooldown > 0)
         {
             BattleSystem.DialogueText.text = "Skill in Cooldown";
             yield break;
-        }
+        }*/
 
         BattleSystem.SkillOnTurn(_selectedSkill);
-        BattleSystem.ReduceCooldown();
+        BattleSystem.ReduceCooldown(); 
+        
         Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
 
         BattleSystem.Targetables.Clear();
