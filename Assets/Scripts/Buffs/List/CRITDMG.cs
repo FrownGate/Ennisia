@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class CRITDMG : Effect
+public class CRITDMG : BuffEffect
 {
     private float _percentage => 1.5f;
 

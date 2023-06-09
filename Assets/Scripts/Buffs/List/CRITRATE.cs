@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class CRITRATE : Effect
+public class CRITRATE : BuffEffect
 {
     private float _percentage => 1.5f;
 
