@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: CripplingBlow
   m_EditorClassIdentifier: 
-  Id: 32
+  Id: 33
   Name: Crippling Blow
   Description: "Deals 50% of physical attack before a 80% chance to decrease the
     target\u2019s defense by 70% for 2 turns.  // debuff"
-  DamageAmount: 0
+  DamageAmount: 50
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
@@ -26,4 +26,3 @@ MonoBehaviour:
   AOE: 0
   IsMagic: 0
   IsPassive: 0
-  Icon: {fileID: 0}

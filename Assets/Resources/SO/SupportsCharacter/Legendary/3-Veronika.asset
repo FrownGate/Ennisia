@@ -18,6 +18,8 @@ MonoBehaviour:
   Race: Human
   Job: Healer
   Element: Fire
+  PrimarySkillData: {fileID: 11400000, guid: 1f693993664826d4e9066863a6adc941, type: 2}
+  SecondarySkillData: {fileID: 11400000, guid: d4a9f47182da4da4da0344df5d44e10f, type: 2}
   Description: "Veronika is the King of Anthrena\u2019s second daughter; however,
     she wants nothing to do with royalty or the castle. Her dream is to travel and
     adventure with the people she loves. However with the rise of the demons she

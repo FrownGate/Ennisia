@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bonk
   m_EditorClassIdentifier: 
   Id: 1
-  Name: Bonk
+  Name: Bonk !
   Description: Deals one slight hit to an enemy. Deals physical or magical damages
     depending on the weapon held.
   DamageAmount: 0
@@ -21,9 +21,8 @@ MonoBehaviour:
   HealingAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0
-  HitNumber: 0
+  HitNumber: 1
   IsAfter: 0
   AOE: 0
   IsMagic: 0
   IsPassive: 0
-  Icon: {fileID: 0}
