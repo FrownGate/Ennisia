@@ -34,6 +34,7 @@ public class ScenesManager : MonoBehaviour
             PlayFabManager.OnLoadingStart += MiniLoading;
             PlayFabManager.OnBigLoadingStart += BigLoading;
             PlayFabManager.OnLoginSuccess += StopLoading;
+            PlayFabManager.OnLoadingEnd += StopLoading;
 
             Params = null;
             _activeScene = SceneManager.GetActiveScene();
@@ -47,6 +48,7 @@ public class ScenesManager : MonoBehaviour
         PlayFabManager.OnLoadingStart -= MiniLoading;
         PlayFabManager.OnBigLoadingStart -= BigLoading;
         PlayFabManager.OnLoginSuccess -= StopLoading;
+        PlayFabManager.OnLoadingEnd -= StopLoading;
     }
 
     private LoadSceneMode SceneMode()
@@ -109,12 +111,12 @@ public class ScenesManager : MonoBehaviour
 
     private void BigLoading()
     {
-        SceneManager.LoadSceneAsync("Loading_Big", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Loading_Big", LoadSceneMode.Additive);
     }
 
     private void MiniLoading()
     {
-        SceneManager.LoadSceneAsync("Loading_Mini", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Loading_Mini", LoadSceneMode.Additive);
     }
 
     private void StopLoading()

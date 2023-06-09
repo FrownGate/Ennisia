@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
@@ -18,7 +19,7 @@ public class BattleSystem : StateMachine
     public Transform PlayerStation;
     public Transform EnemyStation;
 
-    public static event Action enemyKilled;
+    public static event Action OnEnemyKilled;
 
     public bool PlayerHasWin { get; private set; }
     public bool Selected { get; set; }
@@ -57,6 +58,8 @@ public class BattleSystem : StateMachine
         Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
         SetSkillButtonsActive(true);
+        
+        AssignSkillButton();
 
         foreach (var skill in Player.Skills)
         {
@@ -90,6 +93,14 @@ public class BattleSystem : StateMachine
         }
     }
 
+    public void AssignSkillButton()
+    {
+        for (int i = 0; i < Player.Skills.Count; i++)
+        {
+            Player.Skills[i].SkillButton = _skillsButtons[i].GetComponent<Button>();
+        }
+    }
+
     public void OnMouseUp()
     {
         if (!IsBattleOver())
@@ -104,7 +115,7 @@ public class BattleSystem : StateMachine
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].IsDead) Enemies.RemoveAt(i); enemyKilled?.Invoke(); 
+            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke(); 
         }
     }
 
@@ -165,7 +176,7 @@ public class BattleSystem : StateMachine
     {
         foreach (var skill in Player.Skills)
         {
-            skill.Cooldown = skill.Cooldown > 0 ? skill.Cooldown - 1 : 0;
+            skill.Tick();
         }
     }
 
@@ -184,6 +195,14 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             skill.PassiveAfterAttack(Enemies, Player, Turn, totalDamage);
+        }
+    }
+
+    public void ReduceEffectDuration(List<Effect> effects, List<Effect> targetEffects = null)
+    {
+        foreach (var e in effects)
+        {
+            e.Tick();
         }
     }
 }
