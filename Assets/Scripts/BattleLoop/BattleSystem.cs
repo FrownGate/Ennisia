@@ -58,6 +58,8 @@ public class BattleSystem : StateMachine
         Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
         SetSkillButtonsActive(true);
+        
+        AssignSkillButton();
 
         foreach (var skill in Player.Skills)
         {

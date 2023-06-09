@@ -26,7 +26,7 @@ public abstract class Entity
     protected internal GearSO Weapon { get; set; }
     protected internal List<Effect> EffectList{ get; protected set; }
     
-    protected internal WeaponSO WeaponSO { get; set; }
+    protected internal GearSO WeaponSO { get; set; }
     protected internal List<Skill> Skills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
     
