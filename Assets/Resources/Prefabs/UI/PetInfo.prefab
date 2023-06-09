@@ -132,9 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568325a0458b76c449ae1949d915cfe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Image: {fileID: 6785459266397188883}
-  Lore: {fileID: 6999939034863271403}
-  Level: {fileID: 6253564661903253676}
+  _image: {fileID: 4518084103556015897}
+  _lore: {fileID: 5118459231265833503}
+  _level: {fileID: 2922422973892499344}
 --- !u!1 &1412646784514007624
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcc4ad79eeaa0444b2d3ca3a46db972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PetInfo: {fileID: 227769478935616379}
 --- !u!1 &6253564661903253676
 GameObject:
   m_ObjectHideFlags: 0

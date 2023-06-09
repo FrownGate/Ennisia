@@ -9,5 +9,4 @@ public class PetSO : ScriptableObject
     public string Lore;
     public Sprite Icon;
     public int Level;
-   
 }
