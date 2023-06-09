@@ -4,16 +4,18 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class CSVToSO : EditorWindow
 {
+    private static Dictionary<int, SkillSO> _skillSOMap;
     private static Dictionary<string, List<Item.AttributeStat>> _equipmentTypes;
     private static int _currentLine;
     private static int _lines;
 
     enum TypeCSV
     {
-        supports, skills, equipment, missions
+        supports, skills, equipment, weapons, missions, chapters
     }
 
     [MenuItem("Tools/CSV to SO")]
@@ -42,9 +44,18 @@ public class CSVToSO : EditorWindow
             CreateScriptableObjectsFromCSV(TypeCSV.equipment, "EquipmentStats");
         }
         GUILayout.Space(25);
-        if (GUILayout.Button("Mission"))
+        if (GUILayout.Button("Weapons"))
         {
-            _equipmentTypes = new ();
+            CreateScriptableObjectsFromCSV(TypeCSV.weapons, "Weapons");
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Chapters"))
+        {
+            CreateScriptableObjectsFromCSV(TypeCSV.chapters, "Chapters");
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Missions"))
+        {
             CreateScriptableObjectsFromCSV(TypeCSV.missions, "Mission");
         }
     }
@@ -125,6 +136,7 @@ public class CSVToSO : EditorWindow
                 switch (type)
                 {
                     case TypeCSV.supports:
+                        LoadSkillSOs();
                         CreateSupportSO(rowData);
                         break;
                     case TypeCSV.skills:
@@ -132,6 +144,13 @@ public class CSVToSO : EditorWindow
                         break;
                     case TypeCSV.equipment:
                         CreateEquipmentStatDataSO(rowData);
+                        break;
+                    case TypeCSV.weapons:
+                        LoadSkillSOs();
+                        CreateWeaponSO(rowData);
+                        break;
+                    case TypeCSV.chapters:
+                        CreateChapterSO(rowData);
                         break;
                     default:
                         break;
@@ -157,6 +176,18 @@ public class CSVToSO : EditorWindow
         return MissionManager.MissionType.MainStory;
     }
 
+    private static void LoadSkillSOs()
+    {
+        _skillSOMap = new Dictionary<int, SkillSO>();
+
+        SkillSO[] skillSOs = Resources.LoadAll<SkillSO>("SO/Skills");
+
+        foreach (SkillSO skillSO in skillSOs)
+        {
+            _skillSOMap[skillSO.Id] = skillSO;
+        }
+    }
+
     private static void CreateSupportSO(Dictionary<string, string> rowData)
     {
         SupportCharacterSO scriptableObject = CreateInstance<SupportCharacterSO>();
@@ -166,6 +197,23 @@ public class CSVToSO : EditorWindow
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
         scriptableObject.Element = rowData["Element"];
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill1"]), out SkillSO skill1))
+        {
+            scriptableObject.PrimarySkillData = skill1;
+        }
+        else
+        {
+            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill1"])} not found.");
+        }
+
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill2"]), out SkillSO skill2))
+        {
+            scriptableObject.SecondarySkillData = skill2;
+        }
+        else
+        {
+            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill2"])} not found.");
+        }
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
@@ -231,6 +279,64 @@ public class CSVToSO : EditorWindow
             AssetDatabase.CreateAsset(valueSO, savePath);
         }
     }
+
+    private static void CreateWeaponSO(Dictionary<string, string> rowData)
+    {
+        GearSO scriptableObject = CreateInstance<GearSO>();
+        scriptableObject.Id = int.Parse(rowData["ID"]);
+        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+
+        if (Enum.TryParse(rowData["Type"], out Item.GearType type))
+        {
+            scriptableObject.Type = type;
+        }
+        else
+        {
+            Debug.LogError($"Error parsing gear type for weapon {scriptableObject.Name}");
+            return;
+        }
+
+        if (Enum.TryParse(rowData["Attribute"], out Item.AttributeStat attribute))
+        {
+            scriptableObject.Attribute = attribute;
+        }
+        else
+        {
+            Debug.LogError($"Error parsing gear attribute for weapon {scriptableObject.Name}");
+            return;
+        }
+
+        scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
+        scriptableObject.StatValue = int.Parse(rowData["Value"]);
+
+        // Get the skill SOs based on the IDs
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill1"]), out SkillSO skill1))
+        {
+            scriptableObject.FirstSkillData = skill1;
+        }
+        else
+        {
+            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill1"])} not found.");
+        }
+
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill2"]), out SkillSO skill2))
+        {
+            scriptableObject.SecondSkillData = skill2;
+        }
+        else
+        {
+            Debug.LogError($"Skill with ID {int.Parse(rowData["Skill2"])} not found.");
+        }
+
+        scriptableObject.Description = rowData["Description"];
+
+        string savePath = $"Assets/Resources/SO/Weapons/{scriptableObject.Name}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
+    }
+
+
+
+
     private static void CreateMissionSO(Dictionary<string, string> rowData, MissionManager.MissionType type)
     {
         MissionSO scriptableObject = CreateInstance<MissionSO>();
@@ -240,6 +346,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Unlocked = rowData["Unlocked"] == "VRAI";
 
         Dictionary<int, string> waves = new();
+        HashSet<string> enemies = new HashSet<string>(); // Use HashSet to avoid duplicates
         int waveCount = 1;
         for (int i = 1; i <= 3; i++)
         {
@@ -248,10 +355,17 @@ public class CSVToSO : EditorWindow
             {
                 waves.Add(waveCount, wave);
                 waveCount++;
+
+                string[] waveEnemies = wave.Split(',');
+                foreach (string enemy in waveEnemies)
+                {
+                    enemies.Add(enemy);
+                }
             }
         }
         scriptableObject.Waves = waves;
         scriptableObject.WavesCount = waveCount;
+        scriptableObject.Enemies = enemies.ToList();
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
         scriptableObject.ChapterId = int.Parse(rowData["IDChapter"]);
@@ -264,5 +378,15 @@ public class CSVToSO : EditorWindow
         string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
+    private static void CreateChapterSO(Dictionary<string, string> rowData)
+    {
+        ChapterSO scriptableObject = CreateInstance<ChapterSO>();
+        scriptableObject.Id = int.Parse(rowData["ID"]);
+        scriptableObject.ActId = int.Parse(rowData["ActID"]);
+        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.NumberOfMission = int.Parse(rowData["NumberOfMission"]);
 
+        string savePath = $"Assets/Resources/SO/Chapters/Act {scriptableObject.ActId}/Chapter-{scriptableObject.Id}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
+    }
 }

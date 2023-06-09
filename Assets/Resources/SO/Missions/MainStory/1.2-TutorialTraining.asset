@@ -19,6 +19,8 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   WavesCount: 3
+  Enemies:
+  - Training Dummy
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 2

@@ -5,6 +5,9 @@ using UnityEngine;
 [Serializable]
 public class InventoryData
 {
+    //TODO -> Find item by id
+    //TODO -> Equip Supports
+
     public List<SupportData> Supports;
     [NonSerialized] public Dictionary<string, List<Item>> Items;
 
