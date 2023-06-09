@@ -18,6 +18,10 @@ MonoBehaviour:
   Race: Beast
   Job: Healer
   Element: Earth
-  Description: none
-  Catchphrase: none
+  PrimarySkillData: {fileID: 11400000, guid: c9aa3a1345cd5044c942aa3302a46852, type: 2}
+  SecondarySkillData: {fileID: 11400000, guid: b5f073ebcb36b3541ab9aca1e31f1d72, type: 2}
+  Description: Kichy has always been alone, and is looking for someone to spend her
+    time with. She has lived in the woods all her life and has learned a great deal
+    in healing from herbs.
+  Catchphrase: "If you take me with you, you\u2019ll never get hurt."
   Icon: {fileID: 0}

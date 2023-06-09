@@ -19,12 +19,13 @@ public abstract class Entity
     protected internal float Shield { get; set; }
     protected internal float Speed { get; set; }
     protected internal float CurrentHp { get; set; }
+    //TODO -> use dictionary with stat enum instead
     
     private readonly Dictionary<string, float> _baseValues;
 
     //protected internal List<Debuff> DebuffsList
     protected internal GearSO Weapon { get; set; }
-    protected internal List<Effect> EffectList{ get; protected set; }
+    protected internal List<BuffEffect> EffectList{ get; protected set; }
     
     protected internal GearSO WeaponSO { get; set; }
     protected internal List<Skill> Skills { get; protected set; }
@@ -33,7 +34,7 @@ public abstract class Entity
     public Entity()
     {
         _baseValues = new Dictionary<string, float>();
-        EffectList = new List<Effect>();
+        EffectList = new List<BuffEffect>();
         StoreBaseValues();
     }
 
@@ -76,7 +77,7 @@ public abstract class Entity
         return stats;
     }
     
-    public void ApplyEffect(Effect effectToApply)
+    public void ApplyEffect(BuffEffect effectToApply)
     {
         var existingEffect = EffectList.FirstOrDefault(e => e.GetType() == effectToApply.GetType());
         
@@ -90,7 +91,7 @@ public abstract class Entity
         }
     }
 
-    public void RemoveEffect(Effect effectToRemove)
+    public void RemoveEffect(BuffEffect effectToRemove)
     {
         EffectList.Remove(effectToRemove);
         
@@ -147,8 +148,5 @@ public abstract class Entity
                 Speed = _baseValues[valueName];
                 break;
         }
-
     }
-    
-    
 }

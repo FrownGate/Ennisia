@@ -84,14 +84,14 @@ public class WeekliesCheck : MonoBehaviour
     private void OnEnable()
     {
         MissionManager.OnMissionComplete += CheckMission;
-        BattleSystem.enemyKilled += CheckEnemyKilled;
+        BattleSystem.OnEnemyKilled += CheckEnemyKilled;
         //PlayFabManager.OnGoldSpend += CheckEnergyUsed;  add function to check currencies usage
     }
 
     private void OnDisable()
     {
         MissionManager.OnMissionComplete -= CheckMission;
-        BattleSystem.enemyKilled -= CheckEnemyKilled;
+        BattleSystem.OnEnemyKilled -= CheckEnemyKilled;
         //PlayFabManager.OnGoldSpend -= CheckEnergyUsed;  add function to check currencies usage
 
     }

@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UpdateChapterName : MonoBehaviour
 {
-    Text text;
+    private Text _text;
+
     private void Start()
     {
-        text = GetComponent<Text>();
-        text.text = MissionManager.Instance.CurrentChapter.Name;
+        _text = GetComponent<Text>();
+        _text.text = MissionManager.Instance.CurrentChapter.Name;
     }
 }

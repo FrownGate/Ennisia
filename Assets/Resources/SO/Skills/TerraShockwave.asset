@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: TerraShockwave
   m_EditorClassIdentifier: 
-  Id: 36
+  Id: 37
   Name: Terra Shockwave
   Description: "deals 50% of magical attack, has a 50% chance to stun the target
     for 1 turn, and has a 75% chance to increase the target\u2019s third skill cooldown
     by 2 turns."
-  DamageAmount: 0
+  DamageAmount: 50
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
@@ -27,4 +27,3 @@ MonoBehaviour:
   AOE: 0
   IsMagic: 0
   IsPassive: 0
-  Icon: {fileID: 0}
