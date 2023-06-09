@@ -22,6 +22,8 @@ public abstract class Entity
     
     private readonly Dictionary<string, float> _baseValues;
 
+    //protected internal List<Debuff> DebuffsList
+    protected internal GearSO Weapon { get; set; }
     protected internal List<Effect> EffectList{ get; protected set; }
     
     protected internal WeaponSO WeaponSO { get; set; }

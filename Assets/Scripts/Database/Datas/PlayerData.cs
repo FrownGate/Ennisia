@@ -1,10 +1,10 @@
-using UnityEngine;
+using System;
 
-public class PlayerData : Data
+[Serializable]
+public class PlayerData
 {
     public int Level;
     public int Exp;
-    public int EquippedWeapon;
     public int[] EquippedGears;
     public int[] EquippedSupports;
 
@@ -12,18 +12,7 @@ public class PlayerData : Data
     {
         Level = 1;
         Exp = 0;
-        EquippedWeapon = 0;
-        EquippedGears = new int[6];
+        EquippedGears = new int[7];
         EquippedSupports = new int[2];
-    }
-
-    public override void UpdateLocalData(string json)
-    {
-        PlayerData data = JsonUtility.FromJson<PlayerData>(json);
-        Level = data.Level;
-        Exp = data.Exp;
-        EquippedWeapon = data.EquippedWeapon;
-        EquippedGears = data.EquippedGears;
-        EquippedSupports = data.EquippedSupports;
     }
 }

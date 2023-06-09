@@ -19,6 +19,7 @@ MonoBehaviour:
   EnergyCost: 25
   Unlocked: 0
   WavesCount: 1
+  Enemies: []
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 6

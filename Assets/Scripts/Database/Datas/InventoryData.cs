@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryData : Data
+[Serializable]
+public class InventoryData
 {
+    //TODO -> Find item by id
+    //TODO -> Equip Supports
+
     public List<SupportData> Supports;
     [NonSerialized] public Dictionary<string, List<Item>> Items;
 
@@ -11,12 +15,6 @@ public class InventoryData : Data
     {
         Supports = new();
         Items = new();
-    }
-
-    public override void UpdateLocalData(string json)
-    {
-        InventoryData data = JsonUtility.FromJson<InventoryData>(json);
-        Supports = data.Supports;
     }
 
     public Material GetMaterial(int type, int rarity)
@@ -35,9 +33,12 @@ public class InventoryData : Data
         return material;
     }
 
-    public bool HasItem(Item item)
+    public bool HasItem(Item itemToFound)
     {
-        return Items.ContainsKey(item.GetType().Name);
+        if (Items.TryGetValue(itemToFound.GetType().Name, out List<Item> items)) {
+            return items.Contains(itemToFound);
+        }
+        return false;
     }
 
     public Item GetItem(Item itemToGet, Item.ItemCategory type)
@@ -53,14 +54,15 @@ public class InventoryData : Data
     //Get an item with corresponding Type and/or Rarity
     public Item GetItem(Item itemToGet, Item.ItemCategory? type, Item.ItemRarity? rarity)
     {
+        //TODO -> use Find function instead
         Debug.Log($"Looking for item -> Rarity : {rarity} - Type : {type}");
 
         Item foundItem = null;
 
         foreach (Item item in Items[itemToGet.GetType().Name])
         {
-            if (type != null && type != item.Category) continue;
-            if (rarity != null && rarity != item.Rarity) continue;
+            if (type != item.Category) continue;
+            if (rarity != item.Rarity) continue;
 
             Debug.Log("Item found !");
 
@@ -69,5 +71,13 @@ public class InventoryData : Data
         }
 
         return foundItem;
+    }
+
+    public void RemoveItem(Item itemToRemove)
+    {
+        if (Items.TryGetValue(itemToRemove.GetType().Name, out List<Item> items))
+        {
+            items.Remove(itemToRemove);
+        }
     }
 }

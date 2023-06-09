@@ -9,18 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b4c452aef9e02479da45c5d7b2001e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Helmet
   m_EditorClassIdentifier: 
   Id: 1
+  Level: 1
   Name: 
   Type: 0
   Rarity: 0
   Attribute: 3
-  StatName: 
   StatValue: 1200
-  StatUpgrade: 0
-  RatioUpgrade: 0
-  Level: 0
   Description: 
   Icon: {fileID: 0}

@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
-    //TODO -> use id instead of scenes names if possible
-
     public static ScenesManager Instance { get; private set; }
     public string Params { get; private set; }
 
     private Scene _activeScene;
     private Scene _previousScene;
-    private LoadSceneMode _sceneMode; //Used ?
+    private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
-    private bool _loading; //Used ?
-    public float minLoadingTime = 2f; // Optional: Minimum duration to display the loading screen
+
+    private bool _loading;
+    public float minLoadingTime = 2f;
 
     private float startTime;
 
@@ -36,6 +35,7 @@ public class ScenesManager : MonoBehaviour
             PlayFabManager.OnBigLoadingStart += BigLoading;
             PlayFabManager.OnLoginSuccess += StopLoading;
 
+            Params = null;
             _activeScene = SceneManager.GetActiveScene();
         }
     }
@@ -75,6 +75,7 @@ public class ScenesManager : MonoBehaviour
                 break;
 
             default:
+                if (IsPopupLoaded()) UnloadScene(_sceneToLoad);
                 SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
                 break;
         }
@@ -84,6 +85,7 @@ public class ScenesManager : MonoBehaviour
     {
         _activeScene = scene;
         _sceneMode = mode;
+
         Debug.Log($"{_activeScene.name} loaded !");
     }
 
@@ -96,12 +98,7 @@ public class ScenesManager : MonoBehaviour
     private string GetSceneName(string scene)
     {
         string[] splittedName = scene.Split('#');
-
-        if (splittedName.Length > 1)
-        {
-            Params = splittedName[1];
-        }
-
+        Params = splittedName.Length > 1 ? splittedName[1] : null;
         return splittedName[0];
     }
 
@@ -112,27 +109,27 @@ public class ScenesManager : MonoBehaviour
 
     private void BigLoading()
     {
-        SceneManager.LoadSceneAsync("Loading", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("Loading_Big", LoadSceneMode.Additive);
     }
 
     private void MiniLoading()
     {
-        SceneManager.LoadSceneAsync("LoadingPopup", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("Loading_Mini", LoadSceneMode.Additive);
     }
 
     private void StopLoading()
     {
-        if (SceneManager.GetSceneByName("Loading").isLoaded) SceneManager.UnloadSceneAsync("Loading");
-        if (SceneManager.GetSceneByName("LoadingPopup").isLoaded) SceneManager.UnloadSceneAsync("LoadingPopup");
+        if (SceneManager.GetSceneByName("Loading_Big").isLoaded) SceneManager.UnloadSceneAsync("Loading_Big");
+        if (SceneManager.GetSceneByName("Loading_Mini").isLoaded) SceneManager.UnloadSceneAsync("Loading_Mini");
     }
 
     private IEnumerator Loading()
     {
-        string loadScene = GetSceneName("Loading");
+        string loadScene = GetSceneName("Loading_Big");
         Debug.Log($"Going to scene {loadScene}");
         startTime = Time.time;
 
-        AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene);
+        AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
 
         while (!loadingScreenOperation.isDone)
         {
@@ -164,26 +161,21 @@ public class ScenesManager : MonoBehaviour
         }
 
         AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-        //sceneOperation.allowSceneActivation = false;
 
-        //TODO -> fix progress bar ui
         while (!sceneOperation.isDone)
         {
-            // Update your loading progress UI here (e.g., progress bar, text)
             progressBar.value = sceneOperation.progress;
-
-            //if (sceneOperation.progress >= 0.9f)
-            //{
-            //    // Optional: Ensure the loading screen is displayed for a minimum duration
-            //    float elapsedTime = Time.time - startTime;
-
-            //    if (elapsedTime >= minLoadingTime)
-            //    {
-            //        sceneOperation.allowSceneActivation = true; // Activate the  scene
-            //    }
-            //}
-
             yield return null;
         }
+    }
+
+    public bool IsPopupLoaded()
+    {
+        return _sceneMode == LoadSceneMode.Additive;
+    }
+
+    public void UnloadScene(string scene)
+    {
+        SceneManager.UnloadSceneAsync(scene);
     }
 }

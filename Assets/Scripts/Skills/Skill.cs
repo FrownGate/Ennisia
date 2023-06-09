@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using static UnityEngine.Rendering.DebugUI;
 
 public abstract class Skill
 {
+    public static event Action LevelUp;
     public SkillSO Data { get; protected set; }
     public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
@@ -15,7 +18,7 @@ public abstract class Skill
     public float StatUpgrade2 { get; set; }
     public string FileName { get; protected set; }
 
-    public Button SkillButton { get; set; }
+    public UnityEngine.UI.Button SkillButton { get; set; }
 
     public Skill()
     {
@@ -35,18 +38,11 @@ public abstract class Skill
 
     public virtual void Upgrade()
     {
-        if (Level < 5)
-        {
-            Level += 1;
-        }
-        else if (Level > 5)
-        {
-            Level = 5;
-        }
-        else if (Level < 0)
-        {
-            Level = 0;
-        }
+        if (Level >= 5) return;
+        Debug.Log($"Upgrading {FileName}...");
+
+        Level++;
+        LevelUp?.Invoke();
     }
 
     public virtual void Upgrade(int _Level) { Level = _Level; }

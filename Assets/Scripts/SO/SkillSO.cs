@@ -15,5 +15,6 @@ public class SkillSO : ScriptableObject
     public bool IsAfter;
     public bool AOE;
     public bool IsMagic;
-    public Sprite Icon;
+    public bool IsPassive;
+    //public Sprite Icon;
 }
