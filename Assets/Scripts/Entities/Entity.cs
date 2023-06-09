@@ -3,32 +3,32 @@ using System.Linq;
 
 public abstract class Entity
 {
-    protected internal int Id { get; set; }
-    protected internal string Name { get; set; }
-    protected internal string Description { get; set; }
-    protected internal int Level { get; set; }
-    protected internal float MaxHp { get; set; }
-    protected internal float Attack { get; set; }
-    protected internal float PhysAtk { get; set; }
-    protected internal float MagicAtk { get; set; }
-    protected internal float PhysDef { get; set; }
-    protected internal float MagicDef { get; set; }
-    protected internal float CritRate { get; set; }
-    protected internal float CritDamage { get; set; }
-    protected internal float DefIgnored { get; set; }
-    protected internal float Shield { get; set; }
-    protected internal float Speed { get; set; }
-    protected internal float CurrentHp { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public int Level { get; set; }
+    public float MaxHp { get; set; }
+    public float Attack { get; set; }
+    public float PhysAtk { get; set; }
+    public float MagicAtk { get; set; }
+    public float PhysDef { get; set; }
+    public float MagicDef { get; set; }
+    public float CritRate { get; set; }
+    public float CritDamage { get; set; }
+    public float DefIgnored { get; set; }
+    public float Shield { get; set; }
+    public float Speed { get; set; }
+    public float CurrentHp { get; set; }
     //TODO -> use dictionary with stat enum instead
     
     private readonly Dictionary<string, float> _baseValues;
 
     //protected internal List<Debuff> DebuffsList
-    protected internal GearSO Weapon { get; set; }
-    protected internal List<BuffEffect> EffectList{ get; protected set; }
+    public GearSO Weapon { get; set; }
+    public List<BuffEffect> EffectList{ get; protected set; }
     
-    protected internal GearSO WeaponSO { get; set; }
-    protected internal List<Skill> Skills { get; protected set; }
+    public GearSO WeaponSO { get; set; }
+    public List<Skill> Skills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
     
     public Entity()

@@ -57,7 +57,7 @@ public class PlayFabManager : MonoBehaviour
     public List<EntityMemberRole> PlayerGuildMembers { get; private set; }
     private PlayFab.GroupsModels.EntityKey _guildEntity; //Current request's guild's entity
     private PlayFab.ClientModels.EntityKey _adminEntity;
-    private readonly string _fakeRole = "Fake"; //Used ?
+    //private readonly string _fakeRole = "Fake"; //Used ?
 
     //PlayFab catalog
     private Dictionary<string, string> _currencies;
