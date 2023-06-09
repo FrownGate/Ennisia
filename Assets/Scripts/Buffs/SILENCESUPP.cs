@@ -1,5 +1,4 @@
-﻿
-    public class SILENCESUPP : Effect
-    {
-        
-    }
+﻿public class SILENCESUPP : Effect
+{
+
+}

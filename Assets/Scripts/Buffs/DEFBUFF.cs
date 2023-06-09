@@ -1,18 +1,14 @@
-﻿
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-    public class DEFBUFF : Effect
+public class DEFBUFF : Effect
+{
+    private float _percentage => 1.5f;
+
+    public DEFBUFF(int duration, Entity target)
     {
-        private float _percentage => 1.5f;
-        public DEFBUFF(int duration, Entity target)
-        {
-            ModifiedStats = new List<string>
-            {
-                "PhysDef",
-                "MagicDef",
-            };
-            Duration = duration;
-            target.PhysDef *= _percentage;
-            target.MagicDef *= _percentage;
-        }
+        ModifiedStats = new List<string> { "PhysDef", "MagicDef" };
+        Duration = duration;
+        target.PhysDef *= _percentage;
+        target.MagicDef *= _percentage;
     }
+}

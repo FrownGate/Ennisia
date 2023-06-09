@@ -1,17 +1,13 @@
-﻿
+﻿using System.Collections.Generic;
 
-    using System.Collections.Generic;
+public class ATKBUFF : Effect
+{
+    private float _percentage => 1.5f;
 
-    public class ATKBUFF : Effect
+    public ATKBUFF(int duration, Entity target)
     {
-        private float _percentage => 1.5f;
-        public ATKBUFF(int duration,Entity target)
-        {
-            ModifiedStats = new List<string>
-            {
-                "Attack",
-            };
-            Duration = duration;
-            target.Attack *= _percentage;
-        }
+        ModifiedStats = new List<string> { "Attack" };
+        Duration = duration;
+        target.Attack *= _percentage;
     }
+}

@@ -19,7 +19,7 @@ public class BattleSystem : StateMachine
     public Transform PlayerStation;
     public Transform EnemyStation;
 
-    public static event Action enemyKilled;
+    public static event Action OnEnemyKilled;
 
     public bool PlayerHasWin { get; private set; }
     public bool Selected { get; set; }
@@ -115,7 +115,7 @@ public class BattleSystem : StateMachine
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].IsDead) Enemies.RemoveAt(i); enemyKilled?.Invoke(); 
+            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke(); 
         }
     }
 
