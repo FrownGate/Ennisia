@@ -9,18 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
-  m_Name: PureInnocence
+  m_Script: {fileID: 11500000, guid: 054951e5d58e49644856f43b9ed87d10, type: 3}
+  m_Name: Pure Innocence
   m_EditorClassIdentifier: 
   Id: 1
-  Level: 1
   Name: Pure Innocence
+  Level: 1
   Type: 6
   Rarity: 0
   Attribute: 0
   StatValue: 0
-  Description: 
-  Icon: {fileID: 0}
+  Description: none
   IsMagic: 0
   FirstSkillData: {fileID: 11400000, guid: 80b9e4ef4067ab249a1092127c865f22, type: 2}
   SecondSkillData: {fileID: 11400000, guid: 7b6dddad4f8a8694985ecffa77695789, type: 2}

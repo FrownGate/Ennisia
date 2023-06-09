@@ -15,7 +15,7 @@ public class Gear : Item
     public int Level;
     public float StatUpgrade;
     public float RatioUpgrade;
-    public GearSO Weapon;
+    public WeaponSO Weapon;
 
     [System.Serializable]
     public class JsonSubstatsDictionary
@@ -24,7 +24,7 @@ public class Gear : Item
         public float Value;
     }
 
-    public Gear(GearType type, ItemRarity rarity, GearSO weapon = null)
+    public Gear(GearType type, ItemRarity rarity, WeaponSO weapon = null)
     {
         Weapon = weapon;
         Id = SetId();
@@ -42,7 +42,7 @@ public class Gear : Item
         AddToInventory();
     }
 
-    public Gear(GearSO weapon, ItemRarity rarity) : this(weapon.Type, rarity, weapon) { }
+    public Gear(WeaponSO weapon, ItemRarity rarity) : this(weapon.Type, rarity, weapon) { }
 
     public Gear(InventoryItem item)
     {
@@ -64,7 +64,7 @@ public class Gear : Item
         if (Category == ItemCategory.Weapon)
         {
             string weaponName = Name.Split($"[{Rarity}] ")[1];
-            Weapon = Resources.Load<GearSO>($"SO/Weapons/{CSVUtils.GetFileName(weaponName)}");
+            Weapon = Resources.Load<WeaponSO>($"SO/Weapons/{CSVUtils.GetFileName(weaponName)}");
         }
 
         AddToInventory();
@@ -189,7 +189,7 @@ public class Gear : Item
 
     public void Equip()
     {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
+        WeaponSO equippedGear = Resources.Load<WeaponSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
 
         equippedGear.Id = Id;
         equippedGear.Level = Level;

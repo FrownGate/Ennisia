@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054951e5d58e49644856f43b9ed87d10, type: 3}
+  m_Name: Majestic Light
+  m_EditorClassIdentifier: 
+  Id: 2
+  Name: Majestic Light
+  Level: 1
+  Type: 7
+  Rarity: 0
+  Attribute: 1
+  StatValue: 0
+  Description: none
+  IsMagic: 1
+  FirstSkillData: {fileID: 11400000, guid: a8c70296a3d644545a29e186e9e68450, type: 2}
+  SecondSkillData: {fileID: 11400000, guid: 2ecbab1adfe904c4682ba90029245d14, type: 2}
