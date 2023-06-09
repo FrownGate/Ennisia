@@ -815,9 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameButton: {fileID: 3117518621713359327, guid: 2b81cf64cb748ff4ba3ea620b12230d0, type: 3}
   GameParent: {fileID: 873556148}
-  Image: {fileID: 0}
-  Lore: {fileID: 0}
-  Level: {fileID: 0}
+  Canvas: {fileID: 559282110}
 --- !u!1001 &765015940213007818
 PrefabInstance:
   m_ObjectHideFlags: 0
