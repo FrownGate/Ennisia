@@ -8,6 +8,7 @@ using System.Linq;
 
 public class CSVToSO : EditorWindow
 {
+    private static Dictionary<int, SkillSO> _skillSOMap;
     private static Dictionary<string, List<Item.AttributeStat>> _equipmentTypes;
     private static int _currentLine;
     private static int _lines;
@@ -173,17 +174,16 @@ public class CSVToSO : EditorWindow
         }
         return MissionManager.MissionType.MainStory;
     }
-    private static Dictionary<int, SkillSO> skillSOMap;
 
     private static void LoadSkillSOs()
     {
-        skillSOMap = new Dictionary<int, SkillSO>();
+        _skillSOMap = new Dictionary<int, SkillSO>();
 
         SkillSO[] skillSOs = Resources.LoadAll<SkillSO>("SO/Skills");
 
         foreach (SkillSO skillSO in skillSOs)
         {
-            skillSOMap[skillSO.Id] = skillSO;
+            _skillSOMap[skillSO.Id] = skillSO;
         }
     }
 
@@ -292,7 +292,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.StatValue = int.Parse(rowData["Value"]);
 
         // Get the skill SOs based on the IDs
-        if (skillSOMap.TryGetValue(int.Parse(rowData["Skill1"]), out SkillSO skill1))
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill1"]), out SkillSO skill1))
         {
             scriptableObject.FirstSkillData = skill1;
         }
@@ -301,7 +301,7 @@ public class CSVToSO : EditorWindow
             Debug.LogError($"Skill with ID {int.Parse(rowData["Skill1"])} not found.");
         }
 
-        if (skillSOMap.TryGetValue(int.Parse(rowData["Skill2"]), out SkillSO skill2))
+        if (_skillSOMap.TryGetValue(int.Parse(rowData["Skill2"]), out SkillSO skill2))
         {
             scriptableObject.SecondSkillData = skill2;
         }
