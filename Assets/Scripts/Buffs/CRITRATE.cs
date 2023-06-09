@@ -1,17 +1,17 @@
 ﻿
-
     using System.Collections.Generic;
 
-    public class ATKBUFF : Effect
+    public class CRITRATE : Effect
     {
         private float _percentage => 1.5f;
-        public ATKBUFF(int duration,Entity target)
+
+        public CRITRATE(int duration, Entity target)
         {
             ModifiedStats = new List<string>
             {
-                "Attack",
+                "CritRate",
             };
             Duration = duration;
-            target.Attack *= _percentage;
+            target.CritRate *= _percentage;
         }
     }

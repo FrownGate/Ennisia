@@ -1,11 +1,10 @@
 ﻿
-
     using System.Collections.Generic;
 
-    public class ATKBUFF : Effect
+    public class BREAKATK : Effect
     {
-        private float _percentage => 1.5f;
-        public ATKBUFF(int duration,Entity target)
+        private float _percentage => 0.7f;
+        public BREAKATK(int duration, Entity target)
         {
             ModifiedStats = new List<string>
             {

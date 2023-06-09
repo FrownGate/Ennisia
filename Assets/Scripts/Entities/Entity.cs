@@ -19,7 +19,7 @@ public abstract class Entity
     protected internal float Shield { get; set; }
     protected internal float Speed { get; set; }
     protected internal float CurrentHp { get; set; }
-
+    
     private readonly Dictionary<string, float> _baseValues;
 
     protected internal List<Effect> EffectList{ get; protected set; }
@@ -147,5 +147,6 @@ public abstract class Entity
         }
 
     }
+    
     
 }

@@ -11,7 +11,8 @@ public class EnemyTurn : State
         BattleSystem.SetSkillButtonsActive(false);
         BattleSystem.DialogueText.text = "Enemy turn";
         BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
-
+        //BattleSystem.Player.ApplyEffect(new SILENCE(4,BattleSystem.Player));
+        
         yield return new WaitForSeconds(0.5f);
 
         BattleSystem.SetState(new PlayerTurn(BattleSystem));

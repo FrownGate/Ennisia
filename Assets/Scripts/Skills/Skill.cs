@@ -53,10 +53,11 @@ public abstract class Skill
     public void Tick()
     {
         Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
-        
-        if(SkillButton != null)
-        {
-            SkillButton.interactable = Cooldown == 0;
-        }
+        SkillButton.interactable = Cooldown == 0;
+    }
+
+    public void ResetCoolDown(int duration)
+    {
+        Cooldown = duration;
     }
 }
