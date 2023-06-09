@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3017f760ff84b24395c457f597e483f, type: 3}
-  m_Name: Yoichi
+  m_Name: Kuro
   m_EditorClassIdentifier: 
-  Id: 1
-  Name: Yoichi
-  Rarity: Rare
+  Id: 4
+  Name: Kuro
+  Rarity: 
   Lore: none
   Icon: {fileID: 0}
   Level: 0
