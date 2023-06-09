@@ -19,6 +19,7 @@ public abstract class Entity
     protected internal float Shield { get; set; }
     protected internal float Speed { get; set; }
     protected internal float CurrentHp { get; set; }
+    //TODO -> use dictionary with stat enum instead
     
     private readonly Dictionary<string, float> _baseValues;
 
@@ -147,8 +148,5 @@ public abstract class Entity
                 Speed = _baseValues[valueName];
                 break;
         }
-
     }
-    
-    
 }

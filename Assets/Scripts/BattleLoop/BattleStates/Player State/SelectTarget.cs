@@ -4,6 +4,7 @@ using UnityEngine;
 public class SelectTarget : State
 {
     private Skill _selectedSkill;
+    //TODO -> clean commented code if unused
 
     public SelectTarget(BattleSystem battleSystem, Skill selectedSkill) : base(battleSystem)
     {
@@ -18,8 +19,6 @@ public class SelectTarget : State
 
     public override IEnumerator Attack()
     {
-       
-
         // Check if Player is not null
         /*if (BattleSystem.Player == null)
         {

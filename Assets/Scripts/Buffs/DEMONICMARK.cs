@@ -1,8 +1,7 @@
-﻿
-    public class DEMONICMARK : Effect
+﻿public class DEMONICMARK : Effect
+{
+    public DEMONICMARK()
     {
-        public DEMONICMARK()
-        {
-            
-        }
+
     }
+}

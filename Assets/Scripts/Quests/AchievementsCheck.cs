@@ -96,7 +96,7 @@ public class AchievementsCheck : MonoBehaviour
     {
         MissionManager.OnMissionComplete += CheckMission;
         Gear.LevelUp += CheckGearUpgrade;
-        BattleSystem.enemyKilled += CheckEnemyKilled;
+        BattleSystem.OnEnemyKilled += CheckEnemyKilled;
         PlayFabManager.OnEnergyUsed += CheckEnergyUsed;
     }
 
@@ -104,7 +104,7 @@ public class AchievementsCheck : MonoBehaviour
     {
         MissionManager.OnMissionComplete -= CheckMission;
         Gear.LevelUp -= CheckGearUpgrade;
-        BattleSystem.enemyKilled -= CheckEnemyKilled;
+        BattleSystem.OnEnemyKilled -= CheckEnemyKilled;
         PlayFabManager.OnEnergyUsed -= CheckEnergyUsed;
     }
 }
