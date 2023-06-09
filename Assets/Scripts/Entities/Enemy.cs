@@ -21,7 +21,7 @@ public class Enemy : Entity
         // insert values from stats into the Enemy's stats
         foreach (KeyValuePair<string, int> stat in stats)
         {
-            switch (stat.Key) //TODO -> Use another method (no strings)
+            switch (stat.Key) //TODO -> Use enum instead of strings
             {
                 case "Hp":
                     MaxHp = stat.Value;

@@ -21,6 +21,7 @@ public class Player : Entity
     {
         stats = new Dictionary<string, float>()
         {
+            //TODO -> use stat enum instead of strings
             { "MaxHp", (int)MaxHp },
             { "Atk", (int)Attack },
             { "PhysAtk", (int)PhysAtk },
