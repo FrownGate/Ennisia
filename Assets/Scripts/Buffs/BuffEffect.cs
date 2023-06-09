@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public abstract class Effect
+public abstract class BuffEffect
 {
     public string Description { get; set; }
     public string Name { get; set; }
@@ -17,5 +17,4 @@ public abstract class Effect
     {
         Duration = duration;
     }
-
 }

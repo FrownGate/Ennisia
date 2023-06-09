@@ -198,7 +198,7 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void ReduceEffectDuration(List<Effect> effects, List<Effect> targetEffects = null)
+    public void ReduceEffectDuration(List<BuffEffect> effects, List<BuffEffect> targetEffects = null)
     {
         foreach (var e in effects)
         {

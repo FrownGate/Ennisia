@@ -1,4 +1,4 @@
-﻿public class DEMONICMARK : Effect
+﻿public class DEMONICMARK : BuffEffect
 {
     public DEMONICMARK()
     {
