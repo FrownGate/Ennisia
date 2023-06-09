@@ -419,9 +419,15 @@ public class BattleSimulator : EditorWindow
 
 
 
-        // FIXME: -> The skills are not assigned to the support
-        // supportFields[0].SetValueWithoutNotify(support.PrimarySkill.Data.Name);
-        // supportFields[1].SetValueWithoutNotify(support.SecondarySkill.Data.Name);
+        supportFields[0].label = support.PrimarySkillData.IsPassive ? "Passive" : "Active";
+        supportFields[1].label = support.SecondarySkillData.IsPassive ? "Passive" : "Active";
+
+        // set the value of the skill to the name of the skill
+        supportFields[0].SetValueWithoutNotify(support.PrimarySkillData.Name);
+        supportFields[1].SetValueWithoutNotify(support.SecondarySkillData.Name);
+
+
+
 
 
 
@@ -431,13 +437,15 @@ public class BattleSimulator : EditorWindow
     {
         GearSO weapon = _weapons.Find(x => x.Name == weaponName);
 
-        // Change the name of the stat field to the name of the stat
         weaponStatFields[0].label = weapon.Attribute.ToString();
         weaponStatFields[0].SetValueWithoutNotify((int)weapon.StatValue);
 
-        // FIXME: -> The skills are not assigned to the weapon
-        // weaponSkillFields[0].SetValueWithoutNotify(weapon.FirstSkillData.Name);
-        // weaponSkillFields[1].SetValueWithoutNotify(weapon.SecondSkillData.Name);
+        weaponSkillFields[0].label = weapon.FirstSkillData.IsPassive ? "Passive" : "Active";
+        weaponSkillFields[1].label = weapon.SecondSkillData.IsPassive ? "Passive" : "Active";
+
+
+        weaponSkillFields[0].SetValueWithoutNotify(weapon.FirstSkillData.Name);
+        weaponSkillFields[1].SetValueWithoutNotify(weapon.SecondSkillData.Name);
 
 
 
