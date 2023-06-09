@@ -271,6 +271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f59decedb5b8b419a3b0f042e0faa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: {fileID: 1236077121139959806}
+  Name: {fileID: 1236077121139959806}
   petInformation: {fileID: 227769478935616379, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
-  parent: {fileID: 0}
+  Canvas: {fileID: 0}

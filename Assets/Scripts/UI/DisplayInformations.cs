@@ -22,10 +22,13 @@ public class DisplayInformations : MonoBehaviour
 
     public void DisplayPet(string name)
     {
+        gameObject.name = name;
         Debug.Log(name);
         _data = Resources.Load<PetSO>("SO/Pets/" + name);
         //Image.GetComponent<Image>().sprite = _data.Icon;
         Lore.GetComponent<TextMeshProUGUI>().text = _data.Lore;
         Level.GetComponent<TextMeshProUGUI>().text = _data.Level.ToString();
+
     }
+
 }
