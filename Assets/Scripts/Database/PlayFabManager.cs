@@ -50,7 +50,6 @@ public class PlayFabManager : MonoBehaviour
     public bool LoggedIn { get; private set; }
 
     //PlayFab catalog
-    public List<GroupWithRoles> Guilds { get; private set; }
     private Dictionary<string, string> _currencies;
     private Dictionary<string, string> _itemsById;
     private Dictionary<string, string> _itemsByName;
@@ -64,7 +63,12 @@ public class PlayFabManager : MonoBehaviour
     private bool _currencyAdded;
     private Item _item;
 
+    //Guilds
+    public List<GroupWithRoles> Guilds { get; private set; }
+    public GroupWithRoles PlayerGuild { get; private set; }
+    private PlayFab.GroupsModels.EntityKey _guildEntity; //Current request's guild's entity
     private PlayFab.ClientModels.EntityKey _adminEntity;
+    private readonly string _fakeRole = "Fake"; //Used ?
 
     //TODO -> event when file upload is finished, prevent double uploads
 
@@ -94,6 +98,8 @@ public class PlayFabManager : MonoBehaviour
                 Id = "2641E2E5FB9FA5C2",
                 Type = "title_player_account"
             }; //TODO -> encrypt datas
+
+            Guilds = new();
         }
     }
 
@@ -402,7 +408,22 @@ public class PlayFabManager : MonoBehaviour
             }
         }
 
-        CompleteLogin();
+        GetPlayerGuild();
+    }
+
+    public void GetPlayerGuild()
+    {
+        Debug.Log("Fetching player's guild...");
+
+        PlayFabGroupsAPI.ListMembership(new(), res =>
+        {
+            PlayerGuild = res.Groups.Count > 0 ? res.Groups[0] : null;
+
+            if (PlayerGuild != null) Debug.Log($"Player is a member of Guild {PlayerGuild.GroupName}.");
+            
+            CompleteLogin();
+
+        }, OnRequestError);
     }
 
     private void CompleteLogin()
@@ -660,17 +681,8 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Guilds
-    public void GetGuilds()
-    {
-        PlayFabGroupsAPI.ListMembership(new()
-        {
-            Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type }
-        }, res =>
-        {
-            Guilds = res.Groups;
-            OnGetGuilds?.Invoke();
-        }, OnRequestError);
-    }
+    //TODO -> Add guilds' invitations, applications, applications list, members list
+
     public void CreateGuild(string name)
     {
         Debug.Log("Creating guild...");
@@ -679,29 +691,58 @@ public class PlayFabManager : MonoBehaviour
 
         PlayFabGroupsAPI.CreateGroup(new()
         {
-            GroupName = name,
-            //Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type }
+            GroupName = name
         }, OnCreateGuild, OnRequestError);
     }
 
     private void OnCreateGuild(CreateGroupResponse response)
     {
         Debug.Log($"Guild {response.GroupName} created !");
+        _guildEntity = response.Group;
 
-        //TODO -> add fake player to new guild
-
-        /*PlayFabGroupsAPI.AddMembers(new()
+        PlayFabGroupsAPI.ApplyToGroup(new() //Adding fake player to newly created guild
         {
-            Members = new() { new() { Id = _adminEntity.Id, Type = _adminEntity.Type } },
-            Group = response.Group
+            Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type },
+            Group = _guildEntity
         }, res =>
         {
-            PlayFabGroupsAPI.IsMember(new()
+            PlayFabGroupsAPI.AcceptGroupApplication(new()
             {
                 Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type },
-                Group = response.Group
-            }, res => Debug.Log(res.IsMember), OnRequestError);
-        }, OnRequestError);*/
+                Group = _guildEntity
+            }, res =>
+            {
+                Debug.Log($"Fake player added to Guild {response.GroupName} !");
+
+                //TODO -> Check if filter is better with role or entity key
+
+                /*PlayFabGroupsAPI.CreateRole(new() //Adding fake role to filter fake player
+                {
+                    Group = _guildEntity,
+                    RoleId = _fakeRole,
+                    RoleName = _fakeRole
+                }, res =>
+                {
+                    PlayFabGroupsAPI.ChangeMemberRole(new()
+                    {
+                        OriginRoleId = "members",
+                        DestinationRoleId = _fakeRole,
+                        Members = new() { new() { Id = _adminEntity.Id, Type = _adminEntity.Type } }
+                    }, null, OnRequestError);
+                }, OnRequestError);*/
+            }, OnRequestError);
+        }, OnRequestError);
+    }
+
+    public void GetGuilds()
+    {
+        PlayFabGroupsAPI.ListMembership(new()
+        {
+            Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type }
+        }, res => {
+            Guilds = res.Groups;
+            OnGetGuilds?.Invoke();
+        }, OnRequestError);
     }
     #endregion
 
@@ -785,6 +826,6 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
 
-        CreateGuild("Test");
+        //CreateGuild("Test");
     }
 }
