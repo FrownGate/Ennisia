@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
+  m_Name: 20-Red Slime
+  m_EditorClassIdentifier: 
+  Id: 20
+  Name: Red Slime
+  Rarity: Epic
+  Race: none
+  Job: none
+  Element: Fire
+  PrimarySkillData: {fileID: 11400000, guid: e6fba97c89491844ea5983919a17b9eb, type: 2}
+  SecondarySkillData: {fileID: 0}
+  Description: none
+  Catchphrase: none
+  Icon: {fileID: 0}

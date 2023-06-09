@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 17
   Name: In The Shadow
-  Description: "penetrates the target\u2019s defense by 40% on third skill; if the
-    enemy is debuffed, has a 50% chance to play again."
+  Description: "penetrates the target\u2019s defense by 40% ; if the enemy is debuffed,
+    has a 50% chance to play again."
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -26,4 +26,3 @@ MonoBehaviour:
   AOE: 0
   IsMagic: 0
   IsPassive: 1
-  Icon: {fileID: 0}
