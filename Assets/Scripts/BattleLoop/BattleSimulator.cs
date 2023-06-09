@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class BattleSimulator : EditorWindow
 {
+    //TODO: -> Optimize stored datas with enum, arrays, loops, etc.
+
     public static BattleSystem Instance;
     private List<SupportCharacterSO> _supports = new();
     private List<GearSO> _weapons = new();
@@ -29,10 +31,6 @@ public class BattleSimulator : EditorWindow
     private readonly List<IntegerField> _weaponStatField = new();
     private readonly List<TextField> _weaponSkillField = new();
 
-
-
-
-
     // ENEMIES
     private GroupBox _firstEnemyGroupBox;
     private GroupBox _secondEnemyGroupBox;
@@ -40,7 +38,6 @@ public class BattleSimulator : EditorWindow
     private GroupBox _fourthEnemyGroupBox;
     private GroupBox _fifthEnemyGroupBox;
     private GroupBox _sixthEnemyGroupBox;
-
 
     private DropdownField _firstEnemyDropdown;
     private DropdownField _secondEnemyDropdown;
@@ -63,8 +60,6 @@ public class BattleSimulator : EditorWindow
     private readonly List<IntegerField> _sixthEnemyStatsField = new();
 
     private Button _simulateButton; //Used ?
-
-    //TODO: -> Optimize stored datas
 
     [MenuItem("Tools/Battle Simulator")]
     public static void ShowWindow()
@@ -99,7 +94,6 @@ public class BattleSimulator : EditorWindow
         _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill1"));
         _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill2"));
 
-
         _firstSupportDropdown = root.Q<DropdownField>("first-support-dropdown");
         _secondSupportDropdown = root.Q<DropdownField>("second-support-dropdown");
 
@@ -108,7 +102,6 @@ public class BattleSimulator : EditorWindow
 
         _firstSupportFoldout.text = "Support Skills";
         _secondSupportFoldout.text = "Support Skills";
-
 
         _weaponGroupBox = root.Q<GroupBox>("Weapon");
 
@@ -119,9 +112,7 @@ public class BattleSimulator : EditorWindow
         _weaponDropdown = root.Q<DropdownField>("weapon-dropdown");
 
         _weaponFoldout = root.Q<Foldout>("weapon-foldout");
-
         _weaponFoldout.text = "Weapon Skills";
-
 
         _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
         _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
@@ -131,6 +122,7 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyGroupBox = root.Q<GroupBox>("SixthEnemy");
 
         // get the stats fields for all the enemies
+        //TODO -> use enums with list or dictionary to optimize
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MaxHp"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Atk"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysAtk"));
@@ -206,6 +198,7 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
 
         // Set Base value for the foldouts
+        //TODO -> use loop function
         _firstEnemyFoldout.text = "Enemy Stats";
         _secondEnemyFoldout.text = "Enemy Stats";
         _thirdEnemyFoldout.text = "Enemy Stats";
@@ -252,13 +245,11 @@ public class BattleSimulator : EditorWindow
             _weaponDropdown.choices.Add(weapon.Name);
         }
 
-
         ChangeFoldoutOnDropdown();
     }
 
     private void ChangeFoldoutOnDropdown()
     {
-
         // WEAPON
         _weaponDropdown.RegisterValueChangedCallback(evt =>
         {
@@ -309,7 +300,6 @@ public class BattleSimulator : EditorWindow
         });
 
         // ENEMIES
-
         _firstEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -324,6 +314,7 @@ public class BattleSimulator : EditorWindow
                 _firstEnemyFoldout.visible = false;
             }
         });
+
         _secondEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -339,6 +330,7 @@ public class BattleSimulator : EditorWindow
                 _secondEnemyFoldout.visible = false;
             }
         });
+
         _thirdEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -353,6 +345,7 @@ public class BattleSimulator : EditorWindow
                 _thirdEnemyFoldout.visible = false;
             }
         });
+
         _fourthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -367,6 +360,7 @@ public class BattleSimulator : EditorWindow
                 _fourthEnemyFoldout.visible = false;
             }
         });
+
         _fifthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -381,6 +375,7 @@ public class BattleSimulator : EditorWindow
                 _fifthEnemyFoldout.visible = false;
             }
         });
+
         _sixthEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -416,35 +411,30 @@ public class BattleSimulator : EditorWindow
     private void ChangeFieldsOfSupport(string supportName, List<TextField> supportFields)
     {
         SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
+        supportFields[0].label = support.PrimarySkillData.IsPassive ? "Passive" : "Active";
+        supportFields[1].label = support.SecondarySkillData.IsPassive ? "Passive" : "Active";
 
-
-
-        // FIXME: -> The skills are not assigned to the support
-        // supportFields[0].SetValueWithoutNotify(support.PrimarySkill.Data.Name);
-        // supportFields[1].SetValueWithoutNotify(support.SecondarySkill.Data.Name);
-
-
-
+        // set the value of the skill to the name of the skill
+        supportFields[0].SetValueWithoutNotify(support.PrimarySkillData.Name);
+        supportFields[1].SetValueWithoutNotify(support.SecondarySkillData.Name);
     }
 
     private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
     {
         GearSO weapon = _weapons.Find(x => x.Name == weaponName);
 
-        // Change the name of the stat field to the name of the stat
         weaponStatFields[0].label = weapon.Attribute.ToString();
         weaponStatFields[0].SetValueWithoutNotify((int)weapon.StatValue);
 
-        // FIXME: -> The skills are not assigned to the weapon
-        // weaponSkillFields[0].SetValueWithoutNotify(weapon.FirstSkillData.Name);
-        // weaponSkillFields[1].SetValueWithoutNotify(weapon.SecondSkillData.Name);
+        weaponSkillFields[0].label = weapon.FirstSkillData.IsPassive ? "Passive" : "Active";
+        weaponSkillFields[1].label = weapon.SecondSkillData.IsPassive ? "Passive" : "Active";
 
-
-
+        weaponSkillFields[0].SetValueWithoutNotify(weapon.FirstSkillData.Name);
+        weaponSkillFields[1].SetValueWithoutNotify(weapon.SecondSkillData.Name);
     }
 
     private void OnInspectorUpdate()
     {
-        this.Repaint();
+        Repaint();
     }
 }
