@@ -16,7 +16,8 @@ public class SupportCharacterSO : ScriptableObject
     [HideInInspector] public Skill SecondarySkill;
     public string Description;
     public string Catchphrase;
-    public Sprite Icon;
+    //public Sprite Icon;
+
     public void Init()
     {
         Type type = System.Type.GetType(CSVUtils.GetFileName(PrimarySkillData.Name));

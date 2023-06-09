@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class DEFBUFF : Effect
+public class DEFBUFF : BuffEffect
 {
     private float _percentage => 1.5f;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class ATKBUFF : Effect
+public class ATKBUFF : BuffEffect
 {
     private float _percentage => 1.5f;
 

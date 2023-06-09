@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class BREAKATK : Effect
+public class BREAKATK : BuffEffect
 {
     private float _percentage => 0.7f;
 
