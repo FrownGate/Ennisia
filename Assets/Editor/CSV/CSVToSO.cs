@@ -13,7 +13,7 @@ public class CSVToSO : EditorWindow
     private static int _currentLine;
     private static int _lines;
 
-    enum TypeCSV
+    enum TypeCSV 
     {
         supports, skills, equipment, weapons, missions, chapters
     }
@@ -240,8 +240,37 @@ public class CSVToSO : EditorWindow
         scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
         scriptableObject.IsPassive = bool.Parse(rowData["isPassive"]);
 
-        string savePath = $"Assets/Resources/SO/Skills/{CSVUtils.GetFileName(scriptableObject.Name)}.asset";
+        string fileName = CSVUtils.GetFileName(scriptableObject.Name);
+        string savePath = $"Assets/Resources/SO/Skills/{fileName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
+
+        // Check if the .cs file already exists
+        string scriptFilePath = $"Assets/Scripts/Skills/List/{fileName}.cs";
+        if (!File.Exists(scriptFilePath))
+        {
+            // Create the .cs file
+            using (StreamWriter writer = File.CreateText(scriptFilePath))
+            {
+                writer.WriteLine("using System.Collections.Generic;");
+                writer.WriteLine("");
+                writer.WriteLine($"public class {fileName} : Skill");
+                writer.WriteLine("{");
+                writer.WriteLine($"//TODO -> {scriptableObject.Description}");
+                writer.WriteLine("    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }");
+                writer.WriteLine("\r\n    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }");
+                writer.WriteLine("\r\n    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }");
+                writer.WriteLine("\r\n    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }");
+                writer.WriteLine("\r\n    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }");
+                writer.WriteLine("\r\n    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }");
+                writer.WriteLine("\r\n    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }");
+                writer.WriteLine("\r\n    public override void TakeOffStats(List<Entity> targets, Entity player, int turn) { }");
+                writer.WriteLine("}");
+            }
+
+            // Refresh the AssetDatabase to detect the newly created .cs file
+            AssetDatabase.Refresh();
+        }
+        
     }
 
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
