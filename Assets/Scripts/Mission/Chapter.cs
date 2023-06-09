@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,10 +5,11 @@ using UnityEngine.UI;
 
 public class Chapter : MonoBehaviour
 {
-    private const string SceneToLoad = "StoryChapterPopup";
-    public GameObject SpritePrefab;
+    private const string _sceneToLoad = "StoryChapterPopup";
 
-    ChapterSO CurrentChapter;
+    public GameObject SpritePrefab;
+    public ChapterSO CurrentChapter;
+
     void Start()
     {
         CurrentChapter = MissionManager.Instance.CurrentChapter;
@@ -19,9 +19,11 @@ public class Chapter : MonoBehaviour
 
         foreach (MissionSO missionSO in missions)
         {
-            //Temp
-            Vector2 randomPosition = new(Random.Range(-parentRect.rect.width / 2, parentRect.rect.width / 2),
-                                                 Random.Range(-parentRect.rect.height / 2, parentRect.rect.height / 2));
+            //TODO -> Get mission position from SO (depending on Ennisia map)
+            Vector2 randomPosition = new(
+                Random.Range(-parentRect.rect.width / 2, parentRect.rect.width / 2),
+                Random.Range(-parentRect.rect.height / 2, parentRect.rect.height / 2)
+                );
 
             GameObject newMissionBtn = Instantiate(SpritePrefab, transform);
             RectTransform spriteRect = newMissionBtn.GetComponent<RectTransform>();
@@ -41,12 +43,10 @@ public class Chapter : MonoBehaviour
     {
         Debug.Log("Button clicked: " + scriptableObject.Name);
 
-
         // Set the new mission
         MissionManager.Instance.SetMission(scriptableObject);
 
         // Load the new popup scene
-        ScenesManager.Instance.SetScene(SceneToLoad);
-
+        ScenesManager.Instance.SetScene(_sceneToLoad);
     }
 }

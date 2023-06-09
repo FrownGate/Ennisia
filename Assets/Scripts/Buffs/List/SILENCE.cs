@@ -1,6 +1,6 @@
 ﻿using Random = System.Random;
 
-public class SILENCE : Effect
+public class SILENCE : BuffEffect
 {
     public SILENCE(int duration, Entity target)
     {
