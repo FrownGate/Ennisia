@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using static UnityEngine.Rendering.DebugUI;
 
 public abstract class Skill
@@ -15,6 +17,8 @@ public abstract class Skill
     public float StatUpgrade1 { get; set; }
     public float StatUpgrade2 { get; set; }
     public string FileName { get; protected set; }
+
+    public UnityEngine.UI.Button SkillButton { get; set; }
 
     public Skill()
     {
@@ -42,4 +46,17 @@ public abstract class Skill
     }
 
     public virtual void Upgrade(int _Level) { Level = _Level; }
+    public void Tick()
+    {
+        Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
+        if (SkillButton != null)
+        {
+            SkillButton.interactable = Cooldown == 0;
+        }
+    }
+
+    public void ResetCoolDown(int duration)
+    {
+        Cooldown = duration;
+    }
 }
