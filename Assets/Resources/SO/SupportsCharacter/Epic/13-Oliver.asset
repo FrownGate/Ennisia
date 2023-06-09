@@ -18,6 +18,10 @@ MonoBehaviour:
   Race: Elf
   Job: Sword-Master
   Element: Fire
-  Description: none
-  Catchphrase: none
+  PrimarySkillData: {fileID: 11400000, guid: da7f87edfb5d2cd4a8c7bce7d6865e1d, type: 2}
+  SecondarySkillData: {fileID: 11400000, guid: f6fed5ad45f063b46987482e9c691a21, type: 2}
+  Description: An elven officer that specializes in training new recruits. He was
+    a very promising swordsman but due to an injury he lost a lot of his capabilities.
+    Thus he retired from combat and became the best teacher.
+  Catchphrase: "If you\u2019re feeling down, let me raise you to new heights"
   Icon: {fileID: 0}

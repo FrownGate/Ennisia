@@ -6,14 +6,12 @@ public class WhoGoFirst : State
 {
     private List<Entity> _enemiesList;
     private List<Entity> _playerList;
+    //TODO -> replace list by Entity Player
 
     public WhoGoFirst(BattleSystem battleSystem) : base(battleSystem)
     {
         _enemiesList = BattleSystem.Enemies;
-        _playerList = new List<Entity>
-        {
-            BattleSystem.Player
-        };
+        _playerList = new List<Entity> { BattleSystem.Player };
     }
 
     public override IEnumerator Start()

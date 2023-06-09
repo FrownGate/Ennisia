@@ -6,9 +6,32 @@ using UnityEngine.UIElements;
 public class BattleSimulator : EditorWindow
 {
     public static BattleSystem Instance;
-    private List<string> _allies = new(); //Used ?
+    private List<SupportCharacterSO> _supports = new();
+    private List<GearSO> _weapons = new();
     private List<Enemy> _enemies = new();
-    private DropdownField _alliesDropdown; //Used ?
+    private DropdownField _playerDropdown; //Used ?
+
+    // SUPPORTS
+    private GroupBox _firstSupportGroupBox;
+    private GroupBox _secondSupportGroupBox;
+
+    private DropdownField _firstSupportDropdown;
+    private DropdownField _secondSupportDropdown;
+    private Foldout _firstSupportFoldout;
+    private Foldout _secondSupportFoldout;
+    private readonly List<TextField> _firstSupportSkillField = new();
+    private readonly List<TextField> _secondSupportSkillField = new();
+
+    // WEAPON
+    private GroupBox _weaponGroupBox;
+    private DropdownField _weaponDropdown;
+    private Foldout _weaponFoldout;
+    private readonly List<IntegerField> _weaponStatField = new();
+    private readonly List<TextField> _weaponSkillField = new();
+
+
+
+
 
     // ENEMIES
     private GroupBox _firstEnemyGroupBox;
@@ -18,8 +41,6 @@ public class BattleSimulator : EditorWindow
     private GroupBox _fifthEnemyGroupBox;
     private GroupBox _sixthEnemyGroupBox;
 
-    // create a dictionary of stats for the enemies
-    private Dictionary<string, int> _firstEnemyStats = new(); //Used ?
 
     private DropdownField _firstEnemyDropdown;
     private DropdownField _secondEnemyDropdown;
@@ -34,16 +55,16 @@ public class BattleSimulator : EditorWindow
     private Foldout _fifthEnemyFoldout;
     private Foldout _sixthEnemyFoldout;
 
-    private List<IntegerField> _firstEnemyStatsField = new();
-    private List<IntegerField> _secondEnemyStatsField = new();
-    private List<IntegerField> _thirdEnemyStatsField = new();
-    private List<IntegerField> _fourthEnemyStatsField = new();
-    private List<IntegerField> _fifthEnemyStatsField = new();
-    private List<IntegerField> _sixthEnemyStatsField = new();
+    private readonly List<IntegerField> _firstEnemyStatsField = new();
+    private readonly List<IntegerField> _secondEnemyStatsField = new();
+    private readonly List<IntegerField> _thirdEnemyStatsField = new();
+    private readonly List<IntegerField> _fourthEnemyStatsField = new();
+    private readonly List<IntegerField> _fifthEnemyStatsField = new();
+    private readonly List<IntegerField> _sixthEnemyStatsField = new();
 
     private Button _simulateButton; //Used ?
 
-    //TODO -> Optimize stored datas
+    //TODO: -> Optimize stored datas
 
     [MenuItem("Tools/Battle Simulator")]
     public static void ShowWindow()
@@ -69,10 +90,39 @@ public class BattleSimulator : EditorWindow
         TemplateContainer labelFromUXML = visualTree.CloneTree();
         root.Add(labelFromUXML);
 
-        // StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/BattleLoop/BattleSimulator.uss");
-        // root.styleSheets.Add(styleSheet);
+        _firstSupportGroupBox = root.Q<GroupBox>("FirstSupport");
+        _secondSupportGroupBox = root.Q<GroupBox>("SecondSupport");
 
-        // add values in _allies for testing
+        _firstSupportSkillField.Add(_firstSupportGroupBox.Q<TextField>("Skill1"));
+        _firstSupportSkillField.Add(_firstSupportGroupBox.Q<TextField>("Skill2"));
+
+        _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill1"));
+        _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill2"));
+
+
+        _firstSupportDropdown = root.Q<DropdownField>("first-support-dropdown");
+        _secondSupportDropdown = root.Q<DropdownField>("second-support-dropdown");
+
+        _firstSupportFoldout = root.Q<Foldout>("first-support-foldout");
+        _secondSupportFoldout = root.Q<Foldout>("second-support-foldout");
+
+        _firstSupportFoldout.text = "Support Skills";
+        _secondSupportFoldout.text = "Support Skills";
+
+
+        _weaponGroupBox = root.Q<GroupBox>("Weapon");
+
+        _weaponStatField.Add(_weaponGroupBox.Q<IntegerField>("MainStat"));
+        _weaponSkillField.Add(_weaponGroupBox.Q<TextField>("Skill1"));
+        _weaponSkillField.Add(_weaponGroupBox.Q<TextField>("Skill2"));
+
+        _weaponDropdown = root.Q<DropdownField>("weapon-dropdown");
+
+        _weaponFoldout = root.Q<Foldout>("weapon-foldout");
+
+        _weaponFoldout.text = "Weapon Skills";
+
+
         _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
         _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
         _thirdEnemyGroupBox = root.Q<GroupBox>("ThirdEnemy");
@@ -169,7 +219,6 @@ public class BattleSimulator : EditorWindow
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
-        // TODO: add enemies to dropdown
         foreach (Enemy enemy in _enemies)
         {
             _firstEnemyDropdown.choices.Add("No Enemy");
@@ -186,15 +235,81 @@ public class BattleSimulator : EditorWindow
             _sixthEnemyDropdown.choices.Add(enemy.Name);
         }
 
-        // if the dropdown is changed, change the foldout text
-        ChangeFoldoutOnDropdown();
-        // BattleSystem.Instance.SimulateBattle();
+        _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
 
-        // Set the first enemy stats
+        foreach (SupportCharacterSO support in _supports)
+        {
+            _firstSupportDropdown.choices.Add("No Support");
+            _firstSupportDropdown.choices.Add(support.Name);
+            _secondSupportDropdown.choices.Add("No Support");
+            _secondSupportDropdown.choices.Add(support.Name);
+        }
+
+        _weapons = new List<GearSO>(Resources.LoadAll<GearSO>("SO/Weapons"));
+        foreach (GearSO weapon in _weapons)
+        {
+            _weaponDropdown.choices.Add("No Weapon");
+            _weaponDropdown.choices.Add(weapon.Name);
+        }
+
+
+        ChangeFoldoutOnDropdown();
     }
 
     private void ChangeFoldoutOnDropdown()
     {
+
+        // WEAPON
+        _weaponDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Weapon")
+            {
+                _weaponFoldout.visible = true;
+                _weaponFoldout.text = evt.newValue;
+
+                GearSO weapon = _weapons.Find(x => x.Name == evt.newValue);
+
+                ChangeFieldsOfWeapon(evt.newValue, _weaponSkillField, _weaponStatField);
+            }
+            else
+            {
+                _weaponFoldout.visible = false;
+            }
+        });
+
+        // SUPPORTS
+        _firstSupportDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Support")
+            {
+                _firstSupportFoldout.visible = true;
+                _firstSupportFoldout.text = evt.newValue;
+
+                ChangeFieldsOfSupport(evt.newValue, _firstSupportSkillField);
+            }
+            else
+            {
+                _firstSupportFoldout.visible = false;
+            }
+        });
+
+        _secondSupportDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Support")
+            {
+                _secondSupportFoldout.visible = true;
+                _secondSupportFoldout.text = evt.newValue;
+
+                ChangeFieldsOfSupport(evt.newValue, _secondSupportSkillField);
+            }
+            else
+            {
+                _secondSupportFoldout.visible = false;
+            }
+        });
+
+        // ENEMIES
+
         _firstEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -202,7 +317,7 @@ public class BattleSimulator : EditorWindow
                 _firstEnemyFoldout.visible = true;
                 _firstEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _firstEnemyStatsField);
+                ChangeFieldsOfEnemy(evt.newValue, _firstEnemyStatsField);
             }
             else
             {
@@ -216,7 +331,7 @@ public class BattleSimulator : EditorWindow
                 _secondEnemyFoldout.visible = true;
                 _secondEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _secondEnemyStatsField);
+                ChangeFieldsOfEnemy(evt.newValue, _secondEnemyStatsField);
 
             }
             else
@@ -231,7 +346,7 @@ public class BattleSimulator : EditorWindow
                 _thirdEnemyFoldout.visible = true;
                 _thirdEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _thirdEnemyStatsField);
+                ChangeFieldsOfEnemy(evt.newValue, _thirdEnemyStatsField);
             }
             else
             {
@@ -245,7 +360,7 @@ public class BattleSimulator : EditorWindow
                 _fourthEnemyFoldout.visible = true;
                 _fourthEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _fourthEnemyStatsField);
+                ChangeFieldsOfEnemy(evt.newValue, _fourthEnemyStatsField);
             }
             else
             {
@@ -259,7 +374,7 @@ public class BattleSimulator : EditorWindow
                 _fifthEnemyFoldout.visible = true;
                 _fifthEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _fifthEnemyStatsField);
+                ChangeFieldsOfEnemy(evt.newValue, _fifthEnemyStatsField);
             }
             else
             {
@@ -273,7 +388,7 @@ public class BattleSimulator : EditorWindow
                 _sixthEnemyFoldout.visible = true;
                 _sixthEnemyFoldout.text = evt.newValue;
 
-                ChangeStatsOfEnemy(evt.newValue, _sixthEnemyStatsField);
+                ChangeFieldsOfEnemy(evt.newValue, _sixthEnemyStatsField);
             }
             else
             {
@@ -282,19 +397,14 @@ public class BattleSimulator : EditorWindow
         });
     }
 
-    private void ChangeStatsOfEnemy(string enemyName, List<IntegerField> enemyStatsField)
+    private void ChangeFieldsOfEnemy(string enemyName, List<IntegerField> enemyStatsField)
     {
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
-        Debug.Log("Enemy : " + enemy.Name);
 
         foreach (var item in enemy.GetAllStats())
         {
-            // assign the stats to the fields
-
-            Debug.Log("Item key : " + item.Key);
             foreach (var field in enemyStatsField)
             {
-                Debug.Log("Field name : " + field.name);
                 if (field.name == item.Key)
                 {
                     field.SetValueWithoutNotify(item.Value);
@@ -303,11 +413,38 @@ public class BattleSimulator : EditorWindow
         }
     }
 
-    private void OnInspectorUpdate()
+    private void ChangeFieldsOfSupport(string supportName, List<TextField> supportFields)
     {
-        // EditorGUILayout.Foldout(_firstEnemyFoldout.visible, "First Enemy Foldout");
-        this.Repaint();
+        SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
+
+
+
+        // FIXME: -> The skills are not assigned to the support
+        // supportFields[0].SetValueWithoutNotify(support.PrimarySkill.Data.Name);
+        // supportFields[1].SetValueWithoutNotify(support.SecondarySkill.Data.Name);
+
+
+
     }
 
-    // create a function to parse the Enemies.csv file and create a list of enemies
+    private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
+    {
+        GearSO weapon = _weapons.Find(x => x.Name == weaponName);
+
+        // Change the name of the stat field to the name of the stat
+        weaponStatFields[0].label = weapon.Attribute.ToString();
+        weaponStatFields[0].SetValueWithoutNotify((int)weapon.StatValue);
+
+        // FIXME: -> The skills are not assigned to the weapon
+        // weaponSkillFields[0].SetValueWithoutNotify(weapon.FirstSkillData.Name);
+        // weaponSkillFields[1].SetValueWithoutNotify(weapon.SecondSkillData.Name);
+
+
+
+    }
+
+    private void OnInspectorUpdate()
+    {
+        this.Repaint();
+    }
 }

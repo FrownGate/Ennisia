@@ -3,7 +3,7 @@ using System.IO;
 
 public class EnemyLoader
 {
-    //TODO -> Use FileManager to get headers and lines
+    //TODO -> Use CSVUtils to get headers and lines
 
     public Enemy LoadEnemyByName(string filePath, string enemyName)
     {
