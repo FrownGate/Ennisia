@@ -318,6 +318,7 @@ public class PlayFabManager : MonoBehaviour
     public void UpdateData()
     {
         Debug.Log("Initiating data update...");
+        OnLoadingStart?.Invoke();
 
         PlayFabDataAPI.InitiateFileUploads(new()
         {
@@ -343,6 +344,7 @@ public class PlayFabManager : MonoBehaviour
         }, res =>
         {
             Debug.Log("Files uploaded !");
+            OnLoadingEnd?.Invoke();
             CompleteLogin();
         }, OnRequestError);
     }
@@ -444,6 +446,7 @@ public class PlayFabManager : MonoBehaviour
     public void AddCurrency(Currency currency, int amount)
     {
         Debug.Log($"Adding {amount} {currency}...");
+        OnLoadingStart?.Invoke();
 
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
@@ -462,12 +465,15 @@ public class PlayFabManager : MonoBehaviour
             Currencies[currency] += amount;
             OnCurrencyUpdate?.Invoke();
             OnCurrencyGained?.Invoke(currency);
+            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
 
     public void RemoveCurrency(Currency currency, int amount)
     {
         Debug.Log($"Removing {amount} {currency}...");
+        OnLoadingStart?.Invoke();
+
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
@@ -485,12 +491,15 @@ public class PlayFabManager : MonoBehaviour
             Currencies[currency] -= amount;
             OnCurrencyUpdate?.Invoke();
             OnCurrencyUsed?.Invoke(currency);
+            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
 
     public void AddEnergy(int amount)
     {
         Debug.Log($"Adding {amount} energy...");
+        OnLoadingStart?.Invoke();
+
         PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest()
         {
             Amount = amount,
@@ -499,12 +508,15 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log($"Added {amount} energy !");
             Energy += amount;
             OnEnergyUpdate?.Invoke();
+            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
 
     public void RemoveEnergy(int amount)
     {
         Debug.Log($"Removing {amount} energy...");
+        OnLoadingStart?.Invoke();
+
         PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
         {
             Amount = amount,
@@ -514,6 +526,7 @@ public class PlayFabManager : MonoBehaviour
             Energy -= amount;
             OnEnergyUpdate?.Invoke();
             OnEnergyUsed?.Invoke();
+            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
 
@@ -604,6 +617,7 @@ public class PlayFabManager : MonoBehaviour
     #region Items
     public void AddInventoryItem(Item item)
     {
+        OnLoadingStart?.Invoke();
         item.Serialize();
 
         PlayFabEconomyAPI.AddInventoryItems(new()
@@ -623,7 +637,11 @@ public class PlayFabManager : MonoBehaviour
                 DisplayProperties = item
             } : new(),
             Amount = item.Amount
-        }, res => Debug.Log($"Item added to inventory !"), OnRequestError);
+        }, res =>
+        {
+            Debug.Log($"Item added to inventory !");
+            OnLoadingEnd?.Invoke();
+        }, OnRequestError);
     }
 
     public void UpdateItem(Item item)
@@ -634,6 +652,7 @@ public class PlayFabManager : MonoBehaviour
             return;
         }
 
+        OnLoadingStart?.Invoke();
         item.Serialize();
 
         PlayFabEconomyAPI.UpdateInventoryItems(new()
@@ -645,7 +664,11 @@ public class PlayFabManager : MonoBehaviour
                 DisplayProperties = item,
                 StackId = item.Stack
             }
-        }, res => Debug.Log("Item updated !"), OnRequestError);
+        }, res =>
+        {
+            Debug.Log("Item updated !");
+            OnLoadingEnd?.Invoke();
+        }, OnRequestError);
     }
 
     public void UseItem(Item item, int amount = 1)
@@ -657,6 +680,7 @@ public class PlayFabManager : MonoBehaviour
         }
 
         _item = item;
+        OnLoadingStart?.Invoke();
 
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
@@ -676,6 +700,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Data.Inventory.RemoveItem(_item);
             Debug.Log("Item used !");
+            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
     #endregion
@@ -688,6 +713,8 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log("Creating guild...");
 
         //TODO -> Check if name already exists
+
+        OnLoadingStart?.Invoke();
 
         PlayFabGroupsAPI.CreateGroup(new()
         {
@@ -713,6 +740,7 @@ public class PlayFabManager : MonoBehaviour
             }, res =>
             {
                 Debug.Log($"Fake player added to Guild {response.GroupName} !");
+                OnLoadingEnd?.Invoke();
 
                 //TODO -> Check if filter is better with role or entity key
 
@@ -736,12 +764,15 @@ public class PlayFabManager : MonoBehaviour
 
     public void GetGuilds()
     {
+        OnLoadingStart?.Invoke();
+
         PlayFabGroupsAPI.ListMembership(new()
         {
             Entity = new() { Id = _adminEntity.Id, Type = _adminEntity.Type }
         }, res => {
             Guilds = res.Groups;
             OnGetGuilds?.Invoke();
+            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
     #endregion
@@ -768,10 +799,12 @@ public class PlayFabManager : MonoBehaviour
     private void UpdateName(string name)
     {
         Debug.Log("Updating username...");
+        OnLoadingStart?.Invoke();
+
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
         {
             DisplayName = name
-        }, null, OnRequestError);
+        }, res => OnLoadingEnd?.Invoke(), OnRequestError);
     }
     #endregion
 
