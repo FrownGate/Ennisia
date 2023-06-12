@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene0: TitleScreen
+  Scene: TitleScreen
 --- !u!1 &465837029
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene0: EndlessTower
+  Scene: EndlessTower
 --- !u!1001 &1070315934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene0: Raids
+  Scene: Raids
 --- !u!1 &1507501026
 GameObject:
   m_ObjectHideFlags: 0

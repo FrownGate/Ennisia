@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: 
+  Scene: TitleScreen
 --- !u!1 &139167416
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: 
+  Scene: InventoryPopup
 --- !u!1 &221350967
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: 
+  Scene: TitleScreen
 --- !u!224 &1864215648 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4493795910521126791, guid: 12790124b993c0046b6193c370440abe, type: 3}
