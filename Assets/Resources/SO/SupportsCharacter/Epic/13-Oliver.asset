@@ -22,6 +22,5 @@ MonoBehaviour:
   SecondarySkillData: {fileID: 11400000, guid: f6fed5ad45f063b46987482e9c691a21, type: 2}
   Description: An elven officer that specializes in training new recruits. He was
     a very promising swordsman but due to an injury he lost a lot of his capabilities.
-    Thus he retired from combat and became the best teacher.
+    Thus he retired from combat and became a very good teacher.
   Catchphrase: "If you\u2019re feeling down, let me raise you to new heights"
-  Icon: {fileID: 0}
