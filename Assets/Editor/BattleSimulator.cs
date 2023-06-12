@@ -12,6 +12,34 @@ public class BattleSimulator : EditorWindow
     private List<GearSO> _weapons = new();
     private List<Enemy> _enemies = new();
     private List<GearSO> _gears = new();
+
+    // GEARS
+    private GroupBox _helmetGroupBox;
+    private GroupBox _chestGroupBox;
+    private GroupBox _bootsGroupBox;
+    private GroupBox _ringGroupBox;
+    private GroupBox _necklaceGroupBox;
+    private GroupBox _earringsGroupBox;
+    private DropdownField _helmetDropdown;
+    private DropdownField _chestDropdown;
+    private DropdownField _bootsDropdown;
+    private DropdownField _ringDropdown;
+    private DropdownField _necklaceDropdown;
+    private DropdownField _earringsDropdown;
+    private Foldout _helmetFoldout;
+    private Foldout _chestFoldout;
+    private Foldout _bootsFoldout;
+    private Foldout _ringFoldout;
+    private Foldout _necklaceFoldout;
+    private Foldout _earringsFoldout;
+    private readonly List<IntegerField> _helmetStatField = new();
+    private readonly List<IntegerField> _chestStatField = new();
+    private readonly List<IntegerField> _bootsStatField = new();
+    private readonly List<IntegerField> _ringStatField = new();
+    private readonly List<IntegerField> _necklaceStatField = new();
+    private readonly List<IntegerField> _earringsStatField = new();
+
+
     // SUPPORTS
     private GroupBox _firstSupportGroupBox;
     private GroupBox _secondSupportGroupBox;
@@ -100,6 +128,64 @@ public class BattleSimulator : EditorWindow
 
         _firstSupportFoldout.text = "Support Skills";
         _secondSupportFoldout.text = "Support Skills";
+
+        _helmetGroupBox = root.Q<GroupBox>("Helmet");
+        _chestGroupBox = root.Q<GroupBox>("Chest");
+        _bootsGroupBox = root.Q<GroupBox>("Boots");
+        _ringGroupBox = root.Q<GroupBox>("Ring");
+        _necklaceGroupBox = root.Q<GroupBox>("Necklace");
+        _earringsGroupBox = root.Q<GroupBox>("Earrings");
+
+        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Hp"));
+        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat1"));
+        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat2"));
+        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat3"));
+        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat4"));
+
+        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("MainStat"));
+        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat1"));
+        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat2"));
+        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat3"));
+        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat4"));
+
+        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Defense"));
+        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat1"));
+        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat2"));
+        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat3"));
+        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat4"));
+
+        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("MainStat"));
+        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat1"));
+        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat2"));
+        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat3"));
+        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat4"));
+
+        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("MainStat"));
+        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat1"));
+        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat2"));
+        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat3"));
+        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat4"));
+
+        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("MainStat"));
+        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat1"));
+        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat2"));
+        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat3"));
+        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat4"));
+
+        _helmetDropdown = root.Q<DropdownField>("helmet-dropdown");
+        _chestDropdown = root.Q<DropdownField>("chest-dropdown");
+        _bootsDropdown = root.Q<DropdownField>("boots-dropdown");
+        _ringDropdown = root.Q<DropdownField>("ring-dropdown");
+        _necklaceDropdown = root.Q<DropdownField>("necklace-dropdown");
+        _earringsDropdown = root.Q<DropdownField>("earrings-dropdown");
+
+        _helmetFoldout = root.Q<Foldout>("helmet-foldout");
+        _chestFoldout = root.Q<Foldout>("chest-foldout");
+        _bootsFoldout = root.Q<Foldout>("boots-foldout");
+        _ringFoldout = root.Q<Foldout>("ring-foldout");
+        _necklaceDropdown = root.Q<DropdownField>("necklace-dropdown");
+        _earringsDropdown = root.Q<DropdownField>("earrings-dropdown");
+
 
         _weaponGroupBox = root.Q<GroupBox>("Weapon");
 
@@ -243,6 +329,39 @@ public class BattleSimulator : EditorWindow
             _weaponDropdown.choices.Add(weapon.Name);
         }
 
+        _gears = new List<GearSO>(Resources.LoadAll<GearSO>("SO/GearsCreator"));
+        // loop trough all the gears and filter them by type
+        foreach (GearSO gear in _gears)
+        {
+            switch (gear.Type)
+            {
+                case Gear.GearType.Helmet:
+                    _helmetDropdown.choices.Add("No Helmet");
+                    _helmetDropdown.choices.Add(gear.Name);
+                    break;
+                case Gear.GearType.Chest:
+                    _chestDropdown.choices.Add("No Chest");
+                    _chestDropdown.choices.Add(gear.Name);
+                    break;
+                case Gear.GearType.Boots:
+                    _bootsDropdown.choices.Add("No Boots");
+                    _bootsDropdown.choices.Add(gear.Name);
+                    break;
+                case Gear.GearType.Ring:
+                    _ringDropdown.choices.Add("No Ring");
+                    _ringDropdown.choices.Add(gear.Name);
+                    break;
+                case Gear.GearType.Necklace:
+                    _necklaceDropdown.choices.Add("No Necklace");
+                    _necklaceDropdown.choices.Add(gear.Name);
+                    break;
+                case Gear.GearType.Earrings:
+                    _earringsDropdown.choices.Add("No Earrings");
+                    _earringsDropdown.choices.Add(gear.Name);
+                    break;
+            }
+        }
+
         ChangeFoldoutOnDropdown();
     }
 
@@ -263,6 +382,97 @@ public class BattleSimulator : EditorWindow
             else
             {
                 _weaponFoldout.visible = false;
+            }
+        });
+
+        // GEARS
+        _helmetDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Helmet")
+            {
+                _helmetFoldout.visible = true;
+                _helmetFoldout.text = evt.newValue;
+
+                ChangeFieldsOfGear(evt.newValue, _helmetStatField);
+            }
+            else
+            {
+                _helmetFoldout.visible = false;
+            }
+        });
+
+        _chestDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Chest")
+            {
+                _chestFoldout.visible = true;
+                _chestFoldout.text = evt.newValue;
+
+                ChangeFieldsOfGear(evt.newValue, _chestStatField);
+            }
+            else
+            {
+                _chestFoldout.visible = false;
+            }
+        });
+
+        _bootsDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Boots")
+            {
+                _bootsFoldout.visible = true;
+                _bootsFoldout.text = evt.newValue;
+
+                ChangeFieldsOfGear(evt.newValue, _bootsStatField);
+            }
+            else
+            {
+                _bootsFoldout.visible = false;
+            }
+        });
+
+        _ringDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Ring")
+            {
+                _ringFoldout.visible = true;
+                _ringFoldout.text = evt.newValue;
+
+                ChangeFieldsOfGear(evt.newValue, _ringStatField);
+            }
+            else
+            {
+                _ringFoldout.visible = false;
+            }
+        });
+
+        _necklaceDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Necklace")
+            {
+                _necklaceFoldout.visible = true;
+                _necklaceFoldout.text = evt.newValue;
+
+                ChangeFieldsOfGear(evt.newValue, _necklaceStatField);
+            }
+            else
+            {
+                _necklaceFoldout.visible = false;
+            }
+        });
+
+        _earringsDropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != "No Earrings")
+            {
+                _earringsFoldout.visible = true;
+                _earringsFoldout.text = evt.newValue;
+
+                ChangeFieldsOfGear(evt.newValue, _earringsStatField);
+            }
+            else
+            {
+                _earringsFoldout.visible = false;
             }
         });
 
