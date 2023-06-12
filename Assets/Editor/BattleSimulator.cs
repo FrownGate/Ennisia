@@ -79,7 +79,7 @@ public class BattleSimulator : EditorWindow
     {
         VisualElement root = rootVisualElement;
 
-        VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/BattleLoop/BattleSimulator.uxml");
+        VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
         TemplateContainer labelFromUXML = visualTree.CloneTree();
         root.Add(labelFromUXML);
 
