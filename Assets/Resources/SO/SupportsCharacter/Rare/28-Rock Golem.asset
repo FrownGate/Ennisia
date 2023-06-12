@@ -18,6 +18,8 @@ MonoBehaviour:
   Race: none
   Job: none
   Element: Earth
+  PrimarySkillData: {fileID: 11400000, guid: e6fba97c89491844ea5983919a17b9eb, type: 2}
+  SecondarySkillData: {fileID: 0}
   Description: none
   Catchphrase: none
   Icon: {fileID: 0}

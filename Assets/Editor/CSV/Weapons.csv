@@ -1,0 +1,8 @@
+ID,Name,Type,Attribute,Value,isMagic,Skill1,Skill2,Description
+1,Pure Innocence,Sword,PhysicalDamages,0,FALSE,2,3,none
+2,Majestic Light,Staff,MagicalDamages,0,TRUE,4,5,none
+3,Crimson Moon,Scythe,CritDmg,0,TRUE,6,7,none
+4,Final Resonances,Daggers,CritRate,0,FALSE,8,9,none
+5,Cold Judgment,Hammer,HP,0,FALSE,10,11,none
+6,Mighty Oath,Shield,Defense,0,FALSE,12,13,none
+7,Fainted Fantasy,Bow,Attack,0,TRUE,14,15,none

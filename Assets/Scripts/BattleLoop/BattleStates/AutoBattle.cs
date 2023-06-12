@@ -15,14 +15,7 @@ public class AutoBattle : State
             yield return new WaitForSeconds(1);
         }
 
-        if (BattleSystem.PlayerHasWin)
-        {
-            BattleSystem.SetState(new Won(BattleSystem));
-        }
-        else
-        {
-            BattleSystem.SetState(new Lost(BattleSystem));
-        }
+        BattleSystem.SetState(BattleSystem.PlayerHasWin ? new Won(BattleSystem) : new Lost(BattleSystem));
     }
 
     private void AISelectSkillAndEnemy()

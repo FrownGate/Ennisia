@@ -12,6 +12,7 @@ public class MissionSO : ScriptableObject
     public bool Unlocked;
     public Dictionary<int,string> Waves;
     public int WavesCount;
+    public List<string> Enemies;
     public int DialogueId;
     public int ChapterId;
     public int NumInChapter;

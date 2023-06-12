@@ -15,9 +15,11 @@ MonoBehaviour:
   Id: 5
   Name: Lukass
   Rarity: Legendary
-  Race: Elf
+  Race: Human
   Job: Shield-Bearer
   Element: Earth
+  PrimarySkillData: {fileID: 11400000, guid: f33c9dc6f0d45c94e9aefa3b85b4ef57, type: 2}
+  SecondarySkillData: {fileID: 11400000, guid: 80bba902b68a4ca48a7e196b6286f70e, type: 2}
   Description: "Lukass is a high ranking noble in the kingdom of Xothio. At an early
     age he was scared of everything, and it wasn\u2019t until his father gave him
     a shield that he started leaving the house. He is now a great Shield-Bearer and
