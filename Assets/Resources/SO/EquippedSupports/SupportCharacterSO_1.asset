@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
+  m_Name: SupportCharacterSO_1
+  m_EditorClassIdentifier: 
+  Id: 1
+  Name: Djeamy
+  Rarity: Legendary
+  Race: Human
+  Job: Sword-Master
+  Element: Fire
+  PrimarySkillData: {fileID: 11400000, guid: a512c9a9069eebb4385770a7be399d99, type: 2}
+  SecondarySkillData: {fileID: 11400000, guid: 124c3fed72979b14a818d9eee9ff4d85, type: 2}
+  Description: A general of the Human army, rumored to be the strongest; he is known
+    for his great sword skills, and his cunning mind. He is very cocky and believes
+    no one to be stronger than him. He has a very serious and intimidating nature;
+    however, he has a heart of gold, and would do anything for his Queen.
+  Catchphrase: Know your place, peasant! You are unworthy of facing me.
+  Icon: {fileID: 0}

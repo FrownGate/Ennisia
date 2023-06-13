@@ -633,6 +633,12 @@ public class PlayFabManager : MonoBehaviour
         Data.Player.EquippedGears[slot] = !unequip ? gear.Id : 0;
         UpdateData();
     }
+
+    public void UpdateEquippedSupports(SupportCharacterSO support, int slot, bool unequip = false)
+    {
+        Data.Player.EquippedSupports[slot] = !unequip ? support.Id : 0;
+        UpdateData();
+    }
     #endregion
 
     #region Items
@@ -1010,5 +1016,8 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
 
         //CreateGuild("Test");
+
+        SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/2-Theaume");
+        support.Equip(1);
     }
 }
