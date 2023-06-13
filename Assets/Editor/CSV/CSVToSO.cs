@@ -23,7 +23,6 @@ public class CSVToSO : EditorWindow
     {
         GetWindow<CSVToSO>("CSV to SO");
     }
-
     private void OnGUI()
     {
         GUILayout.Label("Create Scriptable Objects from CSV", EditorStyles.boldLabel);
@@ -175,7 +174,6 @@ public class CSVToSO : EditorWindow
         }
         return MissionManager.MissionType.MainStory;
     }
-
     private static void LoadSkillSOs()
     {
         _skillSOMap = new Dictionary<int, SkillSO>();
@@ -220,9 +218,6 @@ public class CSVToSO : EditorWindow
         string savePath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}/{scriptableObject.Id}-{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
-
-
-
     private static void CreateSkillDataSO(Dictionary<string, string> rowData)
     {
         SkillSO scriptableObject = CreateInstance<SkillSO>();
@@ -272,10 +267,9 @@ public class CSVToSO : EditorWindow
         }
         
     }
-
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
     {
-        string[] rarities = new string[4] { "Common", "Rare", "Epic", "Legendary" };
+        string[] rarities = Enum.GetNames(typeof(Item.ItemRarity));
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
         {
@@ -304,11 +298,10 @@ public class CSVToSO : EditorWindow
             valueSO.MinValue = int.Parse(rowData[$"{rarities[i].ToLower()}Min"]);
             valueSO.MaxValue = int.Parse(rowData[$"{rarities[i].ToLower()}Max"]);
 
-            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rowData["type"]}_{rarities[i]}_{rowData["attribute"]}.asset";
+            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rarities[i]}_{rowData["attribute"]}.asset";
             AssetDatabase.CreateAsset(valueSO, savePath);
         }
     }
-
     private static void CreateWeaponSO(Dictionary<string, string> rowData)
     {
         GearSO scriptableObject = CreateInstance<GearSO>();
@@ -346,10 +339,6 @@ public class CSVToSO : EditorWindow
         string savePath = $"Assets/Resources/SO/Weapons/{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
-
-
-
-
     private static void CreateMissionSO(Dictionary<string, string> rowData, MissionManager.MissionType type)
     {
         MissionSO scriptableObject = CreateInstance<MissionSO>();
