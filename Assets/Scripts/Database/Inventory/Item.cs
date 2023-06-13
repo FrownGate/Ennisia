@@ -17,7 +17,11 @@ public class Item
 
     public enum GearType
     {
-        Helmet, Chest, Boots, Earrings, Necklace, Ring,
+        Helmet, Chest, Boots, Earrings, Necklace, Ring, Weapon
+    }
+
+    public enum WeaponType
+    {
         Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
     }
 
@@ -32,12 +36,14 @@ public class Item
     public ItemRarity? Rarity;
     public ItemCategory? Category;
     public GearType? Type;
+    public WeaponType? Weapon;
     public AttributeStat? Attribute;
 
     //Json Utility
     public string JsonRarity;
     public string JsonCategory;
     public string JsonType;
+    public string JsonWeapon;
     public string JsonAttribute;
 
     protected void AddToInventory()
@@ -71,6 +77,7 @@ public class Item
         JsonRarity = Rarity.ToString();
         JsonCategory = Category.ToString();
         JsonType = Type.ToString();
+        JsonWeapon = Weapon.ToString();
         JsonAttribute = Attribute.ToString();
     }
 
@@ -79,6 +86,7 @@ public class Item
         Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<ItemRarity>(JsonRarity);
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
         Type = string.IsNullOrEmpty(JsonType) ? null : Enum.Parse<GearType>(JsonType);
+        Weapon = string.IsNullOrEmpty(JsonWeapon) ? null : Enum.Parse<WeaponType>(JsonWeapon);
         Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<AttributeStat>(JsonAttribute);
     }
 

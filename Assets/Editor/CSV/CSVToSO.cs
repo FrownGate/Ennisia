@@ -307,10 +307,11 @@ public class CSVToSO : EditorWindow
         GearSO scriptableObject = CreateInstance<GearSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Type = Item.GearType.Weapon;
 
-        if (Enum.TryParse(rowData["Type"], out Item.GearType type))
+        if (Enum.TryParse(rowData["Type"], out Item.WeaponType type))
         {
-            scriptableObject.Type = type;
+            scriptableObject.Weapon = type;
         }
         else
         {

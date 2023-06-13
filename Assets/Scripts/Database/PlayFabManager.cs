@@ -629,8 +629,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void UpdateEquippedGears(Gear gear, bool unequip = false)
     {
-        int slot = gear.Category == Item.ItemCategory.Weapon ? 6 : (int)gear.Type;
-        Data.Player.EquippedGears[slot] = !unequip ? gear.Id : 0;
+        Data.Player.EquippedGears[(Item.GearType)gear.Type] = !unequip ? gear : null;
         UpdateData();
     }
 
@@ -1005,10 +1004,10 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
 
-        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/PureInnocence");
-        //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
-        //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
-        //gear.Equip();
+        GearSO weapon = Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
+        AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
+        Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
+        gear.Equip();
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
 
@@ -1016,6 +1015,8 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
 
         //CreateGuild("Test");
+
+        Debug.Log(Data.Player.EquippedGears[0].Name);
 
         SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/2-Theaume");
         support.Equip(1);
