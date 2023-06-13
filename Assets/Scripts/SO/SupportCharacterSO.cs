@@ -25,4 +25,28 @@ public class SupportCharacterSO : ScriptableObject
         type = System.Type.GetType(CSVUtils.GetFileName(SecondarySkillData.Name));
         SecondarySkill = (Skill)Activator.CreateInstance(type);
     }
+
+    public void Equip(int slot)
+    {
+        SupportCharacterSO equippedSupport = Resources.Load<SupportCharacterSO>($"SO/EquippedSupports/{GetType().Name}_{slot}");
+
+        equippedSupport.Id = Id;
+        equippedSupport.Name = Name;
+        equippedSupport.Rarity = Rarity;
+        equippedSupport.Race = Race;
+        equippedSupport.Job = Job;
+        equippedSupport.Element = Element;
+        equippedSupport.PrimarySkillData = PrimarySkillData;
+        equippedSupport.SecondarySkillData = SecondarySkillData;
+        equippedSupport.Description = Description;
+        equippedSupport.Catchphrase = Catchphrase;
+        equippedSupport.Init();
+
+        PlayFabManager.Instance.UpdateEquippedSupports(this, slot);
+    }
+
+    public void Unequip()
+    {
+        //
+    }
 }
