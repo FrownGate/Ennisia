@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fluffy : MonoBehaviour
+public class Fluffy : Pets
 {
 
 

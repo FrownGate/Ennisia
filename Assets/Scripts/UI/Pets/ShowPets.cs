@@ -8,10 +8,14 @@ public class ShowPets : MonoBehaviour
     [SerializeField] private GameObject _prefabPetButton;
     [SerializeField] private GameObject _petPopup;
     [SerializeField] private GameObject _buttonsContainer;
+
+    private Pets Pet;
     private PetSO[] _petList;
 
     public void Awake()
     {
+
+        Pet = new Yoichi();
         _petList = Resources.LoadAll<PetSO>("SO/Pets");
 
         PetButton.OnPetClick += ShowPetInfo;

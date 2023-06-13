@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Pets : MonoBehaviour
+public abstract class Pets
 {
     private PetSO _data;
     private string _name;
@@ -13,9 +13,10 @@ public abstract class Pets : MonoBehaviour
     private bool _obtained = false;
 
 
-    public void Awake()
+    public Pets()
     {
         _data = Resources.Load<PetSO>("SO/Pets/" + GetType().Name);
+        Debug.Log(_data.name);
     }
 
 
