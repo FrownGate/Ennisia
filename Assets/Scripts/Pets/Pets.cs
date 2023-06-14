@@ -5,18 +5,21 @@ using UnityEngine;
 public abstract class Pets
 {
     private PetSO _data;
-    private string _name;
+    public string _name; //will be private
     private Sprite _icon;
-    private int _actualXP;
-    private int _toGetXp;
-    private int _affinityLevel = 0;
+    public int ActualXP;
+    public int ToGetXp;
+    public int AffinityLevel = 0;
     private bool _obtained = false;
 
 
     public Pets()
     {
         _data = Resources.Load<PetSO>("SO/Pets/" + GetType().Name);
+        _name = _data.name;
+        _icon = _data.Icon;
         Debug.Log(_data.name);
+        ToGetXp = 100;
     }
 
 
@@ -29,22 +32,26 @@ public abstract class Pets
 
     public virtual void Play()
     {
-        _actualXP += 50;
+        Debug.Log("Successfully played with" + _name);
+        ActualXP += 50 + 20 * AffinityLevel;
         LevelUp();
     }
 
     public virtual void LevelUp()
     {
-        if (_actualXP >= _toGetXp)
+        if (ActualXP >= ToGetXp)
         {
-            if (_affinityLevel < 10)
+            if (AffinityLevel < 10)
             {
-                _affinityLevel++;
-                _toGetXp *= 2;
+        
+                AffinityLevel++;
+                ActualXP -= ToGetXp;
+                ToGetXp *= 2;
+                Debug.Log("Level up to level : " + AffinityLevel);
             }
             else
             {
-                _actualXP = _toGetXp;
+                ActualXP = ToGetXp;
             }
         }
 
