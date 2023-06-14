@@ -629,20 +629,6 @@ public class PlayFabManager : MonoBehaviour
         //    }
         //}
     }
-
-    public void UpdateEquippedGears(Gear gear, bool unequip = false)
-    {
-        Player.EquippedGearsId[(int)gear.Type] = !unequip ? gear.Id : 0;
-        Player.EquippedGears[(Item.GearType)gear.Type] = !unequip ? gear : null;
-        UpdateData();
-    }
-
-    public void UpdateEquippedSupports(SupportCharacterSO support, int slot, bool unequip = false)
-    {
-        Player.EquippedSupportsPath[slot] = !unequip ? $"SO/SupportsCharacter/{support.Rarity}/{support.name}" : null;
-        Player.EquippedSupports[slot] = !unequip ? support : null;
-        UpdateData();
-    }
     #endregion
 
     #region Items
@@ -1012,7 +998,6 @@ public class PlayFabManager : MonoBehaviour
         //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
         //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
         //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
-        //gear.Equip();
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
 
@@ -1032,6 +1017,14 @@ public class PlayFabManager : MonoBehaviour
         //}
 
         //SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/2-Theaume");
-        //support.Equip(1);
+        //Player.Equip(support);
+        //Debug.Log(Player.EquippedSupports[0] != null ? Player.EquippedSupports[0].Name : "Empty");
+
+        //Player.Unequip(0);
+        //Debug.Log(Player.EquippedSupports[0] != null ? Player.EquippedSupports[0].Name : "Empty");
+
+        //Debug.Log(Player.EquippedGears[Item.GearType.Weapon] != null ? Player.EquippedGears[Item.GearType.Weapon].Name : "Empty");
+        //Player.Unequip(Item.GearType.Weapon);
+        //Debug.Log(Player.EquippedGears[Item.GearType.Weapon] != null ? Player.EquippedGears[Item.GearType.Weapon].Name : "Empty");
     }
 }

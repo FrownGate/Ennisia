@@ -187,32 +187,4 @@ public class Gear : Item
 
         PlayFabManager.Instance.UpdateItem(this);
     }
-
-    public void Equip()
-    {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
-
-        equippedGear.Id = Id;
-        equippedGear.Level = Level;
-        equippedGear.Name = Name;
-        equippedGear.Type = (GearType)Type;
-        equippedGear.Rarity = (ItemRarity)Rarity;
-        equippedGear.Attribute = (AttributeStat)Attribute;
-        equippedGear.StatValue = Value;
-        equippedGear.Description = Description;
-        equippedGear.Substats = Substats;
-        equippedGear.FirstSkillData = WeaponSO != null ? WeaponSO.FirstSkillData : null;
-        equippedGear.SecondSkillData = WeaponSO != null ? WeaponSO.SecondSkillData : null;
-        //TODO -> add Icon path
-
-        PlayFabManager.Instance.UpdateEquippedGears(this);
-    }
-
-    public void Unequip()
-    {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
-        equippedGear.Unequip();
-
-        PlayFabManager.Instance.UpdateEquippedGears(this, true);
-    }
 }

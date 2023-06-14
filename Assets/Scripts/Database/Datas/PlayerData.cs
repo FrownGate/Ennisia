@@ -36,4 +36,48 @@ public class PlayerData
             Debug.Log($"Equipped Support #{i + 1} = {(EquippedSupports[i] != null ? EquippedSupports[i].Name : "None")}");
         }
     }
+
+    public void Equip(Gear gear)
+    {
+        EquippedGearsId[(int)gear.Type] = gear.Id;
+        EquippedGears[(GearType)gear.Type] = gear;
+
+        if (gear.Type == GearType.Weapon) gear.WeaponSO.Init();
+
+        PlayFabManager.Instance.UpdateData();
+    }
+
+    public void Equip(SupportCharacterSO support, int slot = 0)
+    {
+        if (slot < 0 || slot > 1)
+        {
+            Debug.LogError("Support slot is invalid (must be 0 or 1).");
+            return;
+        }
+
+        EquippedSupportsPath[slot] = $"SO/SupportsCharacter/{support.Rarity}/{support.name}";
+        EquippedSupports[slot] = support;
+        EquippedSupports[slot].Init();
+        PlayFabManager.Instance.UpdateData();
+    }
+
+    public void Unequip(GearType type)
+    {
+        EquippedGearsId[(int)type] = 0;
+        EquippedGears[type] = null;
+        PlayFabManager.Instance.UpdateData();
+    }
+
+    public void Unequip(int slot)
+    {
+        if (slot < 0 || slot > 1)
+        {
+            Debug.LogError("Support slot is invalid (must be 0 or 1).");
+            return;
+        }
+
+        EquippedSupportsPath[slot] = null;
+        EquippedSupports[slot] = null;
+        PlayFabManager.Instance.UpdateData();
+    }
 }
