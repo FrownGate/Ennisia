@@ -25,10 +25,11 @@ public class Item
         Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
     }
 
-    public enum AttributeStat
+    public enum AttributeStat //TODO -> move elsewhere
     {
-        PhysicalDamages, MagicalDamages, Attack, HP, Defense, CritRate, CritDmg, Speed
+        HP, Attack, PhysicalDamages, MagicalDamages, Defense, CritRate, CritDmg, Speed, DefIgnoref, Shield
     }
+    //TODO -> add magical and physical defenses
 
     public int Id;
     public string Stack;
