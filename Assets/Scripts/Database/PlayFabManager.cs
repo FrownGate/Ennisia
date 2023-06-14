@@ -639,7 +639,8 @@ public class PlayFabManager : MonoBehaviour
 
     public void UpdateEquippedSupports(SupportCharacterSO support, int slot, bool unequip = false)
     {
-        Data.Player.EquippedSupports[slot] = !unequip ? support.Id : 0;
+        Player.EquippedSupportsPath[slot] = !unequip ? $"SO/SupportsCharacter/{support.Rarity}/{support.name}" : null;
+        Player.EquippedSupports[slot] = !unequip ? support : null;
         UpdateData();
     }
     #endregion

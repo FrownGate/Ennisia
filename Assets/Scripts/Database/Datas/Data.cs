@@ -28,6 +28,8 @@ public class Data
         Player = data.Player;
         Inventory = data.Inventory;
 
+        Player.UpdateEquippedSupports();
+
         Debug.Log($"User has {Inventory.Supports.Count} support(s).");
     }
 
