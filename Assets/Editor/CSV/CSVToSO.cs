@@ -309,9 +309,9 @@ public class CSVToSO : EditorWindow
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
         scriptableObject.Type = Item.GearType.Weapon;
 
-        if (Enum.TryParse(rowData["Type"], out Item.WeaponType type))
+        if (Enum.TryParse(rowData["Type"], out Item.GearWeaponType type))
         {
-            scriptableObject.Weapon = type;
+            scriptableObject.WeaponType = type;
         }
         else
         {

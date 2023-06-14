@@ -27,7 +27,7 @@ public class Gear : Item
     public Gear(GearType type, ItemRarity rarity, GearSO weapon = null)
     {
         WeaponSO = weapon;
-        Weapon = weapon ? weapon.Weapon : null;
+        WeaponType = weapon ? weapon.WeaponType : null;
         Id = SetId();
         Stack = Id.ToString();
         Type = type;
