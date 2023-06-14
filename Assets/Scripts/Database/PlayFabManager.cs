@@ -44,6 +44,9 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<List<GroupInvitation>> OnGetInvitations;
 
     public Data Data { get; private set; } //Account, Player and Inventory datas
+    public AccountData Account { get => Data.Account; }
+    public PlayerData Player { get => Data.Player; }
+    public InventoryData Inventory { get => Data.Inventory; }
     public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
     public int Energy { get; private set; } //Player's energy
 
