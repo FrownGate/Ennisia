@@ -139,7 +139,7 @@ public class Gear : Item
     {
         if (Category == ItemCategory.Weapon) return Weapon.StatValue;
 
-        StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
+        StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
@@ -151,7 +151,8 @@ public class Gear : Item
         for (int i = 0; i < (int)Rarity; i++)
         {
             AttributeStat stat = (AttributeStat)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
-            substats[stat] = 1; //Temp
+            StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
+            substats[stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
         }
 
         return substats;
