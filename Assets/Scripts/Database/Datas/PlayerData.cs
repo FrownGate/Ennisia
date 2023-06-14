@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using static Item;
 
 [Serializable]
 public class PlayerData
@@ -7,8 +8,8 @@ public class PlayerData
     public int Level;
     public int Exp;
     public int[] EquippedGearsId;
-    public Dictionary<Item.GearType, Gear> EquippedGears;
     public int[] EquippedSupports;
+    [NonSerialized] public Dictionary<GearType, Gear> EquippedGears;
 
     public PlayerData()
     {
@@ -18,9 +19,9 @@ public class PlayerData
         EquippedGears = new();
         EquippedSupports = new int[2];
 
-        foreach (var item in Enum.GetNames(typeof(Item.GearType)))
+        foreach (var item in Enum.GetNames(typeof(GearType)))
         {
-            EquippedGears[Enum.Parse<Item.GearType>(item)] = null;
+            EquippedGears[Enum.Parse<GearType>(item)] = null;
         }
     }
 }

@@ -335,8 +335,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnInitFileUploads(InitiateFileUploadsResponse response)
     {
-        byte[] payload = Encoding.UTF8.GetBytes(JsonUtility.ToJson(Data));
-        PlayFabHttp.SimplePutCall(response.UploadDetails[0].UploadUrl, payload, success => UploadFiles(), error => Debug.LogError(error));
+        PlayFabHttp.SimplePutCall(response.UploadDetails[0].UploadUrl, Data.Serialize(), success => UploadFiles(), error => Debug.LogError(error));
     }
 
     private void UploadFiles()
@@ -416,6 +415,7 @@ public class PlayFabManager : MonoBehaviour
             }
         }
 
+        Data.UpdateEquippedGears();
         GetPlayerGuild();
     }
 
@@ -632,7 +632,8 @@ public class PlayFabManager : MonoBehaviour
 
     public void UpdateEquippedGears(Gear gear, bool unequip = false)
     {
-        Data.Player.EquippedGears[(Item.GearType)gear.Type] = !unequip ? gear : null;
+        Player.EquippedGearsId[(int)gear.Type] = !unequip ? gear.Id : 0;
+        Player.EquippedGears[(Item.GearType)gear.Type] = !unequip ? gear : null;
         UpdateData();
     }
 
@@ -1007,10 +1008,10 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
 
-        GearSO weapon = Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
-        AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
-        Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
-        gear.Equip();
+        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
+        //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
+        //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
+        //gear.Equip();
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
 
@@ -1019,9 +1020,17 @@ public class PlayFabManager : MonoBehaviour
 
         //CreateGuild("Test");
 
-        Debug.Log(Data.Player.EquippedGears[0].Name);
+        //foreach (var item in Player.EquippedGears)
+        //{
+        //    Debug.Log(item.Key);
 
-        SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/2-Theaume");
-        support.Equip(1);
+        //    if (item.Value != null)
+        //    {
+        //        Debug.Log(item.Value.Name);
+        //    }
+        //}
+
+        //SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/2-Theaume");
+        //support.Equip(1);
     }
 }

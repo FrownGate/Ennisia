@@ -6,7 +6,6 @@ using System;
 public class Gear : Item
 {
     public static event Action LevelUp;
-    public int Id;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
     public Dictionary<AttributeStat, float> Substats;

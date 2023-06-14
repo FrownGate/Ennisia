@@ -30,6 +30,7 @@ public class Item
         PhysicalDamages, MagicalDamages, Attack, HP, Defense, CritRate, CritDmg, Speed
     }
 
+    public int Id;
     public string Stack;
     public string Name;
     public int Amount; //Amount of item to add
