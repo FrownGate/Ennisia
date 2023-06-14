@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -39,6 +40,11 @@ public class InventoryData
             return items.Contains(itemToFound);
         }
         return false;
+    }
+
+    public Gear GetGearById(int id)
+    {
+        return (Gear)Items["Gear"].Find(gear => gear.Id == id);
     }
 
     public Item GetItem(Item itemToGet, Item.ItemCategory type)
