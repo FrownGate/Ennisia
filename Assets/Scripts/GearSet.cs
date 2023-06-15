@@ -15,7 +15,7 @@ public class GearSet : MonoBehaviour
         int[] sets;
         for(int i = 0;i<7;i++)
         {
-            PlayFabManager.Instance.Data.Player.EquippedGears
+            //PlayFabManager.Instance.Player.EquippedGears[i].
         }
         
         

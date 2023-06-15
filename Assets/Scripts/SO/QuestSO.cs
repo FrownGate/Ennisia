@@ -12,7 +12,7 @@ public class QuestSO : ScriptableObject
     public int crystlasAmount;
     public int goldAmount;
     public int enrgyAmount;
-    //[ShowNonSerializedField] public Dictionary<PlayFabManager.Currency, int> currencyList;
+    [ShowNonSerializedField] public Dictionary<PlayFabManager.Currency, int> currencyList;
 
 
 }

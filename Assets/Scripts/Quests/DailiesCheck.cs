@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class DailiesCheck : MonoBehaviour
+public class DailiesCheck 
 {
     //TODO -> Move to parent script
     //TODO -> Use only one action with param accross all quests
