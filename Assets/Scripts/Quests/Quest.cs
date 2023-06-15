@@ -18,8 +18,8 @@ public class Quest
 
     public virtual void GiveRewards()
     {
-        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, Data.crystlasAmount);
-        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Gold, Data.goldAmount);
-        PlayFabManager.Instance.AddEnergy(Data.enrgyAmount);
+        //PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, Data.crystlasAmount);
+        //PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Gold, Data.goldAmount);
+        //PlayFabManager.Instance.AddEnergy(Data.enrgyAmount);
     }
 }

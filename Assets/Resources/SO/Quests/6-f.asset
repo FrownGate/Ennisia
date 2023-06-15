@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: Extermination
+  m_Name: 6-f
   m_EditorClassIdentifier: 
-  questName: 
-  questDescription: 
-  crystlasAmount: 0
-  goldAmount: 0
-  enrgyAmount: 0
+  ID: 6
+  Name: f
+  Description: first time you lose
+  Energy: 20
