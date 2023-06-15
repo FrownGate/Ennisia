@@ -4,7 +4,7 @@ public class NurturingEarthbound : Skill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        float lostHealt = player.MaxHp - player.CurrentHp;
+        float lostHealt = player.Stats[Item.AttributeStat.HP].Value - player.CurrentHp;
         HealingModifier = lostHealt * StatUpgrade1 * Level;
         return 0;
     }

@@ -28,12 +28,12 @@ public class WhoGoFirst : State
 
         foreach (var enemy in _enemiesList)
         {
-            enemiesSpeed += enemy.Speed;
+            enemiesSpeed += enemy.Stats[Item.AttributeStat.Speed].Value;
         }
 
         foreach (var ally in _playerList)
         {
-            playerSpeed += ally.Speed;
+            playerSpeed += ally.Stats[Item.AttributeStat.Speed].Value;
         }
 
         State state = playerSpeed > enemiesSpeed ? new PlayerTurn(BattleSystem) : new EnemyTurn(BattleSystem);
