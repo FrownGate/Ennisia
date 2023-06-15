@@ -15,11 +15,12 @@ MonoBehaviour:
   Id: 5
   Name: Cold Judgment
   Level: 1
-  Type: 10
+  Type: 6
   Rarity: 0
   Attribute: 3
   StatValue: 0
   Description: none
+  Weapon: 4
   IsMagic: 0
   FirstSkillData: {fileID: 11400000, guid: 9a3a83ca4502e6646ae9d3205e49be96, type: 2}
   SecondSkillData: {fileID: 11400000, guid: 30edd0d220176ef42960663ffaeba368, type: 2}
