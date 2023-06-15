@@ -19,7 +19,7 @@ public enum Difficulty
 public class RaidsButton : MonoBehaviour
 {
 
-    public static Dictionary<int, Difficulty> idToDifficulty = new()
+    public static Dictionary<int, Difficulty> IdToDifficulty = new()
     {
         { 1, Difficulty.Peaceful },
         { 2, Difficulty.Easy },
@@ -30,28 +30,29 @@ public class RaidsButton : MonoBehaviour
     };
 
 
-    public List<GameObject> _raids;
-    DynamicButtonGenerator generator;
+    public List<GameObject> Raids;
     public List<MissionSO> RaidDiffs;
-    public List<GameObject> _buttons;
+    public List<GameObject> Buttons;
     public string RaidName;
 
+
+    private DynamicButtonGenerator _generator;
 
     // Start is called before the first frame update
     void Start()
     {
-        generator = GetComponentInParent<DynamicButtonGenerator>();
+        _generator = GetComponentInParent<DynamicButtonGenerator>();
         RaidDiffs = RaidDiffs.OrderBy(obj => obj.NumInChapter).ToList();
     }
 
 
     private void OnMouseDown()
     {
-        generator.buttonPrefab = Resources.Load<GameObject>("Prefabs/UI/RaidDifficulty");
+        _generator.ButtonPrefab = Resources.Load<GameObject>("Prefabs/UI/RaidDifficulty");
 
-        _buttons = generator.GenerateButtonsInSlider(RaidDiffs.Count);
+        Buttons = _generator.GenerateButtonsInSlider(RaidDiffs.Count);
         int buttonIndex = 0;
-        foreach (GameObject go in _buttons)
+        foreach (GameObject go in Buttons)
         {
             Image image = go.GetComponentInChildren<Image>();
             go.name = RaidDiffs[buttonIndex].name;
@@ -61,7 +62,7 @@ public class RaidsButton : MonoBehaviour
             buttonText.text = GetDifficultyById(RaidDiffs[buttonIndex].NumInChapter).ToString();
 
             RaidsDifficulty diff = image.gameObject.AddComponent<RaidsDifficulty>();
-            diff.raidDiff = RaidDiffs[buttonIndex];
+            diff.RaidDiff = RaidDiffs[buttonIndex];
 
             buttonIndex++;
 
@@ -81,7 +82,7 @@ public class RaidsButton : MonoBehaviour
         }
 
 
-        foreach (GameObject gameObject in _raids)
+        foreach (GameObject gameObject in Raids)
         {
             Destroy(gameObject);
         }
@@ -89,8 +90,8 @@ public class RaidsButton : MonoBehaviour
 
     Difficulty GetDifficultyById(int id)
     {
-        if (idToDifficulty.ContainsKey(id))
-            return idToDifficulty[id];
+        if (IdToDifficulty.ContainsKey(id))
+            return IdToDifficulty[id];
 
         Debug.LogWarning("Difficulty ID not found: " + id);
         return Difficulty.Peaceful; // Return a default difficulty or handle the error accordingly
