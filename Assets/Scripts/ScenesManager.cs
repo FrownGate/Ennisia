@@ -77,15 +77,20 @@ public class ScenesManager : MonoBehaviour
                 break;
 
             default:
-                if (IsPopupLoaded()) UnloadScene(_sceneToLoad);
+                //if (IsPopupLoaded()) UnloadScene(_sceneToLoad);
                 SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
                 break;
         }
     }
 
+    public void ClosePopup()
+    {
+        SceneManager.UnloadSceneAsync(_activeScene);
+    }
+
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        _activeScene = scene;
+        _activeScene = scene.name.Contains("Loading") ? _activeScene : scene;
         _sceneMode = mode;
 
         Debug.Log($"{_activeScene.name} loaded !");
@@ -176,8 +181,8 @@ public class ScenesManager : MonoBehaviour
         return _sceneMode == LoadSceneMode.Additive;
     }
 
-    public void UnloadScene(string scene)
+    /*public void UnloadScene(string scene)
     {
         SceneManager.UnloadSceneAsync(scene);
-    }
+    }*/
 }

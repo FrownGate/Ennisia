@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Popup : MonoBehaviour
 {
-    private void Start()
+    /*private void Start()
     {
         Canvas mainCanvas = FindObjectOfType<Canvas>();
 
@@ -30,9 +30,9 @@ public class Popup : MonoBehaviour
         {
             Debug.LogError("Main canvas not found in the scene.");
         }
-    }
+    }*/
 
-    private void OnCanvasPointerClick()
+    /*private void OnCanvasPointerClick()
     {
         string sceneName = SceneManager.GetActiveScene().name;
         Scene popupScene = SceneManager.GetSceneByName(sceneName);
@@ -56,5 +56,5 @@ public class Popup : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }
