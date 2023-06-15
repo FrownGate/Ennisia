@@ -42,6 +42,10 @@
             {
                 string message = String.Format(format, args);
                 _promptText.text += "\n [Exception] " + message;
+            }else if (logType == LogType.Log)
+            {
+                string message = String.Format(format, args);
+                _promptText.text += "\n [Exception] " + message;
             }
         }
 
