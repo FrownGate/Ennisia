@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Quests : MonoBehaviour
+public class Quest
 {
     public QuestSO Data { get; protected set; }
     public string FileName { get; protected set; }
 
-    public Quests()
+    public Quest()
     {
         FileName = GetType().Name;
         Data = Resources.Load<QuestSO>("SO/Quest/" + FileName);
