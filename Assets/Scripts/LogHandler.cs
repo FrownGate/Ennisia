@@ -19,26 +19,27 @@
             {
                 Destroy(gameObject);
             }
-        }
-        private void Update()
-        {
-            LogException(new Exception(GetLogMessage()),this);
+
+            Debug.unityLogger.logHandler = this;
         }
         
         public void LogFormat(LogType logType, Object context, string format, params object[] args)
         {
-            throw new NotImplementedException();
+            if (logType == LogType.Error)
+            {
+                string message = String.Format(format, args);
+                _promptText.text += "\n [Error] " + message;
+            }
+            else if (logType == LogType.Exception)
+            {
+                string message = String.Format(format, args);
+                _promptText.text += "\n [Exception] " + message;
+            }
         }
 
         public void LogException(Exception exception, Object context)
         {
-            throw new NotImplementedException();
+            _promptText.text += "\n [Exception] " + exception.Message;
         }
-
-        public string GetLogMessage()
-        {
-            string msg = "";
-            
-            return msg;
-        }
+        
     }
