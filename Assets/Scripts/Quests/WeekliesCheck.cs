@@ -1,29 +1,30 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeekliesCheck : MonoBehaviour
 {
+    //TODO -> Move to parent script
+    //TODO -> Use only one action with param accross all quests
     public static event Action weekly1;
     public static event Action weekly2;
     public static event Action weekly3;
     public static event Action weekly4;
 
+    //TODO -> Move to parent script
     public int goldAmount;
     public int crystalsAmount;
 
+    //TODO -> Move to parent script
     public int mainStoryNeeded;
     public int raidNeeded;
     public int expeditionNeeded;
     public int enemyKilledNeeded;
 
+    //TODO -> Move to parent script
     int _mainStoryCount;
     int _raidCount;
     int _expeditionCount;
     int _enemyKilledCount;
-
-
 
     private void CheckMission(MissionSO mission)
     {

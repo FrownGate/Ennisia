@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Quests : MonoBehaviour
 {
-
     public QuestSO Data { get; protected set; }
     public string FileName { get; protected set; }
 
@@ -16,7 +13,7 @@ public class Quests : MonoBehaviour
 
     public virtual void CheckCondition()
     {
-
+        //
     }
 
     public virtual void GiveRewards()
@@ -25,5 +22,4 @@ public class Quests : MonoBehaviour
         PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Gold, Data.goldAmount);
         PlayFabManager.Instance.AddEnergy(Data.enrgyAmount);
     }
-
 }
