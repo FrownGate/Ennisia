@@ -15,7 +15,7 @@ public class CSVToSO : EditorWindow
 
     enum TypeCSV 
     {
-        supports, skills, equipment, weapons, missions, chapters
+        supports, skills, equipment, weapons, missions, chapters, pets
     }
 
     [MenuItem("Tools/CSV to SO")]
@@ -56,6 +56,11 @@ public class CSVToSO : EditorWindow
         if (GUILayout.Button("Missions"))
         {
             CreateScriptableObjectsFromCSV(TypeCSV.missions, "Mission");
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Pets"))
+        {
+            CreateScriptableObjectsFromCSV(TypeCSV.pets, "Pets");
         }
     }
     private void CreateScriptableObjectsFromCSV(TypeCSV type, string fileName)
@@ -150,6 +155,9 @@ public class CSVToSO : EditorWindow
                         break;
                     case TypeCSV.chapters:
                         CreateChapterSO(rowData);
+                        break;
+                    case TypeCSV.pets:
+                        CreatePetSO(rowData);
                         break;
                     default:
                         break;
@@ -392,6 +400,16 @@ public class CSVToSO : EditorWindow
         scriptableObject.NumberOfMission = int.Parse(rowData["NumberOfMission"]);
 
         string savePath = $"Assets/Resources/SO/Chapters/Act {scriptableObject.ActId}/Chapter-{scriptableObject.Id}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
+    }
+    private static void CreatePetSO(Dictionary<string, string> rowData)
+    {
+        PetSO scriptableObject = CreateInstance<PetSO>();
+        scriptableObject.Id = int.Parse(rowData["ID"]);
+        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Lore = rowData["Lore"];
+
+        string savePath = $"Assets/Resources/SO/Pets/{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 }
