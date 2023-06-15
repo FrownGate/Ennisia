@@ -6,7 +6,7 @@ public class HolyPrayer : Skill
     {
         //attacksBuff
 
-        player.CurrentHp += player.MaxHp * 10 / 100;
+        player.CurrentHp += player.Stats[Item.AttributeStat.HP].Value * 10 / 100;
         Cooldown = Data.MaxCooldown;
         return 0;
     }

@@ -5,8 +5,8 @@ public class Alchemy : Skill
     public float magicAtkBaseRatio;
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
-        float MRatioBuff = player.MagicAtk * (magicAtkBaseRatio + StatUpgrade1 * Level);
-        player.MagicAtk += MRatioBuff;
+        float MRatioBuff = player.Stats[Item.AttributeStat.MagicalDamages].Value * (magicAtkBaseRatio + StatUpgrade1 * Level);
+        player.MagicAtk += MRatioBuff; // modifier
     }
 
     public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)

@@ -5,10 +5,10 @@ public class Player : Entity
     public Player()
     {
         //TODO -> Set stats with CSV or another method
-        MaxHp = 300;
+   /*     MaxHp = 300;
         Attack = 15;
-        Speed = 30000;
-        CurrentHp = MaxHp / 2;
+        Speed = 30000;*/
+        CurrentHp = Stats[Item.AttributeStat.HP].Value;
 
         Weapon = Resources.Load<GearSO>("SO/EquippedGears/Weapon"); //Temp
         //Weapon = PlayFabManager.Instance.Player.EquippedGears[Item.GearType.Weapon].WeaponSO;

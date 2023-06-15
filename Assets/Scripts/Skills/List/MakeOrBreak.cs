@@ -8,7 +8,7 @@ public class MakeOrBreak : Skill
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         float maxHpBuff = player.Attack * (maxHpBaseRatio + StatUpgrade1 * Level);
-        player.MaxHp += maxHpBuff;
+        //player.MaxHp += maxHpBuff; modifier
     }
 
     public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
