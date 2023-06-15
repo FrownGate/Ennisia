@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,7 +6,8 @@ using UnityEngine.UI;
 
 public class Chapter : MonoBehaviour
 {
-    private const string _sceneToLoad = "StoryChapterPopup";
+    [Scene]
+    public string SceneToLoad;
 
     public GameObject SpritePrefab;
     public ChapterSO CurrentChapter;
@@ -47,6 +49,6 @@ public class Chapter : MonoBehaviour
         MissionManager.Instance.SetMission(scriptableObject);
 
         // Load the new popup scene
-        ScenesManager.Instance.SetScene(_sceneToLoad);
+        ScenesManager.Instance.SetScene(SceneToLoad);
     }
 }

@@ -1,21 +1,17 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class AquaParalysis : Skill
 {
-//TODO -> When the player is attacked, has a 15% chance to stun the enemy.
-    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }
+    //TODO -> When the player is attacked, has a 15% chance to stun the enemy.
+    public override void UseIfAttacked(List<Entity> targets, Entity player, int turn, float damageTaken)
+    {
+        float stunLuck = Random.Range(0, 1);
 
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }
+        if (stunLuck <= 0.15)
+        {
+            //Stun
+        }
 
-    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }
-
-    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }
-
-    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }
-
-    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }
-
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn) { }
+    }
 }

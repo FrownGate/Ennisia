@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using NaughtyAttributes;
 
 public class Act : MonoBehaviour
 {
     public int TargetActId;
     public GameObject ButtonPrefab; // The prefab for the UI button
+    [Scene]
+    public string scene;
 
     public void Start()
     {
@@ -64,6 +67,6 @@ public class Act : MonoBehaviour
     private void ButtonClicked(ChapterSO scriptableObject)
     {
         MissionManager.Instance.SetChapter(scriptableObject);
-        ScenesManager.Instance.SetScene("StoryChapter");
+        ScenesManager.Instance.SetScene(scene);
     }
 }
