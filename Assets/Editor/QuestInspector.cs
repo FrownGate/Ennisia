@@ -16,7 +16,7 @@ public class QuestInspector : Editor
         // Check if the script has a dictionary
         if (script.currencyList != null)
         {
-            Debug.Log("Penetre");
+            //Debug.Log("Penetre");
 
             // Display the dictionary values
             foreach (KeyValuePair<PlayFabManager.Currency, int> pair in script.currencyList)
