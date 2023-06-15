@@ -604,13 +604,25 @@ public class BattleSimulator : EditorWindow
     {
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
 
-        foreach (var item in enemy.GetAllStats())
+        //Old version
+        //foreach (var item in enemy.GetAllStats())
+        //{
+        //    foreach (var field in enemyStatsField)
+        //    {
+        //        if (field.name == item.Key)
+        //        {
+        //            field.SetValueWithoutNotify(item.Value);
+        //        }
+        //    }
+        //}
+
+        foreach (var item in enemy.Stats)
         {
             foreach (var field in enemyStatsField)
             {
-                if (field.name == item.Key)
+                if (field.name == item.Key.ToString())
                 {
-                    field.SetValueWithoutNotify(item.Value);
+                    field.SetValueWithoutNotify((int)item.Value.Value);
                 }
             }
         }
