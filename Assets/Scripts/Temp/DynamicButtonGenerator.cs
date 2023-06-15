@@ -5,26 +5,26 @@ using UnityEngine.UI;
 
 public class DynamicButtonGenerator : MonoBehaviour
 {
-    public GameObject buttonPrefab;
+    public GameObject ButtonPrefab;
 
-    private RectTransform contentRect;
-    private VerticalLayoutGroup layoutGroup;
+    private RectTransform _contentRect;
+    private VerticalLayoutGroup _layoutGroup;
 
 
     public List<GameObject> GenerateButtonsInSlider(int numberOfButtons)
     {
         List<GameObject> buttonsCreated = new();
-        contentRect = GetComponent<ScrollRect>().content;
-        layoutGroup = contentRect.GetComponentInChildren<VerticalLayoutGroup>();
+        _contentRect = GetComponent<ScrollRect>().content;
+        _layoutGroup = _contentRect.GetComponentInChildren<VerticalLayoutGroup>();
         for (int i = 0; i < numberOfButtons; i++)
         {
-            GameObject button = Instantiate(buttonPrefab, contentRect);
+            GameObject button = Instantiate(ButtonPrefab, _contentRect);
             buttonsCreated.Add(button);
         }
 
         // Adjust the content size to fit all buttons
         float totalHeight = CalculateTotalHeight(buttonsCreated);
-        contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, totalHeight);
+        _contentRect.sizeDelta = new Vector2(_contentRect.sizeDelta.x, totalHeight);
       //  GetComponentInChildren<Scrollbar>().value = 1;
         return buttonsCreated;
     }
@@ -37,10 +37,10 @@ public class DynamicButtonGenerator : MonoBehaviour
         for (int i = 0; i < childCount; i++)
         {
             RectTransform childRect = buttons[i].GetComponent<RectTransform>();
-            totalHeight += childRect.sizeDelta.y + layoutGroup.spacing;
+            totalHeight += childRect.sizeDelta.y + _layoutGroup.spacing;
         }
 
-        totalHeight += layoutGroup.padding.top + layoutGroup.padding.bottom;
+        totalHeight += _layoutGroup.padding.top + _layoutGroup.padding.bottom;
         return totalHeight;
     }
 }
