@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scene: Forge
 --- !u!1 &8361926058592754018
 GameObject:
   m_ObjectHideFlags: 0

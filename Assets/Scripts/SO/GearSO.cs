@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using NaughtyAttributes;
 [CreateAssetMenu(fileName = "NewGear", menuName = "Ennisia/Gear")]
 public class GearSO : ScriptableObject
 {
@@ -17,8 +17,11 @@ public class GearSO : ScriptableObject
     public Dictionary<Item.AttributeStat, float> Substats;
 
     //Weapons
+    public Item.GearWeaponType WeaponType;
     public bool IsMagic;
+        [Expandable]
     public SkillSO FirstSkillData;
+        [Expandable]
     public SkillSO SecondSkillData;
     [HideInInspector] public Skill FirstSkill;
     [HideInInspector] public Skill SecondSkill;

@@ -6,7 +6,6 @@ using System;
 public class Gear : Item
 {
     public static event Action LevelUp;
-    public int Id;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
     public Dictionary<AttributeStat, float> Substats;
@@ -15,7 +14,7 @@ public class Gear : Item
     public int Level;
     public float StatUpgrade;
     public float RatioUpgrade;
-    public GearSO Weapon;
+    public GearSO WeaponSO;
 
     [System.Serializable]
     public class JsonSubstatsDictionary
@@ -26,7 +25,8 @@ public class Gear : Item
 
     public Gear(GearType type, ItemRarity rarity, GearSO weapon = null)
     {
-        Weapon = weapon;
+        WeaponSO = weapon;
+        WeaponType = weapon ? weapon.WeaponType : null;
         Id = SetId();
         Stack = Id.ToString();
         Type = type;
@@ -64,7 +64,7 @@ public class Gear : Item
         if (Category == ItemCategory.Weapon)
         {
             string weaponName = Name.Split($"[{Rarity}] ")[1];
-            Weapon = Resources.Load<GearSO>($"SO/Weapons/{CSVUtils.GetFileName(weaponName)}");
+            WeaponSO = Resources.Load<GearSO>($"SO/Weapons/{CSVUtils.GetFileName(weaponName)}");
         }
 
         AddToInventory();
@@ -89,7 +89,7 @@ public class Gear : Item
             }
         }
 
-        Weapon = null;
+        WeaponSO = null;
         base.Serialize();
     }
 
@@ -129,7 +129,7 @@ public class Gear : Item
 
     private AttributeStat SetAttribute()
     {
-        if (Category == ItemCategory.Weapon) return Weapon.Attribute;
+        if (Category == ItemCategory.Weapon) return WeaponSO.Attribute;
 
         List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
@@ -137,9 +137,9 @@ public class Gear : Item
 
     private float SetValue()
     {
-        if (Category == ItemCategory.Weapon) return Weapon.StatValue;
+        if (Category == ItemCategory.Weapon) return WeaponSO.StatValue;
 
-        StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Type}_{Rarity}_{Attribute}");
+        StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
@@ -151,7 +151,8 @@ public class Gear : Item
         for (int i = 0; i < (int)Rarity; i++)
         {
             AttributeStat stat = (AttributeStat)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
-            substats[stat] = 1; //Temp
+            StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
+            substats[stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
         }
 
         return substats;
@@ -159,7 +160,7 @@ public class Gear : Item
 
     protected override void SetName()
     {
-        Name = Category == ItemCategory.Weapon ? $"[{Rarity}] {Weapon.Name}" : $"[{Rarity}] {Type}";
+        Name = Category == ItemCategory.Weapon ? $"[{Rarity}] {WeaponSO.Name}" : $"[{Rarity}] {Type}";
     }
 
     public override void Upgrade()
@@ -185,33 +186,5 @@ public class Gear : Item
         Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
 
         PlayFabManager.Instance.UpdateItem(this);
-    }
-
-    public void Equip()
-    {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
-
-        equippedGear.Id = Id;
-        equippedGear.Level = Level;
-        equippedGear.Name = Name;
-        equippedGear.Type = (GearType)Type;
-        equippedGear.Rarity = (ItemRarity)Rarity;
-        equippedGear.Attribute = (AttributeStat)Attribute;
-        equippedGear.StatValue = Value;
-        equippedGear.Description = Description;
-        equippedGear.Substats = Substats;
-        equippedGear.FirstSkillData = Weapon != null ? Weapon.FirstSkillData : null;
-        equippedGear.SecondSkillData = Weapon != null ? Weapon.SecondSkillData : null;
-        //TODO -> add Icon path
-
-        PlayFabManager.Instance.UpdateEquippedGears(this);
-    }
-
-    public void Unequip()
-    {
-        GearSO equippedGear = Resources.Load<GearSO>($"SO/EquippedGears/{(Category == ItemCategory.Weapon ? Category : Type)}");
-        equippedGear.Unequip();
-
-        PlayFabManager.Instance.UpdateEquippedGears(this, true);
     }
 }

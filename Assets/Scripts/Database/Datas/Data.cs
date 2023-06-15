@@ -1,6 +1,6 @@
-using PlayFab.DataModels;
 using UnityEngine;
 using System;
+using System.Text;
 
 [Serializable]
 public class Data
@@ -16,13 +16,9 @@ public class Data
         Inventory = new();
     }
 
-    public SetObject Serialize()
+    public byte[] Serialize()
     {
-        return new SetObject
-        {
-            ObjectName = GetType().Name,
-            EscapedDataObject = JsonUtility.ToJson(this)
-        };
+        return Encoding.UTF8.GetBytes(JsonUtility.ToJson(this));
     }
 
     public void UpdateLocalData(string json)
@@ -32,6 +28,21 @@ public class Data
         Player = data.Player;
         Inventory = data.Inventory;
 
+        Player.UpdateEquippedSupports();
+
         Debug.Log($"User has {Inventory.Supports.Count} support(s).");
+    }
+
+    public void UpdateEquippedGears()
+    {
+        foreach (var id in Player.EquippedGearsId)
+        {
+            if (id != 0)
+            {
+                Gear gear = Inventory.GetGearById(id);
+                Player.EquippedGears[(Item.GearType)gear.Type] = gear;
+                Debug.Log($"Equipped {gear.Type} = {gear.Name}");
+            }
+        }
     }
 }

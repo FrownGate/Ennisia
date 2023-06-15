@@ -19,7 +19,6 @@ MonoBehaviour:
   Job: Shield-Bearer
   Element: Earth
   PrimarySkillData: {fileID: 11400000, guid: 2e4f55afd0e746a4788ea549d27b33f7, type: 2}
-  SecondarySkillData: {fileID: 0}
-  Description: none
-  Catchphrase: none
-  Icon: {fileID: 0}
+  SecondarySkillData: {fileID: 11400000, guid: 043aa2ab20019e54cbc35610967dc344, type: 2}
+  Description: 
+  Catchphrase: 

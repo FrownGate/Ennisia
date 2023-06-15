@@ -1,32 +1,33 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class DailiesCheck : MonoBehaviour
 {
+    //TODO -> Move to parent script
+    //TODO -> Use only one action with param accross all quests
     public static event Action daily1;
     public static event Action daily2;
     public static event Action daily3;
     public static event Action daily4;
     public static event Action daily5;
 
+    //TODO -> Move to parent script
     public int goldAmount;
     public int crystalsAmount;
 
+    //TODO -> Move to parent script
     public int dungeonNeeded;
     public int mainStoryNeeded;
     public int gearUpgradeNeeded;
     public int enemyKilledNeeded;
     public int energyUsedNeeded;
-   
+
+    //TODO -> Move to parent script
     int _dungeonCount;
     int _mainStoryCount;
     int _gearUpgradeCount;
     int _enemyKilledCount;
     int _energyUsedCount;
-
 
     private void CheckMission(MissionSO mission)
     {
@@ -62,7 +63,6 @@ public class DailiesCheck : MonoBehaviour
             _gearUpgradeCount++;
         }
     }
-
 
     private void CheckEnemyKilled()
     {

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Extermination : Quests
+public class Extermination : Quest
 {
     int enemyKilled;
     public override void CheckCondition()
