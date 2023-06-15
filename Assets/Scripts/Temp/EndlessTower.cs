@@ -7,27 +7,27 @@ using UnityEngine;
 [RequireComponent(typeof(DynamicButtonGenerator))]
 public class EndlessTower : MonoBehaviour
 {
-    DynamicButtonGenerator generator;
-    List<GameObject> buttons;
-    List<MissionSO> ETSO;
+    private DynamicButtonGenerator _generator;
+    private List<GameObject> _buttons;
+    private List<MissionSO> _etSO;
     void Awake()
     {
-        generator = GetComponent<DynamicButtonGenerator>();
+        _generator = GetComponent<DynamicButtonGenerator>();
 
-        ETSO = Resources.LoadAll<MissionSO>($"SO/Missions/EndlessTower/").ToList();
-        ETSO = ETSO.OrderBy(obj => obj.NumInChapter).ToList();
+        _etSO = Resources.LoadAll<MissionSO>($"SO/Missions/EndlessTower/").ToList();
+        _etSO = _etSO.OrderBy(obj => obj.NumInChapter).ToList();
 
-        buttons = generator.GenerateButtonsInSlider(ETSO.Count);
+        _buttons = _generator.GenerateButtonsInSlider(_etSO.Count);
 
         int buttonIndex = 0;
-        foreach (GameObject go in buttons)
+        foreach (GameObject go in _buttons)
         {
-           go.name = ETSO[buttonIndex].name;
+           go.name = _etSO[buttonIndex].name;
             TextMeshProUGUI buttonText = go.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = ETSO[buttonIndex].Name;
+            buttonText.text = _etSO[buttonIndex].Name;
 
             EndlessTowerFloor floor = go.AddComponent<EndlessTowerFloor>();
-            floor.floorSO = ETSO[buttonIndex];
+            floor.FloorSO = _etSO[buttonIndex];
 
 
 
