@@ -7,7 +7,7 @@ public class ShowGuilds : MonoBehaviour
     [SerializeField] private GameObject _content;
     [SerializeField] private GameObject _guildPrefab;
 
-    private void Awake()
+    private void Start()
     {
         PlayFabManager.OnGetGuilds += InitGuilds;
         PlayFabManager.Instance.GetGuilds();
