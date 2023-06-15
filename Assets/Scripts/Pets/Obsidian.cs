@@ -1,4 +1,4 @@
-public class Obsiidian : Pet
+public class Obsidian : Pet
 {
     public override void Init()
     {

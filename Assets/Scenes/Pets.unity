@@ -619,6 +619,10 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5609199982702460616, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_Colors.m_FadeDuration
+      value: 17.23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3204613469207588907, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
