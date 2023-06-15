@@ -7,7 +7,7 @@ public class MissionManager : MonoBehaviour
 {
     public enum MissionType
     {
-        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
+        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
     }
 
     public enum MissionState
