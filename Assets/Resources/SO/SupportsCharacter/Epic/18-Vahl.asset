@@ -19,7 +19,6 @@ MonoBehaviour:
   Job: Mage
   Element: Thunder
   PrimarySkillData: {fileID: 11400000, guid: fce08ce3635c9534baa8895d8eb5b746, type: 2}
-  SecondarySkillData: {fileID: 0}
-  Description: none
-  Catchphrase: none
-  Icon: {fileID: 0}
+  SecondarySkillData: {fileID: 11400000, guid: 47d5a6b177a59a244856ac6108112b6a, type: 2}
+  Description: 
+  Catchphrase: 

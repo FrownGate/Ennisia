@@ -19,7 +19,6 @@ MonoBehaviour:
   Job: Sword-Master
   Element: Wind
   PrimarySkillData: {fileID: 11400000, guid: aad2b5a947b5ffe4ea410913cf3c42d2, type: 2}
-  SecondarySkillData: {fileID: 0}
-  Description: none
-  Catchphrase: none
-  Icon: {fileID: 0}
+  SecondarySkillData: {fileID: 11400000, guid: 84246fbef0d32eb48b290a3061874b5d, type: 2}
+  Description: 
+  Catchphrase: 
