@@ -267,6 +267,17 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDamage"));
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));
 
+        //TODO -> try this kind of optimization
+        //EnemyLoader enemyLoader = new();
+        //_enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
+
+        //List<DropdownField> enemiesDropdown = new();
+
+        //foreach (Enemy enemy in _enemies)
+        //{
+        //    enemiesDropdown.Add(root.Q<DropdownField>(enemy.Name));
+        //}
+
         _firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
         _secondEnemyDropdown = root.Q<DropdownField>("second-enemy-dropdown");
         _thirdEnemyDropdown = root.Q<DropdownField>("third-enemy-dropdown");
@@ -295,6 +306,14 @@ public class BattleSimulator : EditorWindow
     {
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
+
+        //List<DropdownField> enemiesDropdown = new();
+
+        //foreach (DropdownField field in enemiesDropdown)
+        //{
+        //    field.choices.Add("No Enemy");
+        //    field.choices.Add(field.name);
+        //}
 
         foreach (Enemy enemy in _enemies)
         {
