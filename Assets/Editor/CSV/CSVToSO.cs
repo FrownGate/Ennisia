@@ -359,9 +359,10 @@ public class CSVToSO : EditorWindow
         scriptableObject.Unlocked = rowData["Unlocked"] == "VRAI";
 
         Dictionary<int, string> waves = new();
-        HashSet<string> enemies = new HashSet<string>(); // Use HashSet to avoid duplicates
-        int waveCount = 1;
-        for (int i = 1; i <= 3; i++)
+        HashSet<string> enemies = new(); // Use HashSet to avoid duplicates
+        int waveCount = 0;
+        int i = 1;
+        while(rowData.ContainsKey($"Wave{i}"))
         {
             string wave = rowData[$"Wave{i}"];
             if (!wave.Equals("none"))
@@ -375,6 +376,7 @@ public class CSVToSO : EditorWindow
                     enemies.Add(enemy);
                 }
             }
+            i++;
         }
         scriptableObject.Waves = waves;
         scriptableObject.WavesCount = waveCount;

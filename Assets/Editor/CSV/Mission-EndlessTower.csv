@@ -1,0 +1,51 @@
+ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,IDDialogue,IDChapter,Num
+1,Floor 1,0,FALSE,Blue slime,Red slime,Green slime,-1,1,1
+2,Floor 2,0,FALSE,Goblin 1,Goblin 2,Goblin 3,-1,1,2
+3,Floor 3,0,FALSE,Golem,Golem,Golem,-1,1,3
+4,Floor 4,0,FALSE,Mushroom,Mushroom,Mushroom,-1,1,4
+5,Floor 5,0,FALSE,Blue slime,Golem,Mushroom,-1,1,5
+6,Floor 6,0,FALSE,Wolf,Wolf,Wolf,-1,1,6
+7,Floor 7,0,FALSE,Elf,Elf,Elf,-1,1,7
+8,Floor 8,0,FALSE,Mage Elf,Mage Elf,Mage Elf,-1,1,8
+9,Floor 9,0,FALSE,Winderer,Winderer,Winderer,-1,1,9
+10,Floor 10,0,FALSE,Minor Demon,Minor Demon,Minor Demon,-1,1,10
+11,Floor 11,0,FALSE,Wolf,Golem,Minor Demon,-1,1,11
+12,Floor 12,0,FALSE,Treant,Treant,Treant,-1,1,12
+13,Floor 13,0,FALSE,Treant,Winderer,Elf,-1,1,13
+14,Floor 14,0,FALSE,Rock Worm,Rock Worm,Rock Worm,-1,1,14
+15,Floor 15,0,FALSE,Dragon,Dragon,Dragon,-1,1,15
+16,Floor 16,0,FALSE,Golem,Treant,Blue,-1,1,16
+17,Floor 17,0,FALSE,Backan,Backan,Backan,-1,1,17
+18,Floor 18,0,FALSE,Spreegal,Magic flower,Demonic slime,-1,1,18
+19,Floor 19,0,FALSE,Mage elf,Mage elf,Mage elf,-1,1,19
+20,Floor 20,0,FALSE,Stixent,Stixent,Lai Jande,-1,1,20
+21,Floor 21,0,FALSE,Sanunter,Cyclope,Cyclope,-1,1,21
+22,Floor 22,0,FALSE,Rock worm,Rock worm,Rock worm,-1,1,22
+23,Floor 23,0,FALSE,Brigand,Minor demon,Brigand,-1,1,23
+24,Floor 24,0,FALSE,Winderer,Brigand,Berserker,-1,1,24
+25,Floor 25,0,FALSE,Berserker,Elf,Magic flower,-1,1,25
+26,Floor 26,0,FALSE,Evil gardener,Magic flower,Mushroom,-1,1,26
+27,Floor 27,0,FALSE,Backan,Golem,Stixent,-1,1,27
+28,Floor 28,0,FALSE,Demonic slime,minor demon,Demonic slime,-1,1,28
+29,Floor 29,0,FALSE,Minor demon,Backan,Winderer,-1,1,29
+30,Floor 30,0,FALSE,Major Demon,Major Demon,Shad’ô,-1,1,30
+31,Floor 31,0,FALSE,Sanunter,Rock worm,Sanunter,-1,1,31
+32,Floor 32,0,FALSE,Magic flower,Magic flower,Magic flower,-1,1,32
+33,Floor 33,0,FALSE,Brigand,Elf,Mage Elf,-1,1,33
+34,Floor 34,0,FALSE,Spreegal,Spreegal,Spreegal,-1,1,34
+35,Floor 35,0,FALSE,Winderer,Wolf,Berserker,-1,1,35
+36,Floor 36,0,FALSE,Brigand,Berserker,Cyclop,-1,1,36
+37,Floor 37,0,FALSE,Golem,Sanunter,Minor demon,-1,1,37
+38,Floor 38,0,FALSE,Major demon,Mage elf,Backan,-1,1,38
+39,Floor 39,0,FALSE,Berserker,Backan,Berserker,-1,1,39
+40,Floor 40,0,FALSE,The condemner,The condemner,Betala,-1,1,40
+41,Floor 41,0,FALSE,Treant,Treant,Evil gardener,-1,1,41
+42,Floor 42,0,FALSE,Major Demon,Major Demon,The ghost paladin,-1,1,42
+43,Floor 43,0,FALSE,Rock Worm,Rock Worm,Desert’s king,-1,1,43
+44,Floor 44,0,FALSE,Slime,Slime,Demonic Slime,-1,1,44
+45,Floor 45,0,FALSE,Evil gardener,The ghost paladin,Desert’s king,-1,1,45
+46,Floor 46,0,FALSE,Commander Demon,Commander Demon,Commander Demon,-1,1,46
+47,Floor 47,0,FALSE,Snadron,Snadron,Snadron,-1,1,47
+48,Floor 48,0,FALSE,Dragon,Dragon,Dragon,-1,1,48
+49,Floor 49,0,FALSE,Dragon,Snadron,Commander Demon,-1,1,49
+50,Floor 50,0,FALSE,Lai Jande,Shad’ô,Betala,-1,1,50
