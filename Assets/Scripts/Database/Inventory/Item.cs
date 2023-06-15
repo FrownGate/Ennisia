@@ -26,6 +26,13 @@ public class Item
         PhysicalDamages, MagicalDamages, Attack, HP, Defense, CritRate, CritDmg, Speed
     }
 
+    public enum GearSet
+    {
+        FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull, Executioner, 
+        Revitalise, ArmorOfTheDeads, Herald, FairyTales, AccuracyDevice, demonsAndHuman, 
+        VitalEngagement
+    }
+
     public string Stack;
     public string Name;
     public int Amount; //Amount of item to add
@@ -33,6 +40,7 @@ public class Item
     public ItemCategory? Category;
     public GearType? Type;
     public AttributeStat? Attribute;
+    public GearSet? Set;
 
     //Json Utility
     public string JsonRarity;
