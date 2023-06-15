@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text.RegularExpressions;
 
 public static class CSVUtils
 {
     public static string[] SplitCSVLine(string line)
     {
-        List<string> values = new List<string>();
+        List<string> values = new();
         bool insideQuotes = false;
         string currentValue = "";
 

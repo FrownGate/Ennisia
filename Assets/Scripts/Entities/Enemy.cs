@@ -4,11 +4,11 @@ public class Enemy : Entity
 {
     public Enemy()
     {
-        Attack = 20;
+/*        Attack = 20;
         MaxHp = 5000;
         Level = 10;
-        Speed = 200;
-        CurrentHp = MaxHp / 2;
+        Speed = 200;*/
+        CurrentHp = Stats[Item.AttributeStat.HP].Value / 2;
     }
 
     public Enemy(int id, string name, Dictionary<string, int> stats, string description)
@@ -19,7 +19,7 @@ public class Enemy : Entity
         Level = 1;
 
         // insert values from stats into the Enemy's stats
-        foreach (KeyValuePair<string, int> stat in stats)
+      /*  foreach (KeyValuePair<string, int> stat in stats)
         {
             switch (stat.Key) //TODO -> Use enum instead of strings
             {
@@ -59,7 +59,7 @@ public class Enemy : Entity
                 default:
                     break;
             }
-        }
+        }*/
     }
 
     public override void HaveBeenSelected()
