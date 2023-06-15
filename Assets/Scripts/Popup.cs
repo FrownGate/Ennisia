@@ -4,6 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class Popup : MonoBehaviour
 {
+    [SerializeField] private Canvas _canvas;
+
+    private void Awake()
+    {
+        _canvas.worldCamera = Camera.main;
+    }
     /*private void Start()
     {
         Canvas mainCanvas = FindObjectOfType<Canvas>();
