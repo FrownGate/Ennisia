@@ -17,7 +17,7 @@ public class TerraShockwave: Skill
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        DamageModifier = player.MagicAtk * StatUpgrade1 * Level;
+        DamageModifier = player.Stats[Item.AttributeStat.PhysicalDamages].Value * StatUpgrade1 * Level;
         targets[0].TakeDamage(DamageModifier);
         float stunLuck = Random.Range(0, 1);
 

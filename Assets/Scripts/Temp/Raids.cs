@@ -8,15 +8,15 @@ using UnityEngine.UI;
 [RequireComponent(typeof(DynamicButtonGenerator))]
 public class Raids : MonoBehaviour
 {
-    DynamicButtonGenerator generator;
-    List<GameObject> buttons;
-    MissionSO[] raidsSO;
+    private DynamicButtonGenerator _generator;
+    private List<GameObject> _buttons;
+    private MissionSO[] _raidsSO;
     // Start is called before the first frame update
     void Awake()
     {
-        generator = GetComponent<DynamicButtonGenerator>();
+        _generator = GetComponent<DynamicButtonGenerator>();
 
-        raidsSO = Resources.LoadAll<MissionSO>($"SO/Missions/Raid/");
+        _raidsSO = Resources.LoadAll<MissionSO>($"SO/Missions/Raid/");
 
         List<string> uniqueNames = GetUniqueNames();
         foreach (string name in uniqueNames)
@@ -25,9 +25,9 @@ public class Raids : MonoBehaviour
         }
 
 
-        buttons = generator.GenerateButtonsInSlider(uniqueNames.Count);
+        _buttons = _generator.GenerateButtonsInSlider(uniqueNames.Count);
         int buttonIndex = 0;
-        foreach (GameObject go in buttons)
+        foreach (GameObject go in _buttons)
         {
             Image image = go.GetComponentInChildren<Image>();
             go.name = uniqueNames[buttonIndex];
@@ -36,7 +36,7 @@ public class Raids : MonoBehaviour
 
             RaidsButton diff = image.gameObject.AddComponent<RaidsButton>();
             diff.RaidName = go.name;
-            diff._raids = buttons;
+            diff.Raids = _buttons;
             diff.RaidDiffs = GetScriptableObjectsByName(go.name);
 
         }
@@ -47,7 +47,7 @@ public class Raids : MonoBehaviour
     {
         HashSet<string> uniqueNames = new();
 
-        foreach (MissionSO obj in raidsSO)
+        foreach (MissionSO obj in _raidsSO)
         {
             // Extract the name without numbers using regular expressions
             string nameWithoutNumbers = Regex.Replace(obj.name, @"[\d-.]", "");
@@ -63,7 +63,7 @@ public class Raids : MonoBehaviour
     {
         Dictionary<string, List<MissionSO>> scriptableObjectsByName = new();
 
-        foreach (MissionSO obj in raidsSO)
+        foreach (MissionSO obj in _raidsSO)
         {
             string nameWithoutNumbers = Regex.Replace(obj.name, @"[\d-.]", "");
 

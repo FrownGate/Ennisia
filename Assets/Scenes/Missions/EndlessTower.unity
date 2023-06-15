@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f41503fe0a1e588458226b8ab2a79f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPrefab: {fileID: 673783123329878496, guid: fe112a4703d10724dbce3b20793ebd08, type: 3}
+  ButtonPrefab: {fileID: 673783123329878496, guid: fe112a4703d10724dbce3b20793ebd08, type: 3}
 --- !u!114 &1440330865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1408,6 +1408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444abbbead6662c47a419d7fa33937fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PrefabStart: {fileID: 1679442198184944353, guid: 47e298a0af5ea5e47a6d5d0b5447a7b4, type: 3}
 --- !u!1001 &1712551037
 PrefabInstance:
   m_ObjectHideFlags: 0

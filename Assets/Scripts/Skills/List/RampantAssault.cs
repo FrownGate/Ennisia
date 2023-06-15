@@ -6,7 +6,7 @@ public class RampantAssault : Skill
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
-        DamageModifier = targets[0].MaxHp * (targetMaxHpBaseRatio * StatUpgrade1 * Level);
+        DamageModifier = targets[0].Stats[Item.AttributeStat.HP].Value * (targetMaxHpBaseRatio * StatUpgrade1 * Level);
         float percOfAddDamage = StatUpgrade2 * turn;
 
         percOfAddDamage = percOfAddDamage > (percOfAddDamage*5) ? (percOfAddDamage*5) : percOfAddDamage;
