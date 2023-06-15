@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 1
   Name: Yoichi
-  Rarity: Rare
-  Lore: none
+  Rarity: 
+  Lore: "5% to player\u2019s character experience gained."
   Icon: {fileID: 0}
   Level: 0
