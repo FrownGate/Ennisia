@@ -13,10 +13,10 @@ public class ScenesManager : MonoBehaviour
     private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
 
-    private bool _loading;
-    public float minLoadingTime = 2f;
+    //private bool _loading;
+    //public float minLoadingTime = 2f;
 
-    private float startTime;
+    //private float startTime;
 
     private void Awake()
     {
@@ -67,25 +67,31 @@ public class ScenesManager : MonoBehaviour
     {
         _sceneToLoad = GetSceneName(scene);
         Debug.Log($"Going to scene {_sceneToLoad}");
-        startTime = Time.time;
+        SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
+        //startTime = Time.time;
 
-        switch (_sceneToLoad)
-        {
-            case "MainMenu":
-            case "Battle":
-                StartCoroutine(Loading());
-                break;
+        //switch (_sceneToLoad)
+        //{
+        //    case "MainMenu":
+        //    case "Battle":
+        //        StartCoroutine(Loading());
+        //        break;
 
-            default:
-                if (IsPopupLoaded()) UnloadScene(_sceneToLoad);
-                SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-                break;
-        }
+        //    default:
+        //        //if (IsPopupLoaded()) UnloadScene(_sceneToLoad);
+        //        SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
+        //        break;
+        //}
+    }
+
+    public void ClosePopup()
+    {
+        SceneManager.UnloadSceneAsync(_activeScene);
     }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        _activeScene = scene;
+        _activeScene = scene.name.Contains("Loading") ? _activeScene : scene;
         _sceneMode = mode;
 
         Debug.Log($"{_activeScene.name} loaded !");
@@ -125,59 +131,59 @@ public class ScenesManager : MonoBehaviour
         if (SceneManager.GetSceneByName("Loading_Mini").isLoaded) SceneManager.UnloadSceneAsync("Loading_Mini");
     }
 
-    private IEnumerator Loading()
-    {
-        string loadScene = GetSceneName("Loading_Big");
-        Debug.Log($"Going to scene {loadScene}");
-        startTime = Time.time;
+    //private IEnumerator Loading()
+    //{
+    //    string loadScene = GetSceneName("Loading_Big");
+    //    Debug.Log($"Going to scene {loadScene}");
+    //    startTime = Time.time;
 
-        AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
+    //    AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
 
-        while (!loadingScreenOperation.isDone)
-        {
-            yield return null;
-        }
+    //    while (!loadingScreenOperation.isDone)
+    //    {
+    //        yield return null;
+    //    }
 
-        Scene loadingScene = SceneManager.GetSceneByName(loadScene);
-        if (!loadingScene.IsValid())
-        {
-            Debug.LogError("Loading scene is not valid.");
-            yield break;
-        }
+    //    Scene loadingScene = SceneManager.GetSceneByName(loadScene);
+    //    if (!loadingScene.IsValid())
+    //    {
+    //        Debug.LogError("Loading scene is not valid.");
+    //        yield break;
+    //    }
 
-        Slider progressBar = null;
+    //    Slider progressBar = null;
 
-        foreach (GameObject rootObject in loadingScene.GetRootGameObjects())
-        {
-            progressBar = rootObject.GetComponentInChildren<Slider>();
-            if (progressBar != null)
-            {
-                break;
-            }
-        }
+    //    foreach (GameObject rootObject in loadingScene.GetRootGameObjects())
+    //    {
+    //        progressBar = rootObject.GetComponentInChildren<Slider>();
+    //        if (progressBar != null)
+    //        {
+    //            break;
+    //        }
+    //    }
 
-        if (progressBar == null)
-        {
-            Debug.LogError("Slider component not found in the loading scene.");
-            yield break;
-        }
+    //    if (progressBar == null)
+    //    {
+    //        Debug.LogError("Slider component not found in the loading scene.");
+    //        yield break;
+    //    }
 
-        AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
+    //    AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
 
-        while (!sceneOperation.isDone)
-        {
-            progressBar.value = sceneOperation.progress;
-            yield return null;
-        }
-    }
+    //    while (!sceneOperation.isDone)
+    //    {
+    //        progressBar.value = sceneOperation.progress;
+    //        yield return null;
+    //    }
+    //}
 
     public bool IsPopupLoaded()
     {
         return _sceneMode == LoadSceneMode.Additive;
     }
 
-    public void UnloadScene(string scene)
+    /*public void UnloadScene(string scene)
     {
         SceneManager.UnloadSceneAsync(scene);
-    }
+    }*/
 }
