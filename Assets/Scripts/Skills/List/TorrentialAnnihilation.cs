@@ -6,7 +6,7 @@ public class TorrentialAnnihilation : Skill
     {
         for (int i = 0; i < targets.Count; i++)
         {
-            if (player.PhysAtk > targets[i].PhysAtk)
+            if (player.Stats[Item.AttributeStat.PhysicalDamages].Value > targets[i].Stats[Item.AttributeStat.PhysicalDamages].Value)
             {
                 //TODO -> cleanse target's buff
             }

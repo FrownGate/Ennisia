@@ -8,7 +8,7 @@ public class BREAKDEF : BuffEffect
     {
         ModifiedStats = new List<string> { "Attack" }; //Error ?
         Duration = duration;
-        target.PhysDef *= _percentage;
-        target.MagicDef *= _percentage;
+        /*target.PhysDef *= _percentage;
+        target.MagicDef *= _percentage;*/  //modifier
     }
 }
