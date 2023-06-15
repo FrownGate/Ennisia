@@ -35,6 +35,8 @@ public abstract class Entity
     public Entity()
     {
         //TODO -> Use CSV to set all values
+        Stats = new();
+
         foreach (string stat in Enum.GetNames(typeof(Item.AttributeStat)))
         {
             Stats[Enum.Parse<Item.AttributeStat>(stat)] = new(1);

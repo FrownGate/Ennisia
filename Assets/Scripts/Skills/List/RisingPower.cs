@@ -10,12 +10,12 @@ public class RisingPower : Skill
         /*if(weapon != two-handed sword)*/
         if (player.Weapon.Type != 0)
         {
-            attackBuff = player.Attack * attackBuffRatio;
+            attackBuff = player.Stats[Item.AttributeStat.Attack].Value * attackBuffRatio;
         }else
         {
-            attackBuff = player.Attack * attackBuffRatio * 2;     
+            attackBuff = player.Stats[Item.AttributeStat.Attack].Value * attackBuffRatio * 2;     
         }
-        player.Attack += attackBuff;
+        //player.Attack += attackBuff; Modifier
     }
     
 }
