@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Yuki : Pets
+public class Yuki : Pet
 {
- 
-
+    public override void Init()
+    {
+        //TODO -> AddModifier on stat of entity
+    }
 }

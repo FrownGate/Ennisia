@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Obsiidian : Pets
+public class Obsiidian : Pet
 {
- 
-
+    public override void Init()
+    {
+        //TODO -> AddModifier on stat of entity
+    }
 }

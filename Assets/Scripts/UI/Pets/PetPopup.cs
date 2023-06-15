@@ -38,8 +38,6 @@ public class PetPopup : MonoBehaviour
         _xp.text = _showpet.ActualPet.ActualXP.ToString() + " / " + _showpet.ActualPet.ToGetXp.ToString();
     }
 
-
-
     private void Close()
     {
         gameObject.SetActive(false);

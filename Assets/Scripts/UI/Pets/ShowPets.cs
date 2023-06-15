@@ -9,9 +9,7 @@ public class ShowPets : MonoBehaviour
     [SerializeField] private GameObject _petPopup;
     [SerializeField] private GameObject _buttonsContainer;
 
-    public Pets ActualPet;
-
-    private Pets Pet;
+    public Pet ActualPet { get; private set; }
     private PetSO[] _petList;
 
     public void Awake()
@@ -35,8 +33,8 @@ public class ShowPets : MonoBehaviour
     private void ShowPetInfo(string name)
     {
         if (!_petPopup.activeSelf) _petPopup.SetActive(true);
-        Type type = System.Type.GetType(CSVUtils.GetFileName(name));
-        ActualPet = (Pets)Activator.CreateInstance(type);
+        Type type = Type.GetType(CSVUtils.GetFileName(name));
+        ActualPet = (Pet)Activator.CreateInstance(type);
 
         Debug.Log(ActualPet._name);
         OnPopupShow?.Invoke(name);

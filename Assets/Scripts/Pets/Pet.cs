@@ -1,37 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Pets
+public abstract class Pet
 {
+    public int AffinityLevel { get; private set; }
+    public int ActualXP { get; private set; }
+    public int ToGetXp { get; private set; }
+
     private PetSO _data;
     public string _name; //will be private
     private Sprite _icon;
-    public int ActualXP;
-    public int ToGetXp;
-    public int AffinityLevel = 0;
-    private bool _obtained = false;
+    private bool _obtained;
 
-
-    public Pets()
+    public Pet()
     {
         _data = Resources.Load<PetSO>("SO/Pets/" + GetType().Name);
         _name = _data.name;
         _icon = _data.Icon;
-        Debug.Log(_data.name);
+        Debug.Log($"Loaded {_name} datas !");
+
+        //TODO -> set obtained, level and actual xp with database
+        _obtained = false;
+        AffinityLevel = 0;
         ToGetXp = 100;
+
+        if (_obtained) Init();
     }
 
+    public virtual void Init() { }
 
-    // Update is called once per frame
     public virtual void GetPet(Player player)
     {
         _obtained = true;
-        //put trasformer on alterable stat of entity
+        Init();
     }
 
     public virtual void Play()
     {
+        //TODO -> Only one Play per day accross all pets
         Debug.Log("Successfully played with" + _name);
         ActualXP += 50 + 20 * AffinityLevel;
         LevelUp();
@@ -43,7 +48,6 @@ public abstract class Pets
         {
             if (AffinityLevel < 10)
             {
-        
                 AffinityLevel++;
                 ActualXP -= ToGetXp;
                 ToGetXp *= 2;
