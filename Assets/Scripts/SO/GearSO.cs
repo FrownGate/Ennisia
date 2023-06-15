@@ -17,6 +17,7 @@ public class GearSO : ScriptableObject
     public Dictionary<Item.AttributeStat, float> Substats;
 
     //Weapons
+    public Item.GearWeaponType WeaponType;
     public bool IsMagic;
         [Expandable]
     public SkillSO FirstSkillData;
