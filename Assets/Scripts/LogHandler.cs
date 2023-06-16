@@ -39,7 +39,6 @@ public class LogHandler : MonoBehaviour
 
     private void Update()
     {
-        //TODO -> use event instead ?
         InputSpaceToHideMessageBox();
     }
 
@@ -50,13 +49,11 @@ public class LogHandler : MonoBehaviour
 
     private void EnqueueMessage(string message)
     {
-        //Debug.Log($"before : {_logMessagesQueue.Count}");
         if (_logMessagesQueue.Count >= _maxLogMessages)
         {
             _logMessagesQueue.Dequeue();
         }
         _logMessagesQueue.Enqueue(message);
-        //Debug.Log($"after : {_logMessagesQueue.Count}");
         _promptText.text = string.Join("", _logMessagesQueue.ToArray());
     }
 
