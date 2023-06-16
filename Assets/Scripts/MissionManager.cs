@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -80,7 +81,7 @@ public class MissionManager : MonoBehaviour
 
         if (PlayFabManager.Instance.EnergyIsUsed(mission.EnergyCost))
         {
-           
+
             CurrentWave = 1;
 
             DisplayMissionNarrative(CurrentMission);
@@ -110,7 +111,7 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    private void CompleteMission()
+    public void CompleteMission()
     {
         //TODO -> Load Main Menu Scene, maybe end mission popup
         if (CurrentMission == null)
@@ -122,7 +123,7 @@ public class MissionManager : MonoBehaviour
         CurrentMission.State = MissionState.Completed;
         Debug.Log("Mission completed");
         //TODO -> Update database
-
+        GiveRewards();
         UnlockNextMission(CurrentMission);
         OnMissionComplete?.Invoke(CurrentMission);
     }
@@ -208,7 +209,26 @@ public class MissionManager : MonoBehaviour
 
     public void ResetMissionManager()
     {
-       CurrentMission = null;
+        CurrentMission = null;
         CurrentChapter = null;
     }
+
+    public void GiveRewards()
+    {
+
+        List<KeyValuePair<PlayFabManager.Currency, int>> rewards = CurrentMission.RewardsList.ToList();
+        for (int i = 0; i < CurrentMission.RewardsList.Count; i++)
+        {
+            string type = rewards[i].Key.ToString();
+            if (Enum.TryParse(type, out PlayFabManager.Currency currencyType))
+            {
+                PlayFabManager.Instance.AddCurrency(rewards[i].Key, rewards[i].Value);
+                Debug.Log("Des SOUS !!!");
+            } 
+        }
+        ExperienceSystem.Instance.GainExperienceAccount(CurrentMission.Experience);
+        ExperienceSystem.Instance.GainExperiencePlayer(CurrentMission.Experience);
+        Debug.Log("De l'XP !!!");
+    }
+
 }
