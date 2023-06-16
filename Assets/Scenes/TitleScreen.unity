@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 617250158}
   - component: {fileID: 617250161}
   - component: {fileID: 617250160}
-  - component: {fileID: 617250159}
+  - component: {fileID: 617250162}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -409,20 +409,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920.0001, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &617250159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617250157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scene: MainMenu
-  _params: 
 --- !u!61 &617250160
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -476,6 +462,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617250157}
   m_CullTransparentMesh: 1
+--- !u!114 &617250162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617250157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab746537d393eaf449126d37b781455d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainMenu: MainMenu
+  _genderSelection: GenderSelection
 --- !u!1 &797164121
 GameObject:
   m_ObjectHideFlags: 0

@@ -955,6 +955,11 @@ public class PlayFabManager : MonoBehaviour
             DisplayName = name
         }, res => OnLoadingEnd?.Invoke(), OnRequestError);
     }
+    public void SetGender(int gender)
+    {
+        Account.Gender = gender;
+        UpdateData();
+    }
     #endregion
 
     #region General
