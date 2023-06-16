@@ -1221,6 +1221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MessageLogHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 5118540114380239008, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5921752587371417073, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
