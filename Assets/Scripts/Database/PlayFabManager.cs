@@ -40,6 +40,7 @@ public class PlayFabManager : MonoBehaviour
 
     //Guilds events
     public static event Action<List<GroupWithRoles>> OnGetGuilds;
+    public static event Action<List<EntityMemberRole>> OnGetGuildMembers;
     public static event Action<List<GroupApplication>> OnGetApplications;
     public static event Action<List<GroupInvitation>> OnGetInvitations;
 
@@ -430,25 +431,12 @@ public class PlayFabManager : MonoBehaviour
             if (PlayerGuild != null)
             {
                 Debug.Log($"Player is a member of Guild {PlayerGuild.GroupName}.");
-                GetGuildMembers();
+                GetGuildMembers(PlayerGuild);
                 return;
             }
             
             CompleteLogin();
 
-        }, OnRequestError);
-    }
-
-    private void GetGuildMembers()
-    {
-        PlayFabGroupsAPI.ListGroupMembers(new()
-        {
-            Group = PlayerGuild.Group
-        }, res =>
-        {
-            PlayerGuildMembers = res.Members;
-            CompleteLogin();
-            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
 
@@ -920,6 +908,22 @@ public class PlayFabManager : MonoBehaviour
             }
         }, res => OnLoadingEnd?.Invoke(), OnRequestError);
     }
+
+    public void GetGuildMembers(GroupWithRoles guild)
+    {
+        OnLoadingStart?.Invoke();
+
+        PlayFabGroupsAPI.ListGroupMembers(new()
+        {
+            Group = guild.Group
+        }, res =>
+        {
+            PlayerGuildMembers = res.Members;
+            CompleteLogin();
+            OnLoadingEnd?.Invoke();
+            OnGetGuildMembers?.Invoke(res.Members);
+        }, OnRequestError);
+    }
     #endregion
 
     #region Account
@@ -950,6 +954,11 @@ public class PlayFabManager : MonoBehaviour
         {
             DisplayName = name
         }, res => OnLoadingEnd?.Invoke(), OnRequestError);
+    }
+    public void SetGender(int gender)
+    {
+        Account.Gender = gender;
+        UpdateData();
     }
     #endregion
 

@@ -117,11 +117,13 @@ public class ScenesManager : MonoBehaviour
 
     private void BigLoading()
     {
+        //TODO -> prevent load if already loaded
         SceneManager.LoadScene("Loading_Big", LoadSceneMode.Additive);
     }
 
     private void MiniLoading()
     {
+        //TODO -> prevent load if already loaded
         SceneManager.LoadScene("Loading_Mini", LoadSceneMode.Additive);
     }
 
