@@ -9,6 +9,16 @@ public class LaunchGame : MonoBehaviour
 
     private void Awake()
     {
+        PlayFabManager.OnLoginSuccess += SetActiveScene;
+    }
+
+    private void OnDestroy()
+    {
+        PlayFabManager.OnLoginSuccess -= SetActiveScene;
+    }
+
+    private void SetActiveScene()
+    {
         _activeScene = PlayFabManager.Instance.Account.Gender == 0 ? _genderSelection : _mainMenu;
     }
 
