@@ -166,7 +166,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3111804219340584481}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -323,7 +323,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _promptText: {fileID: 1462893525959807770}
   _scrollView: {fileID: 3761056981905403275}
-  maxLogMessages: 100
+  _maxLogMessages: 22
+  _canvas: {fileID: 4855527420725097636}
 --- !u!1 &5107231948764222896
 GameObject:
   m_ObjectHideFlags: 0

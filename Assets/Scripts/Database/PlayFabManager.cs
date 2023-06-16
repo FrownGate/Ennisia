@@ -794,18 +794,18 @@ public class PlayFabManager : MonoBehaviour
         }, OnRequestError);
     }
 
-    public void ApplyToGuild(string guild) //String needed = GuildId#GuildType
+    public void ApplyToGuild(GroupWithRoles guild)
     {
         OnLoadingStart?.Invoke();
 
         PlayFabGroupsAPI.ApplyToGroup(new()
         {
-            Group = new()
-            {
-                Id = guild.Split("#")[0],
-                Type = guild.Split("#")[1]
-            }
-        }, res => OnLoadingEnd?.Invoke(), OnRequestError);
+            Group = guild.Group
+        }, res =>
+        {
+            OnLoadingEnd?.Invoke();
+            Debug.Log("Applied successfully !");
+        }, OnRequestError);
     }
 
     public void GetGuildApplications()
@@ -954,6 +954,11 @@ public class PlayFabManager : MonoBehaviour
         {
             DisplayName = name
         }, res => OnLoadingEnd?.Invoke(), OnRequestError);
+    }
+    public void SetGender(int gender)
+    {
+        Account.Gender = gender;
+        UpdateData();
     }
     #endregion
 
