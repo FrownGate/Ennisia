@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GenderSelection : MonoBehaviour
 {
+    [SerializeField, Scene] private string _mainMenu;
     [SerializeField, Dropdown(nameof(GetGendersValues))] private int _gender;
 
     private DropdownList<int> GetGendersValues()
@@ -17,5 +18,6 @@ public class GenderSelection : MonoBehaviour
     private void OnMouseDown()
     {
         PlayFabManager.Instance.SetGender(_gender);
+        ScenesManager.Instance.SetScene(_mainMenu);
     }
 }
