@@ -45,6 +45,7 @@ public class Item
     public GearType? Type;
     public GearWeaponType? WeaponType;
     public AttributeStat? Attribute;
+    public GearSet? Set;
 
     //Json Utility
     public string JsonRarity;
