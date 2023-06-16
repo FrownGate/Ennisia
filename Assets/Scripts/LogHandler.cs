@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
-public class LogHandler : MonoBehaviour, ILogHandler
+public class LogHandler : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _promptText;
-    [SerializeField] ScrollRect _scrollView;
-    [SerializeField] int maxLogMessages = 24;
     public static LogHandler Instance { get; private set; }
-    private readonly Queue<string> _logMessagesQueue = new Queue<string>();
 
+    [SerializeField] private TextMeshProUGUI _promptText;
+    [SerializeField] private ScrollRect _scrollView;
+    [SerializeField] private int _maxLogMessages = 22;
+    [SerializeField] private Canvas _canvas;
+
+    private readonly Queue<string> _logMessagesQueue = new();
     private bool _isMessageBoxVisible = true;
 
     private void Awake()
@@ -26,8 +26,10 @@ public class LogHandler : MonoBehaviour, ILogHandler
         {
             Destroy(gameObject);
         }
+
         //Debug.unityLogger.logHandler = this;
         Application.logMessageReceived += LogMessageReceived;
+        _canvas.worldCamera = Camera.main;
     }
 
     private void OnDestroy()
@@ -37,62 +39,24 @@ public class LogHandler : MonoBehaviour, ILogHandler
 
     private void Update()
     {
+        //TODO -> use event instead ?
         InputSpaceToHideMessageBox();
-    }
-
-    public void LogFormat(LogType logType, Object context, string format, params object[] args)
-    {
-        if (logType == LogType.Error)
-        {
-            string message = String.Format(format, args);
-            _promptText.text += "\n [Error]:" + message;
-        }
-        else if (logType == LogType.Exception)
-        {
-            string message = String.Format(format, args);
-            _promptText.text += "\n [Exception]:" + message;
-        }
-        else if (logType == LogType.Log)
-        {
-            string message = String.Format(format, args);
-            _promptText.text += "\n [Log]:" + message;
-        }
-    }
-
-    public void LogException(Exception exception, Object context)
-    {
-        _promptText.text += "\n [Exception] " + exception.Message;
     }
 
     private void LogMessageReceived(string logString, string stackTrace, LogType type)
     {
-        string message = "";
-        switch (type)
-        {
-            case LogType.Error:
-                message = "\n [Error] " + logString;
-                break;
-            case LogType.Exception:
-                message = "\n [Exception] " + logString;
-                break;
-            case LogType.Log:
-                message = "\n [Log] " + logString;
-                break;
-            default:
-                message = "\n" + logString;
-                break;
-        }
-        EnqueueMessage(message);
+        EnqueueMessage($"\n [{type}] {logString}");
     }
 
     private void EnqueueMessage(string message)
     {
-        if (_logMessagesQueue.Count >= maxLogMessages)
+        //Debug.Log($"before : {_logMessagesQueue.Count}");
+        if (_logMessagesQueue.Count >= _maxLogMessages)
         {
-            Debug.Log("test");
             _logMessagesQueue.Dequeue();
         }
         _logMessagesQueue.Enqueue(message);
+        //Debug.Log($"after : {_logMessagesQueue.Count}");
         _promptText.text = string.Join("", _logMessagesQueue.ToArray());
     }
 
