@@ -33,7 +33,7 @@ public class SelectTarget : State
             Debug.LogError("Targetables is null or empty");
             yield break;
         }
-
+        BattleSystem.Player.atkBar = 0;
         //Attack Button
         if (BattleSystem.Targetables.Count == 0)
         {
@@ -67,7 +67,7 @@ public class SelectTarget : State
         }
         else
         {
-            BattleSystem.SetState(new EnemyTurn(BattleSystem));
+            BattleSystem.SetState(new CheckTurn(BattleSystem));
         }
     }
 }

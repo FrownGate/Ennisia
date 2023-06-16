@@ -25,9 +25,12 @@ public class BattleSystem : StateMachine
     public bool Selected { get; set; }
     public int Turn { get; set; }
 
-    public Entity Player { get; private set; }
+    public Entity Player { get; set; }
     public List<Entity> Enemies { get; private set; }
+    public int EnemyPlayingID { get; set; }
     public List<Entity> Targetables { get; private set; }
+
+    public AtkBarSystem AttackBarSystem { get; set; }
 
     private int _maxEnemies => 1; //Is it used ?
 
@@ -53,12 +56,22 @@ public class BattleSystem : StateMachine
         enemyPrefab.GetComponent<EnemyController>().InitEntity(); //TODO -> use serialized field
         Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
 
+
+        GameObject enemyPrefab2 = GameObject.Find("Enemyy"); //TODO -> use serialized field
+        enemyPrefab2.GetComponent<EnemyController>().InitEntity(); //TODO -> use serialized field
+        Enemies.Add(enemyPrefab2.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
+        Debug.Log(Enemies.Count);
+
         GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player"); //TODO -> use serialized field
         playerPrefab.GetComponent<PlayerController>().InitEntity(); //TODO -> use serialized field
         Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
+
+        AttackBarSystem = new AtkBarSystem(Player, Enemies);
+        AttackBarSystem.InitAtkBars();
+        UpdateEntities();
+
         SetSkillButtonsActive(true);
-        
         AssignSkillButton();
 
         foreach (var skill in Player.Skills)
@@ -84,7 +97,7 @@ public class BattleSystem : StateMachine
     {
         SetState(new SelectSpell(this, 2));
     }
-    
+
     public void SetSkillButtonsActive(bool isActive)
     {
         foreach (GameObject button in _skillsButtons)
@@ -115,7 +128,7 @@ public class BattleSystem : StateMachine
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke(); 
+            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke();
         }
     }
 
@@ -188,7 +201,7 @@ public class BattleSystem : StateMachine
             skill.PassiveBeforeAttack(Enemies, Player, Turn);
         }
         totalDamage += selectedSkill.SkillBeforeUse(Targetables, Player, Turn);
-        totalDamage += selectedSkill.Use(Targetables, Player,  Turn);
+        totalDamage += selectedSkill.Use(Targetables, Player, Turn);
         totalDamage += selectedSkill.AdditionalDamage(Targetables, Player, Turn, totalDamage);
         selectedSkill.SkillAfterDamage(Targetables, Player, Turn, totalDamage);
 
@@ -196,6 +209,15 @@ public class BattleSystem : StateMachine
         {
             skill.PassiveAfterAttack(Enemies, Player, Turn, totalDamage);
         }
+    }
+
+    public void UpdateEntities()
+    {
+        for (int i = 0; i < AttackBarSystem.AllEntities.Count - 1; i++)
+        {
+            Enemies[i] = AttackBarSystem.AllEntities[i];
+        }
+        Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count-1];
     }
 
     public void ReduceEffectDuration(List<BuffEffect> effects, List<BuffEffect> targetEffects = null)
