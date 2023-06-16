@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b491bc02e5680e468b14c7f881744dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tips:
+  _tips:
   - Use your skills to win
   - "Le saviez vous ? Le marcassin est un petit crustac\xE9"
   - Careful, damage hurt

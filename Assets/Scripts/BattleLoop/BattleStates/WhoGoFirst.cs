@@ -5,13 +5,12 @@ using UnityEngine;
 public class WhoGoFirst : State
 {
     private List<Entity> _enemiesList;
-    private List<Entity> _playerList;
-    //TODO -> replace list by Entity Player
+    private Entity _player;
 
     public WhoGoFirst(BattleSystem battleSystem) : base(battleSystem)
     {
         _enemiesList = BattleSystem.Enemies;
-        _playerList = new List<Entity> { BattleSystem.Player };
+        _player = BattleSystem.Player;
     }
 
     public override IEnumerator Start()
@@ -23,20 +22,25 @@ public class WhoGoFirst : State
 
     private void CompareSpeed()
     {
-        float enemiesSpeed = 0;
-        float playerSpeed = 0;
+        bool playerFirst = false;
+        int numberOfFasterEnemies = 0;
+        Entity fastestEnemy = null;
 
         foreach (var enemy in _enemiesList)
         {
-            enemiesSpeed += enemy.Speed;
+            if (enemy.Stats[Item.AttributeStat.Speed].Value > _player.Stats[Item.AttributeStat.Speed].Value)
+            {
+                numberOfFasterEnemies++;
+            }
+            if (fastestEnemy == null || fastestEnemy.Stats[Item.AttributeStat.Speed].Value < enemy.Stats[Item.AttributeStat.Speed].Value)
+            {
+                fastestEnemy = enemy;
+                BattleSystem.EnemyPlayingID = _enemiesList.IndexOf(enemy);
+            }
         }
 
-        foreach (var ally in _playerList)
-        {
-            playerSpeed += ally.Speed;
-        }
-
-        State state = playerSpeed > enemiesSpeed ? new PlayerTurn(BattleSystem) : new EnemyTurn(BattleSystem);
+        playerFirst = numberOfFasterEnemies == 0 ? true : false;
+        State state = playerFirst ? new PlayerTurn(BattleSystem) : new EnemyTurn(BattleSystem);
         BattleSystem.SetState(state);
 
         //TO DO: ATB system in order to decide who start 

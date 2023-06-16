@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3017f760ff84b24395c457f597e483f, type: 3}
   m_Name: Tangerine
   m_EditorClassIdentifier: 
-  Id: 5
+  Id: 6
   Name: Tangerine
   Rarity: 
-  Lore: none
+  Lore: 5% chance to successfully upgrade gear
   Icon: {fileID: 0}
   Level: 0

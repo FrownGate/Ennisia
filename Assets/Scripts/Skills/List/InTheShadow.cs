@@ -6,7 +6,7 @@ public class InTheShadow : Skill
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
         float DefIgnoredBuff = DefIgnoredBaseRatio + (StatUpgrade1 * Level);
-        player.DefIgnored = DefIgnoredBuff;
+      //  player.DefIgnored = DefIgnoredBuff; modifier
     }
 
      // to do : if enemy is debuff, #% chance to play again

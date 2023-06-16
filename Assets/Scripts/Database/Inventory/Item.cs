@@ -27,9 +27,14 @@ public class Item
 
     public enum AttributeStat //TODO -> move elsewhere
     {
-        HP, Attack, PhysicalDamages, MagicalDamages, Defense, CritRate, CritDmg, Speed, DefIgnoref, Shield
+        HP, Attack, PhysicalDamages, MagicalDamages, Defense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref, Shield
     }
     //TODO -> add magical and physical defenses
+    public enum GearSet //TODO -> move elsewhere
+    {
+        FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull, Executioner, Revitalise, ArmorOfTheDead, Herald, FairyTales, AccuracyDevice, DemonsAndHumans, VitalEngagement
+    }
+    
 
     public int Id;
     public string Stack;
@@ -40,6 +45,7 @@ public class Item
     public GearType? Type;
     public GearWeaponType? WeaponType;
     public AttributeStat? Attribute;
+    public GearSet? Set;
 
     //Json Utility
     public string JsonRarity;

@@ -8,10 +8,10 @@ public class LastHope : Skill
     public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
     {
         float healBuff = healBaseRatio + StatUpgrade1 * Level;
-        if (player.CurrentHp < player.MaxHp * 0.2f & !_isUsed)
+        if (player.CurrentHp < player.Stats[Item.AttributeStat.HP].Value * 0.2f & !_isUsed)
         {
             _isUsed = true;
-            HealingModifier = player.MaxHp * healBuff;
+            HealingModifier = player.Stats[Item.AttributeStat.HP].Value * healBuff;
         }
     }
 }
