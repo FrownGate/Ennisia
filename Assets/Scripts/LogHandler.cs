@@ -27,7 +27,7 @@
             {
                 Destroy(gameObject);
             }
-            Debug.unityLogger.logHandler = this;
+            //Debug.unityLogger.logHandler = this;
             Application.logMessageReceived += LogMessageReceived;
         }
 
