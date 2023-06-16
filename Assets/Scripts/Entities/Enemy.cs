@@ -4,11 +4,14 @@ public class Enemy : Entity
 {
     public Enemy()
     {
-/*        Attack = 20;
-        MaxHp = 5000;
-        Level = 10;
-        Speed = 200;*/
+        /*        Attack = 20;
+                MaxHp = 5000;
+                Level = 10;
+                Speed = 200;*/
+        Name = "betala";
+        Stats[Item.AttributeStat.Speed] = new(40);
         CurrentHp = Stats[Item.AttributeStat.HP].Value / 2;
+
     }
 
     public Enemy(int id, string name, Dictionary<string, int> stats, string description)

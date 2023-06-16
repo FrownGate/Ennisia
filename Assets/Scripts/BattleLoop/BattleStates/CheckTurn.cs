@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WhoGoFirst : State
+public class CheckTurn : State
 {
     private List<Entity> _enemiesList;
     private Entity _player;
+    //TODO -> replace list by Entity Player
 
-    public WhoGoFirst(BattleSystem battleSystem) : base(battleSystem)
+    public CheckTurn(BattleSystem battleSystem) : base(battleSystem)
     {
         _enemiesList = BattleSystem.Enemies;
         _player = BattleSystem.Player;
@@ -15,12 +16,14 @@ public class WhoGoFirst : State
 
     public override IEnumerator Start()
     {
-        CompareSpeed();
+        BattleSystem.AttackBarSystem.IncreaseAtkBars();
+        BattleSystem.UpdateEntities();
+        CompareAttackBars();
         //BattleSystem.SetState(new PlayerTurn(BattleSystem));
         yield return new WaitForSeconds(1.5f);
     }
 
-    private void CompareSpeed()
+    private void CompareAttackBars()
     {
         bool playerFirst = false;
         int numberOfFasterEnemies = 0;
@@ -28,17 +31,16 @@ public class WhoGoFirst : State
 
         foreach (var enemy in _enemiesList)
         {
-            if (enemy.Stats[Item.AttributeStat.Speed].Value > _player.Stats[Item.AttributeStat.Speed].Value)
+            if (enemy.atkBarPercentage > _player.atkBarPercentage)
             {
                 numberOfFasterEnemies++;
             }
-            if (fastestEnemy == null || fastestEnemy.Stats[Item.AttributeStat.Speed].Value < enemy.Stats[Item.AttributeStat.Speed].Value)
+            if (fastestEnemy == null || fastestEnemy.atkBarPercentage < enemy.atkBarPercentage)
             {
                 fastestEnemy = enemy;
                 BattleSystem.EnemyPlayingID = _enemiesList.IndexOf(enemy);
             }
         }
-
         playerFirst = numberOfFasterEnemies == 0 ? true : false;
         State state = playerFirst ? new PlayerTurn(BattleSystem) : new EnemyTurn(BattleSystem);
         BattleSystem.SetState(state);

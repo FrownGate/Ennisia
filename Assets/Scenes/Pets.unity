@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
   m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
@@ -382,6 +383,24 @@ MonoBehaviour:
   _prefabPetButton: {fileID: 3117518621713359327, guid: 2b81cf64cb748ff4ba3ea620b12230d0, type: 3}
   _petPopup: {fileID: 848641332}
   _buttonsContainer: {fileID: 873556148}
+--- !u!1 &613282085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2063912074984702219, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+  m_PrefabInstance: {fileID: 848641330}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &613282090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613282085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720685d5558e4d54da8ff6995491fb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showPets: {fileID: 559282115}
 --- !u!1001 &829339492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -504,6 +523,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 559282114}
     m_Modifications:
+    - target: {fileID: 202465849097412527, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_text
+      value: XP
+      objectReference: {fileID: 0}
+    - target: {fileID: 202465849097412527, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 202465849097412527, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 202465849097412527, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 202465849097412527, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 227769478935616379, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_Name
       value: PetInfo
@@ -511,6 +550,26 @@ PrefabInstance:
     - target: {fileID: 227769478935616379, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 939890508129021452, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: _showpet
+      value: 
+      objectReference: {fileID: 559282115}
+    - target: {fileID: 3074740271300163568, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.462
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074740271300163568, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408099836403074622, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408099836403074622, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 3732013889888990723, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_RootOrder
@@ -556,10 +615,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5609199982702460616, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5609199982702460616, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      propertyPath: m_Colors.m_FadeDuration
+      value: 17.23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3204613469207588907, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2063912074984702219, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613282090}
   m_SourcePrefab: {fileID: 100100000, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
 --- !u!4 &848641331 stripped
 Transform:
