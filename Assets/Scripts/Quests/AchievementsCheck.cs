@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class AchievementsCheck : MonoBehaviour
 {
-    // COPY PASTE FROM DAILIES  
-
-
+    //TODO -> Move to parent script
     public int goldAmount;
     public int crystalsAmount;
 
+    //TODO -> Move to parent script
     public int dungeonNeeded;
     public int mainStoryNeeded;
     public int gearUpgradeNeeded;
@@ -19,6 +15,7 @@ public class AchievementsCheck : MonoBehaviour
 
     //using events for every type of action in the game to manage the counts could be better
 
+    //TODO -> Move to parent script
     int _dungeonCount;
     int _mainStoryCount;
     int _gearUpgradeCount;
