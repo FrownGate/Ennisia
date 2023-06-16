@@ -422,6 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scene: MainMenu
+  _params: 
 --- !u!61 &617250160
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1048,14 +1049,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1462893525959807770, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 1462893525959807770, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
-      propertyPath: m_overrideHtmlColors
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1794940249989508404, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -1122,7 +1115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1933850075424408567, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 640.91736
+      value: -1268.3711
       objectReference: {fileID: 0}
     - target: {fileID: 2670927886711860959, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
       propertyPath: m_AnchorMax.x

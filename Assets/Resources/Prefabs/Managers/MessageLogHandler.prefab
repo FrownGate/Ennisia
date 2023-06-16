@@ -242,7 +242,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _promptText: {fileID: 1462893525959807770}
   _scrollView: {fileID: 3761056981905403275}
-  maxLogMessages: 100
+  maxLogMessages: 24
 --- !u!1 &5107231948764222896
 GameObject:
   m_ObjectHideFlags: 0
