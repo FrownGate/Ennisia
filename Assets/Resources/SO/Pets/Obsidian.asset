@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3017f760ff84b24395c457f597e483f, type: 3}
   m_Name: Obsidian
   m_EditorClassIdentifier: 
-  Id: 4
+  Id: 7
   Name: Obsidian
   Rarity: 
-  Lore: none
+  Lore: 2% to control points gained.
   Icon: {fileID: 0}
   Level: 0

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3017f760ff84b24395c457f597e483f, type: 3}
   m_Name: Yuki
   m_EditorClassIdentifier: 
-  Id: 1
+  Id: 3
   Name: Yuki
-  Rarity: Rare
-  Lore: none
+  Rarity: 
+  Lore: 5% to gold rewards gained.
   Icon: {fileID: 0}
   Level: 0
