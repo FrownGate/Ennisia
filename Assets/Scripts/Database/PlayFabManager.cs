@@ -40,10 +40,14 @@ public class PlayFabManager : MonoBehaviour
 
     //Guilds events
     public static event Action<List<GroupWithRoles>> OnGetGuilds;
+    public static event Action<List<EntityMemberRole>> OnGetGuildMembers;
     public static event Action<List<GroupApplication>> OnGetApplications;
     public static event Action<List<GroupInvitation>> OnGetInvitations;
 
     public Data Data { get; private set; } //Account, Player and Inventory datas
+    public AccountData Account { get => Data.Account; }
+    public PlayerData Player { get => Data.Player; }
+    public InventoryData Inventory { get => Data.Inventory; }
     public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
     public int Energy { get; private set; } //Player's energy
 
@@ -332,8 +336,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnInitFileUploads(InitiateFileUploadsResponse response)
     {
-        byte[] payload = Encoding.UTF8.GetBytes(JsonUtility.ToJson(Data));
-        PlayFabHttp.SimplePutCall(response.UploadDetails[0].UploadUrl, payload, success => UploadFiles(), error => Debug.LogError(error));
+        PlayFabHttp.SimplePutCall(response.UploadDetails[0].UploadUrl, Data.Serialize(), success => UploadFiles(), error => Debug.LogError(error));
     }
 
     private void UploadFiles()
@@ -413,6 +416,7 @@ public class PlayFabManager : MonoBehaviour
             }
         }
 
+        Data.UpdateEquippedGears();
         GetPlayerGuild();
     }
 
@@ -427,25 +431,12 @@ public class PlayFabManager : MonoBehaviour
             if (PlayerGuild != null)
             {
                 Debug.Log($"Player is a member of Guild {PlayerGuild.GroupName}.");
-                GetGuildMembers();
+                GetGuildMembers(PlayerGuild);
                 return;
             }
             
             CompleteLogin();
 
-        }, OnRequestError);
-    }
-
-    private void GetGuildMembers()
-    {
-        PlayFabGroupsAPI.ListGroupMembers(new()
-        {
-            Group = PlayerGuild.Group
-        }, res =>
-        {
-            PlayerGuildMembers = res.Members;
-            CompleteLogin();
-            OnLoadingEnd?.Invoke();
         }, OnRequestError);
     }
 
@@ -625,13 +616,6 @@ public class PlayFabManager : MonoBehaviour
         //        break;
         //    }
         //}
-    }
-
-    public void UpdateEquippedGears(Gear gear, bool unequip = false)
-    {
-        int slot = gear.Category == Item.ItemCategory.Weapon ? 6 : (int)gear.Type;
-        Data.Player.EquippedGears[slot] = !unequip ? gear.Id : 0;
-        UpdateData();
     }
     #endregion
 
@@ -924,6 +908,22 @@ public class PlayFabManager : MonoBehaviour
             }
         }, res => OnLoadingEnd?.Invoke(), OnRequestError);
     }
+
+    public void GetGuildMembers(GroupWithRoles guild)
+    {
+        OnLoadingStart?.Invoke();
+
+        PlayFabGroupsAPI.ListGroupMembers(new()
+        {
+            Group = guild.Group
+        }, res =>
+        {
+            PlayerGuildMembers = res.Members;
+            CompleteLogin();
+            OnLoadingEnd?.Invoke();
+            OnGetGuildMembers?.Invoke(res.Members);
+        }, OnRequestError);
+    }
     #endregion
 
     #region Account
@@ -999,10 +999,9 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
         //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
 
-        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/PureInnocence");
+        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
         //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
         //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
-        //gear.Equip();
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
 
@@ -1010,5 +1009,26 @@ public class PlayFabManager : MonoBehaviour
         //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
 
         //CreateGuild("Test");
+
+        //foreach (var item in Player.EquippedGears)
+        //{
+        //    Debug.Log(item.Key);
+
+        //    if (item.Value != null)
+        //    {
+        //        Debug.Log(item.Value.Name);
+        //    }
+        //}
+
+        //SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/2-Theaume");
+        //Player.Equip(support);
+        //Debug.Log(Player.EquippedSupports[0] != null ? Player.EquippedSupports[0].Name : "Empty");
+
+        //Player.Unequip(0);
+        //Debug.Log(Player.EquippedSupports[0] != null ? Player.EquippedSupports[0].Name : "Empty");
+
+        //Debug.Log(Player.EquippedGears[Item.GearType.Weapon] != null ? Player.EquippedGears[Item.GearType.Weapon].Name : "Empty");
+        //Player.Unequip(Item.GearType.Weapon);
+        //Debug.Log(Player.EquippedGears[Item.GearType.Weapon] != null ? Player.EquippedGears[Item.GearType.Weapon].Name : "Empty");
     }
 }

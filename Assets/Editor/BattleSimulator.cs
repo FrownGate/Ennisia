@@ -269,6 +269,17 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDamage"));
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));
 
+        //TODO -> try this kind of optimization
+        //EnemyLoader enemyLoader = new();
+        //_enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
+
+        //List<DropdownField> enemiesDropdown = new();
+
+        //foreach (Enemy enemy in _enemies)
+        //{
+        //    enemiesDropdown.Add(root.Q<DropdownField>(enemy.Name));
+        //}
+
         _firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
         _secondEnemyDropdown = root.Q<DropdownField>("second-enemy-dropdown");
         _thirdEnemyDropdown = root.Q<DropdownField>("third-enemy-dropdown");
@@ -298,6 +309,14 @@ public class BattleSimulator : EditorWindow
 
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
+
+        //List<DropdownField> enemiesDropdown = new();
+
+        //foreach (DropdownField field in enemiesDropdown)
+        //{
+        //    field.choices.Add("No Enemy");
+        //    field.choices.Add(field.name);
+        //}
 
         foreach (Enemy enemy in _enemies)
         {
@@ -607,13 +626,25 @@ public class BattleSimulator : EditorWindow
     {
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
 
-        foreach (var item in enemy.GetAllStats())
+        //Old version
+        //foreach (var item in enemy.GetAllStats())
+        //{
+        //    foreach (var field in enemyStatsField)
+        //    {
+        //        if (field.name == item.Key)
+        //        {
+        //            field.SetValueWithoutNotify(item.Value);
+        //        }
+        //    }
+        //}
+
+        foreach (var item in enemy.Stats)
         {
             foreach (var field in enemyStatsField)
             {
-                if (field.name == item.Key)
+                if (field.name == item.Key.ToString())
                 {
-                    field.SetValueWithoutNotify(item.Value);
+                    field.SetValueWithoutNotify((int)item.Value.Value);
                 }
             }
         }

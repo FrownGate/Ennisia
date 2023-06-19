@@ -15,11 +15,12 @@ MonoBehaviour:
   Id: 3
   Name: Crimson Moon
   Level: 1
-  Type: 8
+  Type: 6
   Rarity: 0
   Attribute: 6
   StatValue: 0
   Description: none
+  Weapon: 2
   IsMagic: 1
   FirstSkillData: {fileID: 11400000, guid: cf77b1bd17edbe0489d77790ebc3ad99, type: 2}
   SecondSkillData: {fileID: 11400000, guid: 5b7a74314b0a4594399781e31607fd66, type: 2}

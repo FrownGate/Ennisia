@@ -17,27 +17,41 @@ public class Item
 
     public enum GearType
     {
-        Helmet, Chest, Boots, Earrings, Necklace, Ring,
+        Helmet, Chest, Boots, Earrings, Necklace, Ring, Weapon
+    }
+
+    public enum GearWeaponType
+    {
         Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
     }
 
-    public enum AttributeStat
+    public enum AttributeStat //TODO -> move elsewhere
     {
-        PhysicalDamages, MagicalDamages, Attack, HP, Defense, CritRate, CritDmg, Speed
+        HP, Attack, PhysicalDamages, MagicalDamages, Defense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref, Shield
     }
+    //TODO -> add magical and physical defenses
+    public enum GearSet //TODO -> move elsewhere
+    {
+        FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull, Executioner, Revitalise, ArmorOfTheDead, Herald, FairyTales, AccuracyDevice, DemonsAndHumans, VitalEngagement
+    }
+    
 
+    public int Id;
     public string Stack;
     public string Name;
     public int Amount; //Amount of item to add
     public ItemRarity? Rarity;
     public ItemCategory? Category;
     public GearType? Type;
+    public GearWeaponType? WeaponType;
     public AttributeStat? Attribute;
+    public GearSet? Set;
 
     //Json Utility
     public string JsonRarity;
     public string JsonCategory;
     public string JsonType;
+    public string JsonWeapon;
     public string JsonAttribute;
 
     protected void AddToInventory()
@@ -71,6 +85,7 @@ public class Item
         JsonRarity = Rarity.ToString();
         JsonCategory = Category.ToString();
         JsonType = Type.ToString();
+        JsonWeapon = WeaponType.ToString();
         JsonAttribute = Attribute.ToString();
     }
 
@@ -79,6 +94,7 @@ public class Item
         Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<ItemRarity>(JsonRarity);
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
         Type = string.IsNullOrEmpty(JsonType) ? null : Enum.Parse<GearType>(JsonType);
+        WeaponType = string.IsNullOrEmpty(JsonWeapon) ? null : Enum.Parse<GearWeaponType>(JsonWeapon);
         Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<AttributeStat>(JsonAttribute);
     }
 

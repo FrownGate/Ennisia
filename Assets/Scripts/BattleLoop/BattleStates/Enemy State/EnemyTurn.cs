@@ -9,13 +9,14 @@ public class EnemyTurn : State
     {
         BattleSystem.ResetSelectedEnemies();
         BattleSystem.SetSkillButtonsActive(false);
-        BattleSystem.DialogueText.text = "Enemy turn";
-        BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
-        BattleSystem.Player.ApplyEffect(new SILENCE(4,BattleSystem.Player));
-        
-        yield return new WaitForSeconds(0.5f);
+        BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
+        BattleSystem.Enemies[BattleSystem.EnemyPlayingID].atkBar = 0;
+        //BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
+        //BattleSystem.Player.ApplyEffect(new SILENCE(4,BattleSystem.Player));
 
-        BattleSystem.SetState(new PlayerTurn(BattleSystem));
+        yield return new WaitForSeconds(1f);
+
+        BattleSystem.SetState(new CheckTurn(BattleSystem));
     }
 
     public override IEnumerator Attack()

@@ -13,9 +13,9 @@ public class CSVToSO : EditorWindow
     private static int _currentLine;
     private static int _lines;
 
-    enum TypeCSV 
+    enum TypeCSV
     {
-        supports, skills, equipment, weapons, missions, chapters
+        supports, skills, equipment, weapons, missions, chapters, pets, quests
     }
 
     [MenuItem("Tools/CSV to SO")]
@@ -23,7 +23,6 @@ public class CSVToSO : EditorWindow
     {
         GetWindow<CSVToSO>("CSV to SO");
     }
-
     private void OnGUI()
     {
         GUILayout.Label("Create Scriptable Objects from CSV", EditorStyles.boldLabel);
@@ -57,6 +56,16 @@ public class CSVToSO : EditorWindow
         if (GUILayout.Button("Missions"))
         {
             CreateScriptableObjectsFromCSV(TypeCSV.missions, "Mission");
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Pets"))
+        {
+            CreateScriptableObjectsFromCSV(TypeCSV.pets, "Pets");
+        }
+        GUILayout.Space(25);
+        if (GUILayout.Button("Quests"))
+        {
+            CreateScriptableObjectsFromCSV(TypeCSV.quests, "Quests");
         }
     }
     private void CreateScriptableObjectsFromCSV(TypeCSV type, string fileName)
@@ -152,6 +161,12 @@ public class CSVToSO : EditorWindow
                     case TypeCSV.chapters:
                         CreateChapterSO(rowData);
                         break;
+                    case TypeCSV.pets:
+                        CreatePetSO(rowData);
+                        break;
+                    case TypeCSV.quests:
+                        CreateQuestSO(rowData);
+                        break;
                     default:
                         break;
                 }
@@ -175,7 +190,6 @@ public class CSVToSO : EditorWindow
         }
         return MissionManager.MissionType.MainStory;
     }
-
     private static void LoadSkillSOs()
     {
         _skillSOMap = new Dictionary<int, SkillSO>();
@@ -191,17 +205,19 @@ public class CSVToSO : EditorWindow
     {
         int skillId;
         if (int.TryParse(rowData[skillKey], out skillId) && skillId != 0)
-    {
-        if (_skillSOMap.TryGetValue(skillId, out SkillSO skill))
         {
-            skillData = skill;
+            if (_skillSOMap.TryGetValue(skillId, out SkillSO skill))
+            {
+                skillData = skill;
+            }
+            else
+            {
+                Debug.LogError($"Skill with ID {skillId} not found.");
+            }
         }
-        else
-{
-    Debug.LogError($"Skill with ID {skillId} not found.");
-}
     }
-}
+
+    #region CreateSO 
     private static void CreateSupportSO(Dictionary<string, string> rowData)
     {
         SupportCharacterSO scriptableObject = CreateInstance<SupportCharacterSO>();
@@ -220,9 +236,6 @@ public class CSVToSO : EditorWindow
         string savePath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}/{scriptableObject.Id}-{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
-
-
-
     private static void CreateSkillDataSO(Dictionary<string, string> rowData)
     {
         SkillSO scriptableObject = CreateInstance<SkillSO>();
@@ -270,12 +283,11 @@ public class CSVToSO : EditorWindow
             // Refresh the AssetDatabase to detect the newly created .cs file
             AssetDatabase.Refresh();
         }
-        
-    }
 
+    }
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
     {
-        string[] rarities = new string[4] { "Common", "Rare", "Epic", "Legendary" };
+        string[] rarities = Enum.GetNames(typeof(Item.ItemRarity));
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
         {
@@ -304,20 +316,20 @@ public class CSVToSO : EditorWindow
             valueSO.MinValue = int.Parse(rowData[$"{rarities[i].ToLower()}Min"]);
             valueSO.MaxValue = int.Parse(rowData[$"{rarities[i].ToLower()}Max"]);
 
-            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rowData["type"]}_{rarities[i]}_{rowData["attribute"]}.asset";
+            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rarities[i]}_{rowData["attribute"]}.asset";
             AssetDatabase.CreateAsset(valueSO, savePath);
         }
     }
-
     private static void CreateWeaponSO(Dictionary<string, string> rowData)
     {
         GearSO scriptableObject = CreateInstance<GearSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Type = Item.GearType.Weapon;
 
-        if (Enum.TryParse(rowData["Type"], out Item.GearType type))
+        if (Enum.TryParse(rowData["Type"], out Item.GearWeaponType type))
         {
-            scriptableObject.Type = type;
+            scriptableObject.WeaponType = type;
         }
         else
         {
@@ -346,10 +358,6 @@ public class CSVToSO : EditorWindow
         string savePath = $"Assets/Resources/SO/Weapons/{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
-
-
-
-
     private static void CreateMissionSO(Dictionary<string, string> rowData, MissionManager.MissionType type)
     {
         MissionSO scriptableObject = CreateInstance<MissionSO>();
@@ -359,9 +367,10 @@ public class CSVToSO : EditorWindow
         scriptableObject.Unlocked = rowData["Unlocked"] == "VRAI";
 
         Dictionary<int, string> waves = new();
-        HashSet<string> enemies = new HashSet<string>(); // Use HashSet to avoid duplicates
-        int waveCount = 1;
-        for (int i = 1; i <= 3; i++)
+        HashSet<string> enemies = new(); // Use HashSet to avoid duplicates
+        int waveCount = 0;
+        int i = 1;
+        while (rowData.ContainsKey($"Wave{i}"))
         {
             string wave = rowData[$"Wave{i}"];
             if (!wave.Equals("none"))
@@ -375,6 +384,7 @@ public class CSVToSO : EditorWindow
                     enemies.Add(enemy);
                 }
             }
+            i++;
         }
         scriptableObject.Waves = waves;
         scriptableObject.WavesCount = waveCount;
@@ -402,4 +412,39 @@ public class CSVToSO : EditorWindow
         string savePath = $"Assets/Resources/SO/Chapters/Act {scriptableObject.ActId}/Chapter-{scriptableObject.Id}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
+    private static void CreatePetSO(Dictionary<string, string> rowData)
+    {
+        PetSO scriptableObject = CreateInstance<PetSO>();
+        scriptableObject.Id = int.Parse(rowData["ID"]);
+        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Lore = rowData["Lore"];
+
+        string savePath = $"Assets/Resources/SO/Pets/{scriptableObject.Name}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
+    }
+    private static void CreateQuestSO(Dictionary<string, string> rowData)
+    {
+        QuestSO scriptableObject = CreateInstance<QuestSO>();
+        scriptableObject.ID = int.Parse(rowData["ID"]);
+        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Description = rowData["Description"];
+        scriptableObject.Energy = int.Parse(rowData["Energy"]);
+
+        List<KeyValuePair<string,string>> currencies = rowData.ToList();
+        for (int i = 4; i < rowData.Count; i++)
+        {
+            string type = currencies[i].Key;
+            if (Enum.TryParse(type, out PlayFabManager.Currency currencyType))
+            {
+                Debug.Log(type);
+
+                scriptableObject.currencyList.Add(currencyType, int.Parse(rowData[type]));
+
+            }
+        }
+
+        string savePath = $"Assets/Resources/SO/Quests/{scriptableObject.ID}-{scriptableObject.Name}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
+    }
+#endregion
 }

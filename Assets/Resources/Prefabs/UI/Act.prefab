@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetActId: 1
   ButtonPrefab: {fileID: 1603812366237226805, guid: ee2b417468b826646bf70ca313d49201, type: 3}
+  scene: StoryChapter
 --- !u!114 &2276363751664845164
 MonoBehaviour:
   m_ObjectHideFlags: 0

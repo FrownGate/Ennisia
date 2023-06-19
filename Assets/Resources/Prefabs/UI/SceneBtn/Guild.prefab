@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 9137348858223748454}
   - component: {fileID: 9052471431639984263}
   - component: {fileID: 2870522328493383319}
-  - component: {fileID: 845642233363102026}
+  - component: {fileID: 967859118263007313}
   m_Layer: 5
   m_Name: Guild
   m_TagString: Untagged
@@ -201,7 +201,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 150, y: 150}
   m_EdgeRadius: 0
---- !u!114 &845642233363102026
+--- !u!114 &967859118263007313
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,6 +210,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5458420128247901845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 38fb6317dcd8db44eb399d160d0c962c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerGuild: PlayerGuild
+  _guildsList: GuildsList

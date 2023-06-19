@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,7 +8,7 @@ public class MissionManager : MonoBehaviour
 {
     public enum MissionType
     {
-        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition
+        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
     }
 
     public enum MissionState
@@ -18,7 +19,6 @@ public class MissionManager : MonoBehaviour
     public static MissionManager Instance { get; private set; }
     public static event Action<MissionSO> OnMissionStart; //Not used yet
     public static event Action<MissionSO> OnMissionComplete; //Not used yet
-
     public ChapterSO CurrentChapter { get; private set; }
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
@@ -206,5 +206,9 @@ public class MissionManager : MonoBehaviour
         return missions;
     }
 
-
+    public void ResetMissionManager()
+    {
+       CurrentMission = null;
+        CurrentChapter = null;
+    }
 }
