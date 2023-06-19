@@ -7,12 +7,12 @@ public class Item
 {
     public enum ItemRarity
     {
-        Common, Rare, Epic, Legendary
+        Common, Rare, Epic, Legendary, None
     }
 
     public enum ItemCategory
     {
-        Weapon, Armor, Accessory
+        Weapon, Armor, Accessory, None
     }
 
     public enum GearType
