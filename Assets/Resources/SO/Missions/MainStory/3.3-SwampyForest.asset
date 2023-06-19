@@ -18,8 +18,11 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  WavesCount: 6
+  Enemies:
+  - Red Slime
+  - 
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 3
+  Experience: 10

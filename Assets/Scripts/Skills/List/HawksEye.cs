@@ -8,4 +8,9 @@ public class HawksEye : Skill
         //give additional turn
         return 0;
     }
+
+    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
+    {
+        player.atkBarPercentage = 100;
+    }
 }
