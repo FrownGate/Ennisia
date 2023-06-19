@@ -295,13 +295,10 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
 
         // Set Base value for the foldouts
-        //TODO -> use loop function
-        _firstEnemyFoldout.text = "Enemy Stats";
-        _secondEnemyFoldout.text = "Enemy Stats";
-        _thirdEnemyFoldout.text = "Enemy Stats";
-        _fourthEnemyFoldout.text = "Enemy Stats";
-        _fifthEnemyFoldout.text = "Enemy Stats";
-        _sixthEnemyFoldout.text = "Enemy Stats";
+        foreach (Foldout foldout in _enemiesFoldout)
+        {
+            foldout.text = "Enemy Stats";
+        }
     }
 
     public void OnGUI()
