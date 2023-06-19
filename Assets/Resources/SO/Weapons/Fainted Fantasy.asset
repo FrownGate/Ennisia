@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Fainted Fantasy
   m_EditorClassIdentifier: 
-  Id: 7
+  Id: 8
   Name: Fainted Fantasy
   Level: 1
   Type: 6
   Rarity: 0
-  Attribute: 2
+  Attribute: 1
   StatValue: 0
   Description: none
-  Weapon: 6
+  WeaponType: 6
   IsMagic: 1
   FirstSkillData: {fileID: 11400000, guid: ce0eafad73515bd48933fee90c193d7f, type: 2}
   SecondSkillData: {fileID: 11400000, guid: 4967bd2fd15859d42859420c70231f7f, type: 2}
