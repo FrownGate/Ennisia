@@ -85,7 +85,7 @@ public class BattleSimulator : EditorWindow
     private readonly List<IntegerField> _fifthEnemyStatsField = new();
     private readonly List<IntegerField> _sixthEnemyStatsField = new();
 
-    private Button _simulateButton; //Used ?
+    private Button _simulateButton;
 
     [MenuItem("Tools/Battle Simulator")]
     public static void ShowWindow()
@@ -110,6 +110,8 @@ public class BattleSimulator : EditorWindow
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
         TemplateContainer labelFromUXML = visualTree.CloneTree();
         root.Add(labelFromUXML);
+
+        _simulateButton = root.Q<Button>("simulate-button");
 
         _firstSupportGroupBox = root.Q<GroupBox>("FirstSupport");
         _secondSupportGroupBox = root.Q<GroupBox>("SecondSupport");
@@ -293,6 +295,7 @@ public class BattleSimulator : EditorWindow
 
     public void OnGUI()
     {
+
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
@@ -660,6 +663,11 @@ public class BattleSimulator : EditorWindow
 
     private void OnInspectorUpdate()
     {
-        Repaint();
+        // Repaint();
+        _simulateButton.clicked += () =>
+        {
+            Instance.SimulateBattle();
+            Debug.Log("Simulate");
+        };
     }
 }

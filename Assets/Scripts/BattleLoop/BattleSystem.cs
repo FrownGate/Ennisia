@@ -58,7 +58,7 @@ public class BattleSystem : StateMachine
         Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
 
         SetSkillButtonsActive(true);
-        
+
         AssignSkillButton();
 
         foreach (var skill in Player.Skills)
@@ -67,7 +67,7 @@ public class BattleSystem : StateMachine
         }
 
         SetState(new WhoGoFirst(this));
-        //SimulateBattle();
+        // SimulateBattle();
     }
 
     public void OnAttackButton()
@@ -84,7 +84,7 @@ public class BattleSystem : StateMachine
     {
         SetState(new SelectSpell(this, 2));
     }
-    
+
     public void SetSkillButtonsActive(bool isActive)
     {
         foreach (GameObject button in _skillsButtons)
@@ -115,7 +115,7 @@ public class BattleSystem : StateMachine
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke(); 
+            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke();
         }
     }
 
@@ -150,7 +150,7 @@ public class BattleSystem : StateMachine
         }
     }
 
-    private void SimulateBattle()
+    public void SimulateBattle()
     {
         SetState(new AutoBattle(this));
     }
@@ -188,7 +188,7 @@ public class BattleSystem : StateMachine
             skill.PassiveBeforeAttack(Enemies, Player, Turn);
         }
         totalDamage += selectedSkill.SkillBeforeUse(Targetables, Player, Turn);
-        totalDamage += selectedSkill.Use(Targetables, Player,  Turn);
+        totalDamage += selectedSkill.Use(Targetables, Player, Turn);
         totalDamage += selectedSkill.AdditionalDamage(Targetables, Player, Turn, totalDamage);
         selectedSkill.SkillAfterDamage(Targetables, Player, Turn, totalDamage);
 
