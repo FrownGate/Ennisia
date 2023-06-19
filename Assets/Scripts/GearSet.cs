@@ -1,24 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GearSet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Item.GearSet?[] sets;
 
-    private void CheckGearSet() 
+    private void CheckGearSet()
     {
-        int[] sets;
-        for(int i = 0;i<7;i++)
+        for(int i = 0; i < 7; i++)
         {
-            //PlayFabManager.Instance.Player.EquippedGears[i].
+            //sets[i] = PlayFabManager.Instance.Player.EquippedGears[i].Set;
         }
-        
-        
-
     }
 }
+
