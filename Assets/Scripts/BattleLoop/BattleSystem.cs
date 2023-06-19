@@ -167,6 +167,10 @@ public class BattleSystem : StateMachine
     {
         SetState(new AutoBattle(this));
     }
+    public void SimulateBattle(Player player, List<Enemy> enemies)
+    {
+        SetState(new AutoBattle(this));
+    }
 
     public bool PlayerIsDead()
     {

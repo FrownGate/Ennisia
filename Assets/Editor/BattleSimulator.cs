@@ -12,6 +12,10 @@ public class BattleSimulator : EditorWindow
     private List<GearSO> _weapons = new();
     private List<Enemy> _enemies = new();
     private List<GearSO> _gears = new();
+    private List<Enemy> _selectedEnemies = new();
+    private List<SupportCharacterSO> _selectedSupports = new();
+    private List<GearSO> _selectedGears = new();
+    private GearSO _selectedWeapon;
 
     // GEARS
     private GroupBox _helmetGroupBox;
@@ -71,12 +75,14 @@ public class BattleSimulator : EditorWindow
     private DropdownField _fourthEnemyDropdown;
     private DropdownField _fifthEnemyDropdown;
     private DropdownField _sixthEnemyDropdown;
+    private List<DropdownField> _enemiesDropdown = new();
     private Foldout _firstEnemyFoldout;
     private Foldout _secondEnemyFoldout;
     private Foldout _thirdEnemyFoldout;
     private Foldout _fourthEnemyFoldout;
     private Foldout _fifthEnemyFoldout;
     private Foldout _sixthEnemyFoldout;
+    private List<Foldout> _enemiesFoldout = new();
 
     private readonly List<IntegerField> _firstEnemyStatsField = new();
     private readonly List<IntegerField> _secondEnemyStatsField = new();
@@ -84,6 +90,12 @@ public class BattleSimulator : EditorWindow
     private readonly List<IntegerField> _fourthEnemyStatsField = new();
     private readonly List<IntegerField> _fifthEnemyStatsField = new();
     private readonly List<IntegerField> _sixthEnemyStatsField = new();
+    private readonly Dictionary<DropdownField, List<IntegerField>> _firstEnemyInfo = new();
+    private readonly Dictionary<DropdownField, List<IntegerField>> _secondEnemyInfo = new();
+    private readonly Dictionary<DropdownField, List<IntegerField>> _thirdEnemyInfo = new();
+    private readonly Dictionary<DropdownField, List<IntegerField>> _fourthEnemyInfo = new();
+    private readonly Dictionary<DropdownField, List<IntegerField>> _fifthEnemyInfo = new();
+    private readonly Dictionary<DropdownField, List<IntegerField>> _sixthEnemyInfo = new();
 
     private Button _simulateButton;
 
@@ -269,17 +281,6 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDmg"));
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));
 
-        //TODO -> try this kind of optimization
-        //EnemyLoader enemyLoader = new();
-        //_enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
-
-        //List<DropdownField> enemiesDropdown = new();
-
-        //foreach (Enemy enemy in _enemies)
-        //{
-        //    enemiesDropdown.Add(root.Q<DropdownField>(enemy.Name));
-        //}
-
         _firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
         _secondEnemyDropdown = root.Q<DropdownField>("second-enemy-dropdown");
         _thirdEnemyDropdown = root.Q<DropdownField>("third-enemy-dropdown");
@@ -287,12 +288,26 @@ public class BattleSimulator : EditorWindow
         _fifthEnemyDropdown = root.Q<DropdownField>("fifth-enemy-dropdown");
         _sixthEnemyDropdown = root.Q<DropdownField>("sixth-enemy-dropdown");
 
+        _enemiesDropdown.Add(_firstEnemyDropdown);
+        _enemiesDropdown.Add(_secondEnemyDropdown);
+        _enemiesDropdown.Add(_thirdEnemyDropdown);
+        _enemiesDropdown.Add(_fourthEnemyDropdown);
+        _enemiesDropdown.Add(_fifthEnemyDropdown);
+        _enemiesDropdown.Add(_sixthEnemyDropdown);
+
         _firstEnemyFoldout = root.Q<Foldout>("first-enemy-foldout");
         _secondEnemyFoldout = root.Q<Foldout>("second-enemy-foldout");
         _thirdEnemyFoldout = root.Q<Foldout>("third-enemy-foldout");
         _fourthEnemyFoldout = root.Q<Foldout>("fourth-enemy-foldout");
         _fifthEnemyFoldout = root.Q<Foldout>("fifth-enemy-foldout");
         _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
+
+        _enemiesFoldout.Add(_firstEnemyFoldout);
+        _enemiesFoldout.Add(_secondEnemyFoldout);
+        _enemiesFoldout.Add(_thirdEnemyFoldout);
+        _enemiesFoldout.Add(_fourthEnemyFoldout);
+        _enemiesFoldout.Add(_fifthEnemyFoldout);
+        _enemiesFoldout.Add(_sixthEnemyFoldout);
 
         // Set Base value for the foldouts
         foreach (Foldout foldout in _enemiesFoldout)
@@ -307,32 +322,17 @@ public class BattleSimulator : EditorWindow
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
-        //List<DropdownField> enemiesDropdown = new();
-
-        //foreach (DropdownField field in enemiesDropdown)
-        //{
-        //    field.choices.Add("No Enemy");
-        //    field.choices.Add(field.name);
-        //}
-
-        foreach (Enemy enemy in _enemies)
+        foreach (DropdownField field in _enemiesDropdown)
         {
-            _firstEnemyDropdown.choices.Add("No Enemy");
-            _firstEnemyDropdown.choices.Add(enemy.Name);
-            _secondEnemyDropdown.choices.Add("No Enemy");
-            _secondEnemyDropdown.choices.Add(enemy.Name);
-            _thirdEnemyDropdown.choices.Add("No Enemy");
-            _thirdEnemyDropdown.choices.Add(enemy.Name);
-            _fourthEnemyDropdown.choices.Add("No Enemy");
-            _fourthEnemyDropdown.choices.Add(enemy.Name);
-            _fifthEnemyDropdown.choices.Add("No Enemy");
-            _fifthEnemyDropdown.choices.Add(enemy.Name);
-            _sixthEnemyDropdown.choices.Add("No Enemy");
-            _sixthEnemyDropdown.choices.Add(enemy.Name);
+            foreach (Enemy enemy in _enemies)
+            {
+                field.choices.Add("No Enemy");
+                field.choices.Add(enemy.Name);
+            }
         }
 
         _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
-
+        // TODO: Refactore it
         foreach (SupportCharacterSO support in _supports)
         {
             _firstSupportDropdown.choices.Add("No Support");
@@ -382,6 +382,7 @@ public class BattleSimulator : EditorWindow
         }
 
         ChangeFoldoutOnDropdown();
+
     }
 
     private void ChangeFoldoutOnDropdown()
@@ -527,6 +528,11 @@ public class BattleSimulator : EditorWindow
         });
 
         // ENEMIES
+        // TODO: change _firstEnemyDropdown to a looped value by a foreach 
+        // which will be contained in a List of all EnemyDropdown type
+        // and 
+        // loop through the EnemyStatsFields corresponding to give it to the ChangeFieldsOfEnemy
+        // --> do it to all the fields changes requested
         _firstEnemyDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != "No Enemy")
@@ -535,6 +541,7 @@ public class BattleSimulator : EditorWindow
                 _firstEnemyFoldout.text = evt.newValue;
 
                 ChangeFieldsOfEnemy(evt.newValue, _firstEnemyStatsField);
+
             }
             else
             {
@@ -622,19 +629,12 @@ public class BattleSimulator : EditorWindow
     private void ChangeFieldsOfEnemy(string enemyName, List<IntegerField> enemyStatsField)
     {
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
-
-        //Old version
-        //foreach (var item in enemy.GetAllStats())
-        //{
-        //    foreach (var field in enemyStatsField)
-        //    {
-        //        if (field.name == item.Key)
-        //        {
-        //            field.SetValueWithoutNotify(item.Value);
-        //        }
-        //    }
-        //}
-
+        _selectedEnemies.Add(enemy);
+        foreach (Enemy item in _selectedEnemies)
+        {
+            Debug.LogWarning(item.Name);
+        }
+        int i = 0;
         foreach (var stat in enemy.Stats)
         {
             foreach (var field in enemyStatsField)
