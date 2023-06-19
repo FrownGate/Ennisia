@@ -12,7 +12,7 @@ public class GustofPrecision : Skill
 
     float AddCritRate(float input)
     {
-        return input + 15;
+        return input + 25;
     }
 
     public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
