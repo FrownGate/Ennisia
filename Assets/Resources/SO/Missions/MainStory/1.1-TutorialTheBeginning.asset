@@ -18,10 +18,12 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 3
+  WavesCount: 6
   Enemies:
   - Wolf
-  - Wolf Pack Leader
+  - 
+  - Red Slime
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 1
+  Experience: 10
