@@ -75,14 +75,14 @@ public class BattleSimulator : EditorWindow
     private DropdownField _fourthEnemyDropdown;
     private DropdownField _fifthEnemyDropdown;
     private DropdownField _sixthEnemyDropdown;
-    private List<DropdownField> _enemiesDropdown = new();
+    private readonly List<DropdownField> _enemiesDropdown = new();
     private Foldout _firstEnemyFoldout;
     private Foldout _secondEnemyFoldout;
     private Foldout _thirdEnemyFoldout;
     private Foldout _fourthEnemyFoldout;
     private Foldout _fifthEnemyFoldout;
     private Foldout _sixthEnemyFoldout;
-    private List<Foldout> _enemiesFoldout = new();
+    private readonly List<Foldout> _enemiesFoldout = new();
 
     private readonly List<IntegerField> _firstEnemyStatsField = new();
     private readonly List<IntegerField> _secondEnemyStatsField = new();
@@ -197,8 +197,8 @@ public class BattleSimulator : EditorWindow
         _chestFoldout = root.Q<Foldout>("chest-foldout");
         _bootsFoldout = root.Q<Foldout>("boots-foldout");
         _ringFoldout = root.Q<Foldout>("ring-foldout");
-        _necklaceDropdown = root.Q<DropdownField>("necklace-dropdown");
-        _earringsDropdown = root.Q<DropdownField>("earrings-dropdown");
+        _necklaceFoldout = root.Q<Foldout>("necklace-foldout");
+        _earringsFoldout = root.Q<Foldout>("earrings-foldout");
 
 
         _weaponGroupBox = root.Q<GroupBox>("Weapon");
