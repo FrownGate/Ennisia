@@ -18,13 +18,11 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 3
+  WavesCount: 6
   Enemies:
-  - Elven Knight
-  - Elven Archer
-  - Even Archer
-  - Oliver
-  - Elven Mage
+  - Red Slime
+  - 
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 4
+  Experience: 10

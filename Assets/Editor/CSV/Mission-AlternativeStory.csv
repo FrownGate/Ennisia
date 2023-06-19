@@ -1,10 +1,10 @@
-ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,IDDialogue,IDChapter,Num
-1,Xothio,5,TRUE,none,none,none,0,1,1
-2,Don’t Stand in my Way,5,FALSE,none,none,none,0,1,2
-3,Disappointing Results,5,FALSE,none,none,none,0,1,3
-4,Aplistia Rebels,5,FALSE,none,none,none,0,2,1
-5,Desperate Acts,5,FALSE,none,none,none,0,2,2
-6,Weak Humans,5,FALSE,none,none,none,0,2,3
-7,Back in Xothio,5,FALSE,none,none,none,0,3,1
-8,Beating the Untouchable,5,FALSE,none,none,none,0,3,2
-9,Teaming Up,5,FALSE,none,none,none,0,3,3
+ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,IDDialogue,IDChap,Num,Gold,Crystals,XP
+1,Xothio,5,TRUE,none,none,none,0,1,1,1000,100,10
+2,Don’t Stand in my Way,5,FALSE,none,none,none,0,1,2,1000,100,10
+3,Disappointing Results,5,FALSE,none,none,none,0,1,3,1000,100,10
+4,Aplistia Rebels,5,FALSE,none,none,none,0,2,1,1000,100,10
+5,Desperate Acts,5,FALSE,none,none,none,0,2,2,1000,100,10
+6,Weak Humans,5,FALSE,none,none,none,0,2,3,1000,100,10
+7,Back in Xothio,5,FALSE,none,none,none,0,3,1,1000,100,10
+8,Beating the Untouchable,5,FALSE,none,none,none,0,3,2,1000,100,10
+9,Teaming Up,5,FALSE,none,none,none,0,3,3,1000,100,10
