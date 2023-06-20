@@ -541,14 +541,6 @@ public class BattleSimulator : EditorWindow
             }
         });
 
-        // ENEMIES
-        // TODO: change _firstEnemyDropdown to a looped value by a foreach 
-        // which will be contained in a List of all EnemyDropdown type
-        // and 
-        // loop through the EnemyStatsFields corresponding to give it to the ChangeFieldsOfEnemy
-        // --> do it to all the fields changes requested
-
-
         foreach (var enemyInfo in _enemiesInfo)
         {
             foreach (var item in enemyInfo)
@@ -581,10 +573,6 @@ public class BattleSimulator : EditorWindow
     {
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
         _selectedEnemies.Add(enemy);
-        // foreach (Enemy item in _selectedEnemies)
-        // {
-        //     Debug.LogWarning(item.Name);
-        // }
         int i = 0;
         foreach (var stat in enemy.Stats)
         {
