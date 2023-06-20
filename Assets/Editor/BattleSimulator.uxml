@@ -88,9 +88,9 @@
         </ui:GroupBox>
         <ui:GroupBox name="Enemies" style="flex-direction: row; justify-content: flex-start; width: 50%; height: 100%; align-items: flex-end; flex-wrap: nowrap; align-self: auto; max-width: 50%; max-height: 100%; min-height: 100%; min-width: 50%; flex-basis: auto; right: 0; bottom: 0; position: absolute; left: 50%;">
             <ui:Label tabindex="-1" text="Enemies" display-tooltip-when-elided="true" name="Title" style="flex-direction: row; justify-content: flex-start; align-self: stretch; align-items: auto; flex-wrap: nowrap; height: 37px; width: 153px; display: flex; top: auto; left: auto; -unity-text-align: middle-center; white-space: nowrap; text-overflow: clip; flex-basis: 100%;" />
-            <ui:GroupBox name="FirstEnemy" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: auto; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Enemy 1 :" index="-1" name="first-enemy-dropdown" />
-                <ui:Foldout text="Foldout" name="first-enemy-foldout" style="width: 100%;">
+            <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: auto; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Enemy 1 :" index="-1" name="EnemyDropdown" />
+                <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
                     <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
@@ -102,9 +102,9 @@
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="SecondEnemy" style="width: auto; align-items: auto; align-self: auto; justify-content: space-around; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: auto; left: auto;">
-                <ui:DropdownField label="Enemy 2 :" index="-1" name="second-enemy-dropdown" />
-                <ui:Foldout text="Foldout" name="second-enemy-foldout" style="width: 100%;">
+            <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: space-around; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: auto; left: auto;">
+                <ui:DropdownField label="Enemy 2 :" index="-1" name="EnemyDropdown" />
+                <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
                     <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
@@ -116,9 +116,9 @@
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="ThirdEnemy" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; right: auto; left: auto;">
-                <ui:DropdownField label="Enemy 3 :" index="-1" name="third-enemy-dropdown" />
-                <ui:Foldout text="Foldout" name="third-enemy-foldout" style="width: 100%;">
+            <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; right: auto; left: auto;">
+                <ui:DropdownField label="Enemy 3 :" index="-1" name="EnemyDropdown" />
+                <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
                     <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
@@ -130,9 +130,9 @@
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="FourthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: 20px; left: auto;">
-                <ui:DropdownField label="Enemy 4 :" index="-1" name="fourth-enemy-dropdown" />
-                <ui:Foldout text="Foldout" name="fourth-enemy-foldout" style="width: 100%;">
+            <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: 20px; left: auto;">
+                <ui:DropdownField label="Enemy 4 :" index="-1" name="EnemyDropdown" />
+                <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
                     <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
@@ -144,9 +144,9 @@
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="FifthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: 20px; left: auto;">
-                <ui:DropdownField label="Enemy 5 :" index="-1" name="fifth-enemy-dropdown" style="justify-content: space-around;" />
-                <ui:Foldout text="Foldout" name="fifth-enemy-foldout" style="width: 100%;">
+            <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: 20px; left: auto;">
+                <ui:DropdownField label="Enemy 5 :" index="-1" name="EnemyDropdown" style="justify-content: space-around;" />
+                <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
                     <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
@@ -158,9 +158,9 @@
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="SixthEnemy" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; left: auto; right: 20px;">
-                <ui:DropdownField label="Enemy 6 :" index="-1" name="sixth-enemy-dropdown" style="justify-content: space-around;" />
-                <ui:Foldout text="Foldout" name="sixth-enemy-foldout" value="true" style="width: 100%;">
+            <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; left: auto; right: 20px;">
+                <ui:DropdownField label="Enemy 6 :" index="-1" name="EnemyDropdown" style="justify-content: space-around;" />
+                <ui:Foldout text="Foldout" name="EnemyFoldout" value="true" style="width: 100%;">
                     <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
