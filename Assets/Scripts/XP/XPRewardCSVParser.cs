@@ -1,21 +1,46 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEngine;
 using static Item;
-using static UnityEditor.Progress;
 using static XPRewardData;
 
-public class XPRewardCSVParser : MonoBehaviour
+public class XPRewardCSVParserWindow : EditorWindow
 {
-    public XPRewardData xpRewardData;
-    public TextAsset csvFile;
+    private TextAsset csvFile;
 
-    public void ParseCSVData()
+    [MenuItem("Tools/XP Reward CSV Parser")]
+    public static void ShowWindow()
     {
-        xpRewardData.rewardEntries = new();
+        GetWindow<XPRewardCSVParserWindow>("XP Reward CSV Parser");
+    }
+
+    private void OnGUI()
+    {
+        GUILayout.Label("CSV File", EditorStyles.boldLabel);
+        csvFile = EditorGUILayout.ObjectField("CSV File", csvFile, typeof(TextAsset), false) as TextAsset;
+
+        if (GUILayout.Button("Parse CSV Data"))
+        {
+            if (csvFile != null)
+            {
+                XPRewardData xpRewardData = ScriptableObject.CreateInstance<XPRewardData>();
+                ParseCSVData(csvFile, xpRewardData);
+                SaveParsedData(xpRewardData);
+                Debug.Log("CSV data parsed and saved successfully.");
+            }
+            else
+            {
+                Debug.LogError("Please select a CSV file to parse.");
+            }
+        }
+    }
+
+    private void ParseCSVData(TextAsset csvFile, XPRewardData xpRewardData)
+    {
+        xpRewardData.rewardEntries = new List<RewardEntry>();
         string[] lines = csvFile.text.Split('\n');
 
         for (int i = 1; i < lines.Length; i++)
@@ -47,7 +72,7 @@ public class XPRewardCSVParser : MonoBehaviour
 
     private List<RewardComponent> ParseRewardComponents(string reward)
     {
-        List<RewardComponent> rewardComponents = new();
+        List<RewardComponent> rewardComponents = new List<RewardComponent>();
 
         string[] rewardStrings = reward.Split('+');
 
@@ -78,7 +103,6 @@ public class XPRewardCSVParser : MonoBehaviour
                 if (item.Contains("Summon")) item = item.Replace(" ", "");
 
                 string[] itemParts = item.Split(' ');
-
 
                 RewardComponent component = new RewardComponent
                 {
@@ -117,13 +141,26 @@ public class XPRewardCSVParser : MonoBehaviour
         // Handle unknown rarities or return a default value
         return ItemRarity.Common;
     }
+
     private RewardType DetermineItemRewardType(string RewardTypeName)
     {
-
         if (Enum.TryParse(RewardTypeName.Trim(), out RewardType type))
         {
             return type;
         }
+
         return RewardType.None;
+    }
+
+    private void SaveParsedData(XPRewardData xpRewardData)
+    {
+        string savePath = EditorUtility.SaveFilePanelInProject("Save Parsed Data", "XPData", "asset", "Save the parsed XP reward data");
+
+        if (!string.IsNullOrEmpty(savePath))
+        {
+            AssetDatabase.CreateAsset(xpRewardData, savePath);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
     }
 }
