@@ -52,12 +52,12 @@ public class XPRewardData : ScriptableObject
                     PlayFabManager.Instance.AddInventoryItem(summonTicket);
                     break;
                 case RewardType.Armor:
-                    Gear.GearType armorType = (Item.GearType)UnityEngine.Random.Range(0, 3);
-                    Gear armor = new Gear(armorType, component.rarity);
+                    Item.GearType armorType = (Item.GearType)UnityEngine.Random.Range(0, 3);
+                    Gear armor = new(armorType, component.rarity);
                     PlayFabManager.Instance.AddInventoryItem(armor);
                     break;
                 case RewardType.Accessory:
-                    Gear.GearType accessoryType = (Item.GearType)UnityEngine.Random.Range(3, 6);
+                    Item.GearType accessoryType = (Item.GearType)UnityEngine.Random.Range(3, 6);
                     Gear accessory = new(accessoryType, component.rarity);
                     PlayFabManager.Instance.AddInventoryItem(accessory);
                     break;
@@ -69,6 +69,21 @@ public class XPRewardData : ScriptableObject
                     break;
                 case RewardType.Set:
                     // TODO -> Handle set reward
+                    List<Gear> set = new()
+                    {
+                        new(Item.GearType.Helmet, component.rarity),
+                        new(Item.GearType.Chest, component.rarity),
+                        new(Item.GearType.Boots, component.rarity),
+                        new(Item.GearType.Earrings, component.rarity),
+                        new(Item.GearType.Ring, component.rarity),
+                        new(Item.GearType.Necklace, component.rarity)
+                    };
+
+                    foreach (var gear in set)
+                    {
+                        PlayFabManager.Instance.AddInventoryItem(gear);
+                    }
+
                     break;
                 default:
                     break;
