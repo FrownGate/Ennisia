@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
-  m_Name: Pure Innocence
+  m_Name: Law and justice
   m_EditorClassIdentifier: 
-  Id: 1
-  Name: Pure Innocence
+  Id: 7
+  Name: Law and justice
   Level: 1
   Type: 6
   Rarity: 0
-  Attribute: 2
+  Attribute: 5
   StatValue: 0
   Description: none
-  WeaponType: 0
-  IsMagic: 0
-  FirstSkillData: {fileID: 11400000, guid: 80b9e4ef4067ab249a1092127c865f22, type: 2}
-  SecondSkillData: {fileID: 11400000, guid: 7b6dddad4f8a8694985ecffa77695789, type: 2}
+  WeaponType: 7
+  IsMagic: 1
+  FirstSkillData: {fileID: 11400000, guid: 74b26012eccac1845b8fccfbbf587e0c, type: 2}
+  SecondSkillData: {fileID: 11400000, guid: c7c56b3badae38d439d9a680f93b1aba, type: 2}
