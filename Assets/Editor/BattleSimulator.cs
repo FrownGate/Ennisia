@@ -96,7 +96,7 @@ public class BattleSimulator : EditorWindow
     private readonly Dictionary<DropdownField, List<IntegerField>> _fourthEnemyInfo = new();
     private readonly Dictionary<DropdownField, List<IntegerField>> _fifthEnemyInfo = new();
     private readonly Dictionary<DropdownField, List<IntegerField>> _sixthEnemyInfo = new();
-
+    private readonly List<Dictionary<DropdownField, List<IntegerField>>> _enemiesInfo = new();
     private Button _simulateButton;
 
     [MenuItem("Tools/Battle Simulator")]
@@ -308,6 +308,20 @@ public class BattleSimulator : EditorWindow
         _enemiesFoldout.Add(_fourthEnemyFoldout);
         _enemiesFoldout.Add(_fifthEnemyFoldout);
         _enemiesFoldout.Add(_sixthEnemyFoldout);
+
+        _firstEnemyInfo.Add(_firstEnemyDropdown, _firstEnemyStatsField);
+        _secondEnemyInfo.Add(_secondEnemyDropdown, _secondEnemyStatsField);
+        _thirdEnemyInfo.Add(_thirdEnemyDropdown, _thirdEnemyStatsField);
+        _fourthEnemyInfo.Add(_fourthEnemyDropdown, _fourthEnemyStatsField);
+        _fifthEnemyInfo.Add(_fifthEnemyDropdown, _fifthEnemyStatsField);
+        _sixthEnemyInfo.Add(_sixthEnemyDropdown, _sixthEnemyStatsField);
+
+        _enemiesInfo.Add(_firstEnemyInfo);
+        _enemiesInfo.Add(_secondEnemyInfo);
+        _enemiesInfo.Add(_thirdEnemyInfo);
+        _enemiesInfo.Add(_fourthEnemyInfo);
+        _enemiesInfo.Add(_fifthEnemyInfo);
+        _enemiesInfo.Add(_sixthEnemyInfo);
 
         // Set Base value for the foldouts
         foreach (Foldout foldout in _enemiesFoldout)
@@ -533,107 +547,44 @@ public class BattleSimulator : EditorWindow
         // and 
         // loop through the EnemyStatsFields corresponding to give it to the ChangeFieldsOfEnemy
         // --> do it to all the fields changes requested
-        _firstEnemyDropdown.RegisterValueChangedCallback(evt =>
+
+
+        foreach (var enemyInfo in _enemiesInfo)
         {
-            if (evt.newValue != "No Enemy")
+            foreach (var item in enemyInfo)
             {
-                _firstEnemyFoldout.visible = true;
-                _firstEnemyFoldout.text = evt.newValue;
+                item.Key.RegisterValueChangedCallback(evt =>
+                {
+                    foreach (Foldout foldout in _enemiesFoldout)
+                    {
+                        if (evt.newValue != "No Enemy")
+                        {
+                            foldout.visible = true;
+                            foldout.text = evt.newValue;
 
-                ChangeFieldsOfEnemy(evt.newValue, _firstEnemyStatsField);
+                            ChangeFieldsOfEnemy(evt.newValue, item.Value);
+                        }
+                        else
+                        {
+                            foldout.visible = false;
+                        }
 
+                    }
+                });
             }
-            else
-            {
-                _firstEnemyFoldout.visible = false;
-            }
-        });
+        }
 
-        _secondEnemyDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Enemy")
-            {
-                _secondEnemyFoldout.visible = true;
-                _secondEnemyFoldout.text = evt.newValue;
 
-                ChangeFieldsOfEnemy(evt.newValue, _secondEnemyStatsField);
-
-            }
-            else
-            {
-                _secondEnemyFoldout.visible = false;
-            }
-        });
-
-        _thirdEnemyDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Enemy")
-            {
-                _thirdEnemyFoldout.visible = true;
-                _thirdEnemyFoldout.text = evt.newValue;
-
-                ChangeFieldsOfEnemy(evt.newValue, _thirdEnemyStatsField);
-            }
-            else
-            {
-                _thirdEnemyFoldout.visible = false;
-            }
-        });
-
-        _fourthEnemyDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Enemy")
-            {
-                _fourthEnemyFoldout.visible = true;
-                _fourthEnemyFoldout.text = evt.newValue;
-
-                ChangeFieldsOfEnemy(evt.newValue, _fourthEnemyStatsField);
-            }
-            else
-            {
-                _fourthEnemyFoldout.visible = false;
-            }
-        });
-
-        _fifthEnemyDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Enemy")
-            {
-                _fifthEnemyFoldout.visible = true;
-                _fifthEnemyFoldout.text = evt.newValue;
-
-                ChangeFieldsOfEnemy(evt.newValue, _fifthEnemyStatsField);
-            }
-            else
-            {
-                _fifthEnemyFoldout.visible = false;
-            }
-        });
-
-        _sixthEnemyDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Enemy")
-            {
-                _sixthEnemyFoldout.visible = true;
-                _sixthEnemyFoldout.text = evt.newValue;
-
-                ChangeFieldsOfEnemy(evt.newValue, _sixthEnemyStatsField);
-            }
-            else
-            {
-                _sixthEnemyFoldout.visible = false;
-            }
-        });
     }
 
     private void ChangeFieldsOfEnemy(string enemyName, List<IntegerField> enemyStatsField)
     {
         Enemy enemy = _enemies.Find(x => x.Name == enemyName);
         _selectedEnemies.Add(enemy);
-        foreach (Enemy item in _selectedEnemies)
-        {
-            Debug.LogWarning(item.Name);
-        }
+        // foreach (Enemy item in _selectedEnemies)
+        // {
+        //     Debug.LogWarning(item.Name);
+        // }
         int i = 0;
         foreach (var stat in enemy.Stats)
         {

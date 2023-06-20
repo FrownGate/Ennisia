@@ -21,7 +21,7 @@ public class Enemy : Entity
         Description = description;
         Level = 1;
 
-        // insert values from stats into the Enemy's stats
+        
       /*  foreach (KeyValuePair<string, int> stat in stats)
         {
             switch (stat.Key) //TODO -> Use enum instead of strings

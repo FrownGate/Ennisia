@@ -163,14 +163,19 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void SimulateBattle()
+    public void SimulateBattle(Player player = null, List<Enemy> enemies = null)
     {
+        if (player != null)
+        {
+            Player = player;
+        }
+        // if (enemies != null)
+        // {
+        //     Enemies = enemies;
+        // }
         SetState(new AutoBattle(this));
     }
-    public void SimulateBattle(Player player, List<Enemy> enemies)
-    {
-        SetState(new AutoBattle(this));
-    }
+
 
     public bool PlayerIsDead()
     {
@@ -221,7 +226,7 @@ public class BattleSystem : StateMachine
         {
             Enemies[i] = AttackBarSystem.AllEntities[i];
         }
-        Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count-1];
+        Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
     }
 
     public void ReduceEffectDuration(List<BuffEffect> effects, List<BuffEffect> targetEffects = null)
