@@ -11,7 +11,7 @@ public class AllIn : Skill
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         player.atkBarPercentage = 100;
-        attackBuff = player.Stats[Item.AttributeStat.Defense].Value * (defBaseRatio + StatUpgrade1 * Level) + player.Stats[Item.AttributeStat.MagicalDefense].Value * (defBaseRatio + StatUpgrade1 * Level);
+        attackBuff = player.Stats[Item.AttributeStat.PhysicalDefense].Value * (defBaseRatio + StatUpgrade1 * Level) + player.Stats[Item.AttributeStat.MagicalDefense].Value * (defBaseRatio + StatUpgrade1 * Level);
         id = player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuff);
     }
 
