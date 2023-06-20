@@ -30,7 +30,7 @@ public class XPRewardData : ScriptableObject
 
     public void LVLUPReward(int level)
     {
-        RewardEntry entry = rewardEntries.Find(x => x.level == level - 1);
+        RewardEntry entry = rewardEntries.Find(x => x.level == level);
         if (entry == null)
         {
             Debug.LogWarning($"No rewards found for level {level}");
