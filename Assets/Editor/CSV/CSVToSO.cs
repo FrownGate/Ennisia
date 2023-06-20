@@ -391,12 +391,31 @@ public class CSVToSO : EditorWindow
         scriptableObject.Enemies = enemies.ToList();
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
-        scriptableObject.ChapterId = int.Parse(rowData["IDChapter"]);
+        scriptableObject.ChapterId = int.Parse(rowData["IDChap"]);
         scriptableObject.NumInChapter = int.Parse(rowData["Num"]);
 
         scriptableObject.Type = type;
+
+        List<KeyValuePair<string, string>> currencies = rowData.ToList();
+        for (int ii = i; ii < rowData.Count; ii++)
+        {
+            string Rewardtype = currencies[ii].Key;
+            if (Enum.TryParse(Rewardtype, out PlayFabManager.Currency currencyType))
+            {
+                Debug.Log(rowData[Rewardtype]);
+
+                scriptableObject.RewardsList.Add(currencyType, int.Parse(rowData[Rewardtype]));
+
+            }
+            
+        }
+
+        scriptableObject.Experience = int.Parse(rowData["XP"]);
+
         // Remove special characters and spaces from the mission name
         string missionName = CSVUtils.GetFileName(rowData["Name"]);
+
+
 
         string savePath = $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
