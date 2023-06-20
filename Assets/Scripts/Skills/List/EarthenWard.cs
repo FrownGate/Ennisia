@@ -12,12 +12,7 @@ public class EarthenWard : Skill
     { 
         if (turn%2 == 0)
         {
-            shieldAmount= 0; // to code
-            id = player.Stats[Item.AttributeStat.Shield].AddModifier(AddShield);
+            player.Shield += (int)player.Stats[Item.AttributeStat.HP].Value * (20 / 100);
         }
-    }
-    float AddShield(float input)
-    {
-        return input + shieldAmount;
     }
 }

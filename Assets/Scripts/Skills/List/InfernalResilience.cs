@@ -6,7 +6,7 @@ public class InfernalResilience : Skill
     {
         float missingHealth = player.Stats[Item.AttributeStat.HP].Value - player.CurrentHp;
         ShieldModifier = missingHealth * StatUpgrade1 * Level;
-        //give shield for 3 turn for shieldamount
+        player.Shield += ShieldModifier;
         return 0;
     }
 }

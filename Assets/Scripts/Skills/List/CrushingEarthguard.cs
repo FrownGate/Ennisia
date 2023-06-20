@@ -18,10 +18,9 @@ public class CrushingEarthguard : Skill
         return totalDamage; 
     }
 
-
-    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) 
+    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
-        //gain 40% of damage as shield
+        player.Shield += (int)damage * (40 / 100);
     }
 
 

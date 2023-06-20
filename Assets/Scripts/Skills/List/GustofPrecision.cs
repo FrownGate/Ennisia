@@ -3,7 +3,6 @@ using static Stat<float>;
 
 public class GustofPrecision : Skill
 {
-    //TODO -> Increase Crit Rate of player by 25%.
     ModifierID id;
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
