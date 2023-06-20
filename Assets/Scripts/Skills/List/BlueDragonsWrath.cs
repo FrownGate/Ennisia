@@ -7,6 +7,12 @@ public class BlueDragonsWrath : Skill
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
+        //Boost 50% attack for 3 turns
+        new BuffEffect(3, entity =>
+        {
+            entity.AlterateStat(Item.AttributeStat.Attack, value => value * 1.5f, 1);
+        } );
+
         return damage;
     }
 }

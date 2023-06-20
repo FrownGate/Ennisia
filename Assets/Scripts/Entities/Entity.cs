@@ -12,7 +12,7 @@ public abstract class Entity
     public GearSO Weapon { get; set; }
     public List<Skill> Skills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
-
+    
     public bool IsDead
     {
         get => CurrentHp <= 0;
@@ -56,28 +56,8 @@ public abstract class Entity
     public virtual void ResetTargetedState() { }
     public virtual void HaveBeenSelected() { }
     
-    //public void ApplyEffect(BuffEffect effectToApply)
-    //{
-    //    var existingEffect = EffectList.FirstOrDefault(e => e.GetType() == effectToApply.GetType());
-        
-    //    if (existingEffect != null)
-    //    {
-    //        existingEffect.ResetDuration(effectToApply.Duration);
-    //    }
-    //    else
-    //    {
-    //        EffectList.Add(effectToApply);
-    //    }
-    //}
-
-    //public void RemoveEffect(BuffEffect effectToRemove)
-    //{
-    //    EffectList.Remove(effectToRemove);
-        
-    //    foreach (var stat in effectToRemove.ModifiedStats)
-    //    {
-    //        ResetValueToBase(stat);
-    //    }
-        
-    //}
+    public Stat<float>.ModifierID AlterateStat(Item.AttributeStat stat, Func<float, float> func, int layer = 1)
+    {
+        return Stats[stat].AddModifier(func, layer);
+    }
 }
