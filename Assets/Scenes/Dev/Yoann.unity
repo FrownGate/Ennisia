@@ -821,6 +821,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6871107911873977874, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: Rewards
+      value: 
+      objectReference: {fileID: 11400000, guid: ae69352dfbe07494693b29bdb869fe4a, type: 2}
     - target: {fileID: 8562900100838161363, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
       propertyPath: m_Name
       value: ExpManager

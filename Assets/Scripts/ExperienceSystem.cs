@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
+using NaughtyAttributes;
 
 public class ExperienceSystem : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class ExperienceSystem : MonoBehaviour
     private Dictionary<int, int> _PlayerlevelExperienceMap;
     private Dictionary<int, int> _AccountlevelExperienceMap;
 
-    public XPRewardData Rewards;
+    [Expandable] public XPRewardData Rewards;
 
 
     public static ExperienceSystem Instance { get; private set; }
