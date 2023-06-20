@@ -9,15 +9,16 @@ public class XPreward : MonoBehaviour
 {
     public enum RewardType
     {
-        None, Crystal, Material, SummonTicket, Set, Weapon
+        None, Crystal, Material, Ticket, Set, Weapon
     }
 
-    private Dictionary<int, string> rewards;
-    string csvFilePath = "Assets/Resources/CSV/XpCSV-AccountReward.csv";
+    private Dictionary<int, string> _rewards;
+    SummonTicket summonTicket;
+    readonly string _csvFilePath = "Assets/Resources/CSV/XpCSV-AccountReward.csv";
     public void LoadRewardsFromCSV()
     {
-        rewards = new();
-        string[] lines = File.ReadAllLines(csvFilePath);
+        _rewards = new();
+        string[] lines = File.ReadAllLines(_csvFilePath);
 
         for (int i = 1; i < lines.Length; i++)
         {
@@ -30,17 +31,17 @@ public class XPreward : MonoBehaviour
                 int level = int.Parse(parts[0]);
                 string reward = parts[1];
 
-                rewards[level] = reward;
+                _rewards[level] = reward;
             }
         }
     }
     public void LVLUPReward(int level)
     {
-        if(rewards == null)
+        if (_rewards == null)
         {
             LoadRewardsFromCSV();
         }
-        string reward = rewards[level];
+        string reward = _rewards[level];
 
         string[] rewardComponents = reward.Split('+');
 
@@ -68,7 +69,10 @@ public class XPreward : MonoBehaviour
                 }
 
                 string item = Regex.Replace(itemWithRarity, @"\s*\(.*?\)", "").Trim();
+                
+
                 string[] itemParts = item.Split(' ');
+
                 // Determine the item category based on the item name (modify as needed)
                 Item.ItemCategory category = DetermineItemCategory(itemParts[0].Trim());
 
@@ -85,7 +89,10 @@ public class XPreward : MonoBehaviour
                             case RewardType.Material:
                                 PlayFabManager.Instance.AddInventoryItem(new Material(category, itemRarity, count));
                                 break;
-                            case RewardType.SummonTicket:
+                            case RewardType.Ticket:
+                                
+                                summonTicket = new( itemRarity, count);
+                                PlayFabManager.Instance.AddInventoryItem(summonTicket);
                                 break;
                             case RewardType.Set:
                                 break;
@@ -114,8 +121,7 @@ public class XPreward : MonoBehaviour
     // Function to determine the item category based on the item name
     Item.ItemCategory DetermineItemCategory(string itemName)
     {
-        // Modify this function based on your item categorization logic
-        // Example implementation:
+
 
         if (Enum.TryParse(itemName, out Item.ItemCategory category))
         {
@@ -129,8 +135,7 @@ public class XPreward : MonoBehaviour
     // Function to determine the item rarity based on the rarity name
     Item.ItemRarity DetermineItemRarity(string rarityName)
     {
-        // Modify this function based on your rarity categorization logic
-        // Example implementation:
+
 
         if (Enum.TryParse(rarityName, out Item.ItemRarity rarity))
         {
@@ -138,7 +143,7 @@ public class XPreward : MonoBehaviour
         }
 
         // Handle unknown rarities or return a default value
-        return Item.ItemRarity.None;
+        return Item.ItemRarity.Common;
     }
 
 

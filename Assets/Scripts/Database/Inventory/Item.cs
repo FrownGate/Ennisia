@@ -7,7 +7,7 @@ public class Item
 {
     public enum ItemRarity
     {
-        Common, Rare, Epic, Legendary, None
+        Common, Rare, Epic, Legendary
     }
 
     public enum ItemCategory
