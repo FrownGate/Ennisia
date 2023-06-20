@@ -91,84 +91,84 @@
             <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: auto; left: auto; flex-basis: 0;">
                 <ui:DropdownField label="Enemy 1 :" index="-1" name="EnemyDropdown" />
                 <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
-                    <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
-                    <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysDef" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicAtk" value="42" name="MagicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicDef" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
+                    <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
+                    <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
-                    <ui:IntegerField label="CritDamage" value="42" name="CritDmg" style="height: 22px;" />
+                    <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: space-around; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: auto; left: auto;">
                 <ui:DropdownField label="Enemy 2 :" index="-1" name="EnemyDropdown" />
                 <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
-                    <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
-                    <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysDef" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicAtk" value="42" name="MagicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicDef" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
+                    <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
+                    <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
-                    <ui:IntegerField label="CritDamage" value="42" name="CritDmg" style="height: 22px;" />
+                    <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; right: auto; left: auto;">
                 <ui:DropdownField label="Enemy 3 :" index="-1" name="EnemyDropdown" />
                 <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
-                    <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
-                    <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysDef" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicAtk" value="42" name="MagicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicDef" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
+                    <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
+                    <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
-                    <ui:IntegerField label="CritDamage" value="42" name="CritDmg" style="height: 22px;" />
+                    <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: 20px; left: auto;">
                 <ui:DropdownField label="Enemy 4 :" index="-1" name="EnemyDropdown" />
                 <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
-                    <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
-                    <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysDef" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicAtk" value="42" name="MagicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicDef" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
+                    <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
+                    <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
-                    <ui:IntegerField label="CritDamage" value="42" name="CritDmg" style="height: 22px;" />
+                    <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 400px; right: 20px; left: auto;">
                 <ui:DropdownField label="Enemy 5 :" index="-1" name="EnemyDropdown" style="justify-content: space-around;" />
                 <ui:Foldout text="Foldout" name="EnemyFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
-                    <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
-                    <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysDef" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicAtk" value="42" name="MagicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicDef" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
+                    <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
+                    <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
-                    <ui:IntegerField label="CritDamage" value="42" name="CritDmg" style="height: 22px;" />
+                    <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="EnemyGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 750px; left: auto; right: 20px;">
                 <ui:DropdownField label="Enemy 6 :" index="-1" name="EnemyDropdown" style="justify-content: space-around;" />
                 <ui:Foldout text="Foldout" name="EnemyFoldout" value="true" style="width: 100%;">
-                    <ui:IntegerField label="MaxHp" value="42" name="HP" style="height: 22px;" />
-                    <ui:IntegerField label="Atk" value="42" name="Attack" style="height: 22px;" />
-                    <ui:IntegerField label="PhysAtk" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysDef" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicAtk" value="42" name="MagicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicDef" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
+                    <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
+                    <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
-                    <ui:IntegerField label="CritDamage" value="42" name="CritDmg" style="height: 22px;" />
+                    <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
                     <ui:IntegerField label="Speed" value="42" name="Speed" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>

@@ -27,7 +27,7 @@ public class BattleSimulator : EditorWindow
     private List<GearSO> _selectedGears = new();
     private GearSO _selectedWeapon;
 
-    List<EnemyInfo> _enemiesInfo = new();
+    List<EnemyInfo> _enemiesInfos = new();
 
     // GEARS
     #region Gears
@@ -76,8 +76,6 @@ public class BattleSimulator : EditorWindow
     private readonly List<TextField> _weaponSkillField = new();
 
     // ENEMIES
-    private List<DropdownField> _enemiesDropdown;
-    private List<Foldout> _enemiesFoldout;
 
 
     #region Enemies
@@ -241,18 +239,20 @@ public class BattleSimulator : EditorWindow
 
         foreach (var item in _enemiesGroupbox)
         {
-            EnemyInfo enemy = new()
+            EnemyInfo enemyInfo = new()
             {
                 Dropdown = item.Q<DropdownField>("EnemyDropdown"),
-                Foldout = item.Q<Foldout>("EnemyFoldout")
+                Foldout = item.Q<Foldout>("EnemyFoldout"),
+                Stats = new()
             };
 
             List<IntegerField> statList = item.Query<IntegerField>().ToList();
 
-            foreach (var stat in statList)
+            foreach (IntegerField stat in statList)
             {
-                enemy.Stats[Enum.Parse<Item.AttributeStat>(stat.name)] = stat;
+                enemyInfo.Stats.Add((Item.AttributeStat)Enum.Parse(typeof(Item.AttributeStat), stat.label), stat);
             }
+            _enemiesInfos.Add(enemyInfo);
         }
 
         // get the stats fields for all the enemies
@@ -333,19 +333,19 @@ public class BattleSimulator : EditorWindow
         _enemiesDropdown.Add(_fifthEnemyDropdown);
         _enemiesDropdown.Add(_sixthEnemyDropdown);*/
 
-        _firstEnemyFoldout = root.Q<Foldout>("first-enemy-foldout");
-        _secondEnemyFoldout = root.Q<Foldout>("second-enemy-foldout");
-        _thirdEnemyFoldout = root.Q<Foldout>("third-enemy-foldout");
-        _fourthEnemyFoldout = root.Q<Foldout>("fourth-enemy-foldout");
-        _fifthEnemyFoldout = root.Q<Foldout>("fifth-enemy-foldout");
-        _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
+        // _firstEnemyFoldout = root.Q<Foldout>("first-enemy-foldout");
+        // _secondEnemyFoldout = root.Q<Foldout>("second-enemy-foldout");
+        // _thirdEnemyFoldout = root.Q<Foldout>("third-enemy-foldout");
+        // _fourthEnemyFoldout = root.Q<Foldout>("fourth-enemy-foldout");
+        // _fifthEnemyFoldout = root.Q<Foldout>("fifth-enemy-foldout");
+        // _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
 
-        _enemiesFoldout.Add(_firstEnemyFoldout);
-        _enemiesFoldout.Add(_secondEnemyFoldout);
-        _enemiesFoldout.Add(_thirdEnemyFoldout);
-        _enemiesFoldout.Add(_fourthEnemyFoldout);
-        _enemiesFoldout.Add(_fifthEnemyFoldout);
-        _enemiesFoldout.Add(_sixthEnemyFoldout);
+        // _enemiesFoldout.Add(_firstEnemyFoldout);
+        // _enemiesFoldout.Add(_secondEnemyFoldout);
+        // _enemiesFoldout.Add(_thirdEnemyFoldout);
+        // _enemiesFoldout.Add(_fourthEnemyFoldout);
+        // _enemiesFoldout.Add(_fifthEnemyFoldout);
+        // _enemiesFoldout.Add(_sixthEnemyFoldout);
 
         // EnemyInfo _firstEnemyInfo = new();
         // EnemyInfo _secondEnemyInfo = new();
@@ -354,12 +354,12 @@ public class BattleSimulator : EditorWindow
         // EnemyInfo _firstEnemyInfo = new();
         // EnemyInfo _firstEnemyInfo = new();
 
-        _firstEnemyInfo.Add(_firstEnemyDropdown, _firstEnemyStatsField);
-        _secondEnemyInfo.Add(_secondEnemyDropdown, _secondEnemyStatsField);
-        _thirdEnemyInfo.Add(_thirdEnemyDropdown, _thirdEnemyStatsField);
-        _fourthEnemyInfo.Add(_fourthEnemyDropdown, _fourthEnemyStatsField);
-        _fifthEnemyInfo.Add(_fifthEnemyDropdown, _fifthEnemyStatsField);
-        _sixthEnemyInfo.Add(_sixthEnemyDropdown, _sixthEnemyStatsField);
+        // _firstEnemyInfo.Add(_firstEnemyDropdown, _firstEnemyStatsField);
+        // _secondEnemyInfo.Add(_secondEnemyDropdown, _secondEnemyStatsField);
+        // _thirdEnemyInfo.Add(_thirdEnemyDropdown, _thirdEnemyStatsField);
+        // _fourthEnemyInfo.Add(_fourthEnemyDropdown, _fourthEnemyStatsField);
+        // _fifthEnemyInfo.Add(_fifthEnemyDropdown, _fifthEnemyStatsField);
+        // _sixthEnemyInfo.Add(_sixthEnemyDropdown, _sixthEnemyStatsField);
 
         // _enemiesInfo.Add(_firstEnemyInfo);
         // _enemiesInfo.Add(_secondEnemyInfo);
@@ -369,9 +369,9 @@ public class BattleSimulator : EditorWindow
         // _enemiesInfo.Add(_sixthEnemyInfo);
 
         // Set Base value for the foldouts
-        foreach (Foldout foldout in _enemiesFoldout)
+        foreach (EnemyInfo enemyInfo in _enemiesInfos)
         {
-            foldout.text = "Enemy Stats";
+            enemyInfo.Foldout.text = "Enemy Stats";
         }
     }
 
@@ -381,12 +381,12 @@ public class BattleSimulator : EditorWindow
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
-        foreach (DropdownField field in _enemiesDropdown)
+        foreach (EnemyInfo field in _enemiesInfos)
         {
-            foreach (Enemy enemy in _enemies)
+            foreach (Entity enemy in _enemies)
             {
-                field.choices.Add("No Enemy");
-                field.choices.Add(enemy.Name);
+                field.Dropdown.choices.Add("No Enemy");
+                field.Dropdown.choices.Add(enemy.Name);
             }
         }
 
@@ -587,32 +587,31 @@ public class BattleSimulator : EditorWindow
         });
 
         int i = 0;
-        /*foreach (var enemyInfo in _enemiesInfo)
+        foreach (var info in _enemiesInfos)
         {
-            foreach (var item in enemyInfo)
+            foreach (var stats in info.Stats)
             {
-                foreach (Foldout foldout in _enemiesFoldout)
+                List<IntegerField> statFields = info.Foldout.Query<IntegerField>().ToList();
+                info.Dropdown.RegisterValueChangedCallback(evt =>
                 {
-                    item.Key.RegisterValueChangedCallback(evt =>
+                    if (evt.newValue != "No Enemy")
                     {
-                        if (evt.newValue != "No Enemy")
-                        {
-                            foldout.visible = true;
-                            foldout.text = evt.newValue;
+                        info.Foldout.visible = true;
+                        info.Foldout.text = evt.newValue;
 
-                            ChangeFieldsOfEnemy(evt.newValue, item.Value, i);
-                        }
-                        else
-                        {
-                            foldout.visible = false;
-                        }
 
-                    });
-                }
+                        // ChangeFieldsOfEnemy(evt.newValue, statFields, i);
+                    }
+                    else
+                    {
+                        info.Foldout.visible = false;
+                    }
+
+                });
             }
-            i++;
-        }*/
 
+            i++;
+        }
 
     }
 
@@ -623,7 +622,7 @@ public class BattleSimulator : EditorWindow
 
 
         _selectedEnemies.Add(enemy);
-        
+
 
 
         foreach (var stat in enemy.Stats)
