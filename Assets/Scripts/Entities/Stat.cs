@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
+public class ModifierID { }
+
 public class Stat<T>
 {
-    public class ModifierID { }
-
     private class Modifier
     {
         public ModifierID Id;
