@@ -2,9 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
+using System;
 
 public class BattleSimulator : EditorWindow
 {
+    public class EnemyInfo
+    {
+        public DropdownField Dropdown;
+        public Dictionary<Item.AttributeStat, IntegerField> Stats;
+        public Foldout Foldout;
+    }
+    List<GroupBox> _enemiesGroupbox;
     //TODO: -> Optimize stored datas with enum, arrays, loops, etc.
 
     public static BattleSystem Instance;
@@ -22,6 +30,7 @@ public class BattleSimulator : EditorWindow
     List<EnemyInfo> _enemiesInfo = new();
 
     // GEARS
+    #region Gears
     private GroupBox _helmetGroupBox;
     private GroupBox _chestGroupBox;
     private GroupBox _bootsGroupBox;
@@ -46,7 +55,7 @@ public class BattleSimulator : EditorWindow
     private readonly List<IntegerField> _ringStatField = new();
     private readonly List<IntegerField> _necklaceStatField = new();
     private readonly List<IntegerField> _earringsStatField = new();
-
+    #endregion
 
     // SUPPORTS
     private GroupBox _firstSupportGroupBox;
@@ -67,6 +76,11 @@ public class BattleSimulator : EditorWindow
     private readonly List<TextField> _weaponSkillField = new();
 
     // ENEMIES
+    private List<DropdownField> _enemiesDropdown;
+    private List<Foldout> _enemiesFoldout;
+
+
+    #region Enemies
     private GroupBox _firstEnemyGroupBox;
     private GroupBox _secondEnemyGroupBox;
     private GroupBox _thirdEnemyGroupBox;
@@ -79,14 +93,12 @@ public class BattleSimulator : EditorWindow
     private DropdownField _fourthEnemyDropdown;
     private DropdownField _fifthEnemyDropdown;
     private DropdownField _sixthEnemyDropdown;
-    private readonly List<DropdownField> _enemiesDropdown = new();
     private Foldout _firstEnemyFoldout;
     private Foldout _secondEnemyFoldout;
     private Foldout _thirdEnemyFoldout;
     private Foldout _fourthEnemyFoldout;
     private Foldout _fifthEnemyFoldout;
     private Foldout _sixthEnemyFoldout;
-    private readonly List<Foldout> _enemiesFoldout = new();
 
     private readonly List<IntegerField> _firstEnemyStatsField = new();
     private readonly List<IntegerField> _secondEnemyStatsField = new();
@@ -100,8 +112,9 @@ public class BattleSimulator : EditorWindow
     private readonly Dictionary<DropdownField, List<IntegerField>> _fourthEnemyInfo = new();
     private readonly Dictionary<DropdownField, List<IntegerField>> _fifthEnemyInfo = new();
     private readonly Dictionary<DropdownField, List<IntegerField>> _sixthEnemyInfo = new();
-    private readonly List<Dictionary<DropdownField, List<IntegerField>>> _enemiesInfo = new();
-    public List<Object> _enemiesStruct = new();
+    #endregion
+    //private readonly List<Dictionary<DropdownField, List<IntegerField>>> _enemiesInfo = new();
+    //public List<Object> _enemiesStruct = new();
     private Button _simulateButton;
 
     [MenuItem("Tools/Battle Simulator")]
@@ -155,6 +168,7 @@ public class BattleSimulator : EditorWindow
         _necklaceGroupBox = root.Q<GroupBox>("Necklace");
         _earringsGroupBox = root.Q<GroupBox>("Earrings");
 
+        #region Stuff
         _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Hp"));
         _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat1"));
         _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat2"));
@@ -190,7 +204,7 @@ public class BattleSimulator : EditorWindow
         _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat2"));
         _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat3"));
         _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat4"));
-
+        #endregion
         _helmetDropdown = root.Q<DropdownField>("helmet-dropdown");
         _chestDropdown = root.Q<DropdownField>("chest-dropdown");
         _bootsDropdown = root.Q<DropdownField>("boots-dropdown");
@@ -217,16 +231,34 @@ public class BattleSimulator : EditorWindow
         _weaponFoldout = root.Q<Foldout>("weapon-foldout");
         _weaponFoldout.text = "Weapon Skills";
 
-        _firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
+        /*_firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
         _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
         _thirdEnemyGroupBox = root.Q<GroupBox>("ThirdEnemy");
         _fourthEnemyGroupBox = root.Q<GroupBox>("FourthEnemy");
         _fifthEnemyGroupBox = root.Q<GroupBox>("FifthEnemy");
-        _sixthEnemyGroupBox = root.Q<GroupBox>("SixthEnemy");
+        _sixthEnemyGroupBox = root.Q<GroupBox>("SixthEnemy");*/
+        _enemiesGroupbox = root.Query<GroupBox>("EnemyGroupbox").ToList();
+
+        foreach (var item in _enemiesGroupbox)
+        {
+            EnemyInfo enemy = new()
+            {
+                Dropdown = item.Q<DropdownField>("EnemyDropdown"),
+                Foldout = item.Q<Foldout>("EnemyFoldout")
+            };
+
+            List<IntegerField> statList = item.Query<IntegerField>().ToList();
+
+            foreach (var stat in statList)
+            {
+                enemy.Stats[Enum.Parse<Item.AttributeStat>(stat.name)] = stat;
+            }
+        }
 
         // get the stats fields for all the enemies
         //TODO -> use enums with list or dictionary to optimize
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("HP"));
+        #region To Delete
+        /*_firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("HP"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Attack"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
         _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
@@ -284,21 +316,22 @@ public class BattleSimulator : EditorWindow
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritRate"));
         _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));
+        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));*/
 
-        _firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
+        /*_firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
         _secondEnemyDropdown = root.Q<DropdownField>("second-enemy-dropdown");
         _thirdEnemyDropdown = root.Q<DropdownField>("third-enemy-dropdown");
         _fourthEnemyDropdown = root.Q<DropdownField>("fourth-enemy-dropdown");
         _fifthEnemyDropdown = root.Q<DropdownField>("fifth-enemy-dropdown");
-        _sixthEnemyDropdown = root.Q<DropdownField>("sixth-enemy-dropdown");
+        _sixthEnemyDropdown = root.Q<DropdownField>("sixth-enemy-dropdown");*/
+        #endregion
 
-        _enemiesDropdown.Add(_firstEnemyDropdown);
+        /*_enemiesDropdown.Add(_firstEnemyDropdown);
         _enemiesDropdown.Add(_secondEnemyDropdown);
         _enemiesDropdown.Add(_thirdEnemyDropdown);
         _enemiesDropdown.Add(_fourthEnemyDropdown);
         _enemiesDropdown.Add(_fifthEnemyDropdown);
-        _enemiesDropdown.Add(_sixthEnemyDropdown);
+        _enemiesDropdown.Add(_sixthEnemyDropdown);*/
 
         _firstEnemyFoldout = root.Q<Foldout>("first-enemy-foldout");
         _secondEnemyFoldout = root.Q<Foldout>("second-enemy-foldout");
@@ -554,7 +587,7 @@ public class BattleSimulator : EditorWindow
         });
 
         int i = 0;
-        foreach (var enemyInfo in _enemiesInfo)
+        /*foreach (var enemyInfo in _enemiesInfo)
         {
             foreach (var item in enemyInfo)
             {
@@ -578,7 +611,7 @@ public class BattleSimulator : EditorWindow
                 }
             }
             i++;
-        }
+        }*/
 
 
     }
@@ -656,11 +689,4 @@ public class BattleSimulator : EditorWindow
             Debug.Log("Simulate");
         };
     }
-}
-
-public class EnemyInfo
-{
-    public DropdownField dropdowns;
-    public List<IntegerField> stats;
-    public Foldout foldouts;
 }
