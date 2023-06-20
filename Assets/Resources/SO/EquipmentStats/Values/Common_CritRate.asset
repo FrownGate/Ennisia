@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7ed059b19d7e24cb1766c9214fcc18, type: 3}
-  m_Name: Common_Speed
+  m_Name: Common_CritRate
   m_EditorClassIdentifier: 
-  MinValue: 24
-  MaxValue: 40
+  MinValue: 5
+  MaxValue: 10
