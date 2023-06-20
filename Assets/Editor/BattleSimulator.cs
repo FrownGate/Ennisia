@@ -10,12 +10,16 @@ public class BattleSimulator : EditorWindow
     public static BattleSystem Instance;
     private List<SupportCharacterSO> _supports = new();
     private List<GearSO> _weapons = new();
-    private List<Enemy> _enemies = new();
+    // TODO: To Enemy 
+    private List<Entity> _enemies = new();
     private List<GearSO> _gears = new();
-    private List<Enemy> _selectedEnemies = new();
+    // TODO: To Enemy 
+    private List<Entity> _selectedEnemies = new();
     private List<SupportCharacterSO> _selectedSupports = new();
     private List<GearSO> _selectedGears = new();
     private GearSO _selectedWeapon;
+
+    List<EnemyInfo> _enemiesInfo = new();
 
     // GEARS
     private GroupBox _helmetGroupBox;
@@ -97,6 +101,7 @@ public class BattleSimulator : EditorWindow
     private readonly Dictionary<DropdownField, List<IntegerField>> _fifthEnemyInfo = new();
     private readonly Dictionary<DropdownField, List<IntegerField>> _sixthEnemyInfo = new();
     private readonly List<Dictionary<DropdownField, List<IntegerField>>> _enemiesInfo = new();
+    public List<Object> _enemiesStruct = new();
     private Button _simulateButton;
 
     [MenuItem("Tools/Battle Simulator")]
@@ -309,6 +314,13 @@ public class BattleSimulator : EditorWindow
         _enemiesFoldout.Add(_fifthEnemyFoldout);
         _enemiesFoldout.Add(_sixthEnemyFoldout);
 
+        // EnemyInfo _firstEnemyInfo = new();
+        // EnemyInfo _secondEnemyInfo = new();
+        // EnemyInfo _firstEnemyInfo = new();
+        // EnemyInfo _firstEnemyInfo = new();
+        // EnemyInfo _firstEnemyInfo = new();
+        // EnemyInfo _firstEnemyInfo = new();
+
         _firstEnemyInfo.Add(_firstEnemyDropdown, _firstEnemyStatsField);
         _secondEnemyInfo.Add(_secondEnemyDropdown, _secondEnemyStatsField);
         _thirdEnemyInfo.Add(_thirdEnemyDropdown, _thirdEnemyStatsField);
@@ -316,12 +328,12 @@ public class BattleSimulator : EditorWindow
         _fifthEnemyInfo.Add(_fifthEnemyDropdown, _fifthEnemyStatsField);
         _sixthEnemyInfo.Add(_sixthEnemyDropdown, _sixthEnemyStatsField);
 
-        _enemiesInfo.Add(_firstEnemyInfo);
-        _enemiesInfo.Add(_secondEnemyInfo);
-        _enemiesInfo.Add(_thirdEnemyInfo);
-        _enemiesInfo.Add(_fourthEnemyInfo);
-        _enemiesInfo.Add(_fifthEnemyInfo);
-        _enemiesInfo.Add(_sixthEnemyInfo);
+        // _enemiesInfo.Add(_firstEnemyInfo);
+        // _enemiesInfo.Add(_secondEnemyInfo);
+        // _enemiesInfo.Add(_thirdEnemyInfo);
+        // _enemiesInfo.Add(_fourthEnemyInfo);
+        // _enemiesInfo.Add(_fifthEnemyInfo);
+        // _enemiesInfo.Add(_sixthEnemyInfo);
 
         // Set Base value for the foldouts
         foreach (Foldout foldout in _enemiesFoldout)
@@ -541,39 +553,46 @@ public class BattleSimulator : EditorWindow
             }
         });
 
+        int i = 0;
         foreach (var enemyInfo in _enemiesInfo)
         {
             foreach (var item in enemyInfo)
             {
-                item.Key.RegisterValueChangedCallback(evt =>
+                foreach (Foldout foldout in _enemiesFoldout)
                 {
-                    foreach (Foldout foldout in _enemiesFoldout)
+                    item.Key.RegisterValueChangedCallback(evt =>
                     {
                         if (evt.newValue != "No Enemy")
                         {
                             foldout.visible = true;
                             foldout.text = evt.newValue;
 
-                            ChangeFieldsOfEnemy(evt.newValue, item.Value);
+                            ChangeFieldsOfEnemy(evt.newValue, item.Value, i);
                         }
                         else
                         {
                             foldout.visible = false;
                         }
 
-                    }
-                });
+                    });
+                }
             }
+            i++;
         }
 
 
     }
 
-    private void ChangeFieldsOfEnemy(string enemyName, List<IntegerField> enemyStatsField)
+    private void ChangeFieldsOfEnemy(string enemyName, List<IntegerField> enemyStatsField, int index)
     {
-        Enemy enemy = _enemies.Find(x => x.Name == enemyName);
+        // TODO: To Enemy 
+        Entity enemy = _enemies.Find(x => x.Name == enemyName);
+
+
         _selectedEnemies.Add(enemy);
-        int i = 0;
+        
+
+
         foreach (var stat in enemy.Stats)
         {
             foreach (var field in enemyStatsField)
@@ -637,4 +656,11 @@ public class BattleSimulator : EditorWindow
             Debug.Log("Simulate");
         };
     }
+}
+
+public class EnemyInfo
+{
+    public DropdownField dropdowns;
+    public List<IntegerField> stats;
+    public Foldout foldouts;
 }

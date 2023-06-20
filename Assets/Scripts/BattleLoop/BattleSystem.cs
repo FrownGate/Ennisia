@@ -163,16 +163,16 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void SimulateBattle(Player player = null, List<Enemy> enemies = null)
+    public void SimulateBattle(Player player = null, List<Entity> enemies = null)
     {
         if (player != null)
         {
             Player = player;
         }
-        // if (enemies != null)
-        // {
-        //     Enemies = enemies;
-        // }
+        if (enemies != null)
+        {
+            Enemies = enemies;
+        }
         SetState(new AutoBattle(this));
     }
 
