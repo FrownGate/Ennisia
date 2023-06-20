@@ -449,7 +449,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 8.903986}
+  m_AnchoredPosition: {x: 0, y: 0.00009272857}
   m_SizeDelta: {x: 0, y: 183}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &496295212
@@ -769,6 +769,67 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8718640731442084245, guid: ee2b417468b826646bf70ca313d49201, type: 3}
   m_PrefabInstance: {fileID: 321266290}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &731463721
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238860521659532338, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562900100838161363, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
+      propertyPath: m_Name
+      value: ExpManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c7c1eb3c1d0f12f439545b392949d7f6, type: 3}
 --- !u!1001 &880197724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -916,8 +977,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 887404778}
-        m_TargetAssemblyTypeName: XPreward, Assembly-CSharp
-        m_MethodName: LVLUPReward
+        m_TargetAssemblyTypeName: XPReward, Assembly-CSharp
+        m_MethodName: LVLUP
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1230,6 +1291,7 @@ GameObject:
   - component: {fileID: 1080669025}
   - component: {fileID: 1080669024}
   - component: {fileID: 1080669023}
+  - component: {fileID: 1080669026}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -1302,9 +1364,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 425809712}
-        m_TargetAssemblyTypeName: MissionManager, Assembly-CSharp
-        m_MethodName: CompleteMission
+      - m_Target: {fileID: 1080669026}
+        m_TargetAssemblyTypeName: XPRewardCSVParser, Assembly-CSharp
+        m_MethodName: ParseCSVData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1352,6 +1414,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080669021}
   m_CullTransparentMesh: 1
+--- !u!114 &1080669026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080669021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2083c7e13b5053e429e84fdc824c20d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xpRewardData: {fileID: 11400000, guid: ae69352dfbe07494693b29bdb869fe4a, type: 2}
+  csvFile: {fileID: 4900000, guid: 5015625e5ba129a49a793627e1c0fc06, type: 3}
 --- !u!1 &1136159857
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,7 +1712,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1136159858}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.87118924
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

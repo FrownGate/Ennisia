@@ -15,6 +15,7 @@ public class ExperienceSystem : MonoBehaviour
     private Dictionary<int, int> _PlayerlevelExperienceMap;
     private Dictionary<int, int> _AccountlevelExperienceMap;
 
+    public XPRewardData Rewards;
 
 
     public static ExperienceSystem Instance { get; private set; }
@@ -76,6 +77,7 @@ public class ExperienceSystem : MonoBehaviour
             _level++; // Incrémente le niveau
             _experience -= _PlayerlevelExperienceMap[_level]; // Déduit l'expérience requise pour atteindre le niveau suivant
             PlayFabManager.Instance.Player.Level = _level;
+            Rewards.LVLUPReward(_level);
         }
 
         PlayFabManager.Instance.Player.Exp = _experience;

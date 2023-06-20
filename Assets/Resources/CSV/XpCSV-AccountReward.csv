@@ -28,7 +28,7 @@ Level,Reward
 27,Summon Ticket x3 + (Rare) Armor Material x5 + (Epic) Armor Material x5 + Crystals x160
 28,Summon Ticket x3 + (Rare) Accessory Material x5 + (Epic) Accessory Material x5 + Crystals x160
 29,Summon Ticket x3 + (Rare) Weapon Material x5 + (Epic) Weapon Material x5 + Crystals x160
-30,(Rare) Armor Set (uc) + (Rare) Weapon (uc)
+30,(Rare) Armor Set x1 + (Rare) Weapon x1
 31,Summon Ticket x4 + (Epic) Armor Material x10 + Crystals x200
 32,Summon Ticket x4 + (Epic) Accessory Material x10 + Crystals x200
 33,Summon Ticket x4 + (Epic) Weapon Material x10 + Crystals x200
@@ -38,7 +38,7 @@ Level,Reward
 37,Summon Ticket x4 + (Epic) Armor Material x10 + Crystals x200
 38,Summon Ticket x4 + (Epic) Accessory Material x10 + Crystals x200
 39,Summon Ticket x4 + (Epic) Weapon Material x10 + Crystals x200
-40,(Epic) Armor Set (uc) + (Epic) Weapon (uc)
+40,(Epic) Armor Set x1 + (Epic) Weapon x1
 41,Summon Ticket x5 + Crystals x300
 42,Summon Ticket x5 + Crystals x300
 43,Summon Ticket x5 + Crystals x300
@@ -46,6 +46,6 @@ Level,Reward
 45, Summon Ticket x30 + (Legendary) Weapon Material x50 + Crystals x500
 46,(Legendary) Armor Material x50 + Crystals x500
 47,(Legendary) Accessory Material x50 + Crystals x500
-48,Random (Legendary) Armor
-49,Random (Legendary) Accessory 
-50,Random (Legendary) Weapon + (Legendary) Summon Ticket x1
+48,(Legendary) Armor x1
+49,(Legendary) Accessory x1
+50,(Legendary) Weapon x1 + (Legendary) Summon Ticket x1
