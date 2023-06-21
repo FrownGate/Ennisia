@@ -12,7 +12,7 @@ public class Item
 
     public enum ItemCategory
     {
-        Weapon, Armor, Accessory
+        Weapon, Armor, Accessory, None
     }
 
     public enum GearType
@@ -22,12 +22,12 @@ public class Item
 
     public enum GearWeaponType
     {
-        Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow
+        Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow, Gloves
     }
 
     public enum AttributeStat //TODO -> move elsewhere
     {
-        HP, Attack, PhysicalDamages, MagicalDamages, Defense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref, Shield
+        HP, Attack, PhysicalDamages, MagicalDamages, PhysicalDefense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref, Shield
     }
     //TODO -> add magical and physical defenses
     public enum GearSet //TODO -> move elsewhere

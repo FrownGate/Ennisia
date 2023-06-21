@@ -1,24 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GearSet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Gear[] _sets;
+    [HideInInspector] public Skill FourPieces;
+    [HideInInspector] public Skill SixPieces;
+    private void CheckGearSet()
     {
-        
-    }
-
-    private void CheckGearSet() 
-    {
-        int[] sets;
-        for(int i = 0;i<7;i++)
+        int wui = 0;
+        int index = 0;
+        foreach (var gear in PlayFabManager.Instance.Player.EquippedGears)
         {
-            //PlayFabManager.Instance.Player.EquippedGears[i].
+            _sets[index] = gear.Value;
+            index++;
         }
-        
-        
 
+        for (int i = 0; i < _sets.Length; i++)
+        {
+            for (int j = 0; j < _sets.Length; j++)
+            {
+                if (_sets[i] == _sets[j])
+                {
+                    wui++;
+                    if(wui == 4)
+                    {
+                        Type type = Type.GetType(CSVUtils.GetFileName(_sets[i].ToString()));
+                        FourPieces = (Skill)Activator.CreateInstance(type);
+                        if (wui == 6)
+                        {
+                            Type type2 = Type.GetType(CSVUtils.GetFileName(_sets[i].ToString() + "6"));
+                            SixPieces = (Skill)Activator.CreateInstance(type);
+                        }
+                    }     
+                }
+            }
+        }
     }
 }
+
