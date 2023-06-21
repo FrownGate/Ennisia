@@ -7,7 +7,7 @@ public class FastShield : Skill
     public override void UseIfAttacked(List<Entity> targets, Entity player, int turn, float damageTaken)
     {
         float shieldAmount = damageTaken * Data.ShieldAmount / 100;
-        //give shieldAmount shield
+        player.Shield += shieldAmount;
     }
 
 }

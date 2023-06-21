@@ -1,21 +1,22 @@
 using System.Collections.Generic;
+using static Stat<float>;
 
 public class Swiftness : Skill
 {
-//TODO -> Increases speed by #
-    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }
+    public float speedRatio;
+    float speedRatioBuff;
+    ModifierID id;
 
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }
+    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    {
+        speedRatioBuff = speedRatio + StatUpgrade1 * Level;
+        id = player.Stats[Item.AttributeStat.Speed].AddModifier(Speed);
+    }
 
-    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }
+    float Speed(float input) { return speedRatioBuff + input; }
 
-    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }
-
-    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }
-
-    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }
-
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn) { }
+    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
+    {
+        player.Stats[Item.AttributeStat.Speed].RemoveModifier(id);
+    }
 }
