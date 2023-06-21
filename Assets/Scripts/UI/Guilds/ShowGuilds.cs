@@ -22,6 +22,8 @@ public class ShowGuilds : MonoBehaviour
     {
         int position = 0;
 
+        //TODO -> get all guild datas here with coroutine then use alpha visibility
+
         foreach (GroupWithRoles guild in guilds)
         {
             Debug.Log(guild.GroupName);
