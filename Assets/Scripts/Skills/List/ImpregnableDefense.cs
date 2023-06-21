@@ -12,7 +12,7 @@ public class ImpregnableDefense : Skill
 
         if(turn < 5)
         {
-            _defID.Add(player.Stats[Item.AttributeStat.Defense].AddModifier(Add5PercentOfDef));
+            _defID.Add(player.Stats[Item.AttributeStat.PhysicalDefense].AddModifier(Add5PercentOfDef));
             _magicalDefID.Add(player.Stats[Item.AttributeStat.MagicalDefense].AddModifier(Add5PercentOfDef));
         }
     }
@@ -26,7 +26,7 @@ public class ImpregnableDefense : Skill
     {
         foreach(var id in _defID)
         {
-            player.Stats[Item.AttributeStat.Defense].RemoveModifier(id);
+            player.Stats[Item.AttributeStat.PhysicalDefense].RemoveModifier(id);
         }
         foreach (var id in _magicalDefID)
         {

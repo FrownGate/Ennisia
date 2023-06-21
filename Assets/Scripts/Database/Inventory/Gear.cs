@@ -150,9 +150,16 @@ public class Gear : Item
 
         for (int i = 0; i < (int)Rarity; i++)
         {
-            AttributeStat stat = (AttributeStat)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
-            StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
-            substats[stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
+            AttributeStat? stat;
+            StatMinMaxValuesSO possibleValues;
+
+            do
+            {
+                stat = (AttributeStat)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
+                possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
+            } while (possibleValues == null);
+
+            substats[(AttributeStat)stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
         }
 
         return substats;
