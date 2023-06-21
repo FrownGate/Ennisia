@@ -11,7 +11,7 @@ public class Earth : ElementsBuff
         if (_Supportelements[0] == Element.Earth.ToString())
         {
             _player.Stats[Item.AttributeStat.MagicalDefense].AddModifier(Buff);
-            _player.Stats[Item.AttributeStat.Defense].AddModifier(Buff);
+            _player.Stats[Item.AttributeStat.PhysicalDefense].AddModifier(Buff);
         }
     }
 
