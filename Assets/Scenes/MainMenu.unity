@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 109601282}
   - component: {fileID: 109601283}
   m_Layer: 5
-  m_Name: Mails
+  m_Name: MailPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,7 +809,7 @@ GameObject:
   - component: {fileID: 1766067989}
   - component: {fileID: 1766067990}
   m_Layer: 5
-  m_Name: Events
+  m_Name: EventPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
