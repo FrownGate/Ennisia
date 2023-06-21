@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 382227425}
   - component: {fileID: 382227428}
   m_Layer: 5
-  m_Name: Expeditions
+  m_Name: ExpeditionSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -484,6 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scene: TitleScreen
+  _params: 
 --- !u!1 &465837029
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,6 +702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scene: EndlessTower
+  _params: 
 --- !u!1001 &1070315934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1460,6 +1462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scene: Raids
+  _params: 
 --- !u!1 &1507501026
 GameObject:
   m_ObjectHideFlags: 0
