@@ -12,71 +12,71 @@ public class XPRewardData : ScriptableObject
     [Serializable]
     public class RewardEntry
     {
-        public int level;
-        public List<RewardComponent> rewards;
+        public int Level;
+        public List<RewardComponent> Rewards;
     }
 
     [Serializable]
     public class RewardComponent
     {
-        public string itemName;
-        public int count;
-        public Item.ItemCategory category;
-        public Item.ItemRarity rarity;
-        public RewardType rewardType;
+        public string ItemName;
+        public int Count;
+        public Item.ItemCategory Category;
+        public Item.ItemRarity Rarity;
+        public RewardType RewardType;
     }
 
-    public List<RewardEntry> rewardEntries;
+    public List<RewardEntry> RewardEntries;
 
     public void LVLUPReward(int level)
     {
-        RewardEntry entry = rewardEntries.Find(x => x.level == level);
+        RewardEntry entry = RewardEntries.Find(x => x.Level == level);
         if (entry == null)
         {
             Debug.LogWarning($"No rewards found for level {level}");
             return;
         }
 
-        foreach (RewardComponent component in entry.rewards)
+        foreach (RewardComponent component in entry.Rewards)
         {
-            switch (component.rewardType)
+            switch (component.RewardType)
             {
                 case RewardType.Crystals:
-                    PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, component.count);
+                    PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, component.Count);
                     break;
                 case RewardType.Material:
-                    PlayFabManager.Instance.AddInventoryItem(new Material(component.category, component.rarity, component.count));
+                    PlayFabManager.Instance.AddInventoryItem(new Material(component.Category, component.Rarity, component.Count));
                     break;
                 case RewardType.SummonTicket:
-                    SummonTicket summonTicket = new(component.rarity, component.count);
+                    SummonTicket summonTicket = new(component.Rarity, component.Count);
                     PlayFabManager.Instance.AddInventoryItem(summonTicket);
                     break;
                 case RewardType.Armor:
                     Item.GearType armorType = (Item.GearType)UnityEngine.Random.Range(0, 3);
-                    Gear armor = new(armorType, component.rarity);
+                    Gear armor = new(armorType, component.Rarity);
                     PlayFabManager.Instance.AddInventoryItem(armor);
                     break;
                 case RewardType.Accessory:
                     Item.GearType accessoryType = (Item.GearType)UnityEngine.Random.Range(3, 6);
-                    Gear accessory = new(accessoryType, component.rarity);
+                    Gear accessory = new(accessoryType, component.Rarity);
                     PlayFabManager.Instance.AddInventoryItem(accessory);
                     break;
                 case RewardType.Weapon:
                     GearSO[] weaponSO = Resources.LoadAll<GearSO>("SO/Weapons");
                     int randomIndex = UnityEngine.Random.Range(0, weaponSO.Length);
-                    Gear weapon = new(weaponSO[randomIndex], component.rarity);
+                    Gear weapon = new(weaponSO[randomIndex], component.Rarity);
                     PlayFabManager.Instance.AddInventoryItem(weapon);
                     break;
                 case RewardType.Set:
                     // TODO -> Handle set reward
                     List<Gear> set = new()
                     {
-                        new(Item.GearType.Helmet, component.rarity),
-                        new(Item.GearType.Chest, component.rarity),
-                        new(Item.GearType.Boots, component.rarity),
-                        new(Item.GearType.Earrings, component.rarity),
-                        new(Item.GearType.Ring, component.rarity),
-                        new(Item.GearType.Necklace, component.rarity)
+                        new(Item.GearType.Helmet, component.Rarity),
+                        new(Item.GearType.Chest, component.Rarity),
+                        new(Item.GearType.Boots, component.Rarity),
+                        new(Item.GearType.Earrings, component.Rarity),
+                        new(Item.GearType.Ring, component.Rarity),
+                        new(Item.GearType.Necklace, component.Rarity)
                     };
 
                     foreach (var gear in set)

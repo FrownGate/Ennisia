@@ -9,7 +9,7 @@ using static XPRewardData;
 
 public class XPRewardCSVParserWindow : EditorWindow
 {
-    private TextAsset csvFile;
+    private TextAsset _csvFile;
 
     [MenuItem("Tools/XP Reward CSV Parser")]
     public static void ShowWindow()
@@ -20,14 +20,14 @@ public class XPRewardCSVParserWindow : EditorWindow
     private void OnGUI()
     {
         GUILayout.Label("CSV File", EditorStyles.boldLabel);
-        csvFile = EditorGUILayout.ObjectField("CSV File", csvFile, typeof(TextAsset), false) as TextAsset;
+        _csvFile = EditorGUILayout.ObjectField("CSV File", _csvFile, typeof(TextAsset), false) as TextAsset;
 
         if (GUILayout.Button("Parse CSV Data"))
         {
-            if (csvFile != null)
+            if (_csvFile != null)
             {
                 XPRewardData xpRewardData = ScriptableObject.CreateInstance<XPRewardData>();
-                ParseCSVData(csvFile, xpRewardData);
+                ParseCSVData(_csvFile, xpRewardData);
                 SaveParsedData(xpRewardData);
                 Debug.Log("CSV data parsed and saved successfully.");
             }
@@ -40,7 +40,7 @@ public class XPRewardCSVParserWindow : EditorWindow
 
     private void ParseCSVData(TextAsset csvFile, XPRewardData xpRewardData)
     {
-        xpRewardData.rewardEntries = new List<RewardEntry>();
+        xpRewardData.RewardEntries = new List<RewardEntry>();
         string[] lines = csvFile.text.Split('\n');
 
         for (int i = 1; i < lines.Length; i++)
@@ -60,11 +60,11 @@ public class XPRewardCSVParserWindow : EditorWindow
 
                     RewardEntry entry = new RewardEntry
                     {
-                        level = level,
-                        rewards = rewardComponents
+                        Level = level,
+                        Rewards = rewardComponents
                     };
 
-                    xpRewardData.rewardEntries.Add(entry);
+                    xpRewardData.RewardEntries.Add(entry);
                 }
             }
         }
@@ -106,11 +106,11 @@ public class XPRewardCSVParserWindow : EditorWindow
 
                 RewardComponent component = new RewardComponent
                 {
-                    itemName = item,
-                    count = count,
-                    category = DetermineItemCategory(itemParts[0]),
-                    rarity = DetermineItemRarity(rarity),
-                    rewardType = DetermineItemRewardType(itemParts[itemParts.Length - 1])
+                    ItemName = item,
+                    Count = count,
+                    Category = DetermineItemCategory(itemParts[0]),
+                    Rarity = DetermineItemRarity(rarity),
+                    RewardType = DetermineItemRewardType(itemParts[itemParts.Length - 1])
                 };
 
                 rewardComponents.Add(component);
