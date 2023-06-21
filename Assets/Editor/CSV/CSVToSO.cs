@@ -291,11 +291,11 @@ public class CSVToSO : EditorWindow
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
         {
-            _equipmentTypes[rowData["type"]] = new List<Item.AttributeStat> { Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(rowData["attribute"])) };
+            _equipmentTypes[rowData["type"]] = new List<Item.AttributeStat> { Enum.Parse<Item.AttributeStat>(rowData["attribute"]) };
         }
         else
         {
-            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(rowData["attribute"])));
+            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Item.AttributeStat>(rowData["attribute"]));
         }
 
         if (_currentLine == _lines)

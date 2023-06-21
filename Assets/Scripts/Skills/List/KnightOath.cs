@@ -8,7 +8,7 @@ public class KnightOath : PassiveSkill
     {
         BuffBaseRatio = 0.1f + StatUpgrade1 * Level;
         float buffMaxHp = player.Stats[Item.AttributeStat.HP].Value * BuffBaseRatio;
-        float buffPhDef = player.Stats[Item.AttributeStat.Defense].Value * BuffBaseRatio;
+        float buffPhDef = player.Stats[Item.AttributeStat.PhysicalDefense].Value * BuffBaseRatio;
         float buffMDef = player.Stats[Item.AttributeStat.MagicalDefense].Value * BuffBaseRatio;
       /*  player.MaxHp += buffMaxHp;
         player.PhysDef += buffPhDef;
