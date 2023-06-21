@@ -11,6 +11,8 @@ public abstract class Entity
     public Dictionary<Item.AttributeStat, Stat<float>> Stats { get; private set; }
     public GearSO Weapon { get; set; }
     public List<Skill> Skills { get; protected set; }
+    public List<BuffEffect> Buffs { get; protected set; } = new();
+    public List<BuffEffect> Alterations { get; protected set; } = new();
     public bool IsSelected { get; protected set; } = false;
     
     public bool IsDead
@@ -60,4 +62,13 @@ public abstract class Entity
     {
         return Stats[stat].AddModifier(func, layer);
     }
+    public void AddBuffEffect(BuffEffect buff)
+    {
+        Buffs.Add(buff);
+    }
+    public void AddAlteration(BuffEffect alteration)
+    {
+        Alterations.Add(alteration);
+    }
+    
 }
