@@ -68,7 +68,9 @@ public class XPRewardData : ScriptableObject
                     PlayFabManager.Instance.AddInventoryItem(weapon);
                     break;
                 case RewardType.Set:
-                    // TODO -> Handle set reward
+                    
+                    Item.GearSet randomSet = (Item.GearSet)UnityEngine.Random.Range(0, Enum.GetValues(typeof(Item.GearSet)).Length);
+
                     List<Gear> set = new()
                     {
                         new(Item.GearType.Helmet, component.Rarity),
@@ -81,6 +83,7 @@ public class XPRewardData : ScriptableObject
 
                     foreach (var gear in set)
                     {
+                        gear.Set = randomSet;
                         PlayFabManager.Instance.AddInventoryItem(gear);
                     }
 
