@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7ed059b19d7e24cb1766c9214fcc18, type: 3}
   m_Name: Epic_HP
   m_EditorClassIdentifier: 
-  MinValue: 1500
-  MaxValue: 2500
+  MinValue: 1900
+  MaxValue: 2700
