@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class AllIn : Skill
+public class AllIn : PassiveSkill
 {
     public float defBaseRatio;
     ModifierID id;

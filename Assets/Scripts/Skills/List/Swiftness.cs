@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class Swiftness : Skill
+public class Swiftness : PassiveSkill
 {
     public float speedRatio;
     float speedRatioBuff;

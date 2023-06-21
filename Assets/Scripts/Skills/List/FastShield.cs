@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class FastShield : Skill
+public class FastShield : PassiveSkill
 {
     //TODO -> After an enemy attack, gives a shield, the shield strength is equivalent to 20% of the damage received  
 

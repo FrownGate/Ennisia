@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerraShockwave: Skill
+public class TerraShockwave: DamageSkill
 {
     private float _stunPerc = 0.5f;
     private float _increaseCDPerc = 0.75f;

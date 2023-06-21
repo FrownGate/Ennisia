@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class CrushingEarthguard : Skill
+public class CrushingEarthguard : DamageSkill
 {
     //TODO -> Attacks all enemies, and gives a shield based off 40% of damage done.
 

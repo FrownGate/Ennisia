@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class LastHope : Skill
+public class LastHope : PassiveSkill
 {
     public float healBaseRatio;
     private bool _isUsed = false;
