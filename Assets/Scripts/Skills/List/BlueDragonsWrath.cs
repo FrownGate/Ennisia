@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class BlueDragonsWrath : Skill
 {
@@ -8,11 +9,12 @@ public class BlueDragonsWrath : Skill
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
         //Boost 50% attack for 3 turns
-        new BuffEffect(3, entity =>
+        Debug.Log("Player's attack" + player.Stats[Item.AttributeStat.Attack].Value);
+        new BuffEffect(3,player, entity =>
         {
             entity.AlterateStat(Item.AttributeStat.Attack, value => value * 1.5f, 1);
         } );
-
+        Debug.Log("Player's attack" + player.Stats[Item.AttributeStat.Attack].Value);
         return damage;
     }
 }

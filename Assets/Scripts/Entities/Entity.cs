@@ -43,7 +43,7 @@ public abstract class Entity
 
         foreach (string stat in Enum.GetNames(typeof(Item.AttributeStat)))
         {
-            Stats[Enum.Parse<Item.AttributeStat>(stat)] = new(1);
+            Stats[Enum.Parse<Item.AttributeStat>(stat)] = new(10);
         }
     }
 
@@ -56,7 +56,7 @@ public abstract class Entity
     public virtual void ResetTargetedState() { }
     public virtual void HaveBeenSelected() { }
     
-    public Stat<float>.ModifierID AlterateStat(Item.AttributeStat stat, Func<float, float> func, int layer = 1)
+    public ModifierID AlterateStat(Item.AttributeStat stat, Func<float, float> func, int layer = 1)
     {
         return Stats[stat].AddModifier(func, layer);
     }
