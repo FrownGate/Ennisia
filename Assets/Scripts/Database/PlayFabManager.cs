@@ -715,9 +715,10 @@ public class PlayFabManager : MonoBehaviour
     //TODO -> check role for applications functions
     //TODO -> Check if player's application has been accepted in update ?
 
-    public void CreateGuild(string name)
+    public void CreateGuild(string name, string description)
     {
         Debug.Log("Creating guild...");
+        //TODO -> save description as object
 
         //TODO -> Check if name already exists
 

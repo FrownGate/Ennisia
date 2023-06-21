@@ -1,21 +1,18 @@
 using System.Collections.Generic;
+using static Stat<float>;
 
 public class ZephyrSwiftness : Skill
 {
-//TODO -> Increase base speed by 20%.
-    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }
+    ModifierID id;
+    //TODO -> Increase base speed by 20%.
+    public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
+    {
+        id = player.Stats[Item.AttributeStat.Speed].AddModifier(IncreaseSpeed);
+    }
+    float IncreaseSpeed(float input) { return input + (int)(input * 20 / 100); }
 
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }
-
-    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }
-
-    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }
-
-    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }
-
-    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }
-
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn) { }
+    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
+    {
+        player.Stats[Item.AttributeStat.Speed].RemoveModifier(id);
+    }
 }

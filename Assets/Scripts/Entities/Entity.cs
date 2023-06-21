@@ -45,11 +45,26 @@ public abstract class Entity
         {
             Stats[Enum.Parse<Item.AttributeStat>(stat)] = new(1);
         }
+
+        //TODO -> Take off shield from enum in item
     }
 
     public virtual void TakeDamage(float damage)
     {
-        CurrentHp -= damage;
+        if (Shield > 0)
+        {
+            Shield -= damage;
+            if (damage > Shield)
+            {
+                Shield = 0;
+                CurrentHp -= damage - Shield;
+            }
+        }
+        else
+        {
+            CurrentHp -= damage;
+        }
+        
     }
 
     public virtual bool HaveBeenTargeted() { return true; }
