@@ -12,8 +12,12 @@ public class Player : Entity
         CurrentHp = Stats[Item.AttributeStat.HP].Value;
         Stats[Item.AttributeStat.Speed] = new(90);
         Weapon = Resources.Load<GearSO>("SO/EquippedGears/Weapon"); //Temp
+        FirstSupport = Resources.Load<SupportCharacterSO>("SO/EquippedSupports/SupportCharacterSO_1"); //Temp
+        SecondSupport = Resources.Load<SupportCharacterSO>("SO/EquippedSupports/SupportCharacterSO_2"); //Temp
         //Weapon = PlayFabManager.Instance.Player.EquippedGears[Item.GearType.Weapon].WeaponSO;
         Weapon.Init();
+        FirstSupport.Init();
+        SecondSupport.Init();
 
         InitSkills();
     }
@@ -42,6 +46,13 @@ public class Player : Entity
             new Bonk(),
             Weapon.FirstSkill,
             Weapon.SecondSkill
+        };
+        SupportSkills = new()
+        {
+            FirstSupport.PrimarySkill,
+            FirstSupport.SecondarySkill,
+            SecondSupport.PrimarySkill,
+            SecondSupport.SecondarySkill
         };
     }
 }

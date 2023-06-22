@@ -10,7 +10,10 @@ public abstract class Entity
     public float CurrentHp { get; set; }
     public Dictionary<Item.AttributeStat, Stat<float>> Stats { get; private set; }
     public GearSO Weapon { get; set; }
+    public SupportCharacterSO FirstSupport { get; set; }
+    public SupportCharacterSO SecondSupport { get; set; }
     public List<Skill> Skills { get; protected set; }
+    public List<Skill> SupportSkills { get; protected set; }
     public bool IsSelected { get; protected set; } = false;
 
     public bool IsDead
