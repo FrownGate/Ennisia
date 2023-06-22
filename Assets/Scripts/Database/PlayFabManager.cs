@@ -112,6 +112,8 @@ public class PlayFabManager : MonoBehaviour
                 Type = "title_player_account"
             }; //TODO -> encrypt datas
             //Can be replace by Get Account Info request
+
+            _isPending = false;
         }
     }
 
@@ -626,8 +628,9 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Items
-    public void AddInventoryItem(Item item)
+    public IEnumerator AddInventoryItem(Item item)
     {
+        yield return StartCoroutine(CheckPendingRequests());
         StartRequest();
         Debug.Log("adding item");
         item.Serialize();
@@ -1036,21 +1039,13 @@ public class PlayFabManager : MonoBehaviour
 
     private IEnumerator CheckPendingRequests()
     {
-        Debug.Log("starting coroutine...");
-        if (_isPending)
-        {
-            Debug.Log("pending");
-            yield return new WaitUntil(() => !_isPending);
-        }
-
-        Debug.Log("end coroutine");
-        yield return null;
+        Debug.Log("new request received");
+        yield return new WaitUntil(() => !_isPending);
+        Debug.Log("pending end");
     }
 
     private void StartRequest()
     {
-        Debug.Log("new request received");
-        StartCoroutine(CheckPendingRequests());
         Debug.Log("starting request...");
         _isPending = true;
         OnLoadingStart?.Invoke();
@@ -1083,8 +1078,8 @@ public class PlayFabManager : MonoBehaviour
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
 
-        AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
-        AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
+        StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Common, 5)));
+        StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5)));
 
         //CreateGuild("Test");
 
