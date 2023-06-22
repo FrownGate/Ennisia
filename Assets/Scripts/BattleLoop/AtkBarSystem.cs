@@ -68,4 +68,10 @@ public class AtkBarSystem
             Debug.Log(entity.Name + " atb " + entity.atkBarPercentage);
         }
     }
+
+    public void ResetAtb(Entity entity)
+    {
+        entity.atkBar = 0;
+        entity.atkBarPercentage = 0;
+    }
 }
