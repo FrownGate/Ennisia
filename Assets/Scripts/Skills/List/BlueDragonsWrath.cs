@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class BlueDragonsWrath : DamageSkill
 {
@@ -6,6 +7,7 @@ public class BlueDragonsWrath : DamageSkill
     {
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
+        Cooldown = Data.MaxCooldown;
 
         return damage;
     }

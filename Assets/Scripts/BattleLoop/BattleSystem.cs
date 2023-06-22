@@ -229,11 +229,46 @@ public class BattleSystem : StateMachine
         Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
     }
 
-    public void ReduceEffectDuration(List<BuffEffect> effects, List<BuffEffect> targetEffects = null)
+    public void UpdateEntitiesBuffEffects()
     {
-        foreach (var e in effects)
+        if (Player.Buffs != null)
         {
-            e.Tick();
+            foreach (var buff in Player.Buffs)
+            {
+                buff.Tick(Player);
+            }
         }
+
+        foreach (var enemy in Enemies)
+        {
+            if (enemy.Buffs != null)
+            {
+                foreach (var buff in enemy.Buffs)
+                {
+                    buff.Tick(enemy);
+                }
+            }
+        }
+    }
+    
+    public void UpdateEntitiesAlterations()
+    {
+        if (Player.Alterations != null)
+        {
+            foreach (var alteration in Player.Alterations)
+            {
+                alteration.Tick(Player);
+                switch (alteration.State)
+                {
+                    case AlterationState.Stun:
+                        AttackBarSystem.ResetAtb(Player);
+                        break;
+                    case AlterationState.Silence:
+
+                        break;
+                }
+            }
+        }
+        
     }
 }

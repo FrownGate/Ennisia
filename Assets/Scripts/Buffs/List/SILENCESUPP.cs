@@ -1,4 +1,4 @@
-﻿public class SILENCESUPP : BuffEffect
+﻿public class SILENCESUPP
 {
 
 }
