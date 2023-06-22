@@ -600,7 +600,7 @@ public class BattleSimulator : EditorWindow
                         info.Foldout.text = evt.newValue;
 
 
-                        // ChangeFieldsOfEnemy(evt.newValue, statFields, i);
+                        ChangeFieldsOfEnemy(evt.newValue, statFields, i);
                     }
                     else
                     {
