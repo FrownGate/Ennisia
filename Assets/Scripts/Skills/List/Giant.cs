@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class Giant : Skill
+public class Giant : PassiveSkill
 {
     ModifierID id;
     public float healthBaseRatio;

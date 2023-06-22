@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class ShieldBump : Skill
+public class ShieldBump : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

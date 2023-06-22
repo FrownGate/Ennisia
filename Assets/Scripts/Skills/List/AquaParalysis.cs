@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AquaParalysis : Skill
+public class AquaParalysis : PassiveSkill
 {
     //TODO -> When the player is attacked, has a 15% chance to stun the enemy.
     public override void UseIfAttacked(List<Entity> targets, Entity player, int turn, float damageTaken)

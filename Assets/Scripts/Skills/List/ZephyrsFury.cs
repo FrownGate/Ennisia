@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class ZephyrsFury : Skill
+public class ZephyrsFury : BuffSkill
 {
 //TODO -> Gives a Crit Damage Buff for 3 turns.
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }

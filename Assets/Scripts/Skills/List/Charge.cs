@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class Charge : Skill
+public class Charge : DamageSkill
 { 
     public float attackBaseRatio;
     float attackRatioBuff;

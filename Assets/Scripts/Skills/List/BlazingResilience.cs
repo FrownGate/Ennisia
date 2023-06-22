@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlazingResilience : Skill
+public class BlazingResilience : PassiveSkill
 {
 //TODO -> When the plate receives a debuff, give random buff (att, Crit Rate, Crit Damage).
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn) 

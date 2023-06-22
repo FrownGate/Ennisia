@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class FlamePurification : Skill
+public class FlamePurification : BuffSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

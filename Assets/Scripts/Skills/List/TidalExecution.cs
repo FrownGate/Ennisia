@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class TidalExecution : Skill
+public class TidalExecution : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
