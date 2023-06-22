@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using static Stat<float>;
 
-public class EarthenWard : Skill
+public class EarthenWard : ProtectionSkill
 {
     ModifierID id;
     float shieldAmount;

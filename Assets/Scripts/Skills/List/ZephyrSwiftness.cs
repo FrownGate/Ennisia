@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class ZephyrSwiftness : Skill
+public class ZephyrSwiftness : PassiveSkill
 {
     ModifierID id;
     //TODO -> Increase base speed by 20%.

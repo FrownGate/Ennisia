@@ -3,7 +3,7 @@ using static Stat<float>;
 
 
 
-public class Alchemy : Skill
+public class Alchemy : PassiveSkill
 {
     ModifierID id;
     public float magicAtkBaseRatio;
