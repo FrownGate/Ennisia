@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class HawksEye : Skill
+public class HawksEye : BuffSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

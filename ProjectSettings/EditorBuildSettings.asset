@@ -35,7 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Missions/BattleModeSelection.unity
     guid: 55d6fa4e1512ab041bdccdb546105acd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Missions/RaidsDifficulty.unity
     guid: abc10c5336e5fc54dacfe5ff797e929e
   - enabled: 1
@@ -86,4 +86,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Guilds/GuildsList.unity
     guid: a65a5679c6f78ef479ed679c5bddf2ba
+  - enabled: 1
+    path: Assets/Scenes/Missions/ExpeditionSelection.unity
+    guid: 64d2a7f04c87f2648bd3f2ab531b32bc
+  - enabled: 1
+    path: Assets/Scenes/Expedition.unity
+    guid: 2d8d56568982b9a498b53009f9c60e5e
+  - enabled: 1
+    path: Assets/Scenes/MailPopup.unity
+    guid: 902bd5c55e0f8364bbc98f1e01744f38
   m_configObjects: {}

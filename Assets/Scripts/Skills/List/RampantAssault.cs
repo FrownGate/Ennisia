@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class RampantAssault : Skill
+public class RampantAssault : DamageSkill
 {
     public float targetMaxHpBaseRatio;
 

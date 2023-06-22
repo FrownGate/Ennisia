@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class InAFlash : Skill
+public class InAFlash : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
@@ -9,7 +9,6 @@ public class InAFlash : Skill
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
         targets[0].Stats[Item.AttributeStat.DefIgnoref].RemoveModifier(id);
-        Cooldown = Data.MaxCooldown;
         return damage;
     }
 

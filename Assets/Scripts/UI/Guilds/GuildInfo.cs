@@ -14,23 +14,25 @@ public class GuildInfo : MonoBehaviour
 
     private void Awake()
     {
-        PlayFabManager.OnGetGuildMembers += SetMembers;
+        PlayFabManager.OnGetGuildData += SetData;
     }
 
     private void OnDestroy()
     {
-        PlayFabManager.OnGetGuildMembers -= SetMembers;
+        PlayFabManager.OnGetGuildData -= SetData;
     }
 
     public void Init(GroupWithRoles guild)
     {
         _guild = guild;
         _name.text = _guild.GroupName;
-        PlayFabManager.Instance.GetGuildMembers(_guild);
+        PlayFabManager.Instance.GetGuildData(_guild);
     }
 
-    private void SetMembers(List<EntityMemberRole> members)
+    private void SetData(GuildData data, List<EntityMemberRole> members)
     {
+        //TODO -> add guild description
+        Debug.Log($"Found {members.Count} member(s).");
         _members.text = $"{members.Count - 1}/30";
     }
 

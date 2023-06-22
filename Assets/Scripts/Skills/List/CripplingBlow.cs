@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CripplingBlow : Skill
+public class CripplingBlow : DamageSkill
 {
     /// TO DO -> add defense debuff for x turns
 

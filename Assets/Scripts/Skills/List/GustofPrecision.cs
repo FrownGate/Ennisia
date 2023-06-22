@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class GustofPrecision : Skill
+public class GustofPrecision : PassiveSkill
 {
-    //TODO -> Increase Crit Rate of player by 25%.
     ModifierID id;
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
     {
@@ -12,7 +11,7 @@ public class GustofPrecision : Skill
 
     float AddCritRate(float input)
     {
-        return input + 15;
+        return input + 25;
     }
 
     public override void TakeOffStats(List<Entity> targets, Entity player, int turn)

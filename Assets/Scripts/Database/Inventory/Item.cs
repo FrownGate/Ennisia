@@ -12,7 +12,7 @@ public class Item
 
     public enum ItemCategory
     {
-        Weapon, Armor, Accessory
+        Weapon, Armor, Accessory, None
     }
 
     public enum GearType
@@ -29,10 +29,11 @@ public class Item
     {
         HP, Attack, PhysicalDamages, MagicalDamages, PhysicalDefense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref, Shield
     }
-    //TODO -> add magical and physical defenses
     public enum GearSet //TODO -> move elsewhere
     {
-        FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull, Executioner, Revitalise, ArmorOfTheDead, Herald, FairyTales, AccuracyDevice, DemonsAndHumans, VitalEngagement
+        FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull, 
+        Executioner, Revitalise, ArmorOfTheDead, Herald, FairyTales, 
+        AccuracyDevice, DemonsAndHumans, VitalEngagement, MagicShield, IntegralArmour
     }
     
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class BlazingFury : Skill
+public class BlazingFury : BuffSkill
 {
     private int _increaseAttTurn;
 
