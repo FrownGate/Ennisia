@@ -242,16 +242,21 @@ public class BattleSystem : StateMachine
         }
     }
     
-    public void CheckAlterationState()
+    public void UpdateEntitiesAlterations()
     {
         if (Player.Alterations != null)
         {
             foreach (var alteration in Player.Alterations)
             {
                 alteration.Tick(Player);
-                if (alteration.State == AlterationState.Stun)
+                switch (alteration.State)
                 {
-                    AttackBarSystem.ResetAtb(Player);
+                    case AlterationState.Stun:
+                        AttackBarSystem.ResetAtb(Player);
+                        break;
+                    case AlterationState.Silence:
+
+                        break;
                 }
             }
         }
