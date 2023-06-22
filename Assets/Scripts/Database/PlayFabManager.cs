@@ -40,7 +40,7 @@ public class PlayFabManager : MonoBehaviour
 
     //Guilds events
     public static event Action<List<GroupWithRoles>> OnGetGuilds;
-    public static event Action<List<EntityMemberRole>> OnGetGuildMembers;
+    public static event Action<GuildData, List<EntityMemberRole>> OnGetGuildData;
     public static event Action<List<GroupApplication>> OnGetApplications;
     public static event Action<List<GroupInvitation>> OnGetInvitations;
 
@@ -58,6 +58,7 @@ public class PlayFabManager : MonoBehaviour
 
     //PlayFab Guilds
     public GroupWithRoles PlayerGuild { get; private set; }
+    public GuildData PlayerGuildData { get; private set; }
     public List<EntityMemberRole> PlayerGuildMembers { get; private set; }
     private PlayFab.GroupsModels.EntityKey _guildEntity; //Current request's guild's entity
     private PlayFab.ClientModels.EntityKey _adminEntity;
@@ -431,7 +432,8 @@ public class PlayFabManager : MonoBehaviour
             if (PlayerGuild != null)
             {
                 Debug.Log($"Player is a member of Guild {PlayerGuild.GroupName}.");
-                GetGuildMembers(PlayerGuild);
+                GetGuildData(PlayerGuild);
+
                 return;
             }
             
@@ -715,11 +717,13 @@ public class PlayFabManager : MonoBehaviour
     //TODO -> check role for applications functions
     //TODO -> Check if player's application has been accepted in update ?
 
-    public void CreateGuild(string name)
+    public void CreateGuild(string name, string description)
     {
         Debug.Log("Creating guild...");
+        //TODO -> save description as object
 
         //TODO -> Check if name already exists
+        PlayerGuildData = new(description);
 
         OnLoadingStart?.Invoke();
 
@@ -747,7 +751,9 @@ public class PlayFabManager : MonoBehaviour
             }, res =>
             {
                 Debug.Log($"Fake player added to Guild {response.GroupName} !");
+
                 GetPlayerGuild();
+                //TODO -> load guild scene
 
                 //TODO -> Check if filter is better with role or entity key
 
@@ -765,6 +771,58 @@ public class PlayFabManager : MonoBehaviour
                         Members = new() { new() { Id = _adminEntity.Id, Type = _adminEntity.Type } }
                     }, null, OnRequestError);
                 }, OnRequestError);*/
+            }, OnRequestError);
+        }, OnRequestError);
+    }
+
+    public void UpdatePlayerGuild()
+    {
+        PlayFabDataAPI.SetObjects(new()
+        {
+            Objects = new()
+            {
+                new SetObject()
+                {
+                    ObjectName = PlayerGuildData.GetType().Name,
+                    DataObject = PlayerGuildData
+                }
+            },
+            Entity = new() { Id = PlayerGuild.Group.Id, Type = PlayerGuild.Group.Type }
+        }, res => OnLoadingEnd?.Invoke(), OnRequestError);
+    }
+
+    public void GetGuildData(GroupWithRoles guild)
+    {
+        PlayFabGroupsAPI.ListGroupMembers(new()
+        {
+            Group = guild.Group
+        }, res =>
+        {
+            PlayerGuildMembers = guild == PlayerGuild ? res.Members : PlayerGuildMembers;
+
+            if (guild == PlayerGuild && PlayerGuildData != null)
+            {
+                UpdatePlayerGuild();
+                return;
+            }
+
+            PlayFabDataAPI.GetObjects(new()
+            {
+                Entity = new() { Id = guild.Group.Id, Type = guild.Group.Type },
+                EscapeObject = true
+            }, res =>
+            {
+                GuildData data = new(res.Objects[new GuildData().GetType().Name]);
+                PlayerGuildData = guild == PlayerGuild ? data : PlayerGuildData;
+
+                PlayFabGroupsAPI.ListGroupMembers(new()
+                {
+                    Group = guild.Group
+                }, res =>
+                {
+                    OnGetGuildData?.Invoke(data, res.Members);
+                    CompleteLogin();
+                }, OnRequestError);
             }, OnRequestError);
         }, OnRequestError);
     }
@@ -907,22 +965,6 @@ public class PlayFabManager : MonoBehaviour
                 Type = guild.Split("#")[1]
             }
         }, res => OnLoadingEnd?.Invoke(), OnRequestError);
-    }
-
-    public void GetGuildMembers(GroupWithRoles guild)
-    {
-        OnLoadingStart?.Invoke();
-
-        PlayFabGroupsAPI.ListGroupMembers(new()
-        {
-            Group = guild.Group
-        }, res =>
-        {
-            PlayerGuildMembers = res.Members;
-            CompleteLogin();
-            OnLoadingEnd?.Invoke();
-            OnGetGuildMembers?.Invoke(res.Members);
-        }, OnRequestError);
     }
     #endregion
 

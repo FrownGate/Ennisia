@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class TorrentialAnnihilation : Skill
+public class TorrentialAnnihilation : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

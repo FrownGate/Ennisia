@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class Blessing : Skill
+public class Blessing : PassiveSkill
 {
     public float healBaseRatio;
     public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)

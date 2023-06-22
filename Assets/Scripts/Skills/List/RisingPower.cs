@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class RisingPower : Skill
+public class RisingPower : PassiveSkill
 {
     public float AttackBaseRatio;
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)

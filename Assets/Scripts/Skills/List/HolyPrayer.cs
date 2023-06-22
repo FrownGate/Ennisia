@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class HolyPrayer : Skill
+public class HolyPrayer : ProtectionSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

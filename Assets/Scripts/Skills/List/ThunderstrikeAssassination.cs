@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class ThunderstrikeAssassination : Skill
+public class ThunderstrikeAssassination : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class ThunderstormAmplification : Skill
+public class ThunderstormAmplification : PassiveSkill
 {
 //TODO -> Increase magic damage by 30% when the player casts 3rd skill.
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }

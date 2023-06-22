@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueDragonsWrath : Skill
+public class BlueDragonsWrath : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class BloodContract : Skill
+public class BloodContract : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
