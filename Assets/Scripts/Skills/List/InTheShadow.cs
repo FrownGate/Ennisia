@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using static Stat<float>;
-public class InTheShadow : Skill
+public class InTheShadow : DamageSkill
 {
     ModifierID id;
     public float DefIgnoredBaseRatio;

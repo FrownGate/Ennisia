@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class TectonicImpact : Skill
+public class TectonicImpact : DamageSkill
 {
     private float _damage = 0;
     private float _totalDamage;

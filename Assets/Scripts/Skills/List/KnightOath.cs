@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections.Generic;
 
-public class KnightOath : Skill
+public class KnightOath : PassiveSkill
 {
     public float BuffBaseRatio;
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)

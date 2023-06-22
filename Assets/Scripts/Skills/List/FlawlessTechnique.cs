@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class FlawlessTechnique : Skill
+public class FlawlessTechnique : PassiveSkill
 {
     ModifierID id;
     public override void ConstantPassive(List<Entity> targets, Entity player, int turn)

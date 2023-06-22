@@ -1,18 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuakingSuppression : Skill
+public class QuakingSuppression : DamageSkill
 {
     private float _stunPerc = 0.7f;
     private int _silenceTurn;
-
-    public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
-    {
-        if (turn <= _silenceTurn)
-        {
-            //TODO -> silence
-        }
-    }
 
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
@@ -20,10 +12,10 @@ public class QuakingSuppression : Skill
 
         if (stunLuck > _stunPerc)
         {
-            //TODO -> Stun
+            //TODO -> Stun 
         }
+        // Silence
 
-        _silenceTurn = turn + 2;
 
         return 0;
     }

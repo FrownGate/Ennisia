@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class GalebladeStrike : Skill
+public class GalebladeStrike : DamageSkill
 {
    
     public override float Use(List<Entity> targets, Entity player, int turn)

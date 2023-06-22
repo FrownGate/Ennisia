@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class LightBomb : Skill
+public class LightBomb : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

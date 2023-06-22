@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class BreezeOfVitality : Skill
+public class BreezeOfVitality : ProtectionSkill
 {
     private readonly float _increaseHealPerc = 10f;
 

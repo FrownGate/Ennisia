@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class SoulConvertion : Skill
+public class SoulConvertion : PassiveSkill
 {
     public float DmgBaseRatio;
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)

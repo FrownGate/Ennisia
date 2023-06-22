@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class FeathersFall : Skill
+public class FeathersFall : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

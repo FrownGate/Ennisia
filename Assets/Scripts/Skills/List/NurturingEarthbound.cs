@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class NurturingEarthbound : Skill
+public class NurturingEarthbound : ProtectionSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class BonesBreaker : Skill
+public class BonesBreaker : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
