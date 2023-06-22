@@ -8,6 +8,7 @@ public class BlueDragonsWrath : Skill
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
+
         return damage;
     }
 }

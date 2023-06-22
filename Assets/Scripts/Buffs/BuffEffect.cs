@@ -12,29 +12,58 @@ public enum AlterationState
 
 public class BuffEffect
 {
+    public string Name  { get; set; }
     public string Description { get; set; }
-    public string Name { get; set; }
     public ModifierID Id { get; set; }
+    public int Duration { get; set; }
+    public int InitialDuration { get; set; }
+    public float ModifierValue { get; set; }
     private bool IsExpired => Duration <= 0;
-    private int Duration { get; set; }
     
-    private readonly Item.AttributeStat _modifiedStat;
-    public  AlterationState State { get; private set; } = AlterationState.None;
-    
-    //Alteration state constructor
-    public BuffEffect(int duration, AlterationState state)
+    public List<Item.AttributeStat> ModifiedStats { get; set; } = new();
+    public AlterationState State { get; set; } = AlterationState.None;
+
+    public BuffEffect()
     {
-        Duration = duration;
-        State = state;
+        Duration = 0;
+        InitialDuration = 0;
+        ModifierValue = 0;
+        State = AlterationState.None;
     }
     
-    
-    //Buff or debuff constructor
-    public BuffEffect(int duration, Entity target, Item.AttributeStat statToModify, float modifierValue)
+    //Alteration state constructor
+    public BuffEffect(int duration, AlterationState state, string name ="", string description="")
     {
         Duration = duration;
-        _modifiedStat = statToModify;
-        Id = target.AlterateStat(statToModify, value => value * modifierValue, 1);
+        InitialDuration = duration;
+        State = state;
+    }
+    //Buff or debuff constructor
+    public BuffEffect(int duration, Item.AttributeStat statToModify, float modifierValue, string name ="", string description="")
+    {
+        Duration = duration;
+        InitialDuration = duration;
+        ModifiedStats = new List<Item.AttributeStat>{statToModify};
+        ModifierValue = modifierValue;
+    }
+    //Buff and debuff affect multiple stats constructor
+    public BuffEffect(int duration, List<Item.AttributeStat> statsToModify, float modifierValue, string name ="", string description="")
+    {
+        Duration = duration;
+        InitialDuration = duration;
+        ModifierValue = modifierValue;
+        ModifiedStats = new(statsToModify);
+    }
+    
+    //Alteration and buff/debuff constructor
+    public BuffEffect(int duration, List<Item.AttributeStat> statsToModify, float modifierValue, AlterationState state, string name ="", string description="")
+    {
+        Duration = duration;
+        InitialDuration = duration;
+        ModifiedStats = new(statsToModify);
+        ModifierValue = modifierValue;
+        State = state;
+        //Id = target.AlterateStat(statToModify, value => value * modifierValue, 1);
     }
     
     public void Tick(Entity _target)
@@ -42,14 +71,17 @@ public class BuffEffect
         Duration--;
         if (IsExpired)
         {
-            _target.Stats[_modifiedStat].RemoveModifier(Id);
+            foreach (var modifiedStat in ModifiedStats)
+            {
+                _target.Stats[modifiedStat].RemoveModifier(Id);
+            }
             _target.Buffs.Remove(this);
         }
     }
 
-    public void ResetDuration(int duration)
+    public void ResetDuration()
     {
-        Duration = duration;
+        Duration = InitialDuration;
     }
     
 }

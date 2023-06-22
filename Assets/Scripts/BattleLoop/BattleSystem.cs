@@ -251,7 +251,7 @@ public class BattleSystem : StateMachine
                 alteration.Tick(Player);
                 if (alteration.State == AlterationState.Stun)
                 {
-                    
+                    AttackBarSystem.ResetAtb(Player);
                 }
             }
         }
