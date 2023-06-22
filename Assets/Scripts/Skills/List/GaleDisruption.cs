@@ -7,4 +7,4 @@ public class GaleDisruption : BuffSkill
         //TODO -> cleanse buffs of target
         return 0;
     }
-}S
+}
