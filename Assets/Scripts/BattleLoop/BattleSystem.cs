@@ -163,7 +163,7 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void SimulateBattle(Player player = null, List<Entity> enemies = null)
+    public void SimulateBattle(Player player = null, List<Entity> enemies = null, List<SupportCharacterSO> supports = null, GearSO weapon = null, List<GearSO> gears = null)
     {
         if (player != null)
         {
@@ -172,6 +172,22 @@ public class BattleSystem : StateMachine
         if (enemies != null)
         {
             Enemies = enemies;
+        }
+        if (supports != null)
+        {
+            Player.FirstSupport = supports[0];
+            Player.SecondSupport = supports[1];
+        }
+        if (weapon != null)
+        {
+            Player.Weapon = weapon;
+            // Assigne all stats from weapon
+
+        }
+        if (gears != null)
+        {
+            // Assign all stats from gears
+
         }
         SetState(new AutoBattle(this));
     }

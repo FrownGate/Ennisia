@@ -27,7 +27,7 @@ public class BattleSimulator : EditorWindow
     private List<GearSO> _selectedGears = new();
     private GearSO _selectedWeapon;
 
-    List<EnemyInfo> _enemiesInfos = new();
+    private readonly List<EnemyInfo> _enemiesInfos = new();
 
     // GEARS
     #region Gears
@@ -74,45 +74,7 @@ public class BattleSimulator : EditorWindow
     private Foldout _weaponFoldout;
     private readonly List<IntegerField> _weaponStatField = new();
     private readonly List<TextField> _weaponSkillField = new();
-
-    // ENEMIES
-
-
-    #region Enemies
-    private GroupBox _firstEnemyGroupBox;
-    private GroupBox _secondEnemyGroupBox;
-    private GroupBox _thirdEnemyGroupBox;
-    private GroupBox _fourthEnemyGroupBox;
-    private GroupBox _fifthEnemyGroupBox;
-    private GroupBox _sixthEnemyGroupBox;
-    private DropdownField _firstEnemyDropdown;
-    private DropdownField _secondEnemyDropdown;
-    private DropdownField _thirdEnemyDropdown;
-    private DropdownField _fourthEnemyDropdown;
-    private DropdownField _fifthEnemyDropdown;
-    private DropdownField _sixthEnemyDropdown;
-    private Foldout _firstEnemyFoldout;
-    private Foldout _secondEnemyFoldout;
-    private Foldout _thirdEnemyFoldout;
-    private Foldout _fourthEnemyFoldout;
-    private Foldout _fifthEnemyFoldout;
-    private Foldout _sixthEnemyFoldout;
-
-    private readonly List<IntegerField> _firstEnemyStatsField = new();
-    private readonly List<IntegerField> _secondEnemyStatsField = new();
-    private readonly List<IntegerField> _thirdEnemyStatsField = new();
-    private readonly List<IntegerField> _fourthEnemyStatsField = new();
-    private readonly List<IntegerField> _fifthEnemyStatsField = new();
-    private readonly List<IntegerField> _sixthEnemyStatsField = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _firstEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _secondEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _thirdEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _fourthEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _fifthEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _sixthEnemyInfo = new();
-    #endregion
-    //private readonly List<Dictionary<DropdownField, List<IntegerField>>> _enemiesInfo = new();
-    //public List<Object> _enemiesStruct = new();
+    
     private Button _simulateButton;
 
     [MenuItem("Tools/Battle Simulator")]
@@ -254,121 +216,7 @@ public class BattleSimulator : EditorWindow
             }
             _enemiesInfos.Add(enemyInfo);
         }
-
-        // get the stats fields for all the enemies
-        //TODO -> use enums with list or dictionary to optimize
-        #region To Delete
-        /*_firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("HP"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Attack"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("HP"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("Attack"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("HP"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("Attack"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("HP"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("Attack"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("HP"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("Attack"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("HP"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Attack"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));*/
-
-        /*_firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
-        _secondEnemyDropdown = root.Q<DropdownField>("second-enemy-dropdown");
-        _thirdEnemyDropdown = root.Q<DropdownField>("third-enemy-dropdown");
-        _fourthEnemyDropdown = root.Q<DropdownField>("fourth-enemy-dropdown");
-        _fifthEnemyDropdown = root.Q<DropdownField>("fifth-enemy-dropdown");
-        _sixthEnemyDropdown = root.Q<DropdownField>("sixth-enemy-dropdown");*/
-        #endregion
-
-        /*_enemiesDropdown.Add(_firstEnemyDropdown);
-        _enemiesDropdown.Add(_secondEnemyDropdown);
-        _enemiesDropdown.Add(_thirdEnemyDropdown);
-        _enemiesDropdown.Add(_fourthEnemyDropdown);
-        _enemiesDropdown.Add(_fifthEnemyDropdown);
-        _enemiesDropdown.Add(_sixthEnemyDropdown);*/
-
-        // _firstEnemyFoldout = root.Q<Foldout>("first-enemy-foldout");
-        // _secondEnemyFoldout = root.Q<Foldout>("second-enemy-foldout");
-        // _thirdEnemyFoldout = root.Q<Foldout>("third-enemy-foldout");
-        // _fourthEnemyFoldout = root.Q<Foldout>("fourth-enemy-foldout");
-        // _fifthEnemyFoldout = root.Q<Foldout>("fifth-enemy-foldout");
-        // _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
-
-        // _enemiesFoldout.Add(_firstEnemyFoldout);
-        // _enemiesFoldout.Add(_secondEnemyFoldout);
-        // _enemiesFoldout.Add(_thirdEnemyFoldout);
-        // _enemiesFoldout.Add(_fourthEnemyFoldout);
-        // _enemiesFoldout.Add(_fifthEnemyFoldout);
-        // _enemiesFoldout.Add(_sixthEnemyFoldout);
-
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _secondEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-
-        // _firstEnemyInfo.Add(_firstEnemyDropdown, _firstEnemyStatsField);
-        // _secondEnemyInfo.Add(_secondEnemyDropdown, _secondEnemyStatsField);
-        // _thirdEnemyInfo.Add(_thirdEnemyDropdown, _thirdEnemyStatsField);
-        // _fourthEnemyInfo.Add(_fourthEnemyDropdown, _fourthEnemyStatsField);
-        // _fifthEnemyInfo.Add(_fifthEnemyDropdown, _fifthEnemyStatsField);
-        // _sixthEnemyInfo.Add(_sixthEnemyDropdown, _sixthEnemyStatsField);
-
-        // _enemiesInfo.Add(_firstEnemyInfo);
-        // _enemiesInfo.Add(_secondEnemyInfo);
-        // _enemiesInfo.Add(_thirdEnemyInfo);
-        // _enemiesInfo.Add(_fourthEnemyInfo);
-        // _enemiesInfo.Add(_fifthEnemyInfo);
-        // _enemiesInfo.Add(_sixthEnemyInfo);
-
-        // Set Base value for the foldouts
+       
         foreach (EnemyInfo enemyInfo in _enemiesInfos)
         {
             enemyInfo.Foldout.text = "Enemy Stats";
