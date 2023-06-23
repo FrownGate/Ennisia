@@ -27,7 +27,7 @@ public class Stat<T>
 
             foreach (Modifier modifier in _modifiers)
             {
-                modifier.Func(tmpValue);
+                tmpValue = modifier.Func(tmpValue);
             }
 
             return tmpValue;

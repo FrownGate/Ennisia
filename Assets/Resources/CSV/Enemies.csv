@@ -1,4 +1,4 @@
-Id,Name,Hp,Atk,PhysAtk,PhysDef,MagicAtk,MagicDef,CritRate,CritDamage,Speed,Description
+Id,Name,HP,Attack,PhysicalDamages,PhysicalDefense,MagicalDamages,MagicalDefense,CritRate,CritDmg,Speed,Description
 1,Red Slime,1,2,3,4,5,6,7,8,9,description
 2,Blue Slime,1,1,1,1,1,1,1,1,1,description
 3,Green Slime,1,1,1,1,1,1,1,1,1,description
