@@ -888,12 +888,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _legendaryChance: 0.5
   _epicChance: 9.5
-  _rareChance: 90
   _cost: 100
   _fragmentsPerDuplicate: 10
   _rareFragmentsMultiplier: 1
   _epicFragmentsMultiplier: 2
   _legendaryFragmentsMultiplier: 3
+  _supportImage: {fileID: 0}
+  _canvasParent: {fileID: 0}
 --- !u!1 &767859097
 GameObject:
   m_ObjectHideFlags: 0

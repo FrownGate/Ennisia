@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class TidalCrash : Skill
+public class TidalCrash : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity player, int turn)
     {
@@ -13,7 +13,6 @@ public class TidalCrash : Skill
             totalDamage += damage;
         }
 
-        Cooldown = Data.MaxCooldown;
         return totalDamage;
     }
 }

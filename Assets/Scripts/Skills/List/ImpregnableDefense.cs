@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using static Stat<float>;
 
-public class ImpregnableDefense : Skill
+public class ImpregnableDefense : PassiveSkill
 {
 
     private List<ModifierID> _defID = new List<ModifierID>();

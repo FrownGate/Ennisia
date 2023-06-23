@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using static Stat<float>;
-public class MakeOrBreak : Skill
+public class MakeOrBreak : PassiveSkill
 {
     ModifierID id;
     public float maxHpBaseRatio;
