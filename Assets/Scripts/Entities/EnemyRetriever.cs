@@ -88,9 +88,12 @@ public class EnemyLoader
         return null; // Enemy with the specified name was not found
     }
 
-    public List<Enemy> LoadEnemies(string filePath)
+        // TODO: To Enemy 
+
+    public List<Entity> LoadEnemies(string filePath)
     {
-        List<Enemy> enemies = new();
+        // TODO: To Enemy 
+        List<Entity> enemies = new();
 
         using (StreamReader reader = new(filePath))
         {
