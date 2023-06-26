@@ -163,7 +163,7 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void SimulateBattle(Player player = null, List<Entity> enemies = null, List<SupportCharacterSO> supports = null, GearSO weapon = null, List<GearSO> gears = null)
+    public void SimulateBattle(Player player, List<Entity> enemies, List<SupportCharacterSO> supports, GearSO weapon, List<GearSO> gears)
     {
         if (player != null)
         {
@@ -187,7 +187,10 @@ public class BattleSystem : StateMachine
         if (gears != null)
         {
             // Assign all stats from gears
-
+            // foreach (var gear in gears)
+            // {
+            //     PlayFabManager.Instance.Player.Equip(gear);
+            // }
         }
         SetState(new AutoBattle(this));
     }

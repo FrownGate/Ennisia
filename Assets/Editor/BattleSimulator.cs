@@ -16,6 +16,7 @@ public class BattleSimulator : EditorWindow
     //TODO: -> Optimize stored datas with enum, arrays, loops, etc.
 
     public static BattleSystem Instance;
+    private Player _player;
     private List<SupportCharacterSO> _supports = new();
     private List<GearSO> _weapons = new();
     // TODO: To Enemy 
@@ -74,7 +75,7 @@ public class BattleSimulator : EditorWindow
     private Foldout _weaponFoldout;
     private readonly List<IntegerField> _weaponStatField = new();
     private readonly List<TextField> _weaponSkillField = new();
-    
+
     private Button _simulateButton;
 
     [MenuItem("Tools/Battle Simulator")]
@@ -216,7 +217,7 @@ public class BattleSimulator : EditorWindow
             }
             _enemiesInfos.Add(enemyInfo);
         }
-       
+
         foreach (EnemyInfo enemyInfo in _enemiesInfos)
         {
             enemyInfo.Foldout.text = "Enemy Stats";
@@ -225,7 +226,7 @@ public class BattleSimulator : EditorWindow
 
     public void OnGUI()
     {
-
+        _player = new();
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
@@ -488,12 +489,16 @@ public class BattleSimulator : EditorWindow
     private void ChangeFieldsOfSupport(string supportName, List<TextField> supportFields)
     {
         SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
+
+        // Change the name of all the skill field to the name of the skill
+        // and the name of the field to the type of the skill
         supportFields[0].label = support.PrimarySkillData.IsPassive ? "Passive" : "Active";
         supportFields[1].label = support.SecondarySkillData.IsPassive ? "Passive" : "Active";
 
-        // set the value of the skill to the name of the skill
         supportFields[0].SetValueWithoutNotify(support.PrimarySkillData.Name);
         supportFields[1].SetValueWithoutNotify(support.SecondarySkillData.Name);
+        Debug.Log(support);
+        _selectedSupports.Add(support);
     }
     private void ChangeFieldsOfGear(string gearName, List<IntegerField> gearStatFields)
     {
@@ -511,6 +516,7 @@ public class BattleSimulator : EditorWindow
                 field.SetValueWithoutNotify((int)substat.Value);
             }
         }
+        _selectedGears.Add(gear);
     }
 
     private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
@@ -525,6 +531,7 @@ public class BattleSimulator : EditorWindow
 
         weaponSkillFields[0].SetValueWithoutNotify(weapon.FirstSkillData.Name);
         weaponSkillFields[1].SetValueWithoutNotify(weapon.SecondSkillData.Name);
+        _selectedWeapon = weapon;
     }
 
     private void OnInspectorUpdate()
@@ -532,8 +539,23 @@ public class BattleSimulator : EditorWindow
         // Repaint();
         _simulateButton.clicked += () =>
         {
-            Instance.SimulateBattle();
-            Debug.Log("Simulate");
+            Debug.Log(_player.Name);
+            Debug.Log(_selectedWeapon.Name);
+            foreach (var support in _selectedSupports)
+            {
+                Debug.Log(support.Name);
+            }
+            // foreach (var gear in _player.Gears)
+            // {
+            //     Debug.Log(gear.Name);
+            // }
+            // foreach (var enemy in _selectedEnemies)
+            // {
+            //     Debug.Log(enemy.Name);
+            // }
+
+
+            Instance.SimulateBattle(_player, _selectedEnemies, _selectedSupports, _selectedWeapon, _selectedGears);
         };
     }
 }
