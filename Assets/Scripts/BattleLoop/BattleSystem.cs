@@ -163,7 +163,7 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void SimulateBattle(Player player, List<Entity> enemies, List<SupportCharacterSO> supports, GearSO weapon, List<GearSO> gears)
+    public void SimulateBattle(Player player, List<Entity> enemies, List<SupportCharacterSO> supports, Gear weapon, List<Gear> gears)
     {
         if (player != null)
         {
@@ -180,17 +180,17 @@ public class BattleSystem : StateMachine
         }
         if (weapon != null)
         {
-            Player.Weapon = weapon;
+            Player.Weapon = weapon.WeaponSO;
+            PlayFabManager.Instance.Player.Equip(weapon);
             // Assigne all stats from weapon
 
         }
         if (gears != null)
         {
-            // Assign all stats from gears
-            // foreach (var gear in gears)
-            // {
-            //     PlayFabManager.Instance.Player.Equip(gear);
-            // }
+            
+            // convert GearSO to Gear
+            PlayFabManager.Instance.Player.Equip(gears);
+            Debug.LogWarning(PlayFabManager.Instance.Player.EquippedGears.Count);
         }
         SetState(new AutoBattle(this));
     }

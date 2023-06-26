@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   Id: 1
+  Name: Boots
   Level: 1
-  Name: 
   Type: 2
   Rarity: 0
   Attribute: 4
   StatValue: 32
   Description: 
-  Icon: {fileID: 0}
+  WeaponType: 0
+  IsMagic: 0
+  FirstSkillData: {fileID: 0}
+  SecondSkillData: {fileID: 0}
