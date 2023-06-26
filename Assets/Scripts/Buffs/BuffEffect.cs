@@ -8,6 +8,7 @@ public enum AlterationState
     Stun = 1,
     Silence = 2,
     SupportSilence = 3,
+    DemonicMark = 4,
 }
 
 public class BuffEffect

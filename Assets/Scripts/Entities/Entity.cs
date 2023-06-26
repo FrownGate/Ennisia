@@ -80,7 +80,7 @@ public abstract class Entity
     }
     public void AddBuffEffect(BuffEffect buff)
     {
-        var existingBuff = Buffs.FirstOrDefault(b => b.Name == buff.Name);
+        var existingBuff = Buffs.FirstOrDefault(b => b.State.ToString() == buff.State.ToString());
         if (existingBuff != null)
         {
             existingBuff.ResetDuration();
@@ -92,7 +92,7 @@ public abstract class Entity
     }
     public void AddAlteration(BuffEffect alteration)
     {
-        var existingAlt = Alterations.FirstOrDefault(a => a.Name == alteration.Name);
+        var existingAlt = Alterations.FirstOrDefault(a => a.State.ToString() == alteration.State.ToString());
         if (existingAlt != null)
         {
             existingAlt.ResetDuration();

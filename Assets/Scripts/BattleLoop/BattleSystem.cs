@@ -264,7 +264,10 @@ public class BattleSystem : StateMachine
                         AttackBarSystem.ResetAtb(Player);
                         break;
                     case AlterationState.Silence:
-
+                        
+                        break;
+                    case AlterationState.DemonicMark:
+                        
                         break;
                 }
             }

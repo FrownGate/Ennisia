@@ -38,19 +38,20 @@
             EffectDatabase = new Dictionary<string, BuffEffect>()
             {
                 //Buffs
-                {"AttackBuff",new BuffEffect(3,Item.AttributeStat.Attack,1.5f,"ATKBUF")},
+                {"AttackBuff",new BuffEffect(3,Item.AttributeStat.Attack,1.5f)},
                 {"DefenseBuff", new BuffEffect(3,new List<Item.AttributeStat>
                     {   Item.AttributeStat.PhysicalDefense, 
                         Item.AttributeStat.MagicalDefense
                     },
-                    1.5f,"DFSBF")
+                    1.5f)
                 },
-                {"CritRate",new BuffEffect(3, Item.AttributeStat.CritRate,1.5f,"CRTRT")},
-                {"CritDamage", new BuffEffect(3,Item.AttributeStat.CritDmg,1.5f,"CRTDM")},
+                {"CritRate",new BuffEffect(3, Item.AttributeStat.CritRate,1.5f)},
+                {"CritDamage", new BuffEffect(3,Item.AttributeStat.CritDmg,1.5f)},
                 
                 //Alterations
-                {"Silence", new BuffEffect(3,AlterationState.Silence,"SILENCE")},
-                {"Stun", new BuffEffect(3,AlterationState.Stun,"STUN")},
+                {"Silence", new BuffEffect(3,AlterationState.Silence)},
+                {"Stun", new BuffEffect(3,AlterationState.Stun)},
+                {"DemonicMark", new BuffEffect(3, AlterationState.DemonicMark)},
                 {"SupportSilence", new BuffEffect()},
                 
                 //Debuff
@@ -59,9 +60,9 @@
                     Item.AttributeStat.MagicalDefense,
                     Item.AttributeStat.PhysicalDefense
                     },
-                    0.7f,"DEFBRK")
+                    0.7f)
                 },
-                {"BreakAttack",new BuffEffect(3,Item.AttributeStat.Attack,0.7f,"ATKBRK")}
+                {"BreakAttack",new BuffEffect(3,Item.AttributeStat.Attack,0.7f)}
             };
         }
 
