@@ -40,12 +40,53 @@ public class AudioManager : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("button"+index);
         Debug.Log("button sfx "+index+" played");
+    } 
+    private void MissionStartBGM(MissionSO missionSO)
+    {
+        Debug.Log("mission Type:"+missionSO.Type);
+        switch (missionSO.Type)
+        {
+            case MissionManager.MissionType.Raid:
+                FindObjectOfType<AudioManager>().Play("raidsBGM");
+                Debug.Log("Raid BGM played"+ MissionManager.MissionType.Raid);
+                break;
+
+            case MissionManager.MissionType.Dungeon:
+                FindObjectOfType<AudioManager>().Play("dungeonBGM");
+                Debug.Log("Dungeon BGM played");
+                break;
+
+            case MissionManager.MissionType.MainStory:
+                FindObjectOfType<AudioManager>().Play("mainStoryBGM");
+                Debug.Log("MainStory BGM played");
+                break;
+
+            case MissionManager.MissionType.SideStory:
+                FindObjectOfType<AudioManager>().Play("sideStoryBGM");
+                Debug.Log("SideStory BGM played");
+                break;
+
+            case MissionManager.MissionType.AlternativeStory:
+                FindObjectOfType<AudioManager>().Play("alternativeStoryBGM");
+                Debug.Log("AlternativeStory BGM played");
+                break;
+
+            case MissionManager.MissionType.EndlessTower:
+                FindObjectOfType<AudioManager>().Play("endlessTowerBGM");
+                Debug.Log("EndlessTower BGM played");
+                break;
+
+            case MissionManager.MissionType.Expedition:
+                FindObjectOfType<AudioManager>().Play("expeditionBGM");
+                Debug.Log("Expedition BGM played");
+                break;
+        }
     }
 
     private void MissionDone(MissionSO missionSO)
     {
-        FindObjectOfType<AudioManager>().Play("missionDone");
-        Debug.Log("Mission Done SFX played");
+
+        FindObjectOfType<AudioManager>().Play("BGM1 played");
     }
 
     private void KillSFX(string name)
@@ -72,11 +113,14 @@ public class AudioManager : MonoBehaviour
         BattleSystem.OnEnemyKilled += KillSFX;
         MissionManager.OnMissionComplete += MissionDone;
         BattleSystem.OnClickSFX += OnClickSFX;
+        MissionManager.OnMissionStart += MissionStartBGM;
+
     }
     private void OnDisable()
     {
         BattleSystem.OnEnemyKilled -= KillSFX;
         MissionManager.OnMissionComplete -= MissionDone;
         BattleSystem.OnClickSFX -= OnClickSFX;
+        MissionManager.OnMissionStart -= MissionStartBGM;
     }
 }

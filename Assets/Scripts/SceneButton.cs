@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -15,6 +16,15 @@ public class SceneButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        ScenesManager.Instance.SetScene($"{Scene}#{_params}"); 
+        ScenesManager.Instance.SetScene($"{Scene}#{_params}");
+        switch (Scene)
+        {
+            case "Raids":
+                MissionManager.Instance.StartMission(MissionManager.MissionType.Raid,1 );
+                break;
+            case "MainStory":
+                MissionManager.Instance.StartMission(MissionManager.MissionType.MainStory, 1);
+                break;
+        }
     }
 }
