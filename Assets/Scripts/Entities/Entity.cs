@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Entity
 {
@@ -79,11 +80,27 @@ public abstract class Entity
     }
     public void AddBuffEffect(BuffEffect buff)
     {
-        Buffs.Add(buff);
+        var existingBuff = Buffs.FirstOrDefault(b => b.Name == buff.Name);
+        if (existingBuff != null)
+        {
+            existingBuff.ResetDuration();
+        }
+        else
+        {
+            Buffs.Add(buff);
+        }
     }
     public void AddAlteration(BuffEffect alteration)
     {
-        Alterations.Add(alteration);
+        var existingAlt = Alterations.FirstOrDefault(a => a.Name == alteration.Name);
+        if (existingAlt != null)
+        {
+            existingAlt.ResetDuration();
+        }
+        else
+        {
+            Alterations.Add(alteration);
+        }
     }
     
 }
