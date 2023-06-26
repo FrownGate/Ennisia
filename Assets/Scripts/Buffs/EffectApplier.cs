@@ -3,6 +3,14 @@
     using System.Collections.Generic;
     using UnityEditor;
 
+    public enum EffectType
+    {
+        ATKBUFF = 0,
+        DEFENSEBUFF = 1,
+        BREAKDEFENSE = 2,
+        BREAKATTACK = 3,
+    }
+    
     
     public class EffectApplier
     {
@@ -38,31 +46,31 @@
             EffectDatabase = new Dictionary<string, BuffEffect>()
             {
                 //Buffs
-                {"AttackBuff",new BuffEffect(3,Item.AttributeStat.Attack,1.5f)},
-                {"DefenseBuff", new BuffEffect(3,new List<Item.AttributeStat>
+                {EffectType.ATKBUFF.ToString(),new BuffEffect(3,Item.AttributeStat.Attack,1.5f)},
+                {EffectType.DEFENSEBUFF.ToString(), new BuffEffect(3,new List<Item.AttributeStat>
                     {   Item.AttributeStat.PhysicalDefense, 
                         Item.AttributeStat.MagicalDefense
                     },
                     1.5f)
                 },
-                {"CritRate",new BuffEffect(3, Item.AttributeStat.CritRate,1.5f)},
-                {"CritDamage", new BuffEffect(3,Item.AttributeStat.CritDmg,1.5f)},
+                {Item.AttributeStat.CritRate.ToString(),new BuffEffect(3, Item.AttributeStat.CritRate,1.5f)},
+                {Item.AttributeStat.CritDmg.ToString(), new BuffEffect(3,Item.AttributeStat.CritDmg,1.5f)},
                 
                 //Alterations
-                {"Silence", new BuffEffect(3,AlterationState.Silence)},
-                {"Stun", new BuffEffect(3,AlterationState.Stun)},
-                {"DemonicMark", new BuffEffect(3, AlterationState.DemonicMark)},
-                {"SupportSilence", new BuffEffect()},
+                {AlterationState.Silence.ToString(), new BuffEffect(3,AlterationState.Silence)},
+                {AlterationState.Stun.ToString(), new BuffEffect(3,AlterationState.Stun)},
+                {AlterationState.DemonicMark.ToString(), new BuffEffect(3, AlterationState.DemonicMark)},
+                {AlterationState.None.ToString(), new BuffEffect()},
                 
                 //Debuff
-                {"BreakDefense", new BuffEffect(3,new List<Item.AttributeStat>
+                {EffectType.BREAKDEFENSE.ToString(), new BuffEffect(3,new List<Item.AttributeStat>
                     {
                     Item.AttributeStat.MagicalDefense,
                     Item.AttributeStat.PhysicalDefense
                     },
                     0.7f)
                 },
-                {"BreakAttack",new BuffEffect(3,Item.AttributeStat.Attack,0.7f)}
+                {EffectType.BREAKATTACK.ToString(),new BuffEffect(3,Item.AttributeStat.Attack,0.7f)}
             };
         }
 
