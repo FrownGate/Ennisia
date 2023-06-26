@@ -28,13 +28,6 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<PlayFabError> OnError;
     //public static event Action<string> OnSuccessMessage;
 
-    //Currencies events
-    public static event Action OnCurrencyUpdate;
-    public static event Action<Currency> OnCurrencyUsed;
-    public static event Action<Currency> OnCurrencyGained;
-    public static event Action OnEnergyUpdate;
-    public static event Action OnEnergyUsed;
-
     //Loading events
     public static event Action OnLoadingStart;
     public static event Action OnBigLoadingStart;
@@ -44,25 +37,22 @@ public class PlayFabManager : MonoBehaviour
     public AccountData Account { get => Data.Account; }
     public PlayerData Player { get => Data.Player; }
     public InventoryData Inventory { get => Data.Inventory; }
-    public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
-    public int Energy { get; private set; } //Player's energy
 
     //PlayFab Account datas
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
     public bool LoggedIn { get; private set; }
 
-    //PlayFab Guilds
+    //Economy Module
+    private EconomyModule _economyMod;
+    public Dictionary<Currency, int> Currencies { get => _economyMod.Currencies; }
+    public int Energy { get => _economyMod.Energy; }
+
+    //Guilds Module
     private GuildsModule _guildsMod;
     public GroupWithRoles PlayerGuild { get => _guildsMod.PlayerGuild; }
     public GuildData PlayerGuildData { get => _guildsMod.PlayerGuildData; }
     public List<EntityMemberRole> PlayerGuildMembers { get => _guildsMod.PlayerGuildMembers; }
-
-    //PlayFab catalog
-    private Dictionary<string, string> _currencies;
-    private Dictionary<string, string> _itemsById;
-    private Dictionary<string, string> _itemsByName;
-    private struct CurrencyData { public int Initial; } //TODO -> move elsewhere ?
 
     //Utilities
     private AuthData _authData;
@@ -90,6 +80,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
+            _economyMod = new(this);
             _guildsMod = new(this);
 
             _authData = new();
@@ -188,7 +179,7 @@ public class PlayFabManager : MonoBehaviour
 
         if (HasAuthData()) CreateSave();
 
-        GetEconomyData();
+        _economyMod.GetEconomyData();
 
         //Use this line once to test PlayFab Register & Login
         //RegisterAccount("testing@gmail.com", "Testing");
@@ -205,50 +196,6 @@ public class PlayFabManager : MonoBehaviour
         _authData ??= null;
 
         if (File.Exists(_path)) File.Delete(_path);
-    }
-    #endregion
-
-    #region 2 - Game Datas
-    //Get catalog items and currencies
-
-    private void GetEconomyData()
-    {
-        Debug.Log("Getting game currencies and catalog items...");
-        PlayFabEconomyAPI.SearchItems(new(), OnGetDataSuccess, OnRequestError);
-    }
-
-    private void OnGetDataSuccess(SearchItemsResponse response)
-    {
-        _itemsById = new();
-        _itemsByName = new();
-        _currencies = new();
-        Currencies = new();
-
-        foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
-        {
-            //TODO -> Get bundle items and shops
-            if (item.Type == "currency")
-            {
-                _currencies[item.Id] = item.AlternateIds[0].Value;
-                CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
-                Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = data.Initial;
-            }
-            else if (item.Type == "catalogItem")
-            {
-                _itemsById[item.Id] = item.AlternateIds[0].Value;
-                _itemsByName[item.AlternateIds[0].Value] = item.Id;
-            }
-        }
-
-        //TODO -> check initial value of new currencies for existing players
-        if (_firstLogin)
-        {
-            StartCoroutine(CreateInitialCurrencies());
-        }
-        else
-        {
-            GetEnergy();
-        }
     }
     #endregion
 
@@ -421,106 +368,23 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Economy
-    public void AddCurrency(Currency currency, int amount)
-    {
-        Debug.Log($"Adding {amount} {currency}...");
-        OnLoadingStart?.Invoke();
+    public static event Action OnCurrencyUpdate;
+    public static event Action<Currency> OnCurrencyUsed;
+    public static event Action<Currency> OnCurrencyGained;
+    public static event Action OnEnergyUpdate;
+    public static event Action OnEnergyUsed;
 
-        PlayFabEconomyAPI.AddInventoryItems(new()
-        {
-            Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            Amount = amount,
-            Item = new()
-            {
-                AlternateId = new()
-                {
-                    Type = "FriendlyId",
-                    Value = currency.ToString()
-                }
-            }
-        }, res => {
-            Debug.Log($"Added {amount} {currency} !");
-            Currencies[currency] += amount;
-            OnCurrencyUpdate?.Invoke();
-            OnCurrencyGained?.Invoke(currency);
-            OnLoadingEnd?.Invoke();
-        }, OnRequestError);
-    }
+    public void InvokeOnCurrencyUpdate() => OnCurrencyUpdate?.Invoke();
+    public void InvokeOnCurrencyUsed(Currency currency) => OnCurrencyUsed?.Invoke(currency);
+    public void InvokeOnCurrencyGained(Currency currency) => OnCurrencyGained?.Invoke(currency);
+    public void InvokeOnEnergyUpdate() => OnEnergyUpdate?.Invoke();
+    public void InvokeOnEnergyUsed() => OnEnergyUsed?.Invoke();
 
-    public void RemoveCurrency(Currency currency, int amount)
-    {
-        Debug.Log($"Removing {amount} {currency}...");
-        OnLoadingStart?.Invoke();
-
-        PlayFabEconomyAPI.SubtractInventoryItems(new()
-        {
-            Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            Amount = amount,
-            Item = new()
-            {
-                AlternateId = new()
-                {
-                    Type = "FriendlyId",
-                    Value = currency.ToString()
-                }
-            }
-        }, res => {
-            Debug.Log($"Removed {amount} {currency} !");
-            Currencies[currency] -= amount;
-            OnCurrencyUpdate?.Invoke();
-            OnCurrencyUsed?.Invoke(currency);
-            OnLoadingEnd?.Invoke();
-        }, OnRequestError);
-    }
-
-    public void AddEnergy(int amount)
-    {
-        Debug.Log($"Adding {amount} energy...");
-        OnLoadingStart?.Invoke();
-
-        PlayFabClientAPI.AddUserVirtualCurrency(new()
-        {
-            Amount = amount,
-            VirtualCurrency = "EN"
-        }, res => {
-            Debug.Log($"Added {amount} energy !");
-            Energy += amount;
-            OnEnergyUpdate?.Invoke();
-            OnLoadingEnd?.Invoke();
-        }, OnRequestError);
-    }
-
-    public void RemoveEnergy(int amount)
-    {
-        Debug.Log($"Removing {amount} energy...");
-        OnLoadingStart?.Invoke();
-
-        PlayFabClientAPI.SubtractUserVirtualCurrency(new()
-        {
-            Amount = amount,
-            VirtualCurrency = "EN"
-        }, res => {
-            Debug.Log($"Removed {amount} energy !");
-            Energy -= amount;
-            OnEnergyUpdate?.Invoke();
-            OnEnergyUsed?.Invoke();
-            OnLoadingEnd?.Invoke();
-        }, OnRequestError);
-    }
-
-    public bool EnergyIsUsed(int amount)
-    {
-        if (amount >= Energy)
-        {
-            RemoveEnergy(amount);
-        }
-        else
-        {
-            Debug.LogError("Not enough energy");
-        }
-
-        return amount >= Energy;
-    }
+    public void AddCurrency(Currency currency, int amount) => _economyMod.AddCurrency(currency, amount);
+    public void RemoveCurrency(Currency currency, int amount) => _economyMod.RemoveCurrency(currency, amount);
+    public void AddEnergy(int amount) => _economyMod.AddEnergy(amount);
+    public void RemoveEnergy(int amount) => _economyMod.RemoveEnergy(amount);
+    public bool EnergyIsUsed(int amount) => _economyMod.EnergyIsUsed(amount);
     #endregion
 
     #region Gacha
@@ -751,11 +615,12 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log("pending end");
     }
 
-    public void StartRequest()
+    public void StartRequest(string log = null)
     {
         Debug.Log("starting request...");
         _isPending = true;
         OnLoadingStart?.Invoke();
+        if (!string.IsNullOrEmpty(log)) Debug.Log(log);
     }
 
     public void EndRequest(string log = null)
