@@ -11,9 +11,12 @@ using PlayFab.EconomyModels;
 using PlayFab.GroupsModels;
 using PlayFab.Internal;
 using UnityEngine;
+using System.Runtime.CompilerServices;
 
 public class PlayFabManager : MonoBehaviour
 {
+    //TODO -> Remove item from local inventory if database inventory isn't updated
+
     public enum Currency //TODO -> move elsewhere
     {
         Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency
@@ -77,6 +80,7 @@ public class PlayFabManager : MonoBehaviour
     private bool _firstLogin;
     private bool _currencyAdded;
     private Item _item;
+    private bool _isPending;
 
     //TODO -> event when file upload is finished, prevent double uploads
     //TODO -> refresh ui after some events
@@ -108,6 +112,8 @@ public class PlayFabManager : MonoBehaviour
                 Type = "title_player_account"
             }; //TODO -> encrypt datas
             //Can be replace by Get Account Info request
+
+            _isPending = false;
         }
     }
 
@@ -622,9 +628,11 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Items
-    public void AddInventoryItem(Item item)
+    public IEnumerator AddInventoryItem(Item item)
     {
-        OnLoadingStart?.Invoke();
+        yield return StartCoroutine(CheckPendingRequests());
+        StartRequest();
+        Debug.Log("adding item");
         item.Serialize();
 
         PlayFabEconomyAPI.AddInventoryItems(new()
@@ -644,11 +652,7 @@ public class PlayFabManager : MonoBehaviour
                 DisplayProperties = item
             } : new(),
             Amount = item.Amount
-        }, res =>
-        {
-            Debug.Log($"Item added to inventory !");
-            OnLoadingEnd?.Invoke();
-        }, OnRequestError);
+        }, res => EndRequest("Item added to inventory !"), OnRequestError);
     }
 
     public void UpdateItem(Item item)
@@ -1033,10 +1037,32 @@ public class PlayFabManager : MonoBehaviour
     }
     #endregion
 
+    private IEnumerator CheckPendingRequests()
+    {
+        Debug.Log("new request received");
+        yield return new WaitUntil(() => !_isPending);
+        Debug.Log("pending end");
+    }
+
+    private void StartRequest()
+    {
+        Debug.Log("starting request...");
+        _isPending = true;
+        OnLoadingStart?.Invoke();
+    }
+
+    private void EndRequest(string log = null)
+    {
+        Debug.Log("ending request...");
+        _isPending = false;
+        OnLoadingEnd?.Invoke();
+        if (!string.IsNullOrEmpty(log)) Debug.Log(log);
+    }
+
     //Called after login success to test code
     private void Testing()
     {
-        //Debug.Log("Testing");
+        Debug.Log("Testing");
         //Debug.Log(Data.Inventory.Items.Count);
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId);  }
 
@@ -1052,8 +1078,8 @@ public class PlayFabManager : MonoBehaviour
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
 
-        //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
-        //AddInventoryItem(new SummonTicket(Item.ItemRarity.Common));
+        StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Common, 5)));
+        StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5)));
 
         //CreateGuild("Test");
 
