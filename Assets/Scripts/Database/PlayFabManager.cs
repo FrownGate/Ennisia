@@ -11,7 +11,6 @@ using PlayFab.EconomyModels;
 using PlayFab.GroupsModels;
 using PlayFab.Internal;
 using UnityEngine;
-using System.Runtime.CompilerServices;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -171,27 +170,21 @@ public class PlayFabManager : MonoBehaviour
     {
         if (_authData == null) CreateAccountData(email, password);
 
-        PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest()
+        PlayFabClientAPI.LoginWithEmailAddress(new()
         {
             Email = email,
             Password = password,
-            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
-            {
-                GetUserAccountInfo = true
-            }
+            InfoRequestParameters = new() { GetUserAccountInfo = true }
         }, OnLoginRequestSuccess, OnLoginRequestError);
     }
 
     private void AnonymousLogin()
     {
-        PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
+        PlayFabClientAPI.LoginWithCustomID(new()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true,
-            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
-            {
-                GetUserAccountInfo = true
-            }
+            InfoRequestParameters = new() { GetUserAccountInfo = true }
         }, OnLoginRequestSuccess, OnRequestError);
     }
 
@@ -402,7 +395,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void GetPlayerInventory()
     {
-        PlayFabEconomyAPI.GetInventoryItems(new GetInventoryItemsRequest()
+        PlayFabEconomyAPI.GetInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type }
         }, OnGetPlayerInventorySuccess, OnRequestError);
@@ -520,7 +513,7 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log($"Adding {amount} energy...");
         OnLoadingStart?.Invoke();
 
-        PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest()
+        PlayFabClientAPI.AddUserVirtualCurrency(new()
         {
             Amount = amount,
             VirtualCurrency = "EN"
@@ -537,7 +530,7 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log($"Removing {amount} energy...");
         OnLoadingStart?.Invoke();
 
-        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest()
+        PlayFabClientAPI.SubtractUserVirtualCurrency(new()
         {
             Amount = amount,
             VirtualCurrency = "EN"
@@ -606,27 +599,6 @@ public class PlayFabManager : MonoBehaviour
     }
     #endregion
 
-    #region Equipment
-    public void SetGearData(GearSO equipment, int id)
-    {
-        //TODO -> Use find
-        //foreach (Gear inventoryGear in Inventory.GetGears())
-        //{
-        //    if (inventoryGear.Id == id)
-        //    {
-        //        equipment.Id = inventoryGear.Id;
-        //        equipment.Name = inventoryGear.Name;
-        //        equipment.Type = (Item.GearType)inventoryGear.Type;
-        //        equipment.Rarity = (Item.ItemRarity)inventoryGear.Rarity; //TODO -> Update Equipment SO
-        //        equipment.Attribute = (Item.AttributeStat)inventoryGear.Attribute;
-        //        equipment.StatValue = inventoryGear.Value;
-        //        equipment.Description = inventoryGear.Description;
-        //        break;
-        //    }
-        //}
-    }
-    #endregion
-
     #region Items
     public IEnumerator AddInventoryItem(Item item)
     {
@@ -638,9 +610,9 @@ public class PlayFabManager : MonoBehaviour
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            Item = new InventoryItemReference
+            Item = new()
             {
-                AlternateId = new AlternateId
+                AlternateId = new()
                 {
                     Type = "FriendlyId",
                     Value = item.GetType().Name,
@@ -696,9 +668,9 @@ public class PlayFabManager : MonoBehaviour
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
             Entity = new() { Id = Entity.Id, Type = Entity.Type },
-            Item = new InventoryItemReference
+            Item = new()
             {
-                AlternateId = new AlternateId
+                AlternateId = new()
                 {
                     Type = "FriendlyId",
                     Value = item.GetType().Name,
@@ -785,7 +757,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Objects = new()
             {
-                new SetObject()
+                new()
                 {
                     ObjectName = PlayerGuildData.GetType().Name,
                     DataObject = PlayerGuildData
