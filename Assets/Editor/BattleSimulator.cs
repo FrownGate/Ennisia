@@ -104,65 +104,6 @@ public class BattleSimulator : EditorWindow
         _firstSupportFoldout.text = "Support Skills";
         _secondSupportFoldout.text = "Support Skills";
 
-        // _helmetGroupBox = root.Q<GroupBox>("Helmet");
-        // _chestGroupBox = root.Q<GroupBox>("Chest");
-        // _bootsGroupBox = root.Q<GroupBox>("Boots");
-        // _ringGroupBox = root.Q<GroupBox>("Ring");
-        // _necklaceGroupBox = root.Q<GroupBox>("Necklace");
-        // _earringsGroupBox = root.Q<GroupBox>("Earrings");
-
-        // #region Stuff
-        // _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Hp"));
-        // _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat1"));
-        // _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat2"));
-        // _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat3"));
-        // _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat4"));
-
-        // _chestStatField.Add(_chestGroupBox.Q<IntegerField>("MainStat"));
-        // _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat1"));
-        // _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat2"));
-        // _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat3"));
-        // _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat4"));
-
-        // _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Defense"));
-        // _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat1"));
-        // _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat2"));
-        // _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat3"));
-        // _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat4"));
-
-        // _ringStatField.Add(_ringGroupBox.Q<IntegerField>("MainStat"));
-        // _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat1"));
-        // _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat2"));
-        // _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat3"));
-        // _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat4"));
-
-        // _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("MainStat"));
-        // _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat1"));
-        // _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat2"));
-        // _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat3"));
-        // _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat4"));
-
-        // _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("MainStat"));
-        // _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat1"));
-        // _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat2"));
-        // _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat3"));
-        // _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat4"));
-        // #endregion
-        // _helmetDropdown = root.Q<DropdownField>("helmet-dropdown");
-        // _chestDropdown = root.Q<DropdownField>("chest-dropdown");
-        // _bootsDropdown = root.Q<DropdownField>("boots-dropdown");
-        // _ringDropdown = root.Q<DropdownField>("ring-dropdown");
-        // _necklaceDropdown = root.Q<DropdownField>("necklace-dropdown");
-        // _earringsDropdown = root.Q<DropdownField>("earrings-dropdown");
-
-        // _helmetFoldout = root.Q<Foldout>("helmet-foldout");
-        // _chestFoldout = root.Q<Foldout>("chest-foldout");
-        // _bootsFoldout = root.Q<Foldout>("boots-foldout");
-        // _ringFoldout = root.Q<Foldout>("ring-foldout");
-        // _necklaceFoldout = root.Q<Foldout>("necklace-foldout");
-        // _earringsFoldout = root.Q<Foldout>("earrings-foldout");
-
-
         _weaponGroupBox = root.Q<GroupBox>("Weapon");
 
         _weaponStatField.Add(_weaponGroupBox.Q<IntegerField>("MainStat"));
@@ -218,11 +159,6 @@ public class BattleSimulator : EditorWindow
             }
             _gearsInfos.Add(gearInfo);
         }
-
-        // foreach (GearInfo gearInfo in _gearsInfos)
-        // {
-        //     gearInfo.Foldout.text = "Gear Stats";
-        // }
     }
 
     public void OnGUI()
@@ -253,8 +189,10 @@ public class BattleSimulator : EditorWindow
         List<GearSO> weaponsSO = new(Resources.LoadAll<GearSO>("SO/Weapons"));
         foreach (GearSO weapon in weaponsSO)
         {
+            Gear NewWeapon = new(weapon);
+            _weapons.Add(NewWeapon);
             _weaponDropdown.choices.Add("No Weapon");
-            _weaponDropdown.choices.Add(weapon.Name);
+            _weaponDropdown.choices.Add(NewWeapon.Name);
         }
 
         List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
@@ -288,7 +226,6 @@ public class BattleSimulator : EditorWindow
                 _weaponFoldout.visible = true;
                 _weaponFoldout.text = evt.newValue;
 
-                Gear weapon = _weapons.Find(x => x.Name == evt.newValue);
 
                 ChangeFieldsOfWeapon(evt.newValue, _weaponSkillField, _weaponStatField);
             }
@@ -409,8 +346,7 @@ public class BattleSimulator : EditorWindow
     {
         SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
 
-        // Change the name of all the skill field to the name of the skill
-        // and the name of the field to the type of the skill
+
         supportFields[0].label = support.PrimarySkillData.IsPassive ? "Passive" : "Active";
         supportFields[1].label = support.SecondarySkillData.IsPassive ? "Passive" : "Active";
 
