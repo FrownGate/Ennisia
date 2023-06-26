@@ -11,7 +11,7 @@ public class Quest
         Data = Resources.Load<QuestSO>("SO/Quest/" + FileName);
     }
 
-    public virtual void CheckCondition()
+    public virtual void CheckCondition(string name)
     {
         //
     }

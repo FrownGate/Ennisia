@@ -64,7 +64,7 @@ public class DailiesCheck
         }
     }
 
-    private void CheckEnemyKilled()
+    private void CheckEnemyKilled(string name)
     {
         if (_enemyKilledCount >= enemyKilledNeeded)
         {

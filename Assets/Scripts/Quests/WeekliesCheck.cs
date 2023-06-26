@@ -62,7 +62,7 @@ public class WeekliesCheck
 
 
 
-    private void CheckEnemyKilled()
+    private void CheckEnemyKilled(string name)
     {
         if (_enemyKilledCount >= enemyKilledNeeded)
         {
