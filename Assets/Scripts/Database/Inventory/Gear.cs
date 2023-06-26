@@ -43,6 +43,7 @@ public class Gear : Item
     }
 
     public Gear(GearSO weapon, ItemRarity rarity) : this(weapon.Type, rarity, weapon) { }
+    public Gear(GearSO gear) : this(gear.Type, gear.Rarity, gear.Type == GearType.Weapon ? gear : null) { }
 
     public Gear(InventoryItem item)
     {
