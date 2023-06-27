@@ -80,10 +80,10 @@ public abstract class Entity
     }
     public void AddBuffEffect(BuffEffect buff)
     {
-        var existingBuff = Buffs.FirstOrDefault(b => b.State.ToString() == buff.State.ToString());
-        if (existingBuff != null)
+        //var existingBuff = Buffs.FirstOrDefault(st => st.ModifiedStats.ToString() == buff.ModifiedStats.ToString());
+        if (Buffs.Contains(buff))
         {
-            existingBuff.ResetDuration();
+            return;
         }
         else
         {

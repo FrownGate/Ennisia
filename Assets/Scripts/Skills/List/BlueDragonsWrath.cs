@@ -8,7 +8,9 @@ public class BlueDragonsWrath : DamageSkill
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
-
+        /*Debug.Log("Player's attack : " + player.Stats[Item.AttributeStat.Attack].Value);
+        EffectApplier.Instance.ApplyEffectTo(player, EffectApplier.Instance.EffectDatabase[EffectType.ATKBUFF.ToString()]);
+        Debug.Log("Player's attack : " + player.Stats[Item.AttributeStat.Attack].Value);*/
         return damage;
     }
 }
