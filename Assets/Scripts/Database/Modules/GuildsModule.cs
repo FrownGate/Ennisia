@@ -3,6 +3,7 @@ using PlayFab.GroupsModels;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class GuildsModule : Module
 {
@@ -41,7 +42,7 @@ public class GuildsModule : Module
             if (PlayerGuild != null)
             {
                 Debug.Log($"Player is a member of Guild {PlayerGuild.GroupName}.");
-                GetGuildData(PlayerGuild);
+                StartCoroutine(GetGuildData(PlayerGuild));
                 return;
             }
 
@@ -50,8 +51,10 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void GetGuildData(GroupWithRoles guild)
+    public IEnumerator GetGuildData(GroupWithRoles guild)
     {
+        yield return _manager.StartAsyncRequest();
+
         PlayFabGroupsAPI.ListGroupMembers(new()
         {
             Group = guild.Group
@@ -61,7 +64,7 @@ public class GuildsModule : Module
 
             if (guild == PlayerGuild && PlayerGuildData != null)
             {
-                UpdatePlayerGuild();
+                StartCoroutine(UpdatePlayerGuild());
                 return;
             }
 
@@ -86,7 +89,7 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void CreateGuild(string name, string description)
+    public IEnumerator CreateGuild(string name, string description)
     {
         Debug.Log("Creating guild...");
         //TODO -> save description as object
@@ -94,7 +97,7 @@ public class GuildsModule : Module
         //TODO -> Check if name already exists
         PlayerGuildData = new(description);
 
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.CreateGroup(new()
         {
@@ -144,8 +147,10 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void UpdatePlayerGuild()
+    public IEnumerator UpdatePlayerGuild()
     {
+        yield return _manager.StartAsyncRequest();
+
         PlayFabDataAPI.SetObjects(new()
         {
             Objects = new()
@@ -160,9 +165,9 @@ public class GuildsModule : Module
         }, res => _manager.EndRequest(), _manager.OnRequestError);
     }
 
-    public void GetGuilds()
+    public IEnumerator GetGuilds()
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.ListMembership(new()
         {
@@ -173,9 +178,9 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void GetPlayerOpportunities() //List of applications sent and invitations received by the player
+    public IEnumerator GetPlayerOpportunities() //List of applications sent and invitations received by the player
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.ListMembershipOpportunities(new(), res =>
         {
@@ -185,9 +190,9 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void ApplyToGuild(GroupWithRoles guild)
+    public IEnumerator ApplyToGuild(GroupWithRoles guild)
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.ApplyToGroup(new()
         {
@@ -195,9 +200,9 @@ public class GuildsModule : Module
         }, res => _manager.EndRequest("Applied successfully !"), _manager.OnRequestError);
     }
 
-    public void GetGuildApplications()
+    public IEnumerator GetGuildApplications()
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.ListGroupApplications(new()
         {
@@ -209,9 +214,9 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void AcceptGuildApplication(string applicant) //String needed = ApplicantId#ApplicantType
+    public IEnumerator AcceptGuildApplication(string applicant) //String needed = ApplicantId#ApplicantType
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.AcceptGroupApplication(new()
         {
@@ -220,9 +225,9 @@ public class GuildsModule : Module
         }, res => _manager.EndRequest(), _manager.OnRequestError);
     }
 
-    public void DenyGuildApplication(string applicant) //String needed = ApplicantId#ApplicantType
+    public IEnumerator DenyGuildApplication(string applicant) //String needed = ApplicantId#ApplicantType
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.RemoveGroupApplication(new()
         {
@@ -231,9 +236,9 @@ public class GuildsModule : Module
         }, res => _manager.EndRequest(), _manager.OnRequestError);
     }
 
-    public void SendGuildInvitation(string username)
+    public IEnumerator SendGuildInvitation(string username)
     {
-        _manager.StartRequest();   
+        yield return _manager.StartAsyncRequest();   
 
         PlayFabClientAPI.GetAccountInfo(new()
         {
@@ -250,9 +255,9 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void GetGuildInvitations() //List of invitations sent by a guild
+    public IEnumerator GetGuildInvitations() //List of invitations sent by a guild
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.ListGroupInvitations(new()
         {
@@ -264,9 +269,9 @@ public class GuildsModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void AcceptGuildInvitation(string guild) //String needed = GuildId#GuildTyp
+    public IEnumerator AcceptGuildInvitation(string guild) //String needed = GuildId#GuildTyp
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.AcceptGroupInvitation(new()
         {
@@ -278,9 +283,9 @@ public class GuildsModule : Module
         }, res => GetPlayerGuild(), _manager.OnRequestError);
     }
 
-    public void DenyGuildInvitation(string guild) //String needed = GuildId#GuildTyp
+    public IEnumerator DenyGuildInvitation(string guild) //String needed = GuildId#GuildTyp
     {
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabGroupsAPI.RemoveGroupInvitation(new()
         {

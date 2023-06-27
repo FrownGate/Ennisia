@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static PlayFabManager;
-using static UnityEditor.Progress;
 
 public class EconomyModule : Module
 {
@@ -32,12 +31,13 @@ public class EconomyModule : Module
     /// </summary>
     private void OnGetDataSuccess(SearchItemsResponse response)
     {
+        _manager.EndRequest();
         _itemsById = new();
         _itemsByName = new();
         _currencies = new();
         Currencies = new();
 
-        foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
+        foreach (CatalogItem item in response.Items)
         {
             //TODO -> Get bundle items and shops
             if (item.Type == "currency")
@@ -106,6 +106,8 @@ public class EconomyModule : Module
 
     private void GetPlayerInventory()
     {
+        _manager.StartRequest();
+
         PlayFabEconomyAPI.GetInventoryItems(new()
         {
             Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type }
@@ -129,9 +131,9 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void AddCurrency(GameCurrency currency, int amount)
+    public IEnumerator AddCurrency(GameCurrency currency, int amount)
     {
-        _manager.StartRequest($"Adding {amount} {currency}...");
+        yield return _manager.StartAsyncRequest($"Adding {amount} {currency}...");
 
         PlayFabEconomyAPI.AddInventoryItems(new()
         {
@@ -153,9 +155,9 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void RemoveCurrency(GameCurrency currency, int amount)
+    public IEnumerator RemoveCurrency(GameCurrency currency, int amount)
     {
-        _manager.StartRequest($"Removing {amount} {currency}...");
+        yield return _manager.StartAsyncRequest($"Removing {amount} {currency}...");
 
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
@@ -177,9 +179,9 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void AddEnergy(int amount)
+    public IEnumerator AddEnergy(int amount)
     {
-        _manager.StartRequest($"Adding {amount} energy...");
+        yield return _manager.StartAsyncRequest($"Adding {amount} energy...");
 
         PlayFabClientAPI.AddUserVirtualCurrency(new()
         {
@@ -192,9 +194,9 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public void RemoveEnergy(int amount)
+    public IEnumerator RemoveEnergy(int amount)
     {
-        _manager.StartRequest($"Removing {amount} energy...");
+        yield return _manager.StartAsyncRequest($"Removing {amount} energy...");
 
         PlayFabClientAPI.SubtractUserVirtualCurrency(new()
         {
@@ -223,9 +225,9 @@ public class EconomyModule : Module
     }
 
     #region Items
-    public void AddInventoryItem(Item item)
+    public IEnumerator AddInventoryItem(Item item)
     {
-        _manager.StartRequest("Adding item...");
+        yield return _manager.StartAsyncRequest("Adding item...");
         item.Serialize();
 
         PlayFabEconomyAPI.AddInventoryItems(new()
@@ -248,15 +250,15 @@ public class EconomyModule : Module
         }, res => _manager.EndRequest("Item added to inventory !"), _manager.OnRequestError);
     }
 
-    public void UpdateItem(Item item)
+    public IEnumerator UpdateItem(Item item)
     {
         if (item == null || !_manager.Inventory.HasItem(item))
         {
             Debug.LogError("Item not found !");
-            return;
+            yield break;
         }
 
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
         item.Serialize();
 
         PlayFabEconomyAPI.UpdateInventoryItems(new()
@@ -271,15 +273,15 @@ public class EconomyModule : Module
         }, res => _manager.EndRequest("Item updated !"), _manager.OnRequestError);
     }
 
-    public void UseItem(Item item, int amount = 1)
+    public IEnumerator UseItem(Item item, int amount = 1)
     {
         if (item == null || !_manager.Inventory.HasItem(item))
         {
             Debug.LogError("Item not found !");
-            return;
+            yield break;
         }
 
-        _manager.StartRequest();
+        yield return _manager.StartAsyncRequest();
 
         PlayFabEconomyAPI.SubtractInventoryItems(new()
         {
