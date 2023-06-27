@@ -2,9 +2,11 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-public class GuildsModule
+public class GuildsModule : Module
 {
+    public static event Action OnInitComplete;
     public GroupWithRoles PlayerGuild { get; private set; }
     public GuildData PlayerGuildData { get; private set; }
     public List<EntityMemberRole> PlayerGuildMembers { get; private set; }
@@ -13,16 +15,12 @@ public class GuildsModule
     private PlayFab.ClientModels.EntityKey _adminEntity;
     //private readonly string _fakeRole = "Fake"; //Used ?
 
-    private PlayFabManager _manager;
-
     //TODO -> Remove guild member
     //TODO -> check role for applications functions
     //TODO -> Check if player's application has been accepted in update ?
 
-    public GuildsModule(PlayFabManager manager)
+    private void Awake()
     {
-        _manager = manager;
-
         _adminEntity = new()
         {
             Id = "2641E2E5FB9FA5C2",
@@ -33,22 +31,58 @@ public class GuildsModule
 
     public void GetPlayerGuild()
     {
-        Debug.Log("Fetching player's guild...");
+        _manager.StartRequest("Fetching player's guild...");
 
         PlayFabGroupsAPI.ListMembership(new(), res =>
         {
+            _manager.EndRequest();
             PlayerGuild = res.Groups.Count > 0 ? res.Groups[0] : null;
 
             if (PlayerGuild != null)
             {
                 Debug.Log($"Player is a member of Guild {PlayerGuild.GroupName}.");
                 GetGuildData(PlayerGuild);
-
                 return;
             }
 
-            _manager.CompleteLogin();
+            if (!_manager.LoggedIn) OnInitComplete?.Invoke();
 
+        }, _manager.OnRequestError);
+    }
+
+    public void GetGuildData(GroupWithRoles guild)
+    {
+        PlayFabGroupsAPI.ListGroupMembers(new()
+        {
+            Group = guild.Group
+        }, res =>
+        {
+            PlayerGuildMembers = guild == PlayerGuild ? res.Members : PlayerGuildMembers;
+
+            if (guild == PlayerGuild && PlayerGuildData != null)
+            {
+                UpdatePlayerGuild();
+                return;
+            }
+
+            PlayFabDataAPI.GetObjects(new()
+            {
+                Entity = new() { Id = guild.Group.Id, Type = guild.Group.Type },
+                EscapeObject = true
+            }, res =>
+            {
+                GuildData data = new(res.Objects[new GuildData().GetType().Name]);
+                PlayerGuildData = guild == PlayerGuild ? data : PlayerGuildData;
+
+                PlayFabGroupsAPI.ListGroupMembers(new()
+                {
+                    Group = guild.Group
+                }, res =>
+                {
+                    _manager.InvokeOnGetGuildData(data, res.Members);
+                    if (!_manager.LoggedIn) OnInitComplete?.Invoke();
+                }, _manager.OnRequestError);
+            }, _manager.OnRequestError);
         }, _manager.OnRequestError);
     }
 
@@ -124,42 +158,6 @@ public class GuildsModule
             },
             Entity = new() { Id = PlayerGuild.Group.Id, Type = PlayerGuild.Group.Type }
         }, res => _manager.EndRequest(), _manager.OnRequestError);
-    }
-
-    public void GetGuildData(GroupWithRoles guild)
-    {
-        PlayFabGroupsAPI.ListGroupMembers(new()
-        {
-            Group = guild.Group
-        }, res =>
-        {
-            PlayerGuildMembers = guild == PlayerGuild ? res.Members : PlayerGuildMembers;
-
-            if (guild == PlayerGuild && PlayerGuildData != null)
-            {
-                UpdatePlayerGuild();
-                return;
-            }
-
-            PlayFabDataAPI.GetObjects(new()
-            {
-                Entity = new() { Id = guild.Group.Id, Type = guild.Group.Type },
-                EscapeObject = true
-            }, res =>
-            {
-                GuildData data = new(res.Objects[new GuildData().GetType().Name]);
-                PlayerGuildData = guild == PlayerGuild ? data : PlayerGuildData;
-
-                PlayFabGroupsAPI.ListGroupMembers(new()
-                {
-                    Group = guild.Group
-                }, res =>
-                {
-                    _manager.InvokeOnGetGuildData(data, res.Members);
-                    _manager.CompleteLogin();
-                }, _manager.OnRequestError);
-            }, _manager.OnRequestError);
-        }, _manager.OnRequestError);
     }
 
     public void GetGuilds()

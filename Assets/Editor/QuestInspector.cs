@@ -19,7 +19,7 @@ public class QuestInspector : Editor
             //Debug.Log("Penetre");
 
             // Display the dictionary values
-            foreach (KeyValuePair<PlayFabManager.Currency, int> pair in script.currencyList)
+            foreach (KeyValuePair<PlayFabManager.GameCurrency, int> pair in script.currencyList)
             {
                 Debug.Log(pair.Value.ToString());
                 EditorGUILayout.LabelField(pair.Key.ToString(), pair.Value.ToString());
