@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 using System;
-
+using System.Linq;
 public class BattleSimulator : EditorWindow
 {
     public class EnemyInfo
@@ -15,8 +15,9 @@ public class BattleSimulator : EditorWindow
     public class GearInfo
     {
         public DropdownField Dropdown;
-        public Dictionary<Item.AttributeStat, IntegerField> Stats;
+        public Dictionary<Item.AttributeStat?, IntegerField> Stats;
         public Foldout Foldout;
+        public List<IntegerField> IntegerFields;
     }
     List<GroupBox> _gearsGroupbox;
     List<GroupBox> _enemiesGroupbox;
@@ -140,7 +141,21 @@ public class BattleSimulator : EditorWindow
             enemyInfo.Foldout.text = "Enemy Stats";
         }
 
+        List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
 
+        foreach (var gear in gearsSO)
+        {
+            Gear NewGear = new(gear);
+            _gears.Add(NewGear);
+            foreach (var info in _gearsInfos)
+            {
+                if (gear.Type.ToString() == info.Dropdown.label)
+                {
+                    info.Dropdown.choices.Add("No Gear");
+                    info.Dropdown.choices.Add(NewGear.Name);
+                }
+            }
+        }
 
         _gearsGroupbox = root.Query<GroupBox>("GearGroupbox").ToList();
         foreach (var item in _gearsGroupbox)
@@ -149,22 +164,27 @@ public class BattleSimulator : EditorWindow
             {
                 Dropdown = item.Q<DropdownField>("GearDropdown"),
                 Foldout = item.Q<Foldout>("GearFoldout"),
-                Stats = new()
+                Stats = new(),
+                IntegerFields = item.Query<IntegerField>().ToList()
             };
-            List<IntegerField> fieldList = item.Query<IntegerField>().ToList();
 
-            // loop through all the integerfields and add them to the dictionnary with the name of the stat as a key from _gears
-            foreach (IntegerField field in fieldList)
+            // loop through all the IntegerFields and add them to the dictionnary with the name of the stat as a key from _gears
+            foreach (var gear in _gears)
             {
-                foreach (var gear in _gears)
+                gearInfo.Stats[(Item.AttributeStat)gear.Attribute] = gearInfo.IntegerFields[0];
+
+                for (int i = 1; i < gearInfo.IntegerFields.Count; i++)
                 {
-                    gearInfo.Stats.Add((Item.AttributeStat)gear.Attribute, field);
-                    Debug.LogWarning(gear.Attribute);
+                    if (gear.Substats.Count <= i - 1)
+                    {
+                        break;
+                    }
+                    gearInfo.Stats[(Item.AttributeStat)gear.Substats.ToArray()[i - 1].Key] = gearInfo.IntegerFields[i];
                 }
             }
-
             _gearsInfos.Add(gearInfo);
         }
+
     }
 
     public void OnGUI()
@@ -272,12 +292,15 @@ public class BattleSimulator : EditorWindow
 
         foreach (var info in _gearsInfos)
         {
+            List<IntegerField> statFields = new();
             foreach (var stats in info.Stats)
             {
-                List<IntegerField> statFields = info.Foldout.Query<IntegerField>().ToList();
+                Debug.LogWarning("Key : " + stats.Key.ToString());
+                Debug.LogWarning("Value : " + stats.Value.ToString());
+                statFields.Add(stats.Value);
+
                 info.Dropdown.RegisterValueChangedCallback(evt =>
                 {
-                    Debug.LogWarning(evt.newValue);
                     if (evt.newValue != "No Gear")
                     {
                         info.Foldout.visible = true;
@@ -304,8 +327,6 @@ public class BattleSimulator : EditorWindow
                     {
                         info.Foldout.visible = true;
                         info.Foldout.text = evt.newValue;
-
-
                         ChangeFieldsOfEnemy(evt.newValue, statFields, i);
                     }
                     else
@@ -358,26 +379,30 @@ public class BattleSimulator : EditorWindow
     }
     private void ChangeFieldsOfGear(string gearName, List<IntegerField> gearStatFields)
     {
-        Debug.LogWarning("Gear Name : " + gearName);
-        Debug.LogWarning("----------------------- COUCOU -----------------------");
-        Debug.LogWarning(gearName);
         Gear gear = _gears.Find(x => x.Name == gearName);
-        Debug.LogWarning(gear);
 
         // Change the name of all the stat field to the name of the stat
         gearStatFields[0].label = gear.Attribute.ToString();
         gearStatFields[0].SetValueWithoutNotify((int)gear.Value);
-        Debug.LogWarning("Gear Value : " + gear.Value);
 
-        foreach (var substat in gear.Substats)
+
+
+        foreach (var info in _gearsInfos)
         {
-            foreach (var field in gearStatFields)
+            foreach (var stat in info.Stats)
             {
-                field.label = substat.Key.ToString();
-                field.SetValueWithoutNotify((int)substat.Value);
-                Debug.LogWarning("Substat Value : " + substat.Value);
+                if (stat.Key != null)
+                {
+                    gearStatFields[1].label = stat.Key.ToString();
+                    gearStatFields[1].SetValueWithoutNotify((int)stat.Value.value);
+                }
+                else
+                {
+                    gearStatFields[1].visible = false;
+                }
             }
         }
+
 
         _selectedGears[(Item.GearType)gear.Type] = gear;
 
@@ -386,11 +411,6 @@ public class BattleSimulator : EditorWindow
     private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
     {
         Gear weapon = _weapons.Find(x => x.Name == weaponName);
-
-        // Debug.LogWarning(weapon);
-        // Debug.LogWarning(weapon.WeaponSO);
-        // Debug.LogWarning(weapon.WeaponSO.FirstSkillData);
-        // Debug.LogWarning(weapon.WeaponSO.SecondSkillData);
 
 
         weaponStatFields[0].label = weapon.Attribute.ToString();

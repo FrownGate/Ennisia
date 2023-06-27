@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
+  m_Name: TestingHelmet
+  m_EditorClassIdentifier: 
+  Id: 0
+  Name: TestingHelmet
+  Level: 1
+  Type: 0
+  Rarity: 3
+  Attribute: 0
+  StatValue: 3550
+  Description: 
+  WeaponType: 0
+  IsMagic: 0
+  FirstSkillData: {fileID: 0}
+  SecondSkillData: {fileID: 0}
