@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using NaughtyAttributes;
+
 [CreateAssetMenu(fileName = "New Support", menuName = "Ennisia/Support")]
 public class SupportCharacterSO : ScriptableObject
 {
@@ -10,10 +11,8 @@ public class SupportCharacterSO : ScriptableObject
     public string Race;
     public string Job;
     public string Element; 
-        [Expandable]
-    public SkillSO PrimarySkillData;
-        [Expandable]
-    public SkillSO SecondarySkillData;
+    [Expandable] public SkillSO PrimarySkillData;
+    [Expandable] public SkillSO SecondarySkillData;
     [HideInInspector] public Skill PrimarySkill;
     [HideInInspector] public Skill SecondarySkill;
     public string Description;
