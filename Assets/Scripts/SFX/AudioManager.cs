@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 {
     List<Sound> sounds = new List<Sound>();
     AudioClip[] audioClip;
+    private float _saveVolume = 0.1f;
+    private float _stepVolume = 0.01f;
     public static AudioManager Instance { get; private set; }
 
     // Start is called before the first frame update
@@ -33,14 +35,12 @@ public class AudioManager : MonoBehaviour
                 sound.loop = true;
             }
             sounds.Add(sound);
-            Debug.Log("sounds count : "+sounds.Count);
         }
 
         foreach (var sound in sounds)
         {
             sound.Source = gameObject.AddComponent<AudioSource>();
             sound.name = sound.clip.name;
-            Debug.Log("sound name : " + sound.name);
             sound.Source.clip = sound.clip;
             sound.Source.volume = 0.2f;
             sound.Source.pitch = 1;
@@ -51,6 +51,50 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         FindObjectOfType<AudioManager>().Play("BGM1");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.Log("wui");
+            foreach (var sound in sounds)
+            {
+                if (sound.Source.volume > 0)
+                {
+                    Debug.Log("mute");
+                    _saveVolume = sound.Source.volume;
+                    sound.Source.volume = 0;
+                }
+                else
+                {
+                    Debug.Log("unmute");
+                    sound.Source.volume = _saveVolume;
+                }
+            }
+        }
+        if (Input.GetKey(KeyCode.UpArrow)) 
+        {
+            Debug.Log("up volume");
+            foreach (var sound in sounds)
+            {
+                if(sound.Source.volume < 1)
+                {
+                    sound.Source.volume += _stepVolume;
+                }
+            }
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            Debug.Log("down volume");
+            foreach (var sound in sounds)
+            {
+                if (sound.Source.volume > 0)
+                {
+                    sound.Source.volume -= _stepVolume;
+                }
+            }
+        }
     }
 
     private void OnClickSFX(int index)
