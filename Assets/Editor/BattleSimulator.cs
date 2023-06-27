@@ -151,12 +151,18 @@ public class BattleSimulator : EditorWindow
                 Foldout = item.Q<Foldout>("GearFoldout"),
                 Stats = new()
             };
-            List<IntegerField> statList = item.Query<IntegerField>().ToList();
+            List<IntegerField> fieldList = item.Query<IntegerField>().ToList();
 
-            foreach (IntegerField stat in statList)
+            // loop through all the integerfields and add them to the dictionnary with the name of the stat as a key from _gears
+            foreach (IntegerField field in fieldList)
             {
-                // gearInfo.Stats.Add((Item.AttributeStat)Enum.Parse(typeof(Item.AttributeStat), stat.label), stat);
+                foreach (var gear in _gears)
+                {
+                    gearInfo.Stats.Add((Item.AttributeStat)gear.Attribute, field);
+                    Debug.LogWarning(gear.Attribute);
+                }
             }
+
             _gearsInfos.Add(gearInfo);
         }
     }
@@ -177,7 +183,6 @@ public class BattleSimulator : EditorWindow
         }
 
         _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
-        // TODO: Refactore it
         foreach (SupportCharacterSO support in _supports)
         {
             _firstSupportDropdown.choices.Add("No Support");
@@ -197,7 +202,6 @@ public class BattleSimulator : EditorWindow
 
         List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
 
-        // add the gears to the dropdown by type
         foreach (var gear in gearsSO)
         {
             Gear NewGear = new(gear);
@@ -234,9 +238,6 @@ public class BattleSimulator : EditorWindow
                 _weaponFoldout.visible = false;
             }
         });
-
-        // GEARS
-
 
         // SUPPORTS
         _firstSupportDropdown.RegisterValueChangedCallback(evt =>
@@ -276,11 +277,11 @@ public class BattleSimulator : EditorWindow
                 List<IntegerField> statFields = info.Foldout.Query<IntegerField>().ToList();
                 info.Dropdown.RegisterValueChangedCallback(evt =>
                 {
+                    Debug.LogWarning(evt.newValue);
                     if (evt.newValue != "No Gear")
                     {
                         info.Foldout.visible = true;
                         info.Foldout.text = evt.newValue;
-
                         ChangeFieldsOfGear(evt.newValue, statFields);
                     }
                     else
@@ -357,7 +358,8 @@ public class BattleSimulator : EditorWindow
     }
     private void ChangeFieldsOfGear(string gearName, List<IntegerField> gearStatFields)
     {
-
+        Debug.LogWarning("Gear Name : " + gearName);
+        Debug.LogWarning("----------------------- COUCOU -----------------------");
         Debug.LogWarning(gearName);
         Gear gear = _gears.Find(x => x.Name == gearName);
         Debug.LogWarning(gear);
@@ -365,6 +367,7 @@ public class BattleSimulator : EditorWindow
         // Change the name of all the stat field to the name of the stat
         gearStatFields[0].label = gear.Attribute.ToString();
         gearStatFields[0].SetValueWithoutNotify((int)gear.Value);
+        Debug.LogWarning("Gear Value : " + gear.Value);
 
         foreach (var substat in gear.Substats)
         {
@@ -372,6 +375,7 @@ public class BattleSimulator : EditorWindow
             {
                 field.label = substat.Key.ToString();
                 field.SetValueWithoutNotify((int)substat.Value);
+                Debug.LogWarning("Substat Value : " + substat.Value);
             }
         }
 
@@ -383,10 +387,10 @@ public class BattleSimulator : EditorWindow
     {
         Gear weapon = _weapons.Find(x => x.Name == weaponName);
 
-        Debug.LogWarning(weapon);
-        Debug.LogWarning(weapon.WeaponSO);
-        Debug.LogWarning(weapon.WeaponSO.FirstSkillData);
-        Debug.LogWarning(weapon.WeaponSO.SecondSkillData);
+        // Debug.LogWarning(weapon);
+        // Debug.LogWarning(weapon.WeaponSO);
+        // Debug.LogWarning(weapon.WeaponSO.FirstSkillData);
+        // Debug.LogWarning(weapon.WeaponSO.SecondSkillData);
 
 
         weaponStatFields[0].label = weapon.Attribute.ToString();
@@ -411,16 +415,12 @@ public class BattleSimulator : EditorWindow
             Debug.Log(_selectedWeapon.Name);
             foreach (var support in _selectedSupports)
             {
-                Debug.Log(support.Name);
+                Debug.LogError(support.Name);
             }
             // make a list of the _selectedGears
             List<Gear> tempGears = new();
             foreach (var gear in _selectedGears)
             {
-                if (gear.Value != null)
-                {
-                    Debug.Log(gear.Value.Name);
-                }
                 tempGears.Add(gear.Value);
             }
 
