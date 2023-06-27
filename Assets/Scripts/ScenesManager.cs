@@ -1,7 +1,5 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
@@ -94,13 +92,13 @@ public class ScenesManager : MonoBehaviour
         _activeScene = scene.name.Contains("Loading") ? _activeScene : scene;
         _sceneMode = mode;
 
-        Debug.Log($"{_activeScene.name} loaded !");
+        //Debug.Log($"{_activeScene.name} loaded !");
     }
 
     private void OnSceneUnloaded(Scene scene)
     {
         _previousScene = scene;
-        Debug.Log($"{_previousScene.name} unloaded !");
+        //Debug.Log($"{_previousScene.name} unloaded !");
     }
 
     private string GetSceneName(string scene)
