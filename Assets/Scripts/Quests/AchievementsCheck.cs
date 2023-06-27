@@ -85,8 +85,8 @@ public class AchievementsCheck : MonoBehaviour
 
     private void GiveRewards()
     {
-        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Gold, goldAmount);
-        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, goldAmount);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.GameCurrency.Gold, goldAmount);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.GameCurrency.Crystals, goldAmount);
     }
 
     private void OnEnable()

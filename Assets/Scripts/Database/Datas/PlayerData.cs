@@ -37,12 +37,26 @@ public class PlayerData
         }
     }
 
-    public void Equip(Gear gear)
+    private void EquipGear(Gear gear)
     {
         EquippedGearsId[(int)gear.Type] = gear.Id;
         EquippedGears[(GearType)gear.Type] = gear;
 
         if (gear.Type == GearType.Weapon) gear.WeaponSO.Init();
+    }
+
+    public void Equip(Gear gear)
+    {
+        EquipGear(gear);
+        PlayFabManager.Instance.UpdateData();
+    }
+
+    public void Equip(List<Gear> gears)
+    {
+        foreach (Gear gear in gears)
+        {
+            EquipGear(gear);
+        }
 
         PlayFabManager.Instance.UpdateData();
     }

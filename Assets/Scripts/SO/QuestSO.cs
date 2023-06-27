@@ -1,5 +1,3 @@
-using PlayFab.ClientModels;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
@@ -11,7 +9,5 @@ public class QuestSO : ScriptableObject
     public string Name;
     public string Description;
     public int Energy;
-    [ShowNonSerializedField] public Dictionary<PlayFabManager.Currency, int> currencyList = new();
-
-
+    [ShowNonSerializedField] public Dictionary<PlayFabManager.GameCurrency, int> currencyList = new();
 }
