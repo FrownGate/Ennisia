@@ -7,6 +7,7 @@ using System;
 using PlayFab.ClientModels;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections;
 
 public class AccountModule : Module
 {
@@ -35,7 +36,6 @@ public class AccountModule : Module
     public void StartLogin()
     {
         if (HasLocalSave()) return;
-        Debug.Log("No local save found -> anonymous login...");
         AnonymousLogin();
 
         //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
@@ -80,6 +80,8 @@ public class AccountModule : Module
     #region Login
     private void Login(string email, string password)
     {
+        _manager.StartRequest();
+
         if (_authData == null) CreateAccountData(email, password);
 
         PlayFabClientAPI.LoginWithEmailAddress(new()
@@ -92,6 +94,8 @@ public class AccountModule : Module
 
     private void AnonymousLogin()
     {
+        _manager.StartRequest("No local save found -> anonymous login...");
+
         PlayFabClientAPI.LoginWithCustomID(new()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
@@ -149,7 +153,7 @@ public class AccountModule : Module
             Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type }
         }, res =>
         {
-            Debug.Log($"Obtained {res.Metadata.Count} file(s) !");
+            _manager.EndRequest($"Obtained {res.Metadata.Count} file(s) !");
 
             if (res.Metadata.Count == 0)
             {
@@ -165,18 +169,20 @@ public class AccountModule : Module
 
     private void GetFilesDatas(GetFileMetadata file)
     {
+        _manager.StartRequest();
+
         PlayFabHttp.SimpleGetCall(file.DownloadUrl, res =>
         {
             //TODO -> check if there's no missing datas
             Data.UpdateLocalData(Encoding.UTF8.GetString(res));
-            Debug.Log("Local datas updated !");
+            _manager.EndRequest("Local datas updated !");
             OnInitComplete?.Invoke();
         }, error => Debug.LogError(error));
     }
 
-    public void UpdateData()
+    public IEnumerator UpdateData()
     {
-        _manager.StartRequest("Initiating data update...");
+        yield return _manager.StartAsyncRequest("Initiating data update...");
 
         PlayFabDataAPI.InitiateFileUploads(new()
         {
@@ -253,7 +259,7 @@ public class AccountModule : Module
     public void SetGender(int gender)
     {
         Data.Account.Gender = gender;
-        UpdateData();
+        StartCoroutine(UpdateData());
     }
 
     public void CompleteLogin()

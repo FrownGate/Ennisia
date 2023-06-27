@@ -62,7 +62,7 @@ public class PlayFabManager : MonoBehaviour
     public List<EntityMemberRole> PlayerGuildMembers => _guildsMod.PlayerGuildMembers;
 
     //Requests
-    private bool _isPending;
+    private int _requests;
 
     //TODO -> refresh ui after some events
 
@@ -86,7 +86,7 @@ public class PlayFabManager : MonoBehaviour
             EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
             GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
 
-            _isPending = false;
+            _requests = 0;
         }
     }
 
@@ -106,7 +106,7 @@ public class PlayFabManager : MonoBehaviour
     #region Account
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
 
-    public void UpdateData() => _accountMod.UpdateData();
+    public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
     #endregion
 
@@ -117,15 +117,15 @@ public class PlayFabManager : MonoBehaviour
     public void InvokeOnEnergyUpdate() => OnEnergyUpdate?.Invoke();
     public void InvokeOnEnergyUsed() => OnEnergyUsed?.Invoke();
 
-    public void AddCurrency(GameCurrency currency, int amount) => _economyMod.AddCurrency(currency, amount);
-    public void RemoveCurrency(GameCurrency currency, int amount) => _economyMod.RemoveCurrency(currency, amount);
-    public void AddEnergy(int amount) => _economyMod.AddEnergy(amount);
-    public void RemoveEnergy(int amount) => _economyMod.RemoveEnergy(amount);
-    public bool EnergyIsUsed(int amount) => _economyMod.EnergyIsUsed(amount);
+    public void AddCurrency(GameCurrency currency, int amount) => StartCoroutine(_economyMod.AddCurrency(currency, amount));
+    public void RemoveCurrency(GameCurrency currency, int amount) => StartCoroutine(_economyMod.RemoveCurrency(currency, amount));
+    public void AddEnergy(int amount) => StartCoroutine(_economyMod.AddEnergy(amount));
+    public void RemoveEnergy(int amount) => StartCoroutine(_economyMod.RemoveEnergy(amount));
+    public bool IsEnergyUsed(int amount) => _economyMod.EnergyIsUsed(amount);
 
-    public void AddInventoryItem(Item item) => _economyMod.AddInventoryItem(item);
-    public void UpdateItem(Item item) => _economyMod.UpdateItem(item);
-    public void UseItem(Item item, int amount = 1) => _economyMod.UseItem(item, amount);
+    public void AddInventoryItem(Item item) => StartCoroutine(_economyMod.AddInventoryItem(item));
+    public void UpdateItem(Item item) => StartCoroutine(_economyMod.UpdateItem(item));
+    public void UseItem(Item item, int amount = 1) => StartCoroutine(_economyMod.UseItem(item, amount));
     #endregion
 
     #region Guilds
@@ -134,19 +134,19 @@ public class PlayFabManager : MonoBehaviour
     public void InvokeOnGetApplications(List<GroupApplication> applications) => OnGetApplications?.Invoke(applications);
     public void InvokeOnGetInvitations(List<GroupInvitation> invitations) => OnGetInvitations?.Invoke(invitations);
 
-    public void CreateGuild(string name, string description) => _guildsMod.CreateGuild(name, description);
-    public void UpdatePlayerGuild() => _guildsMod.UpdatePlayerGuild();
-    public void GetGuildData(GroupWithRoles guild) => _guildsMod.GetGuildData(guild);
-    public void GetGuilds() => _guildsMod.GetGuilds();
-    public void GetPlayerOpportunities() => _guildsMod.GetPlayerOpportunities();
-    public void ApplyToGuild(GroupWithRoles guild) => _guildsMod.ApplyToGuild(guild);
-    public void GetGuildApplications() => _guildsMod.GetGuildApplications();
-    public void AcceptGuildApplication(string applicant) => _guildsMod.AcceptGuildApplication(applicant);
-    public void DenyGuildApplication(string applicant) => _guildsMod.DenyGuildApplication(applicant);
-    public void SendGuildInvitation(string username) => _guildsMod.SendGuildInvitation(username);
-    public void GetGuildInvitations() => _guildsMod.GetGuildInvitations();
-    public void AcceptGuildInvitation(string guild) => _guildsMod.AcceptGuildInvitation(guild);
-    public void DenyGuildInvitation(string guild) => _guildsMod.DenyGuildInvitation(guild);
+    public void CreateGuild(string name, string description) => StartCoroutine(_guildsMod.CreateGuild(name, description));
+    public void UpdatePlayerGuild() => StartCoroutine(_guildsMod.UpdatePlayerGuild());
+    public void GetGuildData(GroupWithRoles guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
+    public void GetGuilds() => StartCoroutine(_guildsMod.GetGuilds());
+    public void GetPlayerOpportunities() => StartCoroutine(_guildsMod.GetPlayerOpportunities());
+    public void ApplyToGuild(GroupWithRoles guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
+    public void GetGuildApplications() => StartCoroutine(_guildsMod.GetGuildApplications());
+    public void AcceptGuildApplication(string applicant) => StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
+    public void DenyGuildApplication(string applicant) => StartCoroutine(_guildsMod.DenyGuildApplication(applicant));
+    public void SendGuildInvitation(string username) => StartCoroutine(_guildsMod.SendGuildInvitation(username));
+    public void GetGuildInvitations() => StartCoroutine(_guildsMod.GetGuildInvitations());
+    public void AcceptGuildInvitation(string guild) => StartCoroutine(_guildsMod.AcceptGuildInvitation(guild));
+    public void DenyGuildInvitation(string guild) => StartCoroutine(_guildsMod.DenyGuildInvitation(guild));
     #endregion
 
     #region Gacha
@@ -198,25 +198,27 @@ public class PlayFabManager : MonoBehaviour
         OnLoadingEnd?.Invoke();
     }
 
-    private IEnumerator CheckPendingRequests()
+    public IEnumerator StartAsyncRequest(string log = null)
     {
-        Debug.Log("new request received");
-        yield return new WaitUntil(() => !_isPending);
-        Debug.Log("pending end");
+        int request = StartRequest(log);
+        //Debug.Log($"new async request received - {_requests} requests remaining.");
+        if (_requests > 1) yield return new WaitUntil(() => _requests == request);
+        //Debug.Log($"starting async request... - {_requests} requests remaining.");
     }
 
-    public void StartRequest(string log = null)
+    public int StartRequest(string log = null)
     {
-        Debug.Log("starting request...");
-        _isPending = true;
+        int currentRequest = _requests;
+        _requests++;
         OnLoadingStart?.Invoke();
         if (!string.IsNullOrEmpty(log)) Debug.Log(log);
+        return currentRequest;
     }
 
     public void EndRequest(string log = null)
     {
-        Debug.Log("ending request...");
-        _isPending = false;
+        //Debug.Log("ending request...");
+        _requests--;
         OnLoadingEnd?.Invoke();
 
         if (!string.IsNullOrEmpty(log))
@@ -245,9 +247,10 @@ public class PlayFabManager : MonoBehaviour
         //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
+        //_requests = 0;
 
-        //StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Common, 5)));
-        //StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5)));
+        //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Common, 5));
+        //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
 
         //CreateGuild("Test");
 

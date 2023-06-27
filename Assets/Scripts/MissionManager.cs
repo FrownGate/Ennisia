@@ -79,7 +79,7 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        if (PlayFabManager.Instance.EnergyIsUsed(mission.EnergyCost))
+        if (PlayFabManager.Instance.IsEnergyUsed(mission.EnergyCost))
         {
 
             CurrentWave = 1;
