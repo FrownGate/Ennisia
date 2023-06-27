@@ -8,10 +8,11 @@ public class AutoBattle : State
 
     public override IEnumerator Start()
     {
+        BattleSystem.SetState(new WhoGoFirst(BattleSystem));
         while (!BattleSystem.IsBattleOver())
         {
-            BattleSystem.SetState(new WhoGoFirst(BattleSystem));
-            AISelectSkillAndEnemy();
+            BattleSystem.SetState(new CheckTurn(BattleSystem));
+            //AISelectSkillAndEnemy();
             yield return new WaitForSeconds(1);
         }
 
