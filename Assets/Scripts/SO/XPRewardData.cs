@@ -9,6 +9,7 @@ public class XPRewardData : ScriptableObject
     {
         None, Crystals, Material, SummonTicket, Set, Weapon, Armor, Accessory
     }
+
     [Serializable]
     public class RewardEntry
     {

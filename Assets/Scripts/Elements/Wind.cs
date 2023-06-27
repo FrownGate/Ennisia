@@ -1,15 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Wind : ElementsBuff
+public class Wind : Element
 {
-    public override void BuffElement(Entity _player)
+    protected override void BuffElement(Entity _player)
     {
-        if (_Supportelements[0] == Element.Wind.ToString())
-        {
-            _player.Stats[Item.AttributeStat.CritDmg].AddModifier(Buff);
-        }
+        _player.Stats[Item.AttributeStat.CritDmg].AddModifier(Buff);
     }
 
     private float Buff(float value)
