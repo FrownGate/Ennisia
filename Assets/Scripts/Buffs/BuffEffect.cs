@@ -64,7 +64,6 @@ public class BuffEffect
         ModifiedStats = new(statsToModify);
         ModifierValue = modifierValue;
         State = state;
-        //Id = target.AlterateStat(statToModify, value => value * modifierValue, 1);
     }
     
     public void Tick(Entity _target)

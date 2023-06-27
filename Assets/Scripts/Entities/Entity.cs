@@ -80,27 +80,10 @@ public abstract class Entity
     }
     public void AddBuffEffect(BuffEffect buff)
     {
-        //var existingBuff = Buffs.FirstOrDefault(st => st.ModifiedStats.ToString() == buff.ModifiedStats.ToString());
-        if (Buffs.Contains(buff))
-        {
-            return;
-        }
-        else
-        {
-            Buffs.Add(buff);
-        }
+        Buffs.Add(buff);
     }
     public void AddAlteration(BuffEffect alteration)
     {
-        var existingAlt = Alterations.FirstOrDefault(a => a.State.ToString() == alteration.State.ToString());
-        if (existingAlt != null)
-        {
-            existingAlt.ResetDuration();
-        }
-        else
-        {
-            Alterations.Add(alteration);
-        }
+        Alterations.Add(alteration);
     }
-    
 }
