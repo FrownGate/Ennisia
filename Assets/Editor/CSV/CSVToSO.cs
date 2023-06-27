@@ -400,7 +400,7 @@ public class CSVToSO : EditorWindow
         for (int ii = i; ii < rowData.Count; ii++)
         {
             string Rewardtype = currencies[ii].Key;
-            if (Enum.TryParse(Rewardtype, out PlayFabManager.Currency currencyType))
+            if (Enum.TryParse(Rewardtype, out PlayFabManager.GameCurrency currencyType))
             {
                 Debug.Log(rowData[Rewardtype]);
 
@@ -453,7 +453,7 @@ public class CSVToSO : EditorWindow
         for (int i = 4; i < rowData.Count; i++)
         {
             string type = currencies[i].Key;
-            if (Enum.TryParse(type, out PlayFabManager.Currency currencyType))
+            if (Enum.TryParse(type, out PlayFabManager.GameCurrency currencyType))
             {
                 Debug.Log(type);
 
