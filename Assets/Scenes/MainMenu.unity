@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: TitleScreen
+  Scene: MailPopup
   _params: 
 --- !u!61 &24870525
 BoxCollider2D:
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: TitleScreen
+  Scene: MailPopup
   _params: 
 --- !u!1 &139167416
 GameObject:
@@ -1150,7 +1150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: TitleScreen
+  Scene: EventPopup
   _params: 
 --- !u!61 &219219762
 BoxCollider2D:
@@ -2858,7 +2858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: TitleScreen
+  Scene: EventPopup
   _params: 
 --- !u!1001 &1810358747
 PrefabInstance:
