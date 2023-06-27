@@ -62,7 +62,7 @@ public class PlayFabManager : MonoBehaviour
     public List<EntityMemberRole> PlayerGuildMembers => _guildsMod.PlayerGuildMembers;
 
     //Requests
-    private bool _isPending;
+    private int _requests;
 
     //TODO -> refresh ui after some events
 
@@ -86,7 +86,7 @@ public class PlayFabManager : MonoBehaviour
             EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
             GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
 
-            _isPending = false;
+            _requests = 0;
         }
     }
 
@@ -106,7 +106,7 @@ public class PlayFabManager : MonoBehaviour
     #region Account
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
 
-    public void UpdateData() => _accountMod.UpdateData();
+    public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
     #endregion
 
@@ -123,7 +123,7 @@ public class PlayFabManager : MonoBehaviour
     public void RemoveEnergy(int amount) => _economyMod.RemoveEnergy(amount);
     public bool EnergyIsUsed(int amount) => _economyMod.EnergyIsUsed(amount);
 
-    public void AddInventoryItem(Item item) => _economyMod.AddInventoryItem(item);
+    public void AddInventoryItem(Item item) => StartCoroutine(_economyMod.AddInventoryItem(item));
     public void UpdateItem(Item item) => _economyMod.UpdateItem(item);
     public void UseItem(Item item, int amount = 1) => _economyMod.UseItem(item, amount);
     #endregion
@@ -198,25 +198,27 @@ public class PlayFabManager : MonoBehaviour
         OnLoadingEnd?.Invoke();
     }
 
-    private IEnumerator CheckPendingRequests()
+    public IEnumerator StartAsyncRequest(string log = null)
     {
-        Debug.Log("new request received");
-        yield return new WaitUntil(() => !_isPending);
-        Debug.Log("pending end");
+        int request = StartRequest(log);
+        Debug.Log($"new async request received - {_requests} requests remaining.");
+        if (_requests > 1) yield return new WaitUntil(() => _requests == request);
+        Debug.Log($"starting async request... - {_requests} requests remaining.");
     }
 
-    public void StartRequest(string log = null)
+    public int StartRequest(string log = null)
     {
-        Debug.Log("starting request...");
-        _isPending = true;
+        int currentRequest = _requests;
+        _requests++;
         OnLoadingStart?.Invoke();
         if (!string.IsNullOrEmpty(log)) Debug.Log(log);
+        return currentRequest;
     }
 
     public void EndRequest(string log = null)
     {
         Debug.Log("ending request...");
-        _isPending = false;
+        _requests--;
         OnLoadingEnd?.Invoke();
 
         if (!string.IsNullOrEmpty(log))
@@ -245,6 +247,10 @@ public class PlayFabManager : MonoBehaviour
         //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
+        //_requests = 0;
+
+        AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Common, 5));
+        AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
 
         //StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Common, 5)));
         //StartCoroutine(AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5)));

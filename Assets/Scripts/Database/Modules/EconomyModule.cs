@@ -32,12 +32,13 @@ public class EconomyModule : Module
     /// </summary>
     private void OnGetDataSuccess(SearchItemsResponse response)
     {
+        _manager.EndRequest();
         _itemsById = new();
         _itemsByName = new();
         _currencies = new();
         Currencies = new();
 
-        foreach (PlayFab.EconomyModels.CatalogItem item in response.Items)
+        foreach (CatalogItem item in response.Items)
         {
             //TODO -> Get bundle items and shops
             if (item.Type == "currency")
@@ -106,6 +107,8 @@ public class EconomyModule : Module
 
     private void GetPlayerInventory()
     {
+        _manager.StartRequest();
+
         PlayFabEconomyAPI.GetInventoryItems(new()
         {
             Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type }
@@ -223,9 +226,9 @@ public class EconomyModule : Module
     }
 
     #region Items
-    public void AddInventoryItem(Item item)
+    public IEnumerator AddInventoryItem(Item item)
     {
-        _manager.StartRequest("Adding item...");
+        yield return _manager.StartAsyncRequest("Adding item...");
         item.Serialize();
 
         PlayFabEconomyAPI.AddInventoryItems(new()
