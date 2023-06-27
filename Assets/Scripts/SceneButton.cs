@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class SceneButton : MonoBehaviour
 {
     [Scene] public string Scene;
     [SerializeField] private string _params;
+    public static event Action<int> ChangeSceneSFX;
 
     private void Start()
     {
@@ -16,8 +18,9 @@ public class SceneButton : MonoBehaviour
 
     private void OnMouseDown()
     {
+        ChangeSceneSFX?.Invoke(1);
         ScenesManager.Instance.SetScene($"{Scene}#{_params}");
-        switch (Scene)
+        /*switch (Scene)
         {
             case "Raids":
                 MissionManager.Instance.StartMission(MissionManager.MissionType.Raid,1 );
@@ -25,6 +28,6 @@ public class SceneButton : MonoBehaviour
             case "MainStory":
                 MissionManager.Instance.StartMission(MissionManager.MissionType.MainStory, 1);
                 break;
-        }
+        }*/
     }
 }

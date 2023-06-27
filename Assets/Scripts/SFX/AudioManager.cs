@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
-    public Sound[] sounds;
-
+    List<Sound> sounds = new List<Sound>();
+    AudioClip[] audioClip;
     public static AudioManager Instance { get; private set; }
 
     // Start is called before the first frame update
@@ -20,13 +22,28 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
-            foreach (var sound in sounds)
+
+        audioClip = Resources.LoadAll<AudioClip>("SFX/");
+        foreach (AudioClip clip in audioClip)
+        {
+            Sound sound = new Sound();
+            sound.clip = clip;
+            if (clip.name.Contains("BGM"))
+            {
+                sound.loop = true;
+            }
+            sounds.Add(sound);
+            Debug.Log("sounds count : "+sounds.Count);
+        }
+
+        foreach (var sound in sounds)
         {
             sound.Source = gameObject.AddComponent<AudioSource>();
             sound.name = sound.clip.name;
+            Debug.Log("sound name : " + sound.name);
             sound.Source.clip = sound.clip;
-            sound.Source.volume = sound.volume;
-            sound.Source.pitch = sound.pitch;
+            sound.Source.volume = 0.2f;
+            sound.Source.pitch = 1;
             sound.Source.loop = sound.loop;
         }
     }
@@ -38,17 +55,17 @@ public class AudioManager : MonoBehaviour
 
     private void OnClickSFX(int index)
     {
-        FindObjectOfType<AudioManager>().Play("button"+index);
-        Debug.Log("button sfx "+index+" played");
-    } 
+        FindObjectOfType<AudioManager>().Play("button" + index);
+        Debug.Log("button sfx " + index + " played");
+    }
     private void MissionStartBGM(MissionSO missionSO)
     {
-        Debug.Log("mission Type:"+missionSO.Type);
+        Debug.Log("mission Type:" + missionSO.Type);
         switch (missionSO.Type)
         {
             case MissionManager.MissionType.Raid:
                 FindObjectOfType<AudioManager>().Play("raidsBGM");
-                Debug.Log("Raid BGM played"+ MissionManager.MissionType.Raid);
+                Debug.Log("Raid BGM played" + MissionManager.MissionType.Raid);
                 break;
 
             case MissionManager.MissionType.Dungeon:
@@ -91,20 +108,20 @@ public class AudioManager : MonoBehaviour
 
     private void KillSFX(string name)
     {
-        FindObjectOfType<AudioManager>().Play(name+"die");
+        FindObjectOfType<AudioManager>().Play(name + "die");
         Debug.Log(name + " die SFX played");
 
     }
 
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = sounds.Find(x => x.name.Contains(name));
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found");
             return;
         }
-     
+
         s.Source.Play();
     }
 
@@ -113,6 +130,7 @@ public class AudioManager : MonoBehaviour
         BattleSystem.OnEnemyKilled += KillSFX;
         MissionManager.OnMissionComplete += MissionDone;
         BattleSystem.OnClickSFX += OnClickSFX;
+        SceneButton.ChangeSceneSFX += OnClickSFX;
         MissionManager.OnMissionStart += MissionStartBGM;
 
     }
@@ -121,6 +139,7 @@ public class AudioManager : MonoBehaviour
         BattleSystem.OnEnemyKilled -= KillSFX;
         MissionManager.OnMissionComplete -= MissionDone;
         BattleSystem.OnClickSFX -= OnClickSFX;
+        SceneButton.ChangeSceneSFX -= OnClickSFX;
         MissionManager.OnMissionStart -= MissionStartBGM;
     }
 }

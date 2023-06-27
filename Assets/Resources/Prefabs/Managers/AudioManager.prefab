@@ -44,40 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fcde733a1e8744b80555789ec2d637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - Source: {fileID: 0}
-    name: ss
-    clip: {fileID: 8300000, guid: 7e5edfa47f7081749bb90a05bcd1de07, type: 3}
-    volume: 0.07
-    pitch: 1
-    loop: 1
-  - Source: {fileID: 0}
-    name: ss
-    clip: {fileID: 8300000, guid: 4423267b358e48a479db5229be1d57f7, type: 3}
-    volume: 0.675
-    pitch: 1
-    loop: 0
-  - Source: {fileID: 0}
-    name: ss
-    clip: {fileID: 8300000, guid: 645fce44ffd39df4e810d3c5530a7356, type: 3}
-    volume: 0.675
-    pitch: 1
-    loop: 0
-  - Source: {fileID: 0}
-    name: ss
-    clip: {fileID: 8300000, guid: 1591ea516b250734aa83c30dd0cd726c, type: 3}
-    volume: 0.675
-    pitch: 1
-    loop: 0
-  - Source: {fileID: 0}
-    name: ss
-    clip: {fileID: 8300000, guid: bab8869d9f0185a42aa3c415546409dd, type: 3}
-    volume: 0.675
-    pitch: 1
-    loop: 0
-  - Source: {fileID: 0}
-    name: ss
-    clip: {fileID: 8300000, guid: 9af5a415425b277408d4d5262f2c4014, type: 3}
-    volume: 0.282
-    pitch: 1
-    loop: 0
+  sounds: []
