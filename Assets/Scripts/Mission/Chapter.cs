@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class Chapter : MonoBehaviour
 {
-    [Scene]
-    public string SceneToLoad;
+    [Scene] public string SceneToLoad;
 
     public GameObject SpritePrefab;
     public ChapterSO CurrentChapter;
