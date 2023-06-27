@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class LoginPanelUI : MonoBehaviour
 {
 
-	public ClientStartUp clientStartUp;
-	public ServerStartUp serverStartUp;
+	public ClientStartUp ClientStartUp;
+	public ServerStartUp ServerStartUp;
 
-	public Button loginButton;
-	public Button startLocalServerButton;
+	public Button LoginButton;
+	public Button StartLocalServerButton;
 
-    void Start()
+    private void Start()
     {
-		loginButton.onClick.AddListener(clientStartUp.OnLoginUserButtonClick);
-		startLocalServerButton.onClick.AddListener(serverStartUp.OnStartLocalServerButtonClick);
+		LoginButton.onClick.AddListener(ClientStartUp.OnLoginUserButtonClick);
+		StartLocalServerButton.onClick.AddListener(ServerStartUp.OnStartLocalServerButtonClick);
 	}
 }

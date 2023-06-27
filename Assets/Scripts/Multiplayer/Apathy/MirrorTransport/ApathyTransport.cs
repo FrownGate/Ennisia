@@ -12,39 +12,39 @@ namespace Mirror
         // "tcp4" means tcp with 4 bytes header, network byte order
         public const string Scheme = "tcp4";
 
-        public ushort port = 7777;
+        public ushort Port = 7777;
 
         [Tooltip("Nagle Algorithm can be disabled by enabling NoDelay")]
         public bool NoDelay = true;
 
         [Header("Server")]
         [Tooltip("Protect against allocation attacks by keeping the max message size small. Otherwise an attacker might send multiple fake packets with 2GB headers, causing the server to run out of memory after allocating multiple large packets.")]
-        public int serverMaxMessageSize = 16 * 1024;
+        public int ServerMaxMessageSize = 16 * 1024;
         [Tooltip("Client tick rate is often higher than server tick rate, especially if server is under heavy load or limited to 20Hz or similar. Server needs to process 'a few' messages per tick per connection. Processing only one per tick can cause an ever growing backlog, hence ever growing latency on the client. Set this to a reasonable amount, but not too big so that the server never deadlocks reading too many messages per tick (which would be way worse than one of the clients having high latency.")]
-        public int serverMaxReceivesPerTickPerConnection = 100;
+        public int ServerMaxReceivesPerTickPerConnection = 100;
 
         [Header("Client")]
         [Tooltip("Protect against allocation attacks by keeping the max message size small. Otherwise an attacker host might send multiple fake packets with 2GB headers, causing the connected clients to run out of memory after allocating multiple large packets.")]
-        public int clientMaxMessageSize = 16 * 1024;
+        public int ClientMaxMessageSize = 16 * 1024;
         [Tooltip("Client tick rate is often higher than server tick rate, especially if server is under heavy load or limited to 20Hz or similar. Server needs to process 'a few' messages per tick per connection. Processing only one per tick can cause an ever growing backlog, hence ever growing latency on the client. This value can be higher than the server's value, because the server is never going to attack the client, and the client usually receives way more messages than it sends to the server.")]
-        public int clientMaxReceivesPerTick = 1000;
+        public int ClientMaxReceivesPerTick = 1000;
 
-        protected Apathy.Client client = new Apathy.Client();
-        protected Apathy.Server server = new Apathy.Server();
+        protected Apathy.Client client = new();
+        protected Apathy.Server server = new();
 
-        // cache GetNextMessages queue to avoid allocations
+        // cache GetNextMessages _queue to avoid allocations
         // -> with capacity to avoid rescaling as long as possible!
-        Queue<Apathy.Message> queue = new Queue<Apathy.Message>(1000);
+        private Queue<Apathy.Message> _queue = new(1000);
 
         void Awake()
         {
             // configure
             client.NoDelay = NoDelay;
-            client.MaxMessageSize = clientMaxMessageSize;
-            client.MaxReceivesPerTickPerConnection = clientMaxReceivesPerTick;
+            client.MaxMessageSize = ClientMaxMessageSize;
+            client.MaxReceivesPerTickPerConnection = ClientMaxReceivesPerTick;
             server.NoDelay = NoDelay;
-            server.MaxMessageSize = serverMaxMessageSize;
-            server.MaxReceivesPerTickPerConnection = serverMaxReceivesPerTickPerConnection;
+            server.MaxMessageSize = ServerMaxMessageSize;
+            server.MaxReceivesPerTickPerConnection = ServerMaxReceivesPerTickPerConnection;
 
             Debug.Log("ApathyTransport initialized!");
         }
@@ -61,22 +61,22 @@ namespace Mirror
 
         // client
         public override bool ClientConnected() => client.Connected;
-        public override void ClientConnect(string address) => client.Connect(address, port);
+        public override void ClientConnect(string address) => client.Connect(address, Port);
         public override void ClientConnect(Uri uri)
         {
             if (uri.Scheme != Scheme)
                 throw new ArgumentException($"Invalid url {uri}, use {Scheme}://host:port instead", nameof(uri));
 
-            ushort serverPort = uri.IsDefaultPort ? port : (ushort)uri.Port;
+            ushort serverPort = uri.IsDefaultPort ? Port : (ushort)uri.Port;
             client.Connect(uri.Host, serverPort);
         }
         public override void ClientSend(ArraySegment<byte> segment, int channelId) => client.Send(segment);
         void ProcessClientMessages()
         {
-            client.GetNextMessages(queue);
-            while (queue.Count > 0)
+            client.GetNextMessages(_queue);
+            while (_queue.Count > 0)
             {
-                Apathy.Message message = queue.Dequeue();
+                Apathy.Message message = _queue.Dequeue();
                 switch (message.eventType)
                 {
                     case Apathy.EventType.Connected:
@@ -98,7 +98,7 @@ namespace Mirror
         //            e.g. in uSurvival Transport would apply Cmds before
         //            ShoulderRotation.LateUpdate, resulting in projectile
         //            spawns at the point before shoulder rotation.
-        public void LateUpdate()
+        public new void LateUpdate()
         {
             // note: we need to check enabled in case we set it to false
             // when LateUpdate already started.
@@ -113,11 +113,11 @@ namespace Mirror
             UriBuilder builder = new UriBuilder();
             builder.Scheme = Scheme;
             builder.Host = Dns.GetHostName();
-            builder.Port = port;
+            builder.Port = Port;
             return builder.Uri;
         }
         public override bool ServerActive() => server.Active;
-        public override void ServerStart() => server.Start(port);
+        public override void ServerStart() => server.Start(Port);
 
         public override void ServerSend( int connectionId, ArraySegment<byte> segment, int channelId ) => server.Send( connectionId, segment );
 
@@ -125,10 +125,10 @@ namespace Mirror
         {
             if (server.Active)
             {
-                server.GetNextMessages(queue);
-                while (queue.Count > 0)
+                server.GetNextMessages(_queue);
+                while (_queue.Count > 0)
                 {
-                    Apathy.Message message = queue.Dequeue();
+                    Apathy.Message message = _queue.Dequeue();
                     switch (message.eventType)
                     {
                         case Apathy.EventType.Connected:
@@ -158,18 +158,18 @@ namespace Mirror
 
         public override int GetMaxPacketSize(int channelId)
         {
-            return serverMaxMessageSize;
+            return ServerMaxMessageSize;
         }
 
         public override string ToString()
         {
             if (server.Active)
             {
-                return "Apathy Server port: " + port;
+                return "Apathy Server port: " + Port;
             }
             else if (client.Connecting || client.Connected)
             {
-                return "Apathy Client port: " + port;
+                return "Apathy Client port: " + Port;
             }
             return "Apathy (inactive/disconnected)";
         }
