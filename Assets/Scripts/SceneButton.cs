@@ -20,6 +20,7 @@ public class SceneButton : MonoBehaviour
     {
         ChangeSceneSFX?.Invoke(1);
         ScenesManager.Instance.SetScene($"{Scene}#{_params}");
+        // to do, manage mission start
         /*switch (Scene)
         {
             case "Raids":

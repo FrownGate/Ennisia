@@ -24,25 +24,28 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
-
+        //get all audio in resource folder : SFX/
         audioClip = Resources.LoadAll<AudioClip>("SFX/");
+        //create a Sound for eache clip
         foreach (AudioClip clip in audioClip)
         {
             Sound sound = new Sound();
             sound.clip = clip;
+            //if BGM then set loop to true. To do : need to find a better way to check if it's a BGM
             if (clip.name.Contains("BGM"))
             {
                 sound.loop = true;
             }
+            //add the create Sound to the list
             sounds.Add(sound);
         }
-
+        //for each sound in the list, create an AudioSource component and set the settings
         foreach (var sound in sounds)
         {
             sound.Source = gameObject.AddComponent<AudioSource>();
             sound.name = sound.clip.name;
             sound.Source.clip = sound.clip;
-            sound.Source.volume = 0.2f;
+            sound.Source.volume = 0.2f; //default value, will be change by the audio setting in game.
             sound.Source.pitch = 1;
             sound.Source.loop = sound.loop;
         }
@@ -55,7 +58,8 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        //To mute/Un mute
+        if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("wui");
             foreach (var sound in sounds)
@@ -73,6 +77,7 @@ public class AudioManager : MonoBehaviour
                 }
             }
         }
+        // Volume up
         if (Input.GetKey(KeyCode.UpArrow)) 
         {
             Debug.Log("up volume");
@@ -84,6 +89,7 @@ public class AudioManager : MonoBehaviour
                 }
             }
         }
+        // Volume down
         if (Input.GetKey(KeyCode.DownArrow))
         {
             Debug.Log("down volume");
@@ -146,15 +152,13 @@ public class AudioManager : MonoBehaviour
 
     private void MissionDone(MissionSO missionSO)
     {
-
-        FindObjectOfType<AudioManager>().Play("BGM1 played");
+        FindObjectOfType<AudioManager>().Play("missionDone");
     }
 
     private void KillSFX(string name)
     {
         FindObjectOfType<AudioManager>().Play(name + "die");
         Debug.Log(name + " die SFX played");
-
     }
 
     public void Play(string name)
