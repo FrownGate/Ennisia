@@ -1,7 +1,7 @@
 public class Extermination : Quest
 {
     int enemyKilled;
-    public override void CheckCondition()
+    public override void CheckCondition(string name)
     {
         enemyKilled++;
         if(enemyKilled >= 100) 

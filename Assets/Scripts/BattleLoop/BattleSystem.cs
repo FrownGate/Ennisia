@@ -19,7 +19,8 @@ public class BattleSystem : StateMachine
     public Transform PlayerStation;
     public Transform EnemyStation;
 
-    public static event Action OnEnemyKilled;
+    public static event Action<string> OnEnemyKilled;
+    public static event Action<int> OnClickSFX;
 
     public bool PlayerHasWin { get; private set; }
     public bool Selected { get; set; }
@@ -86,16 +87,19 @@ public class BattleSystem : StateMachine
     public void OnAttackButton()
     {
         SetState(new SelectSpell(this, 0));
+        OnClickSFX?.Invoke(1);
     }
 
     public void OnFirstSkillButton()
     {
         SetState(new SelectSpell(this, 1));
+        OnClickSFX?.Invoke(2);
     }
 
     public void OnSecondSkillButton()
     {
         SetState(new SelectSpell(this, 2));
+        OnClickSFX?.Invoke(3);
     }
 
     public void SetSkillButtonsActive(bool isActive)
@@ -128,7 +132,12 @@ public class BattleSystem : StateMachine
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke();
+            if (Enemies[i].IsDead)
+            {
+                Enemies.RemoveAt(i);
+                OnEnemyKilled?.Invoke(Enemies[i].Name);
+                Debug.LogWarning(Enemies[i].Name + "die lol mdr t nul");
+            }
         }
     }
 

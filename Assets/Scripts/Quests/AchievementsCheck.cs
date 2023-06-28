@@ -58,7 +58,7 @@ public class AchievementsCheck : MonoBehaviour
     }
 
 
-    private void CheckEnemyKilled()
+    private void CheckEnemyKilled(string name)
     {
         if (_enemyKilledCount >= enemyKilledNeeded)
         {

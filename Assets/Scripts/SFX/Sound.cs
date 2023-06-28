@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class Sound
 {
-    [HideInInspector] public AudioSource Source;
+    /*[HideInInspector] */public AudioSource Source;
     public string name;
     public AudioClip clip;
     [Range(0,1)]
@@ -13,4 +13,5 @@ public class Sound
     [Range(0.1f, 3)]
     public float pitch;
     public bool loop;
+    public bool isBGM;
 }
