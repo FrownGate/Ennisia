@@ -17,7 +17,7 @@ MonoBehaviour:
   Rarity: Legendary
   Race: Human
   Job: Mage
-  Element: Water
+  Element: 1
   PrimarySkillData: {fileID: 11400000, guid: dceb626d9b32aaf459e790d5f4c1aed7, type: 2}
   SecondarySkillData: {fileID: 11400000, guid: 95a47f6ff4dcc7e489b9d6f3150baa61, type: 2}
   Description: "Amilya is the King\u2019s first daughter, and is very proud to be.

@@ -201,7 +201,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Rarity = rowData["Rarity"];
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
-        scriptableObject.Element = rowData["Element"];
+        scriptableObject.Element = Enum.Parse<Element.ElementType>( rowData["Element"]);
         AssignSkillData(rowData, "PrimarySkill", ref scriptableObject.PrimarySkillData);
         AssignSkillData(rowData, "SecondarySkill", ref scriptableObject.SecondarySkillData);
 
