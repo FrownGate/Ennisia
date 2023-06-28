@@ -355,6 +355,16 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: Battle
+    path: Assets/Scenes/Battle.unity
+  - name: Shop
+    path: Assets/Scenes/Shop.unity
+  - name: Raids
+    path: Assets/Scenes/Missions/Raids.unity
+  - name: Quests
+    path: Assets/Scenes/Quests.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
   - name: Yoann
     path: Assets/Scenes/Dev/Yoann.unity
   _notes: []

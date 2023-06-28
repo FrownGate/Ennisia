@@ -37,6 +37,7 @@ public class BattleSystem : StateMachine
 
     public void Start()
     {
+        MissionManager.Instance.StartMission();
         InitBattle();
     }
 

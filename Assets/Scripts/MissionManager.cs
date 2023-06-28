@@ -27,8 +27,8 @@ public class MissionManager : MonoBehaviour
     }
 
     public static MissionManager Instance { get; private set; }
-    public static event Action<MissionSO> OnMissionStart; //Not used yet
-    public static event Action<MissionSO> OnMissionComplete; //Not used yet
+    public static event Action<MissionSO> OnMissionStart;
+    public static event Action<MissionSO> OnMissionComplete;
     public ChapterSO CurrentChapter { get; private set; }
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
@@ -66,43 +66,23 @@ public class MissionManager : MonoBehaviour
         _missionLists.Add(missionType, missions);
     }
 
-    public void StartMission(MissionType missionType, int missionID)
+    public void StartMission()
     {
-        if (!_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
-        {
-            Debug.LogError("Invalid mission type: " + missionType);
-            return;
-        }
 
-        MissionSO mission = Array.Find(missionList, m => m.Id == missionID);
-
-        if (mission == null)
-        {
-            Debug.LogError("Mission not found with ID: " + missionID);
-            return;
-        }
-
-        if (mission.State != MissionState.Unlocked)
-        {
-            Debug.LogError("Cannot start mission. Mission is either locked or already completed: " + missionID);
-            return;
-        }
-
-        if (!PlayFabManager.Instance.IsEnergyUsed(mission.EnergyCost)) return;
+        if (!PlayFabManager.Instance.IsEnergyUsed(CurrentMission.EnergyCost)) return;
         CurrentWave = 1;
-
         DisplayMissionNarrative(CurrentMission);
-        StartMission(CurrentMission);
         OnMissionStart?.Invoke(CurrentMission);
     }
 
-    private void StartMission(MissionSO mission)
+    public bool IsUnlocked()
     {
-        // Start the mission waves with enemies
-        //TODO -> Load Battle scene
-
+        if (CurrentMission.State == MissionState.Unlocked) return true;
+        Debug.LogError("Cannot start mission. Mission is either locked or already completed: " + CurrentMission.Id);
+        return false;
 
     }
+
 
     public bool NextWave()
     {
@@ -202,7 +182,6 @@ public class MissionManager : MonoBehaviour
             return missionList.Where(missionSO => missionSO.ChapterId == chapterId).ToList();
         Debug.LogError("Invalid mission type: " + missionType);
         return new List<MissionSO>();
-
     }
 
     public void ResetMissionManager()
