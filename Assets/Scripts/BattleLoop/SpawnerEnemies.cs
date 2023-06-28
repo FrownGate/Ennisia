@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerEnemies : MonoBehaviour
+public class SpawnerEnemies
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    EnemyLoader enemyLoader = new EnemyLoader();
+    
+    
+    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
