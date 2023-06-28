@@ -324,6 +324,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1734719833657725555, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
   m_PrefabInstance: {fileID: 134840016}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &137792382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3790394792616838198, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
+  m_PrefabInstance: {fileID: 213560660}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &213560660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2662,6 +2667,10 @@ PrefabInstance:
       propertyPath: EnemyStation
       value: 
       objectReference: {fileID: 1524931783}
+    - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
+      propertyPath: _enemyPrefab
+      value: 
+      objectReference: {fileID: 137792382}
     - target: {fileID: 6082962978910990631, guid: 4dcfb55bf5b6378469b7ffcf033e06b9, type: 3}
       propertyPath: dialogueText
       value: 
