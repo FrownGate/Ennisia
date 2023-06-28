@@ -60,7 +60,7 @@ public class Item
         Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
         if (string.IsNullOrEmpty(Name)) SetName();
 
-        Debug.Log($"Adding {Name} to inventory...");
+        //Debug.Log($"Adding {Name} to inventory...");
 
         if (!inventory.ContainsKey(GetType().Name))
         {

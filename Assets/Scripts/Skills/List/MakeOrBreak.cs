@@ -9,7 +9,7 @@ public class MakeOrBreak : PassiveSkill
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
         maxHpBuff = player.Stats[Item.AttributeStat.Attack].Value * (maxHpBaseRatio + StatUpgrade1 * Level);
-        player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuff);
+        id = player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuff);
     }
 
     float AttackBuff(float input)
@@ -25,6 +25,6 @@ public class MakeOrBreak : PassiveSkill
 
     public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
     {
-        player.Stats[Item.AttributeStat.Attack].RemoveModifier(id);
+        player.Stats[Item.AttributeStat.Attack].RemoveModifier(id); 
     }
 }

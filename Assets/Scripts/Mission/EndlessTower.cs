@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -28,20 +27,7 @@ public class EndlessTower : MonoBehaviour
 
             EndlessTowerFloor floor = go.AddComponent<EndlessTowerFloor>();
             floor.FloorSO = _etSO[buttonIndex];
-
-
-
-
-
-
-
-
-
-
-
             buttonIndex++;
         }
-
     }
-
 }

@@ -242,9 +242,9 @@ public class BattleSystem : StateMachine
     {
         if (Player.Buffs != null)
         {
-            foreach (var buff in Player.Buffs)
+            for (int i = 0; i < Player.Buffs.Count; i++)
             {
-                buff.Tick(Player);
+                Player.Buffs[i].Tick(Player);
             }
         }
 
@@ -252,9 +252,9 @@ public class BattleSystem : StateMachine
         {
             if (enemy.Buffs != null)
             {
-                foreach (var buff in enemy.Buffs)
+                for (int i = 0; i < enemy.Buffs.Count; i++)
                 {
-                    buff.Tick(enemy);
+                    enemy.Buffs[i].Tick(enemy);
                 }
             }
         }
@@ -273,7 +273,10 @@ public class BattleSystem : StateMachine
                         AttackBarSystem.ResetAtb(Player);
                         break;
                     case AlterationState.Silence:
-
+                        
+                        break;
+                    case AlterationState.DemonicMark:
+                        
                         break;
                 }
             }

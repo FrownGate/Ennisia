@@ -79,7 +79,7 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        if (PlayFabManager.Instance.EnergyIsUsed(mission.EnergyCost))
+        if (PlayFabManager.Instance.IsEnergyUsed(mission.EnergyCost))
         {
 
             CurrentWave = 1;
@@ -216,11 +216,11 @@ public class MissionManager : MonoBehaviour
     public void GiveRewards()
     {
 
-        List<KeyValuePair<PlayFabManager.Currency, int>> rewards = CurrentMission.RewardsList.ToList();
+        List<KeyValuePair<PlayFabManager.GameCurrency, int>> rewards = CurrentMission.RewardsList.ToList();
         for (int i = 0; i < CurrentMission.RewardsList.Count; i++)
         {
             string type = rewards[i].Key.ToString();
-            if (Enum.TryParse(type, out PlayFabManager.Currency currencyType))
+            if (Enum.TryParse(type, out PlayFabManager.GameCurrency currencyType))
             {
                 PlayFabManager.Instance.AddCurrency(rewards[i].Key, rewards[i].Value);
                 Debug.Log("Des SOUS !!!");
