@@ -306,4 +306,15 @@ public class GuildsModule : Module
             }
         }, res => _manager.EndRequest(), _manager.OnRequestError);
     }
+
+    public IEnumerator KickPlayer(EntityKey player)
+    {
+        yield return _manager.StartAsyncRequest();
+
+        PlayFabGroupsAPI.RemoveMembers(new()
+        {
+            Group = PlayerGuild.Group,
+            Members = new() { player }
+        }, res => _manager.EndRequest(), _manager.OnRequestError);
+    }
 }
