@@ -11,7 +11,7 @@ public class MissionSO : ScriptableObject
     public MissionManager.MissionState State;
     public int EnergyCost;
     public bool Unlocked;
-    public Dictionary<int,string> Waves;
+    public Dictionary<int, List<string>> Waves;
     public int WavesCount;
     public List<string> Enemies;
     public int DialogueId;

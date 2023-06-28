@@ -9,12 +9,21 @@ public class MissionManager : MonoBehaviour
 {
     public enum MissionType
     {
-        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
+        MainStory,
+        SideStory,
+        AlternativeStory,
+        Dungeon,
+        Raid,
+        Expedition,
+        EndlessTower
     }
 
     public enum MissionState
     {
-        Locked, Unlocked, InProgress, Completed
+        Locked,
+        Unlocked,
+        InProgress,
+        Completed
     }
 
     public static MissionManager Instance { get; private set; }
@@ -79,22 +88,18 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        if (PlayFabManager.Instance.IsEnergyUsed(mission.EnergyCost))
-        {
+        if (!PlayFabManager.Instance.IsEnergyUsed(mission.EnergyCost)) return;
+        CurrentWave = 1;
 
-            CurrentWave = 1;
-
-            DisplayMissionNarrative(CurrentMission);
-            StartMission(CurrentMission);
-            OnMissionStart?.Invoke(CurrentMission);
-        }
+        DisplayMissionNarrative(CurrentMission);
+        StartMission(CurrentMission);
+        OnMissionStart?.Invoke(CurrentMission);
     }
 
     private void StartMission(MissionSO mission)
     {
         // Start the mission waves with enemies
         //TODO -> Load Battle scene
-
     }
 
     public bool NextWave()
@@ -150,16 +155,16 @@ public class MissionManager : MonoBehaviour
         {
             MissionSO nextMission = missionList[completedMissionIndex + 1];
 
-            if (nextMission.State == MissionState.Locked)
+            if (nextMission.State != MissionState.Locked) return;
+            if (nextMission.ChapterId != completedMission.ChapterId)
             {
-                if (nextMission.ChapterId != completedMission.ChapterId) { Debug.Log("chapter End"); }
-                else
-                {
-                    nextMission.State = MissionState.Unlocked;
-                    Debug.Log("Next mission unlocked: " + nextMission.Id);
-                    //TODO -> Update database
-
-                }
+                Debug.Log("chapter End");
+            }
+            else
+            {
+                nextMission.State = MissionState.Unlocked;
+                Debug.Log("Next mission unlocked: " + nextMission.Id);
+                //TODO -> Update database
             }
         }
         else
@@ -178,33 +183,24 @@ public class MissionManager : MonoBehaviour
             //DialogueManager.Instance.StartDialogue(mission.DialogueID);
         }
     }
+
     public void SetChapter(ChapterSO chapter)
     {
         CurrentChapter = chapter;
     }
+
     public void SetMission(MissionSO mission)
     {
         CurrentMission = mission;
     }
+
     public List<MissionSO> GetMissionsByChapterId(MissionType missionType, int chapterId)
     {
-        if (!_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
-        {
-            Debug.LogError("Invalid mission type: " + missionType);
-            return new List<MissionSO>();
-        }
+        if (_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
+            return missionList.Where(missionSO => missionSO.ChapterId == chapterId).ToList();
+        Debug.LogError("Invalid mission type: " + missionType);
+        return new List<MissionSO>();
 
-        List<MissionSO> missions = new();
-
-        foreach (MissionSO missionSO in missionList)
-        {
-            if (missionSO.ChapterId == chapterId)
-            {
-                missions.Add(missionSO);
-            }
-        }
-
-        return missions;
     }
 
     public void ResetMissionManager()
@@ -215,20 +211,17 @@ public class MissionManager : MonoBehaviour
 
     public void GiveRewards()
     {
-
         List<KeyValuePair<PlayFabManager.GameCurrency, int>> rewards = CurrentMission.RewardsList.ToList();
         for (int i = 0; i < CurrentMission.RewardsList.Count; i++)
         {
             string type = rewards[i].Key.ToString();
-            if (Enum.TryParse(type, out PlayFabManager.GameCurrency currencyType))
-            {
-                PlayFabManager.Instance.AddCurrency(rewards[i].Key, rewards[i].Value);
-                Debug.Log("Des SOUS !!!");
-            } 
+            if (!Enum.TryParse(type, out PlayFabManager.GameCurrency currencyType)) continue;
+            PlayFabManager.Instance.AddCurrency(rewards[i].Key, rewards[i].Value);
+            Debug.Log("Des SOUS !!!");
         }
+
         ExperienceSystem.Instance.GainExperienceAccount(CurrentMission.Experience);
         ExperienceSystem.Instance.GainExperiencePlayer(CurrentMission.Experience);
         Debug.Log("De l'XP !!!");
     }
-
 }
