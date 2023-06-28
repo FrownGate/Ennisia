@@ -60,6 +60,7 @@ public class GuildsModule : Module
             Group = guild.Group
         }, res =>
         {
+            _manager.EndRequest();
             PlayerGuildMembers = guild == PlayerGuild ? res.Members : PlayerGuildMembers;
 
             if (guild == PlayerGuild && PlayerGuildData != null)
@@ -67,6 +68,8 @@ public class GuildsModule : Module
                 StartCoroutine(UpdatePlayerGuild());
                 return;
             }
+
+            _manager.StartRequest();
 
             PlayFabDataAPI.GetObjects(new()
             {
@@ -83,7 +86,14 @@ public class GuildsModule : Module
                 }, res =>
                 {
                     _manager.InvokeOnGetGuildData(data, res.Members);
-                    if (!_manager.LoggedIn) OnInitComplete?.Invoke();
+
+                    if (!_manager.LoggedIn)
+                    {
+                        OnInitComplete?.Invoke();
+                        return;
+                    }
+
+                    _manager.EndRequest();
                 }, _manager.OnRequestError);
             }, _manager.OnRequestError);
         }, _manager.OnRequestError);
@@ -294,6 +304,17 @@ public class GuildsModule : Module
                 Id = guild.Split("#")[0],
                 Type = guild.Split("#")[1]
             }
+        }, res => _manager.EndRequest(), _manager.OnRequestError);
+    }
+
+    public IEnumerator KickPlayer(EntityKey player)
+    {
+        yield return _manager.StartAsyncRequest();
+
+        PlayFabGroupsAPI.RemoveMembers(new()
+        {
+            Group = PlayerGuild.Group,
+            Members = new() { player }
         }, res => _manager.EndRequest(), _manager.OnRequestError);
     }
 }
