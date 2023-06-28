@@ -8,6 +8,7 @@ public enum AlterationState
     Stun = 1,
     Silence = 2,
     SupportSilence = 3,
+    DemonicMark = 4,
 }
 
 public class BuffEffect
@@ -63,7 +64,6 @@ public class BuffEffect
         ModifiedStats = new(statsToModify);
         ModifierValue = modifierValue;
         State = state;
-        //Id = target.AlterateStat(statToModify, value => value * modifierValue, 1);
     }
     
     public void Tick(Entity _target)
