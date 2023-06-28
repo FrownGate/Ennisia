@@ -98,4 +98,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quests.unity
     guid: 077a8c99c9e9ec44596953631d89ad3f
+  - enabled: 1
+    path: Assets/Scenes/Guilds/GuildCommunity.unity
+    guid: 55e92da6489c685469a73b1810a479a2
+  - enabled: 1
+    path: Assets/Scenes/Guilds/GuildShop.unity
+    guid: 6ecd125402857214697ad22cdb19d349
   m_configObjects: {}
