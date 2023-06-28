@@ -17,11 +17,6 @@ public class GuildInfo : MonoBehaviour
         PlayFabManager.OnGetGuildData += SetData;
     }
 
-    private void OnDestroy()
-    {
-        PlayFabManager.OnGetGuildData -= SetData;
-    }
-
     public void Init(GroupWithRoles guild)
     {
         _guild = guild;
@@ -34,6 +29,7 @@ public class GuildInfo : MonoBehaviour
         //TODO -> add guild description
         Debug.Log($"Found {members.Count} member(s).");
         _members.text = $"{members.Count - 1}/30";
+        PlayFabManager.OnGetGuildData -= SetData;
     }
 
     private void OnMouseUp()

@@ -4,6 +4,7 @@ using System.Collections;
 using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
+using PlayFab.ClientModels;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -61,6 +62,11 @@ public class PlayFabManager : MonoBehaviour
     public GuildData PlayerGuildData => _guildsMod.PlayerGuildData;
     public List<EntityMemberRole> PlayerGuildMembers => _guildsMod.PlayerGuildMembers;
 
+    //Social Module
+    [SerializeField] private SocialModule _socialMod;
+
+    public static event Action<List<FriendInfo>> OnGetFriends;
+
     //Requests
     private int _requests;
 
@@ -81,6 +87,7 @@ public class PlayFabManager : MonoBehaviour
             _accountMod.Init(this);
             _economyMod.Init(this);
             _guildsMod.Init(this);
+            _socialMod.Init(this);
 
             AccountModule.OnInitComplete += _economyMod.GetEconomyData;
             EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
@@ -147,6 +154,15 @@ public class PlayFabManager : MonoBehaviour
     public void GetGuildInvitations() => StartCoroutine(_guildsMod.GetGuildInvitations());
     public void AcceptGuildInvitation(string guild) => StartCoroutine(_guildsMod.AcceptGuildInvitation(guild));
     public void DenyGuildInvitation(string guild) => StartCoroutine(_guildsMod.DenyGuildInvitation(guild));
+    public void KickPlayer(PlayFab.GroupsModels.EntityKey player) => StartCoroutine(_guildsMod.KickPlayer(player));
+    #endregion
+
+    #region Social
+    public void InvokeOnGetFriends(List<FriendInfo> friends) => OnGetFriends?.Invoke(friends);
+
+    public void GetFriends() => StartCoroutine(_socialMod.GetFriends());
+    public void AddFriend(string username) => StartCoroutine(_socialMod.AddFriend(username));
+    public void RemoveFriend(string id) => StartCoroutine(_socialMod.RemoveFriend(id));
     #endregion
 
     #region Gacha
