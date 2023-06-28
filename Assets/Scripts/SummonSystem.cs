@@ -63,7 +63,7 @@ public class SummonSystem : MonoBehaviour
         int newFragments = 0;
 
         //TODO -> Use tickets instead of crystals if _chance is < 100
-        if (PlayFabManager.Instance.Currencies[PlayFabManager.Currency.Crystals] < _cost * _amount)
+        if (PlayFabManager.Instance.Currencies[PlayFabManager.GameCurrency.Crystals] < _cost * _amount)
         {
             Debug.LogError("not enough crystals");
             //TODO -> Show UI error message
@@ -71,7 +71,7 @@ public class SummonSystem : MonoBehaviour
         }
         else
         {
-            PlayFabManager.Instance.RemoveCurrency(PlayFabManager.Currency.Crystals, _cost * _amount);
+            PlayFabManager.Instance.RemoveCurrency(PlayFabManager.GameCurrency.Crystals, _cost * _amount);
         }
 
         _supports = PlayFabManager.Instance.GetSupports();
@@ -104,7 +104,7 @@ public class SummonSystem : MonoBehaviour
         DisplayPull();
 
         if (newFragments == 0) return;
-        PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Fragments, newFragments);
+        PlayFabManager.Instance.AddCurrency(PlayFabManager.GameCurrency.Fragments, newFragments);
         
     }
 

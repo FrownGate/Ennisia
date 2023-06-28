@@ -9,6 +9,7 @@ public class XPRewardData : ScriptableObject
     {
         None, Crystals, Material, SummonTicket, Set, Weapon, Armor, Accessory
     }
+
     [Serializable]
     public class RewardEntry
     {
@@ -42,7 +43,7 @@ public class XPRewardData : ScriptableObject
             switch (component.RewardType)
             {
                 case RewardType.Crystals:
-                    PlayFabManager.Instance.AddCurrency(PlayFabManager.Currency.Crystals, component.Count);
+                    PlayFabManager.Instance.AddCurrency(PlayFabManager.GameCurrency.Crystals, component.Count);
                     break;
                 case RewardType.Material:
                     PlayFabManager.Instance.AddInventoryItem(new Material(component.Category, component.Rarity, component.Count));
