@@ -100,6 +100,8 @@ public class MissionManager : MonoBehaviour
     {
         // Start the mission waves with enemies
         //TODO -> Load Battle scene
+
+
     }
 
     public bool NextWave()
