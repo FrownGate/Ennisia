@@ -147,6 +147,7 @@ public class PlayFabManager : MonoBehaviour
     public void GetGuildInvitations() => StartCoroutine(_guildsMod.GetGuildInvitations());
     public void AcceptGuildInvitation(string guild) => StartCoroutine(_guildsMod.AcceptGuildInvitation(guild));
     public void DenyGuildInvitation(string guild) => StartCoroutine(_guildsMod.DenyGuildInvitation(guild));
+    public void KickPlayer(EntityKey player) => StartCoroutine(_guildsMod.KickPlayer(player));
     #endregion
 
     #region Gacha
