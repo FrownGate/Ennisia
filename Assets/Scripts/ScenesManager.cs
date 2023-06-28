@@ -1,8 +1,13 @@
+using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ScenesManager : MonoBehaviour
 {
+    [SerializeField, Scene] private string _loadingBig;
+    [SerializeField, Scene] private string _loadingMini;
+
     public static ScenesManager Instance { get; private set; }
     public string Params { get; private set; }
 
@@ -11,7 +16,7 @@ public class ScenesManager : MonoBehaviour
     private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
 
-    //private bool _loading;
+    private bool _loading;
     //public float minLoadingTime = 2f;
 
     //private float startTime;
@@ -30,12 +35,13 @@ public class ScenesManager : MonoBehaviour
             SceneManager.sceneLoaded += OnSceneLoad;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
             PlayFabManager.OnLoadingStart += MiniLoading;
-            PlayFabManager.OnBigLoadingStart += BigLoading;
-            PlayFabManager.OnLoginSuccess += StopLoading;
             PlayFabManager.OnLoadingEnd += StopLoading;
+            PlayFabManager.OnBigLoadingStart += BigLoading;
+            PlayFabManager.OnLoginSuccess += StopBigLoading;
 
             Params = null;
             _activeScene = SceneManager.GetActiveScene();
+            _loading = false;
         }
     }
 
@@ -44,9 +50,9 @@ public class ScenesManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoad;
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
         PlayFabManager.OnLoadingStart -= MiniLoading;
-        PlayFabManager.OnBigLoadingStart -= BigLoading;
-        PlayFabManager.OnLoginSuccess -= StopLoading;
         PlayFabManager.OnLoadingEnd -= StopLoading;
+        PlayFabManager.OnBigLoadingStart -= BigLoading;
+        PlayFabManager.OnLoginSuccess -= StopBigLoading;
     }
 
     private LoadSceneMode SceneMode()
@@ -65,7 +71,7 @@ public class ScenesManager : MonoBehaviour
     {
         _sceneToLoad = GetSceneName(scene);
         Debug.Log($"Going to scene {_sceneToLoad}");
-        SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
+        StartCoroutine(LoadingScene());
         //startTime = Time.time;
 
         //switch (_sceneToLoad)
@@ -99,6 +105,8 @@ public class ScenesManager : MonoBehaviour
     {
         _previousScene = scene;
         //Debug.Log($"{_previousScene.name} unloaded !");
+
+        if (_previousScene.name == _loadingMini) _loading = false;
     }
 
     private string GetSceneName(string scene)
@@ -115,20 +123,38 @@ public class ScenesManager : MonoBehaviour
 
     private void BigLoading()
     {
-        //TODO -> prevent load if already loaded
-        SceneManager.LoadScene("Loading_Big", LoadSceneMode.Additive);
+        SceneManager.LoadScene(_loadingBig, LoadSceneMode.Additive);
     }
 
     private void MiniLoading()
     {
-        //TODO -> prevent load if already loaded
-        SceneManager.LoadScene("Loading_Mini", LoadSceneMode.Additive);
+        if (_loading) return;
+        _loading = true;
+        SceneManager.LoadScene(_loadingMini, LoadSceneMode.Additive);
     }
 
     private void StopLoading()
     {
-        if (SceneManager.GetSceneByName("Loading_Big").isLoaded) SceneManager.UnloadSceneAsync("Loading_Big");
-        if (SceneManager.GetSceneByName("Loading_Mini").isLoaded) SceneManager.UnloadSceneAsync("Loading_Mini");
+        if (SceneManager.GetSceneByName(_loadingMini).isLoaded) SceneManager.UnloadSceneAsync(_loadingMini);
+    }
+
+    private void StopBigLoading()
+    {
+        if (SceneManager.GetSceneByName(_loadingBig).isLoaded) SceneManager.UnloadSceneAsync(_loadingBig);
+    }
+
+    private IEnumerator LoadingScene()
+    {
+        AsyncOperation loading = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
+        MiniLoading();
+
+        while (!loading.isDone) yield return null;
+        StopLoading();
+    }
+
+    public bool IsPopupLoaded()
+    {
+        return _sceneMode == LoadSceneMode.Additive;
     }
 
     //private IEnumerator Loading()
@@ -176,14 +202,4 @@ public class ScenesManager : MonoBehaviour
     //        yield return null;
     //    }
     //}
-
-    public bool IsPopupLoaded()
-    {
-        return _sceneMode == LoadSceneMode.Additive;
-    }
-
-    /*public void UnloadScene(string scene)
-    {
-        SceneManager.UnloadSceneAsync(scene);
-    }*/
 }
