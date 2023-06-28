@@ -359,14 +359,10 @@ MonoBehaviour:
     path: Assets/Scenes/Guilds/GuildsList.unity
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
   - name: Loading_Mini
     path: Assets/Scenes/Loading_Mini.unity
-  - name: GuildCommunity
-    path: Assets/Scenes/Guilds/GuildCommunity.unity
-  - name: GuildShop
-    path: Assets/Scenes/Guilds/GuildShop.unity
-  - name: GuildCommunity 1
-    path: Assets/Scenes/Guilds/GuildCommunity 1.unity
   - name: Yoann
     path: Assets/Scenes/Dev/Yoann.unity
   _notes: []

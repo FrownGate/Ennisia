@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6701013473914782841}
   - component: {fileID: 6404233219645945727}
   - component: {fileID: 708991001244136704}
+  - component: {fileID: 57901652727586480}
   m_Layer: 0
   m_Name: PlayFabManager
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   _accountMod: {fileID: 6701013473914782841}
   _economyMod: {fileID: 6404233219645945727}
   _guildsMod: {fileID: 708991001244136704}
+  _socialMod: {fileID: 57901652727586480}
 --- !u!114 &6701013473914782841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,5 +86,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59e0bede556ef64469c22a93f6bc51f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &57901652727586480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3392619569014106531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03983709cd9c8d74785bba4430c1bf99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
