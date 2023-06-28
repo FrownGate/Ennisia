@@ -355,6 +355,18 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: GuildsList
+    path: Assets/Scenes/Guilds/GuildsList.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
+  - name: GuildCommunity
+    path: Assets/Scenes/Guilds/GuildCommunity.unity
+  - name: GuildShop
+    path: Assets/Scenes/Guilds/GuildShop.unity
+  - name: GuildCommunity 1
+    path: Assets/Scenes/Guilds/GuildCommunity 1.unity
   - name: Yoann
     path: Assets/Scenes/Dev/Yoann.unity
   _notes: []
