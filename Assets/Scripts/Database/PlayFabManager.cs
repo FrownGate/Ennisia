@@ -232,7 +232,7 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
-        Debug.Log("Testing");
+        //Debug.Log("Testing");
         //Debug.Log(Data.Inventory.Items.Count);
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId);  }
 

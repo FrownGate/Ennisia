@@ -7,8 +7,7 @@ public class Act : MonoBehaviour
 {
     public int TargetActId;
     public GameObject ButtonPrefab; // The prefab for the UI button
-    [Scene]
-    public string scene;
+    [Scene] public string scene;
 
     public void Start()
     {

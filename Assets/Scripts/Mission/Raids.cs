@@ -1,5 +1,3 @@
-
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -24,7 +22,6 @@ public class Raids : MonoBehaviour
             Debug.Log(name);
         }
 
-
         _buttons = _generator.GenerateButtonsInSlider(uniqueNames.Count);
         int buttonIndex = 0;
         foreach (GameObject go in _buttons)
@@ -38,9 +35,7 @@ public class Raids : MonoBehaviour
             diff.RaidName = go.name;
             diff.Raids = _buttons;
             diff.RaidDiffs = GetScriptableObjectsByName(go.name);
-
         }
-
     }
 
     public List<string> GetUniqueNames()
@@ -78,4 +73,3 @@ public class Raids : MonoBehaviour
         return scriptableObjectsByName[name];
     }
 }
-

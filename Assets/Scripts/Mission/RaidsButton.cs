@@ -1,24 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public enum Difficulty
 {
-    Peaceful,
-    Easy,
-    Normal,
-    Hard,
-    Insane,
-    Ultimate
+    Peaceful, Easy, Normal, Hard, Insane, Ultimate
 }
 
 public class RaidsButton : MonoBehaviour
 {
-
     public static Dictionary<int, Difficulty> IdToDifficulty = new()
     {
         { 1, Difficulty.Peaceful },
@@ -27,14 +19,12 @@ public class RaidsButton : MonoBehaviour
         { 4, Difficulty.Hard },
         { 5, Difficulty.Insane },
         { 6, Difficulty.Ultimate }
-    };
-
+    }; //TODO -> remove and use (int)Difficulty.Peaceful for example
 
     public List<GameObject> Raids;
     public List<MissionSO> RaidDiffs;
     public List<GameObject> Buttons;
     public string RaidName;
-
 
     private DynamicButtonGenerator _generator;
 
@@ -44,7 +34,6 @@ public class RaidsButton : MonoBehaviour
         _generator = GetComponentInParent<DynamicButtonGenerator>();
         RaidDiffs = RaidDiffs.OrderBy(obj => obj.NumInChapter).ToList();
     }
-
 
     private void OnMouseDown()
     {
@@ -65,9 +54,7 @@ public class RaidsButton : MonoBehaviour
             diff.RaidDiff = RaidDiffs[buttonIndex];
 
             buttonIndex++;
-
         }
-
 
         SceneButton[] scripts = FindObjectsOfType<SceneButton>();
 
@@ -81,7 +68,6 @@ public class RaidsButton : MonoBehaviour
             }
         }
 
-
         foreach (GameObject gameObject in Raids)
         {
             Destroy(gameObject);
@@ -90,8 +76,7 @@ public class RaidsButton : MonoBehaviour
 
     Difficulty GetDifficultyById(int id)
     {
-        if (IdToDifficulty.ContainsKey(id))
-            return IdToDifficulty[id];
+        if (IdToDifficulty.ContainsKey(id)) return IdToDifficulty[id];
 
         Debug.LogWarning("Difficulty ID not found: " + id);
         return Difficulty.Peaceful; // Return a default difficulty or handle the error accordingly
