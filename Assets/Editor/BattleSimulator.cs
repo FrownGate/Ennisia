@@ -185,6 +185,7 @@ public class BattleSimulator : EditorWindow
         }
 
         _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
+        // Debug.LogWarning(_supports.Count);
         foreach (SupportCharacterSO support in _supports)
         {
             _firstSupportDropdown.choices.Add("No Support");
@@ -307,7 +308,7 @@ public class BattleSimulator : EditorWindow
         {
             foreach (var field in enemyStatsField)
             {
-                if (field.name == stat.Key.ToString())
+                if (field.label == stat.Key.ToString())
                 {
                     field.SetValueWithoutNotify((int)stat.Value.Value);
                 }
@@ -370,17 +371,20 @@ public class BattleSimulator : EditorWindow
         weaponSkillFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
     }
 
+    
+
     private void OnInspectorUpdate()
     {
         // Repaint();
         _simulateButton.clicked += () =>
         {
-            Debug.Log(_player.Name);
-            Debug.Log(_selectedWeapon.Name);
-            foreach (var support in _selectedSupports)
-            {
-                Debug.LogError(support.Name);
-            }
+            Debug.LogWarning(_player.Name);
+            Debug.LogWarning(_selectedWeapon.Name);
+            Debug.LogWarning(_selectedSupports.Count);
+            // foreach (var support in _selectedSupports)
+            // {
+            //     Debug.LogWarning(support.Name);
+            // }
             // make a list of the _selectedGears
             List<Gear> tempGears = new();
             foreach (var gear in _selectedGears)
