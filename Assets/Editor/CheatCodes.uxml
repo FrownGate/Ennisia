@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement>
+        <ui:Label text="Cheat Code Tool"
+            style="font-size: 18px; font-weight: bold; margin-bottom: 10px;" />
+        <ui:TextField name="codeInput" style="margin-bottom: 10px;" />
+        <ui:Button text="Activate" name="activateButton" />
+    </ui:VisualElement>
+</ui:UXML>
