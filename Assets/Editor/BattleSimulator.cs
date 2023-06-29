@@ -15,7 +15,6 @@ public class BattleSimulator : EditorWindow
     public class GearInfo
     {
         public DropdownField Dropdown;
-        public Dictionary<Item.AttributeStat?, IntegerField> Stats;
         public Foldout Foldout;
         public List<IntegerField> IntegerFields;
     }
@@ -116,6 +115,7 @@ public class BattleSimulator : EditorWindow
         _weaponFoldout = root.Q<Foldout>("weapon-foldout");
         _weaponFoldout.text = "Weapon Skills";
 
+        #region Enemies
         _enemiesGroupbox = root.Query<GroupBox>("EnemyGroupbox").ToList();
 
         foreach (var item in _enemiesGroupbox)
@@ -140,50 +140,35 @@ public class BattleSimulator : EditorWindow
         {
             enemyInfo.Foldout.text = "Enemy Stats";
         }
+        #endregion
 
+        #region Gears
         List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
 
-        foreach (var gear in gearsSO)
-        {
-            Gear NewGear = new(gear);
-            _gears.Add(NewGear);
-            foreach (var info in _gearsInfos)
-            {
-                if (gear.Type.ToString() == info.Dropdown.label)
-                {
-                    info.Dropdown.choices.Add("No Gear");
-                    info.Dropdown.choices.Add(NewGear.Name);
-                }
-            }
-        }
+        foreach (var gear in gearsSO) _gears.Add(new(gear));
 
         _gearsGroupbox = root.Query<GroupBox>("GearGroupbox").ToList();
+
         foreach (var item in _gearsGroupbox)
         {
             GearInfo gearInfo = new()
             {
                 Dropdown = item.Q<DropdownField>("GearDropdown"),
                 Foldout = item.Q<Foldout>("GearFoldout"),
-                Stats = new(),
                 IntegerFields = item.Query<IntegerField>().ToList()
             };
+
+            //TODO -> select this choice by default
+            gearInfo.Dropdown.choices.Add("No Gear");
 
             // loop through all the IntegerFields and add them to the dictionnary with the name of the stat as a key from _gears
             foreach (var gear in _gears)
             {
-                gearInfo.Stats[(Item.AttributeStat)gear.Attribute] = gearInfo.IntegerFields[0];
-
-                for (int i = 1; i < gearInfo.IntegerFields.Count; i++)
-                {
-                    if (gear.Substats.Count <= i - 1)
-                    {
-                        break;
-                    }
-                    gearInfo.Stats[(Item.AttributeStat)gear.Substats.ToArray()[i - 1].Key] = gearInfo.IntegerFields[i];
-                }
+                if (gear.Type.ToString() == gearInfo.Dropdown.label) gearInfo.Dropdown.choices.Add(gear.Name);
             }
             _gearsInfos.Add(gearInfo);
         }
+        #endregion
 
     }
 
@@ -218,22 +203,6 @@ public class BattleSimulator : EditorWindow
             _weapons.Add(NewWeapon);
             _weaponDropdown.choices.Add("No Weapon");
             _weaponDropdown.choices.Add(NewWeapon.Name);
-        }
-
-        List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
-
-        foreach (var gear in gearsSO)
-        {
-            Gear NewGear = new(gear);
-            _gears.Add(NewGear);
-            foreach (var info in _gearsInfos)
-            {
-                if (gear.Type.ToString() == info.Dropdown.label)
-                {
-                    info.Dropdown.choices.Add("No Gear");
-                    info.Dropdown.choices.Add(NewGear.Name);
-                }
-            }
         }
 
         ChangeFoldoutOnDropdown();
@@ -292,27 +261,19 @@ public class BattleSimulator : EditorWindow
 
         foreach (var info in _gearsInfos)
         {
-            List<IntegerField> statFields = new();
-            foreach (var stats in info.Stats)
+            info.Dropdown.RegisterValueChangedCallback(evt =>
             {
-                Debug.LogWarning("Key : " + stats.Key.ToString());
-                Debug.LogWarning("Value : " + stats.Value.ToString());
-                statFields.Add(stats.Value);
-
-                info.Dropdown.RegisterValueChangedCallback(evt =>
+                if (evt.newValue != "No Gear")
                 {
-                    if (evt.newValue != "No Gear")
-                    {
-                        info.Foldout.visible = true;
-                        info.Foldout.text = evt.newValue;
-                        ChangeFieldsOfGear(evt.newValue, statFields);
-                    }
-                    else
-                    {
-                        info.Foldout.visible = false;
-                    }
-                });
-            }
+                    info.Foldout.visible = true;
+                    info.Foldout.text = evt.newValue;
+                    ChangeFieldsOfGear(evt.newValue, info);
+                }
+                else
+                {
+                    info.Foldout.visible = false;
+                }
+            });
         }
 
         int i = 0;
@@ -377,35 +338,33 @@ public class BattleSimulator : EditorWindow
         Debug.Log(support);
         _selectedSupports.Add(support);
     }
-    private void ChangeFieldsOfGear(string gearName, List<IntegerField> gearStatFields)
+    private void ChangeFieldsOfGear(string gearName, GearInfo gearInfo)
     {
         Gear gear = _gears.Find(x => x.Name == gearName);
-
-        // Change the name of all the stat field to the name of the stat
-        gearStatFields[0].label = gear.Attribute.ToString();
-        gearStatFields[0].SetValueWithoutNotify((int)gear.Value);
-
-
-
-        foreach (var info in _gearsInfos)
-        {
-            foreach (var stat in info.Stats)
-            {
-                if (stat.Key != null)
-                {
-                    gearStatFields[1].label = stat.Key.ToString();
-                    gearStatFields[1].SetValueWithoutNotify((int)stat.Value.value);
-                }
-                else
-                {
-                    gearStatFields[1].visible = false;
-                }
-            }
-        }
-
-
         _selectedGears[(Item.GearType)gear.Type] = gear;
 
+        ChangeStatField(gearInfo.IntegerFields[0], gear.Attribute.ToString(), (int)gear.Value);
+        int index = 1;
+
+        foreach (var substat in gear.Substats)
+        {
+            ChangeStatField(gearInfo.IntegerFields[index], substat.Key.ToString(), (int)substat.Value);
+            index++;
+        }
+
+        if (gear.Substats.Count == gearInfo.IntegerFields.Count) return;
+
+        for (int i = index; i < gearInfo.IntegerFields.Count; i++)
+        {
+            gearInfo.IntegerFields[i].visible = false;
+        }
+    }
+
+    private void ChangeStatField(IntegerField field, string label, int value)
+    {
+        field.visible = true;
+        field.label = label;
+        field.SetValueWithoutNotify(value);
     }
 
     private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
