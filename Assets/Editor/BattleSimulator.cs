@@ -12,12 +12,14 @@ public class BattleSimulator : EditorWindow
         public Dictionary<Item.AttributeStat, IntegerField> Stats;
         public Foldout Foldout;
     }
+
     public class GearInfo
     {
         public DropdownField Dropdown;
         public Foldout Foldout;
         public List<IntegerField> IntegerFields;
     }
+
     List<GroupBox> _gearsGroupbox;
     List<GroupBox> _enemiesGroupbox;
     //TODO: -> Optimize stored datas with enum, arrays, loops, etc.
@@ -38,8 +40,6 @@ public class BattleSimulator : EditorWindow
     private readonly List<EnemyInfo> _enemiesInfos = new();
     private readonly List<GearInfo> _gearsInfos = new();
 
-
-
     // SUPPORTS
     private GroupBox _firstSupportGroupBox;
     private GroupBox _secondSupportGroupBox;
@@ -59,20 +59,21 @@ public class BattleSimulator : EditorWindow
     private readonly List<TextField> _weaponSkillField = new();
 
     private Button _simulateButton;
+    private static readonly string _toolName = "Battle Simulator";
 
     [MenuItem("Tools/Battle Simulator")]
     public static void ShowWindow()
     {
         if (!EditorApplication.isPlaying)
         {
-            Debug.LogError("You must be in play mode to use the Battle Simulator");
+            Debug.LogError($"You must be in play mode to use the {_toolName}");
             return;
         }
-        GetWindow<BattleSimulator>("Battle Simulator");
-        BattleSimulator window = GetWindow<BattleSimulator>("Battle Simulator");
-        GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
-        window.titleContent = new GUIContent("Battle Simulator", icon.image, "Battle Simulator");
 
+        GetWindow<BattleSimulator>(_toolName);
+        BattleSimulator window = GetWindow<BattleSimulator>(_toolName);
+        GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
+        window.titleContent = new GUIContent(_toolName, icon.image, _toolName);
         window.position = new Rect(Screen.width / 2, Screen.height / 2, 1000, 1000);
     }
 
@@ -294,24 +295,17 @@ public class BattleSimulator : EditorWindow
                     {
                         info.Foldout.visible = false;
                     }
-
                 });
             }
-
             i++;
         }
-
     }
 
     private void ChangeFieldsOfEnemy(string enemyName, List<IntegerField> enemyStatsField, int index)
     {
         // TODO: To Enemy 
         Entity enemy = _enemies.Find(x => x.Name == enemyName);
-
-
         _selectedEnemies.Add(enemy);
-
-
 
         foreach (var stat in enemy.Stats)
         {
@@ -328,7 +322,6 @@ public class BattleSimulator : EditorWindow
     private void ChangeFieldsOfSupport(string supportName, List<TextField> supportFields)
     {
         SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
-
 
         supportFields[0].label = support.PrimarySkillData.IsPassive ? "Passive" : "Active";
         supportFields[1].label = support.SecondarySkillData.IsPassive ? "Passive" : "Active";
@@ -371,7 +364,6 @@ public class BattleSimulator : EditorWindow
     {
         Gear weapon = _weapons.Find(x => x.Name == weaponName);
 
-
         weaponStatFields[0].label = weapon.Attribute.ToString();
         weaponStatFields[0].SetValueWithoutNotify((int)weapon.Value);
 
@@ -380,9 +372,6 @@ public class BattleSimulator : EditorWindow
 
         weaponSkillFields[0].SetValueWithoutNotify(weapon.WeaponSO.FirstSkillData.Name);
         weaponSkillFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
-
-
-
     }
 
     private void OnInspectorUpdate()
@@ -402,8 +391,6 @@ public class BattleSimulator : EditorWindow
             {
                 tempGears.Add(gear.Value);
             }
-
-
 
             Instance.SimulateBattle(_player, _selectedEnemies, _selectedSupports, _selectedWeapon, tempGears);
         };
