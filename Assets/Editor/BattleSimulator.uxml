@@ -94,8 +94,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -108,8 +108,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -122,8 +122,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -136,8 +136,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -150,8 +150,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -164,8 +164,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />

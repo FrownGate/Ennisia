@@ -18,7 +18,7 @@ public abstract class Entity
     public List<BuffEffect> Buffs { get; protected set; } = new();
     public List<BuffEffect> Alterations { get; protected set; } = new();
     public bool IsSelected { get; protected set; } = false;
-    
+
     public bool IsDead
     {
         get => CurrentHp <= 0;
@@ -37,7 +37,7 @@ public abstract class Entity
     public float DefIgnored { get; set; }
     public float Shield { get; set; }
     public float Speed { get; set; }
-        
+
     public int atkBar { get; set; }
     public int atkBarFillAmount { get; set; }
     public int atkBarPercentage { get; set; }
@@ -70,13 +70,13 @@ public abstract class Entity
         {
             CurrentHp -= damage;
         }
-        
+
     }
 
     public virtual bool HaveBeenTargeted() { return true; }
     public virtual void ResetTargetedState() { }
     public virtual void HaveBeenSelected() { }
-    
+
     public ModifierID AlterateStat(Item.AttributeStat stat, Func<float, float> func, int layer = 1)
     {
         return Stats[stat].AddModifier(func, layer);

@@ -340,7 +340,7 @@ public class BattleSimulator : EditorWindow
         {
             foreach (var field in enemyStatsField)
             {
-                if (field.name == stat.Key.ToString())
+                if (field.label == stat.Key.ToString())
                 {
                     field.SetValueWithoutNotify((int)stat.Value.Value);
                 }
