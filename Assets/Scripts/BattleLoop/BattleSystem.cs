@@ -19,7 +19,8 @@ public class BattleSystem : StateMachine
     public Transform PlayerStation;
     public Transform EnemyStation;
 
-    public static event Action OnEnemyKilled;
+    public static event Action<string> OnEnemyKilled;
+    public static event Action<int> OnClickSFX;
 
     public bool PlayerHasWin { get; private set; }
     public bool Selected { get; set; }
@@ -86,16 +87,19 @@ public class BattleSystem : StateMachine
     public void OnAttackButton()
     {
         SetState(new SelectSpell(this, 0));
+        OnClickSFX?.Invoke(1);
     }
 
     public void OnFirstSkillButton()
     {
         SetState(new SelectSpell(this, 1));
+        OnClickSFX?.Invoke(2);
     }
 
     public void OnSecondSkillButton()
     {
         SetState(new SelectSpell(this, 2));
+        OnClickSFX?.Invoke(3);
     }
 
     public void SetSkillButtonsActive(bool isActive)
@@ -128,7 +132,12 @@ public class BattleSystem : StateMachine
     {
         for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            if (Enemies[i].IsDead) Enemies.RemoveAt(i); OnEnemyKilled?.Invoke();
+            if (Enemies[i].IsDead)
+            {
+                Enemies.RemoveAt(i);
+                OnEnemyKilled?.Invoke(Enemies[i].Name);
+                Debug.LogWarning(Enemies[i].Name + "die lol mdr t nul");
+            }
         }
     }
 
@@ -252,9 +261,9 @@ public class BattleSystem : StateMachine
     {
         if (Player.Buffs != null)
         {
-            foreach (var buff in Player.Buffs)
+            for (int i = 0; i < Player.Buffs.Count; i++)
             {
-                buff.Tick(Player);
+                Player.Buffs[i].Tick(Player);
             }
         }
 
@@ -262,9 +271,9 @@ public class BattleSystem : StateMachine
         {
             if (enemy.Buffs != null)
             {
-                foreach (var buff in enemy.Buffs)
+                for (int i = 0; i < enemy.Buffs.Count; i++)
                 {
-                    buff.Tick(enemy);
+                    enemy.Buffs[i].Tick(enemy);
                 }
             }
         }
@@ -283,7 +292,10 @@ public class BattleSystem : StateMachine
                         AttackBarSystem.ResetAtb(Player);
                         break;
                     case AlterationState.Silence:
-
+                        
+                        break;
+                    case AlterationState.DemonicMark:
+                        
                         break;
                 }
             }
