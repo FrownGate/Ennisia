@@ -171,10 +171,6 @@ public class BattleSimulator : EditorWindow
         }
         #endregion
 
-    }
-
-    public void OnGUI()
-    {
         _player = new();
         EnemyLoader enemyLoader = new();
         _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
