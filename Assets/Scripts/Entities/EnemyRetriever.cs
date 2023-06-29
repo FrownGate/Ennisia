@@ -14,7 +14,9 @@ public class EnemyLoader
 
             Dictionary<string, int> stats = new();
 
-            for (int i = 2; i < 11; i++)
+            Dictionary<Item.AttributeStat, int> stats = new();
+
+            for (int i = 0; i < 9; i++)
             {
                 // Skip the first two columns Id and Name
                 stats.Add(headers[i], 0);
@@ -56,7 +58,7 @@ public class EnemyLoader
 
             Dictionary<string, int> stats = new();
 
-            for (int i = 2; i < 11; i++)
+            for (int i = 0; i < 9; i++)
             {
                 // Skip the first two columns Id and Name
                 stats.Add(headers[i], 0);
@@ -101,7 +103,8 @@ public class EnemyLoader
             string[] headers = headerLine.Split(',');
             Dictionary<string, int> stats = new();
 
-            for (int i = 2; i < 11; i++)
+            Dictionary<string, string> rowData = new();
+            for (int i = 0; i < 9; i++)
             {
                 // Skip the first two columns Id and Name
                 stats.Add(headers[i], 0);
