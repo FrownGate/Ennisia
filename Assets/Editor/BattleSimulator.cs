@@ -141,21 +141,6 @@ public class BattleSimulator : EditorWindow
             enemyInfo.Foldout.text = "Enemy Stats";
         }
 
-        List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
-
-        foreach (var gear in gearsSO)
-        {
-            Gear NewGear = new(gear);
-            _gears.Add(NewGear);
-            foreach (var info in _gearsInfos)
-            {
-                if (gear.Type.ToString() == info.Dropdown.label)
-                {
-                    info.Dropdown.choices.Add("No Gear");
-                    info.Dropdown.choices.Add(NewGear.Name);
-                }
-            }
-        }
 
         _gearsGroupbox = root.Query<GroupBox>("GearGroupbox").ToList();
         foreach (var item in _gearsGroupbox)
@@ -203,6 +188,7 @@ public class BattleSimulator : EditorWindow
         }
 
         _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
+        // Debug.LogWarning(_supports.Count);
         foreach (SupportCharacterSO support in _supports)
         {
             _firstSupportDropdown.choices.Add("No Support");
@@ -295,8 +281,6 @@ public class BattleSimulator : EditorWindow
             List<IntegerField> statFields = new();
             foreach (var stats in info.Stats)
             {
-                Debug.LogWarning("Key : " + stats.Key.ToString());
-                Debug.LogWarning("Value : " + stats.Value.ToString());
                 statFields.Add(stats.Value);
 
                 info.Dropdown.RegisterValueChangedCallback(evt =>
@@ -422,7 +406,8 @@ public class BattleSimulator : EditorWindow
         weaponSkillFields[0].SetValueWithoutNotify(weapon.WeaponSO.FirstSkillData.Name);
         weaponSkillFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
 
-
+        _selectedWeapon = weapon;
+        Debug.LogWarning(_selectedWeapon.Name);
 
     }
 
@@ -431,12 +416,13 @@ public class BattleSimulator : EditorWindow
         // Repaint();
         _simulateButton.clicked += () =>
         {
-            Debug.Log(_player.Name);
-            Debug.Log(_selectedWeapon.Name);
-            foreach (var support in _selectedSupports)
-            {
-                Debug.LogError(support.Name);
-            }
+            Debug.LogWarning(_player.Name);
+            Debug.LogWarning(_selectedWeapon.Name);
+            Debug.LogWarning(_selectedSupports.Count);
+            // foreach (var support in _selectedSupports)
+            // {
+            //     Debug.LogWarning(support.Name);
+            // }
             // make a list of the _selectedGears
             List<Gear> tempGears = new();
             foreach (var gear in _selectedGears)
