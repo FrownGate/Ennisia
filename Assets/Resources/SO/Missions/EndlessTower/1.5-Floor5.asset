@@ -18,12 +18,10 @@ MonoBehaviour:
   State: 0
   EnergyCost: 0
   Unlocked: 0
-  WavesCount: 3
-  Enemies:
-  - Blue slime
-  - Golem
-  - Mushroom
+  WavesCount: 0
+  Enemies: []
   DialogueId: -1
   ChapterId: 1
   NumInChapter: 5
+  GearReward: 
   Experience: 10

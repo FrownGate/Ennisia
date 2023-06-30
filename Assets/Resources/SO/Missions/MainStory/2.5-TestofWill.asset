@@ -18,9 +18,11 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  WavesCount: 1
+  Enemies:
+  - Djeamy
   DialogueId: 0
   ChapterId: 2
   NumInChapter: 5
+  GearReward: 
   Experience: 10

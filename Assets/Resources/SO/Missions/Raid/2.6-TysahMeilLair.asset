@@ -18,10 +18,10 @@ MonoBehaviour:
   State: 0
   EnergyCost: 25
   Unlocked: 0
-  WavesCount: 3
-  Enemies:
-  - none
+  WavesCount: 0
+  Enemies: []
   DialogueId: 0
   ChapterId: 2
   NumInChapter: 6
+  GearReward: 
   Experience: 10

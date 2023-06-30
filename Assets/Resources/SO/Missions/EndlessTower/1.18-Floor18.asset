@@ -18,12 +18,10 @@ MonoBehaviour:
   State: 0
   EnergyCost: 0
   Unlocked: 0
-  WavesCount: 3
-  Enemies:
-  - Spreegal
-  - Magic flower
-  - Demonic slime
+  WavesCount: 0
+  Enemies: []
   DialogueId: -1
   ChapterId: 1
   NumInChapter: 18
+  GearReward: 
   Experience: 10

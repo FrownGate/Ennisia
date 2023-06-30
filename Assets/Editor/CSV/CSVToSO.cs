@@ -356,8 +356,6 @@ public class CSVToSO : EditorWindow
             var wave = rowData[$"Wave{i}"];
             if (!wave.Equals(""))
             {
-               
-                
                 var waveEnemies = wave.Split(',');
                 foreach (var enemy in waveEnemies)
                 {
@@ -378,7 +376,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
         scriptableObject.ChapterId = int.Parse(rowData["IDChap"]);
         scriptableObject.NumInChapter = int.Parse(rowData["Num"]);
-
+        
         scriptableObject.Type = type;
 
         var currencies = rowData.ToList();
@@ -388,7 +386,15 @@ public class CSVToSO : EditorWindow
             if (!Enum.TryParse(Rewardtype, out PlayFabManager.GameCurrency currencyType)) continue;
             Debug.Log(rowData[Rewardtype]);
 
-            scriptableObject.RewardsList.Add(currencyType, int.Parse(rowData[Rewardtype]));
+            scriptableObject.CurrencyRewards.Add(currencyType, int.Parse(rowData[Rewardtype]));
+        }
+
+        var gears = rowData["Gear"].Split(",");
+        foreach (var gearReward in gears)
+        {
+            if(!Enum.TryParse(gearReward, out Item.ItemRarity itemRarity)) continue;
+
+            scriptableObject.GearReward.Add(itemRarity);
         }
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);

@@ -18,9 +18,11 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  WavesCount: 3
+  Enemies:
+  - Bandit
   DialogueId: 0
   ChapterId: 4
   NumInChapter: 2
+  GearReward: 
   Experience: 10

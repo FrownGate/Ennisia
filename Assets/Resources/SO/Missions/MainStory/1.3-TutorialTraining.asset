@@ -18,9 +18,14 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  WavesCount: 3
+  Enemies:
+  - Elven Knight
+  - Training Dummy
+  - Elven Archer
+  - Elven Mage
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 3
+  GearReward: 
   Experience: 10

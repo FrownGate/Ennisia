@@ -18,12 +18,10 @@ MonoBehaviour:
   State: 0
   EnergyCost: 0
   Unlocked: 0
-  WavesCount: 3
-  Enemies:
-  - Berserker
-  - Elf
-  - Magic flower
+  WavesCount: 0
+  Enemies: []
   DialogueId: -1
   ChapterId: 1
   NumInChapter: 25
+  GearReward: 
   Experience: 10

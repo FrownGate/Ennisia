@@ -18,11 +18,13 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 1
-  WavesCount: 1
+  WavesCount: 3
   Enemies:
   - Wolf
-  - ' Wolf'
+  - Wolf Pack Leader
+  - Talk Only
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 1
+  GearReward: 
   Experience: 10
