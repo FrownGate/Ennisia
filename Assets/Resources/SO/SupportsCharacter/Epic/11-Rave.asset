@@ -17,7 +17,7 @@ MonoBehaviour:
   Rarity: Epic
   Race: Elf
   Job: Assassin
-  Element: Wind
+  Element: 2
   PrimarySkillData: {fileID: 11400000, guid: 1cf1c1ff5ca9e71428345c3f14546ded, type: 2}
   SecondarySkillData: {fileID: 11400000, guid: 1b09088717d1738459fb5541cafab01e, type: 2}
   Description: "Rave knows how to use his opponent\u2019s strength against them.

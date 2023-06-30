@@ -13,14 +13,11 @@ MonoBehaviour:
   m_Name: Ring
   m_EditorClassIdentifier: 
   Id: 1
-  Name: Ring
   Level: 1
+  Name: 
   Type: 5
   Rarity: 0
   Attribute: 0
   StatValue: 7.5
   Description: 
-  WeaponType: 0
-  IsMagic: 0
-  FirstSkillData: {fileID: 0}
-  SecondSkillData: {fileID: 0}
+  Icon: {fileID: 0}

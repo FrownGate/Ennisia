@@ -13,14 +13,11 @@ MonoBehaviour:
   m_Name: Earrings
   m_EditorClassIdentifier: 
   Id: 1
-  Name: Earrings
   Level: 1
+  Name: 
   Type: 3
   Rarity: 0
   Attribute: 5
   StatValue: 7.5
   Description: 
-  WeaponType: 0
-  IsMagic: 0
-  FirstSkillData: {fileID: 0}
-  SecondSkillData: {fileID: 0}
+  Icon: {fileID: 0}

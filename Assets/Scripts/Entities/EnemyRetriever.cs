@@ -6,22 +6,22 @@ using UnityEngine;
 
 public class EnemyLoader
 {
+    private readonly Dictionary<Item.AttributeStat, float> _stats = new();
     //TODO -> Use CSVUtils to get headers and lines
 
     public Enemy LoadEnemyByName(string filePath, string enemyName)
     {
+        _stats.Clear();
+
         using (StreamReader reader = new(filePath))
         {
             string headerLine = reader.ReadLine(); // Skip the header line
             string[] headers = headerLine.Split(',');
             Dictionary<string, string> rowData = new();
 
-
-            Dictionary<Item.AttributeStat, int> stats = new();
-
             for (int i = 0; i < 9; i++)
             {
-                stats.Add((Item.AttributeStat)i, 0);
+                _stats.Add((Item.AttributeStat)i, 0);
             }
 
             while (!reader.EndOfStream)
@@ -38,9 +38,9 @@ public class EnemyLoader
                     // Skip the first two columns Id and Name
                     for (int i = 2; i < 11; i++)
                     {
-                        if (Enum.TryParse<Item.AttributeStat>(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
+                        if (Enum.TryParse(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
                         {
-                            stats[stat] = int.Parse(rowData.ToArray()[i].Value);
+                            _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
                         }
                         else
                         {
@@ -50,7 +50,7 @@ public class EnemyLoader
 
                     string description = values[11];
 
-                    return new Enemy(id, name, stats, description);
+                    return new Enemy(id, name, _stats, description);
                 }
             }
         }
@@ -60,17 +60,17 @@ public class EnemyLoader
 
     public Enemy LoadEnemyById(string filePath, int enemyId)
     {
+        _stats.Clear();
+
         using (StreamReader reader = new(filePath))
         {
             string headerLine = reader.ReadLine(); // Skip the header line
             string[] headers = headerLine.Split(',');
             Dictionary<string, string> rowData = new();
 
-            Dictionary<Item.AttributeStat, int> stats = new();
-
             for (int i = 0; i < 9; i++)
             {
-                stats.Add((Item.AttributeStat)i, 0);
+                _stats.Add((Item.AttributeStat)i, 0);
 
             }
 
@@ -90,7 +90,7 @@ public class EnemyLoader
                     {
                         if (Enum.TryParse<Item.AttributeStat>(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
                         {
-                            stats[stat] = int.Parse(rowData.ToArray()[i].Value);
+                            _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
                         }
                         else
                         {
@@ -99,7 +99,7 @@ public class EnemyLoader
                     }
                     string description = values[11];
 
-                    return new Enemy(id, name, stats, description);
+                    return new Enemy(id, name, _stats, description);
                 }
             }
         }
@@ -111,6 +111,7 @@ public class EnemyLoader
 
     public List<Entity> LoadEnemies(string filePath)
     {
+        _stats.Clear();
         // TODO: To Enemy 
         List<Entity> enemies = new();
 
@@ -118,13 +119,12 @@ public class EnemyLoader
         {
             string headerLine = reader.ReadLine(); // Skip the header line
             string[] headers = headerLine.Split(',');
-            Dictionary<Item.AttributeStat, int> stats = new();
 
             Dictionary<string, string> rowData = new();
             for (int i = 0; i < 9; i++)
             {
                 // Skip the first two columns Id and Name
-                stats.Add((Item.AttributeStat)i, 0);
+                _stats.Add((Item.AttributeStat)i, 0);
             }
 
             while (!reader.EndOfStream)
@@ -142,7 +142,7 @@ public class EnemyLoader
                 {
                     if (Enum.TryParse<Item.AttributeStat>(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
                     {
-                        stats[stat] = int.Parse(rowData.ToArray()[i].Value);
+                        _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
                     }
                     else
                     {
@@ -152,7 +152,7 @@ public class EnemyLoader
 
                 string description = values[11];
 
-                Enemy enemy = new(id, name, stats, description);
+                Enemy enemy = new(id, name, _stats, description);
                 enemies.Add(enemy);
             }
         }

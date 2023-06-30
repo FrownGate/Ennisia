@@ -18,7 +18,7 @@ public class BattleSimulator : EditorWindow
     // TODO: To Enemy
     private readonly List<Gear> _gears = new();
     private List<SupportCharacterSO> _supports = new();
-    private readonly List<Entity> _enemies = new();
+    private List<Entity> _enemies;
 
     // TODO: To Enemy 
     private readonly List<Entity> _selectedEnemies = new();
@@ -372,7 +372,7 @@ public class BattleSimulator : EditorWindow
                 tempGears.Add(gear.Value);
             }
 
-            Instance.SimulateBattle(_player, _selectedEnemies, _selectedSupports, _selectedWeapon, tempGears);
+            //Instance.SimulateBattle(_player, _selectedEnemies, _selectedSupports, _selectedWeapon, tempGears);
         };
     }
 }

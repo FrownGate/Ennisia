@@ -3,64 +3,64 @@
         <ui:GroupBox name="Allies" style="height: 100%; width: 50%; max-width: 50%; max-height: 100%; min-width: 50%; min-height: 100%; align-items: center; flex-direction: row; justify-content: space-between; flex-grow: 0; left: 2px; bottom: -6px; position: absolute; top: -1px;">
             <ui:Button text="Simulate" display-tooltip-when-elided="true" name="simulate-button" style="align-self: center; left: 450px; top: 0; position: absolute;" />
             <ui:Label tabindex="-1" text="Allies" display-tooltip-when-elided="true" name="Title" style="flex-direction: column; justify-content: space-around; align-self: stretch; align-items: stretch; flex-wrap: nowrap; height: 37px; width: 153px; display: flex; top: auto; left: auto; -unity-text-align: middle-center; white-space: nowrap; text-overflow: clip; flex-shrink: 0; flex-basis: 100%;" />
-            <ui:GroupBox name="GearGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: auto; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Helmet" index="-1" name="GearDropdown" />
-                <ui:Foldout text="Helmet" name="GearFoldout" style="width: 100%;">
-                    <ui:IntegerField label="HP" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat1" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat2" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat3" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat 4" value="42" name="Substat" style="height: 22px;" />
+            <ui:GroupBox name="Helmet" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: auto; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Helmet" index="-1" name="helmet-dropdown" />
+                <ui:Foldout text="Helmet" name="helmet-foldout" style="width: 100%;">
+                    <ui:IntegerField label="Hp" value="42" name="Hp" style="height: 22px;" />
+                    <ui:IntegerField label="Substat1" value="42" name="Substat1" style="height: 22px;" />
+                    <ui:IntegerField label="Substat2" value="42" name="Substat2" style="height: 22px;" />
+                    <ui:IntegerField label="Substat3" value="42" name="Substat3" style="height: 22px;" />
+                    <ui:IntegerField label="Substat 4" value="42" name="Substat4" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="GearGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 230px; right: auto; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Chest" index="-1" name="GearDropdown" />
-                <ui:Foldout text="Chest" name="GearFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MainStat" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat1" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat2" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat3" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat4" value="42" name="Substat" style="height: 22px;" />
+            <ui:GroupBox name="Chest" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 230px; right: auto; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Chest" index="-1" name="chest-dropdown" />
+                <ui:Foldout text="Chest" name="chest-foldout" style="width: 100%;">
+                    <ui:IntegerField label="MainStat" value="42" name="MainStat" style="height: 22px;" />
+                    <ui:IntegerField label="Substat1" value="42" name="Substat1" style="height: 22px;" />
+                    <ui:IntegerField label="Substat2" value="42" name="Substat2" style="height: 22px;" />
+                    <ui:IntegerField label="Substat3" value="42" name="Substat3" style="height: 22px;" />
+                    <ui:IntegerField label="Substat4" value="42" name="Substat4" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="GearGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 390px; right: auto; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Ring" index="-1" name="GearDropdown" />
-                <ui:Foldout text="Ring" name="GearFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MainStat" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat1" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat2" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat3" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat4" value="42" name="Substat" style="height: 22px;" />
+            <ui:GroupBox name="Ring" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 390px; right: auto; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Ring" index="-1" name="ring-dropdown" />
+                <ui:Foldout text="Ring" name="ring-foldout" style="width: 100%;">
+                    <ui:IntegerField label="MainStat" value="42" name="MainStat" style="height: 22px;" />
+                    <ui:IntegerField label="Substat1" value="42" name="Substat1" style="height: 22px;" />
+                    <ui:IntegerField label="Substat2" value="42" name="Substat2" style="height: 22px;" />
+                    <ui:IntegerField label="Substat3" value="42" name="Substat3" style="height: 22px;" />
+                    <ui:IntegerField label="Substat4" value="42" name="Substat4" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="GearGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: 20px; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Boots" index="-1" name="GearDropdown" />
+            <ui:GroupBox name="Boots" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 60px; right: 20px; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Boots" index="-1" name="boots-dropdown" />
                 <ui:Foldout text="Boots" name="boots-foldout" style="width: 100%;">
-                    <ui:IntegerField label="Defense" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat1" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat2" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat3" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat4" value="42" name="Substat" style="height: 22px;" />
+                    <ui:IntegerField label="Defense" value="42" name="Defense" style="height: 22px;" />
+                    <ui:IntegerField label="Substat1" value="42" name="Substat1" style="height: 22px;" />
+                    <ui:IntegerField label="Substat2" value="42" name="Substat2" style="height: 22px;" />
+                    <ui:IntegerField label="Substat3" value="42" name="Substat3" style="height: 22px;" />
+                    <ui:IntegerField label="Substat4" value="42" name="Substat4" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="GearGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 230px; right: 20px; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Necklace" index="-1" name="GearDropdown" />
-                <ui:Foldout text="Necklace" name="GearFoldout" style="width: 100%;">
-                    <ui:IntegerField label="MainStat" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat1" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat2" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat 3" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat4" value="42" name="Substat" style="height: 22px;" />
+            <ui:GroupBox name="Necklace" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 230px; right: 20px; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Necklace" index="-1" name="necklace-dropdown" />
+                <ui:Foldout text="Necklace" name="necklace-foldout" style="width: 100%;">
+                    <ui:IntegerField label="MainStat" value="42" name="MainStat" style="height: 22px;" />
+                    <ui:IntegerField label="Substat1" value="42" name="Substat1" style="height: 22px;" />
+                    <ui:IntegerField label="Substat2" value="42" name="Substat2" style="height: 22px;" />
+                    <ui:IntegerField label="Substat 3" value="42" name="Substat3" style="height: 22px;" />
+                    <ui:IntegerField label="Substat4" value="42" name="Substat4" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="GearGroupbox" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 390px; right: 20px; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Earrings" index="-1" name="GearDropdown" />
-                <ui:Foldout text="Earrings" name="GearFoldout" style="width: 100%;">
-                    <ui:IntegerField label="Mainstat" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat1" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat2" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat3" value="42" name="Substat" style="height: 22px;" />
-                    <ui:IntegerField label="Substat4" value="42" name="Substat" style="height: 22px;" />
+            <ui:GroupBox name="Earrings" style="width: auto; align-items: stretch; align-self: auto; justify-content: flex-start; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 390px; right: 20px; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Earrings" index="-1" name="earrings-dropdown" />
+                <ui:Foldout text="Earrings" name="earrings-foldout" style="width: 100%;">
+                    <ui:IntegerField label="Mainstat" value="42" name="MainStat" style="height: 22px;" />
+                    <ui:IntegerField label="Substat1" value="42" name="Substat1" style="height: 22px;" />
+                    <ui:IntegerField label="Substat2" value="42" name="Substat2" style="height: 22px;" />
+                    <ui:IntegerField label="Substat3" value="42" name="Substat3" style="height: 22px;" />
+                    <ui:IntegerField label="Substat4" value="42" name="Substat4" style="height: 22px;" />
                 </ui:Foldout>
             </ui:GroupBox>
             <ui:GroupBox name="Weapon" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 590px; right: auto; left: auto; flex-basis: 0;">
@@ -94,8 +94,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -108,8 +108,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -122,8 +122,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -136,8 +136,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -150,8 +150,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />
@@ -164,8 +164,8 @@
                     <ui:IntegerField label="HP" value="42" name="HP" style="height: 22px;" />
                     <ui:IntegerField label="Attack" value="42" name="Attack" style="height: 22px;" />
                     <ui:IntegerField label="PhysicalDamages" value="42" name="PhysicalDamages" style="height: 22px;" />
-                    <ui:IntegerField label="MagicalDamages" value="42" name="PhysicalDefense" style="height: 22px;" />
-                    <ui:IntegerField label="PhysicalDefense" value="42" name="MagicalDamages" style="height: 22px;" />
+                    <ui:IntegerField label="PhysicalDefense" value="42" name="PhysicalDefense" style="height: 22px;" />
+                    <ui:IntegerField label="MagicalDamages" value="42" name="MagicalDamages" style="height: 22px;" />
                     <ui:IntegerField label="MagicalDefense" value="42" name="MagicalDefense" style="height: 22px; flex-direction: row;" />
                     <ui:IntegerField label="CritRate" value="42" name="CritRate" style="height: 22px;" />
                     <ui:IntegerField label="CritDmg" value="42" name="CritDmg" style="height: 22px;" />

@@ -17,7 +17,7 @@ MonoBehaviour:
   Rarity: Rare
   Race: none
   Job: none
-  Element: Water
+  Element: 1
   PrimarySkillData: {fileID: 11400000, guid: fb8df59d9ef23db499976b31145095c3, type: 2}
   SecondarySkillData: {fileID: 0}
   Description: none
