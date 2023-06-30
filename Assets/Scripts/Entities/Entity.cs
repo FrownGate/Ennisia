@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public abstract class Entity
 {
@@ -39,17 +38,25 @@ public abstract class Entity
     public int atkBarFillAmount { get; set; }
     public int atkBarPercentage { get; set; }
 
-    public Entity()
+    public Entity(Dictionary<Item.AttributeStat, float> stats = null)
     {
         //TODO -> Use CSV to set all values
         Stats = new();
+
+        if (stats != null)
+        {
+            foreach (var stat in stats)
+            {
+                Stats[stat.Key] = new(stat.Value);
+            }
+
+            return;
+        }
 
         foreach (string stat in Enum.GetNames(typeof(Item.AttributeStat)))
         {
             Stats[Enum.Parse<Item.AttributeStat>(stat)] = new(10);
         }
-
-        //TODO -> Take off shield from enum in item
     }
 
     public virtual void TakeDamage(float damage)

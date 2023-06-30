@@ -16,7 +16,8 @@ public class Chapter : MonoBehaviour
         CurrentChapter = MissionManager.Instance.CurrentChapter;
 
         RectTransform parentRect = GetComponent<RectTransform>();
-        List<MissionSO> missions = MissionManager.Instance.GetMissionsByChapterId(CurrentChapter.MissionType, CurrentChapter.Id);
+        List<MissionSO> missions =
+            MissionManager.Instance.GetMissionsByChapterId(CurrentChapter.MissionType, CurrentChapter.Id);
 
         foreach (MissionSO missionSO in missions)
         {
@@ -24,7 +25,7 @@ public class Chapter : MonoBehaviour
             Vector2 randomPosition = new(
                 Random.Range(-parentRect.rect.width / 2, parentRect.rect.width / 2),
                 Random.Range(-parentRect.rect.height / 2, parentRect.rect.height / 2)
-                );
+            );
 
             GameObject newMissionBtn = Instantiate(SpritePrefab, transform);
             RectTransform spriteRect = newMissionBtn.GetComponent<RectTransform>();

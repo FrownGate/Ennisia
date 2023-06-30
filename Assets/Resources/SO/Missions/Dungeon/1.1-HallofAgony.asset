@@ -17,9 +17,10 @@ MonoBehaviour:
   Type: 3
   State: 0
   EnergyCost: 5
-  Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  Unlocked: 1
+  WavesCount: 6
+  Enemies:
+  - none
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 1

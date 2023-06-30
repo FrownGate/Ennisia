@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
+    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _firstSupport;
     [SerializeField] private GameObject _secondSupport;
     [SerializeField] private GameObject[] _skillsButtons;
@@ -37,6 +39,7 @@ public class BattleSystem : StateMachine
 
     public void Start()
     {
+       // MissionManager.Instance.StartMission();
         InitBattle();
     }
 
@@ -55,12 +58,12 @@ public class BattleSystem : StateMachine
 
         GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy"); //TODO -> use serialized field
         enemyPrefab.GetComponent<EnemyController>().InitEntity(); //TODO -> use serialized field
-        Enemies.Add(enemyPrefab.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
+        Enemies.Add((Enemy)enemyPrefab.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
 
 
         GameObject enemyPrefab2 = GameObject.Find("Enemyy"); //TODO -> use serialized field
         enemyPrefab2.GetComponent<EnemyController>().InitEntity(); //TODO -> use serialized field
-        Enemies.Add(enemyPrefab2.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
+        Enemies.Add((Enemy)enemyPrefab2.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
         Debug.Log(Enemies.Count);
 
         GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player"); //TODO -> use serialized field

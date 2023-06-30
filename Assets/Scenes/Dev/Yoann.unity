@@ -265,34 +265,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8936904733801626002, guid: b796c3f0cab2dfa4c896df3507b1d733, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8936904733801626004, guid: b796c3f0cab2dfa4c896df3507b1d733, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8936904733801626004, guid: b796c3f0cab2dfa4c896df3507b1d733, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 550252271}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b796c3f0cab2dfa4c896df3507b1d733, type: 3}
---- !u!1 &550252270 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8936904733801626004, guid: b796c3f0cab2dfa4c896df3507b1d733, type: 3}
-  m_PrefabInstance: {fileID: 550252267}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &550252271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550252270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b2f07d9711c1644b32a99ca8274bcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ClientStartUp: {fileID: 0}
-  ServerStartUp: {fileID: 0}
-  LoginButton: {fileID: 0}
-  StartLocalServerButton: {fileID: 0}
 --- !u!1 &613986349
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +511,6 @@ GameObject:
   - component: {fileID: 1901773070}
   - component: {fileID: 1901773069}
   - component: {fileID: 1901773072}
-  - component: {fileID: 1901773073}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -660,43 +636,3 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &1901773073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901773068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f28e6a91d60ec45855f0fb3be655df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boost: 3.5
-  positionLerpTime: 0.2
-  mouseSensitivityCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.5
-      inSlope: 0
-      outSlope: 5
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 2.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rotationLerpTime: 0.01
-  invertY: 0

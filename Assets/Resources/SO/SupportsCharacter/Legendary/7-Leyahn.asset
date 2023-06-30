@@ -17,7 +17,7 @@ MonoBehaviour:
   Rarity: Legendary
   Race: Beast
   Job: Assassin
-  Element: Thunder
+  Element: 4
   PrimarySkillData: {fileID: 11400000, guid: df948ac70715d3142b42e10ada755682, type: 2}
   SecondarySkillData: {fileID: 11400000, guid: 6ae8b1837ccb7c34ca9ba332102683eb, type: 2}
   Description: Leyahn is one of the fastest people in Ennisia, and also the sneakiest.

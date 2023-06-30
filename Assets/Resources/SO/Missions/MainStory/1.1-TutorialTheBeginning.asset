@@ -17,12 +17,11 @@ MonoBehaviour:
   Type: 0
   State: 0
   EnergyCost: 5
-  Unlocked: 0
-  WavesCount: 6
+  Unlocked: 1
+  WavesCount: 1
   Enemies:
   - Wolf
-  - 
-  - Red Slime
+  - ' Wolf'
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 1
