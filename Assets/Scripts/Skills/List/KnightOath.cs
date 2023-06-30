@@ -16,7 +16,7 @@ public class KnightOath : PassiveSkill
     }
 
 
-    public override void UseIfAttacked(List<Entity> targets, Entity player, int turn, float damageTaken)
+    public override void UseIfAttacked(List<Entity> targets,Entity caster, Entity player, int turn, float damageTaken)
     {
         player.Shield += player.Stats[Item.AttributeStat.HP].Value * 0.05f;
     }
