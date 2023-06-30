@@ -18,15 +18,13 @@ public class BattleSimulator : EditorWindow
     private readonly List<Data> _gearsData = new();
     private readonly List<Data> _supportsData = new();
 
-    // TODO: To Enemy
     private readonly List<Gear> _gears = new();
     private List<SupportCharacterSO> _supports = new();
-    private List<Entity> _enemies;
+    private List<Entity> _enemies; // TODO: To Enemy
 
-    // TODO: To Enemy 
-    private readonly List<Entity> _selectedEnemies = new();
-    private readonly List<SupportCharacterSO> _selectedSupports = new();
     private readonly Dictionary<Item.GearType, Gear> _selectedGears = new();
+    private readonly List<SupportCharacterSO> _selectedSupports = new();
+    private readonly List<Entity> _selectedEnemies = new(); // TODO: To Enemy 
 
     private Player _player;
 
@@ -106,6 +104,17 @@ public class BattleSimulator : EditorWindow
         }
         #endregion
 
+        #region Weapon
+        List<GearSO> weaponsSO = new(Resources.LoadAll<GearSO>("SO/Weapons"));
+        foreach (GearSO weapon in weaponsSO)
+        {
+            Gear NewWeapon = new(weapon);
+            _weapons.Add(NewWeapon);
+            _weaponDropdown.choices.Add("No Weapon");
+            _weaponDropdown.choices.Add(NewWeapon.Name);
+        }
+        #endregion
+
         #region Supports
         _supports = new(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
 
@@ -155,18 +164,7 @@ public class BattleSimulator : EditorWindow
         }
         #endregion
 
-        List<GearSO> weaponsSO = new(Resources.LoadAll<GearSO>("SO/Weapons"));
-        foreach (GearSO weapon in weaponsSO)
-        {
-            Gear NewWeapon = new(weapon);
-            _weapons.Add(NewWeapon);
-            _weaponDropdown.choices.Add("No Weapon");
-            _weaponDropdown.choices.Add(NewWeapon.Name);
-        }
-
         ChangeFoldoutOnDropdown();
-        _player = new();
-
     }
 
     private void OnGUI()
@@ -355,6 +353,7 @@ public class BattleSimulator : EditorWindow
         // Repaint();
         _simulateButton.clicked += () =>
         {
+            _player = new();
             Debug.LogWarning(_player.Name);
             Debug.LogWarning(_selectedWeapon.Name);
             Debug.LogWarning(_selectedSupports.Count);
