@@ -10,7 +10,7 @@ public class PlayFabManager : MonoBehaviour
 {
     public enum GameCurrency //TODO -> move elsewhere
     {
-        Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency
+        Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency, Gemstone
     }
 
     public static PlayFabManager Instance { get; private set; }

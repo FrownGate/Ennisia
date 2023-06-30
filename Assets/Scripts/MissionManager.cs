@@ -217,6 +217,7 @@ public class MissionManager : MonoBehaviour
     {
 
         List<KeyValuePair<PlayFabManager.GameCurrency, int>> rewards = CurrentMission.RewardsList.ToList();
+        //List < KeyValuePair<Item.ItemRarity> > gearRewads = CurrentMission.GearRewards.ToList();
         for (int i = 0; i < CurrentMission.RewardsList.Count; i++)
         {
             string type = rewards[i].Key.ToString();
@@ -226,9 +227,17 @@ public class MissionManager : MonoBehaviour
                 Debug.Log("Des SOUS !!!");
             } 
         }
+       /* for (int i = 0; i < CurrentMission.GearRewards.Count; i++)
+        {
+                RewardsDrop.Instance.DropGear(GearRewards)
+                Debug.Log("Des GEAR !!!");
+        }*/
         ExperienceSystem.Instance.GainExperienceAccount(CurrentMission.Experience);
         ExperienceSystem.Instance.GainExperiencePlayer(CurrentMission.Experience);
         Debug.Log("De l'XP !!!");
+
+            
+
     }
 
 }
