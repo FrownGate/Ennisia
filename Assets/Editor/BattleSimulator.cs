@@ -2,17 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
-using System;
-using System.Linq;
+
 public class BattleSimulator : EditorWindow
 {
-    //public class EnemyInfo
-    //{
-    //    public DropdownField Dropdown;
-    //    public Dictionary<Item.AttributeStat, IntegerField> Stats;
-    //    public Foldout Foldout;
-    //}
-
     public class Data
     {
         public DropdownField Dropdown;
@@ -23,18 +15,20 @@ public class BattleSimulator : EditorWindow
     private readonly List<Data> _enemiesData = new();
     private readonly List<Data> _gearsData = new();
 
+    // TODO: To Enemy
+    private readonly List<Gear> _gears = new();
+    private List<SupportCharacterSO> _supports = new();
+    private readonly List<Entity> _enemies = new();
+
+    // TODO: To Enemy 
+    private readonly List<Entity> _selectedEnemies = new();
+    private readonly List<SupportCharacterSO> _selectedSupports = new();
+    private readonly Dictionary<Item.GearType, Gear> _selectedGears = new();
+
     private Player _player;
 
     public static BattleSystem Instance;
-    private List<SupportCharacterSO> _supports = new();
     private List<Gear> _weapons = new();
-    // TODO: To Enemy 
-    private List<Entity> _enemies = new();
-    private List<Gear> _gears = new();
-    // TODO: To Enemy 
-    private List<Entity> _selectedEnemies = new();
-    private List<SupportCharacterSO> _selectedSupports = new();
-    private Dictionary<Item.GearType, Gear> _selectedGears = new();
     private Gear _selectedWeapon;
 
     // SUPPORTS
@@ -114,6 +108,34 @@ public class BattleSimulator : EditorWindow
         _weaponFoldout = root.Q<Foldout>("weapon-foldout");
         _weaponFoldout.text = "Weapon Skills";
 
+        #region Gears
+        List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
+        foreach (var gear in gearsSO) _gears.Add(new(gear));
+
+        foreach (var item in root.Query<GroupBox>("GearGroupbox").ToList())
+        {
+            Data gearData = new()
+            {
+                Dropdown = item.Q<DropdownField>("GearDropdown"),
+                Foldout = item.Q<Foldout>("GearFoldout"),
+                IntegerFields = item.Query<IntegerField>().ToList()
+            };
+
+            //TODO -> select this choice by default
+            gearData.Dropdown.choices.Add(_empty);
+
+            // loop through all the IntegerFields and add them to the dictionnary with the name of the stat as a key from _gears
+            foreach (var gear in _gears)
+            {
+                if (gear.Type.ToString() == gearData.Dropdown.label) gearData.Dropdown.choices.Add(gear.Name);
+            }
+            _gearsData.Add(gearData);
+        }
+        #endregion
+
+        #region Supports
+        #endregion
+
         #region Enemies
         _enemies = new EnemyLoader().LoadEnemies("Assets/Resources/CSV/Enemies.csv");
 
@@ -137,31 +159,6 @@ public class BattleSimulator : EditorWindow
             //    enemyData.Stats.Add((Item.AttributeStat)Enum.Parse(typeof(Item.AttributeStat), stat.label), stat);
             //}
             _enemiesData.Add(enemyData);
-        }
-        #endregion
-
-        #region Gears
-        List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
-        foreach (var gear in gearsSO) _gears.Add(new(gear));
-
-        foreach (var item in root.Query<GroupBox>("GearGroupbox").ToList())
-        {
-            Data gearData = new()
-            {
-                Dropdown = item.Q<DropdownField>("GearDropdown"),
-                Foldout = item.Q<Foldout>("GearFoldout"),
-                IntegerFields = item.Query<IntegerField>().ToList()
-            };
-
-            //TODO -> select this choice by default
-            gearData.Dropdown.choices.Add(_empty);
-
-            // loop through all the IntegerFields and add them to the dictionnary with the name of the stat as a key from _gears
-            foreach (var gear in _gears)
-            {
-                if (gear.Type.ToString() == gearData.Dropdown.label) gearData.Dropdown.choices.Add(gear.Name);
-            }
-            _gearsData.Add(gearData);
         }
         #endregion
 
@@ -244,6 +241,7 @@ public class BattleSimulator : EditorWindow
             }
         });
 
+        //Gears
         foreach (var data in _gearsData)
         {
             data.Dropdown.RegisterValueChangedCallback(evt =>
@@ -261,7 +259,7 @@ public class BattleSimulator : EditorWindow
             });
         }
 
-        //int i = 0;
+        //Enemies
         foreach (var data in _enemiesData)
         {
             data.Dropdown.RegisterValueChangedCallback(evt =>
@@ -282,7 +280,6 @@ public class BattleSimulator : EditorWindow
 
     private void ChangeEnemyFields(string enemyName, Data enemyData)
     {
-        // TODO: To Enemy 
         Entity enemy = _enemies.Find(x => x.Name == enemyName);
         _selectedEnemies.Add(enemy);
 
@@ -292,7 +289,8 @@ public class BattleSimulator : EditorWindow
         {
             Debug.Log(stat.Key);
             //TODO -> check enemy stats
-            if (stat.Key == Item.AttributeStat.DefIgnoref || stat.Key.ToString() == "10") continue;
+            if (stat.Key == Item.AttributeStat.DefIgnoref) continue;
+            //if (stat.Key == Item.AttributeStat.DefIgnoref || stat.Key.ToString() == "10") continue;
             ChangeStatField(enemyData.IntegerFields[index], stat.Key.ToString(), (int)stat.Value.Value);
             index++;
         }
