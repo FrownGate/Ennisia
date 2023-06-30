@@ -71,16 +71,16 @@
                     <ui:TextField picking-mode="Ignore" label="Skill 2" value="filler text" name="Skill2" style="top: 10px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="FirstSupport" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 760px; right: auto; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Support 1" index="-1" name="first-support-dropdown" />
-                <ui:Foldout text="Foldout" name="first-support-foldout" style="width: 100%;">
+            <ui:GroupBox name="SupportGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 760px; right: auto; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Support 1" index="-1" name="SupportDropdown" />
+                <ui:Foldout text="Foldout" name="SupportFoldout" style="width: 100%;">
                     <ui:TextField picking-mode="Ignore" label="Skill 1" value="filler text" name="Skill1" style="top: 10px;" />
                     <ui:TextField picking-mode="Ignore" label="Skill 2" value="filler text" name="Skill2" style="top: 10px;" />
                 </ui:Foldout>
             </ui:GroupBox>
-            <ui:GroupBox name="SecondSupport" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 890px; right: auto; left: auto; flex-basis: 0;">
-                <ui:DropdownField label="Support 2" index="-1" name="second-support-dropdown" />
-                <ui:Foldout text="Foldout" name="second-support-foldout" style="width: 100%;">
+            <ui:GroupBox name="SupportGroupbox" style="width: auto; align-items: auto; align-self: auto; justify-content: center; visibility: visible; flex-direction: column; flex-wrap: nowrap; position: absolute; height: auto; top: 890px; right: auto; left: auto; flex-basis: 0;">
+                <ui:DropdownField label="Support 2" index="-1" name="SupportDropdown" />
+                <ui:Foldout text="Foldout" name="SupportFoldout" style="width: 100%;">
                     <ui:TextField picking-mode="Ignore" label="Skill 1" value="filler text" name="Skill1" style="top: 10px;" />
                     <ui:TextField picking-mode="Ignore" label="Skill 2" value="filler text" name="Skill2" style="top: 10px;" />
                 </ui:Foldout>
