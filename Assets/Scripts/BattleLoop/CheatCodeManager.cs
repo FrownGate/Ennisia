@@ -4,38 +4,67 @@ using System;
 
 namespace CheatCode
 {
+    public class CheatCodeData
+    {
+        internal string activationKey;
+        internal Action effect;
+        internal CheatCode cheatCode;
+
+        public CheatCodeData(string key, Action effect, CheatCode cheatCode)
+        {
+            this.activationKey = key;
+            this.effect = effect;
+            this.cheatCode = cheatCode;
+        }
+    }
     public enum CheatCode
     {
-        UnlimitedHealth,
-        NoCooldown,
-        DoubleDamage,
         GodMode,
+        UnlimitedAmmo,
+        UnlockAllLevels
     }
 
     public class CheatCodeManager
     {
-        private Dictionary<string, Action> cheatEffects;
+        List<CheatCodeData> cheatCodes;
+        public HashSet<CheatCode> activeCheatCodes;
 
         public CheatCodeManager()
         {
-            cheatEffects = new Dictionary<string, Action>();
+            activeCheatCodes = new();
+            cheatCodes = new()
+            {
+                new CheatCodeData("godmode", ActivateGodMode, CheatCode.GodMode),
+                new CheatCodeData("unlimitedammo", ActivateUnlimitedAmmo, CheatCode.UnlimitedAmmo),
+                new CheatCodeData("unlockalllevels", UnlockAllLevels, CheatCode.UnlockAllLevels)
+            };
 
-            // Map input values to cheat effects
-            cheatEffects.Add("godmode", ActivateGodMode);
-            cheatEffects.Add("unlimitedammo", ActivateUnlimitedAmmo);
-            cheatEffects.Add("unlocklevels", UnlockAllLevels);
         }
 
-        public void CheckInputAndActivateCheat(string input)
+        public void CheckAndActivateCheat(string input)
         {
-            if (cheatEffects.TryGetValue(input.ToLower(), out var cheatEffect))
+            input = input.ToLower();
+            foreach (CheatCodeData cheatCode in cheatCodes)
             {
-                cheatEffect.Invoke();
+                if (input == cheatCode.activationKey)
+                {
+                    if (!activeCheatCodes.Contains(cheatCode.cheatCode))
+                    {
+                        cheatCode.effect();
+                        activeCheatCodes.Add(cheatCode.cheatCode);
+                    }
+                    else
+                    {
+                        Debug.Log("Cheat code already activated");
+                    }
+                }
             }
-            else
-            {
-                Debug.LogWarning($"Invalid cheat code: {input}");
-            }
+        }
+
+        public void RemoveCheatCode(CheatCode cheatCode)
+        {
+            // TODO: Remove effects of cheat code
+            activeCheatCodes.Remove(cheatCode);
         }
 
         private void ActivateGodMode()

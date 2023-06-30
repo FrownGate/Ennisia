@@ -35,8 +35,13 @@ public class CheatCodeWindow : EditorWindow
         CheatCodeManager cheatCodeManager = new();
         activateButton.clickable.clicked += () =>
         {
-            string cheatCode = codeInput.value;
-            
+            cheatCodeManager.CheckAndActivateCheat(codeInput.value);
+            ClearInput(codeInput);
+
         };
+    }
+    private void ClearInput(TextField textField)
+    {
+        textField.value = "";
     }
 }
