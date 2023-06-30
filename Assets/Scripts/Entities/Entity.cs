@@ -66,8 +66,15 @@ public abstract class Entity
         else
         {
             CurrentHp -= damage;
+            CurrentHp = CurrentHp < 0 ? 0 : CurrentHp;
         }
         
+    }
+
+    public virtual void Heal(float amount)
+    {
+        CurrentHp += amount;
+        CurrentHp = CurrentHp > Stats[Item.AttributeStat.HP].Value ? Stats[Item.AttributeStat.HP].Value : CurrentHp;
     }
 
     public virtual bool HaveBeenTargeted() { return true; }
