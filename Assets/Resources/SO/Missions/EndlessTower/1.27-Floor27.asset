@@ -18,10 +18,18 @@ MonoBehaviour:
   State: 0
   EnergyCost: 0
   Unlocked: 0
+  Waves:
+    _serializedList: []
   WavesCount: 0
   Enemies: []
   DialogueId: -1
   ChapterId: 1
   NumInChapter: 27
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
   GearReward: 
   Experience: 10

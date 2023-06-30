@@ -18,6 +18,44 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
+  Waves:
+    _serializedList:
+    - Key: 0
+      Value:
+      - Elven Knight
+      - Elven Knight
+      - Elven Knight
+      - Elven Mage
+      - Elven Knight
+      - Elven Knight
+      - Elven Archer
+      - Oliver
+      - Elven Mage
+      - Oliver
+    - Key: 1
+      Value:
+      - Elven Knight
+      - Elven Knight
+      - Elven Knight
+      - Elven Mage
+      - Elven Knight
+      - Elven Knight
+      - Elven Archer
+      - Oliver
+      - Elven Mage
+      - Oliver
+    - Key: 2
+      Value:
+      - Elven Knight
+      - Elven Knight
+      - Elven Knight
+      - Elven Mage
+      - Elven Knight
+      - Elven Knight
+      - Elven Archer
+      - Oliver
+      - Elven Mage
+      - Oliver
   WavesCount: 3
   Enemies:
   - Elven Knight
@@ -27,5 +65,11 @@ MonoBehaviour:
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 4
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
   GearReward: 
   Experience: 10

@@ -18,6 +18,44 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
+  Waves:
+    _serializedList:
+    - Key: 0
+      Value:
+      - Green Slime
+      - Green Slime
+      - Green Slime
+      - Goblin
+      - Goblin
+      - Goblin
+      - Red Slime
+      - Rock Golem
+      - Goblin
+      - Goblin
+    - Key: 1
+      Value:
+      - Green Slime
+      - Green Slime
+      - Green Slime
+      - Goblin
+      - Goblin
+      - Goblin
+      - Red Slime
+      - Rock Golem
+      - Goblin
+      - Goblin
+    - Key: 2
+      Value:
+      - Green Slime
+      - Green Slime
+      - Green Slime
+      - Goblin
+      - Goblin
+      - Goblin
+      - Red Slime
+      - Rock Golem
+      - Goblin
+      - Goblin
   WavesCount: 3
   Enemies:
   - Green Slime
@@ -27,5 +65,11 @@ MonoBehaviour:
   DialogueId: 0
   ChapterId: 2
   NumInChapter: 3
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
   GearReward: 
   Experience: 10
