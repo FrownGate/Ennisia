@@ -7,13 +7,16 @@ public class BattleSimulator : EditorWindow
 {
     public class Data
     {
+        public int Id;
         public DropdownField Dropdown;
         public Foldout Foldout;
         public List<IntegerField> IntegerFields;
+        public List<TextField> TextFields;
     }
 
     private readonly List<Data> _enemiesData = new();
     private readonly List<Data> _gearsData = new();
+    private readonly List<Data> _supportsData = new();
 
     // TODO: To Enemy
     private readonly List<Gear> _gears = new();
@@ -30,17 +33,6 @@ public class BattleSimulator : EditorWindow
     public static BattleSystem Instance;
     private List<Gear> _weapons = new();
     private Gear _selectedWeapon;
-
-    // SUPPORTS
-    private GroupBox _firstSupportGroupBox;
-    private GroupBox _secondSupportGroupBox;
-
-    private DropdownField _firstSupportDropdown;
-    private DropdownField _secondSupportDropdown;
-    private Foldout _firstSupportFoldout;
-    private Foldout _secondSupportFoldout;
-    private readonly List<TextField> _firstSupportSkillField = new();
-    private readonly List<TextField> _secondSupportSkillField = new();
 
     // WEAPON
     private GroupBox _weaponGroupBox;
@@ -62,7 +54,6 @@ public class BattleSimulator : EditorWindow
             return;
         }
 
-        GetWindow<BattleSimulator>(_toolName);
         BattleSimulator window = GetWindow<BattleSimulator>(_toolName);
         GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
         window.titleContent = new GUIContent(_toolName, icon.image, _toolName);
@@ -72,30 +63,10 @@ public class BattleSimulator : EditorWindow
     private void CreateGUI()
     {
         VisualElement root = rootVisualElement;
-
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
-        TemplateContainer labelFromUXML = visualTree.CloneTree();
-        root.Add(labelFromUXML);
+        root.Add(visualTree.CloneTree());
 
         _simulateButton = root.Q<Button>("simulate-button");
-
-        _firstSupportGroupBox = root.Q<GroupBox>("FirstSupport");
-        _secondSupportGroupBox = root.Q<GroupBox>("SecondSupport");
-
-        _firstSupportSkillField.Add(_firstSupportGroupBox.Q<TextField>("Skill1"));
-        _firstSupportSkillField.Add(_firstSupportGroupBox.Q<TextField>("Skill2"));
-
-        _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill1"));
-        _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill2"));
-
-        _firstSupportDropdown = root.Q<DropdownField>("first-support-dropdown");
-        _secondSupportDropdown = root.Q<DropdownField>("second-support-dropdown");
-
-        _firstSupportFoldout = root.Q<Foldout>("first-support-foldout");
-        _secondSupportFoldout = root.Q<Foldout>("second-support-foldout");
-
-        _firstSupportFoldout.text = "Support Skills";
-        _secondSupportFoldout.text = "Support Skills";
 
         _weaponGroupBox = root.Q<GroupBox>("Weapon");
 
@@ -121,8 +92,8 @@ public class BattleSimulator : EditorWindow
                 IntegerFields = item.Query<IntegerField>().ToList()
             };
 
-            //TODO -> select this choice by default
             gearData.Dropdown.choices.Add(_empty);
+            gearData.Dropdown.value = _empty;
 
             // loop through all the IntegerFields and add them to the dictionnary with the name of the stat as a key from _gears
             foreach (var gear in _gears)
@@ -134,6 +105,29 @@ public class BattleSimulator : EditorWindow
         #endregion
 
         #region Supports
+        _supports = new(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
+
+        int id = 0;
+        foreach (var item in root.Query<GroupBox>("SupportGroupbox").ToList())
+        {
+            Data supportData = new()
+            {
+                Id = id,
+                Dropdown = item.Q<DropdownField>("SupportDropdown"),
+                Foldout = item.Q<Foldout>("SupportFoldout"),
+                TextFields = item.Query<TextField>().ToList()
+            };
+
+            supportData.Dropdown.choices.Add(_empty);
+            supportData.Dropdown.value = _empty;
+            supportData.Foldout.text = "Support Skills";
+
+            foreach (SupportCharacterSO support in _supports) supportData.Dropdown.choices.Add(support.Name);
+
+            HideData(supportData);
+            _supportsData.Add(supportData);
+            id++;
+        }
         #endregion
 
         #region Enemies
@@ -148,8 +142,8 @@ public class BattleSimulator : EditorWindow
                 IntegerFields = item.Query<IntegerField>().ToList()
             };
 
-            //TODO -> select this choice by default
             enemyData.Dropdown.choices.Add(_empty);
+            enemyData.Dropdown.value = _empty;
             enemyData.Foldout.text = "Enemy Stats";
 
             foreach (Entity enemy in _enemies) enemyData.Dropdown.choices.Add(enemy.Name);
@@ -161,15 +155,6 @@ public class BattleSimulator : EditorWindow
             _enemiesData.Add(enemyData);
         }
         #endregion
-
-        _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
-        foreach (SupportCharacterSO support in _supports)
-        {
-            _firstSupportDropdown.choices.Add("No Support");
-            _firstSupportDropdown.choices.Add(support.Name);
-            _secondSupportDropdown.choices.Add("No Support");
-            _secondSupportDropdown.choices.Add(support.Name);
-        }
 
         List<GearSO> weaponsSO = new(Resources.LoadAll<GearSO>("SO/Weapons"));
         foreach (GearSO weapon in weaponsSO)
@@ -210,36 +195,22 @@ public class BattleSimulator : EditorWindow
             }
         });
 
-        // SUPPORTS
-        _firstSupportDropdown.RegisterValueChangedCallback(evt =>
+        //Supports
+        foreach (var data in _supportsData)
         {
-            if (evt.newValue != "No Support")
+            data.Dropdown.RegisterValueChangedCallback(evt =>
             {
-                _firstSupportFoldout.visible = true;
-                _firstSupportFoldout.text = evt.newValue;
+                if (evt.newValue != _empty)
+                {
+                    data.Foldout.visible = true;
+                    data.Foldout.text = evt.newValue;
+                    ChangeSupportFields(data);
+                    return;
+                }
 
-                ChangeSupportFields(evt.newValue, _firstSupportSkillField);
-            }
-            else
-            {
-                _firstSupportFoldout.visible = false;
-            }
-        });
-
-        _secondSupportDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Support")
-            {
-                _secondSupportFoldout.visible = true;
-                _secondSupportFoldout.text = evt.newValue;
-
-                ChangeSupportFields(evt.newValue, _secondSupportSkillField);
-            }
-            else
-            {
-                _secondSupportFoldout.visible = false;
-            }
-        });
+                HideData(data);
+            });
+        }
 
         //Gears
         foreach (var data in _gearsData)
@@ -296,17 +267,27 @@ public class BattleSimulator : EditorWindow
         }
     }
 
-    private void ChangeSupportFields(string supportName, List<TextField> supportFields)
+    private void ChangeSupportFields(Data supportData)
     {
-        SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
+        _selectedSupports.Clear();
 
-        supportFields[0].label = support.PrimarySkillData.IsPassive ? "Passive" : "Active";
-        supportFields[1].label = support.SecondarySkillData.IsPassive ? "Passive" : "Active";
+        foreach (var support in _supportsData)
+        {
+            SupportCharacterSO supportSO = _supports.Find(x => x.Name == support.Dropdown.value);
+            _selectedSupports.Add(supportSO != null ? supportSO : null);
 
-        supportFields[0].SetValueWithoutNotify(support.PrimarySkillData.Name);
-        supportFields[1].SetValueWithoutNotify(support.SecondarySkillData.Name);
-        Debug.Log(support);
-        _selectedSupports.Add(support);
+            if (support != supportData) continue;
+
+            supportData.TextFields[0].visible = true;
+            supportData.TextFields[0].label = supportSO.PrimarySkillData.IsPassive ? "Passive" : "Active";
+            supportData.TextFields[0].SetValueWithoutNotify(supportSO.PrimarySkillData.Name);
+
+            supportData.TextFields[1].visible = supportSO.SecondarySkillData != null;
+            if (supportSO.SecondarySkillData == null) continue;
+
+            supportData.TextFields[1].label = supportSO.SecondarySkillData.IsPassive ? "Passive" : "Active";
+            supportData.TextFields[1].SetValueWithoutNotify(supportSO.SecondarySkillData.Name);
+        }
     }
     private void ChangeGearFields(string gearName, Data gearData)
     {
@@ -351,7 +332,20 @@ public class BattleSimulator : EditorWindow
         weaponSkillFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
     }
 
-    
+    private void HideData(Data data)
+    {
+        if (data.TextFields != null)
+        {
+            foreach (var field in data.TextFields) field.visible = false;
+        }
+
+        if (data.IntegerFields != null)
+        {
+            foreach (var field in data.IntegerFields) field.visible = false;
+        }
+
+        data.Foldout.visible = false;
+    }
 
     private void OnInspectorUpdate()
     {
