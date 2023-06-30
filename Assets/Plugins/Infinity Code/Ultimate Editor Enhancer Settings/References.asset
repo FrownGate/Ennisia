@@ -355,12 +355,28 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: SettingsPopup
+    path: Assets/Scenes/SettingsPopup.unity
+  - name: EventPopup
+    path: Assets/Scenes/EventPopup.unity
+  - name: MailPopup
+    path: Assets/Scenes/MailPopup.unity
+  - name: MenuPopup
+    path: Assets/Scenes/MenuPopup.unity
+  - name: ProfilePopup
+    path: Assets/Scenes/ProfilePopup.unity
+  - name: BattleModeSelection
+    path: Assets/Scenes/Missions/BattleModeSelection.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: Expedition
+    path: Assets/Scenes/Missions/Expedition.unity
+  - name: PlayerGuild
+    path: Assets/Scenes/Guilds/PlayerGuild.unity
   - name: GuildsList
     path: Assets/Scenes/Guilds/GuildsList.unity
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
   - name: Loading_Mini
     path: Assets/Scenes/Loading_Mini.unity
   - name: Yoann
