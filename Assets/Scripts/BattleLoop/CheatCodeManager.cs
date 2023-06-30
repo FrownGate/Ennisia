@@ -7,12 +7,14 @@ namespace CheatCode
     public class CheatCodeData
     {
         internal string activationKey;
+        internal string alternateKey;
         internal Action effect;
         internal CheatCode cheatCode;
 
-        public CheatCodeData(string key, Action effect, CheatCode cheatCode)
+        public CheatCodeData(string key, string alternateKey, Action effect, CheatCode cheatCode)
         {
             this.activationKey = key;
+            this.alternateKey = alternateKey;
             this.effect = effect;
             this.cheatCode = cheatCode;
         }
@@ -20,8 +22,6 @@ namespace CheatCode
     public enum CheatCode
     {
         GodMode,
-        UnlimitedAmmo,
-        UnlockAllLevels
     }
 
     public class CheatCodeManager
@@ -34,9 +34,7 @@ namespace CheatCode
             activeCheatCodes = new();
             cheatCodes = new()
             {
-                new CheatCodeData("godmode", ActivateGodMode, CheatCode.GodMode),
-                new CheatCodeData("unlimitedammo", ActivateUnlimitedAmmo, CheatCode.UnlimitedAmmo),
-                new CheatCodeData("unlockalllevels", UnlockAllLevels, CheatCode.UnlockAllLevels)
+                new CheatCodeData("godmode","poweroverwhelming", ActivateGodMode, CheatCode.GodMode),
             };
 
         }
@@ -46,7 +44,7 @@ namespace CheatCode
             input = input.ToLower();
             foreach (CheatCodeData cheatCode in cheatCodes)
             {
-                if (input == cheatCode.activationKey)
+                if (input == cheatCode.activationKey || input == cheatCode.alternateKey)
                 {
                     if (!activeCheatCodes.Contains(cheatCode.cheatCode))
                     {
