@@ -190,7 +190,7 @@ public class Gear : Item
         if (_level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
 
-        Level++;
+
         Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
 
         PlayFabManager.Instance.UpdateItem(this);
