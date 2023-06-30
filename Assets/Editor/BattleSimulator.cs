@@ -100,6 +100,8 @@ public class BattleSimulator : EditorWindow
             {
                 if (gear.Type.ToString() == gearData.Dropdown.label) gearData.Dropdown.choices.Add(gear.Name);
             }
+
+            HideData(gearData);
             _gearsData.Add(gearData);
         }
         #endregion
@@ -148,10 +150,7 @@ public class BattleSimulator : EditorWindow
 
             foreach (Entity enemy in _enemies) enemyData.Dropdown.choices.Add(enemy.Name);
 
-            //foreach (IntegerField stat in statList)
-            //{
-            //    enemyData.Stats.Add((Item.AttributeStat)Enum.Parse(typeof(Item.AttributeStat), stat.label), stat);
-            //}
+            HideData(enemyData);
             _enemiesData.Add(enemyData);
         }
         #endregion
@@ -222,11 +221,10 @@ public class BattleSimulator : EditorWindow
                     data.Foldout.visible = true;
                     data.Foldout.text = evt.newValue;
                     ChangeGearFields(evt.newValue, data);
+                    return;
                 }
-                else
-                {
-                    data.Foldout.visible = false;
-                }
+
+                HideData(data);
             });
         }
 
@@ -240,11 +238,10 @@ public class BattleSimulator : EditorWindow
                     data.Foldout.visible = true;
                     data.Foldout.text = evt.newValue;
                     ChangeEnemyFields(data);
+                    return;
                 }
-                else
-                {
-                    data.Foldout.visible = false;
-                }
+                
+                HideData(data);
             });
         }
     }
