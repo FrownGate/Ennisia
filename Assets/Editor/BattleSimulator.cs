@@ -19,19 +19,16 @@ public class BattleSimulator : EditorWindow
     private readonly List<Data> _supportsData = new();
     private readonly List<Data> _enemiesData = new();
 
+    private Player _player;
     private readonly List<Gear> _gears = new();
     private readonly List<Gear> _weapons = new();
     private List<SupportCharacterSO> _supports;
-    private List<Entity> _enemies; // TODO: To Enemy
+    private List<Entity> _enemies;
 
     private readonly Dictionary<Item.GearType, Gear> _selectedGears = new();
     private Gear _selectedWeapon;
     private readonly List<SupportCharacterSO> _selectedSupports = new();
-    private readonly List<Entity> _selectedEnemies = new(); // TODO: To Enemy 
-
-    private Player _player;
-
-    public static BattleSystem Instance;
+    private readonly List<Entity> _selectedEnemies = new();
 
     private Button _simulateButton;
     private static readonly string _toolName = "Battle Simulator";
@@ -58,6 +55,7 @@ public class BattleSimulator : EditorWindow
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
         root.Add(visualTree.CloneTree());
 
+        BattleSystem.OnBattleSystemLoaded += StartBattle;
         _simulateButton = root.Q<Button>("simulate-button");
         _simulateButton.clicked += CreateBattle;
 
@@ -170,6 +168,7 @@ public class BattleSimulator : EditorWindow
 
     private void OnDestroy()
     {
+        BattleSystem.OnBattleSystemLoaded -= StartBattle;
         _simulateButton.clicked -= CreateBattle;
     }
 
@@ -352,8 +351,6 @@ public class BattleSimulator : EditorWindow
 
     private void CreateBattle()
     {
-        _player = new();
-
         if (_selectedWeapon == null)
         {
             Debug.LogError("You need to choose a weapon.");
@@ -377,6 +374,16 @@ public class BattleSimulator : EditorWindow
             return;
         }
 
-        //Instance.SimulateBattle(_player, _selectedEnemies, _selectedSupports, _selectedWeapon, tempGears);
+        _player = new()
+        {
+            Weapon = _selectedWeapon.WeaponSO
+        };
+
+        ScenesManager.Instance.SetScene("Battle");
+    }
+
+    private void StartBattle(BattleSystem battleSystem)
+    {
+        battleSystem.SimulateBattle(_player, _selectedEnemies);
     }
 }
