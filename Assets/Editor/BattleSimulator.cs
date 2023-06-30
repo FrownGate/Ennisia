@@ -258,10 +258,7 @@ public class BattleSimulator : EditorWindow
 
         foreach (var stat in enemy.Stats)
         {
-            Debug.Log(stat.Key);
-            //TODO -> check enemy stats
             if (stat.Key == Item.AttributeStat.DefIgnoref) continue;
-            //if (stat.Key == Item.AttributeStat.DefIgnoref || stat.Key.ToString() == "10") continue;
             ChangeStatField(enemyData.IntegerFields[index], stat.Key.ToString(), (int)stat.Value.Value);
             index++;
         }
