@@ -239,7 +239,7 @@ public class BattleSimulator : EditorWindow
                 {
                     data.Foldout.visible = true;
                     data.Foldout.text = evt.newValue;
-                    ChangeEnemyFields(evt.newValue, data);
+                    ChangeEnemyFields(data);
                 }
                 else
                 {
@@ -249,19 +249,28 @@ public class BattleSimulator : EditorWindow
         }
     }
 
-    private void ChangeEnemyFields(string enemyName, Data enemyData)
+    private void ChangeEnemyFields(Data enemyData)
     {
-        Entity enemy = _enemies.Find(x => x.Name == enemyName);
-        _selectedEnemies.Add(enemy);
+        _selectedEnemies.Clear();
 
-        int index = 0;
-
-        foreach (var stat in enemy.Stats)
+        foreach (var enemy in _enemiesData)
         {
-            if (stat.Key == Item.AttributeStat.DefIgnoref) continue;
-            ChangeStatField(enemyData.IntegerFields[index], stat.Key.ToString(), (int)stat.Value.Value);
-            index++;
+            Entity enemySO = _enemies.Find(x => x.Name == enemy.Dropdown.value);
+            _selectedEnemies.Add(enemySO ?? null);
+
+            if (enemy != enemyData) continue;
+
+            int index = 0;
+
+            foreach (var stat in enemySO.Stats)
+            {
+                if (stat.Key == Item.AttributeStat.DefIgnoref) continue;
+                ChangeStatField(enemyData.IntegerFields[index], stat.Key.ToString(), (int)stat.Value.Value);
+                index++;
+            }
         }
+
+        foreach (var enemy in _selectedEnemies) Debug.Log(enemy != null ? enemy.Name : _empty);
     }
 
     private void ChangeSupportFields(Data supportData)
@@ -271,7 +280,7 @@ public class BattleSimulator : EditorWindow
         foreach (var support in _supportsData)
         {
             SupportCharacterSO supportSO = _supports.Find(x => x.Name == support.Dropdown.value);
-            _selectedSupports.Add(supportSO != null ? supportSO : null);
+            _selectedSupports.Add(supportSO ?? null);
 
             if (support != supportData) continue;
 
