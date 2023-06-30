@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
+    public static event Action<BattleSystem> OnBattleSystemLoaded;
+
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _firstSupport;
@@ -177,14 +179,8 @@ public class BattleSystem : StateMachine
 
     public void SimulateBattle(Player player = null, List<Entity> enemies = null)
     {
-        if (player != null)
-        {
-            Player = player;
-        }
-        if (enemies != null)
-        {
-            Enemies = enemies;
-        }
+        Player = player ?? Player;
+        Enemies = enemies ?? Enemies;
         SetState(new AutoBattle(this));
     }
 

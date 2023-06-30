@@ -17,7 +17,8 @@ public class MissionSO : ScriptableObject
     public int DialogueId;
     public int ChapterId;
     public int NumInChapter;
-    [ShowNonSerializedField] public Dictionary<PlayFabManager.GameCurrency, int> RewardsList = new();
+    [ShowNonSerializedField] public Dictionary<PlayFabManager.GameCurrency, int> CurrencyRewards = new();
+    public List<Item.ItemRarity> GearReward;
     public int Experience; 
     // Add additional mission data as needed
 }
