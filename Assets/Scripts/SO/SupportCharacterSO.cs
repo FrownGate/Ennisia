@@ -10,7 +10,8 @@ public class SupportCharacterSO : ScriptableObject
     public string Rarity;
     public string Race;
     public string Job;
-    public string Element; //TODO -> replace with Element enum
+    public Element.ElementType Element;
+    //TODO -> Use array or list to store supports skills
     [Expandable] public SkillSO PrimarySkillData;
     [Expandable] public SkillSO SecondarySkillData;
     [HideInInspector] public Skill PrimarySkill;

@@ -17,7 +17,7 @@ MonoBehaviour:
   Rarity: Legendary
   Race: Beast
   Job: Mage
-  Element: Earth
+  Element: 3
   PrimarySkillData: {fileID: 11400000, guid: 8cfefd4e6a2f60a4bb9c9d0a50207a76, type: 2}
   SecondarySkillData: {fileID: 11400000, guid: a9818dc537e24be48b02a643be7653ef, type: 2}
   Description: "No one knows how old Ugho truly is as no one has ever seen his face,

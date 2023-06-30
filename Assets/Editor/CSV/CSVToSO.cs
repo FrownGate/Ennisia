@@ -201,7 +201,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Rarity = rowData["Rarity"];
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
-        scriptableObject.Element = rowData["Element"];
+        scriptableObject.Element = Enum.Parse<Element.ElementType>( rowData["Element"]);
         AssignSkillData(rowData, "PrimarySkill", ref scriptableObject.PrimarySkillData);
         AssignSkillData(rowData, "SecondarySkill", ref scriptableObject.SecondarySkillData);
 
@@ -346,20 +346,26 @@ public class CSVToSO : EditorWindow
         scriptableObject.EnergyCost = int.Parse(rowData["EnergyCost"]);
         scriptableObject.Unlocked = bool.Parse(rowData["Unlocked"]);
 
-        Dictionary<int, string> waves = new();
+        Dictionary<int, List<string>> waves = new();
         HashSet<string> enemies = new(); // Use HashSet to avoid duplicates
+        List<string> enemiesInWaveList = new();
         var waveCount = 0;
         var i = 1;
         while (rowData.ContainsKey($"Wave{i}"))
         {
             var wave = rowData[$"Wave{i}"];
-            if (!wave.Equals("none"))
+            if (!wave.Equals(""))
             {
-                waves.Add(waveCount, wave);
-                waveCount++;
-
+               
+                
                 var waveEnemies = wave.Split(',');
-                foreach (var enemy in waveEnemies) enemies.Add(enemy);
+                foreach (var enemy in waveEnemies)
+                {
+                    enemiesInWaveList.Add(enemy);
+                    enemies.Add(enemy);
+                }
+                waves.Add(waveCount, enemiesInWaveList);
+                waveCount++;
             }
 
             i++;
@@ -382,7 +388,7 @@ public class CSVToSO : EditorWindow
             if (!Enum.TryParse(Rewardtype, out PlayFabManager.GameCurrency currencyType)) continue;
             Debug.Log(rowData[Rewardtype]);
 
-            scriptableObject.RewardsList.Add(currencyType, int.Parse(rowData[Rewardtype]));
+            scriptableObject.CurrencyRewards.Add(currencyType, int.Parse(rowData[Rewardtype]));
         }
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);

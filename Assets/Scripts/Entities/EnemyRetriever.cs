@@ -1,23 +1,27 @@
 using System.Collections.Generic;
 using System.IO;
+using System;
+using System.Linq;
+using UnityEngine;
 
 public class EnemyLoader
 {
+    private readonly Dictionary<Item.AttributeStat, float> _stats = new();
     //TODO -> Use CSVUtils to get headers and lines
 
     public Enemy LoadEnemyByName(string filePath, string enemyName)
     {
+        _stats.Clear();
+
         using (StreamReader reader = new(filePath))
         {
             string headerLine = reader.ReadLine(); // Skip the header line
             string[] headers = headerLine.Split(',');
+            Dictionary<string, string> rowData = new();
 
-            Dictionary<string, int> stats = new();
-
-            for (int i = 2; i < 11; i++)
+            for (int i = 0; i < 9; i++)
             {
-                // Skip the first two columns Id and Name
-                stats.Add(headers[i], 0);
+                _stats.Add((Item.AttributeStat)i, 0);
             }
 
             while (!reader.EndOfStream)
@@ -31,15 +35,22 @@ public class EnemyLoader
                 {
                     int id = int.Parse(values[0]);
 
-
+                    // Skip the first two columns Id and Name
                     for (int i = 2; i < 11; i++)
                     {
-                        stats[headers[i]] = int.Parse(values[i]);
+                        if (Enum.TryParse(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
+                        {
+                            _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
+                        }
+                        else
+                        {
+                            Debug.LogError($" EnemyRetriever:LoadEnemies... Stat {rowData.ToArray()[i].Key} not found");
+                        }
                     }
 
                     string description = values[11];
 
-                    return new Enemy(id, name, stats, description);
+                    return new Enemy(id, name, _stats, description);
                 }
             }
         }
@@ -49,17 +60,18 @@ public class EnemyLoader
 
     public Enemy LoadEnemyById(string filePath, int enemyId)
     {
+        _stats.Clear();
+
         using (StreamReader reader = new(filePath))
         {
             string headerLine = reader.ReadLine(); // Skip the header line
             string[] headers = headerLine.Split(',');
+            Dictionary<string, string> rowData = new();
 
-            Dictionary<string, int> stats = new();
-
-            for (int i = 2; i < 11; i++)
+            for (int i = 0; i < 9; i++)
             {
-                // Skip the first two columns Id and Name
-                stats.Add(headers[i], 0);
+                _stats.Add((Item.AttributeStat)i, 0);
+
             }
 
             while (!reader.EndOfStream)
@@ -73,14 +85,21 @@ public class EnemyLoader
                 {
                     string name = values[1];
 
+                    // Skip the first two columns Id and Name
                     for (int i = 2; i < 11; i++)
                     {
-                        stats[headers[i]] = int.Parse(values[i]);
+                        if (Enum.TryParse<Item.AttributeStat>(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
+                        {
+                            _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
+                        }
+                        else
+                        {
+                            Debug.LogError($" EnemyRetriever:LoadEnemies... Stat {rowData.ToArray()[i].Key} not found");
+                        }
                     }
-
                     string description = values[11];
 
-                    return new Enemy(id, name, stats, description);
+                    return new Enemy(id, name, _stats, description);
                 }
             }
         }
@@ -88,10 +107,11 @@ public class EnemyLoader
         return null; // Enemy with the specified name was not found
     }
 
-        // TODO: To Enemy 
+    // TODO: To Enemy 
 
     public List<Entity> LoadEnemies(string filePath)
     {
+        _stats.Clear();
         // TODO: To Enemy 
         List<Entity> enemies = new();
 
@@ -99,12 +119,12 @@ public class EnemyLoader
         {
             string headerLine = reader.ReadLine(); // Skip the header line
             string[] headers = headerLine.Split(',');
-            Dictionary<string, int> stats = new();
 
-            for (int i = 2; i < 11; i++)
+            Dictionary<string, string> rowData = new();
+            for (int i = 0; i < 9; i++)
             {
                 // Skip the first two columns Id and Name
-                stats.Add(headers[i], 0);
+                _stats.Add((Item.AttributeStat)i, 0);
             }
 
             while (!reader.EndOfStream)
@@ -112,18 +132,27 @@ public class EnemyLoader
                 string line = reader.ReadLine();
                 string[] values = line.Split(',');
 
+                for (var i = 0; i < headers.Length; i++) rowData[headers[i]] = values[i];
+
                 int id = int.Parse(values[0]);
                 string name = values[1];
 
-                // Loop through the statNumbers arrays    
+                // Skip the first two columns Id and Name
                 for (int i = 2; i < 11; i++)
                 {
-                    stats[headers[i]] = int.Parse(values[i]);
+                    if (Enum.TryParse<Item.AttributeStat>(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
+                    {
+                        _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
+                    }
+                    else
+                    {
+                        Debug.LogError($" EnemyRetriever:LoadEnemies... Stat {rowData.ToArray()[i].Key} not found");
+                    }
                 }
 
                 string description = values[11];
 
-                Enemy enemy = new(id, name, stats, description);
+                Enemy enemy = new(id, name, _stats, description);
                 enemies.Add(enemy);
             }
         }
