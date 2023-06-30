@@ -36,11 +36,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Missions/BattleModeSelection.unity
     guid: 55d6fa4e1512ab041bdccdb546105acd
   - enabled: 1
-    path: Assets/Scenes/SettingsPopup.unity
+    path: Assets/Scenes/MenuPopup.unity
     guid: c1e758dfa5282754a93a2b23908c3fd4
   - enabled: 1
-    path: Assets/Scenes/ProfilePopup.unity
+    path: Assets/Scenes/SettingsPopup.unity
     guid: a2d12d7d40bbbb945a67991d2cf73c6b
+  - enabled: 1
+    path: Assets/Scenes/ProfilePopup.unity
+    guid: 25425c78f2f85e445b7cfcfa3e0311dc
   - enabled: 1
     path: Assets/Scenes/Loading_Big.unity
     guid: 19f45cabb60b2e643838eaa7a7879245
