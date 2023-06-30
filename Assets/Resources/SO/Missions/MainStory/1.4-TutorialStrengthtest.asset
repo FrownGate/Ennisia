@@ -20,43 +20,23 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Elven Knight
-      - Elven Knight
-      - Elven Knight
-      - Elven Mage
-      - Elven Knight
-      - Elven Knight
-      - Elven Archer
-      - Oliver
-      - Elven Mage
-      - Oliver
     - Key: 1
       Value:
       - Elven Knight
       - Elven Knight
       - Elven Knight
       - Elven Mage
-      - Elven Knight
-      - Elven Knight
-      - Elven Archer
-      - Oliver
-      - Elven Mage
-      - Oliver
     - Key: 2
       Value:
       - Elven Knight
       - Elven Knight
-      - Elven Knight
-      - Elven Mage
-      - Elven Knight
-      - Elven Knight
       - Elven Archer
       - Oliver
+    - Key: 3
+      Value:
       - Elven Mage
       - Oliver
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Elven Knight
   - Elven Mage

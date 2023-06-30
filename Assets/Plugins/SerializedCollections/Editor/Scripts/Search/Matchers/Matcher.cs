@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Search.Matchers
+namespace AYellowpaper.SerializedCollections.Editor.Search
 {
     public abstract class Matcher
     {

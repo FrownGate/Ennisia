@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Search.Matchers;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Utility;
 using UnityEditor;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Search
+namespace AYellowpaper.SerializedCollections.Editor.Search
 {
     public class SearchQuery
     {

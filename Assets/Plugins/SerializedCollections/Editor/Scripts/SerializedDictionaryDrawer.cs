@@ -1,9 +1,17 @@
-﻿using System.Collections.Generic;
-using Assets.Plugins.SerializedCollections.Runtime.Scripts;
+﻿using AYellowpaper.SerializedCollections.Editor.Data;
+using AYellowpaper.SerializedCollections.Editor.States;
+using AYellowpaper.SerializedCollections.KeysGenerators;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+using UnityEditorInternal;
 using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts
+namespace AYellowpaper.SerializedCollections.Editor
 {
 #if ODIN_INSPECTOR
     [Sirenix.OdinInspector.Editor.DrawerPriority(Sirenix.OdinInspector.Editor.DrawerPriorityLevel.SuperPriority)]

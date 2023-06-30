@@ -20,46 +20,24 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Small Mushroom
-      - Small Mushroom
-      - Haunted Tree
-      - Haunted Tree
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Giant Mushroom
     - Key: 1
       Value:
       - Small Mushroom
       - Small Mushroom
       - Haunted Tree
+    - Key: 2
+      Value:
       - Haunted Tree
       - Small Mushroom
       - Small Mushroom
       - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Giant Mushroom
-    - Key: 2
+    - Key: 3
       Value:
       - Small Mushroom
       - Small Mushroom
-      - Haunted Tree
-      - Haunted Tree
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
       - Small Mushroom
       - Giant Mushroom
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Small Mushroom
   - Haunted Tree

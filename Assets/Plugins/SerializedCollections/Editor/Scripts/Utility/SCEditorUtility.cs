@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Data;
 using UnityEditor;
+using System.Linq;
+using AYellowpaper.SerializedCollections.Editor.Data;
 using UnityEngine;
-using EditorUserSettings = Assets.Plugins.SerializedCollections.Editor.Scripts.Settings.EditorUserSettings;
+using System.Collections;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Utility
+namespace AYellowpaper.SerializedCollections.Editor
 {
     internal static class SCEditorUtility
     {

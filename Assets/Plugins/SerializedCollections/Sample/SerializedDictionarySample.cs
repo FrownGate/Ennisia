@@ -1,7 +1,8 @@
-using Assets.Plugins.SerializedCollections.Runtime.Scripts;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Sample
+namespace AYellowpaper.SerializedCollections
 {
     public class SerializedDictionarySample : MonoBehaviour
     {

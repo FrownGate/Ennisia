@@ -20,27 +20,8 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
     - Key: 1
       Value:
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
       - Bandit
       - Bandit
       - Bandit
@@ -49,14 +30,13 @@ MonoBehaviour:
       - Bandit
       - Bandit
       - Bandit
+    - Key: 3
+      Value:
       - Bandit
       - Bandit
       - Bandit
       - Bandit
-      - Bandit
-      - Bandit
-      - Bandit
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Bandit
   DialogueId: 0

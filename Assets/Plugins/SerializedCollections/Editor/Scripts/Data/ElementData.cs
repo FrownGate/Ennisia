@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Data
+namespace AYellowpaper.SerializedCollections.Editor.Data
 {
     [System.Serializable]
     internal class ElementData

@@ -1,8 +1,9 @@
-﻿using Assets.Plugins.SerializedCollections.Editor.Scripts.Utility;
-using UnityEditor;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts
+namespace AYellowpaper.SerializedCollections.Editor
 {
     public class PagingElement
     {

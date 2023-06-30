@@ -20,43 +20,23 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Goblin
-      - Goblin
-      - Goblin
-      - Goblin
-      - Goblin
-      - Wolf
-      - Wolf
-      - Wolf
-      - Wolf
-      - Wolf
     - Key: 1
       Value:
       - Goblin
       - Goblin
       - Goblin
-      - Goblin
-      - Goblin
-      - Wolf
-      - Wolf
-      - Wolf
-      - Wolf
-      - Wolf
     - Key: 2
       Value:
       - Goblin
       - Goblin
-      - Goblin
-      - Goblin
-      - Goblin
+      - Wolf
+    - Key: 3
+      Value:
       - Wolf
       - Wolf
       - Wolf
       - Wolf
-      - Wolf
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Goblin
   - Wolf

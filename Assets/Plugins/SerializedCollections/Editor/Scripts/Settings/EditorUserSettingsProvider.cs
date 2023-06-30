@@ -1,9 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Settings
+namespace AYellowpaper.SerializedCollections.Editor
 {
     public class EditorUserSettingsProvider : SettingsProvider
     {

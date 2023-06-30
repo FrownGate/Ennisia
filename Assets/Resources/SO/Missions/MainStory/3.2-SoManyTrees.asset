@@ -20,43 +20,23 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Green Slime
-      - Green Slime
-      - Green Slime
-      - Haunted Tree
-      - Haunted Tree
-      - Green Slime
-      - Haunted Tree
-      - Haunted Tree
-      - Haunted Tree
-      - Haunted Tree
     - Key: 1
       Value:
       - Green Slime
       - Green Slime
       - Green Slime
-      - Haunted Tree
-      - Haunted Tree
-      - Green Slime
-      - Haunted Tree
-      - Haunted Tree
-      - Haunted Tree
-      - Haunted Tree
     - Key: 2
       Value:
-      - Green Slime
-      - Green Slime
-      - Green Slime
       - Haunted Tree
       - Haunted Tree
       - Green Slime
+    - Key: 3
+      Value:
       - Haunted Tree
       - Haunted Tree
       - Haunted Tree
       - Haunted Tree
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Green Slime
   - Haunted Tree

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators
+namespace AYellowpaper.SerializedCollections.KeysGenerators
 {
     public class KeyListGeneratorData
     {

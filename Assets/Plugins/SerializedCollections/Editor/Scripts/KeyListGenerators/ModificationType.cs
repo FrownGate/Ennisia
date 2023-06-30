@@ -1,4 +1,4 @@
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators
+namespace AYellowpaper.SerializedCollections
 {
     public enum ModificationType
     {

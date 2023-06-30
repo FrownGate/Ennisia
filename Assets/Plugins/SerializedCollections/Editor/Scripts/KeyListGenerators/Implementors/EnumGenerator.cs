@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators.Implementors
+namespace AYellowpaper.SerializedCollections.KeysGenerators
 {
     [KeyListGenerator("Populate Enum", typeof(System.Enum), false)]
     public class EnumGenerator : KeyListGenerator

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators
+namespace AYellowpaper.SerializedCollections.KeysGenerators
 {
     public abstract class KeyListGenerator : ScriptableObject
     {

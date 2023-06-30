@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Utility
+namespace AYellowpaper.SerializedCollections.Editor
 {
     public struct LabelWidth : IDisposable
     {

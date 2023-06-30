@@ -1,21 +1,17 @@
+using AYellowpaper.SerializedCollections.Editor.Data;
+using AYellowpaper.SerializedCollections.Editor.States;
+using AYellowpaper.SerializedCollections.KeysGenerators;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Data;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Settings;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.States;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Utility;
-using Assets.Plugins.SerializedCollections.Runtime.LookupTables;
-using Assets.Plugins.SerializedCollections.Runtime.Scripts;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditorInternal;
 using UnityEngine;
-using EditorUserSettings = Assets.Plugins.SerializedCollections.Editor.Scripts.Settings.EditorUserSettings;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts
+namespace AYellowpaper.SerializedCollections.Editor
 {
     public class SerializedDictionaryInstanceDrawer
     {

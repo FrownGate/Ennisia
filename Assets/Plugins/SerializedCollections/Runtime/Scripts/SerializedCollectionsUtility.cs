@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Runtime.Scripts
+namespace AYellowpaper.SerializedCollections
 {
     public static class SerializedCollectionsUtility
     {

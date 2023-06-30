@@ -1,6 +1,9 @@
-﻿using UnityEditor;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators
+namespace AYellowpaper.SerializedCollections.KeysGenerators
 {
     [CustomEditor(typeof(KeyListGenerator), true)]
     public class KeyListGeneratorEditor : UnityEditor.Editor

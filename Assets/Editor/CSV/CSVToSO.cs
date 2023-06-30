@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
 using System.Linq;
-using Assets.Plugins.SerializedCollections.Runtime.Scripts;
+using AYellowpaper.SerializedCollections;
 
 public class CSVToSO : EditorWindow
 {
@@ -349,12 +349,12 @@ public class CSVToSO : EditorWindow
 
         SerializedDictionary<int, List<string>> waves = new();
         HashSet<string> enemies = new(); // Use HashSet to avoid duplicates
-        List<string> enemiesInWaveList = new();
-        var waveCount = 0;
+        var waveCount = 1;
         var i = 1;
         while (rowData.ContainsKey($"Wave{i}"))
         {
             var wave = rowData[$"Wave{i}"];
+            List<string> enemiesInWaveList = new();
             if (!wave.Equals(""))
             {
                 var waveEnemies = wave.Split(',');

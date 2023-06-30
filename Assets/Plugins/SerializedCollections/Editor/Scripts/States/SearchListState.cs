@@ -1,11 +1,13 @@
+using AYellowpaper.SerializedCollections.Editor.Search;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Search;
-using Assets.Plugins.SerializedCollections.Editor.Scripts.Search.Matchers;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
+using System;
+using static AYellowpaper.SerializedCollections.Editor.SerializedDictionaryDrawer;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.States
+namespace AYellowpaper.SerializedCollections.Editor.States
 {
     internal class SearchListState : ListState
     {

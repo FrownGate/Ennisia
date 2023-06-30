@@ -2,7 +2,7 @@ using System.Globalization;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Search.Matchers
+namespace AYellowpaper.SerializedCollections.Editor.Search
 {
     public class NumericMatcher : Matcher
     {

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Runtime.Scripts
+namespace AYellowpaper.SerializedCollections
 {
     [Conditional("UNITY_EDITOR")]
     public class SerializedDictionaryAttribute : Attribute

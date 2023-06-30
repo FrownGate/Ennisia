@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Plugins.SerializedCollections.Runtime.Scripts;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Runtime.LookupTables
+namespace AYellowpaper.SerializedCollections
 {
     internal class DictionaryLookupTable<TKey, TValue> : IKeyable
     {

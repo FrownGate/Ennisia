@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Search.Matchers
+namespace AYellowpaper.SerializedCollections.Editor.Search
 {
     public static class Matchers
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Utility
+namespace AYellowpaper.SerializedCollections.Editor
 {
     public static class RectUtility
     {

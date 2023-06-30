@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static AYellowpaper.SerializedCollections.Editor.SerializedDictionaryDrawer;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.States
+namespace AYellowpaper.SerializedCollections.Editor.States
 {
     internal class DefaultListState : ListState
     {

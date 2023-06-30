@@ -1,4 +1,8 @@
-﻿namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Data
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace AYellowpaper.SerializedCollections.Editor.Data
 {
     public class ElementSettings
     {

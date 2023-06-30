@@ -1,4 +1,8 @@
-namespace Assets.Plugins.SerializedCollections.Runtime.Scripts
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace AYellowpaper.SerializedCollections
 {
     [System.Serializable]
     public struct SerializedKeyValuePair<TKey, TValue>

@@ -1,9 +1,11 @@
-using System;
-using System.IO;
-using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using System.IO;
+using System;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Settings
+namespace AYellowpaper.SerializedCollections.Editor
 {
     public sealed class EditorUserSettings : ScriptableObject
     {

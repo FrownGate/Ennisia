@@ -20,43 +20,23 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Green Slime
-      - Blue Slime
-      - Blue Slime
-      - Goblin
-      - Goblin
-      - Green Slime
-      - Goblin
-      - Goblin
-      - Goblin
-      - Red Slime
     - Key: 1
       Value:
       - Green Slime
       - Blue Slime
       - Blue Slime
-      - Goblin
-      - Goblin
-      - Green Slime
-      - Goblin
-      - Goblin
-      - Goblin
-      - Red Slime
     - Key: 2
       Value:
-      - Green Slime
-      - Blue Slime
-      - Blue Slime
       - Goblin
       - Goblin
       - Green Slime
+    - Key: 3
+      Value:
       - Goblin
       - Goblin
       - Goblin
       - Red Slime
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Green Slime
   - Blue Slime

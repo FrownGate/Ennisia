@@ -1,6 +1,6 @@
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
-using Assets.Plugins.SerializedCollections.Runtime.Scripts;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Mission", menuName = "Ennisia/Mission")]

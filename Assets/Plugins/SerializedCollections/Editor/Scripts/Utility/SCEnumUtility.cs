@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.Utility
+namespace AYellowpaper.SerializedCollections.Editor
 {
     internal static class SCEnumUtility
     {

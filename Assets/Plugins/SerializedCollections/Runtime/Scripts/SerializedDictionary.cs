@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using Assets.Plugins.SerializedCollections.Runtime.LookupTables;
+using System.Linq;
 using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Runtime.Scripts
+namespace AYellowpaper.SerializedCollections
 {
     [System.Serializable]
     public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver

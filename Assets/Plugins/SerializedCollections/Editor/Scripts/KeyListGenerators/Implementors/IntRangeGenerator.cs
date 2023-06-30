@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators.Implementors
+namespace AYellowpaper.SerializedCollections.KeysGenerators
 {
     [KeyListGenerator("Int Range", typeof(int))]
     public class IntRangeGenerator : KeyListGenerator

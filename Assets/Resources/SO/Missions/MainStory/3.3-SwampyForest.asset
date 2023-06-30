@@ -20,43 +20,23 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Green Slime
-      - Green Slime
-      - Green Slime
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
     - Key: 1
       Value:
       - Green Slime
       - Green Slime
       - Green Slime
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
     - Key: 2
       Value:
-      - Green Slime
-      - Green Slime
-      - Green Slime
+      - Small Mushroom
+      - Small Mushroom
+      - Small Mushroom
+    - Key: 3
+      Value:
       - Small Mushroom
       - Small Mushroom
       - Small Mushroom
       - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Green Slime
   - Small Mushroom

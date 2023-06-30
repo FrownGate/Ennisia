@@ -20,40 +20,22 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value:
-      - Training Dummy
-      - Training Dummy
-      - Training Dummy
-      - Training Dummy
-      - Training Dummy
-      - Elven Knight
-      - Training Dummy
-      - Training Dummy
-      - Elven Archer
     - Key: 1
       Value:
       - Training Dummy
       - Training Dummy
       - Training Dummy
-      - Training Dummy
-      - Training Dummy
-      - Elven Knight
-      - Training Dummy
-      - Training Dummy
-      - Elven Archer
     - Key: 2
       Value:
       - Training Dummy
       - Training Dummy
-      - Training Dummy
-      - Training Dummy
-      - Training Dummy
       - Elven Knight
+    - Key: 3
+      Value:
       - Training Dummy
       - Training Dummy
       - Elven Archer
-  WavesCount: 3
+  WavesCount: 4
   Enemies:
   - Training Dummy
   - Elven Knight

@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Plugins.SerializedCollections.Editor.Scripts.KeyListGenerators.Implementors
+namespace AYellowpaper.SerializedCollections.KeysGenerators
 {
     [KeyListGenerator("Int Stepping", typeof(int))]
     public class IntSteppingGenerator : KeyListGenerator

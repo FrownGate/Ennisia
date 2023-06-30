@@ -20,13 +20,13 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
-      Value: []
     - Key: 1
       Value: []
     - Key: 2
       Value: []
-  WavesCount: 3
+    - Key: 3
+      Value: []
+  WavesCount: 4
   Enemies: []
   DialogueId: 0
   ChapterId: 2

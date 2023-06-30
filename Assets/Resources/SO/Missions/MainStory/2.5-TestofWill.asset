@@ -20,10 +20,10 @@ MonoBehaviour:
   Unlocked: 0
   Waves:
     _serializedList:
-    - Key: 0
+    - Key: 1
       Value:
       - Djeamy
-  WavesCount: 1
+  WavesCount: 2
   Enemies:
   - Djeamy
   DialogueId: 0
