@@ -354,7 +354,7 @@ public class CSVToSO : EditorWindow
         while (rowData.ContainsKey($"Wave{i}"))
         {
             var wave = rowData[$"Wave{i}"];
-            if (!wave.Equals("none"))
+            if (!wave.Equals(""))
             {
                
                 

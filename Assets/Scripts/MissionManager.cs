@@ -194,8 +194,8 @@ public class MissionManager : MonoBehaviour
 
     public void GiveRewards()
     {
-        List<KeyValuePair<PlayFabManager.GameCurrency, int>> rewards = CurrentMission.RewardsList.ToList();
-        for (int i = 0; i < CurrentMission.RewardsList.Count; i++)
+        List<KeyValuePair<PlayFabManager.GameCurrency, int>> rewards = CurrentMission.CurrencyRewards.ToList();
+        for (int i = 0; i < CurrentMission.CurrencyRewards.Count; i++)
         {
             string type = rewards[i].Key.ToString();
             if (!Enum.TryParse(type, out PlayFabManager.GameCurrency currencyType)) continue;
