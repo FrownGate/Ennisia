@@ -178,7 +178,7 @@ public class BattleSimulator : EditorWindow
                 {
                     data.Foldout.visible = true;
                     data.Foldout.text = evt.newValue;
-                    ChangeGearFields(evt.newValue, data);
+                    ChangeGearFields(data);
                     return;
                 }
 
@@ -282,9 +282,9 @@ public class BattleSimulator : EditorWindow
         }
     }
 
-    private void ChangeGearFields(string gearName, Data gearData)
+    private void ChangeGearFields(Data gearData)
     {
-        Gear gear = _gears.Find(x => x.Name == gearName);
+        Gear gear = _gears.Find(x => x.Name == gearData.Dropdown.value);
         _selectedGears[(Item.GearType)gear.Type] = gear;
 
         ChangeStatField(gearData.IntegerFields[0], gear.Attribute.ToString(), (int)gear.Value);
