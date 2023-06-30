@@ -202,7 +202,11 @@ public class MissionManager : MonoBehaviour
             PlayFabManager.Instance.AddCurrency(rewards[i].Key, rewards[i].Value);
             Debug.Log("Des SOUS !!!");
         }
-
+        for (int i = 0; i < CurrentMission.GearReward.Count; i++)
+        {
+            RewardsDrop.Instance.DropGear(CurrentMission.GearReward[i]);
+            Debug.Log("Des GEAR !!!");
+        }
         ExperienceSystem.Instance.GainExperienceAccount(CurrentMission.Experience);
         ExperienceSystem.Instance.GainExperiencePlayer(CurrentMission.Experience);
         Debug.Log("De l'XP !!!");

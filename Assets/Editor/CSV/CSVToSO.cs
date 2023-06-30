@@ -388,7 +388,7 @@ public class CSVToSO : EditorWindow
             if (!Enum.TryParse(Rewardtype, out PlayFabManager.GameCurrency currencyType)) continue;
             Debug.Log(rowData[Rewardtype]);
 
-            scriptableObject.RewardsList.Add(currencyType, int.Parse(rowData[Rewardtype]));
+            scriptableObject.CurrencyRewards.Add(currencyType, int.Parse(rowData[Rewardtype]));
         }
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);
