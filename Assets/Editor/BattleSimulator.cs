@@ -59,6 +59,7 @@ public class BattleSimulator : EditorWindow
         root.Add(visualTree.CloneTree());
 
         _simulateButton = root.Q<Button>("simulate-button");
+        _simulateButton.clicked += CreateBattle;
 
         #region Gears
         List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
@@ -165,6 +166,11 @@ public class BattleSimulator : EditorWindow
     {
         if (EditorApplication.isPlaying) return;
         Close();
+    }
+
+    private void OnDestroy()
+    {
+        _simulateButton.clicked -= CreateBattle;
     }
 
     private void ChangeFoldoutOnDropdown()
@@ -344,28 +350,33 @@ public class BattleSimulator : EditorWindow
         data.Foldout.visible = false;
     }
 
-    private void OnInspectorUpdate()
+    private void CreateBattle()
     {
-        //TODO -> prevent simulation with empty datas
-        // Repaint();
-        _simulateButton.clicked += () =>
-        {
-            _player = new();
-            Debug.LogWarning(_player.Name);
-            Debug.LogWarning(_selectedWeapon.Name);
-            Debug.LogWarning(_selectedSupports.Count);
-            // foreach (var support in _selectedSupports)
-            // {
-            //     Debug.LogWarning(support.Name);
-            // }
-            // make a list of the _selectedGears
-            List<Gear> tempGears = new();
-            foreach (var gear in _selectedGears)
-            {
-                tempGears.Add(gear.Value);
-            }
+        _player = new();
 
-            //Instance.SimulateBattle(_player, _selectedEnemies, _selectedSupports, _selectedWeapon, tempGears);
-        };
+        if (_selectedWeapon == null)
+        {
+            Debug.LogError("You need to choose a weapon.");
+            return;
+        }
+
+        bool hasEnemy = false;
+
+        foreach (var enemy in _selectedEnemies)
+        {
+            if (enemy != null)
+            {
+                hasEnemy = true;
+                break;
+            }
+        }
+
+        if (!hasEnemy)
+        {
+            Debug.LogError("You need to choose at least 1 enemy.");
+            return;
+        }
+
+        //Instance.SimulateBattle(_player, _selectedEnemies, _selectedSupports, _selectedWeapon, tempGears);
     }
 }
