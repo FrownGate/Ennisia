@@ -267,7 +267,7 @@ public class BattleSimulator : EditorWindow
             }
         }
 
-        foreach (var enemy in _selectedEnemies) Debug.Log(enemy != null ? enemy.Name : _empty);
+        //foreach (var enemy in _selectedEnemies) Debug.Log(enemy != null ? enemy.Name : _empty);
     }
 
     private void ChangeSupportFields(Data supportData)
