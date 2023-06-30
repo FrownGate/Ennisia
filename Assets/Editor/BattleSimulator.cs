@@ -14,30 +14,24 @@ public class BattleSimulator : EditorWindow
         public List<TextField> TextFields;
     }
 
-    private readonly List<Data> _enemiesData = new();
     private readonly List<Data> _gearsData = new();
+    private Data _weaponData;
     private readonly List<Data> _supportsData = new();
+    private readonly List<Data> _enemiesData = new();
 
     private readonly List<Gear> _gears = new();
-    private List<SupportCharacterSO> _supports = new();
+    private readonly List<Gear> _weapons = new();
+    private List<SupportCharacterSO> _supports;
     private List<Entity> _enemies; // TODO: To Enemy
 
     private readonly Dictionary<Item.GearType, Gear> _selectedGears = new();
+    private Gear _selectedWeapon;
     private readonly List<SupportCharacterSO> _selectedSupports = new();
     private readonly List<Entity> _selectedEnemies = new(); // TODO: To Enemy 
 
     private Player _player;
 
     public static BattleSystem Instance;
-    private List<Gear> _weapons = new();
-    private Gear _selectedWeapon;
-
-    // WEAPON
-    private GroupBox _weaponGroupBox;
-    private DropdownField _weaponDropdown;
-    private Foldout _weaponFoldout;
-    private readonly List<IntegerField> _weaponStatField = new();
-    private readonly List<TextField> _weaponSkillField = new();
 
     private Button _simulateButton;
     private static readonly string _toolName = "Battle Simulator";
@@ -65,17 +59,6 @@ public class BattleSimulator : EditorWindow
         root.Add(visualTree.CloneTree());
 
         _simulateButton = root.Q<Button>("simulate-button");
-
-        _weaponGroupBox = root.Q<GroupBox>("Weapon");
-
-        _weaponStatField.Add(_weaponGroupBox.Q<IntegerField>("MainStat"));
-        _weaponSkillField.Add(_weaponGroupBox.Q<TextField>("Skill1"));
-        _weaponSkillField.Add(_weaponGroupBox.Q<TextField>("Skill2"));
-
-        _weaponDropdown = root.Q<DropdownField>("weapon-dropdown");
-
-        _weaponFoldout = root.Q<Foldout>("weapon-foldout");
-        _weaponFoldout.text = "Weapon Skills";
 
         #region Gears
         List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
@@ -106,13 +89,24 @@ public class BattleSimulator : EditorWindow
 
         #region Weapon
         List<GearSO> weaponsSO = new(Resources.LoadAll<GearSO>("SO/Weapons"));
-        foreach (GearSO weapon in weaponsSO)
+        foreach (var weapon in weaponsSO) _weapons.Add(new(weapon));
+        GroupBox weaponGroupbox = root.Q<GroupBox>("Weapon");
+
+        _weaponData = new()
         {
-            Gear NewWeapon = new(weapon);
-            _weapons.Add(NewWeapon);
-            _weaponDropdown.choices.Add("No Weapon");
-            _weaponDropdown.choices.Add(NewWeapon.Name);
-        }
+            Dropdown = root.Q<DropdownField>("weapon-dropdown"),
+            Foldout = root.Q<Foldout>("weapon-foldout"),
+            IntegerFields = weaponGroupbox.Query<IntegerField>().ToList(),
+            TextFields = weaponGroupbox.Query<TextField>().ToList()
+        };
+
+        _weaponData.Dropdown.choices.Add(_empty);
+        _weaponData.Dropdown.value = _empty;
+        _weaponData.Foldout.text = "Weapon Skills";
+
+        foreach (Gear weapon in _weapons) _weaponData.Dropdown.choices.Add(weapon.Name);
+
+        HideData(_weaponData);
         #endregion
 
         #region Supports
@@ -175,21 +169,35 @@ public class BattleSimulator : EditorWindow
 
     private void ChangeFoldoutOnDropdown()
     {
-        // WEAPON
-        _weaponDropdown.RegisterValueChangedCallback(evt =>
+        //Gears
+        foreach (var data in _gearsData)
         {
-            if (evt.newValue != "No Weapon")
+            data.Dropdown.RegisterValueChangedCallback(evt =>
             {
-                _weaponFoldout.visible = true;
-                _weaponFoldout.text = evt.newValue;
+                if (evt.newValue != _empty)
+                {
+                    data.Foldout.visible = true;
+                    data.Foldout.text = evt.newValue;
+                    ChangeGearFields(evt.newValue, data);
+                    return;
+                }
 
+                HideData(data);
+            });
+        }
 
-                ChangeFieldsOfWeapon(evt.newValue, _weaponSkillField, _weaponStatField);
-            }
-            else
+        //Weapon
+        _weaponData.Dropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != _empty)
             {
-                _weaponFoldout.visible = false;
+                _weaponData.Foldout.visible = true;
+                _weaponData.Foldout.text = evt.newValue;
+                ChangeWeaponFields();
+                return;
             }
+
+            HideData(_weaponData);
         });
 
         //Supports
@@ -202,23 +210,6 @@ public class BattleSimulator : EditorWindow
                     data.Foldout.visible = true;
                     data.Foldout.text = evt.newValue;
                     ChangeSupportFields(data);
-                    return;
-                }
-
-                HideData(data);
-            });
-        }
-
-        //Gears
-        foreach (var data in _gearsData)
-        {
-            data.Dropdown.RegisterValueChangedCallback(evt =>
-            {
-                if (evt.newValue != _empty)
-                {
-                    data.Foldout.visible = true;
-                    data.Foldout.text = evt.newValue;
-                    ChangeGearFields(evt.newValue, data);
                     return;
                 }
 
@@ -290,6 +281,7 @@ public class BattleSimulator : EditorWindow
             supportData.TextFields[1].SetValueWithoutNotify(supportSO.SecondarySkillData.Name);
         }
     }
+
     private void ChangeGearFields(string gearName, Data gearData)
     {
         Gear gear = _gears.Find(x => x.Name == gearName);
@@ -319,18 +311,22 @@ public class BattleSimulator : EditorWindow
         field.SetValueWithoutNotify(value);
     }
 
-    private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
+    private void ChangeWeaponFields()
     {
-        Gear weapon = _weapons.Find(x => x.Name == weaponName);
+        Gear weapon = _weapons.Find(x => x.Name == _weaponData.Dropdown.value);
+        _selectedWeapon = weapon;
 
-        weaponStatFields[0].label = weapon.Attribute.ToString();
-        weaponStatFields[0].SetValueWithoutNotify((int)weapon.Value);
+        _weaponData.IntegerFields[0].visible = true;
+        _weaponData.IntegerFields[0].label = weapon.Attribute.ToString();
+        _weaponData.IntegerFields[0].SetValueWithoutNotify((int)weapon.Value);
 
-        weaponSkillFields[0].label = weapon.WeaponSO.FirstSkillData.IsPassive ? "Passive" : "Active";
-        weaponSkillFields[1].label = weapon.WeaponSO.SecondSkillData.IsPassive ? "Passive" : "Active";
+        foreach (var field in _weaponData.TextFields) field.visible = true;
 
-        weaponSkillFields[0].SetValueWithoutNotify(weapon.WeaponSO.FirstSkillData.Name);
-        weaponSkillFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
+        _weaponData.TextFields[0].label = weapon.WeaponSO.FirstSkillData.IsPassive ? "Passive" : "Active";
+        _weaponData.TextFields[1].label = weapon.WeaponSO.SecondSkillData.IsPassive ? "Passive" : "Active";
+
+        _weaponData.TextFields[0].SetValueWithoutNotify(weapon.WeaponSO.FirstSkillData.Name);
+        _weaponData.TextFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
     }
 
     private void HideData(Data data)
@@ -350,6 +346,7 @@ public class BattleSimulator : EditorWindow
 
     private void OnInspectorUpdate()
     {
+        //TODO -> prevent simulation with empty datas
         // Repaint();
         _simulateButton.clicked += () =>
         {
