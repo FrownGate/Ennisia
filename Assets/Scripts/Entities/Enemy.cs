@@ -14,55 +14,18 @@ public class Enemy : Entity
 
     }
 
-    public Enemy(int id, string name, Dictionary<string, int> stats, string description)
+    public Enemy(int id, string name, Dictionary<Item.AttributeStat, int> stats, string description)
     {
         Id = id;
         Name = name;
         Description = description;
         Level = 1;
 
-        
-      /*  foreach (KeyValuePair<string, int> stat in stats)
+        // assign stats
+        foreach (KeyValuePair<Item.AttributeStat, int> stat in stats)
         {
-            switch (stat.Key) //TODO -> Use enum instead of strings
-            {
-                case "Hp":
-                    MaxHp = stat.Value;
-                    break;
-                case "Atk":
-                    Attack = stat.Value;
-                    break;
-                case "PhysAtk":
-                    PhysAtk = stat.Value;
-                    break;
-                case "MagicAtk":
-                    MagicAtk = stat.Value;
-                    break;
-                case "PhysDef":
-                    PhysDef = stat.Value;
-                    break;
-                case "MagicDef":
-                    MagicDef = stat.Value;
-                    break;
-                case "CritRate":
-                    CritRate = stat.Value;
-                    break;
-                case "CritDamage":
-                    CritDamage = stat.Value;
-                    break;
-                case "DefIgnored":
-                    DefIgnored = stat.Value;
-                    break;
-                case "Shield":
-                    Shield = stat.Value;
-                    break;
-                case "Speed":
-                    Speed = stat.Value;
-                    break;
-                default:
-                    break;
-            }
-        }*/
+            Stats[stat.Key] = new(stat.Value);
+        }
     }
 
     public override void HaveBeenSelected()

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
-  m_Name: Helmet
+  m_Name: TestingHelmet
   m_EditorClassIdentifier: 
-  Id: 1
-  Name: Helmet
+  Id: 0
+  Name: TestingHelmet
   Level: 1
   Type: 0
-  Rarity: 0
-  Attribute: 3
-  StatValue: 1200
+  Rarity: 3
+  Attribute: 0
+  StatValue: 3550
   Description: 
   WeaponType: 0
   IsMagic: 0

@@ -172,7 +172,7 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void SimulateBattle(Player player = null, List<Entity> enemies = null)
+    public void SimulateBattle(Player player, List<Entity> enemies, List<SupportCharacterSO> supports, Gear weapon, List<Gear> gears)
     {
         if (player != null)
         {
@@ -181,6 +181,25 @@ public class BattleSystem : StateMachine
         if (enemies != null)
         {
             Enemies = enemies;
+        }
+        if (supports != null)
+        {
+            Player.FirstSupport = supports[0];
+            Player.SecondSupport = supports[1];
+        }
+        if (weapon != null)
+        {
+            Player.Weapon = weapon.WeaponSO;
+            PlayFabManager.Instance.Player.Equip(weapon);
+            // Assigne all stats from weapon
+
+        }
+        if (gears != null)
+        {
+            
+            // convert GearSO to Gear
+            PlayFabManager.Instance.Player.Equip(gears);
+            Debug.LogWarning(PlayFabManager.Instance.Player.EquippedGears.Count);
         }
         SetState(new AutoBattle(this));
     }
