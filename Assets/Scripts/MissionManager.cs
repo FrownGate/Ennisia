@@ -27,6 +27,8 @@ public class MissionManager : MonoBehaviour
     }
 
     public static MissionManager Instance { get; private set; }
+    
+    private EnemyLoader _enemyLoader;
     public static event Action<MissionSO> OnMissionStart;
     public static event Action<MissionSO> OnMissionComplete;
     public ChapterSO CurrentChapter { get; private set; }
@@ -204,5 +206,15 @@ public class MissionManager : MonoBehaviour
         ExperienceSystem.Instance.GainExperienceAccount(CurrentMission.Experience);
         ExperienceSystem.Instance.GainExperiencePlayer(CurrentMission.Experience);
         Debug.Log("De l'XP !!!");
+    }
+    
+    public List<Enemy> GetMissionEnemyList()
+    {
+        List<Enemy> MissionEnemies = new List<Enemy>();
+        for (int i = 0; i < CurrentMission.Enemies.Count; i++)
+        {
+            MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
+        }
+        return MissionEnemies;
     }
 }
