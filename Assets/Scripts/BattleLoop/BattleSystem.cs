@@ -18,7 +18,6 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _secondSupport;
     [SerializeField] private GameObject[] _skillsButtons;
     //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
-    //TODO -> use OnBattleEnded to remove battle modifiers
 
     //UI
     public TextMeshProUGUI DialogueText;
@@ -263,14 +262,12 @@ public class BattleSystem : StateMachine
 
     public void BattleEnded(bool won)
     {
-        foreach (var skill in Player.Skills)
-        {
-            skill.TakeOffStats(Enemies, Player, 0); // constant passive at battle end
-        }
-
         DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
         SetSkillButtonsActive(false);
+
+        //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
+        foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
         OnBattleEnded?.Invoke();
     }
 }
