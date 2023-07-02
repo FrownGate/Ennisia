@@ -18,10 +18,18 @@ MonoBehaviour:
   State: 0
   EnergyCost: 0
   Unlocked: 0
-  WavesCount: 3
-  Enemies:
-  - Snadron
+  Waves:
+    _serializedList: []
+  WavesCount: 1
+  Enemies: []
   DialogueId: -1
   ChapterId: 1
   NumInChapter: 47
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
+  GearReward: 
   Experience: 10

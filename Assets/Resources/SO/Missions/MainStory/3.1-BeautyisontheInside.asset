@@ -18,9 +18,36 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  Waves:
+    _serializedList:
+    - Key: 1
+      Value:
+      - Goblin
+      - Goblin
+      - Goblin
+    - Key: 2
+      Value:
+      - Goblin
+      - Goblin
+      - Wolf
+    - Key: 3
+      Value:
+      - Wolf
+      - Wolf
+      - Wolf
+      - Wolf
+  WavesCount: 4
+  Enemies:
+  - Goblin
+  - Wolf
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 1
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
+  GearReward: 
   Experience: 10

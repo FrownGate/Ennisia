@@ -1,7 +1,7 @@
-ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,Wave4,Wave5,Wave6,IDDialogue,IDChap,Num,Gold,Crystals,XP
-1,Hall of Agony,5,TRUE,none,none,none,none,none,none,0,1,1,1000,100,10
-2,Hall of Agony,5,TRUE,none,none,none,none,none,none,0,1,2,1000,100,10
-3,Hall of Diamonds,5,TRUE,none,none,none,none,none,none,0,2,1,1000,100,10
-4,Hall of Diamonds,5,TRUE,none,none,none,none,none,none,0,2,2,1000,100,10
-5,Hall of Warfare,5,TRUE,none,none,none,none,none,none,0,3,1,1000,100,10
-6,Hall of Warfare,5,TRUE,none,none,none,none,none,none,0,3,2,1000,100,10
+ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,Wave4,Wave5,Wave6,IDDialogue,IDChap,Num,Gold,Crystals,XP,Gear
+1,Hall of Agony,5,TRUE,,,,,,,0,1,1,1000,100,10,none
+2,Hall of Agony,5,TRUE,,,,,,,0,1,2,1000,100,10,none
+3,Hall of Diamonds,5,TRUE,,,,,,,0,2,1,1000,100,10,none
+4,Hall of Diamonds,5,TRUE,,,,,,,0,2,2,1000,100,10,none
+5,Hall of Warfare,5,TRUE,,,,,,,0,3,1,1000,100,10,none
+6,Hall of Warfare,5,TRUE,,,,,,,0,3,2,1000,100,10,none

@@ -1,46 +1,46 @@
-ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,IDDialogue,IDChap,Num,Gold,Crystals,XP
-1,The Morning,20,FALSE,none,none,none,0,1,1,1000,100,10
-2,Noon,20,FALSE,none,none,none,0,1,2,1000,100,10
-3,The afternoon,20,FALSE,none,none,none,0,1,3,1000,100,10
-4,The evening,20,FALSE,none,none,none,0,1,4,1000,100,10
-5,The Night,20,FALSE,none,none,none,0,1,5,1000,100,10
-6,Toward the Cave,20,FALSE,none,none,none,0,2,1,1000,100,10
-7,Into the Darkness,20,FALSE,none,none,none,0,2,2,1000,100,10
-8,Beautiful Beasts,20,FALSE,none,none,none,0,2,3,1000,100,10
-9,The Stone,20,FALSE,none,none,none,0,2,4,1000,100,10
-10,Proposal,20,FALSE,none,none,none,0,2,5,1000,100,10
-11, In Need of Herbs,20,FALSE,none,none,none,0,8,1,1000,100,10
-12,To the Forest,20,FALSE,none,none,none,0,8,2,1000,100,10
-13,No Eating Herbs!,20,FALSE,none,none,none,0,8,3,1000,100,10
-14,The Culprit,20,FALSE,none,none,none,0,8,4,1000,100,10
-15,Right on Time,20,FALSE,none,none,none,0,8,5,1000,100,10
-16,Heading Out,20,FALSE,none,none,none,0,6,1,1000,100,10
-17,No one in sight,20,FALSE,none,none,none,0,6,2,1000,100,10
-18,A Nice Demon?,20,FALSE,none,none,none,0,6,3,1000,100,10
-19,Tough Decisions,20,FALSE,none,none,none,0,6,4,1000,100,10
-20,In the Next Life,20,FALSE,none,none,none,0,6,5,1000,100,10
-21, Setting Camp,20,FALSE,none,none,none,0,7,1,1000,100,10
-22,Waiting is Key,20,FALSE,none,none,none,0,7,2,1000,100,10
-23,A Nice Story,20,FALSE,none,none,none,0,7,3,1000,100,10
-24,Target in Sight,20,FALSE,none,none,none,0,7,4,1000,100,10
-25,The Kill,20,FALSE,none,none,none,0,7,5,1000,100,10
-26,Packing Up,20,FALSE,none,none,none,0,3,1,1000,100,10
-27,On the Road,20,FALSE,none,none,none,0,3,2,1000,100,10
-28,Fleeing Coward,20,FALSE,none,none,none,0,3,3,1000,100,10
-29,Safe Passage,20,FALSE,none,none,none,0,3,4,1000,100,10
-30,The Beach!,20,FALSE,none,none,none,0,3,5,1000,100,10
-31,Shopping Time,20,FALSE,none,none,none,0,4,1,1000,100,10
-32,Trouble Ahead,20,FALSE,none,none,none,0,4,2,1000,100,10
-33,Foolish Demons,20,FALSE,none,none,none,0,4,3,1000,100,10
-34,Tough Encounter,20,FALSE,none,none,none,0,4,4,1000,100,10
-35,New Shoes,20,FALSE,none,none,none,0,4,5,1000,100,10
-36,A Beautiful Day,20,FALSE,none,none,none,0,5,1,1000,100,10
-37,A Woman's Scream,20,FALSE,none,none,none,0,5,2,1000,100,10
-38,Tracking Evildoers ,20,FALSE,none,none,none,0,5,3,1000,100,10
-39,Bandit Camp,20,FALSE,none,none,none,0,5,4,1000,100,10
-40,Throwing out the Trash,20,FALSE,none,none,none,0,5,5,1000,100,10
-41,The Vlastisia Forest,20,FALSE,none,none,none,0,9,1,1000,100,10
-42,Fire!,20,FALSE,none,none,none,0,9,2,1000,100,10
-43,Mysterious Tracks,20,FALSE,none,none,none,0,9,3,1000,100,10
-44,The Fire Starter,20,FALSE,none,none,none,0,9,4,1000,100,10
-45,City Saved!,20,FALSE,none,none,none,0,9,5,1000,100,10
+ID,Name,EnergyCost,Unlocked,IDDialogue,IDChap,Num,Wave1,Wave2,Wave3,Gold,Crystals,XP,Gear
+1,The Morning,20,FALSE,0,1,1,,,,1000,100,10,none
+2,Noon,20,FALSE,0,1,2,,,,1000,100,10,none
+3,The afternoon,20,FALSE,0,1,3,,,,1000,100,10,none
+4,The evening,20,FALSE,0,1,4,,,,1000,100,10,none
+5,The Night,20,FALSE,0,1,5,,,,1000,100,10,none
+6,Toward the Cave,20,FALSE,0,2,1,,,,1000,100,10,none
+7,Into the Darkness,20,FALSE,0,2,2,,,,1000,100,10,none
+8,Beautiful Beasts,20,FALSE,0,2,3,,,,1000,100,10,none
+9,The Stone,20,FALSE,0,2,4,,,,1000,100,10,none
+10,Proposal,20,FALSE,0,2,5,,,,1000,100,10,none
+11, In Need of Herbs,20,FALSE,0,8,1,,,,1000,100,10,none
+12,To the Forest,20,FALSE,0,8,2,,,,1000,100,10,none
+13,No Eating Herbs!,20,FALSE,0,8,3,,,,1000,100,10,none
+14,The Culprit,20,FALSE,0,8,4,,,,1000,100,10,none
+15,Right on Time,20,FALSE,0,8,5,,,,1000,100,10,none
+16,Heading Out,20,FALSE,0,6,1,,,,1000,100,10,none
+17,No one in sight,20,FALSE,0,6,2,,,,1000,100,10,none
+18,A Nice Demon?,20,FALSE,0,6,3,,,,1000,100,10,none
+19,Tough Decisions,20,FALSE,0,6,4,,,,1000,100,10,none
+20,In the Next Life,20,FALSE,0,6,5,,,,1000,100,10,none
+21, Setting Camp,20,FALSE,0,7,1,,,,1000,100,10,none
+22,Waiting is Key,20,FALSE,0,7,2,,,,1000,100,10,none
+23,A Nice Story,20,FALSE,0,7,3,,,,1000,100,10,none
+24,Target in Sight,20,FALSE,0,7,4,,,,1000,100,10,none
+25,The Kill,20,FALSE,0,7,5,,,,1000,100,10,none
+26,Packing Up,20,FALSE,0,3,1,,,,1000,100,10,none
+27,On the Road,20,FALSE,0,3,2,,,,1000,100,10,none
+28,Fleeing Coward,20,FALSE,0,3,3,,,,1000,100,10,none
+29,Safe Passage,20,FALSE,0,3,4,,,,1000,100,10,none
+30,The Beach!,20,FALSE,0,3,5,,,,1000,100,10,none
+31,Shopping Time,20,FALSE,0,4,1,,,,1000,100,10,none
+32,Trouble Ahead,20,FALSE,0,4,2,,,,1000,100,10,none
+33,Foolish Demons,20,FALSE,0,4,3,,,,1000,100,10,none
+34,Tough Encounter,20,FALSE,0,4,4,,,,1000,100,10,none
+35,New Shoes,20,FALSE,0,4,5,,,,1000,100,10,none
+36,A Beautiful Day,20,FALSE,0,5,1,,,,1000,100,10,none
+37,A Woman's Scream,20,FALSE,0,5,2,,,,1000,100,10,none
+38,Tracking Evildoers ,20,FALSE,0,5,3,,,,1000,100,10,none
+39,Bandit Camp,20,FALSE,0,5,4,,,,1000,100,10,none
+40,Throwing out the Trash,20,FALSE,0,5,5,,,,1000,100,10,none
+41,The Vlastisia Forest,20,FALSE,0,9,1,,,,1000,100,10,none
+42,Fire!,20,FALSE,0,9,2,,,,1000,100,10,none
+43,Mysterious Tracks,20,FALSE,0,9,3,,,,1000,100,10,none
+44,The Fire Starter,20,FALSE,0,9,4,,,,1000,100,10,none
+45,City Saved!,20,FALSE,0,9,5,,,,1000,100,10,none
