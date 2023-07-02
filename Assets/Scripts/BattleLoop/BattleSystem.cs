@@ -18,6 +18,7 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _secondSupport;
     [SerializeField] private GameObject[] _skillsButtons;
     //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
+    //TODO -> Add Supports Skills
 
     //UI
     public TextMeshProUGUI DialogueText;
