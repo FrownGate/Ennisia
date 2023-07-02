@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
-    public static event Action<BattleSystem> OnBattleSystemLoaded;
+    public static event Action<BattleSystem> OnBattleLoaded;
+    public static event Action OnBattleEnded;
     public static event Action<string> OnEnemyKilled;
     public static event Action<int> OnClickSFX;
 
@@ -17,6 +18,7 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _secondSupport;
     [SerializeField] private GameObject[] _skillsButtons;
     //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
+    //TODO -> use OnBattleEnded to remove battle modifiers
 
     //UI
     public TextMeshProUGUI DialogueText;
@@ -81,6 +83,8 @@ public class BattleSystem : StateMachine
         {
             skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
         }
+
+        OnBattleLoaded?.Invoke(this);
 
         SetState(new WhoGoFirst(this));
         // SimulateBattle();
@@ -255,5 +259,18 @@ public class BattleSystem : StateMachine
                 if (effect.HasAlteration) effect.AlterationEffect(enemy);
             }
         }
+    }
+
+    public void BattleEnded(bool won)
+    {
+        foreach (var skill in Player.Skills)
+        {
+            skill.TakeOffStats(Enemies, Player, 0); // constant passive at battle end
+        }
+
+        DialogueText.text = won ? "YOU WON" : "YOU LOST";
+
+        SetSkillButtonsActive(false);
+        OnBattleEnded?.Invoke();
     }
 }

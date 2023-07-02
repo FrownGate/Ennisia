@@ -6,15 +6,8 @@ public class Won : State
 
     public override IEnumerator Start()
     {
-        foreach (var skill in BattleSystem.Player.Skills)
-        {
-            skill.TakeOffStats(BattleSystem.Enemies, BattleSystem.Player, 0); // constant passive at battle end
-        }
-
-        BattleSystem.SetSkillButtonsActive(false);
-
-        BattleSystem.DialogueText.text = "YOU WON THE FIGHT";
         BattleSystem.WonPopUp.SetActive(true);
+        BattleSystem.BattleEnded(true);
         yield break;
     }
 }
