@@ -19,7 +19,7 @@ public class InTheShadow : DamageSkill
     public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
         //if debuffed
-        player.atkBarPercentage = 100;
+        player.AtkBarPercentage = 100;
     }
 
     public override void TakeOffStats(List<Entity> targets, Entity player, int turn)

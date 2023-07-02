@@ -11,7 +11,7 @@ public class EnemyTurn : State
         BattleSystem.ResetSelectedEnemies();
         BattleSystem.SetSkillButtonsActive(false);
         BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
-        BattleSystem.Enemies[BattleSystem.EnemyPlayingID].atkBar = 0;
+        BattleSystem.Enemies[BattleSystem.EnemyPlayingID].AtkBar = 0;
         //BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
         //BattleSystem.Player.ApplyEffect(new SILENCE(4,BattleSystem.Player));
 

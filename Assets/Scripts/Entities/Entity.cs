@@ -34,9 +34,9 @@ public abstract class Entity
     public float Shield { get; set; }
     public float Speed { get; set; }
         
-    public int atkBar { get; set; }
-    public int atkBarFillAmount { get; set; }
-    public int atkBarPercentage { get; set; }
+    public int AtkBar { get; set; }
+    public int AtkBarFillAmount { get; set; }
+    public int AtkBarPercentage { get; set; }
 
     public Entity(Dictionary<Item.AttributeStat, float> stats = null)
     {
@@ -110,5 +110,11 @@ public abstract class Entity
 
         Effects.Add(effect);
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);
+    }
+
+    public void ResetAtb()
+    {
+        AtkBar = 0;
+        AtkBarPercentage = 0;
     }
 }

@@ -12,6 +12,6 @@ public class SpinAttack : DamageSkill
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
-        player.atkBarPercentage += 5;
+        player.AtkBarPercentage += 5;
     }
 }

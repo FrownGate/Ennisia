@@ -11,6 +11,6 @@ public class HawksEye : BuffSkill
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
-        player.atkBarPercentage = 100;
+        player.AtkBarPercentage = 100;
     }
 }
