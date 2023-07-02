@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83f9f4fdf8e9879469f7668fc5b50b58, type: 3}
-  m_Name: Silence
+  m_Name: AttackBuff
   m_EditorClassIdentifier: 
-  Name: Silence
-  Description: 
+  Name: Attack Buff
+  Description: Increase attack
   Duration: 3
-  Alteration: 2
+  Alteration: 0
   StatsModifiers:
-    _serializedList: []
+    _serializedList:
+    - Key: 1
+      Value: 1.5
