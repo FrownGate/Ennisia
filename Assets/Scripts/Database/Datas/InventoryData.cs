@@ -47,18 +47,18 @@ public class InventoryData
         return (Gear)Items["Gear"].Find(gear => gear.Id == id);
     }
 
-    public Item GetItem(Item itemToGet, Item.ItemCategory type)
+    public Item GetItem(Item itemToGet, ItemCategory type)
     {
         return GetItem(itemToGet, type, null);
     }
 
-    public Item GetItem(Item itemToGet, Item.ItemRarity rarity)
+    public Item GetItem(Item itemToGet, Rarity rarity)
     {
         return GetItem(itemToGet, null, rarity);
     }
 
     //Get an item with corresponding Type and/or Rarity
-    public Item GetItem(Item itemToGet, Item.ItemCategory? type, Item.ItemRarity? rarity)
+    public Item GetItem(Item itemToGet, ItemCategory? type, Rarity? rarity)
     {
         //TODO -> use Find function instead
         Debug.Log($"Looking for item -> Rarity : {rarity} - Type : {type}");

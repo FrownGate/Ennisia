@@ -9,5 +9,5 @@ public class QuestSO : ScriptableObject
     public string Name;
     public string Description;
     public int Energy;
-    [ShowNonSerializedField] public Dictionary<PlayFabManager.GameCurrency, int> currencyList = new();
+    [ShowNonSerializedField] public Dictionary<Currency, int> currencyList = new();
 }

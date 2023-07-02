@@ -6,7 +6,7 @@ public class Material : Item
 {
     public Material() { }
 
-    public Material(ItemCategory category, ItemRarity rarity, int amount = 1)
+    public Material(ItemCategory category, Rarity rarity, int amount = 1)
     {
         Category = category;
         Rarity = rarity;

@@ -5,7 +5,7 @@ public class SummonTicket : Item
 {
     public SummonTicket() { }
 
-    public SummonTicket(ItemRarity rarity, int amount = 1)
+    public SummonTicket(Rarity rarity, int amount = 1)
     {
         Rarity = rarity;
         Stack = Rarity.ToString();
@@ -29,6 +29,6 @@ public class SummonTicket : Item
 
     protected override void SetName()
     {
-        Name = Rarity == ItemRarity.Common ? "Summon Ticket" : $"{Rarity} Summon Ticket";
+        Name = Rarity == global::Rarity.Common ? "Summon Ticket" : $"{Rarity} Summon Ticket";
     }
 }

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class CripplingBlow : DamageSkill
 {
-    /// TO DO -> add defense debuff for x turns
+    // TO DO -> add defense debuff for x turns
 
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        DamageModifier = (50 / 100 * player.Stats[Item.AttributeStat.PhysicalDamages].Value) * StatUpgrade1 * Level;
+        DamageModifier = (50 / 100 * caster.Stats[Attribute.PhysicalDamages].Value) * StatUpgrade1 * Level;
 
         float debuffLuck = Random.Range(0, 1);
 

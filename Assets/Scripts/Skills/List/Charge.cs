@@ -1,22 +1,15 @@
 using System.Collections.Generic;
-using static Stat<float>;
 
 public class Charge : DamageSkill
 { 
-    public float attackBaseRatio;
-    float attackRatioBuff;
-    ModifierID id;
+    private float _attackBaseRatio;
+    private float _attackRatioBuff; //Used ?
     
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
-        attackRatioBuff = attackBaseRatio + StatUpgrade1 * Level;
-        id = player.Stats[Item.AttributeStat.Attack].AddModifier(AddAttackBuff);
+        _attackRatioBuff = _attackBaseRatio + StatUpgrade1 * Level;
+        _modifiers[Attribute.Attack] = caster.Stats[Attribute.Attack].AddModifier(AddAttackBuff);
     }
 
-    float AddAttackBuff(float input) { return attackBaseRatio + input; }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.Attack].RemoveModifier(id);
-    }
+    float AddAttackBuff(float value) => _attackBaseRatio + value;
 }

@@ -2,25 +2,25 @@ using System.Collections.Generic;
 
 public class BigMushroom : PassiveSkill
 {
-    ModifierID id;
-    bool hasModifier = false;
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn)
+    private bool _hasModifier = false;
+
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
     {
-        if (targets.Count <= 2 && !hasModifier)
+        if (targets.Count <= 2 && !_hasModifier)
         {
-            id = player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuf);
-            hasModifier = true;
+            _modifiers[Attribute.Attack] = caster.Stats[Attribute.Attack].AddModifier(AttackBuf);
+            _hasModifier = true;
         }
-        else if (targets.Count >= 2)
+        else if (targets.Count >= 2 && _hasModifier)
         {
-            hasModifier = false;
+            _hasModifier = false;
+            TakeOffStats(caster);
         }
     }
-    float AttackBuf(float input)
-    {
-        return (float)input * 2;
-    }
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
+
+    float AttackBuf(float value) => (float)value * 2;
+
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
         float heal = damage;
 

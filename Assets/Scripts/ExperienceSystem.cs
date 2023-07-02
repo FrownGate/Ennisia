@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 using NaughtyAttributes;
@@ -10,17 +9,12 @@ public class ExperienceSystem : MonoBehaviour
     //public Text ExpText; // Référence au texte de l'expérience
     //public Text LevelText; // Référence au texte du niveau
 
-
-
-    
-    private Dictionary<int, int> _PlayerlevelExperienceMap;
-    private Dictionary<int, int> _AccountlevelExperienceMap;
+    public static ExperienceSystem Instance { get; private set; }
 
     [Expandable] public XPRewardData Rewards;
 
-
-    public static ExperienceSystem Instance { get; private set; }
-
+    private Dictionary<int, int> _PlayerlevelExperienceMap;
+    private Dictionary<int, int> _AccountlevelExperienceMap;
 
     private void Awake()
     {
@@ -60,6 +54,7 @@ public class ExperienceSystem : MonoBehaviour
 
         //UpdateUI(); // Met à jour l'interface utilisateur
     }
+
     public void GainExperiencePlayer(int expToAdd)
     {
         int _level = PlayFabManager.Instance.Player.Level;

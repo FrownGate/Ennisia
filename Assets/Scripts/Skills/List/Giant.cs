@@ -1,23 +1,15 @@
 using System.Collections.Generic;
-using static Stat<float>;
 
 public class Giant : PassiveSkill
 {
-    ModifierID id;
-    public float healthBaseRatio;
-    public float healthRatio;
+    private float _healthBaseRatio;
+    private float _healthRatio;
 
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
-        healthRatio = healthBaseRatio + StatUpgrade1 * Level;
-        id = player.Stats[Item.AttributeStat.HP].AddModifier(MaxHPBuff);
+        _healthRatio = _healthBaseRatio + StatUpgrade1 * Level;
+        _modifiers[Attribute.HP] = caster.Stats[Attribute.HP].AddModifier(MaxHPBuff);
     }
-    float MaxHPBuff(float input)
-    {
-        return input * healthRatio;
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.HP].RemoveModifier(id);
-    }
+
+    float MaxHPBuff(float input) => input * _healthRatio;
 }

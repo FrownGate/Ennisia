@@ -16,7 +16,7 @@ public class Effect
     }
 
     public EffectSO Data { get; set; }
-    public readonly Dictionary<Item.AttributeStat, ModifierID> Modifiers = new();
+    public readonly Dictionary<Attribute, ModifierID> Modifiers = new();
     public int Duration { get; set; }
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration != AlterationState.None;

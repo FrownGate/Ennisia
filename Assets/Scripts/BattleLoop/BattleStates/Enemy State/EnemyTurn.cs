@@ -11,7 +11,7 @@ public class EnemyTurn : State
         BattleSystem.ResetSelectedEnemies();
         BattleSystem.SetSkillButtonsActive(false);
         BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
-        BattleSystem.Enemies[BattleSystem.EnemyPlayingID].atkBar = 0;
+        BattleSystem.Enemies[BattleSystem.EnemyPlayingID].AtkBar = 0;
         //BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
         //BattleSystem.Player.ApplyEffect(new SILENCE(4,BattleSystem.Player));
 
@@ -47,7 +47,7 @@ public class EnemyTurn : State
         }
         foreach (Entity enemy in BattleSystem.Enemies)
         {
-            if (enemy.CurrentHp < enemy.Stats[Item.AttributeStat.HP].Value * 20 / 100)
+            if (enemy.CurrentHp < enemy.Stats[Attribute.HP].Value * 20 / 100)
             {
                 TeammateLow = true;
                 break;
@@ -58,7 +58,7 @@ public class EnemyTurn : State
         {
             if (skill.Cooldown == 0 && skill.GetType() != typeof(PassiveSkill))
             {
-                if ((BattleSystem.Enemies[BattleSystem.EnemyPlayingID].CurrentHp < BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Stats[Item.AttributeStat.HP].Value * 20 / 100 || TeammateLow) && CanProtect)
+                if ((BattleSystem.Enemies[BattleSystem.EnemyPlayingID].CurrentHp < BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Stats[Attribute.HP].Value * 20 / 100 || TeammateLow) && CanProtect)
                 { //if i'm low and i can protect myself // modify to check all the team hp
 
                     if (skill.GetType() == typeof(ProtectionSkill)) //i check if my skill alow me to protect myself

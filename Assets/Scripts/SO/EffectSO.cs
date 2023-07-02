@@ -8,5 +8,5 @@ public class EffectSO : ScriptableObject
     public string Description;
     public int Duration;
     public Effect.AlterationState Alteration;
-    [SerializedDictionary("Stat", "Modifier")] public SerializedDictionary<Item.AttributeStat, float> StatsModifiers;
+    [SerializedDictionary("Stat", "Modifier")] public SerializedDictionary<Attribute, float> StatsModifiers;
 }

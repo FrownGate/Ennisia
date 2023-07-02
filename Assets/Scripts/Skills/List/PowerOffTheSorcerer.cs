@@ -1,22 +1,13 @@
 using System.Collections.Generic;
 
-
 public class PowerOffTheSorcerer : Skill
 {
-    ModifierID id;
-    public float MagicBuffRatio;
+    private float _magicBuffRatio;
 
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
+        _modifiers[Attribute.MagicalDamages] = caster.Stats[Attribute.MagicalDamages].AddModifier(MagicBuff);
+    }
 
-        id = player.Stats[Item.AttributeStat.MagicalDamages].AddModifier(MagicBuff);
-    }
-    float MagicBuff(float input)
-    {
-        return input * (1 + MagicBuffRatio);
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.MagicalDamages].RemoveModifier(id);
-    }
+    float MagicBuff(float value) => value * (1 + _magicBuffRatio);
 }

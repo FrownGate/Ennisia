@@ -2,20 +2,12 @@ using System.Collections.Generic;
 
 public class MagicShield : Skill
 {
-    ModifierID id;
-    public float MagicDefBuffRatio;
+    private float _magicDefBuffRatio;
 
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
+        _modifiers[Attribute.MagicalDefense] = caster.Stats[Attribute.MagicalDefense].AddModifier(MagicShieldBuff);
+    }
 
-        id = player.Stats[Item.AttributeStat.MagicalDefense].AddModifier(MagicShieldBuff);
-    }
-    float MagicShieldBuff(float input)
-    {
-        return input * (1 + MagicDefBuffRatio);
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.MagicalDefense].RemoveModifier(id);
-    }
+    float MagicShieldBuff(float input) => input * (1 + _magicDefBuffRatio);
 }

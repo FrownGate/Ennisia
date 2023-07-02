@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemyLoader
 {
-    private readonly Dictionary<Item.AttributeStat, float> _stats = new();
+    private readonly Dictionary<Attribute, float> _stats = new();
     //TODO -> Use CSVUtils to get headers and lines
 
     public Enemy LoadEnemyByName(string filePath, string enemyName)
@@ -21,7 +21,7 @@ public class EnemyLoader
 
             for (int i = 0; i < 9; i++)
             {
-                _stats.Add((Item.AttributeStat)i, 0);
+                _stats.Add((Attribute)i, 0);
             }
 
             while (!reader.EndOfStream)
@@ -38,7 +38,7 @@ public class EnemyLoader
                     // Skip the first two columns Id and Name
                     for (int i = 2; i < 11; i++)
                     {
-                        if (Enum.TryParse(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
+                        if (Enum.TryParse(rowData.ToArray()[i].Key, out Attribute stat))
                         {
                             _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
                         }
@@ -70,7 +70,7 @@ public class EnemyLoader
 
             for (int i = 0; i < 9; i++)
             {
-                _stats.Add((Item.AttributeStat)i, 0);
+                _stats.Add((Attribute)i, 0);
 
             }
 
@@ -88,7 +88,7 @@ public class EnemyLoader
                     // Skip the first two columns Id and Name
                     for (int i = 2; i < 11; i++)
                     {
-                        if (Enum.TryParse<Item.AttributeStat>(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
+                        if (Enum.TryParse<Attribute>(rowData.ToArray()[i].Key, out Attribute stat))
                         {
                             _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
                         }
@@ -124,7 +124,7 @@ public class EnemyLoader
             for (int i = 0; i < 9; i++)
             {
                 // Skip the first two columns Id and Name
-                _stats.Add((Item.AttributeStat)i, 0);
+                _stats.Add((Attribute)i, 0);
             }
 
             while (!reader.EndOfStream)
@@ -140,7 +140,7 @@ public class EnemyLoader
                 // Skip the first two columns Id and Name
                 for (int i = 2; i < 11; i++)
                 {
-                    if (Enum.TryParse<Item.AttributeStat>(rowData.ToArray()[i].Key, out Item.AttributeStat stat))
+                    if (Enum.TryParse<Attribute>(rowData.ToArray()[i].Key, out Attribute stat))
                     {
                         _stats[stat] = int.Parse(rowData.ToArray()[i].Value);
                     }

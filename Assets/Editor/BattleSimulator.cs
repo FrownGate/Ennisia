@@ -25,7 +25,7 @@ public class BattleSimulator : EditorWindow
     private List<SupportCharacterSO> _supports;
     private List<Entity> _enemies;
 
-    private readonly Dictionary<Item.GearType, Gear> _selectedGears = new();
+    private readonly Dictionary<GearType, Gear> _selectedGears = new();
     private Gear _selectedWeapon;
     private readonly List<SupportCharacterSO> _selectedSupports = new();
     private readonly List<Entity> _selectedEnemies = new();
@@ -55,7 +55,7 @@ public class BattleSimulator : EditorWindow
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
         root.Add(visualTree.CloneTree());
 
-        BattleSystem.OnBattleSystemLoaded += StartBattle;
+        BattleSystem.OnBattleLoaded += StartBattle;
         _simulateButton = root.Q<Button>("simulate-button");
         _simulateButton.clicked += CreateBattle;
 
@@ -168,7 +168,7 @@ public class BattleSimulator : EditorWindow
 
     private void OnDestroy()
     {
-        BattleSystem.OnBattleSystemLoaded -= StartBattle;
+        BattleSystem.OnBattleLoaded -= StartBattle;
         _simulateButton.clicked -= CreateBattle;
     }
 
@@ -255,7 +255,7 @@ public class BattleSimulator : EditorWindow
 
             foreach (var stat in enemySO.Stats)
             {
-                if (stat.Key == Item.AttributeStat.DefIgnoref) continue;
+                if (stat.Key == Attribute.DefIgnored) continue;
                 ChangeStatField(enemyData.IntegerFields[index], stat.Key.ToString(), (int)stat.Value.Value);
                 index++;
             }
@@ -290,7 +290,7 @@ public class BattleSimulator : EditorWindow
     private void ChangeGearFields(Data gearData)
     {
         Gear gear = _gears.Find(x => x.Name == gearData.Dropdown.value);
-        _selectedGears[(Item.GearType)gear.Type] = gear;
+        _selectedGears[(GearType)gear.Type] = gear;
 
         ChangeStatField(gearData.IntegerFields[0], gear.Attribute.ToString(), (int)gear.Value);
         int index = 1;

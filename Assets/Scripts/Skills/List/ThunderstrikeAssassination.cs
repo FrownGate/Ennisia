@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 public class ThunderstrikeAssassination : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    //TODO -> finish skill
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         return 0;
     }

@@ -2,7 +2,7 @@ public class Thunder : Element
 {
     protected override void BuffElement(Entity _player)
     {
-        _player.Stats[Item.AttributeStat.Attack].AddModifier(Buff);
+        _player.Stats[Attribute.Attack].AddModifier(Buff);
     }
 
     private float Buff(float value)
