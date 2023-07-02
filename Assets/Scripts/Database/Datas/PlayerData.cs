@@ -8,6 +8,7 @@ public class PlayerData
 {
     public int Level;
     public int Exp;
+    public string Name;
     public int[] EquippedGearsId;
     public string[] EquippedSupportsPath;
     [NonSerialized] public SupportCharacterSO[] EquippedSupports;

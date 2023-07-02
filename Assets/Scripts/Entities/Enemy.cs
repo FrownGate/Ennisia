@@ -7,7 +7,6 @@ public class Enemy : Entity
         Name = "Betala";
         Stats[Attribute.Speed] = new(40);
         CurrentHp = Stats[Attribute.HP].Value / 2;
-
     }
 
     public Enemy(int id, string name, Dictionary<Attribute, float> stats, string description) : base(stats)
@@ -16,11 +15,6 @@ public class Enemy : Entity
         Name = name;
         Description = description;
         Level = 1;
-    }
-
-    public override void HaveBeenSelected()
-    {
-        IsSelected = true;
     }
 
     public override void TakeDamage(float damage)
@@ -32,10 +26,5 @@ public class Enemy : Entity
     public override bool HaveBeenTargeted()
     {
         return IsSelected && !IsDead;
-    }
-
-    public override void ResetTargetedState()
-    {
-        IsSelected = false;
     }
 }
