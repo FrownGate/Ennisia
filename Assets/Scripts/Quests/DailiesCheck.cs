@@ -92,8 +92,8 @@ public class DailiesCheck
 
     private void GiveRewards()
     {
-        PlayFabManager.Instance.AddCurrency(PlayFabManager.GameCurrency.Gold, goldAmount);
-        PlayFabManager.Instance.AddCurrency(PlayFabManager.GameCurrency.Crystals, goldAmount);
+        PlayFabManager.Instance.AddCurrency(Currency.Gold, goldAmount);
+        PlayFabManager.Instance.AddCurrency(Currency.Crystals, goldAmount);
     }
 
     private void OnEnable()

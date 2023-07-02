@@ -1,22 +1,15 @@
 using System.Collections.Generic;
-using static Stat<float>;
 
 public class Swiftness : PassiveSkill
 {
-    public float speedRatio;
-    float speedRatioBuff;
-    ModifierID id;
+    private float _speedRatio;
+    private float _speedRatioBuff;
 
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
-        speedRatioBuff = speedRatio + StatUpgrade1 * Level;
-        id = player.Stats[Item.AttributeStat.Speed].AddModifier(Speed);
+        _speedRatioBuff = _speedRatio + StatUpgrade1 * Level;
+        _modifiers[Attribute.Speed] = caster.Stats[Attribute.Speed].AddModifier(Speed);
     }
 
-    float Speed(float input) { return speedRatioBuff + input; }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.Speed].RemoveModifier(id);
-    }
+    float Speed(float value) => _speedRatioBuff + value;
 }

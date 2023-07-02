@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public class NurturingEarthbound : ProtectionSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float lostHealt = player.Stats[Item.AttributeStat.HP].Value - player.CurrentHp;
+        float lostHealt = caster.Stats[Attribute.HP].Value - caster.CurrentHp;
         HealingModifier = lostHealt * StatUpgrade1 * Level;
         return 0;
     }

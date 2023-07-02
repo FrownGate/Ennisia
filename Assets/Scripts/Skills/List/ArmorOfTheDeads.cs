@@ -1,30 +1,16 @@
 using System.Collections.Generic;
 
-
 public class ArmorOfTheDeads : Skill
 {
-    ModifierID id;
-    ModifierID id2;
-    public float magicalDefBuffRatio;
-    public float PhysicalDefBuffRatio;
+    private float _magicalDefBuffRatio;
+    private float _physicalDefBuffRatio;
 
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
+        _modifiers[Attribute.MagicalDamages] = caster.Stats[Attribute.MagicalDamages].AddModifier(MagicalDefBuff);
+        _modifiers[Attribute.PhysicalDefense] = caster.Stats[Attribute.PhysicalDefense].AddModifier(PhysicalDefBuff);
+    }
 
-        id = player.Stats[Item.AttributeStat.MagicalDamages].AddModifier(MagicalDefBuff);
-        id2 = player.Stats[Item.AttributeStat.PhysicalDefense].AddModifier(PhysicalDefBuff);
-    }
-    float MagicalDefBuff(float input)
-    {
-        return input * (1 + magicalDefBuffRatio);
-    }
-    float PhysicalDefBuff(float input)
-    {
-        return input * (1 + PhysicalDefBuffRatio);
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.MagicalDamages].RemoveModifier(id);
-        player.Stats[Item.AttributeStat.PhysicalDefense].RemoveModifier(id2);
-    }
+    float MagicalDefBuff(float value) => value * (1 + _magicalDefBuffRatio);
+    float PhysicalDefBuff(float value) => value * (1 + _physicalDefBuffRatio);
 }

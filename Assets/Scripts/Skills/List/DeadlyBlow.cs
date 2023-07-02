@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class DeadlyBlow : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
@@ -10,7 +10,7 @@ public class DeadlyBlow : DamageSkill
         return damage;
     }
 
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
         if (targets[0].IsDead) Cooldown = 0;
     }

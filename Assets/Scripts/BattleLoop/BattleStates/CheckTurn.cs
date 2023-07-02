@@ -25,22 +25,22 @@ public class CheckTurn : State
 
     private void CompareAttackBars()
     {
+        //TODO -> utiliser une fonction réutilisable depuis AtkBarSystem avec une liste d'Entity à trier plutôt
         bool playerFirst = false;
         int numberOfFasterEnemies = 0;
         Entity fastestEnemy = null;
 
         foreach (var enemy in _enemiesList)
         {
-            if (enemy.atkBarPercentage > _player.atkBarPercentage)
-            {
-                numberOfFasterEnemies++;
-            }
-            if (fastestEnemy == null || fastestEnemy.atkBarPercentage < enemy.atkBarPercentage)
+            if (enemy.AtkBarPercentage > _player.AtkBarPercentage) numberOfFasterEnemies++;
+
+            if (fastestEnemy == null || fastestEnemy.AtkBarPercentage < enemy.AtkBarPercentage)
             {
                 fastestEnemy = enemy;
                 BattleSystem.EnemyPlayingID = _enemiesList.IndexOf(enemy);
             }
         }
+
         playerFirst = numberOfFasterEnemies == 0 ? true : false;
         State state = playerFirst ? new PlayerTurn(BattleSystem) : new EnemyTurn(BattleSystem);
         BattleSystem.SetState(state);

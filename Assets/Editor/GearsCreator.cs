@@ -18,8 +18,8 @@ public class GearsCreator : EditorWindow
     private List<GearData> _gearList = new();  // List to store equipment data
     private Dictionary<GearData, SerializedObject> _serializedObjects = new();  // Dictionary to store serialized objects for equipment data
     private Dictionary<string, GUIContent[]> _rarityOptions = new();  // Dictionary to store rarity options for each equipment type
-    private Dictionary<string, Item.ItemRarity[]> _rarityPropertyNames = new();  // Dictionary to store rarity property names for each equipment type
-    private Dictionary<GearData, Item.ItemRarity> _selectedRarity = new();  // Dictionary to store the selected rarity for each equipment data
+    private Dictionary<string, Rarity[]> _rarityPropertyNames = new();  // Dictionary to store rarity property names for each equipment type
+    private Dictionary<GearData, Rarity> _selectedRarity = new();  // Dictionary to store the selected rarity for each equipment data
     private Dictionary<string, string> _selectedAttribute = new();  // Dictionary to store the selected attribute for each equipment type
     private Dictionary<string, List<string>> _availableAttributes = new();  // Dictionary to store available attributes for each equipment type
     private Vector2 _scrollPosition = Vector2.zero;  // Scroll position for the GUI
@@ -40,8 +40,8 @@ public class GearsCreator : EditorWindow
 
         foreach (GearData gear in _gearList)
         {
-            Item.ItemRarity[] properties = new Item.ItemRarity[] { //TODO -> optimize
-                Item.ItemRarity.Common, Item.ItemRarity.Rare, Item.ItemRarity.Epic, Item.ItemRarity.Legendary
+            Rarity[] properties = new Rarity[] { //TODO -> optimize
+                Rarity.Common, Rarity.Rare, Rarity.Epic, Rarity.Legendary
             };  // Rarity properties
             GUIContent[] options = new GUIContent[properties.Length];  // GUI content for rarity options
 
@@ -196,13 +196,13 @@ public class GearsCreator : EditorWindow
 
         // Dropdown menu for selecting the rarity
         EditorGUILayout.BeginHorizontal();
-        Item.ItemRarity[] properties = _rarityPropertyNames[gear.type.ToString()];  // Get the rarity property names based on the equipment type
+        Rarity[] properties = _rarityPropertyNames[gear.type.ToString()];  // Get the rarity property names based on the equipment type
         GUIContent[] options = _rarityOptions[gear.type.ToString()];  // Get the rarity options based on the equipment type
 
         int selectedRarityIndex = GetSelectedRarityIndex(gear);  // Get the index of the selected rarity
         EditorGUILayout.LabelField("Rarity: ");
         int newSelectedRarityIndex = EditorGUILayout.Popup(selectedRarityIndex, options);  // Display a dropdown menu for selecting the rarity
-        Item.ItemRarity newSelectedRarity = properties[newSelectedRarityIndex];  // Get the selected rarity from the dropdown
+        Rarity newSelectedRarity = properties[newSelectedRarityIndex];  // Get the selected rarity from the dropdown
 
         if (newSelectedRarity != _selectedRarity[gear])
         {
@@ -253,7 +253,7 @@ public class GearsCreator : EditorWindow
         }
     }
 
-    private void UpdateMinMaxValues(GearData gear, Item.ItemRarity newRarity)
+    private void UpdateMinMaxValues(GearData gear, Rarity newRarity)
     {
         SerializedObject serializedObject = _serializedObjects[gear];  // Get the serialized object for the equipment
         SerializedProperty minProperty = serializedObject.FindProperty(newRarity.ToString().ToLower() + "Min");  // Find the serialized property for the new rarity's minimum value
@@ -273,8 +273,8 @@ public class GearsCreator : EditorWindow
 
     private int GetSelectedRarityIndex(GearData gear)
     {
-        Item.ItemRarity[] properties = _rarityPropertyNames[gear.type.ToString()];  // Get the rarity property names based on the equipment type
-        Item.ItemRarity selectedRarity = _selectedRarity[gear];  // Get the selected rarity for the equipment
+        Rarity[] properties = _rarityPropertyNames[gear.type.ToString()];  // Get the rarity property names based on the equipment type
+        Rarity selectedRarity = _selectedRarity[gear];  // Get the selected rarity for the equipment
 
         for (int i = 0; i < properties.Length; i++)
         {
@@ -306,8 +306,8 @@ public class GearsCreator : EditorWindow
             GearData gear = CreateInstance<GearData>();  // Create a new instance of EquipmentData
 
             // Set the properties of the equipment based on the CSV values
-            gear.type = Enum.Parse<Item.GearType>(CSVUtils.GetFileName(values[0]));
-            gear.attribute = Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(values[1]));
+            gear.type = Enum.Parse<GearType>(CSVUtils.GetFileName(values[0]));
+            gear.attribute = Enum.Parse<Attribute>(CSVUtils.GetFileName(values[1]));
             gear.commonMin = float.Parse(values[2]);
             gear.commonMax = float.Parse(values[3]);
             gear.rareMin = float.Parse(values[4]);
@@ -322,7 +322,7 @@ public class GearsCreator : EditorWindow
 
             SerializedObject serializedObject = new SerializedObject(gear);  // Create a serialized object for the equipment
             _serializedObjects[gear] = serializedObject;  // Add the serialized object to the dictionary
-            _selectedRarity[gear] = Item.ItemRarity.Common;  // Set the selected rarity for the equipment as "Common"
+            _selectedRarity[gear] = Rarity.Common;  // Set the selected rarity for the equipment as "Common"
 
             // Add the attribute to the list of available attributes for the equipment type
             if (!_availableAttributes.ContainsKey(gear.type.ToString()))
@@ -412,8 +412,8 @@ public class GearsCreator : EditorWindow
 public class GearData : ScriptableObject
 {
     public string equipmentName;
-    public Item.GearType type;
-    public Item.AttributeStat attribute;
+    public GearType type;
+    public Attribute attribute;
     public float commonMin;
     public float commonMax;
     public float rareMin;

@@ -1,22 +1,13 @@
 using System.Collections.Generic;
 
-
 public class Revitalise : Skill
 {
-    ModifierID id;
-    public float HpBuffRatio;
+    public float _hpBuffRatio;
 
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
+        _modifiers[Attribute.HP] = caster.Stats[Attribute.HP].AddModifier(HpBuff);
+    }
 
-        id = player.Stats[Item.AttributeStat.HP].AddModifier(HpBuff);
-    }
-    float HpBuff(float input)
-    {
-        return input * (1 + HpBuffRatio);
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.HP].RemoveModifier(id);
-    }
+    float HpBuff(float value) => value * (1 + _hpBuffRatio);
 }

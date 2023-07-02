@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-
-
 public class Sage : Skill
 {
-    ModifierID id;
-    public float PhysicalDefBuffRatio;
+    private float _physicalDefBuffRatio;
 
     //TO DO : healing bonus 25%
 }

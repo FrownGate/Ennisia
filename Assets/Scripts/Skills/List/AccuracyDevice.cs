@@ -1,39 +1,19 @@
 using System.Collections.Generic;
 
-
 public class AccuracyDevice : Skill
 {
-    ModifierID id;
-    ModifierID id2;
-    ModifierID id3;
-    public float CritRateBuffRatio;
-    public float CritDmgBuffRatio;
-    public float AttackBuffRatio;
+    private float _critRateBuffRatio;
+    private float _critDmgBuffRatio;
+    private float _attackBuffRatio;
 
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
+        _modifiers[Attribute.CritRate] = caster.Stats[Attribute.CritRate].AddModifier(CritRateBuff);
+        _modifiers[Attribute.CritDmg] = caster.Stats[Attribute.CritDmg].AddModifier(CritDmgBuff);
+        _modifiers[Attribute.Attack] = caster.Stats[Attribute.Attack].AddModifier(AttackBuff);
+    }
 
-        id = player.Stats[Item.AttributeStat.CritRate].AddModifier(CritRateBuff);
-        id2 = player.Stats[Item.AttributeStat.CritDmg].AddModifier(CritDmgBuff);
-        id3 = player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuff);
-    }
-    float CritRateBuff(float input)
-    {
-        return input * (1 + CritRateBuffRatio);
-    }
-    float CritDmgBuff(float input)
-    {
-        return input * (1 + CritDmgBuffRatio);
-    }
-    float AttackBuff(float input)
-    {
-        return input * (1 + AttackBuffRatio);
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.CritRate].RemoveModifier(id);
-        player.Stats[Item.AttributeStat.CritDmg].RemoveModifier(id2);
-        player.Stats[Item.AttributeStat.Attack].RemoveModifier(id3);
-
-    }
+    float CritRateBuff(float input) => input * (1 + _critRateBuffRatio);
+    float CritDmgBuff(float input) => input * (1 + _critDmgBuffRatio);
+    float AttackBuff(float input) => input * (1 + _attackBuffRatio);
 }

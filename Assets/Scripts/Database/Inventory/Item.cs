@@ -2,51 +2,41 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemCategory
+{
+    Weapon, Armor, Accessory
+}
+
+public enum GearType
+{
+    Helmet, Chest, Boots, Earrings, Necklace, Ring, Weapon
+}
+
+public enum WeaponType
+{
+    Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow, Gloves
+}
+
+public enum GearSetData //TODO -> Use individual classes instead
+{
+    FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull,
+    Executioner, Revitalise, ArmorOfTheDead, Herald, FairyTales,
+    AccuracyDevice, DemonsAndHumans, VitalEngagement, MagicShield, IntegralArmour
+}
+
 [Serializable]
 public class Item
 {
-    public enum ItemRarity
-    {
-        Common, Rare, Epic, Legendary
-    }
-
-    public enum ItemCategory
-    {
-        Weapon, Armor, Accessory, None
-    }
-
-    public enum GearType
-    {
-        Helmet, Chest, Boots, Earrings, Necklace, Ring, Weapon
-    }
-
-    public enum GearWeaponType
-    {
-        Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow, Gloves
-    }
-
-    public enum AttributeStat //TODO -> move elsewhere
-    {
-        HP, Attack, PhysicalDamages, MagicalDamages, PhysicalDefense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref
-    }
-    public enum GearSet //TODO -> move elsewhere
-    {
-        FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull, 
-        Executioner, Revitalise, ArmorOfTheDead, Herald, FairyTales, 
-        AccuracyDevice, DemonsAndHumans, VitalEngagement, MagicShield, IntegralArmour
-    }
-    
-
     public int Id;
     public string Stack;
     public string Name;
     public int Amount; //Amount of item to add
-    public ItemRarity? Rarity;
+    public Rarity? Rarity;
     public ItemCategory? Category;
     public GearType? Type;
-    public GearWeaponType? WeaponType;
-    public AttributeStat? Attribute;
-    public GearSet? Set;
+    public WeaponType? WeaponType;
+    public Attribute? Attribute;
+    public GearSetData? Set;
 
     //Json Utility
     public string JsonRarity;
@@ -92,11 +82,11 @@ public class Item
 
     public virtual void Deserialize()
     {
-        Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<ItemRarity>(JsonRarity);
+        Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<Rarity>(JsonRarity);
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
         Type = string.IsNullOrEmpty(JsonType) ? null : Enum.Parse<GearType>(JsonType);
-        WeaponType = string.IsNullOrEmpty(JsonWeapon) ? null : Enum.Parse<GearWeaponType>(JsonWeapon);
-        Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<AttributeStat>(JsonAttribute);
+        WeaponType = string.IsNullOrEmpty(JsonWeapon) ? null : Enum.Parse<WeaponType>(JsonWeapon);
+        Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<Attribute>(JsonAttribute);
     }
 
     protected virtual void SetName() { }

@@ -40,7 +40,7 @@ public class Data
             if (id != 0)
             {
                 Gear gear = Inventory.GetGearById(id);
-                Player.EquippedGears[(Item.GearType)gear.Type] = gear;
+                Player.EquippedGears[(GearType)gear.Type] = gear;
                 Debug.Log($"Equipped {gear.Type} = {gear.Name}");
             }
         }

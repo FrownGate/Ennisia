@@ -9,16 +9,16 @@ public class GearSO : ScriptableObject
     public int Id;
     public string Name;
     public int Level = 1;
-    public Item.GearType Type;
-    public Item.ItemRarity Rarity;
-    public Item.AttributeStat Attribute;
+    public GearType Type;
+    public Rarity Rarity;
+    public Attribute Attribute;
     public float StatValue;
     public string Description;
     //public Sprite Icon;
-    public Dictionary<Item.AttributeStat, float> Substats;
+    public Dictionary<Attribute, float> Substats;
 
     //Weapons
-    public Item.GearWeaponType WeaponType;
+    public WeaponType WeaponType;
     public bool IsMagic;
     [Expandable] public SkillSO FirstSkillData;
     [Expandable] public SkillSO SecondSkillData;

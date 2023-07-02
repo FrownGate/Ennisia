@@ -46,15 +46,15 @@ public class EffectApplier
     //    EffectDatabase = new Dictionary<string, Effect>()
     //    {
     //        //Buffs
-    //        {EffectType.ATKBUFF.ToString(),new Effect(3,Item.AttributeStat.Attack,1.5f,"ATKBUFF","Increase attack")},
-    //        {EffectType.DEFENSEBUFF.ToString(), new Effect(3,new List<Item.AttributeStat>
-    //            {   Item.AttributeStat.PhysicalDefense, 
-    //                Item.AttributeStat.MagicalDefense
+    //        {EffectType.ATKBUFF.ToString(),new Effect(3,AttributeStat.Attack,1.5f,"ATKBUFF","Increase attack")},
+    //        {EffectType.DEFENSEBUFF.ToString(), new Effect(3,new List<AttributeStat>
+    //            {   AttributeStat.PhysicalDefense, 
+    //                AttributeStat.MagicalDefense
     //            },
     //            1.5f,"DEFENSEBUFF","Increase defense")
     //        },
-    //        {Item.AttributeStat.CritRate.ToString(),new Effect(3, Item.AttributeStat.CritRate,1.5f,"CritRate","Increase crit rate")},
-    //        {Item.AttributeStat.CritDmg.ToString(), new Effect(3,Item.AttributeStat.CritDmg,1.5f,"CritDmg","Increase crit damage")},
+    //        {AttributeStat.CritRate.ToString(),new Effect(3, AttributeStat.CritRate,1.5f,"CritRate","Increase crit rate")},
+    //        {AttributeStat.CritDmg.ToString(), new Effect(3,AttributeStat.CritDmg,1.5f,"CritDmg","Increase crit damage")},
 
     //        //Alterations
     //        {AlterationState.Silence.ToString(), new Effect(3,AlterationState.Silence, "Silence")},
@@ -63,14 +63,14 @@ public class EffectApplier
     //        {AlterationState.None.ToString(), new Effect()},
 
     //        //Debuff
-    //        {EffectType.BREAKDEFENSE.ToString(), new Effect(3,new List<Item.AttributeStat>
+    //        {EffectType.BREAKDEFENSE.ToString(), new Effect(3,new List<AttributeStat>
     //            {
-    //            Item.AttributeStat.MagicalDefense,
-    //            Item.AttributeStat.PhysicalDefense
+    //            AttributeStat.MagicalDefense,
+    //            AttributeStat.PhysicalDefense
     //            },
     //            0.7f,"BREAKDEFENSE","Decrease defense")
     //        },
-    //        {EffectType.BREAKATTACK.ToString(),new Effect(3,Item.AttributeStat.Attack,0.7f,"BREAKATTACK","Decrease attack")}
+    //        {EffectType.BREAKATTACK.ToString(),new Effect(3,AttributeStat.Attack,0.7f,"BREAKATTACK","Decrease attack")}
     //    };
     //}
 
