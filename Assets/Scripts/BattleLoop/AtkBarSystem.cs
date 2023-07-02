@@ -19,9 +19,9 @@ public class AtkBarSystem
 
         foreach (Entity entity in AllEntities)
         {
-            entity.AtkBarFillAmount = ((100 / AllEntities.Count) + (int)entity.Stats[Item.AttributeStat.Speed].Value);
+            entity.AtkBarFillAmount = ((100 / AllEntities.Count) + (int)entity.Stats[Attribute.Speed].Value);
 
-            if (fastest == null || entity.Stats[Item.AttributeStat.Speed].Value > fastest.Stats[Item.AttributeStat.Speed].Value)
+            if (fastest == null || entity.Stats[Attribute.Speed].Value > fastest.Stats[Attribute.Speed].Value)
             {
                 fastest = entity;
                 fastestID = AllEntities.IndexOf(entity);
@@ -33,7 +33,7 @@ public class AtkBarSystem
 
         foreach (Entity entity in AllEntities)
         {
-            entity.AtkBarPercentage = (int)(entity.Stats[Item.AttributeStat.Speed].Value * 100) / (int)fastest.Stats[Item.AttributeStat.Speed].Value;
+            entity.AtkBarPercentage = (int)(entity.Stats[Attribute.Speed].Value * 100) / (int)fastest.Stats[Attribute.Speed].Value;
             entity.AtkBar = entity.AtkBarPercentage;
         }
     }

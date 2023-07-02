@@ -25,10 +25,6 @@ public class Item
         Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow, Gloves
     }
 
-    public enum AttributeStat //TODO -> move elsewhere
-    {
-        HP, Attack, PhysicalDamages, MagicalDamages, PhysicalDefense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref
-    }
     public enum GearSet //TODO -> move elsewhere
     {
         FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull, 
@@ -45,7 +41,7 @@ public class Item
     public ItemCategory? Category;
     public GearType? Type;
     public GearWeaponType? WeaponType;
-    public AttributeStat? Attribute;
+    public Attribute? Attribute;
     public GearSet? Set;
 
     //Json Utility
@@ -96,7 +92,7 @@ public class Item
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
         Type = string.IsNullOrEmpty(JsonType) ? null : Enum.Parse<GearType>(JsonType);
         WeaponType = string.IsNullOrEmpty(JsonWeapon) ? null : Enum.Parse<GearWeaponType>(JsonWeapon);
-        Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<AttributeStat>(JsonAttribute);
+        Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<Attribute>(JsonAttribute);
     }
 
     protected virtual void SetName() { }

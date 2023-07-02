@@ -4,25 +4,24 @@ public class CrushingEarthguard : DamageSkill
 {
     //TODO -> Attacks all enemies, and gives a shield based off 40% of damage done.
 
-    float totalDamage = 0;
-    public override float Use(List<Entity> targets, Entity player, int turn) 
+    private float _totalDamage = 0;
+
+    public override float Use(List<Entity> targets, Entity caster, int turn) 
     {
         float damage = Data.DamageAmount;
        
         foreach (Entity target in targets)
         {
             target.TakeDamage(damage);
-            totalDamage += damage;
+            _totalDamage += damage;
         }
+
         Cooldown = Data.MaxCooldown;
-        return totalDamage; 
+        return _totalDamage; 
     }
 
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        player.Shield += (int)damage * (40 / 100);
+        caster.Shield += (int)damage * (40 / 100);
     }
-
-
-
 }

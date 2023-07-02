@@ -10,7 +10,7 @@ using AYellowpaper.SerializedCollections;
 public class CSVToSO : EditorWindow
 {
     private static Dictionary<int, SkillSO> _skillSOMap;
-    private static Dictionary<string, List<Item.AttributeStat>> _equipmentTypes;
+    private static Dictionary<string, List<Attribute>> _equipmentTypes;
     private static int _currentLine;
     private static int _lines;
 
@@ -42,7 +42,7 @@ public class CSVToSO : EditorWindow
         GUILayout.Space(25);
         if (GUILayout.Button("Equipment Stats"))
         {
-            _equipmentTypes = new Dictionary<string, List<Item.AttributeStat>>();
+            _equipmentTypes = new Dictionary<string, List<Attribute>>();
             CreateScriptableObjectsFromCSV(TypeCSV.equipment, "EquipmentStats");
         }
 
@@ -274,10 +274,10 @@ public class CSVToSO : EditorWindow
         var rarities = Enum.GetNames(typeof(Item.ItemRarity));
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
-            _equipmentTypes[rowData["type"]] = new List<Item.AttributeStat>
-                { Enum.Parse<Item.AttributeStat>(rowData["attribute"]) };
+            _equipmentTypes[rowData["type"]] = new List<Attribute>
+                { Enum.Parse<Attribute>(rowData["attribute"]) };
         else
-            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Item.AttributeStat>(rowData["attribute"]));
+            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Attribute>(rowData["attribute"]));
 
         if (_currentLine == _lines)
             foreach (var type in _equipmentTypes)
@@ -317,7 +317,7 @@ public class CSVToSO : EditorWindow
             return;
         }
 
-        if (Enum.TryParse(rowData["Attribute"], out Item.AttributeStat attribute))
+        if (Enum.TryParse(rowData["Attribute"], out Attribute attribute))
         {
             scriptableObject.Attribute = attribute;
         }

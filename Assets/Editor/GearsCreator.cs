@@ -307,7 +307,7 @@ public class GearsCreator : EditorWindow
 
             // Set the properties of the equipment based on the CSV values
             gear.type = Enum.Parse<Item.GearType>(CSVUtils.GetFileName(values[0]));
-            gear.attribute = Enum.Parse<Item.AttributeStat>(CSVUtils.GetFileName(values[1]));
+            gear.attribute = Enum.Parse<Attribute>(CSVUtils.GetFileName(values[1]));
             gear.commonMin = float.Parse(values[2]);
             gear.commonMax = float.Parse(values[3]);
             gear.rareMin = float.Parse(values[4]);
@@ -413,7 +413,7 @@ public class GearData : ScriptableObject
 {
     public string equipmentName;
     public Item.GearType type;
-    public Item.AttributeStat attribute;
+    public Attribute attribute;
     public float commonMin;
     public float commonMax;
     public float rareMin;

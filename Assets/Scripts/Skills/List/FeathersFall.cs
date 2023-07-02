@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class FeathersFall : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float totalDamage = 0;
 

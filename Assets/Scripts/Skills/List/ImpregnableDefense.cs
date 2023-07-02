@@ -1,36 +1,24 @@
 using System.Collections.Generic;
-using static Stat<float>;
 
 public class ImpregnableDefense : PassiveSkill
 {
+    private int _percentage;
 
-    private List<ModifierID> _defID = new List<ModifierID>();
-    private List<ModifierID> _magicalDefID = new List<ModifierID>();
-
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn)
+    public ImpregnableDefense()
     {
+        _percentage = 0;
+    }
 
-        if(turn < 5)
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
+    {
+        if (_percentage < 20)
         {
-            _defID.Add(player.Stats[Item.AttributeStat.PhysicalDefense].AddModifier(Add5PercentOfDef));
-            _magicalDefID.Add(player.Stats[Item.AttributeStat.MagicalDefense].AddModifier(Add5PercentOfDef));
+            _percentage += 5;
+            TakeOffStats(caster);
+            _modifiers[Attribute.PhysicalDefense] = caster.Stats[Attribute.PhysicalDefense].AddModifier(AddPercentToDef);
+            _modifiers[Attribute.MagicalDefense] = caster.Stats[Attribute.MagicalDefense].AddModifier(AddPercentToDef);
         }
     }
 
-    float Add5PercentOfDef(float input)
-    {
-        return input + (5/100 * input);
-    }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        foreach(var id in _defID)
-        {
-            player.Stats[Item.AttributeStat.PhysicalDefense].RemoveModifier(id);
-        }
-        foreach (var id in _magicalDefID)
-        {
-            player.Stats[Item.AttributeStat.MagicalDefense].RemoveModifier(id);
-        }
-    }
+    float AddPercentToDef(float value) => value + (_percentage / 100 * value);
 }

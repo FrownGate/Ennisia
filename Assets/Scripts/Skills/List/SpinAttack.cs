@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class SpinAttack : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float damage = 0; // Add damage amount and is physical
         targets[0].TakeDamage(damage);
@@ -10,8 +10,8 @@ public class SpinAttack : DamageSkill
         return damage;
     }
 
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        player.AtkBarPercentage += 5;
+        caster.AtkBarPercentage += 5;
     }
 }

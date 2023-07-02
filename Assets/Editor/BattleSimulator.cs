@@ -255,7 +255,7 @@ public class BattleSimulator : EditorWindow
 
             foreach (var stat in enemySO.Stats)
             {
-                if (stat.Key == Item.AttributeStat.DefIgnoref) continue;
+                if (stat.Key == Attribute.DefIgnored) continue;
                 ChangeStatField(enemyData.IntegerFields[index], stat.Key.ToString(), (int)stat.Value.Value);
                 index++;
             }

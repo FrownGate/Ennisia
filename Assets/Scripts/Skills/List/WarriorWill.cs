@@ -1,30 +1,16 @@
 using System.Collections.Generic;
 
-
 public class WarriorWill : Skill
 {
-    ModifierID id;
-    ModifierID id2;
-    public float PhysicalDmgBuffRatio;
-    public float PhysicalDefBuffRatio;
+    private float _physicalDmgBuffRatio;
+    private float _physicalDefBuffRatio;
 
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
+        _modifiers[Attribute.PhysicalDamages] = player.Stats[Attribute.PhysicalDamages].AddModifier(PhysicalBuff);
+        _modifiers[Attribute.PhysicalDefense] = player.Stats[Attribute.PhysicalDefense].AddModifier(PhysicalDefBuff);
+    }
 
-        id = player.Stats[Item.AttributeStat.PhysicalDamages].AddModifier(PhysicalBuff);
-        id2 = player.Stats[Item.AttributeStat.PhysicalDefense].AddModifier(PhysicalDefBuff);
-    }
-    float PhysicalBuff(float input)
-    {
-        return input * (1 + PhysicalDmgBuffRatio);
-    }
-    float PhysicalDefBuff(float input)
-    {
-        return input * (1 + PhysicalDefBuffRatio);
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.PhysicalDamages].RemoveModifier(id);
-        player.Stats[Item.AttributeStat.PhysicalDefense].RemoveModifier(id2);
-    }
+    float PhysicalBuff(float value) => value * (1 + _physicalDmgBuffRatio);
+    float PhysicalDefBuff(float value) => value * (1 + _physicalDefBuffRatio);
 }

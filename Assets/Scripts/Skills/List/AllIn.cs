@@ -1,27 +1,16 @@
 using System.Collections.Generic;
-using static Stat<float>;
 
 public class AllIn : PassiveSkill
 {
-    public float defBaseRatio;
-    ModifierID id;
-    float attackBuff;
+    private float _defBaseRatio;
+    private float _attackBuff;
 
-
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
-        player.AtkBarPercentage = 100;
-        attackBuff = player.Stats[Item.AttributeStat.PhysicalDefense].Value * (defBaseRatio + StatUpgrade1 * Level) + player.Stats[Item.AttributeStat.MagicalDefense].Value * (defBaseRatio + StatUpgrade1 * Level);
-        id = player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuff);
+        caster.AtkBarPercentage = 100;
+        _attackBuff = caster.Stats[Attribute.PhysicalDefense].Value * (_defBaseRatio + StatUpgrade1 * Level) + caster.Stats[Attribute.MagicalDefense].Value * (_defBaseRatio + StatUpgrade1 * Level);
+        _modifiers[Attribute.Attack] = caster.Stats[Attribute.Attack].AddModifier(AttackBuff);
     }
 
-    float AttackBuff(float input)
-    {   
-        return input + attackBuff;
-    }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.Attack].RemoveModifier(id);
-    }
+    float AttackBuff(float value) => value + _attackBuff;
 }

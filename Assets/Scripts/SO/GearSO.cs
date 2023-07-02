@@ -11,11 +11,11 @@ public class GearSO : ScriptableObject
     public int Level = 1;
     public Item.GearType Type;
     public Item.ItemRarity Rarity;
-    public Item.AttributeStat Attribute;
+    public Attribute Attribute;
     public float StatValue;
     public string Description;
     //public Sprite Icon;
-    public Dictionary<Item.AttributeStat, float> Substats;
+    public Dictionary<Attribute, float> Substats;
 
     //Weapons
     public Item.GearWeaponType WeaponType;

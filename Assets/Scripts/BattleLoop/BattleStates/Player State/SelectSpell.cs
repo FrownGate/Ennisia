@@ -15,7 +15,7 @@ public class SelectSpell : PlayerTurn
         Skill selectedSkill = BattleSystem.GetSelectedSkill(ButtonId);
         BattleSystem.DialogueText.text = "Select a spell";
 
-        Debug.Log("You choose : " + BattleSystem.Player.Skills[ButtonId].FileName);
+        Debug.Log("You choose : " + BattleSystem.Player.Skills[ButtonId].Data.Name);
         Debug.Log("Number : " + ButtonId);
         
         BattleSystem.SetState(new SelectTarget(BattleSystem,selectedSkill ));

@@ -9,8 +9,8 @@ public class Player : Entity
              Attack = 15;
              Speed = 30000;*/
         Name = "heho";
-        CurrentHp = Stats[Item.AttributeStat.HP].Value;
-        Stats[Item.AttributeStat.Speed] = new(90);
+        CurrentHp = Stats[Attribute.HP].Value;
+        Stats[Attribute.Speed] = new(90);
         Weapon = Resources.Load<GearSO>("SO/EquippedGears/Weapon"); //Temp
         //Weapon = PlayFabManager.Instance.Player.EquippedGears[Item.GearType.Weapon].WeaponSO;
         Weapon.Init();
