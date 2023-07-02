@@ -271,7 +271,7 @@ public class CSVToSO : EditorWindow
 
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
     {
-        var rarities = Enum.GetNames(typeof(Item.ItemRarity));
+        var rarities = Enum.GetNames(typeof(Rarity));
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
             _equipmentTypes[rowData["type"]] = new List<Attribute>
@@ -305,9 +305,9 @@ public class CSVToSO : EditorWindow
         var scriptableObject = CreateInstance<GearSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
-        scriptableObject.Type = Item.GearType.Weapon;
+        scriptableObject.Type = GearType.Weapon;
 
-        if (Enum.TryParse(rowData["Type"], out Item.GearWeaponType type))
+        if (Enum.TryParse(rowData["Type"], out WeaponType type))
         {
             scriptableObject.WeaponType = type;
         }
@@ -385,7 +385,7 @@ public class CSVToSO : EditorWindow
         for (var ii = i; ii < rowData.Count; ii++)
         {
             var Rewardtype = currencies[ii].Key;
-            if (!Enum.TryParse(Rewardtype, out PlayFabManager.GameCurrency currencyType)) continue;
+            if (!Enum.TryParse(Rewardtype, out Currency currencyType)) continue;
             Debug.Log(rowData[Rewardtype]);
 
             scriptableObject.CurrencyRewards.Add(currencyType, int.Parse(rowData[Rewardtype]));
@@ -394,7 +394,7 @@ public class CSVToSO : EditorWindow
         var gears = rowData["Gear"].Split(",");
         foreach (var gearReward in gears)
         {
-            if (!Enum.TryParse(gearReward, out Item.ItemRarity itemRarity)) continue;
+            if (!Enum.TryParse(gearReward, out Rarity itemRarity)) continue;
 
             scriptableObject.GearReward.Add(itemRarity);
         }
@@ -445,7 +445,7 @@ public class CSVToSO : EditorWindow
         for (var i = 4; i < rowData.Count; i++)
         {
             var type = currencies[i].Key;
-            if (!Enum.TryParse(type, out PlayFabManager.GameCurrency currencyType)) continue;
+            if (!Enum.TryParse(type, out Currency currencyType)) continue;
             Debug.Log(type);
 
             scriptableObject.currencyList.Add(currencyType, int.Parse(rowData[type]));

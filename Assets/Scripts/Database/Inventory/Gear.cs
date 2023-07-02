@@ -23,7 +23,7 @@ public class Gear : Item
         public float Value;
     }
 
-    public Gear(GearType type, ItemRarity rarity, GearSO weapon = null)
+    public Gear(GearType type, Rarity rarity, GearSO weapon = null)
     {
         WeaponSO = weapon;
         WeaponType = weapon ? weapon.WeaponType : null;
@@ -42,7 +42,7 @@ public class Gear : Item
         AddToInventory();
     }
 
-    public Gear(GearSO weapon, ItemRarity rarity) : this(weapon.Type, rarity, weapon) { }
+    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, weapon) { }
     public Gear(GearSO gear) : this(gear.Type, gear.Rarity, gear.Type == GearType.Weapon ? gear : null) { }
 
     public Gear(InventoryItem item)
@@ -73,7 +73,7 @@ public class Gear : Item
 
     public override void Serialize()
     {
-        if (Category != ItemCategory.Weapon && Rarity != ItemRarity.Common)
+        if (Category != ItemCategory.Weapon && Rarity != global::Rarity.Common)
         {
             JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
             int i = 0;
@@ -98,7 +98,7 @@ public class Gear : Item
     {
         base.Deserialize();
 
-        if (Category == ItemCategory.Weapon || Rarity == ItemRarity.Common) return;
+        if (Category == ItemCategory.Weapon || Rarity == global::Rarity.Common) return;
         Substats = new();
 
         for (int i = 0; i < JsonSubstats.Length; i++)

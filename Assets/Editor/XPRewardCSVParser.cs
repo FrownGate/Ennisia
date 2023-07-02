@@ -131,15 +131,15 @@ public class XPRewardCSVParserWindow : EditorWindow
         return ItemCategory.None;
     }
 
-    private ItemRarity DetermineItemRarity(string rarityName)
+    private Rarity DetermineItemRarity(string rarityName)
     {
-        if (Enum.TryParse(rarityName, out ItemRarity rarity))
+        if (Enum.TryParse(rarityName, out Rarity rarity))
         {
             return rarity;
         }
 
         // Handle unknown rarities or return a default value
-        return ItemRarity.Common;
+        return Rarity.Common;
     }
 
     private RewardType DetermineItemRewardType(string RewardTypeName)
