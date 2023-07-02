@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class Entity
 {
@@ -11,8 +12,7 @@ public abstract class Entity
     public Dictionary<Item.AttributeStat, Stat<float>> Stats { get; private set; }
     public GearSO Weapon { get; set; }
     public List<Skill> Skills { get; protected set; }
-    public List<BuffEffect> Buffs { get; protected set; } = new();
-    public List<BuffEffect> Alterations { get; protected set; } = new();
+    public List<Effect> Effects { get; protected set; } = new();
     public bool IsSelected { get; protected set; } = false;
     
     public bool IsDead
@@ -57,6 +57,11 @@ public abstract class Entity
         {
             Stats[Enum.Parse<Item.AttributeStat>(stat)] = new(10);
         }
+
+        //Testing effects
+        //Debug.Log(Stats[Item.AttributeStat.Attack].Value);
+        //ApplyEffect(new AttackBuff());
+        //Debug.Log(Stats[Item.AttributeStat.Attack].Value);
     }
 
     public virtual void TakeDamage(float damage)
@@ -88,16 +93,22 @@ public abstract class Entity
     public virtual void ResetTargetedState() { }
     public virtual void HaveBeenSelected() { }
     
-    public ModifierID AlterateStat(Item.AttributeStat stat, Func<float, float> func, int layer = 1)
+    //public ModifierID AlterateStat(Item.AttributeStat stat, Func<float, float> func, int layer = 1)
+    //{
+    //    return Stats[stat].AddModifier(func, layer);
+    //}
+
+    public void ApplyEffect(Effect effect)
     {
-        return Stats[stat].AddModifier(func, layer);
-    }
-    public void AddBuffEffect(BuffEffect buff)
-    {
-        Buffs.Add(buff);
-    }
-    public void AddAlteration(BuffEffect alteration)
-    {
-        Alterations.Add(alteration);
+        Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
+
+        if (existingEffect != null)
+        {
+            existingEffect.ResetDuration();
+            return;
+        }
+
+        Effects.Add(effect);
+        if (!effect.HasAlteration) effect.AddEffectModifiers(this);
     }
 }
