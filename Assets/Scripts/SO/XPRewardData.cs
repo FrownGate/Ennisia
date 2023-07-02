@@ -22,7 +22,7 @@ public class XPRewardData : ScriptableObject
     {
         public string ItemName;
         public int Count;
-        public ItemCategory Category;
+        public ItemCategory? Category;
         public Rarity Rarity;
         public RewardType RewardType;
     }
@@ -46,7 +46,7 @@ public class XPRewardData : ScriptableObject
                     PlayFabManager.Instance.AddCurrency(Currency.Crystals, component.Count);
                     break;
                 case RewardType.Material:
-                    PlayFabManager.Instance.AddInventoryItem(new Material(component.Category, component.Rarity, component.Count));
+                    PlayFabManager.Instance.AddInventoryItem(new Material((ItemCategory)component.Category, component.Rarity, component.Count));
                     break;
                 case RewardType.SummonTicket:
                     SummonTicket summonTicket = new(component.Rarity, component.Count);
@@ -69,8 +69,8 @@ public class XPRewardData : ScriptableObject
                     PlayFabManager.Instance.AddInventoryItem(weapon);
                     break;
                 case RewardType.Set:
-                    
-                    GearSet randomSet = (GearSet)UnityEngine.Random.Range(0, Enum.GetValues(typeof(GearSet)).Length);
+
+                    GearSetData randomSet = (GearSetData)UnityEngine.Random.Range(0, Enum.GetValues(typeof(GearSet)).Length);
 
                     List<Gear> set = new()
                     {

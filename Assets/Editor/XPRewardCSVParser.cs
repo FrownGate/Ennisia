@@ -120,7 +120,7 @@ public class XPRewardCSVParserWindow : EditorWindow
         return rewardComponents;
     }
 
-    private ItemCategory DetermineItemCategory(string itemName)
+    private ItemCategory? DetermineItemCategory(string itemName)
     {
         if (Enum.TryParse(itemName, out ItemCategory category))
         {
@@ -128,7 +128,7 @@ public class XPRewardCSVParserWindow : EditorWindow
         }
 
         // Handle unknown item categories or return a default value
-        return ItemCategory.None;
+        return null;
     }
 
     private Rarity DetermineItemRarity(string rarityName)
