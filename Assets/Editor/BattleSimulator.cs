@@ -55,7 +55,7 @@ public class BattleSimulator : EditorWindow
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
         root.Add(visualTree.CloneTree());
 
-        BattleSystem.OnBattleSystemLoaded += StartBattle;
+        BattleSystem.OnBattleLoaded += StartBattle;
         _simulateButton = root.Q<Button>("simulate-button");
         _simulateButton.clicked += CreateBattle;
 
@@ -168,7 +168,7 @@ public class BattleSimulator : EditorWindow
 
     private void OnDestroy()
     {
-        BattleSystem.OnBattleSystemLoaded -= StartBattle;
+        BattleSystem.OnBattleLoaded -= StartBattle;
         _simulateButton.clicked -= CreateBattle;
     }
 
