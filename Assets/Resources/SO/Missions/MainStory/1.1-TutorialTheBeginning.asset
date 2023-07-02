@@ -18,11 +18,32 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 1
-  WavesCount: 1
+  Waves:
+    _serializedList:
+    - Key: 1
+      Value:
+      - Wolf
+      - Wolf
+      - Wolf
+    - Key: 2
+      Value:
+      - Wolf
+      - Wolf
+      - Wolf Pack Leader
+    - Key: 3
+      Value: []
+  WavesCount: 4
   Enemies:
   - Wolf
-  - ' Wolf'
+  - Wolf Pack Leader
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 1
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
+  GearReward: 
   Experience: 10

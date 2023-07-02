@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
 
 public class CSVToSO : EditorWindow
 {
@@ -201,7 +202,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Rarity = rowData["Rarity"];
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
-        scriptableObject.Element = Enum.Parse<Element.ElementType>( rowData["Element"]);
+        scriptableObject.Element = Enum.Parse<Element.ElementType>(rowData["Element"]);
         AssignSkillData(rowData, "PrimarySkill", ref scriptableObject.PrimarySkillData);
         AssignSkillData(rowData, "SecondarySkill", ref scriptableObject.SecondarySkillData);
 
@@ -346,21 +347,20 @@ public class CSVToSO : EditorWindow
         scriptableObject.EnergyCost = int.Parse(rowData["EnergyCost"]);
         scriptableObject.Unlocked = bool.Parse(rowData["Unlocked"]);
 
-        Dictionary<int, List<string>> waves = new();
+        SerializedDictionary<int, List<string>> waves = new();
         HashSet<string> enemies = new(); // Use HashSet to avoid duplicates
-        List<string> enemiesInWaveList = new();
-        var waveCount = 0;
+        var waveCount = 1;
         var i = 1;
         while (rowData.ContainsKey($"Wave{i}"))
         {
             var wave = rowData[$"Wave{i}"];
+            List<string> enemiesInWaveList = new();
             if (!wave.Equals(""))
             {
-               
-                
                 var waveEnemies = wave.Split(',');
                 foreach (var enemy in waveEnemies)
                 {
+                    if (enemy == "Talk Only") continue;
                     enemiesInWaveList.Add(enemy);
                     enemies.Add(enemy);
                 }
@@ -389,6 +389,14 @@ public class CSVToSO : EditorWindow
             Debug.Log(rowData[Rewardtype]);
 
             scriptableObject.CurrencyRewards.Add(currencyType, int.Parse(rowData[Rewardtype]));
+        }
+
+        var gears = rowData["Gear"].Split(",");
+        foreach (var gearReward in gears)
+        {
+            if (!Enum.TryParse(gearReward, out Item.ItemRarity itemRarity)) continue;
+
+            scriptableObject.GearReward.Add(itemRarity);
         }
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);

@@ -18,9 +18,36 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  Waves:
+    _serializedList:
+    - Key: 1
+      Value:
+      - Green Slime
+      - Green Slime
+      - Green Slime
+    - Key: 2
+      Value:
+      - Haunted Tree
+      - Haunted Tree
+      - Green Slime
+    - Key: 3
+      Value:
+      - Haunted Tree
+      - Haunted Tree
+      - Haunted Tree
+      - Haunted Tree
+  WavesCount: 4
+  Enemies:
+  - Green Slime
+  - Haunted Tree
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 2
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
+  GearReward: 
   Experience: 10
