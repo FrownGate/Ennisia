@@ -17,7 +17,7 @@ public enum WeaponType
     Sword, Staff, Scythe, Daggers, Hammer, Shield, Bow, Gloves
 }
 
-public enum GearSet //TODO -> move elsewhere / Use SO
+public enum GearSetData //TODO -> Use individual classes instead
 {
     FightUntilTheEnd, WarriorWill, PowerOfTheSorcerer, Sage, LuckyPull,
     Executioner, Revitalise, ArmorOfTheDead, Herald, FairyTales,
