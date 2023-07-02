@@ -28,15 +28,15 @@ public abstract class Skill
         Data = Resources.Load<SkillSO>("SO/Skills/" + FileName);
     }
 
-    public virtual void ConstantPassive(List<Entity> targets, Entity player, int turn) { }
-    public virtual void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }
-    public virtual float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }
-    public virtual float Use(List<Entity> targets, Entity player, int turn) { return 0; }
-    public virtual void UseIfAttacked(List<Entity> targets, Entity player, int turn, float damageTaken) { }
-    public virtual float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }
-    public virtual void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }
-    public virtual void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }
-    public virtual void TakeOffStats(List<Entity> targets, Entity player, int turn) { }
+    public virtual void ConstantPassive(List<Entity> targets, Entity caster, int turn) { }
+    public virtual void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn) { }
+    public virtual float SkillBeforeUse(List<Entity> targets, Entity caster, int turn) { return 0; }
+    public virtual float Use(List<Entity> targets, Entity caster, int turn) { return 0; }
+    public virtual void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken) { }
+    public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
+    public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
+    public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
+    public virtual void TakeOffStats(List<Entity> targets, Entity caster, int turn) { }
 
     public virtual void Upgrade()
     {

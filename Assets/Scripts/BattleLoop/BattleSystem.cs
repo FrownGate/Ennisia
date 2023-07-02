@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
+    public static event Action<BattleSystem> OnBattleSystemLoaded;
+
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _firstSupport;
@@ -177,14 +179,8 @@ public class BattleSystem : StateMachine
 
     public void SimulateBattle(Player player = null, List<Entity> enemies = null)
     {
-        if (player != null)
-        {
-            Player = player;
-        }
-        if (enemies != null)
-        {
-            Enemies = enemies;
-        }
+        Player = player ?? Player;
+        Enemies = enemies ?? Enemies;
         SetState(new AutoBattle(this));
     }
 
@@ -241,49 +237,23 @@ public class BattleSystem : StateMachine
         Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
     }
 
-    public void UpdateEntitiesBuffEffects()
+    public void UpdateEntitiesEffects()
     {
-        if (Player.Buffs != null)
+        foreach (var effect in Player.Effects)
         {
-            for (int i = 0; i < Player.Buffs.Count; i++)
-            {
-                Player.Buffs[i].Tick(Player);
-            }
+            effect.Tick(Player);
+
+            if (effect.HasAlteration) effect.AlterationEffect(Player);
         }
 
         foreach (var enemy in Enemies)
         {
-            if (enemy.Buffs != null)
+            foreach (var effect in enemy.Effects)
             {
-                for (int i = 0; i < enemy.Buffs.Count; i++)
-                {
-                    enemy.Buffs[i].Tick(enemy);
-                }
+                effect.Tick(enemy);
+
+                if (effect.HasAlteration) effect.AlterationEffect(enemy);
             }
         }
-    }
-    
-    public void UpdateEntitiesAlterations()
-    {
-        if (Player.Alterations != null)
-        {
-            foreach (var alteration in Player.Alterations)
-            {
-                alteration.Tick(Player);
-                switch (alteration.State)
-                {
-                    case AlterationState.Stun:
-                        AttackBarSystem.ResetAtb(Player);
-                        break;
-                    case AlterationState.Silence:
-                        
-                        break;
-                    case AlterationState.DemonicMark:
-                        
-                        break;
-                }
-            }
-        }
-        
     }
 }

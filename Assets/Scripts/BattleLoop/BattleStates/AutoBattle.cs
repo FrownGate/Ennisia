@@ -24,10 +24,12 @@ public class AutoBattle : State
         {
             int selectedSkillIndex = Random.Range(0, BattleSystem.Player.Skills.Count);
             BattleSystem.SetState(new SelectSpell(BattleSystem, selectedSkillIndex));
-
+            //copy paste spell selecyion
             if (BattleSystem.Enemies.Any())
             {
-                int selectedEnemyIndex = Random.Range(0, BattleSystem.Enemies.Count);
+
+
+                int selectedEnemyIndex = FindLowestEnemy();//need to random between bdef ennemy or lowest ennemy
                 BattleSystem.Enemies[selectedEnemyIndex].HaveBeenSelected();
                 BattleSystem.GetSelectedEnemies(BattleSystem.Enemies);
                 BattleSystem.StartCoroutine(new SelectTarget(BattleSystem, BattleSystem.GetSelectedSkill(selectedSkillIndex)).Attack());
@@ -41,5 +43,21 @@ public class AutoBattle : State
         {
             Debug.LogWarning("AI has no skills or allies to select.");
         }
+    }
+    private int FindLowestEnemy()
+    {
+        int id = 0;
+        Entity lowestEnemy = null;
+
+        foreach(Entity enemy in BattleSystem.Enemies)
+        {
+            if(lowestEnemy == null ||enemy.CurrentHp < lowestEnemy.CurrentHp)
+            {
+                lowestEnemy = enemy;
+                id = BattleSystem.Enemies.IndexOf(enemy);
+            }
+        }
+        return id;
+
     }
 }

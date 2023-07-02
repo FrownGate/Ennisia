@@ -2,690 +2,388 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
-using System;
 
 public class BattleSimulator : EditorWindow
 {
-    public class EnemyInfo
+    public class Data
     {
+        public int Id;
         public DropdownField Dropdown;
-        public Dictionary<Item.AttributeStat, IntegerField> Stats;
         public Foldout Foldout;
+        public List<IntegerField> IntegerFields;
+        public List<TextField> TextFields;
     }
-    List<GroupBox> _enemiesGroupbox;
-    //TODO: -> Optimize stored datas with enum, arrays, loops, etc.
 
-    public static BattleSystem Instance;
-    private List<SupportCharacterSO> _supports = new();
-    private List<GearSO> _weapons = new();
-    // TODO: To Enemy 
-    private List<Entity> _enemies = new();
-    private List<GearSO> _gears = new();
-    // TODO: To Enemy 
-    private List<Entity> _selectedEnemies = new();
-    private List<SupportCharacterSO> _selectedSupports = new();
-    private List<GearSO> _selectedGears = new();
-    private GearSO _selectedWeapon;
+    private readonly List<Data> _gearsData = new();
+    private Data _weaponData;
+    private readonly List<Data> _supportsData = new();
+    private readonly List<Data> _enemiesData = new();
 
-    List<EnemyInfo> _enemiesInfos = new();
+    private Player _player;
+    private readonly List<Gear> _gears = new();
+    private readonly List<Gear> _weapons = new();
+    private List<SupportCharacterSO> _supports;
+    private List<Entity> _enemies;
 
-    // GEARS
-    #region Gears
-    private GroupBox _helmetGroupBox;
-    private GroupBox _chestGroupBox;
-    private GroupBox _bootsGroupBox;
-    private GroupBox _ringGroupBox;
-    private GroupBox _necklaceGroupBox;
-    private GroupBox _earringsGroupBox;
-    private DropdownField _helmetDropdown;
-    private DropdownField _chestDropdown;
-    private DropdownField _bootsDropdown;
-    private DropdownField _ringDropdown;
-    private DropdownField _necklaceDropdown;
-    private DropdownField _earringsDropdown;
-    private Foldout _helmetFoldout;
-    private Foldout _chestFoldout;
-    private Foldout _bootsFoldout;
-    private Foldout _ringFoldout;
-    private Foldout _necklaceFoldout;
-    private Foldout _earringsFoldout;
-    private readonly List<IntegerField> _helmetStatField = new();
-    private readonly List<IntegerField> _chestStatField = new();
-    private readonly List<IntegerField> _bootsStatField = new();
-    private readonly List<IntegerField> _ringStatField = new();
-    private readonly List<IntegerField> _necklaceStatField = new();
-    private readonly List<IntegerField> _earringsStatField = new();
-    #endregion
+    private readonly Dictionary<Item.GearType, Gear> _selectedGears = new();
+    private Gear _selectedWeapon;
+    private readonly List<SupportCharacterSO> _selectedSupports = new();
+    private readonly List<Entity> _selectedEnemies = new();
 
-    // SUPPORTS
-    private GroupBox _firstSupportGroupBox;
-    private GroupBox _secondSupportGroupBox;
-
-    private DropdownField _firstSupportDropdown;
-    private DropdownField _secondSupportDropdown;
-    private Foldout _firstSupportFoldout;
-    private Foldout _secondSupportFoldout;
-    private readonly List<TextField> _firstSupportSkillField = new();
-    private readonly List<TextField> _secondSupportSkillField = new();
-
-    // WEAPON
-    private GroupBox _weaponGroupBox;
-    private DropdownField _weaponDropdown;
-    private Foldout _weaponFoldout;
-    private readonly List<IntegerField> _weaponStatField = new();
-    private readonly List<TextField> _weaponSkillField = new();
-
-    // ENEMIES
-
-
-    #region Enemies
-    private GroupBox _firstEnemyGroupBox;
-    private GroupBox _secondEnemyGroupBox;
-    private GroupBox _thirdEnemyGroupBox;
-    private GroupBox _fourthEnemyGroupBox;
-    private GroupBox _fifthEnemyGroupBox;
-    private GroupBox _sixthEnemyGroupBox;
-    private DropdownField _firstEnemyDropdown;
-    private DropdownField _secondEnemyDropdown;
-    private DropdownField _thirdEnemyDropdown;
-    private DropdownField _fourthEnemyDropdown;
-    private DropdownField _fifthEnemyDropdown;
-    private DropdownField _sixthEnemyDropdown;
-    private Foldout _firstEnemyFoldout;
-    private Foldout _secondEnemyFoldout;
-    private Foldout _thirdEnemyFoldout;
-    private Foldout _fourthEnemyFoldout;
-    private Foldout _fifthEnemyFoldout;
-    private Foldout _sixthEnemyFoldout;
-
-    private readonly List<IntegerField> _firstEnemyStatsField = new();
-    private readonly List<IntegerField> _secondEnemyStatsField = new();
-    private readonly List<IntegerField> _thirdEnemyStatsField = new();
-    private readonly List<IntegerField> _fourthEnemyStatsField = new();
-    private readonly List<IntegerField> _fifthEnemyStatsField = new();
-    private readonly List<IntegerField> _sixthEnemyStatsField = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _firstEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _secondEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _thirdEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _fourthEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _fifthEnemyInfo = new();
-    private readonly Dictionary<DropdownField, List<IntegerField>> _sixthEnemyInfo = new();
-    #endregion
-    //private readonly List<Dictionary<DropdownField, List<IntegerField>>> _enemiesInfo = new();
-    //public List<Object> _enemiesStruct = new();
     private Button _simulateButton;
+    private static readonly string _toolName = "Battle Simulator";
+    private readonly string _empty = "None";
 
     [MenuItem("Tools/Battle Simulator")]
     public static void ShowWindow()
     {
         if (!EditorApplication.isPlaying)
         {
-            Debug.LogError("You must be in play mode to use the Battle Simulator");
+            Debug.LogError($"You must be in play mode to use the {_toolName}");
             return;
         }
-        GetWindow<BattleSimulator>("Battle Simulator");
-        BattleSimulator window = GetWindow<BattleSimulator>("Battle Simulator");
-        GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
-        window.titleContent = new GUIContent("Battle Simulator", icon.image, "Battle Simulator");
 
+        BattleSimulator window = GetWindow<BattleSimulator>(_toolName);
+        GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
+        window.titleContent = new GUIContent(_toolName, icon.image, _toolName);
         window.position = new Rect(Screen.width / 2, Screen.height / 2, 1000, 1000);
     }
 
     private void CreateGUI()
     {
         VisualElement root = rootVisualElement;
-
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
-        TemplateContainer labelFromUXML = visualTree.CloneTree();
-        root.Add(labelFromUXML);
+        root.Add(visualTree.CloneTree());
 
+        BattleSystem.OnBattleSystemLoaded += StartBattle;
         _simulateButton = root.Q<Button>("simulate-button");
+        _simulateButton.clicked += CreateBattle;
 
-        _firstSupportGroupBox = root.Q<GroupBox>("FirstSupport");
-        _secondSupportGroupBox = root.Q<GroupBox>("SecondSupport");
+        #region Gears
+        List<GearSO> gearsSO = new(Resources.LoadAll<GearSO>("SO/GearsCreator"));
+        foreach (var gear in gearsSO) _gears.Add(new(gear));
 
-        _firstSupportSkillField.Add(_firstSupportGroupBox.Q<TextField>("Skill1"));
-        _firstSupportSkillField.Add(_firstSupportGroupBox.Q<TextField>("Skill2"));
-
-        _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill1"));
-        _secondSupportSkillField.Add(_secondSupportGroupBox.Q<TextField>("Skill2"));
-
-        _firstSupportDropdown = root.Q<DropdownField>("first-support-dropdown");
-        _secondSupportDropdown = root.Q<DropdownField>("second-support-dropdown");
-
-        _firstSupportFoldout = root.Q<Foldout>("first-support-foldout");
-        _secondSupportFoldout = root.Q<Foldout>("second-support-foldout");
-
-        _firstSupportFoldout.text = "Support Skills";
-        _secondSupportFoldout.text = "Support Skills";
-
-        _helmetGroupBox = root.Q<GroupBox>("Helmet");
-        _chestGroupBox = root.Q<GroupBox>("Chest");
-        _bootsGroupBox = root.Q<GroupBox>("Boots");
-        _ringGroupBox = root.Q<GroupBox>("Ring");
-        _necklaceGroupBox = root.Q<GroupBox>("Necklace");
-        _earringsGroupBox = root.Q<GroupBox>("Earrings");
-
-        #region Stuff
-        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Hp"));
-        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat1"));
-        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat2"));
-        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat3"));
-        _helmetStatField.Add(_helmetGroupBox.Q<IntegerField>("Substat4"));
-
-        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("MainStat"));
-        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat1"));
-        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat2"));
-        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat3"));
-        _chestStatField.Add(_chestGroupBox.Q<IntegerField>("Substat4"));
-
-        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Defense"));
-        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat1"));
-        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat2"));
-        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat3"));
-        _bootsStatField.Add(_bootsGroupBox.Q<IntegerField>("Substat4"));
-
-        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("MainStat"));
-        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat1"));
-        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat2"));
-        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat3"));
-        _ringStatField.Add(_ringGroupBox.Q<IntegerField>("Substat4"));
-
-        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("MainStat"));
-        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat1"));
-        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat2"));
-        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat3"));
-        _necklaceStatField.Add(_necklaceGroupBox.Q<IntegerField>("Substat4"));
-
-        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("MainStat"));
-        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat1"));
-        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat2"));
-        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat3"));
-        _earringsStatField.Add(_earringsGroupBox.Q<IntegerField>("Substat4"));
-        #endregion
-        _helmetDropdown = root.Q<DropdownField>("helmet-dropdown");
-        _chestDropdown = root.Q<DropdownField>("chest-dropdown");
-        _bootsDropdown = root.Q<DropdownField>("boots-dropdown");
-        _ringDropdown = root.Q<DropdownField>("ring-dropdown");
-        _necklaceDropdown = root.Q<DropdownField>("necklace-dropdown");
-        _earringsDropdown = root.Q<DropdownField>("earrings-dropdown");
-
-        _helmetFoldout = root.Q<Foldout>("helmet-foldout");
-        _chestFoldout = root.Q<Foldout>("chest-foldout");
-        _bootsFoldout = root.Q<Foldout>("boots-foldout");
-        _ringFoldout = root.Q<Foldout>("ring-foldout");
-        _necklaceFoldout = root.Q<Foldout>("necklace-foldout");
-        _earringsFoldout = root.Q<Foldout>("earrings-foldout");
-
-
-        _weaponGroupBox = root.Q<GroupBox>("Weapon");
-
-        _weaponStatField.Add(_weaponGroupBox.Q<IntegerField>("MainStat"));
-        _weaponSkillField.Add(_weaponGroupBox.Q<TextField>("Skill1"));
-        _weaponSkillField.Add(_weaponGroupBox.Q<TextField>("Skill2"));
-
-        _weaponDropdown = root.Q<DropdownField>("weapon-dropdown");
-
-        _weaponFoldout = root.Q<Foldout>("weapon-foldout");
-        _weaponFoldout.text = "Weapon Skills";
-
-        /*_firstEnemyGroupBox = root.Q<GroupBox>("FirstEnemy");
-        _secondEnemyGroupBox = root.Q<GroupBox>("SecondEnemy");
-        _thirdEnemyGroupBox = root.Q<GroupBox>("ThirdEnemy");
-        _fourthEnemyGroupBox = root.Q<GroupBox>("FourthEnemy");
-        _fifthEnemyGroupBox = root.Q<GroupBox>("FifthEnemy");
-        _sixthEnemyGroupBox = root.Q<GroupBox>("SixthEnemy");*/
-        _enemiesGroupbox = root.Query<GroupBox>("EnemyGroupbox").ToList();
-
-        foreach (var item in _enemiesGroupbox)
+        foreach (var item in root.Query<GroupBox>("GearGroupbox").ToList())
         {
-            EnemyInfo enemyInfo = new()
+            Data gearData = new()
+            {
+                Dropdown = item.Q<DropdownField>("GearDropdown"),
+                Foldout = item.Q<Foldout>("GearFoldout"),
+                IntegerFields = item.Query<IntegerField>().ToList()
+            };
+
+            gearData.Dropdown.choices.Add(_empty);
+            gearData.Dropdown.value = _empty;
+
+            // loop through all the IntegerFields and add them to the dictionnary with the name of the stat as a key from _gears
+            foreach (var gear in _gears)
+            {
+                if (gear.Type.ToString() == gearData.Dropdown.label) gearData.Dropdown.choices.Add(gear.Name);
+            }
+
+            HideData(gearData);
+            _gearsData.Add(gearData);
+        }
+        #endregion
+
+        #region Weapon
+        List<GearSO> weaponsSO = new(Resources.LoadAll<GearSO>("SO/Weapons"));
+        foreach (var weapon in weaponsSO) _weapons.Add(new(weapon));
+        GroupBox weaponGroupbox = root.Q<GroupBox>("Weapon");
+
+        _weaponData = new()
+        {
+            Dropdown = root.Q<DropdownField>("weapon-dropdown"),
+            Foldout = root.Q<Foldout>("weapon-foldout"),
+            IntegerFields = weaponGroupbox.Query<IntegerField>().ToList(),
+            TextFields = weaponGroupbox.Query<TextField>().ToList()
+        };
+
+        _weaponData.Dropdown.choices.Add(_empty);
+        _weaponData.Dropdown.value = _empty;
+        _weaponData.Foldout.text = "Weapon Skills";
+
+        foreach (Gear weapon in _weapons) _weaponData.Dropdown.choices.Add(weapon.Name);
+
+        HideData(_weaponData);
+        #endregion
+
+        #region Supports
+        _supports = new(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
+
+        int id = 0;
+        foreach (var item in root.Query<GroupBox>("SupportGroupbox").ToList())
+        {
+            Data supportData = new()
+            {
+                Id = id,
+                Dropdown = item.Q<DropdownField>("SupportDropdown"),
+                Foldout = item.Q<Foldout>("SupportFoldout"),
+                TextFields = item.Query<TextField>().ToList()
+            };
+
+            supportData.Dropdown.choices.Add(_empty);
+            supportData.Dropdown.value = _empty;
+            supportData.Foldout.text = "Support Skills";
+
+            foreach (SupportCharacterSO support in _supports) supportData.Dropdown.choices.Add(support.Name);
+
+            HideData(supportData);
+            _supportsData.Add(supportData);
+            id++;
+        }
+        #endregion
+
+        #region Enemies
+        _enemies = new EnemyLoader().LoadEnemies("Assets/Resources/CSV/Enemies.csv");
+
+        foreach (var item in root.Query<GroupBox>("EnemyGroupbox").ToList())
+        {
+            Data enemyData = new()
             {
                 Dropdown = item.Q<DropdownField>("EnemyDropdown"),
                 Foldout = item.Q<Foldout>("EnemyFoldout"),
-                Stats = new()
+                IntegerFields = item.Query<IntegerField>().ToList()
             };
 
-            List<IntegerField> statList = item.Query<IntegerField>().ToList();
+            enemyData.Dropdown.choices.Add(_empty);
+            enemyData.Dropdown.value = _empty;
+            enemyData.Foldout.text = "Enemy Stats";
 
-            foreach (IntegerField stat in statList)
-            {
-                enemyInfo.Stats.Add((Item.AttributeStat)Enum.Parse(typeof(Item.AttributeStat), stat.label), stat);
-            }
-            _enemiesInfos.Add(enemyInfo);
+            foreach (Entity enemy in _enemies) enemyData.Dropdown.choices.Add(enemy.Name);
+
+            HideData(enemyData);
+            _enemiesData.Add(enemyData);
         }
-
-        // get the stats fields for all the enemies
-        //TODO -> use enums with list or dictionary to optimize
-        #region To Delete
-        /*_firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("HP"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Attack"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _firstEnemyStatsField.Add(_firstEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("HP"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("Attack"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _secondEnemyStatsField.Add(_secondEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("HP"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("Attack"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _thirdEnemyStatsField.Add(_thirdEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("HP"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("Attack"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _fourthEnemyStatsField.Add(_fourthEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("HP"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("Attack"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _fifthEnemyStatsField.Add(_fifthEnemyGroupBox.Q<IntegerField>("Speed"));
-
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("HP"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Attack"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("PhysicalDamages"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("PhysicalDefense"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MagicalDamages"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("MagicalDefense"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritRate"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("CritDmg"));
-        _sixthEnemyStatsField.Add(_sixthEnemyGroupBox.Q<IntegerField>("Speed"));*/
-
-        /*_firstEnemyDropdown = root.Q<DropdownField>("first-enemy-dropdown");
-        _secondEnemyDropdown = root.Q<DropdownField>("second-enemy-dropdown");
-        _thirdEnemyDropdown = root.Q<DropdownField>("third-enemy-dropdown");
-        _fourthEnemyDropdown = root.Q<DropdownField>("fourth-enemy-dropdown");
-        _fifthEnemyDropdown = root.Q<DropdownField>("fifth-enemy-dropdown");
-        _sixthEnemyDropdown = root.Q<DropdownField>("sixth-enemy-dropdown");*/
         #endregion
 
-        /*_enemiesDropdown.Add(_firstEnemyDropdown);
-        _enemiesDropdown.Add(_secondEnemyDropdown);
-        _enemiesDropdown.Add(_thirdEnemyDropdown);
-        _enemiesDropdown.Add(_fourthEnemyDropdown);
-        _enemiesDropdown.Add(_fifthEnemyDropdown);
-        _enemiesDropdown.Add(_sixthEnemyDropdown);*/
-
-        // _firstEnemyFoldout = root.Q<Foldout>("first-enemy-foldout");
-        // _secondEnemyFoldout = root.Q<Foldout>("second-enemy-foldout");
-        // _thirdEnemyFoldout = root.Q<Foldout>("third-enemy-foldout");
-        // _fourthEnemyFoldout = root.Q<Foldout>("fourth-enemy-foldout");
-        // _fifthEnemyFoldout = root.Q<Foldout>("fifth-enemy-foldout");
-        // _sixthEnemyFoldout = root.Q<Foldout>("sixth-enemy-foldout");
-
-        // _enemiesFoldout.Add(_firstEnemyFoldout);
-        // _enemiesFoldout.Add(_secondEnemyFoldout);
-        // _enemiesFoldout.Add(_thirdEnemyFoldout);
-        // _enemiesFoldout.Add(_fourthEnemyFoldout);
-        // _enemiesFoldout.Add(_fifthEnemyFoldout);
-        // _enemiesFoldout.Add(_sixthEnemyFoldout);
-
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _secondEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-        // EnemyInfo _firstEnemyInfo = new();
-
-        // _firstEnemyInfo.Add(_firstEnemyDropdown, _firstEnemyStatsField);
-        // _secondEnemyInfo.Add(_secondEnemyDropdown, _secondEnemyStatsField);
-        // _thirdEnemyInfo.Add(_thirdEnemyDropdown, _thirdEnemyStatsField);
-        // _fourthEnemyInfo.Add(_fourthEnemyDropdown, _fourthEnemyStatsField);
-        // _fifthEnemyInfo.Add(_fifthEnemyDropdown, _fifthEnemyStatsField);
-        // _sixthEnemyInfo.Add(_sixthEnemyDropdown, _sixthEnemyStatsField);
-
-        // _enemiesInfo.Add(_firstEnemyInfo);
-        // _enemiesInfo.Add(_secondEnemyInfo);
-        // _enemiesInfo.Add(_thirdEnemyInfo);
-        // _enemiesInfo.Add(_fourthEnemyInfo);
-        // _enemiesInfo.Add(_fifthEnemyInfo);
-        // _enemiesInfo.Add(_sixthEnemyInfo);
-
-        // Set Base value for the foldouts
-        foreach (EnemyInfo enemyInfo in _enemiesInfos)
-        {
-            enemyInfo.Foldout.text = "Enemy Stats";
-        }
+        ChangeFoldoutOnDropdown();
     }
 
-    public void OnGUI()
+    private void OnGUI()
     {
+        if (EditorApplication.isPlaying) return;
+        Close();
+    }
 
-        EnemyLoader enemyLoader = new();
-        _enemies = enemyLoader.LoadEnemies("Assets/Resources/CSV/Enemies.csv");
-
-        foreach (EnemyInfo field in _enemiesInfos)
-        {
-            foreach (Entity enemy in _enemies)
-            {
-                field.Dropdown.choices.Add("No Enemy");
-                field.Dropdown.choices.Add(enemy.Name);
-            }
-        }
-
-        _supports = new List<SupportCharacterSO>(Resources.LoadAll<SupportCharacterSO>("SO/SupportsCharacter"));
-        // TODO: Refactore it
-        foreach (SupportCharacterSO support in _supports)
-        {
-            _firstSupportDropdown.choices.Add("No Support");
-            _firstSupportDropdown.choices.Add(support.Name);
-            _secondSupportDropdown.choices.Add("No Support");
-            _secondSupportDropdown.choices.Add(support.Name);
-        }
-
-        _weapons = new List<GearSO>(Resources.LoadAll<GearSO>("SO/Weapons"));
-        foreach (GearSO weapon in _weapons)
-        {
-            _weaponDropdown.choices.Add("No Weapon");
-            _weaponDropdown.choices.Add(weapon.Name);
-        }
-
-        _gears = new List<GearSO>(Resources.LoadAll<GearSO>("SO/GearsCreator"));
-        // loop trough all the gears and filter them by type
-        foreach (GearSO gear in _gears)
-        {
-            switch (gear.Type)
-            {
-                case Gear.GearType.Helmet:
-                    _helmetDropdown.choices.Add("No Helmet");
-                    _helmetDropdown.choices.Add(gear.Name);
-                    break;
-                case Gear.GearType.Chest:
-                    _chestDropdown.choices.Add("No Chest");
-                    _chestDropdown.choices.Add(gear.Name);
-                    break;
-                case Gear.GearType.Boots:
-                    _bootsDropdown.choices.Add("No Boots");
-                    _bootsDropdown.choices.Add(gear.Name);
-                    break;
-                case Gear.GearType.Ring:
-                    _ringDropdown.choices.Add("No Ring");
-                    _ringDropdown.choices.Add(gear.Name);
-                    break;
-                case Gear.GearType.Necklace:
-                    _necklaceDropdown.choices.Add("No Necklace");
-                    _necklaceDropdown.choices.Add(gear.Name);
-                    break;
-                case Gear.GearType.Earrings:
-                    _earringsDropdown.choices.Add("No Earrings");
-                    _earringsDropdown.choices.Add(gear.Name);
-                    break;
-            }
-        }
-
-        ChangeFoldoutOnDropdown();
-
+    private void OnDestroy()
+    {
+        BattleSystem.OnBattleSystemLoaded -= StartBattle;
+        _simulateButton.clicked -= CreateBattle;
     }
 
     private void ChangeFoldoutOnDropdown()
     {
-        // WEAPON
-        _weaponDropdown.RegisterValueChangedCallback(evt =>
+        //Gears
+        foreach (var data in _gearsData)
         {
-            if (evt.newValue != "No Weapon")
+            data.Dropdown.RegisterValueChangedCallback(evt =>
             {
-                _weaponFoldout.visible = true;
-                _weaponFoldout.text = evt.newValue;
-
-                GearSO weapon = _weapons.Find(x => x.Name == evt.newValue);
-
-                ChangeFieldsOfWeapon(evt.newValue, _weaponSkillField, _weaponStatField);
-            }
-            else
-            {
-                _weaponFoldout.visible = false;
-            }
-        });
-
-        // GEARS
-        _helmetDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Helmet")
-            {
-                _helmetFoldout.visible = true;
-                _helmetFoldout.text = evt.newValue;
-
-                ChangeFieldsOfGear(evt.newValue, _helmetStatField);
-            }
-            else
-            {
-                _helmetFoldout.visible = false;
-            }
-        });
-
-        _chestDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Chest")
-            {
-                _chestFoldout.visible = true;
-                _chestFoldout.text = evt.newValue;
-
-                ChangeFieldsOfGear(evt.newValue, _chestStatField);
-            }
-            else
-            {
-                _chestFoldout.visible = false;
-            }
-        });
-
-        _bootsDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Boots")
-            {
-                _bootsFoldout.visible = true;
-                _bootsFoldout.text = evt.newValue;
-
-                ChangeFieldsOfGear(evt.newValue, _bootsStatField);
-            }
-            else
-            {
-                _bootsFoldout.visible = false;
-            }
-        });
-
-        _ringDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Ring")
-            {
-                _ringFoldout.visible = true;
-                _ringFoldout.text = evt.newValue;
-
-                ChangeFieldsOfGear(evt.newValue, _ringStatField);
-            }
-            else
-            {
-                _ringFoldout.visible = false;
-            }
-        });
-
-        _necklaceDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Necklace")
-            {
-                _necklaceFoldout.visible = true;
-                _necklaceFoldout.text = evt.newValue;
-
-                ChangeFieldsOfGear(evt.newValue, _necklaceStatField);
-            }
-            else
-            {
-                _necklaceFoldout.visible = false;
-            }
-        });
-
-        _earringsDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Earrings")
-            {
-                _earringsFoldout.visible = true;
-                _earringsFoldout.text = evt.newValue;
-
-                ChangeFieldsOfGear(evt.newValue, _earringsStatField);
-            }
-            else
-            {
-                _earringsFoldout.visible = false;
-            }
-        });
-
-        // SUPPORTS
-        _firstSupportDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Support")
-            {
-                _firstSupportFoldout.visible = true;
-                _firstSupportFoldout.text = evt.newValue;
-
-                ChangeFieldsOfSupport(evt.newValue, _firstSupportSkillField);
-            }
-            else
-            {
-                _firstSupportFoldout.visible = false;
-            }
-        });
-
-        _secondSupportDropdown.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue != "No Support")
-            {
-                _secondSupportFoldout.visible = true;
-                _secondSupportFoldout.text = evt.newValue;
-
-                ChangeFieldsOfSupport(evt.newValue, _secondSupportSkillField);
-            }
-            else
-            {
-                _secondSupportFoldout.visible = false;
-            }
-        });
-
-        int i = 0;
-        foreach (var info in _enemiesInfos)
-        {
-            foreach (var stats in info.Stats)
-            {
-                List<IntegerField> statFields = info.Foldout.Query<IntegerField>().ToList();
-                info.Dropdown.RegisterValueChangedCallback(evt =>
+                if (evt.newValue != _empty)
                 {
-                    if (evt.newValue != "No Enemy")
-                    {
-                        info.Foldout.visible = true;
-                        info.Foldout.text = evt.newValue;
-
-
-                        // ChangeFieldsOfEnemy(evt.newValue, statFields, i);
-                    }
-                    else
-                    {
-                        info.Foldout.visible = false;
-                    }
-
-                });
-            }
-
-            i++;
-        }
-
-    }
-
-    private void ChangeFieldsOfEnemy(string enemyName, List<IntegerField> enemyStatsField, int index)
-    {
-        // TODO: To Enemy 
-        Entity enemy = _enemies.Find(x => x.Name == enemyName);
-
-
-        _selectedEnemies.Add(enemy);
-
-
-
-        foreach (var stat in enemy.Stats)
-        {
-            foreach (var field in enemyStatsField)
-            {
-                if (field.name == stat.Key.ToString())
-                {
-                    field.SetValueWithoutNotify((int)stat.Value.Value);
+                    data.Foldout.visible = true;
+                    data.Foldout.text = evt.newValue;
+                    ChangeGearFields(data);
+                    return;
                 }
+
+                HideData(data);
+            });
+        }
+
+        //Weapon
+        _weaponData.Dropdown.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue != _empty)
+            {
+                _weaponData.Foldout.visible = true;
+                _weaponData.Foldout.text = evt.newValue;
+                ChangeWeaponFields();
+                return;
             }
+
+            HideData(_weaponData);
+        });
+
+        //Supports
+        foreach (var data in _supportsData)
+        {
+            data.Dropdown.RegisterValueChangedCallback(evt =>
+            {
+                if (evt.newValue != _empty)
+                {
+                    data.Foldout.visible = true;
+                    data.Foldout.text = evt.newValue;
+                    ChangeSupportFields(data);
+                    return;
+                }
+
+                HideData(data);
+            });
+        }
+
+        //Enemies
+        foreach (var data in _enemiesData)
+        {
+            data.Dropdown.RegisterValueChangedCallback(evt =>
+            {
+                if (evt.newValue != _empty)
+                {
+                    data.Foldout.visible = true;
+                    data.Foldout.text = evt.newValue;
+                    ChangeEnemyFields(data);
+                    return;
+                }
+                
+                HideData(data);
+            });
         }
     }
 
-    private void ChangeFieldsOfSupport(string supportName, List<TextField> supportFields)
+    private void ChangeEnemyFields(Data enemyData)
     {
-        SupportCharacterSO support = _supports.Find(x => x.Name == supportName);
-        supportFields[0].label = support.PrimarySkillData.IsPassive ? "Passive" : "Active";
-        supportFields[1].label = support.SecondarySkillData.IsPassive ? "Passive" : "Active";
+        _selectedEnemies.Clear();
 
-        // set the value of the skill to the name of the skill
-        supportFields[0].SetValueWithoutNotify(support.PrimarySkillData.Name);
-        supportFields[1].SetValueWithoutNotify(support.SecondarySkillData.Name);
+        foreach (var enemy in _enemiesData)
+        {
+            Entity enemySO = _enemies.Find(x => x.Name == enemy.Dropdown.value);
+            _selectedEnemies.Add(enemySO ?? null);
+
+            if (enemy != enemyData) continue;
+
+            int index = 0;
+
+            foreach (var stat in enemySO.Stats)
+            {
+                if (stat.Key == Item.AttributeStat.DefIgnoref) continue;
+                ChangeStatField(enemyData.IntegerFields[index], stat.Key.ToString(), (int)stat.Value.Value);
+                index++;
+            }
+        }
+
+        //foreach (var enemy in _selectedEnemies) Debug.Log(enemy != null ? enemy.Name : _empty);
     }
-    private void ChangeFieldsOfGear(string gearName, List<IntegerField> gearStatFields)
-    {
-        GearSO gear = _gears.Find(x => x.Name == gearName);
 
-        // Change the name of all the stat field to the name of the stat
-        gearStatFields[0].label = gear.Attribute.ToString();
-        gearStatFields[0].SetValueWithoutNotify((int)gear.StatValue);
+    private void ChangeSupportFields(Data supportData)
+    {
+        _selectedSupports.Clear();
+
+        foreach (var support in _supportsData)
+        {
+            SupportCharacterSO supportSO = _supports.Find(x => x.Name == support.Dropdown.value);
+            _selectedSupports.Add(supportSO ?? null);
+
+            if (support != supportData) continue;
+
+            supportData.TextFields[0].visible = true;
+            supportData.TextFields[0].label = supportSO.PrimarySkillData.IsPassive ? "Passive" : "Active";
+            supportData.TextFields[0].SetValueWithoutNotify(supportSO.PrimarySkillData.Name);
+
+            supportData.TextFields[1].visible = supportSO.SecondarySkillData != null;
+            if (supportSO.SecondarySkillData == null) continue;
+
+            supportData.TextFields[1].label = supportSO.SecondarySkillData.IsPassive ? "Passive" : "Active";
+            supportData.TextFields[1].SetValueWithoutNotify(supportSO.SecondarySkillData.Name);
+        }
+    }
+
+    private void ChangeGearFields(Data gearData)
+    {
+        Gear gear = _gears.Find(x => x.Name == gearData.Dropdown.value);
+        _selectedGears[(Item.GearType)gear.Type] = gear;
+
+        ChangeStatField(gearData.IntegerFields[0], gear.Attribute.ToString(), (int)gear.Value);
+        int index = 1;
 
         foreach (var substat in gear.Substats)
         {
-            foreach (var field in gearStatFields)
-            {
-                field.label = substat.Key.ToString();
-                field.SetValueWithoutNotify((int)substat.Value);
-            }
+            ChangeStatField(gearData.IntegerFields[index], substat.Key.ToString(), (int)substat.Value);
+            index++;
+        }
+
+        if (gear.Substats.Count == gearData.IntegerFields.Count) return;
+
+        for (int i = index; i < gearData.IntegerFields.Count; i++)
+        {
+            gearData.IntegerFields[i].visible = false;
         }
     }
 
-    private void ChangeFieldsOfWeapon(string weaponName, List<TextField> weaponSkillFields, List<IntegerField> weaponStatFields)
+    private void ChangeStatField(IntegerField field, string label, int value)
     {
-        GearSO weapon = _weapons.Find(x => x.Name == weaponName);
-
-        weaponStatFields[0].label = weapon.Attribute.ToString();
-        weaponStatFields[0].SetValueWithoutNotify((int)weapon.StatValue);
-
-        weaponSkillFields[0].label = weapon.FirstSkillData.IsPassive ? "Passive" : "Active";
-        weaponSkillFields[1].label = weapon.SecondSkillData.IsPassive ? "Passive" : "Active";
-
-        weaponSkillFields[0].SetValueWithoutNotify(weapon.FirstSkillData.Name);
-        weaponSkillFields[1].SetValueWithoutNotify(weapon.SecondSkillData.Name);
+        field.visible = true;
+        field.label = label;
+        field.SetValueWithoutNotify(value);
     }
 
-    private void OnInspectorUpdate()
+    private void ChangeWeaponFields()
     {
-        // Repaint();
-        _simulateButton.clicked += () =>
+        Gear weapon = _weapons.Find(x => x.Name == _weaponData.Dropdown.value);
+        _selectedWeapon = weapon;
+
+        _weaponData.IntegerFields[0].visible = true;
+        _weaponData.IntegerFields[0].label = weapon.Attribute.ToString();
+        _weaponData.IntegerFields[0].SetValueWithoutNotify((int)weapon.Value);
+
+        foreach (var field in _weaponData.TextFields) field.visible = true;
+
+        _weaponData.TextFields[0].label = weapon.WeaponSO.FirstSkillData.IsPassive ? "Passive" : "Active";
+        _weaponData.TextFields[1].label = weapon.WeaponSO.SecondSkillData.IsPassive ? "Passive" : "Active";
+
+        _weaponData.TextFields[0].SetValueWithoutNotify(weapon.WeaponSO.FirstSkillData.Name);
+        _weaponData.TextFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
+    }
+
+    private void HideData(Data data)
+    {
+        if (data.TextFields != null)
         {
-            Instance.SimulateBattle();
-            Debug.Log("Simulate");
+            foreach (var field in data.TextFields) field.visible = false;
+        }
+
+        if (data.IntegerFields != null)
+        {
+            foreach (var field in data.IntegerFields) field.visible = false;
+        }
+
+        data.Foldout.visible = false;
+    }
+
+    private void CreateBattle()
+    {
+        if (_selectedWeapon == null)
+        {
+            Debug.LogError("You need to choose a weapon.");
+            return;
+        }
+
+        bool hasEnemy = false;
+
+        foreach (var enemy in _selectedEnemies)
+        {
+            if (enemy != null)
+            {
+                hasEnemy = true;
+                break;
+            }
+        }
+
+        if (!hasEnemy)
+        {
+            Debug.LogError("You need to choose at least 1 enemy.");
+            return;
+        }
+
+        _player = new()
+        {
+            Weapon = _selectedWeapon.WeaponSO
         };
+
+        ScenesManager.Instance.SetScene("Battle");
+    }
+
+    private void StartBattle(BattleSystem battleSystem)
+    {
+        battleSystem.SimulateBattle(_player, _selectedEnemies);
     }
 }

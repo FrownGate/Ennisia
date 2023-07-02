@@ -6,7 +6,6 @@ public class CheckTurn : State
 {
     private List<Entity> _enemiesList;
     private Entity _player;
-    //TODO -> replace list by Entity Player
 
     public CheckTurn(BattleSystem battleSystem) : base(battleSystem)
     {
@@ -18,8 +17,7 @@ public class CheckTurn : State
     {
         BattleSystem.AttackBarSystem.IncreaseAtkBars();
         BattleSystem.UpdateEntities();
-        BattleSystem.UpdateEntitiesBuffEffects();
-        BattleSystem.UpdateEntitiesAlterations();
+        BattleSystem.UpdateEntitiesEffects();
         CompareAttackBars();
         //BattleSystem.SetState(new PlayerTurn(BattleSystem));
         yield return new WaitForSeconds(1.5f);

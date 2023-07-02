@@ -18,11 +18,36 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 6
+  Waves:
+    _serializedList:
+    - Key: 1
+      Value:
+      - Training Dummy
+      - Training Dummy
+      - Training Dummy
+    - Key: 2
+      Value:
+      - Training Dummy
+      - Training Dummy
+      - Elven Knight
+    - Key: 3
+      Value:
+      - Training Dummy
+      - Training Dummy
+      - Elven Archer
+  WavesCount: 4
   Enemies:
-  - Red Slime
-  - 
+  - Training Dummy
+  - Elven Knight
+  - Elven Archer
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 2
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
+  GearReward: 
   Experience: 10

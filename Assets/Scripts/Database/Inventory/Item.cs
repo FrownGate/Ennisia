@@ -27,7 +27,7 @@ public class Item
 
     public enum AttributeStat //TODO -> move elsewhere
     {
-        HP, Attack, PhysicalDamages, MagicalDamages, PhysicalDefense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref, Shield
+        HP, Attack, PhysicalDamages, MagicalDamages, PhysicalDefense, MagicalDefense, CritRate, CritDmg, Speed, DefIgnoref
     }
     public enum GearSet //TODO -> move elsewhere
     {
