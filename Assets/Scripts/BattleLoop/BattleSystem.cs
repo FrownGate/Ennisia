@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class BattleSystem : StateMachine
 {
     public static event Action<BattleSystem> OnBattleSystemLoaded;
+    public static event Action<string> OnEnemyKilled;
+    public static event Action<int> OnClickSFX;
 
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject _enemyPrefab;
@@ -23,9 +25,6 @@ public class BattleSystem : StateMachine
     public Transform PlayerStation;
     public Transform EnemyStation;
 
-    public static event Action<string> OnEnemyKilled;
-    public static event Action<int> OnClickSFX;
-
     public bool PlayerHasWin { get; private set; }
     public bool Selected { get; set; }
     public int Turn { get; set; }
@@ -36,8 +35,6 @@ public class BattleSystem : StateMachine
     public List<Entity> Targetables { get; private set; }
 
     public AtkBarSystem AttackBarSystem { get; set; }
-
-    private int _maxEnemies => 1; //Is it used ?
 
     public void Start()
     {
@@ -213,10 +210,12 @@ public class BattleSystem : StateMachine
     public void SkillOnTurn(Skill selectedSkill)
     {
         float totalDamage = 0;
+
         foreach (var skill in Player.Skills)
         {
             skill.PassiveBeforeAttack(Enemies, Player, Turn);
         }
+
         totalDamage += selectedSkill.SkillBeforeUse(Targetables, Player, Turn);
         totalDamage += selectedSkill.Use(Targetables, Player, Turn);
         totalDamage += selectedSkill.AdditionalDamage(Targetables, Player, Turn, totalDamage);
@@ -234,6 +233,7 @@ public class BattleSystem : StateMachine
         {
             Enemies[i] = AttackBarSystem.AllEntities[i];
         }
+
         Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
     }
 

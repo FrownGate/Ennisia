@@ -22,7 +22,7 @@ public class WhoGoFirst : State
 
     private void CompareSpeed()
     {
-        bool playerFirst = false;
+        bool playerFirst = false; //Used ?
         int numberOfFasterEnemies = 0;
         Entity fastestEnemy = null;
 
