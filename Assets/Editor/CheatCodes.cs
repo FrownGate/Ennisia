@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 using System;
+using UnityEngine.SceneManagement;
 using CheatCode;
 
 public class CheatCodeWindow : EditorWindow
@@ -12,7 +13,12 @@ public class CheatCodeWindow : EditorWindow
     {
         if (!EditorApplication.isPlaying)
         {
-            EditorUtility.DisplayDialog("Error", "You must be in play mode to use this tool", "Ok");
+            EditorUtility.DisplayDialog("Error", "You must be playing in the - Battle - scene to use the Cheat Code Tool", "OK");
+            return;
+        }
+        else if (SceneManager.GetActiveScene().name != "Battle")
+        {
+            EditorUtility.DisplayDialog("Error", "You must be in the - Battle - scene to use the Cheat Code Tool", "OK");
             return;
         }
         CheatCodeWindow window = GetWindow<CheatCodeWindow>();

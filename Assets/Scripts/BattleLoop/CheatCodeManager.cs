@@ -26,7 +26,7 @@ namespace CheatCode
 
     public class CheatCodeManager
     {
-        List<CheatCodeData> cheatCodes;
+        private readonly List<CheatCodeData> cheatCodes;
         public HashSet<CheatCode> activeCheatCodes;
 
         public CheatCodeManager()
@@ -41,6 +41,7 @@ namespace CheatCode
 
         public void CheckAndActivateCheat(string input)
         {
+            
             input = input.ToLower();
             foreach (CheatCodeData cheatCode in cheatCodes)
             {
