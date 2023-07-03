@@ -72,16 +72,6 @@ namespace CheatCode
             Debug.Log("God mode activated");
         }
 
-        private void ActivateUnlimitedAmmo()
-        {
-            // Apply cheat effect for unlimited ammo
-            Debug.Log("Unlimited ammo activated");
-        }
-
-        private void UnlockAllLevels()
-        {
-            // Apply cheat effect to unlock all levels
-            Debug.Log("All levels unlocked");
-        }
+       
     }
 }
