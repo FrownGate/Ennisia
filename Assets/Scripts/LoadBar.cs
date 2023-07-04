@@ -31,7 +31,7 @@ public class LoadBar : MonoBehaviour
 
     private void requestCalled()
     {
-        _requestCount += 18;
+        _requestCount += 10;
     }
 
     private void OnEnable()
