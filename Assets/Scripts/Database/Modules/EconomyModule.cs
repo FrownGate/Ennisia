@@ -4,12 +4,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static PlayFabManager;
+
+public enum Currency
+{
+    Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency, Gemstone
+}
 
 public class EconomyModule : Module
 {
     public static event Action OnInitComplete;
-    public Dictionary<GameCurrency, int> Currencies { get; private set; } //Player's currencies
+    public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
     public int Energy { get; private set; } //Player's energy
 
     private Dictionary<string, string> _currencies;
@@ -44,7 +48,7 @@ public class EconomyModule : Module
             {
                 _currencies[item.Id] = item.AlternateIds[0].Value;
                 CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
-                Currencies[Enum.Parse<GameCurrency>(_currencies[item.Id])] = data.Initial;
+                Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = data.Initial;
             }
             else if (item.Type == "catalogItem")
             {
@@ -73,7 +77,7 @@ public class EconomyModule : Module
     /// </summary>
     private IEnumerator CreateInitialCurrencies()
     {
-        foreach (KeyValuePair<GameCurrency, int> currency in Currencies)
+        foreach (KeyValuePair<Currency, int> currency in Currencies)
         {
             if (currency.Value == 0) continue;
 
@@ -116,7 +120,7 @@ public class EconomyModule : Module
             {
                 if (item.Type == "currency")
                 {
-                    Currencies[Enum.Parse<GameCurrency>(_currencies[item.Id])] = (int)item.Amount;
+                    Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = (int)item.Amount;
                 }
                 else if (item.Type == "catalogItem")
                 {
@@ -131,7 +135,7 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public IEnumerator AddCurrency(GameCurrency currency, int amount)
+    public IEnumerator AddCurrency(Currency currency, int amount)
     {
         yield return _manager.StartAsyncRequest($"Adding {amount} {currency}...");
 
@@ -155,7 +159,7 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public IEnumerator RemoveCurrency(GameCurrency currency, int amount)
+    public IEnumerator RemoveCurrency(Currency currency, int amount)
     {
         yield return _manager.StartAsyncRequest($"Removing {amount} {currency}...");
 

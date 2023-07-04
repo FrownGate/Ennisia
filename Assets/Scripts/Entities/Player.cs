@@ -2,41 +2,21 @@
 
 public class Player : Entity
 {
+    //TODO -> Add Gear modifiers
+
     public Player()
     {
+        PlayerData playerData = PlayFabManager.Instance != null ? PlayFabManager.Instance.Player : null;
+
+        Name = playerData != null ? playerData.Name : "PlayerName";
+        Level = playerData != null ? playerData.Level : 1;
+        Weapon = playerData != null ? playerData.EquippedGears[GearType.Weapon].WeaponSO : Resources.Load<GearSO>("SO/EquippedGears/Weapon");
+        Weapon.Init(); //Temp
+
         //TODO -> Set stats with CSV or another method
-        /*     MaxHp = 300;
-             Attack = 15;
-             Speed = 30000;*/
-        Name = "heho";
-        CurrentHp = Stats[Item.AttributeStat.HP].Value;
-        Stats[Item.AttributeStat.Speed] = new(90);
-        Weapon = Resources.Load<GearSO>("SO/EquippedGears/Weapon"); //Temp
-        //Weapon = PlayFabManager.Instance.Player.EquippedGears[Item.GearType.Weapon].WeaponSO;
-        Weapon.Init();
+        CurrentHp = Stats[Attribute.HP].Value;
+        Stats[Attribute.Speed] = new(90); //Temp
 
-        InitSkills();
-    }
-
-    //public Player(Dictionary<string, float> stats)
-    //{
-    //    stats = new Dictionary<string, float>()
-    //    {
-    //        //TODO -> use stat enum instead of strings
-    //        { "MaxHp", (int)MaxHp },
-    //        { "Atk", (int)Attack },
-    //        { "PhysAtk", (int)PhysAtk },
-    //        { "PhysDef", (int)PhysDef },
-    //        { "MagicAtk", (int)MagicAtk },
-    //        { "MagicDef", (int)MagicDef },
-    //        { "CritRate", (int)CritRate },
-    //        { "CritDamage", (int)CritDamage },
-    //        { "Speed", (int)Speed },
-    //    };
-    //}
-
-    private void InitSkills()
-    {
         Skills = new()
         {
             new Bonk(),

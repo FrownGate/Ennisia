@@ -6,13 +6,8 @@ public class Lost : State
 
     public override IEnumerator Start()
     {
-        foreach (var skill in BattleSystem.Player.Skills)
-        {
-            skill.TakeOffStats(BattleSystem.Enemies, BattleSystem.Player, 0); // constant passive at battle end
-        }
-
-        BattleSystem.DialogueText.text = "YOU LOST THE FIGHT";
         BattleSystem.LostPopUp.SetActive(true);
+        BattleSystem.BattleEnded(false);
         yield break;
     }
 }

@@ -2,32 +2,32 @@ using System.Collections.Generic;
 
 public class PackLeader : PassiveSkill
 {
-    List<ModifierID> id;
-    bool hasModifier = false;
-    float amountOfAllies;
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn)
+    private bool _hasModifier = false;
+    private float _amountOfAllies;
+
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
     {
         for (int i = 2; i < targets.Count; i++)
         {
-            amountOfAllies += 0.05f;
+            _amountOfAllies += 0.05f;
         }
-        if (targets.Count >= 2 && !hasModifier)
+
+        if (targets.Count >= 2 && !_hasModifier)
         {
-            id[0] = player.Stats[Item.AttributeStat.Attack].AddModifier(AllStatBuf);
-            id[1] = player.Stats[Item.AttributeStat.CritDmg].AddModifier(AllStatBuf);
-            id[2] = player.Stats[Item.AttributeStat.CritRate].AddModifier(AllStatBuf);
-            id[3] = player.Stats[Item.AttributeStat.HP].AddModifier(AllStatBuf);
-            id[4] = player.Stats[Item.AttributeStat.MagicalDefense].AddModifier(AllStatBuf);
-            id[5] = player.Stats[Item.AttributeStat.PhysicalDefense].AddModifier(AllStatBuf);
-            hasModifier = true;
+            foreach (var stat in caster.Stats)
+            {
+                if (stat.Key == Attribute.DefIgnored) continue;
+                _modifiers[stat.Key] = caster.Stats[stat.Key].AddModifier(AllStatBuf);
+            }
+
+            _hasModifier = true;
         }
-        else if (targets.Count <= 2)
+        else if (targets.Count <= 2 && _hasModifier)
         {
-            hasModifier = false;
+            _hasModifier = false;
+            TakeOffStats(caster);
         }
     }
-    float AllStatBuf(float input)
-    {
-        return (float)input * (1.10f + amountOfAllies);
-    }
+
+    float AllStatBuf(float value) => (float)value * (1.10f + _amountOfAllies);
 }

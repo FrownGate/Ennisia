@@ -1,30 +1,22 @@
 using System.Collections.Generic;
-using static Stat<float>;
+
 public class MakeOrBreak : PassiveSkill
 {
-    ModifierID id;
-    public float maxHpBaseRatio;
-    public float healOnDmg;
-    float maxHpBuff;
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    private float _maxHpBaseRatio;
+    private float _healOnDmg;
+    private float _maxHpBuff;
+
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
-        maxHpBuff = player.Stats[Item.AttributeStat.Attack].Value * (maxHpBaseRatio + StatUpgrade1 * Level);
-        id = player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuff);
+        _maxHpBuff = caster.Stats[Attribute.Attack].Value * (_maxHpBaseRatio + StatUpgrade1 * Level);
+        _modifiers[Attribute.Attack] = caster.Stats[Attribute.Attack].AddModifier(AttackBuff);
     }
 
-    float AttackBuff(float input)
-    {
-        return (float)input + maxHpBuff;
-    }
+    float AttackBuff(float input) => (float)input + _maxHpBuff;
 
-    public override void PassiveAfterAttack(List<Entity> target, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage)
     {
-        healOnDmg = 0.03f + StatUpgrade2 * Level;
-        HealingModifier = damage * healOnDmg;
-    }
-
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.Attack].RemoveModifier(id); 
+        _healOnDmg = 0.03f + StatUpgrade2 * Level;
+        HealingModifier = damage * _healOnDmg;
     }
 }

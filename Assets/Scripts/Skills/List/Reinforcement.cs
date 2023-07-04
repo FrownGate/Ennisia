@@ -2,12 +2,13 @@ using System.Collections.Generic;
 
 public class Reinforcement : PassiveSkill
 {
-    public float defBaseRatio;
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
-    {
-        float defRatio = defBaseRatio + StatUpgrade1 * Level;
-        float PhdefBuff = player.Stats[Item.AttributeStat.PhysicalDefense].Value * defRatio;
-        float MdefBuff = player.Stats[Item.AttributeStat.MagicalDefense].Value * defRatio;
+    private float _defBaseRatio;
+    //TODO -> finish skill
 
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    {
+        float defRatio = _defBaseRatio + StatUpgrade1 * Level;
+        float PhdefBuff = caster.Stats[Attribute.PhysicalDefense].Value * defRatio;
+        float MdefBuff = caster.Stats[Attribute.MagicalDefense].Value * defRatio;
     }
 }

@@ -18,9 +18,38 @@ MonoBehaviour:
   State: 0
   EnergyCost: 5
   Unlocked: 0
-  WavesCount: 0
-  Enemies: []
+  Waves:
+    _serializedList:
+    - Key: 1
+      Value:
+      - Small Mushroom
+      - Small Mushroom
+      - Haunted Tree
+    - Key: 2
+      Value:
+      - Haunted Tree
+      - Small Mushroom
+      - Small Mushroom
+      - Small Mushroom
+    - Key: 3
+      Value:
+      - Small Mushroom
+      - Small Mushroom
+      - Small Mushroom
+      - Giant Mushroom
+  WavesCount: 4
+  Enemies:
+  - Small Mushroom
+  - Haunted Tree
+  - Giant Mushroom
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 4
+  CurrencyRewards:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100
+  GearReward: 
   Experience: 10

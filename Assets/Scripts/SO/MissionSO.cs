@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +12,16 @@ public class MissionSO : ScriptableObject
     public MissionManager.MissionState State;
     public int EnergyCost;
     public bool Unlocked;
-    public Dictionary<int, List<string>> Waves;
+    [SerializedDictionary("Number", "Enemies")]
+    public SerializedDictionary<int, List<string>> Waves;
     public int WavesCount;
     public List<string> Enemies;
     public int DialogueId;
     public int ChapterId;
     public int NumInChapter;
-    [ShowNonSerializedField] public Dictionary<PlayFabManager.GameCurrency, int> CurrencyRewards = new();
-    public List<Item.ItemRarity> GearReward;
+    [SerializedDictionary("Currency", "Value")]
+    public SerializedDictionary<Currency, int> CurrencyRewards = new();
+    public List<Rarity> GearReward;
     public int Experience; 
     // Add additional mission data as needed
 }

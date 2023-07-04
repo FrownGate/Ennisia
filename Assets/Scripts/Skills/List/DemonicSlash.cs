@@ -3,20 +3,21 @@ using System;
 
 public class DemonicSlash : DamageSkill
 {
-    int randomNumber;
-    int percentChance = 10;
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    private int _randomNumber;
+    private int _percentChance = 10;
+
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float damage = 0; // add damage amount and is magic dmage
         targets[0].TakeDamage(damage);
-        Random rand = new Random();
-        randomNumber = rand.Next(1, 100);
-        if (percentChance >= randomNumber)
+        _randomNumber = new Random().Next(1, 100);
+
+        if (_percentChance >= _randomNumber)
         {
             //add demonic mark
         }
+
         Cooldown = Data.MaxCooldown;
         return damage;
     }
-
 }

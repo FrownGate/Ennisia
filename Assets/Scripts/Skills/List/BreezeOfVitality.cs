@@ -4,7 +4,7 @@ public class BreezeOfVitality : ProtectionSkill
 {
     private readonly float _increaseHealPerc = 10f;
 
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float addHeal = 0;
 
@@ -16,8 +16,8 @@ public class BreezeOfVitality : ProtectionSkill
             }
         }
 
-        float heal = player.Stats[Item.AttributeStat.HP].Value * (Data.HealingAmount + addHeal) / 100;
-        player.CurrentHp += heal;
+        float heal = caster.Stats[Attribute.HP].Value * (Data.HealingAmount + addHeal) / 100;
+        caster.CurrentHp += heal;
 
         return 0;
     }

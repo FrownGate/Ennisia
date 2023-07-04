@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 public class HolyPrayer : ProtectionSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         //attacksBuff
 
-        player.CurrentHp += player.Stats[Item.AttributeStat.HP].Value * 10 / 100;
+        caster.CurrentHp += caster.Stats[Attribute.HP].Value * 10 / 100;
         Cooldown = Data.MaxCooldown;
         return 0;
     }

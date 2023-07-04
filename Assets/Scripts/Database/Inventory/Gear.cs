@@ -8,7 +8,7 @@ public class Gear : Item
     public static event Action LevelUp;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
-    public Dictionary<AttributeStat, float> Substats;
+    public Dictionary<Attribute, float> Substats;
     public JsonSubstatsDictionary[] JsonSubstats;
     public string Description;
     public int Level;
@@ -23,7 +23,7 @@ public class Gear : Item
         public float Value;
     }
 
-    public Gear(GearType type, ItemRarity rarity, GearSO weapon = null)
+    public Gear(GearType type, Rarity rarity, GearSO weapon = null)
     {
         WeaponSO = weapon;
         WeaponType = weapon ? weapon.WeaponType : null;
@@ -42,7 +42,7 @@ public class Gear : Item
         AddToInventory();
     }
 
-    public Gear(GearSO weapon, ItemRarity rarity) : this(weapon.Type, rarity, weapon) { }
+    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, weapon) { }
     public Gear(GearSO gear) : this(gear.Type, gear.Rarity, gear.Type == GearType.Weapon ? gear : null) { }
 
     public Gear(InventoryItem item)
@@ -73,12 +73,12 @@ public class Gear : Item
 
     public override void Serialize()
     {
-        if (Category != ItemCategory.Weapon && Rarity != ItemRarity.Common)
+        if (Category != ItemCategory.Weapon && Rarity != global::Rarity.Common)
         {
             JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
             int i = 0;
 
-            foreach (KeyValuePair<AttributeStat, float> substat in Substats)
+            foreach (KeyValuePair<Attribute, float> substat in Substats)
             {
                 JsonSubstats[i] = new JsonSubstatsDictionary
                 {
@@ -98,12 +98,12 @@ public class Gear : Item
     {
         base.Deserialize();
 
-        if (Category == ItemCategory.Weapon || Rarity == ItemRarity.Common) return;
+        if (Category == ItemCategory.Weapon || Rarity == global::Rarity.Common) return;
         Substats = new();
 
         for (int i = 0; i < JsonSubstats.Length; i++)
         {
-            Substats[System.Enum.Parse<AttributeStat>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
+            Substats[System.Enum.Parse<Attribute>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
             Debug.Log(JsonSubstats[i].Key);
         }
     }
@@ -128,11 +128,11 @@ public class Gear : Item
         else return ItemCategory.Weapon;
     }
 
-    private AttributeStat SetAttribute()
+    private Attribute SetAttribute()
     {
         if (Category == ItemCategory.Weapon) return WeaponSO.Attribute;
 
-        List<AttributeStat> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
+        List<Attribute> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
@@ -144,23 +144,23 @@ public class Gear : Item
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
-    private Dictionary<AttributeStat, float> SetSubstats()
+    private Dictionary<Attribute, float> SetSubstats()
     {
-        Dictionary<AttributeStat, float> substats = new();
+        Dictionary<Attribute, float> substats = new();
         if (Category == ItemCategory.Weapon) return null;
 
         for (int i = 0; i < (int)Rarity; i++)
         {
-            AttributeStat? stat;
+            Attribute? stat;
             StatMinMaxValuesSO possibleValues;
 
             do
             {
-                stat = (AttributeStat)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(AttributeStat)).Length);
+                stat = (Attribute)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Attribute)).Length);
                 possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
             } while (possibleValues == null);
 
-            substats[(AttributeStat)stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
+            substats[(Attribute)stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
         }
 
         return substats;

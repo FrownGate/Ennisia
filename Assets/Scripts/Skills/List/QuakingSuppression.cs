@@ -6,7 +6,7 @@ public class QuakingSuppression : DamageSkill
     private float _stunPerc = 0.7f;
     private int _silenceTurn;
 
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float stunLuck = Random.Range(0, 1);
 
@@ -15,7 +15,6 @@ public class QuakingSuppression : DamageSkill
             //TODO -> Stun 
         }
         // Silence
-
 
         return 0;
     }

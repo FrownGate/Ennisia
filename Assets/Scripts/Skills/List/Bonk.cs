@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class Bonk : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         //damage calculation
         int damage = 10000;
