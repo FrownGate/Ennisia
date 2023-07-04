@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+
 
 public class RewardsDrop : MonoBehaviour
 {
@@ -15,7 +17,6 @@ public class RewardsDrop : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
     //random gear drop
     public void DropGear(Rarity rarity)
     {
@@ -31,59 +32,23 @@ public class RewardsDrop : MonoBehaviour
         }
         PlayFabManager.Instance.AddInventoryItem(new Gear(type, rarity));
     }
-
-    public void DropGear(GearType type, Rarity rarity)
+    public void DropGear(Dictionary<GearType, Rarity> gearList)
     {
-        PlayFabManager.Instance.AddInventoryItem(new Gear(type, rarity));
+        foreach(var gear in gearList)
+        {
+            PlayFabManager.Instance.AddInventoryItem(new Gear(gear.Key, gear.Value));
+        }
     }
-
-    public void DropCurrency(Currency currency, int amount)
+    public void DropCurrency(Dictionary<Currency, int> currencyList)
     {
-        PlayFabManager.Instance.AddCurrency(currency, amount);
+        foreach(var currency in currencyList)
+        {
+            PlayFabManager.Instance.AddCurrency(currency.Key,currency.Value);
+        }
     }
-
-    public void DropCurrency(Currency currency, int amount, Currency currency2, int amount2)
-    {
-        PlayFabManager.Instance.AddCurrency(currency, amount);
-        PlayFabManager.Instance.AddCurrency(currency2, amount2);
-    }
-
-    public void DropCurrency(Currency currency, int amount, Currency currency2, int amount2, Currency currency3, int amount3)
-    {
-        PlayFabManager.Instance.AddCurrency(currency, amount);
-        PlayFabManager.Instance.AddCurrency(currency2, amount2);
-        PlayFabManager.Instance.AddCurrency(currency3, amount3);
-    }
-
-    public void DropCurrency(Currency currency, int amount, Currency currency2, int amount2, Currency currency3, int amount3, Currency currency4, int amount4)
-    {
-        PlayFabManager.Instance.AddCurrency(currency, amount);
-        PlayFabManager.Instance.AddCurrency(currency2, amount2);
-        PlayFabManager.Instance.AddCurrency(currency3, amount3);
-        PlayFabManager.Instance.AddCurrency(currency4, amount4);
-    }
-
-    public void DropCurrency(Currency currency, int amount, Currency currency2, int amount2, Currency currency3, int amount3, Currency currency4, int amount4, Currency currency5, int amount5)
-    {
-        PlayFabManager.Instance.AddCurrency(currency, amount);
-        PlayFabManager.Instance.AddCurrency(currency2, amount2);
-        PlayFabManager.Instance.AddCurrency(currency3, amount3);
-        PlayFabManager.Instance.AddCurrency(currency4, amount4);
-        PlayFabManager.Instance.AddCurrency(currency5, amount5);
-    }
-
-    public void DropCurrency(Currency currency, int amount, Currency currency2, int amount2, Currency currency3, int amount3, Currency currency4, int amount4, Currency currency5, int amount5, Currency currency6, int amount6)
-    {
-        PlayFabManager.Instance.AddCurrency(currency, amount);
-        PlayFabManager.Instance.AddCurrency(currency2, amount2);
-        PlayFabManager.Instance.AddCurrency(currency3, amount3);
-        PlayFabManager.Instance.AddCurrency(currency4, amount4);
-        PlayFabManager.Instance.AddCurrency(currency5, amount5);
-        PlayFabManager.Instance.AddCurrency(currency6, amount6);
-    }
-
     public void DropEnergy(int amount)
     {
         PlayFabManager.Instance.AddEnergy(amount);
     }
+
 }
