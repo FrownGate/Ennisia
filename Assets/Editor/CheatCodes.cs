@@ -8,6 +8,7 @@ using CheatCode;
 
 public class CheatCodeWindow : EditorWindow
 {
+    private static BattleSystem battleSystem;
     [MenuItem("Tools/Cheat Codes")]
     public static void OpenWindow()
     {
@@ -24,21 +25,29 @@ public class CheatCodeWindow : EditorWindow
         CheatCodeWindow window = GetWindow<CheatCodeWindow>();
         GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
         window.titleContent = new GUIContent("Cheat Code Tool", icon.image, "Cheat Code Tool");
+
+        Debug.LogWarning("Open : " + battleSystem);
+
     }
 
     private void OnEnable()
     {
+        // FIXME: CAREFUL, OnEnable is called BEFORE the OpenWindow Method
         VisualElement root = rootVisualElement;
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/CheatCodes.uxml");
         TemplateContainer labelFromUXML = visualTree.CloneTree();
         root.Add(labelFromUXML);
+
+        battleSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
+
 
 
         TextField codeInput = root.Q<TextField>("codeInput");
         Button activateButton = root.Q<Button>("activateButton");
 
 
-        CheatCodeManager cheatCodeManager = new();
+        CheatCodeManager cheatCodeManager = new(battleSystem);
+        Debug.LogWarning("On Enable : " + battleSystem);
         activateButton.clickable.clicked += () =>
         {
             cheatCodeManager.CheckAndActivateCheat(codeInput.value);

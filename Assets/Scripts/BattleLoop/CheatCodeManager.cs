@@ -26,24 +26,26 @@ namespace CheatCode
     {
         Unkillable,
         NoCooldown,
+        FullLife,
     }
 
     public class CheatCodeManager
     {
-        private BattleSystem battleSystem;
-        public static readonly Lazy<CheatCodeManager> lazy = new(() => new());
+        private BattleSystem _battleInstance;
+        public static Lazy<CheatCodeManager> lazy = new(() => new CheatCodeManager(null));
         private readonly List<CheatCodeData> cheatCodes;
         public HashSet<CheatCode> activeCheatCodes;
 
-        public CheatCodeManager()
+        public CheatCodeManager(BattleSystem battleSystem)
         {
             activeCheatCodes = new();
             cheatCodes = new()
             {
                 new CheatCodeData("unkillable","poweroverwhelming", ActivateUnkillable, CheatCode.Unkillable),
                 new CheatCodeData("nocd","whosyourdaddy", ActiveNoCooldown, CheatCode.NoCooldown),
+                new CheatCodeData("fulllife","thereisnocowlevel", ActivateFullLife, CheatCode.FullLife),
             };
-            battleSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
+            _battleInstance = battleSystem;
 
         }
 
@@ -57,8 +59,8 @@ namespace CheatCode
                 {
                     if (!activeCheatCodes.Contains(cheatCode.cheatCode))
                     {
-                        cheatCode.effect();
                         activeCheatCodes.Add(cheatCode.cheatCode);
+                        cheatCode.effect();
                     }
                     else
                     {
@@ -86,6 +88,15 @@ namespace CheatCode
         {
 
             Debug.LogWarning("No cooldown activated");
+        }
+        private void ActivateFullLife()
+        {
+            // Apply cheat effect for full life
+
+            _battleInstance.Player.CurrentHp = _battleInstance.Player.Stats[Attribute.HP].Value;
+            Debug.LogWarning("Full life activated");
+            activeCheatCodes.Remove(CheatCode.FullLife);
+
         }
 
 
