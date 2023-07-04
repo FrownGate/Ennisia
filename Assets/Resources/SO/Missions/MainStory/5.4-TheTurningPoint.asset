@@ -19,9 +19,32 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 1
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Demonic Goblin
+      - Demonic Goblin
+      - Lava Golem
+      - Demon knight
+    - Key: 2
+      Value:
+      - Demon knight
+      - Demon knight
+      - Demon Archer
+      - Lava Golem
+    - Key: 3
+      Value:
+      - Demon knight
+      - Demon knight
+      - Demon Archer
+      - Demon Mage
+  WavesCount: 3
+  Enemies:
+  - Demonic Goblin
+  - Lava Golem
+  - Demon knight
+  - Demon Archer
+  - Demon Mage
   DialogueId: 0
   ChapterId: 5
   NumInChapter: 4

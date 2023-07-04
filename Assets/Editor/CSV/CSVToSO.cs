@@ -372,7 +372,7 @@ public class CSVToSO : EditorWindow
         }
 
         scriptableObject.Waves = waves;
-        scriptableObject.WavesCount = waveCount;
+        scriptableObject.WavesCount = waveCount-1;
         scriptableObject.Enemies = enemies.ToList();
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
