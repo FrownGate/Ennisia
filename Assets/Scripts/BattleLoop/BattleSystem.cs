@@ -7,12 +7,18 @@ using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
+    public static event Action<BattleSystem> OnBattleLoaded;
+    public static event Action OnBattleEnded;
+    public static event Action<string> OnEnemyKilled;
+    public static event Action<int> OnClickSFX;
+
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _firstSupport;
     [SerializeField] private GameObject _secondSupport;
     [SerializeField] private GameObject[] _skillsButtons;
     //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
+    //TODO -> Add Supports Skills
 
     //UI
     public TextMeshProUGUI DialogueText;
@@ -20,9 +26,6 @@ public class BattleSystem : StateMachine
     public GameObject LostPopUp;
     public Transform PlayerStation;
     public Transform EnemyStation;
-
-    public static event Action<string> OnEnemyKilled;
-    public static event Action<int> OnClickSFX;
 
     public bool PlayerHasWin { get; private set; }
     public bool Selected { get; set; }
@@ -34,8 +37,6 @@ public class BattleSystem : StateMachine
     public List<Entity> Targetables { get; private set; }
 
     public AtkBarSystem AttackBarSystem { get; set; }
-
-    private int _maxEnemies => 1; //Is it used ?
 
     public void Start()
     {
@@ -82,6 +83,8 @@ public class BattleSystem : StateMachine
         {
             skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
         }
+
+        OnBattleLoaded?.Invoke(this);
 
         SetState(new WhoGoFirst(this));
         // SimulateBattle();
@@ -177,14 +180,8 @@ public class BattleSystem : StateMachine
 
     public void SimulateBattle(Player player = null, List<Entity> enemies = null)
     {
-        if (player != null)
-        {
-            Player = player;
-        }
-        if (enemies != null)
-        {
-            Enemies = enemies;
-        }
+        Player = player ?? Player;
+        Enemies = enemies ?? Enemies;
         SetState(new AutoBattle(this));
     }
 
@@ -217,10 +214,12 @@ public class BattleSystem : StateMachine
     public void SkillOnTurn(Skill selectedSkill)
     {
         float totalDamage = 0;
+
         foreach (var skill in Player.Skills)
         {
             skill.PassiveBeforeAttack(Enemies, Player, Turn);
         }
+
         totalDamage += selectedSkill.SkillBeforeUse(Targetables, Player, Turn);
         totalDamage += selectedSkill.Use(Targetables, Player, Turn);
         totalDamage += selectedSkill.AdditionalDamage(Targetables, Player, Turn, totalDamage);
@@ -238,52 +237,38 @@ public class BattleSystem : StateMachine
         {
             Enemies[i] = AttackBarSystem.AllEntities[i];
         }
+
         Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
     }
 
-    public void UpdateEntitiesBuffEffects()
+    public void UpdateEntitiesEffects()
     {
-        if (Player.Buffs != null)
+        foreach (var effect in Player.Effects)
         {
-            for (int i = 0; i < Player.Buffs.Count; i++)
-            {
-                Player.Buffs[i].Tick(Player);
-            }
+            effect.Tick(Player);
+
+            if (effect.HasAlteration) effect.AlterationEffect(Player);
         }
 
         foreach (var enemy in Enemies)
         {
-            if (enemy.Buffs != null)
+            foreach (var effect in enemy.Effects)
             {
-                for (int i = 0; i < enemy.Buffs.Count; i++)
-                {
-                    enemy.Buffs[i].Tick(enemy);
-                }
+                effect.Tick(enemy);
+
+                if (effect.HasAlteration) effect.AlterationEffect(enemy);
             }
         }
     }
-    
-    public void UpdateEntitiesAlterations()
+
+    public void BattleEnded(bool won)
     {
-        if (Player.Alterations != null)
-        {
-            foreach (var alteration in Player.Alterations)
-            {
-                alteration.Tick(Player);
-                switch (alteration.State)
-                {
-                    case AlterationState.Stun:
-                        AttackBarSystem.ResetAtb(Player);
-                        break;
-                    case AlterationState.Silence:
-                        
-                        break;
-                    case AlterationState.DemonicMark:
-                        
-                        break;
-                }
-            }
-        }
-        
+        DialogueText.text = won ? "YOU WON" : "YOU LOST";
+
+        SetSkillButtonsActive(false);
+
+        //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
+        foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
+        OnBattleEnded?.Invoke();
     }
 }

@@ -120,7 +120,7 @@ public class XPRewardCSVParserWindow : EditorWindow
         return rewardComponents;
     }
 
-    private ItemCategory DetermineItemCategory(string itemName)
+    private ItemCategory? DetermineItemCategory(string itemName)
     {
         if (Enum.TryParse(itemName, out ItemCategory category))
         {
@@ -128,18 +128,18 @@ public class XPRewardCSVParserWindow : EditorWindow
         }
 
         // Handle unknown item categories or return a default value
-        return ItemCategory.None;
+        return null;
     }
 
-    private ItemRarity DetermineItemRarity(string rarityName)
+    private Rarity DetermineItemRarity(string rarityName)
     {
-        if (Enum.TryParse(rarityName, out ItemRarity rarity))
+        if (Enum.TryParse(rarityName, out Rarity rarity))
         {
             return rarity;
         }
 
         // Handle unknown rarities or return a default value
-        return ItemRarity.Common;
+        return Rarity.Common;
     }
 
     private RewardType DetermineItemRewardType(string RewardTypeName)

@@ -3,22 +3,24 @@ using System;
 
 public class DemonicBite : DamageSkill
 {
-    int[] percentChances = { 100, 50 };
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    private int[] _percentChances = { 100, 50 };
+
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float damage = 0; // add damage amount and is physical dmage
         targets[0].TakeDamage(damage);
-        for (int i = 0; i < percentChances.Length; i++)
-        {
-            Random rand = new Random();
-            int randomNumber = rand.Next(1, 100);
 
-            if (percentChances[i] >= randomNumber)
+        for (int i = 0; i < _percentChances.Length; i++)
+        {
+            int randomNumber = new Random().Next(1, 100);
+
+            if (_percentChances[i] >= randomNumber)
             {
                 //add demonic mark and defense break (if targets[0] is defense break, player.atkBarPercentage += 100;)
 
             }
         }
+
         Cooldown = Data.MaxCooldown;
         return damage;
     }

@@ -20,7 +20,7 @@ public class EntityController : MonoBehaviour
     private void InitHUD()
     {
         _hpBar = GetComponentInChildren<Slider>();
-        _hpBar.maxValue = Entity.Stats[Item.AttributeStat.HP].Value;
+        _hpBar.maxValue = Entity.Stats[Attribute.HP].Value;
         _hpBar.value = Entity.CurrentHp;
     }
 

@@ -2,18 +2,18 @@ using System.Collections.Generic;
 
 public class LightBomb : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float TotalDamage = 0;
+        float _totalDamage = 0;
 
         for (int i = 0; i < targets.Count; i++)
         {
             float damage = Data.DamageAmount;
             targets[i].TakeDamage(damage);
-            TotalDamage += damage;
+            _totalDamage += damage;
         }
 
         Cooldown = Data.MaxCooldown;
-        return TotalDamage;
+        return _totalDamage;
     }
 }

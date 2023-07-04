@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
 
 public class CSVToSO : EditorWindow
 {
     private static Dictionary<int, SkillSO> _skillSOMap;
-    private static Dictionary<string, List<Item.AttributeStat>> _equipmentTypes;
+    private static Dictionary<string, List<Attribute>> _equipmentTypes;
     private static int _currentLine;
     private static int _lines;
 
@@ -41,7 +42,7 @@ public class CSVToSO : EditorWindow
         GUILayout.Space(25);
         if (GUILayout.Button("Equipment Stats"))
         {
-            _equipmentTypes = new Dictionary<string, List<Item.AttributeStat>>();
+            _equipmentTypes = new Dictionary<string, List<Attribute>>();
             CreateScriptableObjectsFromCSV(TypeCSV.equipment, "EquipmentStats");
         }
 
@@ -201,7 +202,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Rarity = rowData["Rarity"];
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
-        scriptableObject.Element = Enum.Parse<Element.ElementType>( rowData["Element"]);
+        scriptableObject.Element = Enum.Parse<Element.ElementType>(rowData["Element"]);
         AssignSkillData(rowData, "PrimarySkill", ref scriptableObject.PrimarySkillData);
         AssignSkillData(rowData, "SecondarySkill", ref scriptableObject.SecondarySkillData);
 
@@ -270,13 +271,13 @@ public class CSVToSO : EditorWindow
 
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
     {
-        var rarities = Enum.GetNames(typeof(Item.ItemRarity));
+        var rarities = Enum.GetNames(typeof(Rarity));
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
-            _equipmentTypes[rowData["type"]] = new List<Item.AttributeStat>
-                { Enum.Parse<Item.AttributeStat>(rowData["attribute"]) };
+            _equipmentTypes[rowData["type"]] = new List<Attribute>
+                { Enum.Parse<Attribute>(rowData["attribute"]) };
         else
-            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Item.AttributeStat>(rowData["attribute"]));
+            _equipmentTypes[rowData["type"]].Add(Enum.Parse<Attribute>(rowData["attribute"]));
 
         if (_currentLine == _lines)
             foreach (var type in _equipmentTypes)
@@ -304,9 +305,9 @@ public class CSVToSO : EditorWindow
         var scriptableObject = CreateInstance<GearSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
-        scriptableObject.Type = Item.GearType.Weapon;
+        scriptableObject.Type = GearType.Weapon;
 
-        if (Enum.TryParse(rowData["Type"], out Item.GearWeaponType type))
+        if (Enum.TryParse(rowData["Type"], out WeaponType type))
         {
             scriptableObject.WeaponType = type;
         }
@@ -316,7 +317,7 @@ public class CSVToSO : EditorWindow
             return;
         }
 
-        if (Enum.TryParse(rowData["Attribute"], out Item.AttributeStat attribute))
+        if (Enum.TryParse(rowData["Attribute"], out Attribute attribute))
         {
             scriptableObject.Attribute = attribute;
         }
@@ -346,21 +347,20 @@ public class CSVToSO : EditorWindow
         scriptableObject.EnergyCost = int.Parse(rowData["EnergyCost"]);
         scriptableObject.Unlocked = bool.Parse(rowData["Unlocked"]);
 
-        Dictionary<int, List<string>> waves = new();
+        SerializedDictionary<int, List<string>> waves = new();
         HashSet<string> enemies = new(); // Use HashSet to avoid duplicates
-        List<string> enemiesInWaveList = new();
-        var waveCount = 0;
+        var waveCount = 1;
         var i = 1;
         while (rowData.ContainsKey($"Wave{i}"))
         {
             var wave = rowData[$"Wave{i}"];
-            if (!wave.Equals("none"))
+            List<string> enemiesInWaveList = new();
+            if (!wave.Equals(""))
             {
-               
-                
                 var waveEnemies = wave.Split(',');
                 foreach (var enemy in waveEnemies)
                 {
+                    if (enemy == "Talk Only") continue;
                     enemiesInWaveList.Add(enemy);
                     enemies.Add(enemy);
                 }
@@ -385,10 +385,18 @@ public class CSVToSO : EditorWindow
         for (var ii = i; ii < rowData.Count; ii++)
         {
             var Rewardtype = currencies[ii].Key;
-            if (!Enum.TryParse(Rewardtype, out PlayFabManager.GameCurrency currencyType)) continue;
+            if (!Enum.TryParse(Rewardtype, out Currency currencyType)) continue;
             Debug.Log(rowData[Rewardtype]);
 
-            scriptableObject.RewardsList.Add(currencyType, int.Parse(rowData[Rewardtype]));
+            scriptableObject.CurrencyRewards.Add(currencyType, int.Parse(rowData[Rewardtype]));
+        }
+
+        var gears = rowData["Gear"].Split(",");
+        foreach (var gearReward in gears)
+        {
+            if (!Enum.TryParse(gearReward, out Rarity itemRarity)) continue;
+
+            scriptableObject.GearReward.Add(itemRarity);
         }
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);
@@ -437,7 +445,7 @@ public class CSVToSO : EditorWindow
         for (var i = 4; i < rowData.Count; i++)
         {
             var type = currencies[i].Key;
-            if (!Enum.TryParse(type, out PlayFabManager.GameCurrency currencyType)) continue;
+            if (!Enum.TryParse(type, out Currency currencyType)) continue;
             Debug.Log(type);
 
             scriptableObject.currencyList.Add(currencyType, int.Parse(rowData[type]));

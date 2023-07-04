@@ -11,7 +11,7 @@ public class EnemyTurn : State
         BattleSystem.ResetSelectedEnemies();
         BattleSystem.SetSkillButtonsActive(false);
         BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
-        BattleSystem.Enemies[BattleSystem.EnemyPlayingID].atkBar = 0;
+        BattleSystem.Enemies[BattleSystem.EnemyPlayingID].AtkBar = 0;
         //BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
         //BattleSystem.Player.ApplyEffect(new SILENCE(4,BattleSystem.Player));
 
@@ -47,7 +47,7 @@ public class EnemyTurn : State
         }
         foreach (Entity enemy in BattleSystem.Enemies)
         {
-            if (enemy.CurrentHp < enemy.Stats[Item.AttributeStat.HP].Value * 20 / 100)
+            if (enemy.CurrentHp < enemy.Stats[Attribute.HP].Value * 20 / 100)
             {
                 TeammateLow = true;
                 break;
@@ -58,7 +58,7 @@ public class EnemyTurn : State
         {
             if (skill.Cooldown == 0 && skill.GetType() != typeof(PassiveSkill))
             {
-                if ((BattleSystem.Enemies[BattleSystem.EnemyPlayingID].CurrentHp < BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Stats[Item.AttributeStat.HP].Value * 20 / 100 || TeammateLow) && CanProtect)
+                if ((BattleSystem.Enemies[BattleSystem.EnemyPlayingID].CurrentHp < BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Stats[Attribute.HP].Value * 20 / 100 || TeammateLow) && CanProtect)
                 { //if i'm low and i can protect myself // modify to check all the team hp
 
                     if (skill.GetType() == typeof(ProtectionSkill)) //i check if my skill alow me to protect myself
@@ -83,7 +83,7 @@ public class EnemyTurn : State
                         continue; //if not let's go to the next spell (which will probably be the buff skill
                     }
                 }
-                else //if I can't d any of this the, use the basic skill
+                else //if I can't d any of this the, use skill
                 {
                     UseSkill(skill);
                     break;
@@ -98,6 +98,7 @@ public class EnemyTurn : State
         float totalDamage = 0;
         //IN ENEMY SKILL !!! TARGETS[0] IS THE PLAYER
         //THE PLAYER IN ENEMY SKILL IS THE ENEMY USING THE SKILL !!!
+
         List<Entity> allTargets = new List<Entity>
         {
             BattleSystem.Player
@@ -110,6 +111,10 @@ public class EnemyTurn : State
         totalDamage += skillUsed.SkillBeforeUse(allTargets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn);
         totalDamage += skillUsed.Use(allTargets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn);
         totalDamage += skillUsed.AdditionalDamage(allTargets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, totalDamage);
+        foreach(Skill skills in BattleSystem.Player.Skills)
+        {
+            skills.UseIfAttacked(allTargets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Player, BattleSystem.Turn, totalDamage);
+        }
         skillUsed.SkillAfterDamage(allTargets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, totalDamage);
 
         foreach (var skill in BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills)

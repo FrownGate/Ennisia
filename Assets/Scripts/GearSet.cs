@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GearSet : MonoBehaviour
@@ -9,6 +6,7 @@ public class GearSet : MonoBehaviour
     Gear[] _sets;
     [HideInInspector] public Skill FourPieces;
     [HideInInspector] public Skill SixPieces;
+
     private void CheckGearSet()
     {
         int wui = 0;
@@ -41,4 +39,3 @@ public class GearSet : MonoBehaviour
         }
     }
 }
-

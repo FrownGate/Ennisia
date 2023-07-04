@@ -2,20 +2,20 @@ using System.Collections.Generic;
 
 public class RisingPower : PassiveSkill
 {
-    public float AttackBaseRatio;
-    public override void ConstantPassive(List<Entity> target, Entity player, int turn)
+    private float _attackBaseRatio;
+
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
-        float attackBuffRatio = AttackBaseRatio + (StatUpgrade1 * Level);
+        float attackBuffRatio = _attackBaseRatio + (StatUpgrade1 * Level);
         float attackBuff;
         /*if(weapon != two-handed sword)*/
-        if (player.Weapon.Type != 0)
+        if (caster.Weapon.Type != 0)
         {
-            attackBuff = player.Stats[Item.AttributeStat.Attack].Value * attackBuffRatio;
+            attackBuff = caster.Stats[Attribute.Attack].Value * attackBuffRatio;
         }else
         {
-            attackBuff = player.Stats[Item.AttributeStat.Attack].Value * attackBuffRatio * 2;     
+            attackBuff = caster.Stats[Attribute.Attack].Value * attackBuffRatio * 2;     
         }
         //player.Attack += attackBuff; Modifier
     }
-    
 }

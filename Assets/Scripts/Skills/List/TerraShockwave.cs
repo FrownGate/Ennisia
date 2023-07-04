@@ -7,7 +7,7 @@ public class TerraShockwave: DamageSkill
     private float _increaseCDPerc = 0.75f;
     private int _stunTurn;
 
-    public override void ConstantPassive(List<Entity> targets, Entity player, int turn)
+    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn)
     {
         if (turn <= _stunTurn)
         {
@@ -15,16 +15,13 @@ public class TerraShockwave: DamageSkill
         }
     }
 
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        DamageModifier = player.Stats[Item.AttributeStat.PhysicalDamages].Value * StatUpgrade1 * Level;
+        DamageModifier = caster.Stats[Attribute.PhysicalDamages].Value * StatUpgrade1 * Level;
         targets[0].TakeDamage(DamageModifier);
         float stunLuck = Random.Range(0, 1);
 
-        if (stunLuck > _stunPerc)
-        {
-            _stunTurn = turn + 1;
-        }
+        if (stunLuck > _stunPerc) _stunTurn = turn + 1;
 
         float increaseCDLuck = Random.Range(0, 1);
 

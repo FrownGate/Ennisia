@@ -1,22 +1,14 @@
 using System.Collections.Generic;
 
-
 public class VitalEngagement : Skill
 {
-    ModifierID id;
     public float AttackBuffRatio;
 
     public override void ConstantPassive(List<Entity> target, Entity player, int turn)
     {
+        _modifiers[Attribute.Attack] = player.Stats[Attribute.Attack].AddModifier(AttackBuff);
+    }
 
-        id = player.Stats[Item.AttributeStat.Attack].AddModifier(AttackBuff);
-    }
-    float AttackBuff(float input)
-    {
-        return input * AttackBuffRatio /*TO DO scale on HP : AttackBuffRatio * player.HP )*/ ;
-    }
-    public override void TakeOffStats(List<Entity> targets, Entity player, int turn)
-    {
-        player.Stats[Item.AttributeStat.Attack].RemoveModifier(id);
-    }
+    //TODO -> scale on HP : AttackBuffRatio * player.HP
+    float AttackBuff(float value) => value * AttackBuffRatio;
 }

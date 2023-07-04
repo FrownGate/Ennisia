@@ -1,19 +1,15 @@
 using System.Collections.Generic;
-using static Stat<float>;
 
 public class InAFlash : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity player, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        ModifierID id  = targets[0].Stats[Item.AttributeStat.DefIgnoref].AddModifier(Add50);
+        _modifiers[Attribute.DefIgnored] = targets[0].Stats[Attribute.DefIgnored].AddModifier(Add50); //targets[0] or caster ?
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
-        targets[0].Stats[Item.AttributeStat.DefIgnoref].RemoveModifier(id);
+        TakeOffStats(caster);
         return damage;
     }
 
-    float Add50(float input) //penDef
-    {
-        return input + 50;
-    }
+    float Add50(float value) => value + 50; //penDef
 }

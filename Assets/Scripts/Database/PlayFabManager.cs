@@ -6,13 +6,13 @@ using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
 
+public enum Rarity
+{
+    Common, Rare, Epic, Legendary
+}
+
 public class PlayFabManager : MonoBehaviour
 {
-    public enum GameCurrency //TODO -> move elsewhere
-    {
-        Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency
-    }
-
     public static PlayFabManager Instance { get; private set; }
 
     //Requests events
@@ -42,12 +42,12 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private EconomyModule _economyMod;
 
     public static event Action OnCurrencyUpdate;
-    public static event Action<GameCurrency> OnCurrencyUsed;
-    public static event Action<GameCurrency> OnCurrencyGained;
+    public static event Action<Currency> OnCurrencyUsed;
+    public static event Action<Currency> OnCurrencyGained;
     public static event Action OnEnergyUpdate;
     public static event Action OnEnergyUsed;
 
-    public Dictionary<GameCurrency, int> Currencies => _economyMod.Currencies;
+    public Dictionary<Currency, int> Currencies => _economyMod.Currencies;
     public int Energy => _economyMod.Energy;
 
     //Guilds Module
@@ -119,13 +119,13 @@ public class PlayFabManager : MonoBehaviour
 
     #region Economy
     public void InvokeOnCurrencyUpdate() => OnCurrencyUpdate?.Invoke();
-    public void InvokeOnCurrencyUsed(GameCurrency currency) => OnCurrencyUsed?.Invoke(currency);
-    public void InvokeOnCurrencyGained(GameCurrency currency) => OnCurrencyGained?.Invoke(currency);
+    public void InvokeOnCurrencyUsed(Currency currency) => OnCurrencyUsed?.Invoke(currency);
+    public void InvokeOnCurrencyGained(Currency currency) => OnCurrencyGained?.Invoke(currency);
     public void InvokeOnEnergyUpdate() => OnEnergyUpdate?.Invoke();
     public void InvokeOnEnergyUsed() => OnEnergyUsed?.Invoke();
 
-    public void AddCurrency(GameCurrency currency, int amount) => StartCoroutine(_economyMod.AddCurrency(currency, amount));
-    public void RemoveCurrency(GameCurrency currency, int amount) => StartCoroutine(_economyMod.RemoveCurrency(currency, amount));
+    public void AddCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.AddCurrency(currency, amount));
+    public void RemoveCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.RemoveCurrency(currency, amount));
     public void AddEnergy(int amount) => StartCoroutine(_economyMod.AddEnergy(amount));
     public void RemoveEnergy(int amount) => StartCoroutine(_economyMod.RemoveEnergy(amount));
     public bool IsEnergyUsed(int amount) => _economyMod.EnergyIsUsed(amount);
@@ -252,21 +252,21 @@ public class PlayFabManager : MonoBehaviour
         //Debug.Log(Data.Inventory.Items.Count);
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId);  }
 
-        //UseItem(Data.Inventory.GetItem(new SummonTicket(), Item.ItemRarity.Common));
+        //UseItem(Data.Inventory.GetItem(new SummonTicket(), ItemRarity.Common));
         //Data.Inventory.Items["Gear"][0].Upgrade();
 
-        //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Rare));
-        //AddInventoryItem(new Gear(Item.GearType.Boots, Item.ItemRarity.Legendary));
+        //AddInventoryItem(new Gear(GearType.Boots, ItemRarity.Rare));
+        //AddInventoryItem(new Gear(GearType.Boots, ItemRarity.Legendary));
 
         //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
-        //AddInventoryItem(new Gear(weapon, Item.ItemRarity.Legendary));
+        //AddInventoryItem(new Gear(weapon, ItemRarity.Legendary));
         //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
 
         //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
         //_requests = 0;
 
-        //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Common, 5));
-        //AddInventoryItem(new Material(Item.ItemCategory.Weapon, Item.ItemRarity.Legendary, 5));
+        //AddInventoryItem(new Material(ItemCategory.Weapon, ItemRarity.Common, 5));
+        //AddInventoryItem(new Material(ItemCategory.Weapon, ItemRarity.Legendary, 5));
 
         //CreateGuild("Test");
 
@@ -287,8 +287,8 @@ public class PlayFabManager : MonoBehaviour
         //Player.Unequip(0);
         //Debug.Log(Player.EquippedSupports[0] != null ? Player.EquippedSupports[0].Name : "Empty");
 
-        //Debug.Log(Player.EquippedGears[Item.GearType.Weapon] != null ? Player.EquippedGears[Item.GearType.Weapon].Name : "Empty");
-        //Player.Unequip(Item.GearType.Weapon);
-        //Debug.Log(Player.EquippedGears[Item.GearType.Weapon] != null ? Player.EquippedGears[Item.GearType.Weapon].Name : "Empty");
+        //Debug.Log(Player.EquippedGears[GearType.Weapon] != null ? Player.EquippedGears[GearType.Weapon].Name : "Empty");
+        //Player.Unequip(GearType.Weapon);
+        //Debug.Log(Player.EquippedGears[GearType.Weapon] != null ? Player.EquippedGears[GearType.Weapon].Name : "Empty");
     }
 }

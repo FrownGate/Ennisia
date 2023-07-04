@@ -14,7 +14,7 @@ public class ShowCurrencies : MonoBehaviour
 
         int position = 0;
 
-        foreach (KeyValuePair<PlayFabManager.GameCurrency, int> currency in PlayFabManager.Instance.Currencies) 
+        foreach (KeyValuePair<Currency, int> currency in PlayFabManager.Instance.Currencies) 
         {
             Debug.Log($"{currency.Key} : {currency.Value}");
 
