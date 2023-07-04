@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Enemy : Entity
 {
@@ -17,11 +18,12 @@ public class Enemy : Entity
         Level = 1;
     }
 
-    public override void TakeDamage(float damage)
-    {
-        CurrentHp -= damage;
-        IsSelected = false;
-    }
+    //public override void TakeDamage(float damage)
+    //{
+    //    Debug.Log($"Damage taken : {damage}");
+    //    CurrentHp -= damage;
+    //    //IsSelected = false;
+    //}
 
     public override bool HaveBeenTargeted()
     {
