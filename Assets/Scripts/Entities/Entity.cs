@@ -29,8 +29,11 @@ public abstract class Entity
     public int AtkBarFillAmount { get; set; }
     public int AtkBarPercentage { get; set; }
 
+    public EntityHUD HUD { get; set; }
+
     public Entity(Dictionary<Attribute, float> stats = null)
     {
+        Debug.Log(IsSelected);
         //TODO -> Use CSV to set all values
         Stats = new();
 
@@ -51,8 +54,9 @@ public abstract class Entity
         //Debug.Log(Stats[AttributeStat.Attack].Value);
     }
 
-    public virtual void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
+        Debug.Log($"Damage taken : {damage}");
         if (Shield > 0)
         {
             Shield -= damage;

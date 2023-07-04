@@ -355,42 +355,42 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-  - name: Raids
-    path: Assets/Scenes/Missions/Raids.unity
-  - name: Loading_Mini
-    path: Assets/Scenes/Loading_Mini.unity
-  - name: Loading_Big
-    path: Assets/Scenes/Loading_Big.unity
-  - name: TitleScreen
-    path: Assets/Scenes/TitleScreen.unity
-  - name: BattleModeSelection
-    path: Assets/Scenes/Missions/BattleModeSelection.unity
-  - name: Battle
-    path: Assets/Scenes/Battle.unity
-  - name: Yoann
-    path: Assets/Scenes/Dev/Yoann.unity
   - name: LoginRegisterPopup
     path: Assets/Scenes/LoginRegisterPopup.unity
-  - name: SettingsPopup
-    path: Assets/Scenes/SettingsPopup.unity
-  - name: ProfilePopup
-    path: Assets/Scenes/ProfilePopup.unity
-  - name: MenuPopup
-    path: Assets/Scenes/MenuPopup.unity
-  - name: MailPopup
-    path: Assets/Scenes/MailPopup.unity
   - name: Pets
     path: Assets/Scenes/Pets.unity
-  - name: GuildMissions
-    path: Assets/Scenes/Guilds/GuildMissions.unity
-  - name: GuildShop
-    path: Assets/Scenes/Guilds/GuildShop.unity
+  - name: Expedition
+    path: Assets/Scenes/Missions/Expedition.unity
+  - name: StoryChapter
+    path: Assets/Scenes/Missions/StoryChapter.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: StoryChapterPopup
+    path: Assets/Scenes/Missions/StoryChapterPopup.unity
+  - name: MainStory
+    path: Assets/Scenes/Missions/MainStory.unity
+  - name: Raids
+    path: Assets/Scenes/Missions/Raids.unity
+  - name: StuffMenu
+    path: Assets/Scenes/Inventory/StuffMenu.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: Friends
+    path: Assets/Scenes/Friends.unity
+  - name: BattleModeSelection
+    path: Assets/Scenes/Missions/BattleModeSelection.unity
   - name: GuildCommunity
     path: Assets/Scenes/Guilds/GuildCommunity.unity
   - name: PlayerGuild
     path: Assets/Scenes/Guilds/PlayerGuild.unity
   - name: GuildsList
     path: Assets/Scenes/Guilds/GuildsList.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
+  - name: GuildShop
+    path: Assets/Scenes/Guilds/GuildShop.unity
+  - name: GuildMissions
+    path: Assets/Scenes/Guilds/GuildMissions.unity
+  - name: EventPopup
+    path: Assets/Scenes/EventPopup.unity
+  - name: MailPopup
+    path: Assets/Scenes/MailPopup.unity
   _notes: []
