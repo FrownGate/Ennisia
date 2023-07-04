@@ -30,13 +30,13 @@ public class RewardsDrop : MonoBehaviour
             case 3: type = GearType.Necklace; break;
             case 4: type = GearType.Earrings; break;
         }
-        PlayFabManager.Instance.AddInventoryItem(new Gear(type, rarity));
+        PlayFabManager.Instance.AddInventoryItem(new Gear(type, rarity,null));
     }
     public void DropGear(Dictionary<GearType, Rarity> gearList)
     {
         foreach(var gear in gearList)
         {
-            PlayFabManager.Instance.AddInventoryItem(new Gear(gear.Key, gear.Value));
+            PlayFabManager.Instance.AddInventoryItem(new Gear(gear.Key, gear.Value, null));
         }
     }
     public void DropCurrency(Dictionary<Currency, int> currencyList)
