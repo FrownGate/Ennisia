@@ -355,6 +355,10 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: LoginRegisterPopup
+    path: Assets/Scenes/LoginRegisterPopup.unity
+  - name: Pets
+    path: Assets/Scenes/Pets.unity
   - name: Expedition
     path: Assets/Scenes/Missions/Expedition.unity
   - name: StoryChapter
@@ -389,8 +393,4 @@ MonoBehaviour:
     path: Assets/Scenes/EventPopup.unity
   - name: MailPopup
     path: Assets/Scenes/MailPopup.unity
-  - name: ProfilePopup
-    path: Assets/Scenes/ProfilePopup.unity
-  - name: LoginRegisterPopup
-    path: Assets/Scenes/LoginRegisterPopup.unity
   _notes: []
