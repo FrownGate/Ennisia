@@ -18,7 +18,7 @@ namespace CheatCode
             this.activationKey = key;
             this.alternateKey = alternateKey;
             this.effect = effect;
-            // this.remove = remove;
+            this.remove = remove;
             this.cheatCode = cheatCode;
         }
     }
@@ -94,10 +94,28 @@ namespace CheatCode
                 }
             }
         }
+        public void CheckAndRemoveCheat(string input)
+        {
+
+            input = input.ToLower();
+            foreach (CheatCodeData cheatCode in cheatCodes)
+            {
+                if (input == cheatCode.activationKey || input == cheatCode.alternateKey)
+                {
+                    if (activeCheatCodes.Contains(cheatCode.cheatCode))
+                    {
+                        cheatCode.remove();
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Cheat code is not yet activated");
+                    }
+                }
+            }
+        }
 
         private void ActivateUnkillable()
         {
-            // Apply cheat effect for god mode
             Debug.LogWarning("Unkillable activated");
         }
         private void ActiveNoCooldown()
@@ -107,8 +125,6 @@ namespace CheatCode
         }
         private void ActivateFullLife()
         {
-            // Apply cheat effect for full life
-
             _battleInstance.Player.CurrentHp = _battleInstance.Player.Stats[Attribute.HP].Value;
             Debug.LogWarning("Full life activated");
             activeCheatCodes.Remove(CheatCode.FullLife);
@@ -188,7 +204,6 @@ namespace CheatCode
 
         private void RemoveAttackUnlimited()
         {
-            // remove the modifiers and remove them from the hashset
             foreach (ModifierID modifier in _modifiers)
             {
                 _battleInstance.Player.Stats[Attribute.Attack].RemoveModifier(modifier);

@@ -44,15 +44,20 @@ public class CheatCodeWindow : EditorWindow
 
         TextField codeInput = root.Q<TextField>("codeInput");
         Button activateButton = root.Q<Button>("activateButton");
+        Button removeButton = root.Q<Button>("removeButton");
 
 
         CheatCodeManager cheatCodeManager = new(battleSystem);
-        Debug.LogWarning("On Enable : " + battleSystem);
         activateButton.clickable.clicked += () =>
         {
             cheatCodeManager.CheckAndActivateCheat(codeInput.value);
             ClearInput(codeInput);
 
+        };
+        removeButton.clickable.clicked += () =>
+        {
+            cheatCodeManager.CheckAndRemoveCheat(codeInput.value);
+            ClearInput(codeInput);
         };
     }
     private void ClearInput(TextField textField)
