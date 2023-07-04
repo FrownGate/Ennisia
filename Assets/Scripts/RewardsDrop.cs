@@ -18,28 +18,28 @@ public class RewardsDrop : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     //random gear drop
-    public void DropGear(Item.ItemRarity rarity)
+    public void DropGear(Rarity rarity)
     {
-        Item.GearType type = Item.GearType.Helmet;
+        GearType type = GearType.Helmet;
         int rand = Random.Range(0, 5);
         switch (rand)
         {
-            case 0: type = Item.GearType.Chest; break;
-            case 1: type = Item.GearType.Boots; break;
-            case 2: type = Item.GearType.Ring; break;
-            case 3: type = Item.GearType.Necklace; break;
-            case 4: type = Item.GearType.Earrings; break;
+            case 0: type = GearType.Chest; break;
+            case 1: type = GearType.Boots; break;
+            case 2: type = GearType.Ring; break;
+            case 3: type = GearType.Necklace; break;
+            case 4: type = GearType.Earrings; break;
         }
         PlayFabManager.Instance.AddInventoryItem(new Gear(type, rarity));
     }
-    public void DropGear(Dictionary<Item.GearType, Item.ItemRarity> gearList)
+    public void DropGear(Dictionary<GearType, Rarity> gearList)
     {
         foreach(var gear in gearList)
         {
             PlayFabManager.Instance.AddInventoryItem(new Gear(gear.Key, gear.Value));
         }
     }
-    public void DropCurrency(Dictionary<PlayFabManager.GameCurrency, int> currencyList)
+    public void DropCurrency(Dictionary<Currency, int> currencyList)
     {
         foreach(var currency in currencyList)
         {
