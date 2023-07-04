@@ -27,6 +27,17 @@ namespace CheatCode
         Unkillable,
         NoCooldown,
         FullLife,
+        Purify,
+        Silence,
+        Stun,
+        DemonicMark,
+        SupportSilence,
+        BreakAttack,
+        BreakDefense,
+        AttackUnlimited,
+        Victory,
+        Defeat
+
     }
 
     public class CheatCodeManager
@@ -41,9 +52,22 @@ namespace CheatCode
             activeCheatCodes = new();
             cheatCodes = new()
             {
-                new CheatCodeData("unkillable","poweroverwhelming", ActivateUnkillable, CheatCode.Unkillable),
-                new CheatCodeData("nocd","whosyourdaddy", ActiveNoCooldown, CheatCode.NoCooldown),
+                new CheatCodeData("unkillable","PowerOverwhelming", ActivateUnkillable, CheatCode.Unkillable),
+                new CheatCodeData("nocd","IAmIronMan", ActiveNoCooldown, CheatCode.NoCooldown),
                 new CheatCodeData("fulllife","thereisnocowlevel", ActivateFullLife, CheatCode.FullLife),
+                new CheatCodeData("purify","", ActivatePurify, CheatCode.Purify),
+                new CheatCodeData("silence","StayAwhileAndListen", ActivateSilence, CheatCode.Silence),
+                new CheatCodeData("stun","stun", ActivateStun, CheatCode.Stun),
+                new CheatCodeData("demonicmark","gotthedemoninme", ActivateDemonicMark, CheatCode.DemonicMark),
+                new CheatCodeData("supportsilence","junglerisbetter", ActivateSupportSilence, CheatCode.SupportSilence),
+                new CheatCodeData("breakattack","breakattack", ActivateBreakAttack, CheatCode.BreakAttack),
+                new CheatCodeData("breakdefense","breakdefense", ActivateBreakDefense, CheatCode.BreakDefense),
+                new CheatCodeData("attackunlimited","ICanDoThisAllDay", ActivateAttackUnlimited, CheatCode.AttackUnlimited),
+                new CheatCodeData("victory","WhatIsBestInLife", ActivateVictory, CheatCode.Victory),
+                new CheatCodeData("defeat","IllBeBack", ActivateDefeat, CheatCode.Defeat)
+
+
+
             };
             _battleInstance = battleSystem;
 
@@ -98,6 +122,63 @@ namespace CheatCode
             activeCheatCodes.Remove(CheatCode.FullLife);
 
         }
+        private void ActivatePurify()
+        {
+            // TODO: Apply cheat effect for purify
+            Debug.LogWarning("Purify activated");
+        }
+        private void ActivateSilence()
+        {
+            // TODO: Apply cheat effect for silence
+
+            // silence for 2 turns the player
+            // _battleInstance.Player.ApplyEffect(new Effect.AlterationState(2, Effect.AlterationState.Silence));
+            Debug.LogWarning("Silence activated");
+        }
+        private void ActivateStun()
+        {
+            // TODO: Apply cheat effect for stun
+            Debug.LogWarning("Stun activated");
+        }
+        private void ActivateDemonicMark()
+        {
+            // TODO: Apply cheat effect for demonic mark
+            Debug.LogWarning("Demonic mark activated");
+        }
+        private void ActivateSupportSilence()
+        {
+            // TODO: Apply cheat effect for support silence
+            Debug.LogWarning("Support silence activated");
+        }
+        private void ActivateBreakAttack()
+        {
+            // TODO: Apply cheat effect for break attack
+            Debug.LogWarning("Break attack activated");
+        }
+        private void ActivateBreakDefense()
+        {
+            // TODO: Apply cheat effect for break defense
+            Debug.LogWarning("Break defense activated");
+        }
+        private void ActivateAttackUnlimited()
+        {
+            // TODO: Apply cheat effect for attack unlimited
+            Debug.LogWarning("Attack unlimited activated");
+        }
+        private void ActivateVictory()
+        {
+            _battleInstance.SetState(new Won(_battleInstance));
+            Debug.LogWarning("Victory activated");
+            activeCheatCodes.Remove(CheatCode.Victory);
+        }
+        private void ActivateDefeat()
+        {
+            _battleInstance.SetState(new Lost(_battleInstance));
+            Debug.LogWarning("Defeat activated");
+            activeCheatCodes.Remove(CheatCode.Defeat);
+        }
+
+
 
 
     }
