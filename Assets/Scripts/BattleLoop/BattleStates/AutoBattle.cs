@@ -20,7 +20,7 @@ public class AutoBattle : State
 
     private void AISelectSkillAndEnemy()
     {
-        if (!BattleSystem.PlayerIsDead() && BattleSystem.Player.Skills.Any())
+        if (!BattleSystem.Player.IsDead && BattleSystem.Player.Skills.Any())
         {
             int selectedSkillIndex = Random.Range(0, BattleSystem.Player.Skills.Count);
             BattleSystem.SetState(new SelectSpell(BattleSystem, selectedSkillIndex));

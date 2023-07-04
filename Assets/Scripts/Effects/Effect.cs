@@ -1,13 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackBuff : Effect { }
-public class DefenseBuff : Effect { }
-public class CritRateBuff : Effect { }
-public class CritDmgBuff : Effect { }
-public class BreakAttack : Effect { }
-public class BreakDefense : Effect { }
-
 public class Effect
 {
     public enum AlterationState
@@ -53,4 +46,29 @@ public class Effect
     {
         Duration = InitialDuration;
     }
+}
+
+public class AttackBuff : Effect
+{
+    public AttackBuff(int? duration = null) : base(duration) { }
+}
+public class DefenseBuff : Effect
+{
+    public DefenseBuff(int? duration = null) : base(duration) { }
+}
+public class CritRateBuff : Effect
+{
+    public CritRateBuff(int? duration = null) : base(duration) { }
+}
+public class CritDmgBuff : Effect
+{
+    public CritDmgBuff(int? duration = null) : base(duration) { }
+}
+public class BreakAttack : Effect
+{
+    public BreakAttack(int? duration = null) : base(duration) { }
+}
+public class BreakDefense : Effect
+{
+    public BreakDefense(int? duration = null) : base(duration) { }
 }
