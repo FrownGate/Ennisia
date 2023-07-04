@@ -110,4 +110,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Guilds/GuildMissions.unity
     guid: d8d9e7b7fad17b44e953b6ce8d60cc5c
+  - enabled: 1
+    path: Assets/Scenes/Friends.unity
+    guid: 0941cbb4f76ba6e4994e3a641ba97c13
   m_configObjects: {}
