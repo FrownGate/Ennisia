@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class DynamicButtonGenerator : MonoBehaviour
 {
     public GameObject ButtonPrefab;
+    public float PaddingPercentage = 0.03f;
 
     private RectTransform _contentRect;
     private VerticalLayoutGroup _layoutGroup;
-    public float paddingPercentage = 0.03f;
     public List<GameObject> GenerateButtonsInSlider(int numberOfButtons)
     {
         List<GameObject> buttonsCreated = new();
@@ -29,7 +29,7 @@ public class DynamicButtonGenerator : MonoBehaviour
             float originalHeight = buttonRect.sizeDelta.y;
 
             // Calculate the adjusted width based on the content width
-            float adjustedWidth = _contentRect.rect.width * (1f - paddingPercentage * 2f);
+            float adjustedWidth = _contentRect.rect.width * (1f - PaddingPercentage * 2f);
             float ratio = adjustedWidth / originalWidth;
             float adjustedHeight = originalHeight * ratio;
 
