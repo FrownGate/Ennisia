@@ -72,19 +72,3 @@ public class BreakDefense : Effect
 {
     public BreakDefense(int? duration = null) : base(duration) { }
 }
-public class Silence : Effect
-{
-    public Silence(int? duration = null) : base(duration) { }
-}
-public class Stun : Effect
-{
-    public Stun(int? duration = null) : base(duration) { }
-}
-public class SupportSilence : Effect
-{
-    public SupportSilence(int? duration = null) : base(duration) { }
-}
-public class DemonicMark : Effect
-{
-    public DemonicMark(int? duration = null) : base(duration) { }
-}

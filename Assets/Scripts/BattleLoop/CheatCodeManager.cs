@@ -28,12 +28,15 @@ namespace CheatCode
         NoCooldown,
         FullLife,
         Purify,
-        Silence,
-        Stun,
-        DemonicMark,
-        SupportSilence,
-        BreakAttack,
-        BreakDefense,
+        SilenceEffect,
+        StunEffect,
+        DemonicMarkEffect,
+        SupportSilenceEffect,
+        BreakAttackDebuff,
+        BreakDefenseDebuff,
+        CritDamageBuff,
+        CritRateBuff,
+        AttackBuff,
         AttackUnlimited,
         Victory,
         Defeat
@@ -42,11 +45,11 @@ namespace CheatCode
 
     public class CheatCodeManager
     {
-        private BattleSystem _battleInstance;
+        private readonly BattleSystem _battleInstance;
         public static Lazy<CheatCodeManager> lazy = new(() => new CheatCodeManager(null));
         private readonly List<CheatCodeData> cheatCodes;
         public HashSet<CheatCode> activeCheatCodes;
-        private HashSet<ModifierID> _modifiers = new();
+        private readonly HashSet<ModifierID> _modifiers = new();
 
         public CheatCodeManager(BattleSystem battleSystem)
         {
@@ -57,12 +60,15 @@ namespace CheatCode
                 new CheatCodeData("nocd","IAmIronMan", ActiveNoCooldown, RemoveNoCooldown, CheatCode.NoCooldown),
                 new CheatCodeData("fulllife","thereisnocowlevel", ActivateFullLife, null, CheatCode.FullLife),
                 new CheatCodeData("purify","", ActivatePurify, null, CheatCode.Purify),
-                new CheatCodeData("silence","StayAwhileAndListen", ActivateSilence, null, CheatCode.Silence),
-                new CheatCodeData("stun","stun", ActivateStun, null, CheatCode.Stun),
-                new CheatCodeData("demonicmark","gotthedemoninme", ActivateDemonicMark, null, CheatCode.DemonicMark),
-                new CheatCodeData("supportsilence","junglerisbetter", ActivateSupportSilence, null, CheatCode.SupportSilence),
-                new CheatCodeData("breakattack","breakattack", ActivateBreakAttack, null, CheatCode.BreakAttack),
-                new CheatCodeData("breakdefense","breakdefense", ActivateBreakDefense, null, CheatCode.BreakDefense),
+                new CheatCodeData("silence","StayAwhileAndListen", ActivateSilence, null, CheatCode.SilenceEffect),
+                new CheatCodeData("stun","stun", ActivateStun, null, CheatCode.StunEffect),
+                new CheatCodeData("demonicmark","gotthedemoninme", ActivateDemonicMark, null, CheatCode.DemonicMarkEffect),
+                new CheatCodeData("suppsilence","junglerisbetter", ActivateSupportSilence, null, CheatCode.SupportSilenceEffect),
+                new CheatCodeData("breakatk","breakattackdebuff", ActivateBreakAttackDebuff, null, CheatCode.BreakAttackDebuff),
+                new CheatCodeData("breakdeff","breakdefensedebuff", ActivateBreakDefenseDebuff, null, CheatCode.BreakDefenseDebuff),
+                new CheatCodeData("critdmg","critdamagebuff", ActivateCritDamageBuff, null, CheatCode.CritDamageBuff),
+                new CheatCodeData("critrate","critratebuff", ActivateCritRateBuff, null, CheatCode.CritRateBuff),
+                new CheatCodeData("atkbuff","attackbuff", ActivateAttackBuff, null, CheatCode.AttackBuff),
                 new CheatCodeData("attackunlimited","ICanDoThisAllDay", ActivateAttackUnlimited, RemoveAttackUnlimited, CheatCode.AttackUnlimited),
                 new CheatCodeData("victory","WhatIsBestInLife", ActivateVictory, null, CheatCode.Victory),
                 new CheatCodeData("defeat","IllBeBack", ActivateDefeat, null, CheatCode.Defeat)
@@ -137,37 +143,50 @@ namespace CheatCode
         }
         private void ActivateSilence()
         {
-            // TODO: Apply cheat effect for silence
-
-            // silence for 2 turns the player
-            // _battleInstance.Player.ApplyEffect(new Effect.AlterationState(2, Effect.AlterationState.Silence));
+            _battleInstance.Player.ApplyEffect(new Silence(2));
             Debug.LogWarning("Silence activated");
         }
         private void ActivateStun()
         {
-            // TODO: Apply cheat effect for stun
+            _battleInstance.Player.ApplyEffect(new Stun(2));
             Debug.LogWarning("Stun activated");
         }
         private void ActivateDemonicMark()
         {
-            // TODO: Apply cheat effect for demonic mark
+            _battleInstance.Player.ApplyEffect(new DemonicMark(2));
             Debug.LogWarning("Demonic mark activated");
         }
         private void ActivateSupportSilence()
         {
-            // TODO: Apply cheat effect for support silence
+            _battleInstance.Player.ApplyEffect(new SupportSilence(2));
             Debug.LogWarning("Support silence activated");
         }
-        private void ActivateBreakAttack()
+        private void ActivateBreakAttackDebuff()
         {
-            // TODO: Apply cheat effect for break attack
+            _battleInstance.Player.ApplyEffect(new BreakAttack(2));
             Debug.LogWarning("Break attack activated");
         }
-        private void ActivateBreakDefense()
+        private void ActivateBreakDefenseDebuff()
         {
-            // TODO: Apply cheat effect for break defense
+            _battleInstance.Player.ApplyEffect(new BreakDefense(2));
             Debug.LogWarning("Break defense activated");
         }
+        private void ActivateCritDamageBuff()
+        {
+            _battleInstance.Player.ApplyEffect(new CritDmgBuff(2));
+            Debug.LogWarning("Crit damage buff activated");
+        }
+        private void ActivateCritRateBuff()
+        {
+            _battleInstance.Player.ApplyEffect(new CritRateBuff(2));
+            Debug.LogWarning("Crit rate buff activated");
+        }
+        private void ActivateAttackBuff()
+        {
+            _battleInstance.Player.ApplyEffect(new AttackBuff(2));
+            Debug.LogWarning("Attack buff activated");
+        }
+
         private void ActivateAttackUnlimited()
         {
             _modifiers.Add(_battleInstance.Player.Stats[Attribute.Attack].AddModifier((value) => value + 10000));
