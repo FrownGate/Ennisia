@@ -7,6 +7,7 @@ public class DemonicDash : DamageSkill
         float damage = 0; // Add damage amount and is magic
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
+        targets[0].ApplyEffect(new DemonicMark());
         return damage;
 
         // Add 10% chance demonic mark debuff

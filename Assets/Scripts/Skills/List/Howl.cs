@@ -7,7 +7,7 @@ public class How : BuffSkill
     {
         for (int i = 1; i < targets.Count; i++)
         {
-            // add atk Buff for 2 turns
+            caster.ApplyEffect(new AttackBuff());
         }
 
         Cooldown = Data.MaxCooldown;

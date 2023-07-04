@@ -7,8 +7,9 @@ public class DemonicStrike : DamageSkill
         float damage = 0; // add damage amount and is physical dmage
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
+        targets[0].ApplyEffect(new SupportSilence());
         return 0;
     }
 
-    // add support silence debuff
+   
 }

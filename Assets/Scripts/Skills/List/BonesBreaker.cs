@@ -6,7 +6,7 @@ public class BonesBreaker : DamageSkill
     {
         float damage = Data.DamageAmount;
         targets[0].TakeDamage(damage);
-        //breakdef
+        targets[0].ApplyEffect(new BreakDefense());
         Cooldown = Data.MaxCooldown;
         return damage;
     }

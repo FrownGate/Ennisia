@@ -7,6 +7,7 @@ public class ChiefsOrders : DamageSkill
         float damage = 0; // Add damage amount and is physical
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
+        targets[0].ApplyEffect(new Stun());
         return damage;
 
         // add 25% chance to stun

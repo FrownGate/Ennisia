@@ -14,7 +14,7 @@ public class DemonicSlash : DamageSkill
 
         if (_percentChance >= _randomNumber)
         {
-            //add demonic mark
+            targets[0].ApplyEffect(new DemonicMark());
         }
 
         Cooldown = Data.MaxCooldown;

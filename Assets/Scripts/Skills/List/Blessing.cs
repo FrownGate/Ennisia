@@ -11,7 +11,7 @@ public class Blessing : PassiveSkill
 
         if (turn % 2 == 0)
         {
-            // to do : give immunity
+            caster.ApplyEffect(new AttackBuff());
         }
     }
 }

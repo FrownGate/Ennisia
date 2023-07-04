@@ -4,7 +4,7 @@ public class GalebladeStrike : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        //buff Atk
+        caster.ApplyEffect(new AttackBuff());
         float damage = 0;
         targets[0].TakeDamage(damage);
         return damage;
