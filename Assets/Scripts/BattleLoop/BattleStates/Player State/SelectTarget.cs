@@ -27,7 +27,7 @@ public class SelectTarget : State
         }*/
 
         // Check if Targetables is not null and contains items
-        if (BattleSystem.Targetables == null || BattleSystem.Targetables.Count == 0)
+        if (BattleSystem.Targets == null || BattleSystem.Targets.Count == 0)
         {
             // Debug.LogWarning(BattleSystem.Targetables.)
             Debug.LogError("Targetables is null or empty");
@@ -35,7 +35,7 @@ public class SelectTarget : State
         }
         BattleSystem.Player.AtkBar = 0;
         //Attack Button
-        if (BattleSystem.Targetables.Count == 0)
+        if (BattleSystem.Targets.Count == 0)
         {
             BattleSystem.DialogueText.text = "No targets selected";
             yield break;
@@ -47,16 +47,12 @@ public class SelectTarget : State
         }*/
 
         BattleSystem.SkillOnTurn(_selectedSkill);
-        BattleSystem.ReduceCooldown(); 
-        
-        Debug.Log("HP : " + BattleSystem.Enemies[0].CurrentHp);
-
-        BattleSystem.Targetables.Clear();
-        BattleSystem.Selected = false;
+        BattleSystem.ReduceCooldown();
 
         yield return new WaitForSeconds(0.5f); //TODO -> remove this wait on battle simulation
 
         BattleSystem.RemoveDeadEnemies();
+        BattleSystem.Targets.Clear();
 
         if (BattleSystem.Enemies.Count == 0) //TODO -> use BattleSystem.AllEnemiesDead()
         {

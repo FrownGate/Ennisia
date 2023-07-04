@@ -12,8 +12,7 @@ public class BattleSystem : StateMachine
     public static event Action<string> OnEnemyKilled;
     public static event Action<int> OnClickSFX;
 
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _firstSupport;
     [SerializeField] private GameObject _secondSupport;
     [SerializeField] private GameObject[] _skillsButtons;
@@ -24,53 +23,46 @@ public class BattleSystem : StateMachine
     public TextMeshProUGUI DialogueText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
-    public Transform PlayerStation;
-    public Transform EnemyStation;
 
     public bool PlayerHasWin { get; private set; }
-    public bool Selected { get; set; }
     public int Turn { get; set; }
 
     public Entity Player { get; set; }
     public List<Entity> Enemies { get; private set; }
     public int EnemyPlayingID { get; set; }
-    public List<Entity> Targetables { get; private set; }
+    public List<Entity> Targets { get; private set; }
 
     public AtkBarSystem AttackBarSystem { get; set; }
 
-    public void Start()
+    private readonly EnemyLoader _enemyLoader = new();
+    private Canvas _canvas;
+
+    private void Awake()
     {
-       // MissionManager.Instance.StartMission();
+        OnBattleLoaded?.Invoke(this);
+        _canvas = GetComponentInParent<Canvas>();
+        EntityHUD.OnEntitySelected += SelectEntity;
         InitBattle();
+    }
+
+    private void OnDestroy()
+    {
+        EntityHUD.OnEntitySelected -= SelectEntity;
     }
 
     //Init all battle elements -> used on restart button
     public void InitBattle()
     {
-        Enemies = new();
-        Targetables = new();
+        Targets = new();
 
         LostPopUp.SetActive(false);
         WonPopUp.SetActive(false);
 
         PlayerHasWin = false;
-        Selected = false;
         Turn = 0;
 
-        GameObject enemyPrefab = GameObject.FindGameObjectWithTag("Enemy"); //TODO -> use serialized field
-        enemyPrefab.GetComponent<EnemyController>().InitEntity(); //TODO -> use serialized field
-        Enemies.Add((Enemy)enemyPrefab.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
-
-
-        GameObject enemyPrefab2 = GameObject.Find("Enemyy"); //TODO -> use serialized field
-        enemyPrefab2.GetComponent<EnemyController>().InitEntity(); //TODO -> use serialized field
-        Enemies.Add((Enemy)enemyPrefab2.GetComponent<EnemyController>().Entity); //TODO -> use serialized field
-        Debug.Log(Enemies.Count);
-
-        GameObject playerPrefab = GameObject.FindGameObjectWithTag("Player"); //TODO -> use serialized field
-        playerPrefab.GetComponent<PlayerController>().InitEntity(); //TODO -> use serialized field
-        Player = (Player)playerPrefab.GetComponent<PlayerController>().Entity; //TODO -> use serialized field
-
+        InitPlayer();
+        InitEnemies();
 
         AttackBarSystem = new AtkBarSystem(Player, Enemies);
         AttackBarSystem.InitAtkBars();
@@ -84,10 +76,46 @@ public class BattleSystem : StateMachine
             skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
         }
 
-        OnBattleLoaded?.Invoke(this);
-
         SetState(new WhoGoFirst(this));
         // SimulateBattle();
+    }
+
+    private void InitPlayer()
+    {
+        Player = new Player
+        {
+            HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>()
+        };
+
+        Player.HUD.Init((Player)Player);
+    }
+
+    private void InitEnemies()
+    {
+        MissionSO mission = MissionManager.Instance.CurrentMission;
+        int wave = MissionManager.Instance.CurrentWave;
+
+        Debug.Log(mission.Name);
+        Debug.Log(wave);
+        Debug.Log(mission.Waves.Count);
+
+        Enemies = new();
+
+        Enemy enemy = new();
+        Enemies.Add(enemy);
+        enemy.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
+        enemy.HUD.Init(enemy);
+        enemy.HUD.transform.localPosition = Vector3.zero;
+
+        //foreach (var enemyName in mission.Waves[wave])
+        //{
+        //    Debug.Log(enemyName);
+        //    TODO->load SO
+        //    Enemy enemy = _enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv", enemyName);
+        //    Enemies.Add(enemy);
+        //    enemy.HUD = Instantiate(_enemySlot).GetComponent<EntityHUD>();
+        //    enemy.HUD.Init(enemy);
+        //}
     }
 
     public void OnAttackButton()
@@ -124,39 +152,22 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void OnMouseUp()
+    private void SelectEntity(Entity entity)
     {
-        if (!IsBattleOver())
-        {
-            Selected = true;
-            GetSelectedEnemies(Enemies);
-            StartCoroutine(State.Attack());
-        }
+        if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
+        Targets.Add(entity);
+        StartCoroutine(State.Attack());
     }
 
     public void RemoveDeadEnemies()
     {
-        for (int i = Enemies.Count - 1; i >= 0; i--)
+        foreach (var target in Targets)
         {
-            if (Enemies[i].IsDead)
-            {
-                Enemies.RemoveAt(i);
-                OnEnemyKilled?.Invoke(Enemies[i].Name);
-                Debug.LogWarning(Enemies[i].Name + "die lol mdr t nul");
-            }
-        }
-    }
-
-    public void GetSelectedEnemies(List<Entity> enemies)
-    {
-        Targetables.Clear();
-
-        foreach (var enemy in enemies)
-        {
-            if (enemy != null && enemy.HaveBeenTargeted())
-            {
-                Targetables.Add(enemy);
-            }
+            if (!target.IsDead) continue;
+            //TODO -> hide HUD
+            OnEnemyKilled?.Invoke(target.Name);
+            Debug.Log($"Killed {target.Name}");
+            Enemies.Remove(target);
         }
     }
 
@@ -170,37 +181,15 @@ public class BattleSystem : StateMachine
         return Player.Skills[buttonId];
     }
 
-    public void ResetSelectedEnemies()
-    {
-        foreach (var enemy in Enemies)
-        {
-            enemy.ResetTargetedState();
-        }
-    }
-
-    public void SimulateBattle(Player player = null, List<Entity> enemies = null)
-    {
-        Player = player ?? Player;
-        Enemies = enemies ?? Enemies;
-        SetState(new AutoBattle(this));
-    }
-
-
-    public bool PlayerIsDead()
-    {
-        return Player.IsDead;
-    }
-
     public bool AllEnemiesDead()
     {
-        //Check Enemies.Count ?
-        PlayerHasWin = Enemies.All(enemy => enemy.IsDead);
+        PlayerHasWin = Enemies.Count == 0 || Enemies.All(enemy => enemy.IsDead);
         return PlayerHasWin;
     }
 
     public bool IsBattleOver()
     {
-        return PlayerIsDead() || AllEnemiesDead();
+        return Player.IsDead || AllEnemiesDead();
     }
 
     public void ReduceCooldown()
@@ -213,17 +202,20 @@ public class BattleSystem : StateMachine
 
     public void SkillOnTurn(Skill selectedSkill)
     {
-        float totalDamage = 0;
+        float totalDamage = 5;
 
         foreach (var skill in Player.Skills)
         {
             skill.PassiveBeforeAttack(Enemies, Player, Turn);
         }
 
-        totalDamage += selectedSkill.SkillBeforeUse(Targetables, Player, Turn);
-        totalDamage += selectedSkill.Use(Targetables, Player, Turn);
-        totalDamage += selectedSkill.AdditionalDamage(Targetables, Player, Turn, totalDamage);
-        selectedSkill.SkillAfterDamage(Targetables, Player, Turn, totalDamage);
+        totalDamage += selectedSkill.SkillBeforeUse(Targets, Player, Turn);
+        totalDamage += selectedSkill.Use(Targets, Player, Turn);
+        totalDamage += selectedSkill.AdditionalDamage(Targets, Player, Turn, totalDamage);
+
+        foreach (var target in Targets) target.TakeDamage(totalDamage);
+
+        selectedSkill.SkillAfterDamage(Targets, Player, Turn, totalDamage);
 
         foreach (var skill in Player.Skills)
         {
@@ -271,4 +263,34 @@ public class BattleSystem : StateMachine
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
         OnBattleEnded?.Invoke();
     }
+
+    #region AutoBattle
+    public void SimulateBattle(Player player = null, List<Entity> enemies = null)
+    {
+        Player = player ?? Player;
+        Enemies = enemies ?? Enemies;
+        SetState(new AutoBattle(this));
+    }
+
+    public void GetSelectedEnemies(List<Entity> enemies)
+    {
+        Targets.Clear();
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy != null && enemy.HaveBeenTargeted())
+            {
+                Targets.Add(enemy);
+            }
+        }
+    }
+
+    public void ResetSelectedEnemies()
+    {
+        foreach (var enemy in Enemies)
+        {
+            enemy.ResetTargetedState();
+        }
+    }
+    #endregion
 }
