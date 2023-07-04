@@ -23,6 +23,8 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnLoadingStart;
     public static event Action OnBigLoadingStart;
     public static event Action OnLoadingEnd;
+    public static event Action OnRequest;
+    public static event Action OnEndRequest;
 
     //Account Module
     [SerializeField] private AccountModule _accountMod;
@@ -224,6 +226,7 @@ public class PlayFabManager : MonoBehaviour
 
     public int StartRequest(string log = null)
     {
+        OnRequest?.Invoke();
         int currentRequest = _requests;
         _requests++;
         OnLoadingStart?.Invoke();
@@ -233,6 +236,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void EndRequest(string log = null)
     {
+        OnEndRequest?.Invoke();
         //Debug.Log("ending request...");
         _requests--;
         OnLoadingEnd?.Invoke();
