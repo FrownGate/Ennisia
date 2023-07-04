@@ -16,3 +16,9 @@ MonoBehaviour:
   Name: f
   Description: first time you lose
   Energy: 20
+  currencyList:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 30

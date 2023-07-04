@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 13
   Name: Shield Bump
-  Description: deals 1 hit to an enemy with all of their strength. If the enemy has
-    a defense debuff, deals an additional 50% damage.
+  Description: Deals 10 hits to all enemies with sharp feathers.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

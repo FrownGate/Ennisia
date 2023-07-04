@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 39
   Name: Breeze of Vitality
-  Description: heal for 30% of max health. Increase heal by 10% for each enemy still
-    alive.
+  Description: "Deals damage scaling by the target\u2019s lost health, if the target
+    has 5% hp or lower, execute the target."
   DamageAmount: 0
   ShieldAmount: 0
-  HealingAmount: 30
+  HealingAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 0
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

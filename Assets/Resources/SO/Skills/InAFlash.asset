@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 7
   Name: In A Flash !
-  Description: deals 2 hits to an enemy with a powerful attack, penetrating his soul
-    and his defense by 50%.
+  Description: increase critical rate of the player by 15%. When an enemy is killed,
+    grants Attack buff
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
