@@ -105,7 +105,7 @@ public class BattleSystem : StateMachine
         Enemies.Add(enemy);
         enemy.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
         enemy.HUD.Init(enemy);
-        enemy.HUD.transform.localPosition = Vector3.zero;
+        enemy.HUD.transform.localPosition = new Vector3(495, 0, 0);
 
         //foreach (var enemyName in mission.Waves[wave])
         //{
@@ -202,7 +202,7 @@ public class BattleSystem : StateMachine
 
     public void SkillOnTurn(Skill selectedSkill)
     {
-        float totalDamage = 5;
+        float totalDamage = 0;
 
         foreach (var skill in Player.Skills)
         {
