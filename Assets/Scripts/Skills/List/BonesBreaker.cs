@@ -4,10 +4,14 @@ public class BonesBreaker : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = Data.DamageAmount;
-        targets[0].TakeDamage(damage);
-        targets[0].ApplyEffect(new BreakDefense());
+        foreach (var target in targets)
+        {
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            target.ApplyEffect(new BreakDefense());
+            TotalDamage += damage;
+        }
         Cooldown = Data.MaxCooldown;
-        return damage;
+        return TotalDamage;
     }
 }

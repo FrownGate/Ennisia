@@ -19,6 +19,7 @@ public abstract class Skill
     public int Level { get; set; }
     public float StatUpgrade1 { get; set; }
     public float StatUpgrade2 { get; set; }
+    public float TotalDamage { get; set; }
     private float _ratio;
     private float _defense;
     //TODO -> Move fields/functions in child classes
