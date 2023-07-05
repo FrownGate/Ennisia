@@ -1,14 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
-using System;
 using UnityEngine.SceneManagement;
 using CheatCode;
 
 public class CheatCodeWindow : EditorWindow
 {
-    private static BattleSystem battleSystem;
+    private static BattleSystem _battleSystem;
+
     [MenuItem("Tools/Cheat Codes")]
     public static void OpenWindow()
     {
@@ -22,12 +21,11 @@ public class CheatCodeWindow : EditorWindow
             EditorUtility.DisplayDialog("Error", "You must be in the - Battle - scene to use the Cheat Code Tool", "OK");
             return;
         }
+
         CheatCodeWindow window = GetWindow<CheatCodeWindow>();
         GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
         window.titleContent = new GUIContent("Cheat Code Tool", icon.image, "Cheat Code Tool");
-
-        Debug.LogWarning("Open : " + battleSystem);
-
+        Debug.LogWarning("Open : " + _battleSystem);
     }
 
     private void OnEnable()
@@ -38,16 +36,14 @@ public class CheatCodeWindow : EditorWindow
         TemplateContainer labelFromUXML = visualTree.CloneTree();
         root.Add(labelFromUXML);
 
-        battleSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
-
-
+        _battleSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
 
         TextField codeInput = root.Q<TextField>("codeInput");
         Button activateButton = root.Q<Button>("activateButton");
         Button removeButton = root.Q<Button>("removeButton");
 
+        CheatCodeManager cheatCodeManager = new(_battleSystem);
 
-        CheatCodeManager cheatCodeManager = new(battleSystem);
         activateButton.clickable.clicked += () =>
         {
             cheatCodeManager.CheckAndActivateCheat(codeInput.value);
@@ -60,6 +56,7 @@ public class CheatCodeWindow : EditorWindow
             ClearInput(codeInput);
         };
     }
+
     private void ClearInput(TextField textField)
     {
         textField.value = "";

@@ -57,7 +57,7 @@ public abstract class Entity
 
     public void TakeDamage(float damage)
     {
-        if (this is Player && CheatCodeManager.lazy.Value.activeCheatCodes.Contains(CheatCode.CheatCode.Unkillable))
+        if (this is Player && CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.CheatCode.Unkillable))
         {
             return;
         }

@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
 namespace CheatCode
 {
     public class CheatCodeData
     {
-        internal string activationKey;
-        internal string alternateKey;
-        internal Action effect;
-        internal Action remove;
-        internal CheatCode cheatCode;
+        internal string _activationKey;
+        internal string _alternateKey;
+        internal Action _effect;
+        internal Action _remove;
+        internal CheatCode _cheatCode;
 
         public CheatCodeData(string key, string alternateKey, Action effect, Action remove, CheatCode cheatCode)
         {
-            this.activationKey = key;
-            this.alternateKey = alternateKey;
-            this.effect = effect;
-            this.remove = remove;
-            this.cheatCode = cheatCode;
+            _activationKey = key;
+            _alternateKey = alternateKey;
+            _effect = effect;
+            _remove = remove;
+            _cheatCode = cheatCode;
         }
     }
+
     public enum CheatCode
     {
         Unkillable,
@@ -40,21 +40,20 @@ namespace CheatCode
         AttackUnlimited,
         Victory,
         Defeat
-
     }
 
     public class CheatCodeManager
     {
         private readonly BattleSystem _battleInstance;
-        public static Lazy<CheatCodeManager> lazy = new(() => new CheatCodeManager(null));
-        private readonly List<CheatCodeData> cheatCodes;
-        public HashSet<CheatCode> activeCheatCodes;
+        public static Lazy<CheatCodeManager> Lazy = new(() => new CheatCodeManager(null));
+        private readonly List<CheatCodeData> _cheatCodes;
+        public HashSet<CheatCode> ActiveCheatCodes;
         private readonly HashSet<ModifierID> _modifiers = new();
 
         public CheatCodeManager(BattleSystem battleSystem)
         {
-            activeCheatCodes = new();
-            cheatCodes = new()
+            ActiveCheatCodes = new();
+            _cheatCodes = new()
             {
                 new CheatCodeData("unkillable","PowerOverwhelming", ActivateUnkillable, RemoveUnkillable, CheatCode.Unkillable),
                 new CheatCodeData("nocd","IAmIronMan", ActiveNoCooldown, RemoveNoCooldown, CheatCode.NoCooldown),
@@ -72,9 +71,6 @@ namespace CheatCode
                 new CheatCodeData("attackunlimited","ICanDoThisAllDay", ActivateAttackUnlimited, RemoveAttackUnlimited, CheatCode.AttackUnlimited),
                 new CheatCodeData("victory","WhatIsBestInLife", ActivateVictory, null, CheatCode.Victory),
                 new CheatCodeData("defeat","IllBeBack", ActivateDefeat, null, CheatCode.Defeat)
-
-
-
             };
             _battleInstance = battleSystem;
 
@@ -82,16 +78,15 @@ namespace CheatCode
 
         public void CheckAndActivateCheat(string input)
         {
-
             input = input.ToLower();
-            foreach (CheatCodeData cheatCode in cheatCodes)
+            foreach (CheatCodeData cheatCode in _cheatCodes)
             {
-                if (input == cheatCode.activationKey || input == cheatCode.alternateKey)
+                if (input == cheatCode._activationKey || input == cheatCode._alternateKey)
                 {
-                    if (!activeCheatCodes.Contains(cheatCode.cheatCode))
+                    if (!ActiveCheatCodes.Contains(cheatCode._cheatCode))
                     {
-                        activeCheatCodes.Add(cheatCode.cheatCode);
-                        cheatCode.effect();
+                        ActiveCheatCodes.Add(cheatCode._cheatCode);
+                        cheatCode._effect();
                     }
                     else
                     {
@@ -102,15 +97,14 @@ namespace CheatCode
         }
         public void CheckAndRemoveCheat(string input)
         {
-
             input = input.ToLower();
-            foreach (CheatCodeData cheatCode in cheatCodes)
+            foreach (CheatCodeData cheatCode in _cheatCodes)
             {
-                if (input == cheatCode.activationKey || input == cheatCode.alternateKey)
+                if (input == cheatCode._activationKey || input == cheatCode._alternateKey)
                 {
-                    if (activeCheatCodes.Contains(cheatCode.cheatCode))
+                    if (ActiveCheatCodes.Contains(cheatCode._cheatCode))
                     {
-                        cheatCode.remove();
+                        cheatCode._remove();
                     }
                     else
                     {
@@ -133,7 +127,7 @@ namespace CheatCode
         {
             _battleInstance.Player.CurrentHp = _battleInstance.Player.Stats[Attribute.HP].Value;
             Debug.LogWarning("Full life activated");
-            activeCheatCodes.Remove(CheatCode.FullLife);
+            ActiveCheatCodes.Remove(CheatCode.FullLife);
 
         }
         private void ActivatePurify()
@@ -199,25 +193,25 @@ namespace CheatCode
         {
             _battleInstance.SetState(new Won(_battleInstance));
             Debug.LogWarning("Victory activated");
-            activeCheatCodes.Remove(CheatCode.Victory);
+            ActiveCheatCodes.Remove(CheatCode.Victory);
         }
         private void ActivateDefeat()
         {
             _battleInstance.SetState(new Lost(_battleInstance));
             Debug.LogWarning("Defeat activated");
-            activeCheatCodes.Remove(CheatCode.Defeat);
+            ActiveCheatCodes.Remove(CheatCode.Defeat);
         }
 
         // REMOVERS
         private void RemoveUnkillable()
         {
-            activeCheatCodes.Remove(CheatCode.Unkillable);
+            ActiveCheatCodes.Remove(CheatCode.Unkillable);
             Debug.LogWarning("Unkillable removed");
         }
 
         private void RemoveNoCooldown()
         {
-            activeCheatCodes.Remove(CheatCode.NoCooldown);
+            ActiveCheatCodes.Remove(CheatCode.NoCooldown);
             Debug.LogWarning("No cooldown removed");
         }
 
@@ -230,13 +224,9 @@ namespace CheatCode
                 _battleInstance.Player.Stats[Attribute.MagicalDamages].RemoveModifier(modifier);
             }
             _modifiers.Clear();
-            activeCheatCodes.Remove(CheatCode.AttackUnlimited);
+            ActiveCheatCodes.Remove(CheatCode.AttackUnlimited);
             Debug.LogWarning("Attack unlimited removed");
         }
-
-
-
-
     }
     // FIXME: This is examples :: DO NOT REMOVE
     // ModifierID modifierId = BattleSystem.Player.Stats[Attribute.HP].AddModifier((value) => value + 1000);
