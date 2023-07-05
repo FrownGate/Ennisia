@@ -19,6 +19,14 @@ MonoBehaviour:
   _quickAccessItems: []
   _projectFolderIcons: []
   _sceneHistory:
+  - name: BattleModeSelection
+    path: Assets/Scenes/Missions/BattleModeSelection.unity
+  - name: EndlessTower
+    path: Assets/Scenes/Missions/EndlessTower.unity
+  - name: Raid
+    path: Assets/Scenes/Missions/Raid.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
   - name: SettingsPopup
     path: Assets/Scenes/SettingsPopup.unity
   - name: GuildCommunity
@@ -39,8 +47,6 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/GearSelectionPopup.unity
   - name: SupportSelectionPopup
     path: Assets/Scenes/Inventory/SupportSelectionPopup.unity
-  - name: BattleModeSelection
-    path: Assets/Scenes/Missions/BattleModeSelection.unity
   - name: MainMenu
     path: Assets/Scenes/MainMenu.unity
   _notes: []

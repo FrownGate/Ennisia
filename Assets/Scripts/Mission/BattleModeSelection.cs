@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using static MissionManager;
@@ -22,12 +21,16 @@ public class BattleModeSelection : MonoBehaviour
         MissionType[] missionTypes = (MissionType[])System.Enum.GetValues(typeof(MissionType));
 
         int buttonCount = CountValidMissionTypes(missionTypes);
+#if UNITY_STANDALONE
         List<GameObject> buttons = buttonGenerator.AddButtonsToGridLayout(buttonCount);
-
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+        List<GameObject> buttons = buttonGenerator.GenerateButtonsInSlider(buttonCount);
+#endif
         int buttonIndex = 0;
         for (int i = 0; i < missionTypes.Length; i++)
         {
-            MissionType missionType = missionTypes[i]; 
+            MissionType missionType = missionTypes[i];
 
             // Ignore mission types that contain "Story"
             if (missionType.ToString().Contains("Story"))
@@ -36,10 +39,15 @@ public class BattleModeSelection : MonoBehaviour
             // Set the button's name based on the MissionType enum value
             buttons[buttonIndex].name = missionType.ToString();
             TextMeshProUGUI buttonText = buttons[buttonIndex].GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = $"<b>{buttons[buttonIndex].name}</b>\n";
+            buttonText.text = missionType == MissionType.EndlessTower
+                ? $"<b>Endless Tower</b>\n"
+                : $"<b>{buttons[buttonIndex].name}</b>\n";
+#if UNITY_IOS || UNITY_ANDROID
+            buttonText.fontSize = 150;
+#endif
             SceneButton sceneButton = buttons[buttonIndex].GetComponentInChildren<SceneButton>();
-            if(buttons[buttonIndex].name == "Expedition") 
-                sceneButton.Scene = buttons[buttonIndex].name+"Selection";
+            if (missionType == MissionType.Expedition)
+                sceneButton.Scene = buttons[buttonIndex].name + "Selection";
             else sceneButton.Scene = buttons[buttonIndex].name;
             buttonIndex++;
         }
@@ -47,12 +55,6 @@ public class BattleModeSelection : MonoBehaviour
 
     private int CountValidMissionTypes(MissionType[] missionTypes)
     {
-        int count = 0;
-        for (int i = 0; i < missionTypes.Length; i++)
-        {
-            if (!missionTypes[i].ToString().Contains("Story"))
-                count++;
-        }
-        return count;
+        return missionTypes.Count(t => !t.ToString().Contains("Story"));
     }
 }
