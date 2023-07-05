@@ -1,14 +1,10 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class Popup : MonoBehaviour
 {
-    [SerializeField] private Canvas _canvas;
-
     private void Awake()
     {
-        _canvas.worldCamera = Camera.main;
+        GetComponent<Canvas>().worldCamera = Camera.main;
     }
     /*private void Start()
     {

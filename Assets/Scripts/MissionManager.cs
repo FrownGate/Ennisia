@@ -1,29 +1,18 @@
-using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
     public enum MissionType
     {
-        MainStory,
-        SideStory,
-        AlternativeStory,
-        Dungeon,
-        Raid,
-        Expedition,
-        EndlessTower
+        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
     }
 
     public enum MissionState
     {
-        Locked,
-        Unlocked,
-        InProgress,
-        Completed
+        Locked, Unlocked, InProgress, Completed
     }
 
     public static MissionManager Instance { get; private set; }
@@ -70,8 +59,8 @@ public class MissionManager : MonoBehaviour
 
     public void StartMission()
     {
-
-        if (!PlayFabManager.Instance.IsEnergyUsed(CurrentMission.EnergyCost)) return;
+        //TODO -> load scene Battle only if energy is used
+        //if (!PlayFabManager.Instance.IsEnergyUsed(CurrentMission.EnergyCost)) return;
         CurrentWave = 1;
         DisplayMissionNarrative(CurrentMission);
         OnMissionStart?.Invoke(CurrentMission);
@@ -84,7 +73,6 @@ public class MissionManager : MonoBehaviour
         return false;
 
     }
-
 
     public bool NextWave()
     {
@@ -176,6 +164,7 @@ public class MissionManager : MonoBehaviour
     public void SetMission(MissionSO mission)
     {
         CurrentMission = mission;
+        StartMission();
     }
 
     public List<MissionSO> GetMissionsByChapterId(MissionType missionType, int chapterId)

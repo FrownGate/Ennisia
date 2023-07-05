@@ -22,22 +22,24 @@ MonoBehaviour:
     _serializedList:
     - Key: 1
       Value:
-      - Bandit
-      - Bandit
-      - Bandit
+      - Goblin
+      - Blue Slime
+      - Blue Slime
     - Key: 2
       Value:
-      - Bandit
-      - Bandit
-      - Bandit
+      - Goblin
+      - Goblin
+      - Blue Slime
     - Key: 3
       Value:
+      - Goblin
+      - Goblin
       - Bandit
       - Bandit
-      - Bandit
-      - Bandit
-  WavesCount: 4
+  WavesCount: 3
   Enemies:
+  - Goblin
+  - Blue Slime
   - Bandit
   DialogueId: 0
   ChapterId: 4

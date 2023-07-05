@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 38
   Name: Thunderstrike Assassination
-  Description: Empower your next single target attack by giving a 100% defense penetration
-    rate. Does not work on bosses.
+  Description: heal for 30% of max health. Increase heal by 10% for each enemy still
+    alive.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
-  IgnoreDef: 100
+  IgnoreDef: 0
   HitNumber: 0
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

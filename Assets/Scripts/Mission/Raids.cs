@@ -10,7 +10,7 @@ public class Raids : MonoBehaviour
     private List<GameObject> _buttons;
     private MissionSO[] _raidsSO;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         _generator = GetComponent<DynamicButtonGenerator>();
 

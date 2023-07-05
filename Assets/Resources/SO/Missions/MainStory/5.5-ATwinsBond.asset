@@ -19,9 +19,30 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 1
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Demon knight
+      - Demon knight
+      - Demon Mage
+      - Demon Mage
+      - Demon Archer
+    - Key: 2
+      Value:
+      - Demon Mage
+      - Demon Mage
+      - Demon knight
+      - Demon Commander
+    - Key: 3
+      Value:
+      - ???????
+  WavesCount: 3
+  Enemies:
+  - Demon knight
+  - Demon Mage
+  - Demon Archer
+  - Demon Commander
+  - ???????
   DialogueId: 0
   ChapterId: 5
   NumInChapter: 5

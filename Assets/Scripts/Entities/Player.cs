@@ -10,7 +10,7 @@ public class Player : Entity
 
         Name = playerData != null ? playerData.Name : "PlayerName";
         Level = playerData != null ? playerData.Level : 1;
-        Weapon = playerData != null ? playerData.EquippedGears[GearType.Weapon].WeaponSO : Resources.Load<GearSO>("SO/EquippedGears/Weapon");
+        Weapon = playerData != null && playerData.EquippedGears[GearType.Weapon] != null ? playerData.EquippedGears[GearType.Weapon].WeaponSO : Resources.Load<GearSO>("SO/EquippedGears/Weapon");
         Weapon.Init(); //Temp
 
         //TODO -> Set stats with CSV or another method

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 27
   Name: Last Hope
-  Description: Heals the player by 30% when falling under 20% of max HP // One time
-    use
+  Description: increase attack by 5%.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
