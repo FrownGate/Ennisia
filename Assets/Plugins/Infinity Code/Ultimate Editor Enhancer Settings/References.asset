@@ -355,8 +355,26 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: ExpeditionSelection
+    path: Assets/Scenes/Missions/ExpeditionSelection.unity
+  - name: Expedition
+    path: Assets/Scenes/Missions/Expedition.unity
+  - name: EndlessTower
+    path: Assets/Scenes/Missions/EndlessTower.unity
+  - name: Raid
+    path: Assets/Scenes/Missions/Raid.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: BattleModeSelection
+    path: Assets/Scenes/Missions/BattleModeSelection.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
+  - name: StoryChapter
+    path: Assets/Scenes/Missions/StoryChapter.unity
   - name: Battle
     path: Assets/Scenes/Battle.unity
+  - name: StoryChapterPopup
+    path: Assets/Scenes/Missions/StoryChapterPopup.unity
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
   - name: A.Mirror
@@ -365,14 +383,6 @@ MonoBehaviour:
     path: Assets/Scenes/LoginRegisterPopup.unity
   - name: Pets
     path: Assets/Scenes/Pets.unity
-  - name: Expedition
-    path: Assets/Scenes/Missions/Expedition.unity
-  - name: StoryChapter
-    path: Assets/Scenes/Missions/StoryChapter.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
-  - name: StoryChapterPopup
-    path: Assets/Scenes/Missions/StoryChapterPopup.unity
   - name: MainStory
     path: Assets/Scenes/Missions/MainStory.unity
   - name: Raids
@@ -381,16 +391,6 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/StuffMenu.unity
   - name: Friends
     path: Assets/Scenes/Friends.unity
-  - name: BattleModeSelection
-    path: Assets/Scenes/Missions/BattleModeSelection.unity
   - name: GuildCommunity
     path: Assets/Scenes/Guilds/GuildCommunity.unity
-  - name: PlayerGuild
-    path: Assets/Scenes/Guilds/PlayerGuild.unity
-  - name: GuildsList
-    path: Assets/Scenes/Guilds/GuildsList.unity
-  - name: GuildShop
-    path: Assets/Scenes/Guilds/GuildShop.unity
-  - name: GuildMissions
-    path: Assets/Scenes/Guilds/GuildMissions.unity
   _notes: []

@@ -50,6 +50,71 @@ public class DynamicButtonGenerator : MonoBehaviour
 
         return buttonsCreated;
     }
+    public List<GameObject> AddButtonsToGridLayout(int numberOfButtons)
+    {
+        GridLayoutGroup gridLayout = GetComponent<GridLayoutGroup>();
+        ContentSizeFitter contentSizeFitter = GetComponent<ContentSizeFitter>();
+
+        List<GameObject> buttonsCreated = new List<GameObject>();
+
+        for (int i = 0; i < numberOfButtons; i++)
+        {
+            GameObject button = Instantiate(ButtonPrefab, transform);
+            buttonsCreated.Add(button);
+
+            // Adjust the size of the button based on the cell size of the grid layout
+            RectTransform buttonRect = button.GetComponent<RectTransform>();
+            float adjustedWidth = gridLayout.cellSize.x;
+            float adjustedHeight = gridLayout.cellSize.y;
+            buttonRect.sizeDelta = new Vector2(adjustedWidth, adjustedHeight);
+
+            // Adjust the BoxCollider component if available
+            BoxCollider2D boxCollider = button.GetComponent<BoxCollider2D>();
+            if (boxCollider != null)
+            {
+                boxCollider.size = new Vector2(adjustedWidth, adjustedHeight);
+            }
+
+            // Adjust the size of children objects within the button
+            AdjustChildrenSize(button);
+        }
+
+        // Adjust the content size fitter
+        contentSizeFitter.SetLayoutVertical();
+        contentSizeFitter.SetLayoutHorizontal();
+
+        return buttonsCreated;
+    }
+
+    private void AdjustChildrenSize(GameObject button)
+    {
+        // Get all the child objects within the button
+        Transform[] children = button.GetComponentsInChildren<Transform>();
+
+        // Adjust the size of each child object
+        foreach (Transform child in children)
+        {
+            // Skip the button's own transform
+            if (child == button.transform)
+                continue;
+
+            // Adjust the size of the child object if it has a RectTransform component
+            RectTransform childRect = child.GetComponent<RectTransform>();
+            if (childRect != null)
+            {
+                childRect.sizeDelta = button.GetComponent<RectTransform>().sizeDelta;
+            }
+
+            // Adjust the BoxCollider component if available
+            BoxCollider2D boxCollider = child.GetComponent<BoxCollider2D>();
+            if (boxCollider != null)
+            {
+                boxCollider.size = childRect.sizeDelta;
+            }
+        }
+    }
+
+
 
     private float CalculateTotalHeight(List<GameObject> buttons)
     {
