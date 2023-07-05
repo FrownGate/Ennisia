@@ -10,16 +10,28 @@ public class LoadBar : MonoBehaviour
     private Slider _barPC;
     private Slider _barMobile;
 
-    Scene scene;
+    Scene _scene;
+
     private void Awake()
     {
-        scene = SceneManager.GetActiveScene();
-#if UNITY_STANDALONE
+        _scene = SceneManager.GetActiveScene();
+
+        PlayFabManager.OnRequest += RequestCalled;
+        PlayFabManager.OnEndRequest += RequestCalled;
+        
+        #if UNITY_STANDALONE
         _barPC = GameObject.Find("PC Canvas").GetComponentInChildren<Slider>();
-#endif
-#if UNITY_IOS || UNITY_ANDROID
+        #endif
+       
+        #if UNITY_IOS || UNITY_ANDROID
         BarMobile = GameObject.Find("Mobile Canvas").GetComponentInChildren<Slider>();
-#endif
+        #endif
+    }
+
+    private void OnDestroy()
+    {
+        PlayFabManager.OnRequest -= RequestCalled;
+        PlayFabManager.OnEndRequest -= RequestCalled;
     }
 
     private void Update()
@@ -31,26 +43,18 @@ public class LoadBar : MonoBehaviour
             {
                 _count = 100;
             }
-#if UNITY_STANDALONE
+            
+            #if UNITY_STANDALONE
             _barPC.value = Mathf.Lerp(_barPC.value, (_count+10) / 100f, 0.01f);
-#endif
-#if UNITY_IOS || UNITY_ANDROID
+            #endif
+            
+            #if UNITY_IOS || UNITY_ANDROID
             _barMobile.value = Mathf.Lerp(BarPC.value, _count / 100f, 0.01f);
-#endif
+            #endif
         }
     }
-    private void requestCalled()
+    private void RequestCalled()
     {
         _requestCount += 10;
-    }
-    private void OnEnable()
-    {
-        PlayFabManager.OnRequest += requestCalled;
-        PlayFabManager.OnEndRequest += requestCalled;
-    }
-    private void OnDisable()
-    {
-        PlayFabManager.OnRequest -= requestCalled;
-        PlayFabManager.OnEndRequest -= requestCalled;
     }
 }
