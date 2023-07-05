@@ -98,9 +98,9 @@ public class BattleSystem : StateMachine
         MissionSO mission = MissionManager.Instance.CurrentMission;
         int wave = MissionManager.Instance.CurrentWave;
 
-        //Debug.Log(mission.Name);
+        Debug.Log(mission.Name);
         //Debug.Log(wave);
-        //Debug.Log(mission.Waves.Count);
+        Debug.Log(mission.Waves.Count);
 
         Enemies = new();
 
@@ -120,8 +120,14 @@ public class BattleSystem : StateMachine
                 HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>()
             };
 
-            enemy.HUD.Init(enemy);
-            enemy.HUD.transform.localPosition = new Vector3(495, 0, 0); //TODO -> Change position for each
+            enemy.HUD.Init(enemy, id);
+
+            int x = id == 2 ? 480 : id % 2 == 0 ? 480 : 45;
+            int y = id > 4 ? -250 : id > 2 ? 250 : 0;
+
+            if (id > 2) x += 250;
+
+            enemy.HUD.transform.localPosition = new Vector3(x, y, 0); //TODO -> Change position for each
 
             Enemies.Add(enemy);
             id++;
