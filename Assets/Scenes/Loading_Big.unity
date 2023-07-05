@@ -1283,7 +1283,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BarPC: {fileID: 1825292459}
-  BarMobile: {fileID: 2065981696}
 --- !u!1 &1382255004
 GameObject:
   m_ObjectHideFlags: 0

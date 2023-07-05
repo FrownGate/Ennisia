@@ -6,12 +6,20 @@ public class LoadBar : MonoBehaviour
 {
     int _requestCount;
     int _count;
-    public Slider BarPC;
-    public Slider BarMobile;
+
+    private Slider _barPC;
+    private Slider _barMobile;
+
     Scene scene;
     private void Awake()
     {
         scene = SceneManager.GetActiveScene();
+#if UNITY_STANDALONE
+        _barPC = GameObject.Find("PC Canvas").GetComponentInChildren<Slider>();
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+        BarMobile = GameObject.Find("Mobile Canvas").GetComponentInChildren<Slider>();
+#endif
     }
 
     private void Update()
@@ -19,23 +27,22 @@ public class LoadBar : MonoBehaviour
         if (scene.isLoaded)
         {
             _count = _requestCount;
-            Debug.Log("i'm loading" + _count);
-
-            if (_requestCount >= 99)
+            if (_requestCount >= 100)
             {
-                _count = 99;
+                _count = 100;
             }
-            BarPC.value = Mathf.Lerp(BarPC.value, _count/100f, 0.01f);
-            BarMobile.value = Mathf.Lerp(BarPC.value, _count / 100f, 0.01f);
-
+#if UNITY_STANDALONE
+            _barPC.value = Mathf.Lerp(_barPC.value, (_count+10) / 100f, 0.01f);
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+            _barMobile.value = Mathf.Lerp(BarPC.value, _count / 100f, 0.01f);
+#endif
         }
     }
-
     private void requestCalled()
     {
         _requestCount += 10;
     }
-
     private void OnEnable()
     {
         PlayFabManager.OnRequest += requestCalled;
