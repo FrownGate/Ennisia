@@ -4,23 +4,22 @@ using UnityEngine.SceneManagement;
 
 public class LoadBar : MonoBehaviour
 {
-    public Slider Bar;
+    int _requestCount;
+    int _count;
 
-    private int _requestCount;
-    private int _count;
-    private Scene _scene;
+    private Slider _barPC;
+    private Slider _barMobile;
 
+    Scene scene;
     private void Awake()
     {
-        _scene = SceneManager.GetActiveScene();
-        PlayFabManager.OnRequest += RequestCalled;
-        PlayFabManager.OnEndRequest += RequestCalled;
-    }
-
-    private void OnDestroy()
-    {
-        PlayFabManager.OnRequest -= RequestCalled;
-        PlayFabManager.OnEndRequest -= RequestCalled;
+        scene = SceneManager.GetActiveScene();
+#if UNITY_STANDALONE
+        _barPC = GameObject.Find("PC Canvas").GetComponentInChildren<Slider>();
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+        BarMobile = GameObject.Find("Mobile Canvas").GetComponentInChildren<Slider>();
+#endif
     }
 
     private void Update()
@@ -28,19 +27,30 @@ public class LoadBar : MonoBehaviour
         if (_scene.isLoaded)
         {
             _count = _requestCount;
-            Debug.Log("i'm loading" + _count);
-
-            if (_requestCount >= 99)
+            if (_requestCount >= 100)
             {
-                _count = 99;
+                _count = 100;
             }
-
-            Bar.value = Mathf.Lerp(Bar.value, _count/100f, 0.01f);
+#if UNITY_STANDALONE
+            _barPC.value = Mathf.Lerp(_barPC.value, (_count+10) / 100f, 0.01f);
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+            _barMobile.value = Mathf.Lerp(BarPC.value, _count / 100f, 0.01f);
+#endif
         }
     }
-
-    private void RequestCalled()
+    private void requestCalled()
     {
         _requestCount += 10;
+    }
+    private void OnEnable()
+    {
+        PlayFabManager.OnRequest += requestCalled;
+        PlayFabManager.OnEndRequest += requestCalled;
+    }
+    private void OnDisable()
+    {
+        PlayFabManager.OnRequest -= requestCalled;
+        PlayFabManager.OnEndRequest -= requestCalled;
     }
 }
