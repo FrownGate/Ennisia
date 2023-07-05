@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewEnemy", menuName = "Ennisia/Enemy")]
@@ -12,24 +13,14 @@ public class EnemySO : ScriptableObject
     public string Name;
     public string Description;
     public SerializedDictionary<Attribute, float> Stats = new();
-    [Expandable] public SkillSO Skill1Data;
-    [Expandable] public SkillSO Skill2Data;
-    [Expandable] public SkillSO Skill3Data;
-    [Expandable] public SkillSO PassifData;
-    [HideInInspector] public Skill Skill1;
-    [HideInInspector] public Skill Skill2;
-    [HideInInspector] public Skill Skill3;
-    [HideInInspector] public Skill Passif;
+    [Expandable] public List<SkillSO> SkillsData = new();
+    [HideInInspector] public List<Skill> Skills = new();
 
     public void Init()
     {
-        Type type = Type.GetType(CSVUtils.GetFileName(Skill1Data.Name));
-        Skill1 = (Skill)Activator.CreateInstance(type);
-        type = Type.GetType(CSVUtils.GetFileName(Skill2Data.Name));
-        Skill2 = (Skill)Activator.CreateInstance(type);
-        type = Type.GetType(CSVUtils.GetFileName(Skill3Data.Name));
-        Skill3 = (Skill)Activator.CreateInstance(type);
-        type = Type.GetType(CSVUtils.GetFileName(PassifData.Name));
-        Passif = (Skill)Activator.CreateInstance(type);
+        foreach (var type in SkillsData.Select(skillData => Type.GetType(CSVUtils.GetFileName(skillData.Name))))
+        {
+            Skills.Add((Skill)Activator.CreateInstance(type));
+        }
     }
 }

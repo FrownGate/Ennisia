@@ -18,8 +18,9 @@ MonoBehaviour:
   Race: Human
   Job: Healer
   Element: 0
-  PrimarySkillData: {fileID: 11400000, guid: cedf5c7422ed80c498c6c3bbbd23cfc8, type: 2}
-  SecondarySkillData: {fileID: 11400000, guid: d30d73c81733c5040a982c9b4d2d87d9, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: cedf5c7422ed80c498c6c3bbbd23cfc8, type: 2}
+  - {fileID: 11400000, guid: d30d73c81733c5040a982c9b4d2d87d9, type: 2}
   Description: "Alekzandar is Veronika\u2019s right hand and is in love with her.
     Thus he is very jealous of Djeamy who spends lots of time with her. His specialty
     is status effects and shields."
