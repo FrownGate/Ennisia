@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Chapter : MonoBehaviour
 {
-    [Scene] public string SceneToLoad;
-
+    public GameObject Info;
+    public GameObject StartBtn;
     public GameObject SpritePrefab;
     public ChapterSO CurrentChapter;
 
@@ -47,8 +47,34 @@ public class Chapter : MonoBehaviour
 
         // Set the new mission
         MissionManager.Instance.SetMission(scriptableObject);
+        StartBtn.SetActive(true);
 
-        // Load the new popup scene
-        ScenesManager.Instance.SetScene(SceneToLoad);
+        MissionSO mission = MissionManager.Instance.CurrentMission;
+
+        TextMeshProUGUI buttonText = Info.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.text = $"<b>{mission.Name}</b>\n";
+        buttonText.text += "<b>Enemies:</b>\n";
+
+        foreach (string enemy in mission.Enemies)
+        {
+            buttonText.text += $"-{enemy}\n";
+        }
+
+        buttonText.text += "<b>Rewards:</b>\n";
+        foreach (var currencyReward in mission.CurrencyRewards)
+        {
+            buttonText.text += $"-{currencyReward.Key}: {currencyReward.Value}\n";
+        }
+
+        if (mission.GearReward != null && mission.GearReward.Count > 0)
+        {
+            buttonText.text += "<b>Gear:</b>\n";
+            foreach (var gearReward in mission.GearReward)
+            {
+                buttonText.text += $"-{gearReward}\n";
+            }
+        }
+
+        buttonText.text += "<b>XP:</b> " + mission.Experience;
     }
 }
