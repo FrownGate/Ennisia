@@ -18,7 +18,7 @@ MonoBehaviour:
   Race: none
   Job: none
   Element: 0
-  PrimarySkillData: {fileID: 11400000, guid: 1c37a7e5a64b91f4b9a5e56b1654346a, type: 2}
-  SecondarySkillData: {fileID: 0}
+  SkillsData:
+  - {fileID: 11400000, guid: 1c37a7e5a64b91f4b9a5e56b1654346a, type: 2}
   Description: none
   Catchphrase: none

@@ -1,7 +1,10 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewGear", menuName = "Ennisia/Gear")]
 public class GearSO : ScriptableObject
@@ -15,22 +18,20 @@ public class GearSO : ScriptableObject
     public float StatValue;
     public string Description;
     //public Sprite Icon;
-    public Dictionary<Attribute, float> Substats;
+    public SerializedDictionary<Attribute, float> Substats;
 
     //Weapons
     public WeaponType WeaponType;
     public bool IsMagic;
-    [Expandable] public SkillSO FirstSkillData;
-    [Expandable] public SkillSO SecondSkillData;
-    [HideInInspector] public Skill FirstSkill;
-    [HideInInspector] public Skill SecondSkill;
+    [Expandable] public List<SkillSO> SkillsData = new();
+    [HideInInspector] public List<Skill> Skills = new();
 
     public void Init()
     {
-        Type type = System.Type.GetType(CSVUtils.GetFileName(FirstSkillData.Name));
-        FirstSkill = (Skill)Activator.CreateInstance(type);
-        type = System.Type.GetType(CSVUtils.GetFileName(SecondSkillData.Name));
-        SecondSkill = (Skill)Activator.CreateInstance(type);
+        foreach (var type in SkillsData.Select(skillData => System.Type.GetType(CSVUtils.GetFileName(skillData.Name))))
+        {
+            Skills.Add((Skill)Activator.CreateInstance(type));
+        }
     }
 
     public void Unequip()
