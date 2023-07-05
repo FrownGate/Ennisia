@@ -54,12 +54,12 @@ public class XPRewardData : ScriptableObject
                     break;
                 case RewardType.Armor:
                     GearType armorType = (GearType)UnityEngine.Random.Range(0, 3);
-                    Gear armor = new(armorType, component.Rarity);
+                    Gear armor = new(armorType, component.Rarity, null);
                     PlayFabManager.Instance.AddInventoryItem(armor);
                     break;
                 case RewardType.Accessory:
                     GearType accessoryType = (GearType)UnityEngine.Random.Range(3, 6);
-                    Gear accessory = new(accessoryType, component.Rarity);
+                    Gear accessory = new(accessoryType, component.Rarity, null);
                     PlayFabManager.Instance.AddInventoryItem(accessory);
                     break;
                 case RewardType.Weapon:
@@ -74,12 +74,12 @@ public class XPRewardData : ScriptableObject
 
                     List<Gear> set = new()
                     {
-                        new(GearType.Helmet, component.Rarity),
-                        new(GearType.Chest, component.Rarity),
-                        new(GearType.Boots, component.Rarity),
-                        new(GearType.Earrings, component.Rarity),
-                        new(GearType.Ring, component.Rarity),
-                        new(GearType.Necklace, component.Rarity)
+                        new(GearType.Helmet, component.Rarity, null),
+                        new(GearType.Chest, component.Rarity, null),
+                        new(GearType.Boots, component.Rarity, null),
+                        new(GearType.Earrings, component.Rarity, null),
+                        new(GearType.Ring, component.Rarity, null),
+                        new(GearType.Necklace, component.Rarity, null)
                     };
 
                     foreach (var gear in set)
