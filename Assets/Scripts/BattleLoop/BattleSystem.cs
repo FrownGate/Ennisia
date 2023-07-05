@@ -177,6 +177,7 @@ public class BattleSystem : StateMachine
             OnEnemyKilled?.Invoke(target.Name);
             Debug.Log($"Killed {target.Name}");
             Enemies.Remove(target);
+            AttackBarSystem.AllEntities.Remove(target);
         }
     }
 
