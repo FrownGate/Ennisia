@@ -5,13 +5,9 @@ public class BitingBarrage : DamageSkill
     
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        foreach (Entity target in targets)
-        {
-            float damage = DamageCalculation(target, caster);
-            target.TakeDamage(damage);
-            TotalDamage += damage;
-        }
+        float damage = DamageCalculation(targets[0], caster);
+        targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
-        return TotalDamage;
+        return damage;
     }
 }
