@@ -44,7 +44,22 @@ public class LogHandler : MonoBehaviour
 
     private void LogMessageReceived(string logString, string stackTrace, LogType type)
     {
-        EnqueueMessage($"\n [{type}] {logString}");
+        switch (type)
+        {
+            case LogType.Error:
+                EnqueueMessage($"\n <color=red>[{type}] {logString}</color>");
+                break;
+            case LogType.Exception:
+            case LogType.Assert:
+                EnqueueMessage($"\n <color=red>[{type}] {logString}</color>");
+                break;
+            case LogType.Warning:
+                EnqueueMessage($"\n <color=#ff8a00>[{type}] {logString}</color>");
+                break;
+            case LogType.Log:
+                EnqueueMessage($"\n <color=white>[{type}] {logString}</color>");
+                break;
+        }
     }
 
     private void EnqueueMessage(string message)
