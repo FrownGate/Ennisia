@@ -65,7 +65,7 @@ public abstract class Skill
 
     public void Tick()
     {
-        if (CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.CheatCode.NoCooldown))
+        if (CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.NoCooldown))
         {
             Cooldown = 1;
         }
