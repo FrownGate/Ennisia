@@ -1,7 +1,5 @@
-using PlayFab.EconomyModels;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 
 public abstract class Skill
@@ -40,6 +38,7 @@ public abstract class Skill
     public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
     public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
+
     public virtual float DamageCalculation(Entity target, Entity caster)
     {
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
@@ -66,6 +65,11 @@ public abstract class Skill
 
     public void Tick()
     {
+        if (CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.NoCooldown))
+        {
+            Cooldown = 1;
+        }
+
         Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
         if (Button != null) Button.ToggleUse(Cooldown == 0);
     }
