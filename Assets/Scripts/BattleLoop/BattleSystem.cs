@@ -66,9 +66,7 @@ public class BattleSystem : StateMachine
 
         AttackBarSystem = new AtkBarSystem(Player, Enemies);
         AttackBarSystem.InitAtkBars();
-        UpdateEntities();
-
-        foreach (var skill in Player.Skills) skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
+        //UpdateEntities();
 
         SetState(new WhoGoFirst(this));
         // SimulateBattle();
@@ -88,9 +86,10 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             //TODO -> Set position
+            skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
-            position += 50;
+            position += 160;
         }
     }
 
@@ -99,9 +98,9 @@ public class BattleSystem : StateMachine
         MissionSO mission = MissionManager.Instance.CurrentMission;
         int wave = MissionManager.Instance.CurrentWave;
 
-        //Debug.Log(mission.Name);
+        Debug.Log(mission.Name);
         //Debug.Log(wave);
-        //Debug.Log(mission.Waves.Count);
+        Debug.Log(mission.Waves.Count);
 
         Enemies = new();
 
@@ -121,8 +120,14 @@ public class BattleSystem : StateMachine
                 HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>()
             };
 
-            enemy.HUD.Init(enemy);
-            enemy.HUD.transform.localPosition = new Vector3(495, 0, 0); //TODO -> Change position for each
+            enemy.HUD.Init(enemy, id);
+
+            int x = id == 2 ? 480 : id % 2 == 0 ? 480 : 45;
+            int y = id > 4 ? -250 : id > 2 ? 250 : 0;
+
+            if (id > 2) x += 250;
+
+            enemy.HUD.transform.localPosition = new Vector3(x, y, 0); //TODO -> Change position for each
 
             Enemies.Add(enemy);
             id++;
@@ -177,6 +182,7 @@ public class BattleSystem : StateMachine
             OnEnemyKilled?.Invoke(target.Name);
             Debug.Log($"Killed {target.Name}");
             Enemies.Remove(target);
+            AttackBarSystem.AllEntities.Remove(target);
         }
     }
 
@@ -256,7 +262,7 @@ public class BattleSystem : StateMachine
     {
         DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
-        ToggleSkills(false); //TODO -> destroy buttons instead
+        foreach (var skill in Player.Skills) Destroy(skill.Button);
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
