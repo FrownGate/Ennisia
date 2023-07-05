@@ -97,12 +97,20 @@ public abstract class Entity
     //    return Stats[stat].AddModifier(func, layer);
     //}
 
-    public void ApplyEffect(Effect effect)
+    public void ApplyEffect(Effect effect, int? stacks = null)
     {
         Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
 
         if (existingEffect != null)
         {
+            if(effect is StackableEffect stackableEffect)
+            {
+                if (stackableEffect.Stacks + stacks <= stackableEffect.MaxStacks)
+                {
+                    stackableEffect.Stacks += stacks ?? 1;
+                    stackableEffect.ResetDuration();
+                }
+            }
             existingEffect.ResetDuration();
             return;
         }
