@@ -12,6 +12,7 @@ public abstract class Skill
     public Button SkillButton { get; set; }
 
     public SkillSO Data { get; protected set; }
+    public float RatioModifier {  get; protected set; }
     public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
@@ -44,7 +45,7 @@ public abstract class Skill
     {
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
         _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
-        float damage = (caster.Stats[Attribute.Attack].Value * Data.DamageAmount * _ratio * ((1000 - (_defense - target.Stats[Attribute.DefIgnored].Value)) / 1000));
+        float damage = (caster.Stats[Attribute.Attack].Value * (Data.DamageRatio + RatioModifier) * _ratio * ((1000 - (_defense - target.DefIgnored)) / 1000));
         return damage;
     }
     

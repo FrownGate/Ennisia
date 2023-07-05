@@ -8,7 +8,7 @@ public class LightBomb : DamageSkill
 
         for (int i = 0; i < targets.Count; i++)
         {
-            float damage = Data.DamageAmount;
+            float damage = Data.DamageRatio;
             targets[i].TakeDamage(damage);
             _totalDamage += damage;
         }
