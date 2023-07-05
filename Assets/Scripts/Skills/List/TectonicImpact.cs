@@ -8,15 +8,19 @@ public class TectonicImpact : DamageSkill
 
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        _totalDamage += _damage;
-        targets[0].TakeDamage(_damage);
+        foreach (var target in targets)
+        {
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+        }
 
         for (int i = 1; i < targets.Count; i++)
         {
             targets[i].TakeDamage(_damage * (15 / 100));
-            _totalDamage += _damage * (15 / 100);
+            TotalDamage += _damage * (15 / 100);
         }
 
-        return _totalDamage;
+        return TotalDamage;
     }
 }

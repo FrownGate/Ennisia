@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 public class ShieldBump : DamageSkill
 {
+    float additionalDamage;
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float damage = Data.DamageRatio;
@@ -12,10 +13,17 @@ public class ShieldBump : DamageSkill
 
     public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        //if targetHasDefBuff
-        //float additionalDamage = damage / 2;
-        //target.TakeDamage(additionalDamage);
-        //return additionalDamage
-        return 0;
+        foreach (Entity target in targets)
+        {
+            foreach (Effect effect in target.Effects)
+            {
+                if (effect.GetType() == typeof(DefenseBuff))
+                {
+                    additionalDamage = effect.GetType() == typeof(DefenseBuff) ? damage / 2 : 0;
+                }
+            }
+            target.TakeDamage(additionalDamage);
+        }
+        return additionalDamage;
     }
 }
