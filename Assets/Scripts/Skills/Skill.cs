@@ -1,5 +1,7 @@
+using PlayFab.EconomyModels;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +19,8 @@ public abstract class Skill
     public int Level { get; set; }
     public float StatUpgrade1 { get; set; }
     public float StatUpgrade2 { get; set; }
+    private float _ratio;
+    private float _defense;
     //TODO -> Move fields/functions in child classes
 
     protected Dictionary<Attribute, ModifierID> _modifiers;
@@ -35,6 +39,13 @@ public abstract class Skill
     public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
     public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
+    public virtual float DamageCalculation(Entity target, Entity caster)
+    {
+        _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
+        _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
+        float damage = (caster.Stats[Attribute.Attack].Value * Data.DamageAmount * _ratio * ((1000 - (_defense - target.Stats[Attribute.DefIgnored].Value)) / 1000));
+        return damage;
+    }
     
     public void TakeOffStats(Entity caster)
     {
