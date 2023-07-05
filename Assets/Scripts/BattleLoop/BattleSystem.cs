@@ -66,9 +66,7 @@ public class BattleSystem : StateMachine
 
         AttackBarSystem = new AtkBarSystem(Player, Enemies);
         AttackBarSystem.InitAtkBars();
-        UpdateEntities();
-
-        foreach (var skill in Player.Skills) skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
+        //UpdateEntities();
 
         SetState(new WhoGoFirst(this));
         // SimulateBattle();
@@ -88,6 +86,7 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             //TODO -> Set position
+            skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
             position += 50;
