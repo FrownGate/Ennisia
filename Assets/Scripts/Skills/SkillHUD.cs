@@ -16,7 +16,7 @@ public class SkillHUD : MonoBehaviour
     {
         //TODO -> set sprite
         _skill = skill;
-        transform.localPosition = new Vector3(-800 + x, -500, 0);
+        transform.localPosition = new Vector3(-800 + x, -465, 0);
     }
 
     public void ToggleHUD(bool active)

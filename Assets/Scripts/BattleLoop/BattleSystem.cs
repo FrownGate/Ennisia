@@ -89,7 +89,7 @@ public class BattleSystem : StateMachine
             skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
-            position += 50;
+            position += 160;
         }
     }
 
