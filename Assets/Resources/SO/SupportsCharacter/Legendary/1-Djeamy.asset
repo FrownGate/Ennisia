@@ -18,8 +18,9 @@ MonoBehaviour:
   Race: Human
   Job: Sword-Master
   Element: 0
-  PrimarySkillData: {fileID: 11400000, guid: a512c9a9069eebb4385770a7be399d99, type: 2}
-  SecondarySkillData: {fileID: 11400000, guid: 124c3fed72979b14a818d9eee9ff4d85, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: a512c9a9069eebb4385770a7be399d99, type: 2}
+  - {fileID: 11400000, guid: 124c3fed72979b14a818d9eee9ff4d85, type: 2}
   Description: A general of the Human army, rumored to be the strongest; he is known
     for his great sword skills, and his cunning mind. He is very cocky and believes
     no one to be stronger than him. He has a very serious and intimidating nature;

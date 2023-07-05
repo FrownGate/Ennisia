@@ -355,6 +355,8 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: Battle
+    path: Assets/Scenes/Battle.unity
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
   - name: A.Mirror
@@ -391,6 +393,4 @@ MonoBehaviour:
     path: Assets/Scenes/Guilds/GuildShop.unity
   - name: GuildMissions
     path: Assets/Scenes/Guilds/GuildMissions.unity
-  - name: EventPopup
-    path: Assets/Scenes/EventPopup.unity
   _notes: []
