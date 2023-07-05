@@ -177,7 +177,8 @@ public class AudioManager : MonoBehaviour
     {
         BattleSystem.OnEnemyKilled += KillSFX;
         MissionManager.OnMissionComplete += MissionDone;
-        BattleSystem.OnClickSFX += OnClickSFX;
+        //Move event to SkillHUD
+        //BattleSystem.OnClickSFX += OnClickSFX;
         SceneButton.ChangeSceneSFX += OnClickSFX;
         MissionManager.OnMissionStart += MissionStartBGM;
 
@@ -186,7 +187,8 @@ public class AudioManager : MonoBehaviour
     {
         BattleSystem.OnEnemyKilled -= KillSFX;
         MissionManager.OnMissionComplete -= MissionDone;
-        BattleSystem.OnClickSFX -= OnClickSFX;
+        //Move event to SkillHUD
+        //BattleSystem.OnClickSFX -= OnClickSFX;
         SceneButton.ChangeSceneSFX -= OnClickSFX;
         MissionManager.OnMissionStart -= MissionStartBGM;
     }

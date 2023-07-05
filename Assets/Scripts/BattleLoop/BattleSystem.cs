@@ -3,19 +3,18 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
-using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
     public static event Action<BattleSystem> OnBattleLoaded;
     public static event Action OnBattleEnded;
     public static event Action<string> OnEnemyKilled;
-    public static event Action<int> OnClickSFX;
 
+    //UI Prefabs
     [SerializeField] private GameObject _entitySlot;
+    [SerializeField] private GameObject _skillButton;
     [SerializeField] private GameObject _firstSupport;
     [SerializeField] private GameObject _secondSupport;
-    [SerializeField] private GameObject[] _skillsButtons;
     //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
     //TODO -> Add Supports Skills
 
@@ -41,12 +40,14 @@ public class BattleSystem : StateMachine
         OnBattleLoaded?.Invoke(this);
         _canvas = GetComponentInParent<Canvas>();
         EntityHUD.OnEntitySelected += SelectEntity;
+        SkillHUD.OnSkillSelected += SelectSkill;
         InitBattle();
     }
 
     private void OnDestroy()
     {
         EntityHUD.OnEntitySelected -= SelectEntity;
+        SkillHUD.OnSkillSelected -= SelectSkill;
     }
 
     //Init all battle elements -> used on restart button
@@ -67,9 +68,6 @@ public class BattleSystem : StateMachine
         AttackBarSystem.InitAtkBars();
         UpdateEntities();
 
-        SetSkillButtonsActive(true);
-        AssignSkillButton();
-
         foreach (var skill in Player.Skills) skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
 
         SetState(new WhoGoFirst(this));
@@ -84,6 +82,16 @@ public class BattleSystem : StateMachine
         };
 
         Player.HUD.Init((Player)Player);
+
+        int position = 0;
+
+        foreach (var skill in Player.Skills)
+        {
+            //TODO -> Set position
+            skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
+            skill.Button.Init(skill, position);
+            position += 50;
+        }
     }
 
     private void InitEnemies()
@@ -121,39 +129,36 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void OnAttackButton()
+    private void SelectSkill(Skill skill)
     {
-        SetState(new SelectSpell(this, 0));
-        OnClickSFX?.Invoke(1);
+        SetState(new SelectTarget(this, skill));
     }
 
-    public void OnFirstSkillButton()
+    public void ToggleSkills(bool active)
     {
-        SetState(new SelectSpell(this, 1));
-        OnClickSFX?.Invoke(2);
-    }
-
-    public void OnSecondSkillButton()
-    {
-        SetState(new SelectSpell(this, 2));
-        OnClickSFX?.Invoke(3);
-    }
-
-    public void SetSkillButtonsActive(bool isActive)
-    {
-        foreach (GameObject button in _skillsButtons)
+        foreach (var skill in Player.Skills)
         {
-            button.SetActive(isActive);
+            skill.Button.ToggleHUD(active);
         }
     }
 
-    public void AssignSkillButton()
-    {
-        for (int i = 0; i < Player.Skills.Count; i++)
-        {
-            Player.Skills[i].SkillButton = _skillsButtons[i].GetComponent<Button>();
-        }
-    }
+    //public void OnAttackButton()
+    //{
+    //    SetState(new SelectSpell(this, 0));
+    //    OnClickSFX?.Invoke(1);
+    //}
+
+    //public void OnFirstSkillButton()
+    //{
+    //    SetState(new SelectSpell(this, 1));
+    //    OnClickSFX?.Invoke(2);
+    //}
+
+    //public void OnSecondSkillButton()
+    //{
+    //    SetState(new SelectSpell(this, 2));
+    //    OnClickSFX?.Invoke(3);
+    //}
 
     private void SelectEntity(Entity entity)
     {
@@ -173,16 +178,6 @@ public class BattleSystem : StateMachine
             Debug.Log($"Killed {target.Name}");
             Enemies.Remove(target);
         }
-    }
-
-    public Skill GetSelectedSkill(int buttonId)
-    {
-        if (buttonId < 0 || buttonId >= Player.Skills.Count)
-        {
-            Debug.LogError("Invalid button ID");
-            return null;
-        }
-        return Player.Skills[buttonId];
     }
 
     public bool AllEnemiesDead()
@@ -261,7 +256,7 @@ public class BattleSystem : StateMachine
     {
         DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
-        SetSkillButtonsActive(false);
+        ToggleSkills(false); //TODO -> destroy buttons instead
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
@@ -295,6 +290,16 @@ public class BattleSystem : StateMachine
         {
             enemy.ResetTargetedState();
         }
+    }
+
+    public Skill GetSelectedSkill(int buttonId)
+    {
+        if (buttonId < 0 || buttonId >= Player.Skills.Count)
+        {
+            Debug.LogError("Invalid button ID");
+            return null;
+        }
+        return Player.Skills[buttonId];
     }
     #endregion
 }
