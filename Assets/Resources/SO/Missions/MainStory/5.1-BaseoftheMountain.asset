@@ -19,9 +19,32 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 1
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Water Golem
+      - Water Golem
+      - Haunted Tree
+    - Key: 2
+      Value:
+      - Rock Golem
+      - Water Golem
+      - Wolf
+      - Goblin
+    - Key: 3
+      Value:
+      - Rock Golem
+      - Lava Golem
+      - Water Golem
+      - Haunted Tree
+  WavesCount: 3
+  Enemies:
+  - Water Golem
+  - Haunted Tree
+  - Rock Golem
+  - Wolf
+  - Goblin
+  - Lava Golem
   DialogueId: 0
   ChapterId: 5
   NumInChapter: 1

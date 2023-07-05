@@ -19,9 +19,31 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 1
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Goblin
+      - Goblin
+      - Goblin
+      - Bandit
+    - Key: 2
+      Value:
+      - Bandit
+      - Bandit
+      - Bandit
+      - Wolf
+    - Key: 3
+      Value:
+      - Bandit
+      - Bandit
+      - Bandit
+      - Bandit Chief
+  WavesCount: 3
+  Enemies:
+  - Goblin
+  - Bandit
+  - Wolf
+  - Bandit Chief
   DialogueId: 0
   ChapterId: 4
   NumInChapter: 4

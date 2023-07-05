@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 15
   Name: "Hawk\u2019s Eye"
-  Description: "increases user\u2019s critical damage, attack and critical rate (buff),
-    then gives an additional turn."
+  Description: increases base attack by 15%, or by 30% if a two-handed sword is equipped.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

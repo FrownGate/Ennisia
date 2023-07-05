@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 36
   Name: Quaking Suppression
-  Description: Has a 70% chance to stun for 1 turn and a 100% chance to silence for
-    2 turns.
+  Description: "deals 50% of magical attack, has a 50% chance to stun the target
+    for 1 turn, and has a 75% chance to increase the target\u2019s third skill cooldown
+    by 2 turns."
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -25,4 +26,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

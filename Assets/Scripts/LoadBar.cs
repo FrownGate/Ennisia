@@ -4,18 +4,28 @@ using UnityEngine.SceneManagement;
 
 public class LoadBar : MonoBehaviour
 {
-    int _requestCount;
-    int _count;
-    public Slider _bar;
-    Scene scene;
+    public Slider Bar;
+
+    private int _requestCount;
+    private int _count;
+    private Scene _scene;
+
     private void Awake()
     {
-        scene = SceneManager.GetActiveScene();
+        _scene = SceneManager.GetActiveScene();
+        PlayFabManager.OnRequest += RequestCalled;
+        PlayFabManager.OnEndRequest += RequestCalled;
+    }
+
+    private void OnDestroy()
+    {
+        PlayFabManager.OnRequest -= RequestCalled;
+        PlayFabManager.OnEndRequest -= RequestCalled;
     }
 
     private void Update()
     {
-        if (scene.isLoaded)
+        if (_scene.isLoaded)
         {
             _count = _requestCount;
             Debug.Log("i'm loading" + _count);
@@ -24,24 +34,13 @@ public class LoadBar : MonoBehaviour
             {
                 _count = 99;
             }
-            _bar.value = Mathf.Lerp(_bar.value, _count/100f, 0.01f);
 
+            Bar.value = Mathf.Lerp(Bar.value, _count/100f, 0.01f);
         }
     }
 
-    private void requestCalled()
+    private void RequestCalled()
     {
         _requestCount += 10;
-    }
-
-    private void OnEnable()
-    {
-        PlayFabManager.OnRequest += requestCalled;
-        PlayFabManager.OnEndRequest += requestCalled;
-    }
-    private void OnDisable()
-    {
-        PlayFabManager.OnRequest -= requestCalled;
-        PlayFabManager.OnEndRequest -= requestCalled;
     }
 }

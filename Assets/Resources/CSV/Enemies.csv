@@ -1,27 +1,31 @@
-Id,Name,HP,Attack,PhysicalDamages,PhysicalDefense,MagicalDamages,MagicalDefense,CritRate,CritDmg,Speed,Description
-1,Red Slime,1,2,3,4,5,6,7,8,9,description
-2,Blue Slime,1,1,1,1,1,1,1,1,1,description
-3,Green Slime,1,1,1,1,1,1,1,1,1,description
-4,Goblin,1,1,1,1,1,1,1,1,1,description
-5,Higher Goblin,1,1,1,1,1,1,1,1,1,description
-6,Goblin Chief,1,1,1,1,1,1,1,1,1,description
-7,Wolf,1,1,1,1,1,1,1,1,1,description
-8,Wolf Pack Leader,1,1,1,1,1,1,1,1,1,description
-9,Rock Golem,1,1,1,1,1,1,1,1,1,description
-10,Lava Golem,1,1,1,1,1,1,1,1,1,description
-11,Water Golem,1,1,1,1,1,1,1,1,1,description
-12,Haunted Tree,1,1,1,1,1,1,1,1,1,description
-13,Small Mushroom,1,1,1,1,1,1,1,1,1,description
-14,Giant Mushroom,1,1,1,1,1,1,1,1,1,description
-15,Elven Knight,1,1,1,1,1,1,1,1,1,description
-16,Elven Archer,1,1,1,1,1,1,1,1,1,description
-17,Elven Mage,1,1,1,1,1,1,1,1,1,description
-18,Bandit,1,1,1,1,1,1,1,1,1,description
-19,Bandit Chief,1,1,1,1,1,1,1,1,1,description
-20,Demon knight,1,1,1,1,1,1,1,1,1,description
-21,Demon Archer,1,1,1,1,1,1,1,1,1,description
-22,Demon Mage,1,1,1,1,1,1,1,1,1,description
-23,Demonic Slime,1,1,1,1,1,1,1,1,1,description
-24,Demonic Goblin,1,1,1,1,1,1,1,1,1,description
-25,Demonic Wolf,1,1,1,1,1,1,1,1,1,description
-26,Training Dummy,1,1,1,1,1,1,1,1,1,description
+Id,Name,HP,Attack,PhysicalDamages,PhysicalDefense,MagicalDamages,MagicalDefense,CritRate,CritDmg,Speed,Description,Skill 1,Skill 2,Skill 3,Passif
+1,Red Slime,1,2,3,4,5,6,7,8,9,description,Slice,Slime Dash,none,none
+2,Blue Slime,1,1,1,1,1,1,1,1,1,description,Slice,Slime Dash,none,none
+3,Green Slime,1,1,1,1,1,1,1,1,1,description,Slice,Slime Dash,none,none
+4,Goblin,1,1,1,1,1,1,1,1,1,description,Slice,Slime Dash,Demonic Dash,none
+5,Higher Goblin,1,1,1,1,1,1,1,1,1,description,Biting Barrage, Hyper Fang,none,none
+6,Goblin Chief,1,1,1,1,1,1,1,1,1,description,Biting Barrage,Hyper Fang,Howl,//name
+7,Wolf,1,1,1,1,1,1,1,1,1,description,Slice,Spin Attack,none,none
+8,Wolf Pack Leader,1,1,1,1,1,1,1,1,1,description,Slice,Spin Attack,Herbs Master,none
+9,Rock Golem,1,1,1,1,1,1,1,1,1,description,Slice,Spin Attack,Chief's Oders,//name
+10,Lava Golem,1,1,1,1,1,1,1,1,1,description,Slice,Golem Smash,none,none
+11,Water Golem,1,1,1,1,1,1,1,1,1,description,Slice,Burning Smash,none,none
+12,Haunted Tree,1,1,1,1,1,1,1,1,1,description,Slice,Tsunami,none,none
+13,Small Mushroom,1,1,1,1,1,1,1,1,1,description,Magic Bonk,Sticky Roots,none,none
+14,Giant Mushroom,1,1,1,1,1,1,1,1,1,description,Magic Bonk,Gushing Spores,none,none
+15,Elven Knight,1,1,1,1,1,1,1,1,1,description,Magic Bonk,Gushing Spores,Regenerating Spores,//name
+16,Elven Archer,1,1,1,1,1,1,1,1,1,description,Slice,Sharpening Sword,none,none
+17,Elven Mage,1,1,1,1,1,1,1,1,1,description,Slice,Falling Arrows,none,none
+18,Bandit,1,1,1,1,1,1,1,1,1,description,Magic Bonk,Wishing Star,none,none
+19,Bandit Chief,1,1,1,1,1,1,1,1,1,description,Slice,Thief,none,none--
+20,Demon knight,1,1,1,1,1,1,1,1,1,description,Slice,Raging Slam,none,Malevolent Strike
+21,Demon Archer,1,1,1,1,1,1,1,1,1,description,Slice,Sharpening Sword,Demonic Slash,//name
+22,Demon Mage,1,1,1,1,1,1,1,1,1,description,Slice,Falling Arrows,Demonic Arrow,//name
+23,Demonic Slime,1,1,1,1,1,1,1,1,1,description,Magic Bonk,Wishing Star,Demonic Marking,//name
+24,Demonic Goblin,1,1,1,1,1,1,1,1,1,description,Slice,Spin Attack,Demonic Strike,//name
+25,Demonic Wolf,1,1,1,1,1,1,1,1,1,description,Biting Barrage,Howl,Demonic Bite,//name
+26,Training Dummy,1,1,1,1,1,1,1,1,1,description,,,,
+27,Oliver,1,1,1,1,1,1,1,1,1,description,,,,
+28,Djeamy,1,1,1,1,1,1,1,1,1,description,,,,
+29,Demon Commander,1,1,1,1,1,1,1,1,1,description,,,,
+30,The Twin,1,1,1,1,1,1,1,1,1,description,,,,

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 47
   Name: Galeblade Strike
-  Description: Give an attack buff for 3 turns before attacking an enemy, damage
-    scales with att.
+  Description: Once every 2 turns, give a barrier scaling based off of max Hp.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -25,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

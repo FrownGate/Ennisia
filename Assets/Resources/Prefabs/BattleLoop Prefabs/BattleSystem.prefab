@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6082962978910990631
 MonoBehaviour:
@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de67527f20dbfba419777314104fabef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
-  enemyPrefab: {fileID: 0}
-  Spells: []
-  dialogueText: {fileID: 0}
-  playerHUD: {fileID: 0}
-  enemyHUD: {fileID: 0}
+  _entitySlot: {fileID: 3790394792616838198, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
+  _firstSupport: {fileID: 0}
+  _secondSupport: {fileID: 0}
+  _skillsButtons: []
+  DialogueText: {fileID: 0}
+  WonPopUp: {fileID: 0}
+  LostPopUp: {fileID: 0}

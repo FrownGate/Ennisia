@@ -23,7 +23,8 @@ public class CSVToSO : EditorWindow
         missions,
         chapters,
         pets,
-        quests
+        quests,
+        enemies
     }
 
     [MenuItem("Tools/CSV to SO")]
@@ -56,6 +57,8 @@ public class CSVToSO : EditorWindow
         if (GUILayout.Button("Pets")) CreateScriptableObjectsFromCSV(TypeCSV.pets, "Pets");
         GUILayout.Space(25);
         if (GUILayout.Button("Quests")) CreateScriptableObjectsFromCSV(TypeCSV.quests, "Quests");
+        GUILayout.Space(25);
+        if (GUILayout.Button("Enemies")) CreateScriptableObjectsFromCSV(TypeCSV.enemies, "Enemies");
     }
 
     private void CreateScriptableObjectsFromCSV(TypeCSV type, string fileName)
@@ -153,6 +156,10 @@ public class CSVToSO : EditorWindow
                     case TypeCSV.quests:
                         CreateQuestSO(rowData);
                         break;
+                    case TypeCSV.enemies:
+                        LoadSkillSOs();
+                        CreateEnemySO(rowData);
+                        break;
                     default:
                         break;
                 }
@@ -187,9 +194,13 @@ public class CSVToSO : EditorWindow
     {
         if (!int.TryParse(rowData[skillKey], out var skillId) || skillId == 0) return;
         if (_skillSOMap.TryGetValue(skillId, out var skill))
+        {
             skillData = skill;
+            UnityEngine.Debug.Log($"Skill {skill.Name}  found.");
+        }
+
         else
-            Debug.LogError($"Skill with ID {skillId} not found.");
+            UnityEngine.Debug.Log($"Skill with ID {skillId} not found.");
     }
 
     #region CreateSO
@@ -260,8 +271,7 @@ public class CSVToSO : EditorWindow
                 "\r\n    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }");
             writer.WriteLine(
                 "\r\n    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }");
-            writer.WriteLine(
-                "\r\n    public override void TakeOffStats(List<Entity> targets, Entity player, int turn) { }");
+            
             writer.WriteLine("}");
         }
 
@@ -372,7 +382,7 @@ public class CSVToSO : EditorWindow
         }
 
         scriptableObject.Waves = waves;
-        scriptableObject.WavesCount = waveCount;
+        scriptableObject.WavesCount = waveCount-1;
         scriptableObject.Enemies = enemies.ToList();
 
         scriptableObject.DialogueId = int.Parse(rowData["IDDialogue"]);
@@ -454,6 +464,37 @@ public class CSVToSO : EditorWindow
         var savePath = $"Assets/Resources/SO/Quests/{scriptableObject.ID}-{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
+    private static void CreateEnemySO(Dictionary<string, string> rowData)
+    {
+        var scriptableObject = CreateInstance<EnemySO>();
+        scriptableObject.ID = int.Parse(rowData["Id"]);
+        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Description = rowData["Description"];
 
+        var attributes = rowData.ToList();
+        for (var i = 4; i < rowData.Count; i++)
+        {
+            var type = attributes[i].Key;
+            if (!Enum.TryParse(type, out Attribute attribute)) continue;
+            Debug.Log(type);
+
+            scriptableObject.Stats.Add(attribute, int.Parse(rowData[type]));
+        }
+
+        if (scriptableObject.Name == "Goblin")
+        {
+            Debug.Log("truc");
+
+        }
+
+        AssignSkillData(rowData, "Skill 1", ref scriptableObject.Skill1Data);
+        AssignSkillData(rowData, "Skill 2", ref scriptableObject.Skill2Data);
+        AssignSkillData(rowData, "Skill 3", ref scriptableObject.Skill3Data);
+        AssignSkillData(rowData, "Passif", ref scriptableObject.PassifData);
+
+
+        var savePath = $"Assets/Resources/SO/Enemies/{scriptableObject.ID}-{scriptableObject.Name}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
+    }
     #endregion
 }
