@@ -12,10 +12,17 @@ public class ShieldBump : DamageSkill
 
     public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        //if targetHasDefBuff
-        //float additionalDamage = damage / 2;
-        //target.TakeDamage(additionalDamage);
-        //return additionalDamage
-        return 0;
+        if targetHasDefBuff
+        foreach(Entity target in targets)
+            {
+                foreach(Effect effect in target.Effects)
+                {
+
+                }
+                float additionalDamage = target.Effects.Count ? damage / 2;
+            }
+       
+        target.TakeDamage(additionalDamage);
+        return additionalDamage
     }
 }

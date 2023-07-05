@@ -4,18 +4,24 @@ public class TidalExecution : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float percHPRemaining = targets[0].CurrentHp / targets[0].Stats[Attribute.HP].Value;
-
-        if (percHPRemaining <= 0.05f)
+        foreach (Entity target in targets)
         {
-            //TODO -> Execute
-            targets[0].TakeDamage(targets[0].Stats[Attribute.HP].Value);
+            float percHPRemaining = target.CurrentHp / target.Stats[Attribute.HP].Value;
+
+            if (percHPRemaining <= 0.05f)
+            {
+                //TODO -> Execute
+                target.TakeDamage(5000000);
+            }
+
+
+
+            float missingHealth = target.Stats[Attribute.HP].Value - target.CurrentHp;
+            float damage = DamageCalculation(target,caster) * missingHealth;
+            TotalDamage+= damage;
+            target.TakeDamage(damage);
         }
 
-        float missingHealth = targets[0].Stats[Attribute.HP].Value - targets[0].CurrentHp;
-        float damage = Data.DamageRatio * missingHealth;
-        targets[0].TakeDamage(damage);
-
-        return damage;
+        return TotalDamage;
     }
 }
