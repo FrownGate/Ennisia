@@ -6,7 +6,12 @@ using UnityEngine.UI;
 
 public enum Difficulty
 {
-    Peaceful, Easy, Normal, Hard, Insane, Ultimate
+    Peaceful,
+    Easy,
+    Normal,
+    Hard,
+    Insane,
+    Ultimate
 }
 
 public class RaidsButton : MonoBehaviour
@@ -60,12 +65,10 @@ public class RaidsButton : MonoBehaviour
 
         foreach (SceneButton script in scripts)
         {
-            if (script.Scene == "MainMenu")
-            {
-                Debug.Log("Found object with MyScript and myVariable set to : " + script.gameObject.name);
-                // Do something with the found object
-                script.Scene = "Raids";
-            }
+            if (script.Scene != "MainMenu") continue;
+            Debug.Log("Found object with MyScript and myVariable set to : " + script.gameObject.name);
+            // Do something with the found object
+            script.Scene = "Raids";
         }
 
         foreach (GameObject gameObject in Raids)
@@ -81,5 +84,4 @@ public class RaidsButton : MonoBehaviour
         Debug.LogWarning("Difficulty ID not found: " + id);
         return Difficulty.Peaceful; // Return a default difficulty or handle the error accordingly
     }
-
 }

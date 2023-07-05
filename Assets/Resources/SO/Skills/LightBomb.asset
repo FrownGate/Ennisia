@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 5
   Name: Light Bomb
-  Description: deals 1 hit to all enemies with a light explosion.
+  Description: "deals 4 hits to all enemies with a quick attack, recovering the user\u2019s
+    hp by 30% of damage dealt."
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

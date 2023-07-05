@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 29
   Name: Reinforcement
-  Description: increase defense by 5%.
+  Description: increase Hp by 5%.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

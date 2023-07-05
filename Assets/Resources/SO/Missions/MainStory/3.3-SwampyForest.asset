@@ -34,12 +34,13 @@ MonoBehaviour:
       Value:
       - Small Mushroom
       - Small Mushroom
-      - Small Mushroom
-      - Small Mushroom
-  WavesCount: 4
+      - Haunted Tree
+      - Green Slime
+  WavesCount: 3
   Enemies:
   - Green Slime
   - Small Mushroom
+  - Haunted Tree
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 3

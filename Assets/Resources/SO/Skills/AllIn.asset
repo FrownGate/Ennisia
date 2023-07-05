@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 22
   Name: All In
-  Description: Always take the first turn, and convert 50% of defense into attack.
+  Description: heal for 10% of max health at the end of the turn. Once every 2 turns,
+    give immunity.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
