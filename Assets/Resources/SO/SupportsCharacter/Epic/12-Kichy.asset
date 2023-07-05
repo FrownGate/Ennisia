@@ -18,8 +18,9 @@ MonoBehaviour:
   Race: Beast
   Job: Healer
   Element: 3
-  PrimarySkillData: {fileID: 11400000, guid: 6d9cd62ad5436bb43bc5bac853f8699c, type: 2}
-  SecondarySkillData: {fileID: 11400000, guid: b5f073ebcb36b3541ab9aca1e31f1d72, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: 6d9cd62ad5436bb43bc5bac853f8699c, type: 2}
+  - {fileID: 11400000, guid: b5f073ebcb36b3541ab9aca1e31f1d72, type: 2}
   Description: Kichy has always been alone, and is looking for someone to spend her
     time with. She has lived in the woods all her life and has learned a great deal
     in healing from herbs.

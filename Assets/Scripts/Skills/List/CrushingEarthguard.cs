@@ -8,20 +8,20 @@ public class CrushingEarthguard : DamageSkill
 
     public override float Use(List<Entity> targets, Entity caster, int turn) 
     {
-        float damage = Data.DamageAmount;
+       
        
         foreach (Entity target in targets)
         {
+            float damage = DamageCalculation(target,caster);
             target.TakeDamage(damage);
-            _totalDamage += damage;
+            TotalDamage += damage;
         }
-
         Cooldown = Data.MaxCooldown;
-        return _totalDamage; 
+        return TotalDamage; 
     }
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        caster.Shield += (int)damage * (40 / 100);
+        caster.Shield += damage * 0.4f;
     }
 }

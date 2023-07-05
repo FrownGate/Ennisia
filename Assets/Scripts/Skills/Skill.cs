@@ -1,23 +1,25 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using CheatCode;
 
 public abstract class Skill
 {
     public static event Action OnLevelUp;
 
-    public Button SkillButton { get; set; }
+    public SkillHUD Button { get; set; }
 
     public SkillSO Data { get; protected set; }
-    public float DamageModifier { get; protected set; }
+    public float RatioModifier {  get; protected set; }
+    public float DamageModifier {  get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
     public float Cooldown { get; set; }
     public int Level { get; set; }
     public float StatUpgrade1 { get; set; }
     public float StatUpgrade2 { get; set; }
+    public float TotalDamage { get; set; }
+    private float _ratio;
+    private float _defense;
     //TODO -> Move fields/functions in child classes
 
     protected Dictionary<Attribute, ModifierID> _modifiers;
@@ -37,6 +39,14 @@ public abstract class Skill
     public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
 
+    public virtual float DamageCalculation(Entity target, Entity caster)
+    {
+        _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
+        _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
+        float damage = (caster.Stats[Attribute.Attack].Value * (Data.DamageRatio + RatioModifier) * _ratio * ((1000 - (_defense - target.DefIgnored)) / 1000));
+        return damage;
+    }
+    
     public void TakeOffStats(Entity caster)
     {
         foreach (var modifier in _modifiers) caster.Stats[modifier.Key].RemoveModifier(modifier.Value);
@@ -61,7 +71,7 @@ public abstract class Skill
         }
 
         Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
-        if (SkillButton != null) SkillButton.interactable = Cooldown == 0;
+        if (Button != null) Button.ToggleUse(Cooldown == 0);
     }
 
     public void ResetCoolDown(int duration)

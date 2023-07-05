@@ -10,7 +10,7 @@ public class AquaParalysis : PassiveSkill
 
         if (stunLuck <= 0.15)
         {
-            //Stun
+            targets[0].ApplyEffect(new Stun());
         }
 
     }

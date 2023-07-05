@@ -1,22 +1,36 @@
 using System.Collections.Generic;
-
+using System;
 public class InTheShadow : DamageSkill
 {
     private float _defIgnoredBaseRatio;
     private float _defIgnoredBuff;
+    private int _percentChance = 50;
 
-    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn)
+
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
     {
-        _defIgnoredBuff = _defIgnoredBaseRatio + (StatUpgrade1 * Level);
-        _modifiers[Attribute.DefIgnored] = targets[0].Stats[Attribute.DefIgnored].AddModifier(IgnoreDef); //targets[0] or caster ?
+        foreach (Entity target in targets)
+        {
+            target.DefIgnored += 40;
+        }
     }
-
-    float IgnoreDef(float value) => value + 40;
-
     public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
     {
-        //if debuffed
-        player.AtkBarPercentage = 100;
+        foreach(Entity target in targets)
+        {
+            target.DefIgnored -= 40;
+            if(target.Effects.Count> 0)
+            {
+                float _randomNumber = new Random().Next(1, 100);
+
+                if (_percentChance >= _randomNumber)
+                {
+                    player.AtkBarPercentage = 100;
+                }
+                break;
+            }
+        }
+      
     }
     // to do : if enemy is debuff, #% chance to play again
 }
