@@ -34,7 +34,6 @@ public class BattleSystem : StateMachine
 
     public AtkBarSystem AttackBarSystem { get; set; }
 
-    private readonly EnemyLoader _enemyLoader = new();
     private Canvas _canvas;
 
     private void Awake()
@@ -71,10 +70,7 @@ public class BattleSystem : StateMachine
         SetSkillButtonsActive(true);
         AssignSkillButton();
 
-        foreach (var skill in Player.Skills)
-        {
-            skill.ConstantPassive(Enemies, Player, 0); // constant passive at battle start
-        }
+        foreach (var skill in Player.Skills) skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
 
         SetState(new WhoGoFirst(this));
         // SimulateBattle();
@@ -95,27 +91,34 @@ public class BattleSystem : StateMachine
         MissionSO mission = MissionManager.Instance.CurrentMission;
         int wave = MissionManager.Instance.CurrentWave;
 
-        Debug.Log(mission.Name);
-        Debug.Log(wave);
-        Debug.Log(mission.Waves.Count);
+        //Debug.Log(mission.Name);
+        //Debug.Log(wave);
+        //Debug.Log(mission.Waves.Count);
 
         Enemies = new();
 
-        Enemy enemy = new();
-        Enemies.Add(enemy);
-        enemy.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
-        enemy.HUD.Init(enemy);
-        enemy.HUD.transform.localPosition = new Vector3(495, 0, 0);
+        //Enemy enemy = new();
+        //Enemies.Add(enemy);
+        //enemy.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
+        //enemy.HUD.Init(enemy);
+        //enemy.HUD.transform.localPosition = new Vector3(495, 0, 0);
 
-        //foreach (var enemyName in mission.Waves[wave])
-        //{
-        //    Debug.Log(enemyName);
-        //    TODO->load SO
-        //    Enemy enemy = _enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv", enemyName);
-        //    Enemies.Add(enemy);
-        //    enemy.HUD = Instantiate(_enemySlot).GetComponent<EntityHUD>();
-        //    enemy.HUD.Init(enemy);
-        //}
+        int id = 1;
+
+        foreach (var enemyName in mission.Waves[wave])
+        {
+            Debug.Log(enemyName);
+            Enemy enemy = new(id, Resources.Load<EnemySO>($"SO/Enemies/{enemyName}"))
+            {
+                HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>()
+            };
+
+            enemy.HUD.Init(enemy);
+            enemy.HUD.transform.localPosition = new Vector3(495, 0, 0); //TODO -> Change position for each
+
+            Enemies.Add(enemy);
+            id++;
+        }
     }
 
     public void OnAttackButton()
@@ -154,6 +157,7 @@ public class BattleSystem : StateMachine
 
     private void SelectEntity(Entity entity)
     {
+        Debug.Log("Entity seleted.");
         if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
         Targets.Add(entity);
         StartCoroutine(State.Attack());

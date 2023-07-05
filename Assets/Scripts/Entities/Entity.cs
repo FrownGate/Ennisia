@@ -34,20 +34,23 @@ public abstract class Entity
 
     public Entity(Dictionary<Attribute, float> stats = null)
     {
-        Debug.Log(IsSelected);
         //TODO -> Use CSV to set all values
         Stats = new();
 
         if (stats != null)
         {
             foreach (var stat in stats) Stats[stat.Key] = new(stat.Value);
-            return;
+        }
+        else
+        {
+            foreach (string stat in Enum.GetNames(typeof(Attribute)))
+            {
+                Stats[Enum.Parse<Attribute>(stat)] = new(10);
+            }
         }
 
-        foreach (string stat in Enum.GetNames(typeof(Attribute)))
-        {
-            Stats[Enum.Parse<Attribute>(stat)] = new(10);
-        }
+        CurrentHp = Stats[Attribute.HP].Value;
+        Debug.Log($"current hp : {CurrentHp}");
 
         //Testing effects
         //Debug.Log(Stats[AttributeStat.Attack].Value);

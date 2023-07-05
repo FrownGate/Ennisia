@@ -14,7 +14,6 @@ public class Player : Entity
         Weapon.Init(); //Temp
 
         //TODO -> Set stats with CSV or another method
-        CurrentHp = Stats[Attribute.HP].Value;
         Stats[Attribute.Speed] = new(90); //Temp
 
         Skills = new()
