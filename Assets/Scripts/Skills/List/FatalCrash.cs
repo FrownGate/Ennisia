@@ -4,14 +4,18 @@ public class FatalCrash : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = Data.DamageRatio * ((targets[0].CurrentHp + 100) / targets[0].Stats[Attribute.HP].Value); //HUGO TO BALANCE -> make excel
-        targets[0].TakeDamage(damage);
+        foreach (Entity target in targets)
+        {
+            float damage = Data.DamageRatio * (1 + (target.CurrentHp / target.Stats[Attribute.HP].Value));
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+        }
         Cooldown = Data.MaxCooldown;
-        return damage;
+        return TotalDamage;
     }
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        caster.CurrentHp += 80/100 * damage;
+        caster.CurrentHp += 0.8f * damage;
     }
 }

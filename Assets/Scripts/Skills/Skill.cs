@@ -3,13 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class Skill
 {
     public static event Action OnLevelUp;
 
-    public Button SkillButton { get; set; }
+    public SkillHUD Button { get; set; }
 
     public SkillSO Data { get; protected set; }
     public float RatioModifier {  get; protected set; }
@@ -68,7 +67,7 @@ public abstract class Skill
     public void Tick()
     {
         Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
-        if (SkillButton != null) SkillButton.interactable = Cooldown == 0;
+        if (Button != null) Button.ToggleUse(Cooldown == 0);
     }
 
     public void ResetCoolDown(int duration)
