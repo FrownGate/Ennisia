@@ -4,9 +4,7 @@ public class SharpeningSword : BuffSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        caster.ApplyEffect(new AttackBuff());
+        caster.ApplyEffect(new AttackBuff(3));
         return 0;
     }
-
-    // need the 3 turns change of buff
 }
