@@ -4,7 +4,7 @@ public class ShieldBump : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = Data.DamageAmount;
+        float damage = Data.DamageRatio;
         targets[0].TakeDamage(damage);
         Cooldown = Data.MaxCooldown;
         return damage;

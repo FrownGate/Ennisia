@@ -11,7 +11,7 @@ public class DemonicArrow : DamageSkill
 
         if (_percentChance >= randomNumber)
         {
-            //add defense debuff
+            caster.ApplyEffect(new DefenseBuff());
         }
 
         Cooldown = Data.MaxCooldown;

@@ -6,7 +6,8 @@ public class HolyPrayer : ProtectionSkill
     {
         //attacksBuff
 
-        caster.CurrentHp += caster.Stats[Attribute.HP].Value * 10 / 100;
+        caster.Heal(caster.Stats[Attribute.HP].Value * 10 / 100);
+        caster.ApplyEffect(new AttackBuff());
         Cooldown = Data.MaxCooldown;
         return 0;
     }

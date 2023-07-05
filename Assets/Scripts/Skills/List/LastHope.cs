@@ -13,6 +13,7 @@ public class LastHope : PassiveSkill
         {
             _isUsed = true;
             HealingModifier = caster.Stats[Attribute.HP].Value * healBuff;
+            caster.Heal(HealingModifier);
         }
     }
 }
