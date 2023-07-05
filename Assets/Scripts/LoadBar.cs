@@ -6,7 +6,8 @@ public class LoadBar : MonoBehaviour
 {
     int _requestCount;
     int _count;
-    public Slider _bar;
+    public Slider BarPC;
+    public Slider BarMobile;
     Scene scene;
     private void Awake()
     {
@@ -24,7 +25,8 @@ public class LoadBar : MonoBehaviour
             {
                 _count = 99;
             }
-            _bar.value = Mathf.Lerp(_bar.value, _count/100f, 0.01f);
+            BarPC.value = Mathf.Lerp(BarPC.value, _count/100f, 0.01f);
+            BarMobile.value = Mathf.Lerp(BarPC.value, _count / 100f, 0.01f);
 
         }
     }
