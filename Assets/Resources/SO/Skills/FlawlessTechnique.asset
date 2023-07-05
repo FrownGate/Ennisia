@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 8
   Name: Flawless Technique
-  Description: ' increase critical rate of the player by 15%. When an enemy is killed,
-    grants Attack buff'
+  Description: sneaks behind an enemy and stabs them, dealing 5 hits. If the enemy
+    is killed by this skill, reset its cooldown.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

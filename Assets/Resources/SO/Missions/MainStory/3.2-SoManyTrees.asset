@@ -35,11 +35,12 @@ MonoBehaviour:
       - Haunted Tree
       - Haunted Tree
       - Haunted Tree
-      - Haunted Tree
-  WavesCount: 4
+      - Small Mushroom
+  WavesCount: 3
   Enemies:
   - Green Slime
   - Haunted Tree
+  - Small Mushroom
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 2

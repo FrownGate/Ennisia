@@ -19,9 +19,29 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 1
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Wolf
+      - Wolf
+      - Goblin
+      - Bandit
+    - Key: 2
+      Value:
+      - Bandit
+      - Bandit
+      - Goblin
+      - Wolf
+    - Key: 3
+      Value:
+      - Bandit
+      - Bandit
+      - Bandit
+  WavesCount: 3
+  Enemies:
+  - Wolf
+  - Goblin
+  - Bandit
   DialogueId: 0
   ChapterId: 4
   NumInChapter: 3

@@ -36,12 +36,14 @@ MonoBehaviour:
       - Rock Golem
       - Goblin
       - Goblin
-  WavesCount: 4
+      - Goblin Chief
+  WavesCount: 3
   Enemies:
   - Green Slime
   - Goblin
   - Red Slime
   - Rock Golem
+  - Goblin Chief
   DialogueId: 0
   ChapterId: 2
   NumInChapter: 3

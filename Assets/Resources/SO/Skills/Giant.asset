@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 30
   Name: Giant
-  Description: increase Hp by 5%.
+  Description: Increases speed by #
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

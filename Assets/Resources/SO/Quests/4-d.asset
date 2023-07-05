@@ -16,3 +16,9 @@ MonoBehaviour:
   Name: d
   Description: first time you beat the same boss 10 time
   Energy: 20
+  currencyList:
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 100

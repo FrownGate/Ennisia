@@ -355,6 +355,10 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: A.Mirror
+    path: Assets/Scenes/Dev/Alexis/A.Mirror.unity
   - name: LoginRegisterPopup
     path: Assets/Scenes/LoginRegisterPopup.unity
   - name: Pets
@@ -373,8 +377,6 @@ MonoBehaviour:
     path: Assets/Scenes/Missions/Raids.unity
   - name: StuffMenu
     path: Assets/Scenes/Inventory/StuffMenu.unity
-  - name: TitleScreen
-    path: Assets/Scenes/TitleScreen.unity
   - name: Friends
     path: Assets/Scenes/Friends.unity
   - name: BattleModeSelection
@@ -391,6 +393,4 @@ MonoBehaviour:
     path: Assets/Scenes/Guilds/GuildMissions.unity
   - name: EventPopup
     path: Assets/Scenes/EventPopup.unity
-  - name: MailPopup
-    path: Assets/Scenes/MailPopup.unity
   _notes: []

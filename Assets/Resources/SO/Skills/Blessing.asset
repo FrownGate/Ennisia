@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 23
   Name: Blessing
-  Description: heal for 10% of max health at the end of the turn. Once every 2 turns,
-    give immunity.
+  Description: If an enemy heals himself, increase the attack by 5%, up to 5 stack.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
