@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Enemy : Entity
 {
@@ -17,10 +18,12 @@ public class Enemy : Entity
         Level = 1;
     }
 
-    public override void TakeDamage(float damage)
+    public Enemy(int id, EnemySO data) : base(data.Stats)
     {
-        CurrentHp -= damage;
-        IsSelected = false;
+        Id = id;
+        Name = data.Name;
+        Description = data.Description;
+        Level = 1; //Temp
     }
 
     public override bool HaveBeenTargeted()

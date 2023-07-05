@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 41
   Name: Flame Purification
-  Description: Cleanse all debuffs
+  Description: Remove all buffs from target
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -24,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

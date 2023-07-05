@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 42
   Name: Gale Disruption
-  Description: Remove all buffs from target
+  Description: Heals 80% of lost health
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -24,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

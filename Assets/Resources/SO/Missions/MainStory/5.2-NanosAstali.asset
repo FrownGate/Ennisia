@@ -19,9 +19,30 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 1
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Demonic Slime
+      - Demonic Slime
+      - Demonic Wolf
+    - Key: 2
+      Value:
+      - Demonic Slime
+      - Demonic Wolf
+      - Demonic Wolf
+      - Demonic Goblin
+    - Key: 3
+      Value:
+      - Demonic Wolf
+      - Demonic Wolf
+      - Demonic Wolf
+      - Demon Archer
+  WavesCount: 3
+  Enemies:
+  - Demonic Slime
+  - Demonic Wolf
+  - Demonic Goblin
+  - Demon Archer
   DialogueId: 0
   ChapterId: 5
   NumInChapter: 2

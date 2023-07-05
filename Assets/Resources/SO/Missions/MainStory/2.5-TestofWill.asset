@@ -21,9 +21,14 @@ MonoBehaviour:
   Waves:
     _serializedList:
     - Key: 1
+      Value: []
+    - Key: 2
       Value:
       - Djeamy
-  WavesCount: 2
+    - Key: 3
+      Value:
+      - Djeamy
+  WavesCount: 3
   Enemies:
   - Djeamy
   DialogueId: 0

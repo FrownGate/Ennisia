@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 55
   Name: Crushing Earthguard
-  Description: Attacks all enemies, and gives a shield based off 40% of damage done.
+  Description: Cleanse 1 debuff, and gives the cleansed debuff to enemy/enemies.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -24,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

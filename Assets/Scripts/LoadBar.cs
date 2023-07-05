@@ -24,7 +24,7 @@ public class LoadBar : MonoBehaviour
 
     private void Update()
     {
-        if (scene.isLoaded)
+        if (_scene.isLoaded)
         {
             _count = _requestCount;
             if (_requestCount >= 100)

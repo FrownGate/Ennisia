@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 49
   Name: Blazing Resilience
-  Description: When the plate receives a debuff, give random buff (att, Crit Rate,
-    Crit Damage).
+  Description: Increase Crit Rate of player by 25%.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -25,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

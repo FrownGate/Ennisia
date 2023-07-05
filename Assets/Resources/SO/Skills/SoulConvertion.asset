@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 19
   Name: Soul Convertion
-  Description: "Inverts the current weapon\u2019s damage type and increases it by
-    20%."
+  Description: Increase hp and defense by 15%. After receiving damage, give a shield
+    equivalent to 5% of max health.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

@@ -29,6 +29,8 @@ public abstract class Entity
     public int AtkBarFillAmount { get; set; }
     public int AtkBarPercentage { get; set; }
 
+    public EntityHUD HUD { get; set; }
+
     public Entity(Dictionary<Attribute, float> stats = null)
     {
         //TODO -> Use CSV to set all values
@@ -37,13 +39,17 @@ public abstract class Entity
         if (stats != null)
         {
             foreach (var stat in stats) Stats[stat.Key] = new(stat.Value);
-            return;
+        }
+        else
+        {
+            foreach (string stat in Enum.GetNames(typeof(Attribute)))
+            {
+                Stats[Enum.Parse<Attribute>(stat)] = new(10);
+            }
         }
 
-        foreach (string stat in Enum.GetNames(typeof(Attribute)))
-        {
-            Stats[Enum.Parse<Attribute>(stat)] = new(10);
-        }
+        CurrentHp = Stats[Attribute.HP].Value;
+        Debug.Log($"current hp : {CurrentHp}");
 
         //Testing effects
         //Debug.Log(Stats[AttributeStat.Attack].Value);
@@ -51,8 +57,9 @@ public abstract class Entity
         //Debug.Log(Stats[AttributeStat.Attack].Value);
     }
 
-    public virtual void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
+        Debug.Log($"Damage taken : {damage}");
         if (Shield > 0)
         {
             Shield -= damage;

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 50
   Name: Gust of Precision
-  Description: Increase Crit Rate of player by 25%.
+  Description: When the player attacks a single enemy, deal 15% of damage done to
+    all other enemies.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -24,4 +25,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

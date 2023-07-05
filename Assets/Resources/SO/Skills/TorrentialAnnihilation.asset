@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 35
   Name: Torrential Annihilation
-  Description: "Deals 25% of physical/magic att as true damage. If the player\u2019s
-    physical damage is higher than the enemy, remove all debuffs."
-  DamageAmount: 25
+  Description: Has a 70% chance to stun for 1 turn and a 100% chance to silence for
+    2 turns.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
@@ -25,4 +25,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

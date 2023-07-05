@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 1734719833657725555}
   - component: {fileID: 3544940840252231051}
   - component: {fileID: 3672379203989486092}
-  - component: {fileID: 8967342909794696122}
+  - component: {fileID: 7246866726079944091}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -185,7 +185,7 @@ Transform:
   m_Children:
   - {fileID: 4800080553468102744}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3544940840252231051
 SpriteRenderer:
@@ -284,7 +284,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4350896, y: 1.908351}
   m_EdgeRadius: 0
---- !u!114 &8967342909794696122
+--- !u!114 &7246866726079944091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,9 +293,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1277427119332163025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32275a16e1dd2884caf611e61614b0ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f58f630add77204eac9870b2e2b7e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hpBar: {fileID: 7263049491166832798}
 --- !u!1 &2463002353914072636
 GameObject:
   m_ObjectHideFlags: 0

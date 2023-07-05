@@ -17,7 +17,7 @@ public class Gear : Item
     public GearSO WeaponSO;
     public GearSet GearSet;
 
-    [System.Serializable]
+    [Serializable]
     public class JsonSubstatsDictionary
     {
         public string Key;
