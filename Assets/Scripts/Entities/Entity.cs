@@ -111,4 +111,24 @@ public abstract class Entity
         AtkBar = 0;
         AtkBarPercentage = 0;
     }
+
+    public bool HasBuff()
+    {
+        foreach (var effect in Effects)
+        {
+            if (!effect.HasAlteration) return true;
+        }
+
+        return false;
+    }
+
+    public bool HasAlteration()
+    {
+        foreach (var effect in Effects)
+        {
+            if (effect.HasAlteration) return true;
+        }
+
+        return false;
+    }
 }
