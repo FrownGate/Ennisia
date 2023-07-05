@@ -9,7 +9,7 @@ public class EnemyTurn : State
     public override IEnumerator Start()
     {
         BattleSystem.ResetSelectedEnemies();
-        BattleSystem.SetSkillButtonsActive(false);
+        BattleSystem.ToggleSkills(false);
         BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
         BattleSystem.Enemies[BattleSystem.EnemyPlayingID].AtkBar = 0;
         //BattleSystem.Player.TakeDamage(BattleSystem.Enemies[0].Attack);
