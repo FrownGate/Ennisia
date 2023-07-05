@@ -4,8 +4,10 @@ public class HawksEye : BuffSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        //give CR / CD / ATTACK Buff
-        //give additional turn
+        caster.ApplyEffect(new CritRateBuff());
+        caster.ApplyEffect(new CritDmgBuff());
+        caster.ApplyEffect(new AttackBuff());
+
         return 0;
     }
 

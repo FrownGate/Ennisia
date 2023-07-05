@@ -6,7 +6,7 @@ public class SkillSO : ScriptableObject
     public int Id;
     public string Name;
     public string Description;
-    public float DamageAmount;
+    public float DamageRatio;
     public float ShieldAmount;
     public float HealingAmount;
     public int MaxCooldown;

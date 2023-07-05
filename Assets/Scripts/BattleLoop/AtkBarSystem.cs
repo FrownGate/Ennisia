@@ -66,4 +66,5 @@ public class AtkBarSystem
             Debug.Log(entity.Name + " atb " + entity.AtkBarPercentage);
         }
     }
+
 }
