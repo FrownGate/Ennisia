@@ -1,14 +1,19 @@
 using System.Collections.Generic;
+using System;
 
 public class GolemSmash : DamageSkill
 {
+    private int _percentChance = 10;
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = 0; // Add damage amount and is physical damage is x2
+        float damage = DamageCalculation(targets[0], caster);
         targets[0].TakeDamage(damage);
+        int randomNumber = new Random().Next(1, 100);
+        if (_percentChance >= randomNumber)
+        {
+            targets[0].ApplyEffect(new Stun());
+        }
         Cooldown = Data.MaxCooldown;
-        return damage;
-
-        // add 10% chance to stun
+        return damage * 2;
     }
 }

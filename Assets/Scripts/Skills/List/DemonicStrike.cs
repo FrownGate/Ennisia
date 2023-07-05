@@ -4,12 +4,10 @@ public class DemonicStrike : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = 0; // add damage amount and is physical dmage
+        float damage = DamageCalculation(targets[0], caster);
         targets[0].TakeDamage(damage);
-        Cooldown = Data.MaxCooldown;
         targets[0].ApplyEffect(new SupportSilence());
+        Cooldown = Data.MaxCooldown;
         return 0;
     }
-
-   
 }

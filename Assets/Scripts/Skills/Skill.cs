@@ -1,15 +1,12 @@
-using PlayFab.EconomyModels;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class Skill
 {
     public static event Action OnLevelUp;
 
-    public Button SkillButton { get; set; }
+    public SkillHUD Button { get; set; }
 
     public SkillSO Data { get; protected set; }
     public float RatioModifier {  get; protected set; }
@@ -41,6 +38,7 @@ public abstract class Skill
     public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
     public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
+
     public virtual float DamageCalculation(Entity target, Entity caster)
     {
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
@@ -67,8 +65,13 @@ public abstract class Skill
 
     public void Tick()
     {
+        if (CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.NoCooldown))
+        {
+            Cooldown = 1;
+        }
+
         Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
-        if (SkillButton != null) SkillButton.interactable = Cooldown == 0;
+        if (Button != null) Button.ToggleUse(Cooldown == 0);
     }
 
     public void ResetCoolDown(int duration)

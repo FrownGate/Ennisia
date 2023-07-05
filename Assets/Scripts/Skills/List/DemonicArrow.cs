@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-public class DemonicArrow : DamageSkill
+public class DemonicArrow : BuffSkill
 {
     private int _percentChance = 40;
 

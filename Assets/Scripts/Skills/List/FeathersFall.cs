@@ -4,16 +4,13 @@ public class FeathersFall : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float totalDamage = 0;
-
-        for (int i = 0; i < targets.Count; i++)
+        foreach(var target in targets)
         {
-            float damage = Data.DamageRatio;
-            targets[i].TakeDamage(damage);
-            totalDamage += damage;
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
         }
-
         Cooldown = Data.MaxCooldown;
-        return totalDamage;
+        return TotalDamage;
     }
 }

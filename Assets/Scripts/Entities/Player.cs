@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Player : Entity
@@ -19,13 +18,13 @@ public class Player : Entity
 
         //TODO -> Set stats with CSV or another method
         Stats[Attribute.Speed] = new(90); //Temp
+
         Skills = new List<Skill>
         {
             new Bonk()
         };
 
         if (Weapon == null) return;
-        Skills.Add(Weapon.Skills.FirstOrDefault());
-        Skills.Add(Weapon.Skills.Skip(1).FirstOrDefault());
+        foreach (var skill in Weapon.Skills) Skills.Add(skill);
     }
 }
