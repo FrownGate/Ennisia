@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 56
   Name: Arcane Transference
-  Description: Cleanse 1 debuff, and gives the cleansed debuff to enemy/enemies.
+  Description: Gives a shield to the player, scales with max Hp, for 2 turns.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -24,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

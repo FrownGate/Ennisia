@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using AYellowpaper.SerializedCollections;
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
 public class QuestSO : ScriptableObject
@@ -9,5 +10,5 @@ public class QuestSO : ScriptableObject
     public string Name;
     public string Description;
     public int Energy;
-    [ShowNonSerializedField] public Dictionary<Currency, int> currencyList = new();
+    public SerializedDictionary<Currency, int> currencyList = new();
 }

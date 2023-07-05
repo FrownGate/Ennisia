@@ -16,7 +16,7 @@ public class Gear : Item
     public float RatioUpgrade;
     public GearSO WeaponSO;
 
-    [System.Serializable]
+    [Serializable]
     public class JsonSubstatsDictionary
     {
         public string Key;

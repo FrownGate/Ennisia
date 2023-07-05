@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 48
   Name: Earthen Ward
-  Description: Once every 2 turns, give a barrier scaling based off of max Hp.
+  Description: When the player receives a debuff, give random buff (att, Crit Rate,
+    Crit Damage).
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -24,4 +25,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

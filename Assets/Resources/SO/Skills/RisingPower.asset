@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 16
   Name: Rising Power
-  Description: increases base attack by 15%, or by 30% if a two-handed sword is equipped.
+  Description: "penetrates the target\u2019s defense by 40% ; if the enemy is debuffed,
+    has a 50% chance to play again."
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 45
   Name: Thunderous Impact
-  Description: Stun the enemy for 1 turn // High CD
+  Description: Increase base speed by 20%.
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -24,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1

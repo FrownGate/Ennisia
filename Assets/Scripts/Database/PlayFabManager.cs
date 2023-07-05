@@ -23,6 +23,8 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnLoadingStart;
     public static event Action OnBigLoadingStart;
     public static event Action OnLoadingEnd;
+    public static event Action OnRequest;
+    public static event Action OnEndRequest;
 
     //Account Module
     [SerializeField] private AccountModule _accountMod;
@@ -224,6 +226,7 @@ public class PlayFabManager : MonoBehaviour
 
     public int StartRequest(string log = null)
     {
+        OnRequest?.Invoke();
         int currentRequest = _requests;
         _requests++;
         OnLoadingStart?.Invoke();
@@ -233,6 +236,7 @@ public class PlayFabManager : MonoBehaviour
 
     public void EndRequest(string log = null)
     {
+        OnEndRequest?.Invoke();
         //Debug.Log("ending request...");
         _requests--;
         OnLoadingEnd?.Invoke();
@@ -249,46 +253,5 @@ public class PlayFabManager : MonoBehaviour
     public void Testing()
     {
         //Debug.Log("Testing");
-        //Debug.Log(Data.Inventory.Items.Count);
-        //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId);  }
-
-        //UseItem(Data.Inventory.GetItem(new SummonTicket(), ItemRarity.Common));
-        //Data.Inventory.Items["Gear"][0].Upgrade();
-
-        //AddInventoryItem(new Gear(GearType.Boots, ItemRarity.Rare));
-        //AddInventoryItem(new Gear(GearType.Boots, ItemRarity.Legendary));
-
-        //GearSO weapon = Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
-        //AddInventoryItem(new Gear(weapon, ItemRarity.Legendary));
-        //Gear gear = (Gear)Data.Inventory.Items["Gear"][0];
-
-        //foreach (int gearId in Data.Player.EquippedGears) { Debug.Log(gearId); }
-        //_requests = 0;
-
-        //AddInventoryItem(new Material(ItemCategory.Weapon, ItemRarity.Common, 5));
-        //AddInventoryItem(new Material(ItemCategory.Weapon, ItemRarity.Legendary, 5));
-
-        //CreateGuild("Test");
-
-        //foreach (var item in Player.EquippedGears)
-        //{
-        //    Debug.Log(item.Key);
-
-        //    if (item.Value != null)
-        //    {
-        //        Debug.Log(item.Value.Name);
-        //    }
-        //}
-
-        //SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/2-Theaume");
-        //Player.Equip(support);
-        //Debug.Log(Player.EquippedSupports[0] != null ? Player.EquippedSupports[0].Name : "Empty");
-
-        //Player.Unequip(0);
-        //Debug.Log(Player.EquippedSupports[0] != null ? Player.EquippedSupports[0].Name : "Empty");
-
-        //Debug.Log(Player.EquippedGears[GearType.Weapon] != null ? Player.EquippedGears[GearType.Weapon].Name : "Empty");
-        //Player.Unequip(GearType.Weapon);
-        //Debug.Log(Player.EquippedGears[GearType.Weapon] != null ? Player.EquippedGears[GearType.Weapon].Name : "Empty");
     }
 }

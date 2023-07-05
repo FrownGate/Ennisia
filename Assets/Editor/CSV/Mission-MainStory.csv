@@ -6,21 +6,21 @@ ID,Name,EnergyCost,Unlocked,IDDialogue,IDChap,Num,Wave1,Wave2,Wave3,Gold,Crystal
 5,New Objective,5,FALSE,0,1,5,Talk Only,Talk Only,Talk Only,1000,100,10,none
 6,On the Road!,5,FALSE,0,2,1,"Blue Slime,Blue Slime,Blue Slime","Green Slime,Green Slime,Green Slime","Red Slime,Red Slime,Red Slime",1000,100,10,none
 7,Annoying Little Things,5,FALSE,0,2,2,"Green Slime,Blue Slime,Blue Slime","Goblin,Goblin,Green Slime","Goblin,Goblin,Goblin,Red Slime",1000,100,10,none
-8,The Mountain Shack,5,FALSE,0,2,3,"Green Slime,Green Slime,Green Slime","Goblin,Goblin,Goblin,Red Slime","Rock Golem,Goblin,Goblin",1000,100,10,none
+8,The Mountain Shack,5,FALSE,0,2,3,"Green Slime,Green Slime,Green Slime","Goblin,Goblin,Goblin,Red Slime","Rock Golem,Goblin,Goblin,Goblin Chief",1000,100,10,none
 9,The Old Man,5,FALSE,0,2,4,Talk Only,Talk Only,Talk Only,1000,100,10,none
-10,Test of Will,5,FALSE,0,2,5,Djeamy,,,1000,100,10,none
+10,Test of Will,5,FALSE,0,2,5,Talk Only,Djeamy,Djeamy,1000,100,10,none
 11,Beauty is on the Inside,5,FALSE,0,3,1,"Goblin,Goblin,Goblin","Goblin,Goblin,Wolf","Wolf,Wolf,Wolf,Wolf",1000,100,10,none
-12,So Many Trees,5,FALSE,0,3,2,"Green Slime,Green Slime,Green Slime","Haunted Tree,Haunted Tree,Green Slime","Haunted Tree,Haunted Tree,Haunted Tree,Haunted Tree",1000,100,10,none
-13,Swampy Forest,5,FALSE,0,3,3,"Green Slime,Green Slime,Green Slime","Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Small Mushroom,Small Mushroom,Small Mushroom",1000,100,10,none
+12,So Many Trees,5,FALSE,0,3,2,"Green Slime,Green Slime,Green Slime","Haunted Tree,Haunted Tree,Green Slime","Haunted Tree,Haunted Tree,Haunted Tree,Small Mushroom",1000,100,10,none
+13,Swampy Forest,5,FALSE,0,3,3,"Green Slime,Green Slime,Green Slime","Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Small Mushroom,Haunted Tree,Green Slime",1000,100,10,none
 14,Lady in Distress,5,FALSE,0,3,4,"Small Mushroom,Small Mushroom,Haunted Tree","Haunted Tree,Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Small Mushroom,Small Mushroom,Giant Mushroom",1000,100,10,none
 15,The Last General,5,FALSE,0,3,5,Talk Only,Talk Only,Talk Only,1000,100,10,none
 16,Abandoned Village,5,FALSE,0,4,1,"Blue Slime,Blue Slime,Goblin","Goblin,Goblin,Blue Slime,Blue Slime","Goblin,Goblin,Goblin,Green Slime",1000,100,10,none
-17,Mysterious Thief,5,FALSE,0,4,2,"Bandit,Bandit,Bandit","Bandit,Bandit,Bandit","Bandit,Bandit,Bandit,Bandit",1000,100,10,none
-18,The Culprit,5,FALSE,0,4,3,,,,1000,100,10,none
-19,Amilya,5,FALSE,0,4,4,,,,1000,100,10,none
-20,New Allies,5,FALSE,0,4,5,,,,1000,100,10,none
-21,Base of the Mountain,5,FALSE,0,5,1,,,,1000,100,10,none
-22,Nanos-Astali,5,FALSE,0,5,2,,,,1000,100,10,none
-23,The Demons,5,FALSE,0,5,3,,,,1000,100,10,none
-24,The Turning Point,5,FALSE,0,5,4,,,,1000,100,10,none
-25,A Twin’s Bond,5,FALSE,0,5,5,,,,1000,100,10,none
+17,Mysterious Thief,5,FALSE,0,4,2,"Goblin,Blue Slime,Blue Slime","Goblin,Goblin,Blue Slime","Goblin,Goblin,Bandit,Bandit",1000,100,10,none
+18,The Culprit,5,FALSE,0,4,3,"Wolf,Wolf,Goblin,Bandit","Bandit,Bandit,Goblin,Wolf","Bandit,Bandit,Bandit",1000,100,10,none
+19,Amilya,5,FALSE,0,4,4,"Goblin,Goblin,Goblin,Bandit","Bandit,Bandit,Bandit,Wolf","Bandit,Bandit,Bandit,Bandit Chief",1000,100,10,none
+20,New Allies,5,FALSE,0,4,5,"Goblin,Goblin,Rock Golem","Rock Golem,Rock Golem,Haunted Tree,Goblin","Rock Golem,Rock Golem,Water Golem",1000,100,10,none
+21,Base of the Mountain,5,FALSE,0,5,1,"Water Golem,Water Golem,Haunted Tree","Rock Golem,Water Golem,Wolf,Goblin","Rock Golem,Lava Golem,Water Golem,Haunted Tree",1000,100,10,none
+22,Nanos-Astali,5,FALSE,0,5,2,"Demonic Slime,Demonic Slime,Demonic Wolf","Demonic Slime,Demonic Wolf,Demonic Wolf,Demonic Goblin","Demonic Wolf,Demonic Wolf,Demonic Wolf,Demon Archer",1000,100,10,none
+23,The Demons,5,FALSE,0,5,3,"Demonic Goblin,Demonic Goblin,Demon Archer,Lava Golem","Lava Golem,Demon Archer,Demon Archer","Demonic Goblin,Demonic Goblin,Demon knight,Demon Archer",1000,100,10,none
+24,The Turning Point,5,FALSE,0,5,4,"Demonic Goblin,Demonic Goblin,Lava Golem,Demon knight","Demon knight,Demon knight,Demon Archer,Lava Golem","Demon knight,Demon knight,Demon Archer,Demon Mage",1000,100,10,none
+25,A Twin’s Bond,5,FALSE,0,5,5,"Demon knight,Demon knight,Demon Mage,Demon Mage,Demon Archer","Demon Mage,Demon Mage,Demon knight,Demon Commander",???????,1000,100,10,none

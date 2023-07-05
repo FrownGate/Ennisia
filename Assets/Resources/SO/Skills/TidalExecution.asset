@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 40
   Name: Tidal Execution
-  Description: "Deals damage scaling by the target\u2019s lost health, if the target
-    has 5% hp or lower, execute the target."
+  Description: Cleanse all debuffs
   DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
@@ -25,4 +24,4 @@ MonoBehaviour:
   IsAfter: 0
   AOE: 0
   IsMagic: 0
-  IsPassive: 0
+  IsPassive: 1
