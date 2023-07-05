@@ -14,7 +14,7 @@ public class PlayerTurn : State
         }
         
         BattleSystem.Turn += 1;
-        BattleSystem.SetSkillButtonsActive(true);
+        BattleSystem.ToggleSkills(true);
         BattleSystem.DialogueText.text = "Your turn";
         yield return new WaitForSeconds(1.0f);
     }
