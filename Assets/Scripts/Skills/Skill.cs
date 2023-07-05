@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CheatCode;
 
 public abstract class Skill
 {
@@ -10,7 +11,7 @@ public abstract class Skill
     public Button SkillButton { get; set; }
 
     public SkillSO Data { get; protected set; }
-    public float DamageModifier {  get; protected set; }
+    public float DamageModifier { get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
     public float Cooldown { get; set; }
@@ -35,7 +36,7 @@ public abstract class Skill
     public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
     public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
-    
+
     public void TakeOffStats(Entity caster)
     {
         foreach (var modifier in _modifiers) caster.Stats[modifier.Key].RemoveModifier(modifier.Value);
@@ -54,6 +55,11 @@ public abstract class Skill
 
     public void Tick()
     {
+        if (CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.CheatCode.NoCooldown))
+        {
+            Cooldown = 1;
+        }
+
         Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
         if (SkillButton != null) SkillButton.interactable = Cooldown == 0;
     }

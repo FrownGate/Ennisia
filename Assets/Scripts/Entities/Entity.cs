@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using CheatCode;
 
 public enum Attribute //TODO -> move DefIgnored alone
 {
@@ -24,7 +25,7 @@ public abstract class Entity
     public List<Effect> Effects { get; protected set; } = new();
     public bool IsSelected { get; protected set; } = false;
     public bool IsDead => CurrentHp <= 0;
-        
+
     public int AtkBar { get; set; }
     public int AtkBarFillAmount { get; set; }
     public int AtkBarPercentage { get; set; }
@@ -59,6 +60,10 @@ public abstract class Entity
 
     public void TakeDamage(float damage)
     {
+        if (this is Player && CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.CheatCode.Unkillable))
+        {
+            return;
+        }
         Debug.Log($"Damage taken : {damage}");
         if (Shield > 0)
         {
@@ -86,7 +91,7 @@ public abstract class Entity
     public virtual bool HaveBeenTargeted() { return true; }
     public virtual void ResetTargetedState() { IsSelected = false; }
     public virtual void HaveBeenSelected() { IsSelected = true; }
-    
+
     //public ModifierID AlterateStat(AttributeStat stat, Func<float, float> func, int layer = 1)
     //{
     //    return Stats[stat].AddModifier(func, layer);
