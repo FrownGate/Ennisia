@@ -257,7 +257,7 @@ public class BattleSystem : StateMachine
     {
         DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
-        ToggleSkills(false); //TODO -> destroy buttons instead
+        foreach (var skill in Player.Skills) Destroy(skill.Button);
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
