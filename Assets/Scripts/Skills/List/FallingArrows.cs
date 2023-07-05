@@ -21,6 +21,4 @@ public class FallingArrows : DamageSkill
         Cooldown = Data.MaxCooldown;
         return damage;
     }
-
-    // add 50% chance to give Crit rate and Crit Dmg buff
 }
