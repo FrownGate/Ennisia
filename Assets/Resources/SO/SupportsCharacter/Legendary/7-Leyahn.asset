@@ -18,8 +18,9 @@ MonoBehaviour:
   Race: Beast
   Job: Assassin
   Element: 4
-  PrimarySkillData: {fileID: 11400000, guid: df948ac70715d3142b42e10ada755682, type: 2}
-  SecondarySkillData: {fileID: 11400000, guid: 6ae8b1837ccb7c34ca9ba332102683eb, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: df948ac70715d3142b42e10ada755682, type: 2}
+  - {fileID: 11400000, guid: 6ae8b1837ccb7c34ca9ba332102683eb, type: 2}
   Description: Leyahn is one of the fastest people in Ennisia, and also the sneakiest.
     She can fall from the top of a roof and make no noise, and can kill someone before
     he feels the pain of her claws. Leyahn lost her family from a young age and resorted

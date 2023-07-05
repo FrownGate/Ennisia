@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using NaughtyAttributes;
+using System.Collections.Generic;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "New Support", menuName = "Ennisia/Support")]
 public class SupportCharacterSO : ScriptableObject
@@ -12,19 +14,17 @@ public class SupportCharacterSO : ScriptableObject
     public string Job;
     public Element.ElementType Element;
     //TODO -> Use array or list to store supports skills
-    [Expandable] public SkillSO PrimarySkillData;
-    [Expandable] public SkillSO SecondarySkillData;
-    [HideInInspector] public Skill PrimarySkill;
-    [HideInInspector] public Skill SecondarySkill;
+    [Expandable] public List<SkillSO> SkillsData = new();
+    [HideInInspector] public List<Skill> Skills = new();
     public string Description;
     public string Catchphrase;
     //public Sprite Icon;
 
     public void Init()
     {
-        Type type = Type.GetType(CSVUtils.GetFileName(PrimarySkillData.Name));
-        PrimarySkill = (Skill)Activator.CreateInstance(type);
-        type = Type.GetType(CSVUtils.GetFileName(SecondarySkillData.Name));
-        SecondarySkill = (Skill)Activator.CreateInstance(type);
+        foreach (var type in SkillsData.Select(skillData => Type.GetType(CSVUtils.GetFileName(skillData.Name))))
+        {
+            Skills.Add((Skill)Activator.CreateInstance(type));
+        }
     }
 }

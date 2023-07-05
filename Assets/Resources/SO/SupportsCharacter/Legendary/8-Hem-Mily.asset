@@ -18,8 +18,9 @@ MonoBehaviour:
   Race: Elf
   Job: Healer
   Element: 2
-  PrimarySkillData: {fileID: 11400000, guid: c3de2071a96923e46963c182a6223419, type: 2}
-  SecondarySkillData: {fileID: 11400000, guid: 54b8c5d2c361b7648976ee2ccde6311c, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: c3de2071a96923e46963c182a6223419, type: 2}
+  - {fileID: 11400000, guid: 54b8c5d2c361b7648976ee2ccde6311c, type: 2}
   Description: Hem and Mily are elven twins that cannot be separated. Even Though
     they are two different people, they share the same thoughts and thus consider
     themselves as one. Since their birth they have been very close to the forest

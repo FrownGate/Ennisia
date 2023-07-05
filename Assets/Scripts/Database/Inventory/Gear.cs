@@ -15,6 +15,7 @@ public class Gear : Item
     public float StatUpgrade;
     public float RatioUpgrade;
     public GearSO WeaponSO;
+    public GearSet GearSet;
 
     [Serializable]
     public class JsonSubstatsDictionary
@@ -23,7 +24,7 @@ public class Gear : Item
         public float Value;
     }
 
-    public Gear(GearType type, Rarity rarity, GearSO weapon = null)
+    public Gear(GearType type, Rarity rarity, GearSet gearSet, GearSO weapon = null)
     {
         WeaponSO = weapon;
         WeaponType = weapon ? weapon.WeaponType : null;
@@ -31,6 +32,7 @@ public class Gear : Item
         Stack = Id.ToString();
         Type = type;
         Rarity = rarity;
+        GearSet = gearSet;
         Description = "";
         Category = SetCategory();
         Attribute = SetAttribute();
@@ -42,8 +44,8 @@ public class Gear : Item
         AddToInventory();
     }
 
-    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, weapon) { }
-    public Gear(GearSO gear) : this(gear.Type, gear.Rarity, gear.Type == GearType.Weapon ? gear : null) { }
+    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity,null, weapon) { }
+    public Gear(GearSO gear) : this(gear.Type, gear.Rarity, null, gear.Type == GearType.Weapon ? gear : null) { }
 
     public Gear(InventoryItem item)
     {

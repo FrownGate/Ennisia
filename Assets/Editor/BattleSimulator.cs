@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
+using System.Linq;
 
 public class BattleSimulator : EditorWindow
 {
@@ -274,16 +275,27 @@ public class BattleSimulator : EditorWindow
             _selectedSupports.Add(supportSO ?? null);
 
             if (support != supportData) continue;
+            int textFieldIndex = 0;
 
-            supportData.TextFields[0].visible = true;
-            supportData.TextFields[0].label = supportSO.PrimarySkillData.IsPassive ? "Passive" : "Active";
-            supportData.TextFields[0].SetValueWithoutNotify(supportSO.PrimarySkillData.Name);
+            foreach (var skillData in supportSO.SkillsData)
+            {
+                var skill = supportSO.Skills.FirstOrDefault(s => s.GetType().Name == skillData.Name);
+                if (skill == null) continue;
 
-            supportData.TextFields[1].visible = supportSO.SecondarySkillData != null;
-            if (supportSO.SecondarySkillData == null) continue;
+                supportData.TextFields[textFieldIndex].visible = true;
+                supportData.TextFields[textFieldIndex].label = skillData.IsPassive ? "Passive" : "Active";
+                supportData.TextFields[textFieldIndex].SetValueWithoutNotify(skillData.Name);
 
-            supportData.TextFields[1].label = supportSO.SecondarySkillData.IsPassive ? "Passive" : "Active";
-            supportData.TextFields[1].SetValueWithoutNotify(supportSO.SecondarySkillData.Name);
+                textFieldIndex++;
+
+                if (textFieldIndex >= supportData.TextFields.Count)
+                    break;
+            }
+
+            for (int i = textFieldIndex; i < supportData.TextFields.Count; i++)
+            {
+                supportData.TextFields[i].visible = false;
+            }
         }
     }
 
@@ -325,14 +337,30 @@ public class BattleSimulator : EditorWindow
         _weaponData.IntegerFields[0].label = weapon.Attribute.ToString();
         _weaponData.IntegerFields[0].SetValueWithoutNotify((int)weapon.Value);
 
-        foreach (var field in _weaponData.TextFields) field.visible = true;
+        int textFieldIndex = 0;
+        foreach (var field in _weaponData.TextFields)
+        {
+            field.visible = true;
 
-        _weaponData.TextFields[0].label = weapon.WeaponSO.FirstSkillData.IsPassive ? "Passive" : "Active";
-        _weaponData.TextFields[1].label = weapon.WeaponSO.SecondSkillData.IsPassive ? "Passive" : "Active";
+            if (textFieldIndex >= weapon.WeaponSO.SkillsData.Count)
+                break;
 
-        _weaponData.TextFields[0].SetValueWithoutNotify(weapon.WeaponSO.FirstSkillData.Name);
-        _weaponData.TextFields[1].SetValueWithoutNotify(weapon.WeaponSO.SecondSkillData.Name);
+            var skillData = weapon.WeaponSO.SkillsData[textFieldIndex];
+            var skill = weapon.WeaponSO.Skills.FirstOrDefault(s => s.GetType().Name == skillData.Name);
+            if (skill == null) continue;
+
+            field.label = skillData.IsPassive ? "Passive" : "Active";
+            field.SetValueWithoutNotify(skillData.Name);
+
+            textFieldIndex++;
+        }
+
+        for (int i = textFieldIndex; i < _weaponData.TextFields.Count; i++)
+        {
+            _weaponData.TextFields[i].visible = false;
+        }
     }
+
 
     private void HideData(Data data)
     {

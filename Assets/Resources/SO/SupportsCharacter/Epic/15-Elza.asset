@@ -18,7 +18,8 @@ MonoBehaviour:
   Race: Elf
   Job: Mage
   Element: 1
-  PrimarySkillData: {fileID: 11400000, guid: 53dac822acd1fe244b04449627bd0d8c, type: 2}
-  SecondarySkillData: {fileID: 11400000, guid: 08fad258ec290634bb7aec1271205f95, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: 53dac822acd1fe244b04449627bd0d8c, type: 2}
+  - {fileID: 11400000, guid: 08fad258ec290634bb7aec1271205f95, type: 2}
   Description: 
   Catchphrase: 

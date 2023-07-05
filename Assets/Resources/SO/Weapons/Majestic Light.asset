@@ -20,7 +20,10 @@ MonoBehaviour:
   Attribute: 3
   StatValue: 0
   Description: none
+  Substats:
+    _serializedList: []
   WeaponType: 1
   IsMagic: 1
-  FirstSkillData: {fileID: 11400000, guid: a8c70296a3d644545a29e186e9e68450, type: 2}
-  SecondSkillData: {fileID: 11400000, guid: 2ecbab1adfe904c4682ba90029245d14, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: a8c70296a3d644545a29e186e9e68450, type: 2}
+  - {fileID: 11400000, guid: 2ecbab1adfe904c4682ba90029245d14, type: 2}

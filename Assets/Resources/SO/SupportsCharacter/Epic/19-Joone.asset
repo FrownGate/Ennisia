@@ -18,7 +18,8 @@ MonoBehaviour:
   Race: Elf
   Job: Healer
   Element: 1
-  PrimarySkillData: {fileID: 11400000, guid: e7a76c6dd8000ab498fdf043cb70c0d5, type: 2}
-  SecondarySkillData: {fileID: 11400000, guid: 099135a788791dd4584f7ecc48e675f0, type: 2}
+  SkillsData:
+  - {fileID: 11400000, guid: e7a76c6dd8000ab498fdf043cb70c0d5, type: 2}
+  - {fileID: 11400000, guid: 099135a788791dd4584f7ecc48e675f0, type: 2}
   Description: 
   Catchphrase: 
