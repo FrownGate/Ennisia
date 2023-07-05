@@ -4,12 +4,15 @@ public class InAFlash : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        _modifiers[Attribute.DefIgnored] = targets[0].Stats[Attribute.DefIgnored].AddModifier(Add50); //targets[0] or caster ?
-        float damage = Data.DamageAmount;
-        targets[0].TakeDamage(damage);
-        TakeOffStats(caster);
-        return damage;
-    }
+        foreach(Entity target in targets)
+        {
+            target.DefIgnored += 50;
+            float damage = DamageCalculation(target, caster);
+            target.DefIgnored -= 50;
+            TotalDamage += damage;
+            target.TakeDamage(damage);
 
-    float Add50(float value) => value + 50; //penDef
+        }
+        return TotalDamage;
+    }
 }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class RegeneratingPores : ProtectionSkill
+public class RegeneratingSpores : ProtectionSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {

@@ -4,9 +4,12 @@ public class Bonk : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        //damage calculation
-        int damage = 10000;
-        targets[0].TakeDamage(damage);
-        return damage;
+        foreach (var target in targets)
+        {
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+        }
+        return TotalDamage;
     }
 }

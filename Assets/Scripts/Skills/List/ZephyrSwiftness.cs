@@ -2,8 +2,6 @@ using System.Collections.Generic;
 
 public class ZephyrSwiftness : PassiveSkill
 {
-    //TODO -> Increase base speed by 20%.
-
     public override void ConstantPassive(List<Entity> targets, Entity caster, int turn)
     {
         _modifiers[Attribute.Speed] = caster.Stats[Attribute.Speed].AddModifier(SpeedModifier);

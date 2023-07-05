@@ -6,10 +6,10 @@ public class LightBomb : DamageSkill
     {
         float _totalDamage = 0;
 
-        for (int i = 0; i < targets.Count; i++)
+        foreach (Entity target in targets)
         {
-            float damage = Data.DamageAmount;
-            targets[i].TakeDamage(damage);
+            float damage = DamageCalculation(target,caster);
+            target.TakeDamage(damage);
             _totalDamage += damage;
         }
 

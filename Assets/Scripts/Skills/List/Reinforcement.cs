@@ -4,11 +4,18 @@ public class Reinforcement : PassiveSkill
 {
     private float _defBaseRatio;
     //TODO -> finish skill
-
+    float PhdefBuff;
+    float MdefBuff;
     public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
     {
         float defRatio = _defBaseRatio + StatUpgrade1 * Level;
-        float PhdefBuff = caster.Stats[Attribute.PhysicalDefense].Value * defRatio;
-        float MdefBuff = caster.Stats[Attribute.MagicalDefense].Value * defRatio;
+        PhdefBuff = caster.Stats[Attribute.PhysicalDefense].Value * defRatio;
+        MdefBuff = caster.Stats[Attribute.MagicalDefense].Value * defRatio;
+        _modifiers[Attribute.PhysicalDefense] = caster.Stats[Attribute.PhysicalDefense].AddModifier(PHDefBuff);
+        _modifiers[Attribute.MagicalDefense] = caster.Stats[Attribute.PhysicalDefense].AddModifier(MDefBuff);
     }
+
+    float PHDefBuff(float value) => value + PhdefBuff;
+
+    float MDefBuff(float value) => value + MdefBuff;
 }

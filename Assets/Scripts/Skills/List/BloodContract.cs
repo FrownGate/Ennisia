@@ -4,20 +4,17 @@ public class BloodContract : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-       float totalDamage = 0;
-
-       for (int i = 0; i < targets.Count; i++)
+        foreach (Entity target in targets)
         {
-            float damage = Data.DamageAmount;
-            targets[i].TakeDamage(damage);
-            totalDamage += damage;
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
         }
-
-        return totalDamage;
+        return TotalDamage;
     }
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        caster.CurrentHp += damage * 30 / 100;
+        caster.Heal(damage * 30 / 100);
     }
 }

@@ -6,6 +6,7 @@ public class NurturingEarthbound : ProtectionSkill
     {
         float lostHealt = caster.Stats[Attribute.HP].Value - caster.CurrentHp;
         HealingModifier = lostHealt * StatUpgrade1 * Level;
+        caster.Heal(HealingModifier);
         return 0;
     }
 }
