@@ -3149,6 +3149,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 5316718588692708741, guid: d6f9191e9d6d0794ca4ee6a61c1eb2c0, type: 3}
+      propertyPath: Scene
+      value: BattleModeSelection
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5436,6 +5440,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Raids
       objectReference: {fileID: 0}
+    - target: {fileID: 5316718588692708741, guid: d6f9191e9d6d0794ca4ee6a61c1eb2c0, type: 3}
+      propertyPath: Scene
+      value: BattleModeSelection
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6969,7 +6977,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1933850075424408567, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 53.5791
+      value: -246.4209
       objectReference: {fileID: 0}
     - target: {fileID: 5921752587371417073, guid: 233072459aa04f641a9cc31ac3e27a72, type: 3}
       propertyPath: m_AnchorMax.x
