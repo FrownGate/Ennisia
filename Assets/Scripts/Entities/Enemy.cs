@@ -18,12 +18,13 @@ public class Enemy : Entity
         Level = 1;
     }
 
-    //public override void TakeDamage(float damage)
-    //{
-    //    Debug.Log($"Damage taken : {damage}");
-    //    CurrentHp -= damage;
-    //    //IsSelected = false;
-    //}
+    public Enemy(int id, EnemySO data) : base(data.Stats)
+    {
+        Id = id;
+        Name = data.Name;
+        Description = data.Description;
+        Level = 1; //Temp
+    }
 
     public override bool HaveBeenTargeted()
     {
