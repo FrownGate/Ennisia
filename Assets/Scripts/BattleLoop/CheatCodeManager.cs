@@ -87,10 +87,12 @@ namespace CheatCode
                     {
                         ActiveCheatCodes.Add(cheatCode._cheatCode);
                         cheatCode._effect();
+                        return;
                     }
                     else
                     {
                         Debug.LogWarning("Cheat code already activated");
+                        return;
                     }
                 }
             }
@@ -134,51 +136,70 @@ namespace CheatCode
         {
             // TODO: Apply cheat effect for purify
             Debug.LogWarning("Purify activated");
+            ActiveCheatCodes.Remove(CheatCode.Purify);
+
         }
         private void ActivateSilence()
         {
             _battleInstance.Player.ApplyEffect(new Silence(2));
             Debug.LogWarning("Silence activated");
+            ActiveCheatCodes.Remove(CheatCode.SilenceEffect);
+
         }
         private void ActivateStun()
         {
             _battleInstance.Player.ApplyEffect(new Stun(2));
             Debug.LogWarning("Stun activated");
+            ActiveCheatCodes.Remove(CheatCode.StunEffect);
+
         }
         private void ActivateDemonicMark()
         {
-            _battleInstance.Player.ApplyEffect(new DemonicMark(2));
+            _battleInstance.Player.ApplyEffect(new DemonicMark(), 4);
             Debug.LogWarning("Demonic mark activated");
+            ActiveCheatCodes.Remove(CheatCode.DemonicMarkEffect);
         }
         private void ActivateSupportSilence()
         {
             _battleInstance.Player.ApplyEffect(new SupportSilence(2));
             Debug.LogWarning("Support silence activated");
+            ActiveCheatCodes.Remove(CheatCode.SupportSilenceEffect);
+
         }
         private void ActivateBreakAttackDebuff()
         {
             _battleInstance.Player.ApplyEffect(new BreakAttack(2));
             Debug.LogWarning("Break attack activated");
+            ActiveCheatCodes.Remove(CheatCode.BreakAttackDebuff);
+
         }
         private void ActivateBreakDefenseDebuff()
         {
             _battleInstance.Player.ApplyEffect(new BreakDefense(2));
             Debug.LogWarning("Break defense activated");
+            ActiveCheatCodes.Remove(CheatCode.BreakDefenseDebuff);
+
         }
         private void ActivateCritDamageBuff()
         {
             _battleInstance.Player.ApplyEffect(new CritDmgBuff(2));
             Debug.LogWarning("Crit damage buff activated");
+            ActiveCheatCodes.Remove(CheatCode.CritDamageBuff);
+
         }
         private void ActivateCritRateBuff()
         {
             _battleInstance.Player.ApplyEffect(new CritRateBuff(2));
             Debug.LogWarning("Crit rate buff activated");
+            ActiveCheatCodes.Remove(CheatCode.CritRateBuff);
+
         }
         private void ActivateAttackBuff()
         {
             _battleInstance.Player.ApplyEffect(new AttackBuff(2));
             Debug.LogWarning("Attack buff activated");
+            ActiveCheatCodes.Remove(CheatCode.AttackBuff);
+
         }
 
         private void ActivateAttackUnlimited()

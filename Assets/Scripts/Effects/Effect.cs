@@ -14,6 +14,8 @@ public class Effect
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration != AlterationState.None;
     private bool IsExpired => Duration <= 0;
+    public virtual bool IsStackable => false;
+    public virtual int Stacks { get; protected set; } = 0;
 
     public Effect(int? duration = null)
     {
@@ -46,6 +48,8 @@ public class Effect
     {
         Duration = InitialDuration;
     }
+
+    public virtual void ApplyStack(int stack) { }
 }
 
 public class AttackBuff : Effect
