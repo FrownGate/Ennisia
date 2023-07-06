@@ -122,6 +122,22 @@ public abstract class Entity
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);
     }
 
+    public void Cleanse()
+    {
+        foreach (var effect in Effects)
+        {
+            if (!effect.HasAlteration) effect.Cleanse(this);
+        }
+    }
+
+    public void Strip()
+    {
+        foreach (var effect in Effects)
+        {
+            if (effect.HasAlteration) effect.Cleanse(this);
+        }
+    }
+
     public void ResetAtb()
     {
         AtkBar = 0;
