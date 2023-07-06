@@ -13,8 +13,6 @@ public abstract class Entity
     public virtual string Description { get; set; }
     public virtual int Level { get; set; }
     public virtual Dictionary<Attribute, Stat<float>> Stats { get; private set; }
-
-    //Player Datas
     public virtual GearSO Weapon { get; set; }
 
     public int Id { get; set; }
