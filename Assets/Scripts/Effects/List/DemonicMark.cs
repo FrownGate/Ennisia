@@ -19,5 +19,5 @@ public class DemonicMark : Effect
         }
     }
 
-    protected float GetMultiplier() { return 1.0f + (_damageIncreasePercentage * Stacks); }
+    public override float GetMultiplier() { return 1.0f + (_damageIncreasePercentage * Stacks); }
 }

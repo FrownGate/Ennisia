@@ -25,6 +25,7 @@ public class Effect
     }
 
     public virtual void AlterationEffect(Entity target) { }
+    public virtual float GetMultiplier() { return 1.0f; }
 
     public void AddEffectModifiers(Entity target)
     {
