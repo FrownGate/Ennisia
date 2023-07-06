@@ -53,8 +53,6 @@ public class AutoBattle : State
         bool CanBuff = false;
         bool Low = false;
 
-
-
         foreach (Skill skill in BattleSystem.Player.Skills)
         {
             if (skill.GetType() == typeof(ProtectionSkill) && skill.Cooldown == 0)
@@ -71,7 +69,7 @@ public class AutoBattle : State
                 break;
             }
         }
-        return 
+        return 0; //Temp
     }
     private int FindLowestEnemy()
     {
