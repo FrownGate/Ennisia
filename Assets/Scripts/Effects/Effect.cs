@@ -37,11 +37,8 @@ public class Effect
     public void Tick(Entity target)
     {
         Duration--;
-
         if (!IsExpired) return;
-
-        foreach (var modifier in Modifiers) target.Stats[modifier.Key].RemoveModifier(modifier.Value);
-        target.Effects.Remove(this);
+        Cleanse(target);
     }
 
     public void ResetDuration()
@@ -50,6 +47,11 @@ public class Effect
     }
 
     public virtual void ApplyStack(int stack) { }
+    public void Cleanse(Entity target)
+    {
+        foreach (var modifier in Modifiers) target.Stats[modifier.Key].RemoveModifier(modifier.Value);
+        target.Effects.Remove(this);
+    }
 }
 
 public class AttackBuff : Effect

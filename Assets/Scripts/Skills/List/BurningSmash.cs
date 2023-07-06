@@ -13,7 +13,7 @@ public class BurningSmash : DamageSkill
 
         if (_percentChance >= randomNumber)
         {
-            //add defense break
+            targets[0].ApplyEffect(new BreakDefense());
         }
 
         Cooldown = Data.MaxCooldown;

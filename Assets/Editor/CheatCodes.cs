@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
-using CheatCode;
 
 public class CheatCodeWindow : EditorWindow
 {

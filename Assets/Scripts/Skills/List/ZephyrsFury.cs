@@ -2,5 +2,9 @@ using System.Collections.Generic;
 
 public class ZephyrsFury : BuffSkill
 {
-    //TODO -> Gives a Crit Damage Buff for 3 turns.
+    public override float Use(List<Entity> targets, Entity caster, int turn)
+    {
+        caster.ApplyEffect(new CritDmgBuff());
+        return 0;
+    }
 }

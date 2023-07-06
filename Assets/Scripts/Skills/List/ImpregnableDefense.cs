@@ -14,7 +14,6 @@ public class ImpregnableDefense : PassiveSkill
         if (_percentage < 20)
         {
             _percentage += 5;
-            TakeOffStats(caster);
             _modifiers[Attribute.PhysicalDefense] = caster.Stats[Attribute.PhysicalDefense].AddModifier(AddPercentToDef);
             _modifiers[Attribute.MagicalDefense] = caster.Stats[Attribute.MagicalDefense].AddModifier(AddPercentToDef);
         }

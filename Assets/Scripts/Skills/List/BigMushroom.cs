@@ -22,8 +22,6 @@ public class BigMushroom : PassiveSkill
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        float heal = damage;
-
-        // add heal function
+        caster.Heal(damage);
     }
 }

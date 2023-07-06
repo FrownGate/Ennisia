@@ -225,7 +225,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["skillName"];
         scriptableObject.Description = rowData["description"].Replace("\"", string.Empty);
-        scriptableObject.DamageAmount = float.Parse(rowData["damageAmount"]);
+        scriptableObject.DamageRatio = float.Parse(rowData["damageAmount"]);
         scriptableObject.ShieldAmount = float.Parse(rowData["shieldAmount"]);
         scriptableObject.HealingAmount = float.Parse(rowData["healingAmount"]);
         scriptableObject.IgnoreDef = float.Parse(rowData["penDef"]);

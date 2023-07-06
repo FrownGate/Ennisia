@@ -13,7 +13,7 @@ public class FlawlessTechnique : PassiveSkill
     {
         if (targets[0].IsDead)
         {
-            //give attack buff
+            caster.ApplyEffect(new AttackBuff());
         }
     }
 }

@@ -2,8 +2,15 @@ using System.Collections.Generic;
 
 public class DemonKnight : PassiveSkill
 {
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        // if target has demonic mark, add 2 more for 1 turn
+        foreach (Effect effect in targets[0].Effects)
+        {
+            if (effect.GetType() == typeof(DemonicMark))
+            {
+                targets[0].ApplyEffect(new DemonicMark());
+                targets[0].ApplyEffect(new DemonicMark());
+            }
+        }
     }
 }

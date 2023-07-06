@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-public class DemonicArrow : DamageSkill
+public class DemonicArrow : BuffSkill
 {
     private int _percentChance = 40;
 
@@ -11,7 +11,7 @@ public class DemonicArrow : DamageSkill
 
         if (_percentChance >= randomNumber)
         {
-            //add defense debuff
+            caster.ApplyEffect(new DefenseBuff());
         }
 
         Cooldown = Data.MaxCooldown;

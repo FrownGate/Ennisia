@@ -333,6 +333,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExpeditionSelection
       objectReference: {fileID: 0}
+    - target: {fileID: 5872148974560727644, guid: 53b93e9be37dffd4cb1deda08f3391d9, type: 3}
+      propertyPath: Scene
+      value: ExpeditionSelection
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1347,6 +1351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExpeditionSelection
       objectReference: {fileID: 0}
+    - target: {fileID: 5872148974560727644, guid: 53b93e9be37dffd4cb1deda08f3391d9, type: 3}
+      propertyPath: Scene
+      value: ExpeditionSelection
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2152,7 +2160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1055058223
 MonoBehaviour:
   m_ObjectHideFlags: 0
