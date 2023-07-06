@@ -17,8 +17,8 @@ public abstract class Entity
 
     //Player Datas
     public virtual GearSO Weapon { get; set; }
-    public SupportCharacterSO[] EquippedSupports { get; protected set; }
-    public Dictionary<GearType, Gear> EquippedGears { get; protected set; }
+    public virtual SupportCharacterSO[] EquippedSupports { get; protected set; }
+    public virtual Dictionary<GearType, Gear> EquippedGears { get; protected set; }
 
     public int Id { get; set; }
 
