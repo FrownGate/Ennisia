@@ -142,9 +142,10 @@ namespace CheatCodeNS
         }
         private void ActivatePurify()
         {
-            // TODO: Apply cheat effect for purify
+            _battleInstance.Player.Cleanse();
             Debug.LogWarning("Purify activated");
             ActiveCheatCodes.Remove(CheatCode.Purify);
+            Debug.Log(_battleInstance.Player.Effects.Count);
 
         }
         private void ActivateSilence()
