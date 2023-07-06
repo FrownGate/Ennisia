@@ -1,13 +1,8 @@
 using AYellowpaper.SerializedCollections;
-using NaughtyAttributes;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewGear", menuName = "Ennisia/Gear")]
-public class GearSO : ScriptableObject
+public class GearSO : SkillsToInitSO
 {
     public int Id;
     public string Name;
@@ -23,16 +18,6 @@ public class GearSO : ScriptableObject
     //Weapons
     public WeaponType WeaponType;
     public bool IsMagic;
-    [Expandable] public List<SkillSO> SkillsData = new();
-    [HideInInspector] public List<Skill> Skills = new();
-
-    public void Init()
-    {
-        foreach (var type in SkillsData.Select(skillData => System.Type.GetType(CSVUtils.GetFileName(skillData.Name))))
-        {
-            Skills.Add((Skill)Activator.CreateInstance(type));
-        }
-    }
 
     public void Unequip()
     {

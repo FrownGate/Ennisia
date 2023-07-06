@@ -448,6 +448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 5872148974560727644, guid: 53b93e9be37dffd4cb1deda08f3391d9, type: 3}
+      propertyPath: Scene
+      value: BattleModeSelection
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -556,6 +560,10 @@ PrefabInstance:
     - target: {fileID: 5257932854862073106, guid: 53b93e9be37dffd4cb1deda08f3391d9, type: 3}
       propertyPath: m_Name
       value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872148974560727644, guid: 53b93e9be37dffd4cb1deda08f3391d9, type: 3}
+      propertyPath: Scene
+      value: BattleModeSelection
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1518,7 +1526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonPrefab: {fileID: 6860178603005871221, guid: ff0f5f4952e2c4a4aaf53a4de4e2f0c3, type: 3}
-  paddingPercentage: 0.03
+  PaddingPercentage: 0.03
 --- !u!114 &1296080154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1848,7 +1856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonPrefab: {fileID: 6956351677086001608, guid: ff0f5f4952e2c4a4aaf53a4de4e2f0c3, type: 3}
-  paddingPercentage: 0.03
+  PaddingPercentage: 0.03
 --- !u!114 &1510437753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2434,7 +2442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00027633546}
+  m_AnchoredPosition: {x: 0, y: 0.00020676189}
   m_SizeDelta: {x: 652, y: 917}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1869527197
@@ -2638,7 +2646,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1061218956}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9994549
+  m_Size: 0.99997085
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

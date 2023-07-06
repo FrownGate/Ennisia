@@ -19,6 +19,20 @@ MonoBehaviour:
   _quickAccessItems: []
   _projectFolderIcons: []
   _sceneHistory:
+  - name: Forge
+    path: Assets/Scenes/Forge.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
+  - name: Loading_Big
+    path: Assets/Scenes/Loading_Big.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: Battle
+    path: Assets/Scenes/Battle.unity
+  - name: BattleModeSelection
+    path: Assets/Scenes/Missions/BattleModeSelection.unity
+  - name: StoryChapter
+    path: Assets/Scenes/Missions/StoryChapter.unity
   - name: SettingsPopup
     path: Assets/Scenes/SettingsPopup.unity
   - name: GuildCommunity
@@ -39,8 +53,6 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/GearSelectionPopup.unity
   - name: SupportSelectionPopup
     path: Assets/Scenes/Inventory/SupportSelectionPopup.unity
-  - name: BattleModeSelection
-    path: Assets/Scenes/Missions/BattleModeSelection.unity
   - name: MainMenu
     path: Assets/Scenes/MainMenu.unity
   _notes: []

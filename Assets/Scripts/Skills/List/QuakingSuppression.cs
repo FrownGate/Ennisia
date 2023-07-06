@@ -9,12 +9,16 @@ public class QuakingSuppression : DamageSkill
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         float stunLuck = Random.Range(0, 1);
-
-        if (stunLuck > _stunPerc)
+        foreach (Entity target in targets)
         {
-            //TODO -> Stun 
+            if (stunLuck > _stunPerc)
+            {
+
+                target.ApplyEffect(new Stun());
+            }
+            target.ApplyEffect(new Silence());
         }
-        // Silence
+
 
         return 0;
     }

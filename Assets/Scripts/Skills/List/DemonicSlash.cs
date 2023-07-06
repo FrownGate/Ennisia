@@ -8,13 +8,13 @@ public class DemonicSlash : DamageSkill
 
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = 0; // add damage amount and is magic dmage
+        float damage = DamageCalculation(targets[0], caster);
         targets[0].TakeDamage(damage);
         _randomNumber = new Random().Next(1, 100);
 
         if (_percentChance >= _randomNumber)
         {
-            //add demonic mark
+            targets[0].ApplyEffect(new DemonicMark());
         }
 
         Cooldown = Data.MaxCooldown;

@@ -3,19 +3,24 @@ using UnityEngine;
 
 public class CripplingBlow : DamageSkill
 {
-    // TO DO -> add defense debuff for x turns
+    //support skill
 
+    // TO DO -> add defense debuff for x turns
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        DamageModifier = (50 / 100 * caster.Stats[Attribute.PhysicalDamages].Value) * StatUpgrade1 * Level;
-
-        float debuffLuck = Random.Range(0, 1);
-
-        if (debuffLuck <= 0.8)
+        //this ratio will be added with the Data.DamageRatio in the damage calculation
+        RatioModifier = (StatUpgrade1 * Level * caster.Stats[Attribute.Attack].Value * caster.Stats[Attribute.PhysicalDamages].Value);
+        foreach (var target in targets)
         {
-            //debuff defense by 70%SSS
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+            int debuffLuck = Random.Range(0, 100);
+            if (debuffLuck <= 80)
+            {
+                target.ApplyEffect(new BreakDefense());
+            }
         }
-
-        return 0;
+        return TotalDamage;
     }
 }

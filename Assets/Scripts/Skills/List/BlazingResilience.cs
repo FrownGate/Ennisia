@@ -13,13 +13,13 @@ public class BlazingResilience : PassiveSkill
         switch (randomBuff)
         {
             case 0:
-                //give Buff att
+                caster.ApplyEffect(new AttackBuff());
                 break;
             case 1:
-                //give Buff Crit Rate
+                caster.ApplyEffect(new CritRateBuff());
                 break;
             case 2:
-                //give Buff Crit Damage
+                caster.ApplyEffect(new CritDmgBuff());
                 break;
             default:
                 break;
