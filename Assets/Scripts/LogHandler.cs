@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LogHandler : MonoBehaviour
+public class LogHandler : MonoBehaviour, IPointerClickHandler
 {
     public static LogHandler Instance { get; private set; }
 
+    [SerializeField] Canvas _canvas;
     [SerializeField] private TextMeshProUGUI _promptText;
-    [SerializeField] private ScrollRect _scrollView;
-    [SerializeField] private int _maxLogMessages = 22;
-    [SerializeField] private Canvas _canvas;
 
-    private readonly Queue<string> _logMessagesQueue = new();
-    private bool _isMessageBoxVisible = true;
+    public CanvasGroup MessageBoxCanvasGroup;
+    
+    //private bool _isMessageBoxVisible = true;
 
     private void Awake()
     {
@@ -26,10 +27,7 @@ public class LogHandler : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        //Debug.unityLogger.logHandler = this;
         Application.logMessageReceived += LogMessageReceived;
-        _canvas.worldCamera = Camera.main;
     }
 
     private void OnDestroy()
@@ -41,29 +39,57 @@ public class LogHandler : MonoBehaviour
     {
         InputSpaceToHideMessageBox();
     }
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        ToggleMessageBox();
+    }
+    
 
     private void LogMessageReceived(string logString, string stackTrace, LogType type)
     {
-        EnqueueMessage($"\n [{type}] {logString}");
+        switch (type)
+        {
+            case LogType.Error:
+                EnqueueMessage($"\n <color=red>[{type}] {logString}</color>");
+                break;
+            case LogType.Exception:
+            case LogType.Assert:
+                EnqueueMessage($"\n <color=red>[{type}] {logString}</color>");
+                break;
+            case LogType.Warning:
+                EnqueueMessage($"\n <color=#ff8a00>[{type}] {logString}</color>");
+                break;
+            case LogType.Log:
+                EnqueueMessage($"\n <color=black>[{type}] {logString}</color>");
+                break;
+        }
     }
 
     private void EnqueueMessage(string message)
     {
-        if (_logMessagesQueue.Count >= _maxLogMessages)
-        {
-            _logMessagesQueue.Dequeue();
-        }
-        _logMessagesQueue.Enqueue(message);
-        _promptText.text = string.Join("", _logMessagesQueue.ToArray());
+        _promptText.text += message;
     }
 
     private void InputSpaceToHideMessageBox()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _isMessageBoxVisible = !_isMessageBoxVisible;
-            _promptText.gameObject.SetActive(_isMessageBoxVisible);
-            _scrollView.gameObject.SetActive(_isMessageBoxVisible);
+            ToggleMessageBox();
         }
+    }
+    
+    public void ToggleMessageBox()
+    {
+        if (MessageBoxCanvasGroup.alpha == 1.0f)
+        {
+            MessageBoxCanvasGroup.alpha = 0.5f; 
+        }
+        else
+        {
+            MessageBoxCanvasGroup.alpha = 1.0f; 
+        }
+        /*_isMessageBoxVisible = !_isMessageBoxVisible;
+        _canvas.gameObject.SetActive(_isMessageBoxVisible);*/
     }
 }

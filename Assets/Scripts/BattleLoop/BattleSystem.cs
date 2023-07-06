@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using CheatCodeNS;
 
 public class BattleSystem : StateMachine
 {
@@ -11,6 +12,7 @@ public class BattleSystem : StateMachine
     public static event Action<string> OnEnemyKilled;
 
     //UI Prefabs
+    [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
     [SerializeField] private GameObject _firstSupport;
@@ -40,14 +42,14 @@ public class BattleSystem : StateMachine
         OnBattleLoaded?.Invoke(this);
         _canvas = GetComponentInParent<Canvas>();
         EntityHUD.OnEntitySelected += SelectEntity;
-        SkillHUD.OnSkillSelected += SelectSkill;
+        HUD.OnSkillSelected += SelectSkill;
         InitBattle();
     }
 
     private void OnDestroy()
     {
         EntityHUD.OnEntitySelected -= SelectEntity;
-        SkillHUD.OnSkillSelected -= SelectSkill;
+        HUD.OnSkillSelected -= SelectSkill;
     }
 
     //Init all battle elements -> used on restart button
@@ -62,6 +64,7 @@ public class BattleSystem : StateMachine
         Turn = 0;
 
         InitPlayer();
+        InitSupports();
         InitEnemies();
 
         AttackBarSystem = new AtkBarSystem(Player, Enemies);
@@ -90,6 +93,33 @@ public class BattleSystem : StateMachine
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
             position += 160;
+        }
+    }
+
+    private void InitSupports()
+    {
+        int position = 0;
+
+        foreach (var support in Player.EquippedSupports)
+        {
+            if (support == null)
+            {
+                //TODO -> blank icon
+                position += 100;
+                continue;
+            }
+
+            support.Init();
+            SupportHUD hud = Instantiate(_supportSlot, _canvas.transform).GetComponent<SupportHUD>();
+            hud.Init(support.Skills, position);
+            support.Button = hud;
+
+            foreach (var skill in support.Skills)
+            {
+                skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
+            }
+
+            position += 100;
         }
     }
 
@@ -145,25 +175,13 @@ public class BattleSystem : StateMachine
         {
             skill.Button.ToggleHUD(active);
         }
+
+        foreach (var support in Player.EquippedSupports)
+        {
+            if (support == null) continue;
+            support.Button.ToggleHUD(active);
+        }
     }
-
-    //public void OnAttackButton()
-    //{
-    //    SetState(new SelectSpell(this, 0));
-    //    OnClickSFX?.Invoke(1);
-    //}
-
-    //public void OnFirstSkillButton()
-    //{
-    //    SetState(new SelectSpell(this, 1));
-    //    OnClickSFX?.Invoke(2);
-    //}
-
-    //public void OnSecondSkillButton()
-    //{
-    //    SetState(new SelectSpell(this, 2));
-    //    OnClickSFX?.Invoke(3);
-    //}
 
     private void SelectEntity(Entity entity)
     {

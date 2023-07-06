@@ -13,8 +13,8 @@ public class Player : Entity
     public override Dictionary<Attribute, Stat<float>> Stats => HasData ? Data.Stats : DefaultStats();
     public int Exp => HasData ? Data.Exp : 0;
 
-    public SupportCharacterSO[] EquippedSupports => HasData ? Data.EquippedSupports : new SupportCharacterSO[2] { null, null };
-    public Dictionary<GearType, Gear> EquippedGears => HasData ? Data.EquippedGears : DefaultGears();
+    public override SupportCharacterSO[] EquippedSupports => HasData ? Data.EquippedSupports : new SupportCharacterSO[2] { null, null };
+    public override Dictionary<GearType, Gear> EquippedGears => HasData ? Data.EquippedGears : DefaultGears();
 
     public override GearSO Weapon => Data != null && EquippedGears[GearType.Weapon] != null
         ? EquippedGears[GearType.Weapon].WeaponSO

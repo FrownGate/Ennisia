@@ -4,6 +4,9 @@ public class Silence : Effect
 
     public override void AlterationEffect(Entity target)
     {
-        //
+        for (int i = 1; i < target.Skills.Count; i++)
+        {
+            target.Skills[i].Button.ToggleUse(false);
+        }
     }
 }

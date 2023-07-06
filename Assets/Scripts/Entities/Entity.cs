@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using CheatCodeNS;
 
 public enum Attribute //TODO -> move DefIgnored alone
 {
@@ -16,6 +18,8 @@ public abstract class Entity
 
     //Player Datas
     public virtual GearSO Weapon { get; set; }
+    public virtual SupportCharacterSO[] EquippedSupports { get; protected set; }
+    public virtual Dictionary<GearType, Gear> EquippedGears { get; protected set; }
 
     public int Id { get; set; }
 
@@ -108,17 +112,21 @@ public abstract class Entity
     //    return Stats[stat].AddModifier(func, layer);
     //}
 
-    public void ApplyEffect(Effect effect)
+    public void ApplyEffect(Effect effect, int stacks = 1)
     {
         Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
 
         if (existingEffect != null)
         {
+            if (existingEffect.IsStackable)
+            {
+                existingEffect.ApplyStack(stacks);
+            }
             existingEffect.ResetDuration();
             return;
         }
-
         Effects.Add(effect);
+        if (effect.IsStackable) effect.ApplyStack(stacks);
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);
     }
 
