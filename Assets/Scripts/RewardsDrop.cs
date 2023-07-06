@@ -26,7 +26,10 @@ public class RewardsDrop : MonoBehaviour
         switch (missionSO.Type)
         {
             case MissionManager.MissionType.Dungeon:
-                DropMaterial(missionSO.MaterialsRewards, _matAmount[missionSO.MaterialsRewards.Key]);
+                foreach (var matReward in missionSO.MaterialsRewards)
+                {
+                    DropMaterial(missionSO.MaterialsRewards, _matAmount[matReward.Key]);
+                }
                 break;
             case MissionManager.MissionType.Raid:
                 for (int i = 0; i < missionSO.GearReward.Count; i++)
@@ -35,8 +38,14 @@ public class RewardsDrop : MonoBehaviour
                 }
                 break;
             case MissionManager.MissionType.EndlessTower:
-
-                DropMaterial(missionSO.MaterialsRewards, _matAmount[missionSO.MaterialsRewards.Key]);
+                foreach (var matReward in missionSO.MaterialsRewards)
+                {
+                    DropMaterial(missionSO.MaterialsRewards, _matAmount[matReward.Key]);
+                }
+                foreach (var ticket in missionSO.Tickets)
+                {
+                    DropTicket(ticket);
+                }
                 break;
 
 
@@ -73,6 +82,14 @@ public class RewardsDrop : MonoBehaviour
             PlayFabManager.Instance.AddInventoryItem(material);
         }
     }
+
+    private void DropTicket(KeyValuePair<Rarity, int> ticket)
+    {
+        SummonTicket summonTicket = new SummonTicket(ticket.Key, ticket.Value);
+        PlayFabManager.Instance.AddInventoryItem(summonTicket);
+
+    }
+
     private void DropEnergy(int amount)
     {
         PlayFabManager.Instance.AddEnergy(amount);
