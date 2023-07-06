@@ -5,26 +5,31 @@ using UnityEngine;
 [Serializable]
 public class PlayerData
 {
+    public string Name;
     public int Level;
     public int Exp;
-    public string Name;
     public int[] EquippedGearsId;
     public string[] EquippedSupportsPath;
     [NonSerialized] public SupportCharacterSO[] EquippedSupports;
-    [NonSerialized] public Dictionary<GearType, Gear> EquippedGears;
+    [NonSerialized] public readonly Dictionary<GearType, Gear> EquippedGears = new();
+    [NonSerialized] public readonly Dictionary<Attribute, Stat<float>> Stats = new(); //Serialize ?
 
     public PlayerData()
     {
         Level = 1;
         Exp = 0;
         EquippedGearsId = new int[7];
-        EquippedGears = new();
         EquippedSupportsPath = new string[2] { null, null };
         EquippedSupports = new SupportCharacterSO[2] { null, null };
 
         foreach (var item in Enum.GetNames(typeof(GearType)))
         {
             EquippedGears[Enum.Parse<GearType>(item)] = null;
+        }
+
+        foreach (string stat in Enum.GetNames(typeof(Attribute)))
+        {
+            Stats[Enum.Parse<Attribute>(stat)] = new(1);
         }
     }
 
