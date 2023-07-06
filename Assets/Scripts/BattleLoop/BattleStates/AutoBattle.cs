@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -22,7 +23,8 @@ public class AutoBattle : State
     {
         if (!BattleSystem.Player.IsDead && BattleSystem.Player.Skills.Any())
         {
-            int selectedSkillIndex = Random.Range(0, BattleSystem.Player.Skills.Count);
+
+            int selectedSkillIndex = FindBestSkill();
             BattleSystem.SetState(new SelectSpell(BattleSystem, selectedSkillIndex));
             //copy paste spell selecyion
             if (BattleSystem.Enemies.Any())
@@ -43,6 +45,33 @@ public class AutoBattle : State
         {
             Debug.LogWarning("AI has no skills or allies to select.");
         }
+    }
+
+    private int FindBestSkill()
+    {
+        bool CanProtect = false;
+        bool CanBuff = false;
+        bool Low = false;
+
+
+
+        foreach (Skill skill in BattleSystem.Player.Skills)
+        {
+            if (skill.GetType() == typeof(ProtectionSkill) && skill.Cooldown == 0)
+            {
+                CanProtect = true;
+                break;
+            }
+        }
+        foreach (Skill skill in BattleSystem.Player.Skills)
+        {
+            if (skill.GetType() == typeof(BuffSkill) && skill.Cooldown == 0)
+            {
+                CanBuff = true;
+                break;
+            }
+        }
+        return 
     }
     private int FindLowestEnemy()
     {
