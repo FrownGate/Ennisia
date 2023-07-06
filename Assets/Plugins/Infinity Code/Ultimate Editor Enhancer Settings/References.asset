@@ -19,6 +19,8 @@ MonoBehaviour:
   _quickAccessItems: []
   _projectFolderIcons: []
   _sceneHistory:
+  - name: Chat
+    path: Assets/Scenes/Dev/Alexis/Chat.unity
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
   - name: Battle
