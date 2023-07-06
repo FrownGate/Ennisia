@@ -22,6 +22,8 @@ public class MissionSO : ScriptableObject
     [SerializedDictionary("Currency", "Value")]
     public SerializedDictionary<Currency, int> CurrencyRewards = new();
     public List<Rarity> GearReward;
+    public SerializedDictionary<ItemCategory, Rarity> MaterialsRewards = new();
+    public SerializedDictionary<ItemCategory, int> MatAmount;
     public int Experience; 
     // Add additional mission data as needed
 }
