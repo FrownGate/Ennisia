@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using CheatCodeNS;
 
 public class BattleSystem : StateMachine
 {

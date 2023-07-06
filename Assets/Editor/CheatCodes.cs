@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
-
+using CheatCodeNS;
 public class CheatCodeWindow : EditorWindow
 {
     private static BattleSystem _battleSystem;

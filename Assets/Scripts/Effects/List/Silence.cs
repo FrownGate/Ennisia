@@ -4,15 +4,9 @@ public class Silence : Effect
 
     public override void AlterationEffect(Entity target)
     {
-        if (target is Player player)
+        for (int i = 1; i < target.Skills.Count; i++)
         {
-            player.Weapon.Skills[0].SkillButton.interactable = false;
-            player.Weapon.Skills[1].SkillButton.interactable = false;
-        }
-        else if (target is Enemy enemy)
-        {
-            enemy.Skills[1].SkillButton.interactable = false;
-            enemy.Skills[2].SkillButton.interactable = false;
+            target.Skills[i].Button.ToggleUse(false);
         }
     }
 }
