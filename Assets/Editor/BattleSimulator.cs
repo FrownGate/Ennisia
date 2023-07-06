@@ -307,13 +307,13 @@ public class BattleSimulator : EditorWindow
         ChangeStatField(gearData.IntegerFields[0], gear.Attribute.ToString(), (int)gear.Value);
         int index = 1;
 
-        foreach (var substat in gear.Substats)
+        foreach (var substat in gear.SubStats)
         {
             ChangeStatField(gearData.IntegerFields[index], substat.Key.ToString(), (int)substat.Value);
             index++;
         }
 
-        if (gear.Substats.Count == gearData.IntegerFields.Count) return;
+        if (gear.SubStats.Count == gearData.IntegerFields.Count) return;
 
         for (int i = index; i < gearData.IntegerFields.Count; i++)
         {
