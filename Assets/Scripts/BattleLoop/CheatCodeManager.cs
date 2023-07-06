@@ -27,6 +27,9 @@ namespace CheatCodeNS
         Unkillable,
         NoCooldown,
         FullLife,
+        Life25,
+        Life50,
+        Life75,
         Purify,
         SilenceEffect,
         StunEffect,
@@ -58,6 +61,9 @@ namespace CheatCodeNS
                 new CheatCodeData("unkillable","PowerOverwhelming", ActivateUnkillable, RemoveUnkillable, CheatCode.Unkillable),
                 new CheatCodeData("nocd","IAmIronMan", ActiveNoCooldown, RemoveNoCooldown, CheatCode.NoCooldown),
                 new CheatCodeData("fulllife","thereisnocowlevel", ActivateFullLife, null, CheatCode.FullLife),
+                new CheatCodeData("life25","life25", ActivateLife25, null, CheatCode.Life25),
+                new CheatCodeData("life50","life50", ActivateLife50, null, CheatCode.Life50),
+                new CheatCodeData("life75","life75", ActivateLife75, null, CheatCode.Life75),
                 new CheatCodeData("purify","", ActivatePurify, null, CheatCode.Purify),
                 new CheatCodeData("silence","StayAwhileAndListen", ActivateSilence, null, CheatCode.SilenceEffect),
                 new CheatCodeData("stun","stun", ActivateStun, null, CheatCode.StunEffect),
@@ -138,6 +144,26 @@ namespace CheatCodeNS
             _battleInstance.Player.CurrentHp = _battleInstance.Player.Stats[Attribute.HP].Value;
             Debug.LogWarning("Full life activated");
             ActiveCheatCodes.Remove(CheatCode.FullLife);
+
+        }
+        private void ActivateLife25()
+        {
+            _battleInstance.Player.CurrentHp = _battleInstance.Player.Stats[Attribute.HP].Value * 25 / 100;
+            Debug.LogWarning("Life 25% activated");
+            ActiveCheatCodes.Remove(CheatCode.Life25);
+        }
+        private void ActivateLife50()
+        {
+            _battleInstance.Player.CurrentHp = _battleInstance.Player.Stats[Attribute.HP].Value * 50 / 100;
+            Debug.LogWarning("Life 50% activated");
+            ActiveCheatCodes.Remove(CheatCode.Life50);
+
+        }
+        private void ActivateLife75()
+        {
+            _battleInstance.Player.CurrentHp = _battleInstance.Player.Stats[Attribute.HP].Value * 75 / 100;
+            Debug.LogWarning("Life 75% activated");
+            ActiveCheatCodes.Remove(CheatCode.Life75);
 
         }
         private void ActivatePurify()
