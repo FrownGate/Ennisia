@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public enum Attribute //TODO -> move DefIgnored alone
@@ -13,7 +14,11 @@ public abstract class Entity
     public virtual string Description { get; set; }
     public virtual int Level { get; set; }
     public virtual Dictionary<Attribute, Stat<float>> Stats { get; private set; }
+
+    //Player Datas
     public virtual GearSO Weapon { get; set; }
+    public SupportCharacterSO[] EquippedSupports { get; protected set; }
+    public Dictionary<GearType, Gear> EquippedGears { get; protected set; }
 
     public int Id { get; set; }
 

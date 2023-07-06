@@ -62,6 +62,7 @@ public class BattleSystem : StateMachine
         Turn = 0;
 
         InitPlayer();
+        InitSupports();
         InitEnemies();
 
         AttackBarSystem = new AtkBarSystem(Player, Enemies);
@@ -90,6 +91,19 @@ public class BattleSystem : StateMachine
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
             position += 160;
+        }
+    }
+
+    private void InitSupports()
+    {
+        foreach (var support in Player.EquippedSupports)
+        {
+            //SkillHUD hud = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
+            //hud.Init()
+            foreach (var skill in support.Skills)
+            {
+                skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
+            }
         }
     }
 
