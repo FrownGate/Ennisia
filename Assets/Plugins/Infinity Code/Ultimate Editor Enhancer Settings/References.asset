@@ -19,6 +19,8 @@ MonoBehaviour:
   _quickAccessItems: []
   _projectFolderIcons: []
   _sceneHistory:
+  - name: A.Mirror
+    path: Assets/Scenes/Dev/Alexis/A.Mirror.unity
   - name: Forge
     path: Assets/Scenes/Forge.unity
   - name: Loading_Mini
