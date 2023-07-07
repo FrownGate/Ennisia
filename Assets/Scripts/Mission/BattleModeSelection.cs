@@ -47,7 +47,12 @@ public class BattleModeSelection : MonoBehaviour
 #endif
             var sceneButton = buttons[buttonIndex].GetComponentInChildren<SceneButton>();
 
-            sceneButton.Scene = buttons[buttonIndex].name;
+            sceneButton.Scene = missionType switch
+            {
+                MissionType.Raid or MissionType.Dungeon => "Raid",
+                _ => missionType.ToString(),
+            };
+            sceneButton.SetParam(missionType.ToString());
             buttonIndex++;
         }
     }
