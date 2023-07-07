@@ -3,24 +3,18 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
-using CheatCodeNS;
 
 public class BattleSystem : StateMachine
 {
     public static event Action<BattleSystem> OnBattleLoaded;
-    public static event Action OnBattleEnded;
+    public static event Action OnWaveCompleted;
+    public static event Action OnBattleCompleted;
     public static event Action<string> OnEnemyKilled;
 
-    //UI Prefabs
+    //UI
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
-    [SerializeField] private GameObject _firstSupport;
-    [SerializeField] private GameObject _secondSupport;
-    //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
-    //TODO -> Add Supports Skills
-
-    //UI
     public TextMeshProUGUI DialogueText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
@@ -43,6 +37,8 @@ public class BattleSystem : StateMachine
         _canvas = GetComponentInParent<Canvas>();
         EntityHUD.OnEntitySelected += SelectEntity;
         HUD.OnSkillSelected += SelectSkill;
+        MissionManager.OnNextWave += InitBattle;
+        MissionManager.OnMissionComplete += EndBattle;
         InitBattle();
     }
 
@@ -50,11 +46,14 @@ public class BattleSystem : StateMachine
     {
         EntityHUD.OnEntitySelected -= SelectEntity;
         HUD.OnSkillSelected -= SelectSkill;
+        MissionManager.OnNextWave -= InitBattle;
+        MissionManager.OnMissionComplete -= EndBattle;
     }
 
-    //Init all battle elements -> used on restart button
     public void InitBattle()
     {
+        //TODO -> set background
+        //TODO -> show turn n° ?
         Targets = new();
 
         LostPopUp.SetActive(false);
@@ -92,39 +91,35 @@ public class BattleSystem : StateMachine
             skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
-            position += 160;
+            position += 160; //TODO -> dynamic position
         }
     }
 
     private void InitSupports()
     {
-        int position = 0;
+        int position = 100;
 
         foreach (var support in Player.EquippedSupports)
         {
-            if (support == null)
-            {
-                //TODO -> blank icon
-                position += 100;
-                continue;
-            }
-
-            support.Init();
             SupportHUD hud = Instantiate(_supportSlot, _canvas.transform).GetComponent<SupportHUD>();
-            hud.Init(support.Skills, position);
+
+            if (support != null) support.Init();
+            hud.Init(support == null ? null : support.Skills, position);
+            position -= 190; //TODO -> dynamic position
+
+            if (support == null) continue;
             support.Button = hud;
 
             foreach (var skill in support.Skills)
             {
                 skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             }
-
-            position += 100;
         }
     }
 
     private void InitEnemies()
     {
+        //TODO -> show enemies id
         MissionSO mission = MissionManager.Instance.CurrentMission;
         int wave = MissionManager.Instance.CurrentWave;
 
@@ -157,7 +152,7 @@ public class BattleSystem : StateMachine
 
             if (id > 2) x += 250;
 
-            enemy.HUD.transform.localPosition = new Vector3(x, y, 0); //TODO -> Change position for each
+            enemy.HUD.transform.localPosition = new Vector3(x, y, 0);
 
             Enemies.Add(enemy);
             id++;
@@ -197,8 +192,9 @@ public class BattleSystem : StateMachine
         {
             if (!target.IsDead) continue;
             //TODO -> hide HUD
-            OnEnemyKilled?.Invoke(target.Name);
             Debug.Log($"Killed {target.Name}");
+            Destroy(target.HUD.gameObject);
+            OnEnemyKilled?.Invoke(target.Name);
             Enemies.Remove(target);
             AttackBarSystem.AllEntities.Remove(target);
         }
@@ -226,6 +222,7 @@ public class BattleSystem : StateMachine
     public void SkillOnTurn(Skill selectedSkill)
     {
         float totalDamage = 0;
+        totalDamage = 100; //Temp
 
         foreach (var skill in Player.Skills)
         {
@@ -276,15 +273,30 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void BattleEnded(bool won)
+    public void EndWave(bool won)
     {
-        DialogueText.text = won ? "YOU WON" : "YOU LOST";
+        //TODO -> add end wave animation ?
+        //DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
         foreach (var skill in Player.Skills) Destroy(skill.Button);
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
-        OnBattleEnded?.Invoke();
+
+        if (won)
+        {
+            OnWaveCompleted?.Invoke();
+            return;
+        }
+
+        //TODO -> Load game over popup
+    }
+
+    private void EndBattle(MissionSO mission)
+    {
+        //TODO -> Load end mission popup
+        Debug.Log("Battle ended");
+        OnBattleCompleted?.Invoke();
     }
 
     #region AutoBattle
