@@ -103,7 +103,7 @@ public class MissionManager : MonoBehaviour
         //GiveRewards();
         UnlockNextMission();
         OnMissionComplete?.Invoke(CurrentMission);
-        CurrentMission = null;
+        ResetData();
     }
 
     private void UnlockNextMission()
@@ -176,19 +176,19 @@ public class MissionManager : MonoBehaviour
         return new List<MissionSO>();
     }
 
-    public void ResetMissionManager()
+    public void ResetData()
     {
         CurrentMission = null;
         CurrentChapter = null;
     }
 
-    public List<Enemy> GetMissionEnemyList()
-    {
-        List<Enemy> MissionEnemies = new List<Enemy>();
-        for (int i = 0; i < CurrentMission.Enemies.Count; i++)
-        {
-            MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
-        }
-        return MissionEnemies;
-    }
+    //public List<Enemy> GetMissionEnemyList()
+    //{
+    //    List<Enemy> MissionEnemies = new List<Enemy>();
+    //    for (int i = 0; i < CurrentMission.Enemies.Count; i++)
+    //    {
+    //        MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
+    //    }
+    //    return MissionEnemies;
+    //}
 }

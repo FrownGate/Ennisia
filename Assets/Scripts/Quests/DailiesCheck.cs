@@ -29,10 +29,8 @@ public class DailiesCheck
     int _enemyKilledCount;
     int _energyUsedCount;
 
-    private void CheckMission()
+    private void CheckMission(MissionSO mission)
     {
-        MissionSO mission = MissionManager.Instance.CurrentMission;
-
         if (mission.Type == MissionManager.MissionType.Dungeon)
         {
             _dungeonCount++;
