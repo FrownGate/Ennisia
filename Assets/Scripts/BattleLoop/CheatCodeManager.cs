@@ -34,6 +34,7 @@ namespace CheatCodeNS
         SilenceEffect,
         StunEffect,
         DemonicMarkEffect,
+        ImmunityBuff,
         SupportSilenceEffect,
         BreakAttackDebuff,
         BreakDefenseDebuff,
@@ -69,6 +70,7 @@ namespace CheatCodeNS
                 new CheatCodeData("stun","stun", ActivateStun, null, CheatCode.StunEffect),
                 new CheatCodeData("demonicmark","gotthedemoninme", ActivateDemonicMark, null, CheatCode.DemonicMarkEffect),
                 new CheatCodeData("suppsilence","junglerisbetter", ActivateSupportSilence, null, CheatCode.SupportSilenceEffect),
+                new CheatCodeData("immunity","immunitybuff", ActivateImmunityBuff, null, CheatCode.ImmunityBuff),
                 new CheatCodeData("breakatk","breakattackdebuff", ActivateBreakAttackDebuff, null, CheatCode.BreakAttackDebuff),
                 new CheatCodeData("breakdeff","breakdefensedebuff", ActivateBreakDefenseDebuff, null, CheatCode.BreakDefenseDebuff),
                 new CheatCodeData("critdmg","critdamagebuff", ActivateCritDamageBuff, null, CheatCode.CritDamageBuff),
@@ -199,6 +201,13 @@ namespace CheatCodeNS
             _battleInstance.Player.ApplyEffect(new SupportSilence(2));
             Debug.LogWarning("Support silence activated");
             ActiveCheatCodes.Remove(CheatCode.SupportSilenceEffect);
+
+        }
+        private void ActivateImmunityBuff()
+        {
+            _battleInstance.Player.ApplyEffect(new Immunity(2));
+            Debug.LogWarning("Immunity buff activated");
+            ActiveCheatCodes.Remove(CheatCode.ImmunityBuff);
 
         }
         private void ActivateBreakAttackDebuff()
