@@ -11,16 +11,10 @@ public class BattleSystem : StateMachine
     public static event Action OnBattleCompleted;
     public static event Action<string> OnEnemyKilled;
 
-    //UI Prefabs
+    //UI
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
-    [SerializeField] private GameObject _firstSupport;
-    [SerializeField] private GameObject _secondSupport;
-    //TODO -> Move serialized ui elements in BattleSystem GameObject prefab
-    //TODO -> Add Supports Skills
-
-    //UI
     public TextMeshProUGUI DialogueText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
@@ -56,9 +50,10 @@ public class BattleSystem : StateMachine
         MissionManager.OnMissionComplete -= EndBattle;
     }
 
-    //Init all battle elements -> used on restart button
     public void InitBattle()
     {
+        //TODO -> set background
+        //TODO -> show turn n° ?
         Targets = new();
 
         LostPopUp.SetActive(false);
@@ -129,6 +124,7 @@ public class BattleSystem : StateMachine
 
     private void InitEnemies()
     {
+        //TODO -> show enemies id
         MissionSO mission = MissionManager.Instance.CurrentMission;
         int wave = MissionManager.Instance.CurrentWave;
 
@@ -161,7 +157,7 @@ public class BattleSystem : StateMachine
 
             if (id > 2) x += 250;
 
-            enemy.HUD.transform.localPosition = new Vector3(x, y, 0); //TODO -> Change position for each
+            enemy.HUD.transform.localPosition = new Vector3(x, y, 0);
 
             Enemies.Add(enemy);
             id++;
@@ -201,8 +197,9 @@ public class BattleSystem : StateMachine
         {
             if (!target.IsDead) continue;
             //TODO -> hide HUD
-            OnEnemyKilled?.Invoke(target.Name);
             Debug.Log($"Killed {target.Name}");
+            Destroy(target.HUD.gameObject);
+            OnEnemyKilled?.Invoke(target.Name);
             Enemies.Remove(target);
             AttackBarSystem.AllEntities.Remove(target);
         }
@@ -283,6 +280,7 @@ public class BattleSystem : StateMachine
 
     public void EndWave(bool won)
     {
+        //TODO -> add end wave animation ?
         //DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
         foreach (var skill in Player.Skills) Destroy(skill.Button);
