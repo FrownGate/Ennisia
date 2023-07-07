@@ -7,10 +7,13 @@ public class SupportHUD : HUD
 
     public void Init(List<Skill> skills, int y)
     {
-        //TODO -> set sprite (blank if no skills)
         transform.localPosition = new Vector3(-850, 50 + y, 0);
 
-        if (skills == null) return;
+        if (skills == null)
+        {
+            _sprite.sprite = _blankSprite;
+            return;
+        }
 
         _skills = skills;
 

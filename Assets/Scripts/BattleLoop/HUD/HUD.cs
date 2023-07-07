@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour
 
     [SerializeField] protected SpriteRenderer _sprite;
     [SerializeField] protected CanvasGroup _canvas;
+    [SerializeField] protected Sprite _blankSprite;
 
     protected Skill _skill;
     protected bool _isActive;
