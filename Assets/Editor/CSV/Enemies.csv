@@ -1,31 +1,67 @@
-Id,Name,HP,Attack,PhysicalDamages,PhysicalDefense,MagicalDamages,MagicalDefense,CritRate,CritDmg,Speed,Description,Skill 1,Skill 2,Skill 3,Passif
-1,Red Slime,1,2,3,4,5,6,7,8,9,description,88,90,0,0
-2,Blue Slime,1,1,1,1,1,1,1,1,1,description,88,90,0,0
-3,Green Slime,1,1,1,1,1,1,1,1,1,description,88,90,0,0
-4,Demonic Slime,1,1,1,1,1,1,1,1,1,description,88,90,91,0
-5,Wolf,1,1,1,1,1,1,1,1,1,description,92,93,0,0
-6,Wolf Pack Leader,1,1,1,1,1,1,1,1,1,description,92,93,111,117
-7,Goblin,1,1,1,1,1,1,1,1,1,description,88,94,0,0
-8,Higher Goblin,1,1,1,1,1,1,1,1,1,description,88,94,95,0
-9,Goblin Chief,1,1,1,1,1,1,1,1,1,description,88,94,96,116
-10,Rock Golem,1,1,1,1,1,1,1,1,1,description,88,97,0,0
-11,Lava Golem,1,1,1,1,1,1,1,1,1,description,88,112,0,0
-12,Water Golem,1,1,1,1,1,1,1,1,1,description,88,113,0,0
-13,Haunted Tree,1,1,1,1,1,1,1,1,1,description,89,98,0,0
-14,Small Mushroom,1,1,1,1,1,1,1,1,1,description,89,99,0,0
-15,Giant Mushroom,1,1,1,1,1,1,1,1,1,description,89,99,100,115
-16,Elven Knight,1,1,1,1,1,1,1,1,1,description,88,101,0,0
-17,Elven Archer,1,1,1,1,1,1,1,1,1,description,88,102,0,0
-18,Elven Mage,1,1,1,1,1,1,1,1,1,description,89,103,0,0
-19,Bandit,1,1,1,1,1,1,1,1,1,description,88,104,0,0
-20,Bandit Chief,1,1,1,1,1,1,1,1,1,description,88,105,0,114
-21,Demon knight,1,1,1,1,1,1,1,1,1,description,88,101,106,119
-22,Demon Archer,1,1,1,1,1,1,1,1,1,description,88,102,107,120
-23,Demon Mage,1,1,1,1,1,1,1,1,1,description,89,103,108,120
-24,Demonic Goblin,1,1,1,1,1,1,1,1,1,description,88,94,109,0
-25,Demonic Wolf,1,1,1,1,1,1,1,1,1,description,92,111,110,117
-26,Training Dummy,1,1,1,1,1,1,1,1,1,description,0,0,0,0
-27,Oliver,1,1,1,1,1,1,1,1,1,description,0,0,0,0
-28,Djeamy,1,1,1,1,1,1,1,1,1,description,0,0,0,0
-29,Demon Commander,1,1,1,1,1,1,1,1,1,description,0,0,0,0
-30,The Twin,1,1,1,1,1,1,1,1,1,description,0,0,0,0
+Id,Name,HP,Attack,PhysicalDamages,PhysicalDefense,MagicalDamages,MagicalDefense,CritRate,CritDmg,Speed,Description,IsBoss,Skill 1,Skill 2,Skill 3,Passif
+1,Red Slime,1,2,3,4,5,6,7,8,9,description,FALSE,Slice,Slime Dash,none,none
+2,Blue Slime,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Slime Dash,none,none
+3,Green Slime,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Slime Dash,none,none
+4,Demonic Slime,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Slime Dash,Demonic Dash,none
+5,Wolf,1,1,1,1,1,1,1,1,1,description,FALSE,Biting Barrage ,Hyper Fang,none,none
+6,Wolf Pack Leader,1,1,1,1,1,1,1,1,1,description,FALSE,Biting Barrage ,Hyper Fang,Howl,Pack leader 
+7,Goblin,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Spin Attack,none,none
+8,Higher Goblin,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Spin Attack,Herbs Master,none
+9,Goblin Chief,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Spin Attack,Chief's Orders,Goblin Chief 
+10,Rock Golem,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Golem Smash,none,none
+11,Lava Golem,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Burning Smash,none,none
+12,Water Golem,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Tsunami,none,none
+13,Haunted Tree,1,1,1,1,1,1,1,1,1,description,FALSE,Magic Bonk,Sticky Roots,none,none
+14,Small Mushroom,1,1,1,1,1,1,1,1,1,description,FALSE,Magic Bonk,Gushing Spores,none,none
+15,Giant Mushroom,1,1,1,1,1,1,1,1,1,description,FALSE,Magic Bonk,Gushing Spores,Regenerating Spores,Big Mushroom 
+16,Elven Knight,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Sharpening Sword,none,none
+17,Elven Archer,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Falling Arrows,none,none
+18,Elven Mage,1,1,1,1,1,1,1,1,1,description,FALSE,Magic Bonk,Wishing Star,none,none
+19,Bandit,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Thief,none,none
+20,Bandit Chief,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Raging Slam,none,Malevolent Strike
+21,Demon knight,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Sharpening Sword,Demon Slash,Demon archer 
+22,Demon Archer,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Falling Arrows,Demonic Arrow,Demon Mage
+23,Demon Mage,1,1,1,1,1,1,1,1,1,description,FALSE,Magic Bonk,Wishing Star,Demonic Marking,Demon mage
+24,Demonic Goblin,1,1,1,1,1,1,1,1,1,description,FALSE,Slice,Spin Attack,Demonic Strike,none
+25,Demonic Wolf,1,1,1,1,1,1,1,1,1,description,FALSE,Biting Barrage ,Howl,Demonic Bite,Pack leader 
+26,Skeleton,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+27,Golem Skeleton,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+28,Fanatic Follower,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+29,Devilish Priest,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+30,Goblin Cyclop,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+31,Haunted Mushroom,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+32,Magic Flower,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+33,Sanunter,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+34,Spreegal,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+35,Brigand,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+36,Evil Gardener,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+37,Minor Demon,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+38,Cyclop,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+39,Rock Worm,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+40,Winderer,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+41,Berserker,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+42,Elf,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+43,Mage Elf,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+44,Major Demon,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+45,Backan,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+46,Stixent,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+47,Training Dummy,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+48,Oliver,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+49,Djeamy,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+50,Demon Commander,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+51,The Twin,1,1,1,1,1,1,1,1,1,description,FALSE,none,none,none,none
+52,Betala,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+53,ShaDo,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+54,LaiJande,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+55,Desert King,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+56,Snadron,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+57,Ghost Paladin,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+58,Demon Commander,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+59,The condemner,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+60,The Bishop,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+61,The Necromancer,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+62,Akelio,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+63,Galadian,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+64,Elubinard,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+65,Spercer,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none
+66,Clemaline,1,1,1,1,1,1,1,1,1,description,TRUE,none,none,none,none

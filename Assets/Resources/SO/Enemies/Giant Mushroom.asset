@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Giant Mushroom
   m_EditorClassIdentifier: 
+  SkillsData: []
   ID: 15
   Name: Giant Mushroom
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,8 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData:
-  - {fileID: 11400000, guid: 975dbaf5567411446a31e1ba32f43fa2, type: 2}
-  - {fileID: 11400000, guid: 6bf30c1a5ca7a1045ab25188351e48a1, type: 2}
-  - {fileID: 11400000, guid: a297c3e831b0da04e98951162efd38a8, type: 2}
-  - {fileID: 11400000, guid: 8cf9bf795b6a4b94590437c84089e953, type: 2}
