@@ -74,7 +74,7 @@ public class Gear : Item
         if (Category == ItemCategory.Weapon)
         {
             string weaponName = Name.Split($"[{Rarity}] ")[1];
-            WeaponSO = Resources.Load<GearSO>($"SO/Weapons/{CSVUtils.GetFileName(weaponName)}");
+            WeaponSO = Resources.Load<GearSO>($"SO/Weapons/{weaponName}");
         }
 
         AddToInventory();
