@@ -253,5 +253,7 @@ public class PlayFabManager : MonoBehaviour
     public void Testing()
     {
         //Debug.Log("Testing");
+        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
+        //Player.Equip(Inventory.GetGearById(1));
     }
 }
