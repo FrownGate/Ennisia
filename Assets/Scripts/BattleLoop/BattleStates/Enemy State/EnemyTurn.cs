@@ -23,73 +23,7 @@ public class EnemyTurn : State
     public override IEnumerator Attack()
     {
 
-        bool CanProtect = false;
-        bool CanBuff = false;
-        bool TeammateLow = false;
-        List<Skill> list = BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills;
-        list.Reverse();
-
-        foreach (Skill skill in list)
-        {
-            if (skill.GetType() == typeof(ProtectionSkill) && skill.Cooldown == 0)
-            {
-                CanProtect = true;
-                break;
-            }
-        }
-        foreach (Skill skill in list)
-        {
-            if (skill.GetType() == typeof(BuffSkill) && skill.Cooldown == 0)
-            {
-                CanBuff = true;
-                break;
-            }
-        }
-        foreach (Entity enemy in BattleSystem.Enemies)
-        {
-            if (enemy.CurrentHp < enemy.Stats[Attribute.HP].Value * 20 / 100)
-            {
-                TeammateLow = true;
-                break;
-            }
-        }
-
-        foreach (Skill skill in list)
-        {
-            if (skill.Cooldown == 0 && skill.GetType() != typeof(PassiveSkill))
-            {
-                if ((BattleSystem.Enemies[BattleSystem.EnemyPlayingID].CurrentHp < BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Stats[Attribute.HP].Value * 20 / 100 || TeammateLow) && CanProtect)
-                { //if i'm low and i can protect myself // modify to check all the team hp
-
-                    if (skill.GetType() == typeof(ProtectionSkill)) //i check if my skill alow me to protect myself
-                    {
-                        UseSkill(skill); //and use it
-                        break;
-                    }
-                    else
-                    {
-                        continue; //if not then I know I can protect my self so we'll go to the next spell (which will be the protection skill
-                    }
-                }
-                else if (CanBuff) //If i'm not low or can't protect my self but can Buff myself
-                {
-                    if (skill.GetType() == typeof(BuffSkill)) //I check if my skill can buff me 
-                    {
-                        UseSkill(skill); //if yes use it 
-                        break;
-                    }
-                    else
-                    {
-                        continue; //if not let's go to the next spell (which will probably be the buff skill
-                    }
-                }
-                else //if I can't d any of this the, use skill
-                {
-                    UseSkill(skill);
-                    break;
-                }
-            }
-        }
+        UseSkill(BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills[AI.ChooseSkill(BattleSystem, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], true)]);
         yield break;
     }
 
