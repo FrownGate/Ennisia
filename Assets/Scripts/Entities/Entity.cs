@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using CheatCodeNS;
 
@@ -14,12 +13,12 @@ public abstract class Entity
     public virtual string Name { get; set; }
     public virtual string Description { get; set; }
     public virtual int Level { get; set; }
-    public virtual Dictionary<Attribute, Stat<float>> Stats { get; private set; }
+    public virtual Dictionary<Attribute, Stat<float>> Stats { get; set; }
 
     //Player Datas
     public virtual GearSO Weapon { get; set; }
-    public virtual SupportCharacterSO[] EquippedSupports { get; protected set; }
-    public virtual Dictionary<GearType, Gear> EquippedGears { get; protected set; }
+    public virtual SupportCharacterSO[] EquippedSupports { get; set; }
+    public virtual Dictionary<GearType, Gear> EquippedGears { get; set; }
 
     public int Id { get; set; }
 
@@ -44,7 +43,6 @@ public abstract class Entity
         Stats = stats != null ? CustomStats(stats) : DefaultStats();
 
         CurrentHp = Stats[Attribute.HP].Value;
-        Debug.Log($"current hp : {CurrentHp}");
 
         //Testing effects
         //Debug.Log(Stats[AttributeStat.Attack].Value);

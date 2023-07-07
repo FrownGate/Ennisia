@@ -83,8 +83,15 @@ public class Stat<T>
 
     public void RemoveAllModifiers()
     {
-        //TODO -> keep pets modifiers
+        List<Modifier> modifiers = new();
+
+        foreach (var modifier in _modifiers)
+        {
+            if (modifier.Layer == 0) modifiers.Add(modifier);
+        }
+
         _modifiers.Clear();
+        _modifiers.AddRange(modifiers);
         OnAllModifiersRemoved?.Invoke();
     }
 }

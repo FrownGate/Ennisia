@@ -79,7 +79,7 @@ public class MissionManager : MonoBehaviour
 
     public void NextWave()
     {
-        if (CurrentWave < CurrentMission.Waves.Count)
+        if (CurrentMission && CurrentWave < CurrentMission.Waves.Count)
         {
             CurrentWave++;
             OnNextWave?.Invoke();
