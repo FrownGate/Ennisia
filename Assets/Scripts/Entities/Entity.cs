@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using CheatCodeNS;
 
@@ -14,7 +13,7 @@ public abstract class Entity
     public virtual string Name { get; set; }
     public virtual string Description { get; set; }
     public virtual int Level { get; set; }
-    public virtual Dictionary<Attribute, Stat<float>> Stats { get; private set; }
+    public virtual Dictionary<Attribute, Stat<float>> Stats { get; set; }
 
     //Player Datas
     public virtual GearSO Weapon { get; set; }
