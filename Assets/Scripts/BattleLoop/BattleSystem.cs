@@ -91,34 +91,29 @@ public class BattleSystem : StateMachine
             skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
-            position += 160;
+            position += 160; //TODO -> dynamic position
         }
     }
 
     private void InitSupports()
     {
-        int position = 0;
+        int position = 100;
 
         foreach (var support in Player.EquippedSupports)
         {
-            if (support == null)
-            {
-                //TODO -> blank icon
-                position += 100;
-                continue;
-            }
-
-            support.Init();
             SupportHUD hud = Instantiate(_supportSlot, _canvas.transform).GetComponent<SupportHUD>();
-            hud.Init(support.Skills, position);
+
+            if (support != null) support.Init();
+            hud.Init(support == null ? null : support.Skills, position);
+            position -= 190; //TODO -> dynamic position
+
+            if (support == null) continue;
             support.Button = hud;
 
             foreach (var skill in support.Skills)
             {
                 skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             }
-
-            position += 100;
         }
     }
 
