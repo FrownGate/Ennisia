@@ -7,6 +7,25 @@ public class ChatManager : NetworkBehaviour
     public TMP_Text chatText;
     public TMP_InputField chatInput;
 
+    private static ChatManager instance; // Instance statique du ChatManager
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public static ChatManager GetInstance()
+    {
+        return instance;
+    }
+
     private void Start()
     {
         chatInput.onSubmit.AddListener(SendMessage);
@@ -16,13 +35,13 @@ public class ChatManager : NetworkBehaviour
     {
         if (!string.IsNullOrWhiteSpace(message))
         {
-            if (isServer)
+            if (hasAuthority)
             {
-                RpcReceiveMessage(message);
+                CmdSendMessage(message);
             }
             else
             {
-                CmdSendMessage(message);
+                Debug.LogWarning("ChatManager does not have authority to send message.");
             }
 
             chatInput.text = "";
