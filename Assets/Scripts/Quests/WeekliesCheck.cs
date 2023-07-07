@@ -26,8 +26,10 @@ public class WeekliesCheck
     int _expeditionCount;
     int _enemyKilledCount;
 
-    private void CheckMission(MissionSO mission)
+    private void CheckMission()
     {
+        MissionSO mission = MissionManager.Instance.CurrentMission;
+
         if (mission.Type == MissionManager.MissionType.MainStory)
         {
             _mainStoryCount++;

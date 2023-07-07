@@ -23,8 +23,10 @@ public class AchievementsCheck : MonoBehaviour
     int _energyUsedCount;
 
 
-    private void CheckMission(MissionSO mission)
+    private void CheckMission()
     {
+        MissionSO mission = MissionManager.Instance.CurrentMission;
+
         if (mission.Type == MissionManager.MissionType.Dungeon)
         {
             _dungeonCount++;

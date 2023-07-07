@@ -17,9 +17,10 @@ public class MissionManager : MonoBehaviour
 
     public static MissionManager Instance { get; private set; }
     
-    private EnemyLoader _enemyLoader;
+    //private EnemyLoader _enemyLoader;
     public static event Action<MissionSO> OnMissionStart;
-    public static event Action<MissionSO> OnMissionComplete;
+    public static event Action OnNextWave;
+    public static event Action OnMissionComplete;
     public ChapterSO CurrentChapter { get; private set; }
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
@@ -43,6 +44,8 @@ public class MissionManager : MonoBehaviour
         {
             LoadMissionsFromFolder(missionType);
         }
+
+        BattleSystem.OnWaveCompleted += NextWave;
     }
 
     private void LoadMissionsFromFolder(MissionType missionType)
@@ -74,23 +77,20 @@ public class MissionManager : MonoBehaviour
 
     }
 
-    public bool NextWave()
+    public void NextWave()
     {
         if (CurrentWave < CurrentMission.Waves.Count)
         {
             CurrentWave++;
-            return true;
+            OnNextWave?.Invoke();
+            return;
         }
-        else
-        {
-            CompleteMission();
-            return false;
-        }
+
+        CompleteMission();
     }
 
     public void CompleteMission()
     {
-        //TODO -> Load Main Menu Scene, maybe end mission popup
         if (CurrentMission == null)
         {
             Debug.LogError("No mission in progress");
@@ -100,14 +100,14 @@ public class MissionManager : MonoBehaviour
         CurrentMission.State = MissionState.Completed;
         Debug.Log("Mission completed");
         //TODO -> Update database
-        GiveRewards();
-        UnlockNextMission(CurrentMission);
-        OnMissionComplete?.Invoke(CurrentMission);
+        //GiveRewards();
+        UnlockNextMission();
+        OnMissionComplete?.Invoke();
     }
 
-    private void UnlockNextMission(MissionSO completedMission)
+    private void UnlockNextMission()
     {
-        MissionType missionType = completedMission.Type;
+        MissionType missionType = CurrentMission.Type;
 
         if (!_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
         {
@@ -115,7 +115,7 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        int completedMissionIndex = Array.IndexOf(missionList, completedMission);
+        int completedMissionIndex = Array.IndexOf(missionList, CurrentMission);
 
         if (completedMissionIndex == -1)
         {
@@ -128,7 +128,7 @@ public class MissionManager : MonoBehaviour
             MissionSO nextMission = missionList[completedMissionIndex + 1];
 
             if (nextMission.State != MissionState.Locked) return;
-            if (nextMission.ChapterId != completedMission.ChapterId)
+            if (nextMission.ChapterId != CurrentMission.ChapterId)
             {
                 Debug.Log("chapter End");
             }
@@ -201,13 +201,13 @@ public class MissionManager : MonoBehaviour
         Debug.Log("De l'XP !!!");
     }
     
-    public List<Enemy> GetMissionEnemyList()
-    {
-        List<Enemy> MissionEnemies = new List<Enemy>();
-        for (int i = 0; i < CurrentMission.Enemies.Count; i++)
-        {
-            MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
-        }
-        return MissionEnemies;
-    }
+    //public List<Enemy> GetMissionEnemyList()
+    //{
+    //    List<Enemy> MissionEnemies = new List<Enemy>();
+    //    for (int i = 0; i < CurrentMission.Enemies.Count; i++)
+    //    {
+    //        MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
+    //    }
+    //    return MissionEnemies;
+    //}
 }

@@ -3,12 +3,12 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
-using CheatCodeNS;
 
 public class BattleSystem : StateMachine
 {
     public static event Action<BattleSystem> OnBattleLoaded;
-    public static event Action OnBattleEnded;
+    public static event Action OnWaveCompleted;
+    public static event Action OnBattleCompleted;
     public static event Action<string> OnEnemyKilled;
 
     //UI Prefabs
@@ -43,6 +43,8 @@ public class BattleSystem : StateMachine
         _canvas = GetComponentInParent<Canvas>();
         EntityHUD.OnEntitySelected += SelectEntity;
         HUD.OnSkillSelected += SelectSkill;
+        MissionManager.OnNextWave += InitBattle;
+        MissionManager.OnMissionComplete += EndBattle;
         InitBattle();
     }
 
@@ -50,6 +52,8 @@ public class BattleSystem : StateMachine
     {
         EntityHUD.OnEntitySelected -= SelectEntity;
         HUD.OnSkillSelected -= SelectSkill;
+        MissionManager.OnNextWave -= InitBattle;
+        MissionManager.OnMissionComplete -= EndBattle;
     }
 
     //Init all battle elements -> used on restart button
@@ -226,6 +230,7 @@ public class BattleSystem : StateMachine
     public void SkillOnTurn(Skill selectedSkill)
     {
         float totalDamage = 0;
+        totalDamage = 100; //Temp
 
         foreach (var skill in Player.Skills)
         {
@@ -276,15 +281,29 @@ public class BattleSystem : StateMachine
         }
     }
 
-    public void BattleEnded(bool won)
+    public void EndWave(bool won)
     {
-        DialogueText.text = won ? "YOU WON" : "YOU LOST";
+        //DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
         foreach (var skill in Player.Skills) Destroy(skill.Button);
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
-        OnBattleEnded?.Invoke();
+
+        if (won)
+        {
+            OnWaveCompleted?.Invoke();
+            return;
+        }
+
+        //TODO -> Load game over popup
+    }
+
+    private void EndBattle()
+    {
+        //TODO -> Load end mission popup
+        Debug.Log("Battle ended");
+        OnBattleCompleted?.Invoke();
     }
 
     #region AutoBattle
