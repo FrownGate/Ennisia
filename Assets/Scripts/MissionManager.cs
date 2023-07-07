@@ -182,33 +182,13 @@ public class MissionManager : MonoBehaviour
         CurrentChapter = null;
     }
 
-    public void GiveRewards()
+    public List<Enemy> GetMissionEnemyList()
     {
-        //List<KeyValuePair<Currency, int>> rewards = CurrentMission.CurrencyRewards.ToList();
-        //for (int i = 0; i < CurrentMission.CurrencyRewards.Count; i++)
-        //{
-        //    string type = rewards[i].Key.ToString();
-        //    if (!Enum.TryParse(type, out Currency currencyType)) continue;
-        //    PlayFabManager.Instance.AddCurrency(rewards[i].Key, rewards[i].Value);
-        //    Debug.Log("Des SOUS !!!");
-        //}
-        //for (int i = 0; i < CurrentMission.GearReward.Count; i++)
-        //{
-        //    RewardsDrop.Instance.Drop(CurrentMission);
-        //    Debug.Log("Des GEAR !!!");
-        //}
-        ExperienceSystem.Instance.GainExperienceAccount(CurrentMission.Experience);
-        ExperienceSystem.Instance.GainExperiencePlayer(CurrentMission.Experience);
-        Debug.Log("De l'XP !!!");
+        List<Enemy> MissionEnemies = new List<Enemy>();
+        for (int i = 0; i < CurrentMission.Enemies.Count; i++)
+        {
+            MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
+        }
+        return MissionEnemies;
     }
-    
-    //public List<Enemy> GetMissionEnemyList()
-    //{
-    //    List<Enemy> MissionEnemies = new List<Enemy>();
-    //    for (int i = 0; i < CurrentMission.Enemies.Count; i++)
-    //    {
-    //        MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
-    //    }
-    //    return MissionEnemies;
-    //}
 }
