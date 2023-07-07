@@ -181,26 +181,6 @@ public class MissionManager : MonoBehaviour
         CurrentChapter = null;
     }
 
-    public void GiveRewards()
-    {
-        List<KeyValuePair<Currency, int>> rewards = CurrentMission.CurrencyRewards.ToList();
-        for (int i = 0; i < CurrentMission.CurrencyRewards.Count; i++)
-        {
-            string type = rewards[i].Key.ToString();
-            if (!Enum.TryParse(type, out Currency currencyType)) continue;
-            PlayFabManager.Instance.AddCurrency(rewards[i].Key, rewards[i].Value);
-            Debug.Log("Des SOUS !!!");
-        }
-        for (int i = 0; i < CurrentMission.GearReward.Count; i++)
-        {
-            RewardsDrop.Instance.DropGear(CurrentMission.GearReward[i]);
-            Debug.Log("Des GEAR !!!");
-        }
-        ExperienceSystem.Instance.GainExperienceAccount(CurrentMission.Experience);
-        ExperienceSystem.Instance.GainExperiencePlayer(CurrentMission.Experience);
-        Debug.Log("De l'XP !!!");
-    }
-    
     public List<Enemy> GetMissionEnemyList()
     {
         List<Enemy> MissionEnemies = new List<Enemy>();
