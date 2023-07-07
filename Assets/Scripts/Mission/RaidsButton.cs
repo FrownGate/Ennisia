@@ -50,7 +50,7 @@ public class RaidsButton : MonoBehaviour
         {
             Image image = go.GetComponentInChildren<Image>();
             go.name = RaidDiffs[buttonIndex].name;
-            image.sprite = Resources.Load<Sprite>($"Textures/UI/Raids/Difficulty{RaidName}");
+            image.sprite = Resources.Load<Sprite>($"Textures/UI/Raid/Difficulty{RaidName}");
 
             TextMeshProUGUI buttonText = go.GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = GetDifficultyById(RaidDiffs[buttonIndex].NumInChapter).ToString();
