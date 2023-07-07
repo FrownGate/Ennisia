@@ -150,7 +150,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void MissionDone()
+    private void MissionDone(MissionSO mission)
     {
         FindObjectOfType<AudioManager>().Play("missionDone");
     }

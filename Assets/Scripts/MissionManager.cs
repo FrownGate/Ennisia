@@ -20,7 +20,7 @@ public class MissionManager : MonoBehaviour
     //private EnemyLoader _enemyLoader;
     public static event Action<MissionSO> OnMissionStart;
     public static event Action OnNextWave;
-    public static event Action OnMissionComplete;
+    public static event Action<MissionSO> OnMissionComplete;
     public ChapterSO CurrentChapter { get; private set; }
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
@@ -102,7 +102,8 @@ public class MissionManager : MonoBehaviour
         //TODO -> Update database
         //GiveRewards();
         UnlockNextMission();
-        OnMissionComplete?.Invoke();
+        OnMissionComplete?.Invoke(CurrentMission);
+        CurrentMission = null;
     }
 
     private void UnlockNextMission()

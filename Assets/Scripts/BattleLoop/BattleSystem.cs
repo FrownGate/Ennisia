@@ -292,7 +292,7 @@ public class BattleSystem : StateMachine
         //TODO -> Load game over popup
     }
 
-    private void EndBattle()
+    private void EndBattle(MissionSO mission)
     {
         //TODO -> Load end mission popup
         Debug.Log("Battle ended");
