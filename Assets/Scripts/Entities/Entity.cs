@@ -44,7 +44,6 @@ public abstract class Entity
         Stats = stats != null ? CustomStats(stats) : DefaultStats();
 
         CurrentHp = Stats[Attribute.HP].Value;
-        Debug.Log($"current hp : {CurrentHp}");
 
         //Testing effects
         //Debug.Log(Stats[AttributeStat.Attack].Value);

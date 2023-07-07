@@ -386,9 +386,16 @@ public class BattleSimulator : EditorWindow
 
         List<Entity> enemies = new();
 
+        int id = 1;
+
         foreach (var enemy in _selectedEnemies)
         {
-            if (enemy != null) enemies.Add(enemy);
+            if (enemy != null)
+            {
+                enemy.Id = id;
+                enemies.Add(enemy);
+                id++;
+            }
         }
 
         _selectedEnemies = enemies;
