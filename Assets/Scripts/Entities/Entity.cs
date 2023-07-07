@@ -112,6 +112,10 @@ public abstract class Entity
 
     public void ApplyEffect(Effect effect, int stacks = 1)
     {
+        if (effect.HasAlteration)
+        {
+            if (Effects.Find(effect => effect.GetType() == typeof(Immunity)) != null) return;
+        }
         Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
 
         if (existingEffect != null)
