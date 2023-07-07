@@ -7,7 +7,7 @@ public class Won : State
     public override IEnumerator Start()
     {
         BattleSystem.WonPopUp.SetActive(true);
-        BattleSystem.BattleEnded(true);
+        BattleSystem.EndWave(true);
         yield break;
     }
 }

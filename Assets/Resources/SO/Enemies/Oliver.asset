@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Oliver
   m_EditorClassIdentifier: 
-  ID: 27
+  SkillsData: []
+  ID: 48
   Name: Oliver
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,4 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData: []

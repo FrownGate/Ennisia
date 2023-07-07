@@ -41,6 +41,7 @@ public class ExperienceSystem : MonoBehaviour
         }
 
         _experience += expToAdd; // Ajoute l'expérience spécifiée
+        Debug.Log("player gain " + expToAdd);
 
         while (_AccountlevelExperienceMap.ContainsKey(_level + 1) && _experience >= _AccountlevelExperienceMap[_level + 1])
         {
@@ -67,6 +68,7 @@ public class ExperienceSystem : MonoBehaviour
         }
 
         _experience += expToAdd; // Ajoute l'expérience spécifiée
+        Debug.Log("player gain " + expToAdd);
 
         while (_PlayerlevelExperienceMap.ContainsKey(_level + 1) && _experience >= _PlayerlevelExperienceMap[_level + 1])
         {

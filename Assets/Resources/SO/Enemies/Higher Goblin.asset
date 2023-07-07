@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Higher Goblin
   m_EditorClassIdentifier: 
+  SkillsData: []
   ID: 8
   Name: Higher Goblin
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,7 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData:
-  - {fileID: 11400000, guid: 44e124bf0ec7e5c4ba6cf28e0ceeeec7, type: 2}
-  - {fileID: 11400000, guid: b7a0c9fec24bac646b6c6a092504836a, type: 2}
-  - {fileID: 11400000, guid: 6191f1540648d594fb532d7c1f881988, type: 2}

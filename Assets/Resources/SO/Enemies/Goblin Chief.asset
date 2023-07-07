@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Goblin Chief
   m_EditorClassIdentifier: 
+  SkillsData: []
   ID: 9
   Name: Goblin Chief
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,8 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData:
-  - {fileID: 11400000, guid: 44e124bf0ec7e5c4ba6cf28e0ceeeec7, type: 2}
-  - {fileID: 11400000, guid: b7a0c9fec24bac646b6c6a092504836a, type: 2}
-  - {fileID: 11400000, guid: 32074d2056ebee344b9533f9b800c9b3, type: 2}
-  - {fileID: 11400000, guid: e7ade1d496cc398478fb03d6eeb88f76, type: 2}

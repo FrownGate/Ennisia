@@ -7,7 +7,14 @@ public class SupportHUD : HUD
 
     public void Init(List<Skill> skills, int y)
     {
-        //TODO -> set sprite
+        transform.localPosition = new Vector3(-850, 50 + y, 0);
+
+        if (skills == null)
+        {
+            _sprite.sprite = _blankSprite;
+            return;
+        }
+
         _skills = skills;
 
         foreach (Skill skill in _skills)
@@ -15,7 +22,5 @@ public class SupportHUD : HUD
             if (!skill.Data.IsPassive) _skill = skill;
             break;
         }
-
-        transform.localPosition = new Vector3(-850, 50 + y, 0);
     }
 }
