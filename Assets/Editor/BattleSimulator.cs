@@ -406,11 +406,16 @@ public class BattleSimulator : EditorWindow
             return;
         }
 
+        foreach (var gear in _selectedGears)
+        {
+            if (gear.Value == null) continue;
+            PlayFabManager.Instance.Player.Equip(gear.Value, false);
+        }
+
         _player = new()
         {
             Weapon = _selectedWeapon.WeaponSO,
             EquippedSupports = _selectedSupports.ToArray(),
-            EquippedGears = _selectedGears
         };
 
         ScenesManager.Instance.SetScene("Battle");
