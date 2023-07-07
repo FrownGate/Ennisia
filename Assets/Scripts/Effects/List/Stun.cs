@@ -4,6 +4,12 @@ public class Stun : Effect
 
     public override void AlterationEffect(Entity target)
     {
-        target.ResetAtb();
+        if (target.Effects.Find(effect => effect.GetType() == typeof(Stun)) == null)
+        {
+            if (target.AtkBarPercentage == 100)
+            {
+                target.ResetAtb();
+            }
+        }
     }
 }
