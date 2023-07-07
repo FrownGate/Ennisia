@@ -9,6 +9,7 @@ public class BattleSystem : StateMachine
     public static event Action<BattleSystem> OnBattleLoaded;
     public static event Action OnWaveCompleted;
     public static event Action OnBattleCompleted;
+    public static event Action<BattleSystem> OnSimulationStart;
     public static event Action<string> OnEnemyKilled;
 
     //UI
@@ -62,25 +63,24 @@ public class BattleSystem : StateMachine
         PlayerHasWin = false;
         Turn = 0;
 
+        if (MissionManager.Instance.CurrentMission == null)
+        {
+            Debug.Log("Start Simulation");
+            OnSimulationStart?.Invoke(this);
+            return;
+        }
+
         InitPlayer();
         InitSupports();
         InitEnemies();
 
-        AttackBarSystem = new AtkBarSystem(Player, Enemies);
-        AttackBarSystem.InitAtkBars();
-        //UpdateEntities();
-
         SetState(new WhoGoFirst(this));
-        // SimulateBattle();
     }
 
-    private void InitPlayer()
+    private void InitPlayer(Player player = null)
     {
-        Player = new Player
-        {
-            HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>()
-        };
-
+        Player = player ?? new();
+        Player.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
         Player.HUD.Init((Player)Player);
 
         int position = 0;
@@ -123,10 +123,6 @@ public class BattleSystem : StateMachine
         MissionSO mission = MissionManager.Instance.CurrentMission;
         int wave = MissionManager.Instance.CurrentWave;
 
-        Debug.Log(mission.Name);
-        //Debug.Log(wave);
-        Debug.Log(mission.Waves.Count);
-
         Enemies = new();
 
         //Enemy enemy = new();
@@ -140,23 +136,37 @@ public class BattleSystem : StateMachine
         foreach (var enemyName in mission.Waves[wave])
         {
             Debug.Log(enemyName);
-            Enemy enemy = new(id, Resources.Load<EnemySO>($"SO/Enemies/{enemyName}"))
-            {
-                HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>()
-            };
-
-            enemy.HUD.Init(enemy, id);
-
-            int x = id == 2 ? 480 : id % 2 == 0 ? 480 : 45;
-            int y = id > 4 ? -250 : id > 2 ? 250 : 0;
-
-            if (id > 2) x += 250;
-
-            enemy.HUD.transform.localPosition = new Vector3(x, y, 0);
-
+            Enemy enemy = new(id, Resources.Load<EnemySO>($"SO/Enemies/{enemyName}"));
             Enemies.Add(enemy);
             id++;
         }
+
+        InstantiateEnemies();
+    }
+
+    private void InstantiateEnemies()
+    {
+        foreach (var enemy in Enemies)
+        {
+            enemy.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
+            enemy.HUD.Init(enemy, enemy.Id);
+
+            int x = enemy.Id == 2 ? 480 : enemy.Id % 2 == 0 ? 480 : 45;
+            int y = enemy.Id > 4 ? -250 : enemy.Id > 2 ? 250 : 0;
+
+            if (enemy.Id > 2) x += 250;
+
+            enemy.HUD.transform.localPosition = new Vector3(x, y, 0);
+        }
+
+        InitAttackBar();
+    }
+
+    private void InitAttackBar()
+    {
+        AttackBarSystem = new(Player, Enemies);
+        AttackBarSystem.InitAtkBars();
+        //UpdateEntities();
     }
 
     private void SelectSkill(Skill skill)
@@ -222,7 +232,6 @@ public class BattleSystem : StateMachine
     public void SkillOnTurn(Skill selectedSkill)
     {
         float totalDamage = 0;
-        totalDamage = 100; //Temp
 
         foreach (var skill in Player.Skills)
         {
@@ -232,8 +241,6 @@ public class BattleSystem : StateMachine
         totalDamage += selectedSkill.SkillBeforeUse(Targets, Player, Turn);
         totalDamage += selectedSkill.Use(Targets, Player, Turn);
         totalDamage += selectedSkill.AdditionalDamage(Targets, Player, Turn, totalDamage);
-
-        foreach (var target in Targets) target.TakeDamage(totalDamage);
 
         selectedSkill.SkillAfterDamage(Targets, Player, Turn, totalDamage);
 
@@ -300,11 +307,15 @@ public class BattleSystem : StateMachine
     }
 
     #region AutoBattle
-    public void SimulateBattle(Player player = null, List<Entity> enemies = null)
+    public void SimulateBattle(Player player, List<Entity> enemies)
     {
-        Player = player ?? Player;
-        Enemies = enemies ?? Enemies;
-        SetState(new AutoBattle(this));
+        Enemies = enemies;
+
+        InitPlayer(player);
+        InitSupports();
+        InstantiateEnemies();
+        //SetState(new AutoBattle(this));
+        SetState(new WhoGoFirst(this));
     }
 
     public void GetSelectedEnemies(List<Entity> enemies)

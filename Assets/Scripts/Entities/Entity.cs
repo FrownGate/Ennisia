@@ -18,8 +18,8 @@ public abstract class Entity
 
     //Player Datas
     public virtual GearSO Weapon { get; set; }
-    public virtual SupportCharacterSO[] EquippedSupports { get; protected set; }
-    public virtual Dictionary<GearType, Gear> EquippedGears { get; protected set; }
+    public virtual SupportCharacterSO[] EquippedSupports { get; set; }
+    public virtual Dictionary<GearType, Gear> EquippedGears { get; set; }
 
     public int Id { get; set; }
 
@@ -44,7 +44,6 @@ public abstract class Entity
         Stats = stats != null ? CustomStats(stats) : DefaultStats();
 
         CurrentHp = Stats[Attribute.HP].Value;
-        Debug.Log($"current hp : {CurrentHp}");
 
         //Testing effects
         //Debug.Log(Stats[AttributeStat.Attack].Value);
