@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
 
-public class RewardsDrop : MonoBehaviour
+public class RewardsManager : MonoBehaviour
 {
-    public static RewardsDrop Instance { get; private set; }
+    public static RewardsManager Instance { get; private set; }
+
     private Dictionary<ItemCategory, int> _matAmount;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -15,7 +16,6 @@ public class RewardsDrop : MonoBehaviour
             return;
         }
 
-
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -23,6 +23,7 @@ public class RewardsDrop : MonoBehaviour
     public void Drop(MissionSO missionSO)
     {
         _matAmount = missionSO.MatAmount;
+
         switch (missionSO.Type)
         {
             case MissionManager.MissionType.Dungeon:
@@ -53,8 +54,9 @@ public class RewardsDrop : MonoBehaviour
 
                 break;
         }
-        ExperienceSystem.Instance.GainExperienceAccount(missionSO.Experience);
-        ExperienceSystem.Instance.GainExperiencePlayer(missionSO.Experience);
+
+        ExpManager.Instance.GainExperienceAccount(missionSO.Experience);
+        ExpManager.Instance.GainExperiencePlayer(missionSO.Experience);
     }
 
     //random gear drop
@@ -64,6 +66,7 @@ public class RewardsDrop : MonoBehaviour
         GearType type = (GearType)UnityEngine.Random.Range(0, count);
         PlayFabManager.Instance.AddInventoryItem(new Gear(type, rarity, null));
     }
+
     private void DropGear(Dictionary<GearType, Rarity> gearList)
     {
         foreach (var gear in gearList)
@@ -72,6 +75,7 @@ public class RewardsDrop : MonoBehaviour
             PlayFabManager.Instance.AddInventoryItem(new Gear(gear.Key, gear.Value, null));
         }
     }
+
     private void DropCurrency(Dictionary<Currency, int> currencyList)
     {
         foreach (var currency in currencyList)
@@ -105,11 +109,11 @@ public class RewardsDrop : MonoBehaviour
         PlayFabManager.Instance.AddEnergy(amount);
     }
 
-
     private void OnEnable()
     {
         MissionManager.OnMissionComplete += Drop;
     }
+
     private void OnDisable()
     {
         MissionManager.OnMissionComplete -= Drop;
