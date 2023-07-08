@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Support Silence
   Description: 
-  Duration: 0
+  Duration: 3
   Alteration: 3
   StatsModifiers:
     _serializedList: []

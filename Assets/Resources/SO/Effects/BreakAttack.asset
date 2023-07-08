@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Break Attack
   Description: 
-  Duration: 0
-  Alteration: 0
+  Duration: 3
+  Alteration: 1
   StatsModifiers:
-    _serializedList: []
+    _serializedList:
+    - Key: 1
+      Value: 0.7
