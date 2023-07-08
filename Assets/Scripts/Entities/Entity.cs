@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using CheatCodeNS;
 
 public enum Attribute //TODO -> move DefIgnored alone
 {
@@ -9,17 +10,22 @@ public enum Attribute //TODO -> move DefIgnored alone
 
 public abstract class Entity
 {
+    public virtual string Name { get; set; }
+    public virtual string Description { get; set; }
+    public virtual int Level { get; set; }
+    public virtual Dictionary<Attribute, Stat<float>> Stats { get; set; }
+
+    //Player Datas
+    public virtual GearSO Weapon { get; set; }
+    public virtual SupportCharacterSO[] EquippedSupports { get; set; }
+    public virtual Dictionary<GearType, Gear> EquippedGears { get; set; }
+
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public int Level { get; set; }
 
     public float CurrentHp { get; set; }
-    public Dictionary<Attribute, Stat<float>> Stats { get; private set; }
     public float DefIgnored { get; set; }
     public float Shield { get; set; }
 
-    public GearSO Weapon { get; set; }
     public List<Skill> Skills { get; protected set; }
     public List<Effect> Effects { get; protected set; } = new();
     public bool IsSelected { get; protected set; } = false;
@@ -34,27 +40,35 @@ public abstract class Entity
     public Entity(Dictionary<Attribute, float> stats = null)
     {
         //TODO -> Use CSV to set all values
-        Stats = new();
-
-        if (stats != null)
-        {
-            foreach (var stat in stats) Stats[stat.Key] = new(stat.Value);
-        }
-        else
-        {
-            foreach (string stat in Enum.GetNames(typeof(Attribute)))
-            {
-                Stats[Enum.Parse<Attribute>(stat)] = new(10);
-            }
-        }
+        Stats = stats != null ? CustomStats(stats) : DefaultStats();
 
         CurrentHp = Stats[Attribute.HP].Value;
-        Debug.Log($"current hp : {CurrentHp}");
 
         //Testing effects
         //Debug.Log(Stats[AttributeStat.Attack].Value);
         //ApplyEffect(new AttackBuff());
         //Debug.Log(Stats[AttributeStat.Attack].Value);
+    }
+
+    private Dictionary<Attribute, Stat<float>> CustomStats(Dictionary<Attribute, float> stats)
+    {
+        Dictionary<Attribute, Stat<float>> dictionary = new();
+
+        foreach (var stat in stats) dictionary[stat.Key] = new(stat.Value);
+
+        return dictionary;
+    }
+
+    protected Dictionary<Attribute, Stat<float>> DefaultStats()
+    {
+        Dictionary<Attribute, Stat<float>> dictionary = new();
+
+        foreach (string stat in Enum.GetNames(typeof(Attribute)))
+        {
+            dictionary[Enum.Parse<Attribute>(stat)] = new(1);
+        }
+
+        return dictionary;
     }
 
     public void TakeDamage(float damage)
@@ -96,18 +110,44 @@ public abstract class Entity
     //    return Stats[stat].AddModifier(func, layer);
     //}
 
-    public void ApplyEffect(Effect effect)
+    public void ApplyEffect(Effect effect, int stacks = 1)
     {
+        if (effect.HasAlteration)
+        {
+            if (Effects.Find(effect => effect.GetType() == typeof(Immunity)) != null) return;
+        }
+
         Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
 
         if (existingEffect != null)
         {
+            if (existingEffect.IsStackable)
+            {
+                existingEffect.ApplyStack(stacks);
+            }
             existingEffect.ResetDuration();
             return;
         }
 
         Effects.Add(effect);
+        if (effect.IsStackable) effect.ApplyStack(stacks);
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);
+    }
+
+    public void Cleanse()
+    {
+        foreach (var effect in Effects)
+        {
+            if (!effect.HasAlteration) effect.Cleanse(this);
+        }
+    }
+
+    public void Strip()
+    {
+        foreach (var effect in Effects)
+        {
+            if (effect.HasAlteration) effect.Cleanse(this);
+        }
     }
 
     public void ResetAtb()

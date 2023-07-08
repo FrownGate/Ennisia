@@ -466,6 +466,7 @@ public class CSVToSO : EditorWindow
         scriptableObject.ID = int.Parse(rowData["Id"]);
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
         scriptableObject.Description = rowData["Description"];
+        scriptableObject.IsBoss = bool.Parse(rowData["IsBoss"]);
 
         var attributes = rowData.ToList();
         for (var i = 2; i < rowData.Count; i++)

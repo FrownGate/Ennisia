@@ -5,26 +5,48 @@ using UnityEngine;
 [Serializable]
 public class PlayerData
 {
+    public string Name;
     public int Level;
     public int Exp;
-    public string Name;
     public int[] EquippedGearsId;
     public string[] EquippedSupportsPath;
     [NonSerialized] public SupportCharacterSO[] EquippedSupports;
-    [NonSerialized] public Dictionary<GearType, Gear> EquippedGears;
+    [NonSerialized] public readonly Dictionary<GearType, Gear> EquippedGears = new();
+    [NonSerialized] public readonly Dictionary<Attribute, Stat<float>> Stats = new();
+    [NonSerialized] private readonly Dictionary<GearType, Dictionary<Attribute, List<ModifierID>>> _modifiers = new();
 
     public PlayerData()
     {
         Level = 1;
         Exp = 0;
         EquippedGearsId = new int[7];
-        EquippedGears = new();
         EquippedSupportsPath = new string[2] { null, null };
         EquippedSupports = new SupportCharacterSO[2] { null, null };
 
         foreach (var item in Enum.GetNames(typeof(GearType)))
         {
             EquippedGears[Enum.Parse<GearType>(item)] = null;
+            _modifiers[Enum.Parse<GearType>(item)] = new();
+        }
+
+        foreach (string stat in Enum.GetNames(typeof(Attribute)))
+        {
+            Stats[Enum.Parse<Attribute>(stat)] = new(1);
+        }
+
+        InitModifiers();
+    }
+
+    private void InitModifiers()
+    {
+        foreach (var item in Enum.GetNames(typeof(GearType)))
+        {
+            _modifiers[Enum.Parse<GearType>(item)] = new();
+
+            foreach (string stat in Enum.GetNames(typeof(Attribute)))
+            {
+                _modifiers[Enum.Parse<GearType>(item)][Enum.Parse<Attribute>(stat)] = new();
+            }
         }
     }
 
@@ -39,29 +61,44 @@ public class PlayerData
 
     private void EquipGear(Gear gear)
     {
+        RemoveModifiers((GearType)gear.Type);
         EquippedGearsId[(int)gear.Type] = gear.Id;
         EquippedGears[(GearType)gear.Type] = gear;
 
+        ModifierID id = Stats[(Attribute)gear.Attribute].AddModifier((float value) => value + gear.Value, 0);
+        _modifiers[(GearType)gear.Type][(Attribute)gear.Attribute].Add(id);
+
+        Debug.Log(gear.Attribute);
+        Debug.Log(gear.Value);
+
         if (gear.Type == GearType.Weapon) gear.WeaponSO.Init();
+
+        if (gear.SubStats == null) return;
+
+        foreach (var substat in gear.SubStats)
+        {
+            id = Stats[substat.Key].AddModifier((float value) => value + substat.Value, 0);
+            _modifiers[(GearType)gear.Type][substat.Key].Add(id);
+        }
     }
 
-    public void Equip(Gear gear)
+    public void Equip(Gear gear, bool update = true)
     {
         EquipGear(gear);
-        PlayFabManager.Instance.UpdateData();
+        if (update) PlayFabManager.Instance.UpdateData();
     }
 
-    public void Equip(List<Gear> gears)
+    public void Equip(List<Gear> gears, bool update = true)
     {
         foreach (Gear gear in gears)
         {
             EquipGear(gear);
         }
 
-        PlayFabManager.Instance.UpdateData();
+        if (update) PlayFabManager.Instance.UpdateData();
     }
 
-    public void Equip(SupportCharacterSO support, int slot = 0)
+    public void Equip(SupportCharacterSO support, int slot = 0, bool update = true)
     {
         if (slot < 0 || slot > 1)
         {
@@ -72,17 +109,18 @@ public class PlayerData
         EquippedSupportsPath[slot] = $"SO/SupportsCharacter/{support.Rarity}/{support.name}";
         EquippedSupports[slot] = support;
         EquippedSupports[slot].Init();
-        PlayFabManager.Instance.UpdateData();
+        if (update) PlayFabManager.Instance.UpdateData();
     }
 
-    public void Unequip(GearType type)
+    public void Unequip(GearType type, bool update = true)
     {
+        RemoveModifiers(type);
         EquippedGearsId[(int)type] = 0;
         EquippedGears[type] = null;
-        PlayFabManager.Instance.UpdateData();
+        if (update) PlayFabManager.Instance.UpdateData();
     }
 
-    public void Unequip(int slot)
+    public void Unequip(int slot, bool update = true)
     {
         if (slot < 0 || slot > 1)
         {
@@ -92,6 +130,19 @@ public class PlayerData
 
         EquippedSupportsPath[slot] = null;
         EquippedSupports[slot] = null;
-        PlayFabManager.Instance.UpdateData();
+        if (update) PlayFabManager.Instance.UpdateData();
+    }
+
+    private void RemoveModifiers(GearType type)
+    {
+        if (EquippedGears[type] == null) return;
+
+        foreach (var attribute in _modifiers[type])
+        {
+            foreach (var modifier in attribute.Value)
+            {
+                Stats[attribute.Key].RemoveModifier(modifier);
+            }
+        }
     }
 }

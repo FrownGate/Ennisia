@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f9f4fdf8e9879469f7668fc5b50b58, type: 3}
   m_Name: CritRateBuff
   m_EditorClassIdentifier: 
-  Name: 
+  Name: CritRate Buff
   Description: 
-  Duration: 0
+  Duration: 3
   Alteration: 0
   StatsModifiers:
-    _serializedList: []
+    _serializedList:
+    - Key: 6
+      Value: 1.5

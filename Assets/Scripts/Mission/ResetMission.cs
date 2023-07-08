@@ -4,6 +4,6 @@ public class ResetMission : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        MissionManager.Instance.ResetMissionManager();
+        MissionManager.Instance.ResetData();
     }
 }
