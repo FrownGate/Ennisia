@@ -25,6 +25,7 @@ public class Effect
     }
 
     public virtual void AlterationEffect(Entity target) { }
+    public virtual void ApplyStack(int stack) { }
     public virtual float GetMultiplier() { return 1.0f; }
 
     public void AddEffectModifiers(Entity target)
@@ -47,7 +48,6 @@ public class Effect
         Duration = InitialDuration;
     }
 
-    public virtual void ApplyStack(int stack) { }
     public void Cleanse(Entity target)
     {
         foreach (var modifier in Modifiers) target.Stats[modifier.Key].RemoveModifier(modifier.Value);
@@ -78,4 +78,8 @@ public class BreakAttack : Effect
 public class BreakDefense : Effect
 {
     public BreakDefense(int? duration = null) : base(duration) { }
+}
+public class Immunity : Effect
+{
+    public Immunity(int? duration = null) : base(duration) { }
 }

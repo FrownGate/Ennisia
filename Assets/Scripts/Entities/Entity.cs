@@ -116,6 +116,7 @@ public abstract class Entity
         {
             if (Effects.Find(effect => effect.GetType() == typeof(Immunity)) != null) return;
         }
+
         Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
 
         if (existingEffect != null)
@@ -127,6 +128,7 @@ public abstract class Entity
             existingEffect.ResetDuration();
             return;
         }
+
         Effects.Add(effect);
         if (effect.IsStackable) effect.ApplyStack(stacks);
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);

@@ -1,19 +1,18 @@
-using UnityEngine;
 public class DemonicMark : Effect
 {
     public override bool IsStackable => true;
-    public override int Stacks { get; protected set; } = 0;
-    private const int MaxStacks = 10;
+    private const int _maxStacks = 10;
     private const float _damageIncreasePercentage = 0.05f;
+
     public DemonicMark(int? duration = null) : base(duration) { }
 
     public override void ApplyStack(int stack)
     {
-        if (Stacks + stack > MaxStacks)
+        if (Stacks + stack > _maxStacks)
         {
-            Stacks = MaxStacks;
+            Stacks = _maxStacks;
         }
-        else if (Stacks + stack <= MaxStacks)
+        else if (Stacks + stack <= _maxStacks)
         {
             Stacks += stack;
         }
