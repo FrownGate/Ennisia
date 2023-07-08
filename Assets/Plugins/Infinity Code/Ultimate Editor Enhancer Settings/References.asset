@@ -355,14 +355,16 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
-  - name: TitleScreen
-    path: Assets/Scenes/TitleScreen.unity
   - name: Battle
     path: Assets/Scenes/Battle.unity
-  - name: EndlessTower
-    path: Assets/Scenes/Missions/EndlessTower.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
   - name: BattleModeSelection
     path: Assets/Scenes/Missions/BattleModeSelection.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: EndlessTower
+    path: Assets/Scenes/Missions/EndlessTower.unity
   _notes: []
