@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class Effect
 {
-    public enum AlterationState
-    {
-        None, Stun, Silence, SupportSilence, DemonicMark
-    }
+    //public enum AlterationState
+    //{
+    //    None, Stun, Silence, SupportSilence, DemonicMark, Break
+    //}
 
     public EffectSO Data { get; set; }
     public readonly Dictionary<Attribute, ModifierID> Modifiers = new();
     public int Duration { get; set; }
     public int InitialDuration { get; set; }
-    public bool HasAlteration => Data.Alteration != AlterationState.None;
+    public bool HasAlteration => Data.Alteration;
+    //public bool HasAlteration => Data.Alteration != AlterationState.None;
     private bool IsExpired => Duration <= 0;
     public virtual bool IsStackable => false;
     public virtual int Stacks { get; protected set; } = 0;
