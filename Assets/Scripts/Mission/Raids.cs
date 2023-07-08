@@ -14,7 +14,8 @@ public class Raids : MonoBehaviour
     {
         _generator = GetComponent<DynamicButtonGenerator>();
 
-        _raidsSO = Resources.LoadAll<MissionSO>($"SO/Missions/Raid/");
+        var type = ScenesManager.Instance.Params;
+        _raidsSO = Resources.LoadAll<MissionSO>($"SO/Missions/{type}/");
 
         List<string> uniqueNames = GetUniqueNames();
         foreach (string name in uniqueNames)
@@ -28,7 +29,7 @@ public class Raids : MonoBehaviour
         {
             Image image = go.GetComponentInChildren<Image>();
             go.name = uniqueNames[buttonIndex];
-            image.sprite = Resources.Load<Sprite>($"Textures/UI/Raids/{uniqueNames[buttonIndex]}");
+            image.sprite = Resources.Load<Sprite>($"Textures/UI/{type}/{uniqueNames[buttonIndex]}");
             buttonIndex++;
 
             RaidsButton diff = image.gameObject.AddComponent<RaidsButton>();

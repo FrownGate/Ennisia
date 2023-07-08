@@ -31,4 +31,9 @@ public class SceneButton : MonoBehaviour
                 break;
         }*/
     }
+
+    public void SetParam(string param)
+    {
+        _params = param;
+    }
 }

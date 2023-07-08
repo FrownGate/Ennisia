@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Green Slime
   m_EditorClassIdentifier: 
+  SkillsData: []
   ID: 3
   Name: Green Slime
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,6 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData:
-  - {fileID: 11400000, guid: 44e124bf0ec7e5c4ba6cf28e0ceeeec7, type: 2}
-  - {fileID: 11400000, guid: b9c8905c07de3c24daa421e1c0133e34, type: 2}
