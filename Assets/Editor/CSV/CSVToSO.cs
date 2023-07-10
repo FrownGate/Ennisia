@@ -269,14 +269,11 @@ public class CSVToSO : EditorWindow
         var sourceFilePath = $"Assets/Scripts/Skills/List/{fileName}.cs";
         var correctFolderPath = $"Assets/Scripts/Skills/List/{skillType}";
         var correctFilePath = $"{correctFolderPath}/{fileName}.cs";
-        bool filefounded = false;
+        var filefounded = false;
 
-        if (!Directory.Exists(correctFolderPath))
-        {
-            Directory.CreateDirectory(correctFolderPath);
-        }
+        if (!Directory.Exists(correctFolderPath)) Directory.CreateDirectory(correctFolderPath);
         var skillTypeValues = Enum.GetValues(typeof(SkillType));
-
+        // Move the .cs file to the correct folder
         foreach (SkillType folderType in skillTypeValues)
         {
             var folderTypePath = $"Assets/Scripts/Skills/List/{folderType}";
@@ -284,7 +281,7 @@ public class CSVToSO : EditorWindow
 
             if (!File.Exists(destinationFilePath)) continue;
             Debug.Log($"A .cs file already exists at: {destinationFilePath}");
-            if(destinationFilePath != correctFilePath) File.Move(destinationFilePath, correctFilePath);
+            if (destinationFilePath != correctFilePath) File.Move(destinationFilePath, correctFilePath);
             AssetDatabase.Refresh();
             Debug.Log($"Moved .cs file to: {correctFilePath}");
             filefounded = true;
@@ -292,14 +289,10 @@ public class CSVToSO : EditorWindow
         }
 
         // Move the .cs file to the correct folder
-
-
         if (!filefounded)
         {
             if (File.Exists(sourceFilePath))
             {
-            
-
                 File.Move(sourceFilePath, correctFilePath);
                 AssetDatabase.Refresh();
                 Debug.Log($"Moved .cs file to: {correctFilePath}");
@@ -338,6 +331,7 @@ public class CSVToSO : EditorWindow
         // Refresh the AssetDatabase to detect the newly created .cs file
         AssetDatabase.Refresh();
     }
+
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
     {
         var rarities = Enum.GetNames(typeof(Rarity));
