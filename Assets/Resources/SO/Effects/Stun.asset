@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f9f4fdf8e9879469f7668fc5b50b58, type: 3}
   m_Name: Stun
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Stun
   Description: 
-  Duration: 0
+  Duration: 1
   Alteration: 1
   StatsModifiers:
     _serializedList: []

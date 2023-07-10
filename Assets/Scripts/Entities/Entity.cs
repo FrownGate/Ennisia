@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using CheatCodeNS;
 
 public enum Attribute //TODO -> move DefIgnored alone
 {
@@ -12,10 +13,12 @@ public abstract class Entity
     public virtual string Name { get; set; }
     public virtual string Description { get; set; }
     public virtual int Level { get; set; }
-    public virtual Dictionary<Attribute, Stat<float>> Stats { get; private set; }
+    public virtual Dictionary<Attribute, Stat<float>> Stats { get; set; }
 
     //Player Datas
     public virtual GearSO Weapon { get; set; }
+    public virtual SupportCharacterSO[] EquippedSupports { get; set; }
+    public virtual Dictionary<GearType, Gear> EquippedGears { get; set; }
 
     public int Id { get; set; }
 
@@ -40,7 +43,6 @@ public abstract class Entity
         Stats = stats != null ? CustomStats(stats) : DefaultStats();
 
         CurrentHp = Stats[Attribute.HP].Value;
-        Debug.Log($"current hp : {CurrentHp}");
 
         //Testing effects
         //Debug.Log(Stats[AttributeStat.Attack].Value);
@@ -108,17 +110,27 @@ public abstract class Entity
     //    return Stats[stat].AddModifier(func, layer);
     //}
 
-    public void ApplyEffect(Effect effect)
+    public void ApplyEffect(Effect effect, int stacks = 1)
     {
+        if (effect.HasAlteration)
+        {
+            if (Effects.Find(effect => effect.GetType() == typeof(Immunity)) != null) return;
+        }
+
         Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
 
         if (existingEffect != null)
         {
+            if (existingEffect.IsStackable)
+            {
+                existingEffect.ApplyStack(stacks);
+            }
             existingEffect.ResetDuration();
             return;
         }
 
         Effects.Add(effect);
+        if (effect.IsStackable) effect.ApplyStack(stacks);
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);
     }
 

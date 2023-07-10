@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
-
+using CheatCodeNS;
 public class CheatCodeWindow : EditorWindow
 {
     private static BattleSystem _battleSystem;
@@ -24,7 +24,6 @@ public class CheatCodeWindow : EditorWindow
         CheatCodeWindow window = GetWindow<CheatCodeWindow>();
         GUIContent icon = EditorGUIUtility.IconContent("d_UnityEditor.ConsoleWindow");
         window.titleContent = new GUIContent("Cheat Code Tool", icon.image, "Cheat Code Tool");
-        Debug.LogWarning("Open : " + _battleSystem);
     }
 
     private void OnEnable()

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Wolf Pack Leader
   m_EditorClassIdentifier: 
+  SkillsData: []
   ID: 6
   Name: Wolf Pack Leader
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,8 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData:
-  - {fileID: 11400000, guid: a0c66f9b47e6f1d40bd9fab81272d772, type: 2}
-  - {fileID: 11400000, guid: 50eece6804e4a8b458bc220179aaa808, type: 2}
-  - {fileID: 11400000, guid: eced73b4f9582c1488b686f8ec319aa3, type: 2}
-  - {fileID: 11400000, guid: afdb5da5b28a2274487c00ca67a2899e, type: 2}

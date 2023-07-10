@@ -26,10 +26,10 @@ public class BattleSimulator : EditorWindow
     private List<SupportCharacterSO> _supports;
     private List<Entity> _enemies;
 
-    private readonly Dictionary<GearType, Gear> _selectedGears = new();
+    private readonly Dictionary<GearType, Gear> _selectedGears = new(); //TODO -> init default values
     private Gear _selectedWeapon;
-    private readonly List<SupportCharacterSO> _selectedSupports = new();
-    private readonly List<Entity> _selectedEnemies = new();
+    private readonly List<SupportCharacterSO> _selectedSupports = new(); //TODO -> init default values
+    private List<Entity> _selectedEnemies = new();
 
     private Button _simulateButton;
     private static readonly string _toolName = "Battle Simulator";
@@ -56,7 +56,7 @@ public class BattleSimulator : EditorWindow
         VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BattleSimulator.uxml");
         root.Add(visualTree.CloneTree());
 
-        BattleSystem.OnBattleLoaded += StartBattle;
+        BattleSystem.OnSimulationStart += StartBattle;
         _simulateButton = root.Q<Button>("simulate-button");
         _simulateButton.clicked += CreateBattle;
 
@@ -169,7 +169,7 @@ public class BattleSimulator : EditorWindow
 
     private void OnDestroy()
     {
-        BattleSystem.OnBattleLoaded -= StartBattle;
+        BattleSystem.OnSimulationStart -= StartBattle;
         _simulateButton.clicked -= CreateBattle;
     }
 
@@ -307,13 +307,13 @@ public class BattleSimulator : EditorWindow
         ChangeStatField(gearData.IntegerFields[0], gear.Attribute.ToString(), (int)gear.Value);
         int index = 1;
 
-        foreach (var substat in gear.Substats)
+        foreach (var substat in gear.SubStats)
         {
             ChangeStatField(gearData.IntegerFields[index], substat.Key.ToString(), (int)substat.Value);
             index++;
         }
 
-        if (gear.Substats.Count == gearData.IntegerFields.Count) return;
+        if (gear.SubStats.Count == gearData.IntegerFields.Count) return;
 
         for (int i = index; i < gearData.IntegerFields.Count; i++)
         {
@@ -338,16 +338,15 @@ public class BattleSimulator : EditorWindow
         _weaponData.IntegerFields[0].SetValueWithoutNotify((int)weapon.Value);
 
         int textFieldIndex = 0;
+
         foreach (var field in _weaponData.TextFields)
         {
             field.visible = true;
 
-            if (textFieldIndex >= weapon.WeaponSO.SkillsData.Count)
-                break;
+            if (textFieldIndex >= weapon.WeaponSO.SkillsData.Count) break;
 
             var skillData = weapon.WeaponSO.SkillsData[textFieldIndex];
-            var skill = weapon.WeaponSO.Skills.FirstOrDefault(s => s.GetType().Name == skillData.Name);
-            if (skill == null) continue;
+            if (skillData == null) continue;
 
             field.label = skillData.IsPassive ? "Passive" : "Active";
             field.SetValueWithoutNotify(skillData.Name);
@@ -385,26 +384,38 @@ public class BattleSimulator : EditorWindow
             return;
         }
 
-        bool hasEnemy = false;
+        List<Entity> enemies = new();
+
+        int id = 1;
 
         foreach (var enemy in _selectedEnemies)
         {
             if (enemy != null)
             {
-                hasEnemy = true;
-                break;
+                enemy.Id = id;
+                enemies.Add(enemy);
+                id++;
             }
         }
 
-        if (!hasEnemy)
+        _selectedEnemies = enemies;
+
+        if (_selectedEnemies.Count == 0)
         {
             Debug.LogError("You need to choose at least 1 enemy.");
             return;
         }
 
+        foreach (var gear in _selectedGears)
+        {
+            if (gear.Value == null) continue;
+            PlayFabManager.Instance.Player.Equip(gear.Value, false);
+        }
+
         _player = new()
         {
-            Weapon = _selectedWeapon.WeaponSO
+            Weapon = _selectedWeapon.WeaponSO,
+            EquippedSupports = _selectedSupports.ToArray(),
         };
 
         ScenesManager.Instance.SetScene("Battle");

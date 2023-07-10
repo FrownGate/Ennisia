@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Demon knight
   m_EditorClassIdentifier: 
+  SkillsData: []
   ID: 21
   Name: Demon knight
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,8 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData:
-  - {fileID: 11400000, guid: 44e124bf0ec7e5c4ba6cf28e0ceeeec7, type: 2}
-  - {fileID: 11400000, guid: 56af84bdc862639439d683fad1f9a519, type: 2}
-  - {fileID: 11400000, guid: 50319aa3dbbbc284a90a86ca2b79104a, type: 2}
-  - {fileID: 11400000, guid: d3b1f634e62972b489b605ab8ed719df, type: 2}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using CheatCodeNS;
 
 public abstract class Skill
 {
@@ -9,8 +10,8 @@ public abstract class Skill
     public SkillHUD Button { get; set; }
 
     public SkillSO Data { get; protected set; }
-    public float RatioModifier {  get; protected set; }
-    public float DamageModifier {  get; protected set; }
+    public float RatioModifier { get; protected set; }
+    public float DamageModifier { get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
     public float Cooldown { get; set; }
@@ -44,9 +45,13 @@ public abstract class Skill
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
         _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
         float damage = (caster.Stats[Attribute.Attack].Value * (Data.DamageRatio + RatioModifier) * _ratio * ((1000 - (_defense - target.DefIgnored)) / 1000));
+        foreach(var effect in target.Effects)
+        {
+            damage *= effect.GetMultiplier();
+        }
         return damage;
     }
-    
+
     public void TakeOffStats(Entity caster)
     {
         foreach (var modifier in _modifiers) caster.Stats[modifier.Key].RemoveModifier(modifier.Value);

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Haunted Tree
   m_EditorClassIdentifier: 
+  SkillsData: []
   ID: 13
   Name: Haunted Tree
   Description: description
+  IsBoss: 0
   Stats:
     _serializedList:
     - Key: 0
@@ -35,6 +37,3 @@ MonoBehaviour:
       Value: 1
     - Key: 8
       Value: 1
-  SkillsData:
-  - {fileID: 11400000, guid: 975dbaf5567411446a31e1ba32f43fa2, type: 2}
-  - {fileID: 11400000, guid: 12e430741a7ef8b47ad491f6147a6268, type: 2}

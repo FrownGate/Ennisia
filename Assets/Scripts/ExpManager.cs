@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using NaughtyAttributes;
 
-public class ExperienceSystem : MonoBehaviour
+public class ExpManager : MonoBehaviour
 {
     //public Image ProgressBar; // Référence à l'objet Image de la barre de progression
     //public Text ExpText; // Référence au texte de l'expérience
     //public Text LevelText; // Référence au texte du niveau
 
-    public static ExperienceSystem Instance { get; private set; }
+    public static ExpManager Instance { get; private set; }
 
     [Expandable] public XPRewardData Rewards;
 
@@ -41,6 +41,7 @@ public class ExperienceSystem : MonoBehaviour
         }
 
         _experience += expToAdd; // Ajoute l'expérience spécifiée
+        Debug.Log("player gain " + expToAdd);
 
         while (_AccountlevelExperienceMap.ContainsKey(_level + 1) && _experience >= _AccountlevelExperienceMap[_level + 1])
         {
@@ -67,6 +68,7 @@ public class ExperienceSystem : MonoBehaviour
         }
 
         _experience += expToAdd; // Ajoute l'expérience spécifiée
+        Debug.Log("player gain " + expToAdd);
 
         while (_PlayerlevelExperienceMap.ContainsKey(_level + 1) && _experience >= _PlayerlevelExperienceMap[_level + 1])
         {

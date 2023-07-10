@@ -2,18 +2,21 @@ using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class Gear : Item
 {
     public static event Action LevelUp;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
-    public Dictionary<Attribute, float> Substats;
+    public float BaseValue; //used for upgrade
+    public Dictionary<Attribute, float> BaseSubStats; //used for upgrade
+    public Dictionary<Attribute, float> SubStats;
     public JsonSubstatsDictionary[] JsonSubstats;
     public string Description;
     public int Level;
     public float StatUpgrade;
-    public float RatioUpgrade;
+    public float RatioUpgrade = 0.04f;
     public GearSO WeaponSO;
     public GearSet GearSet;
 
@@ -36,15 +39,17 @@ public class Gear : Item
         Description = "";
         Category = SetCategory();
         Attribute = SetAttribute();
-        Value = SetValue();
-        Substats = SetSubstats();
+        BaseValue = SetValue();
+        Value = BaseValue;
+        BaseSubStats = SetSubstats();
+        SubStats = BaseSubStats;
         Level = 1;
         Amount = 1;
 
         AddToInventory();
     }
 
-    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity,null, weapon) { }
+    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon) { }
     public Gear(GearSO gear) : this(gear.Type, gear.Rarity, null, gear.Type == GearType.Weapon ? gear : null) { }
 
     public Gear(InventoryItem item)
@@ -59,15 +64,17 @@ public class Gear : Item
         Description = gear.Description;
         Category = gear.Category;
         Attribute = gear.Attribute;
-        Value = gear.Value;
-        Substats = gear.Substats;
+        BaseValue = gear.BaseValue;
+        Value = BaseValue;
+        BaseSubStats = gear.SubStats;
+        SubStats = BaseSubStats;
         Level = gear.Level;
         Name = gear.Name;
 
         if (Category == ItemCategory.Weapon)
         {
             string weaponName = Name.Split($"[{Rarity}] ")[1];
-            WeaponSO = Resources.Load<GearSO>($"SO/Weapons/{CSVUtils.GetFileName(weaponName)}");
+            WeaponSO = Resources.Load<GearSO>($"SO/Weapons/{weaponName}");
         }
 
         AddToInventory();
@@ -80,7 +87,7 @@ public class Gear : Item
             JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
             int i = 0;
 
-            foreach (KeyValuePair<Attribute, float> substat in Substats)
+            foreach (KeyValuePair<Attribute, float> substat in SubStats)
             {
                 JsonSubstats[i] = new JsonSubstatsDictionary
                 {
@@ -101,11 +108,11 @@ public class Gear : Item
         base.Deserialize();
 
         if (Category == ItemCategory.Weapon || Rarity == global::Rarity.Common) return;
-        Substats = new();
+        SubStats = new();
 
         for (int i = 0; i < JsonSubstats.Length; i++)
         {
-            Substats[System.Enum.Parse<Attribute>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
+            SubStats[System.Enum.Parse<Attribute>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
             Debug.Log(JsonSubstats[i].Key);
         }
     }
@@ -181,10 +188,20 @@ public class Gear : Item
         if (Level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
         LevelUp?.Invoke();
-        Level++;
-        Value += (StatUpgrade * Level) + (Value * RatioUpgrade * Level);
-
-        PlayFabManager.Instance.UpdateItem(this);
+        int rand = UnityEngine.Random.Range(0, 100);
+        if (rand <= (100 - Level))
+        {
+            Level++;
+            Value += BaseValue * RatioUpgrade * Level;
+            if (Level % 5 == 0)
+            {
+                foreach (var substat in BaseSubStats)
+                {
+                    SubStats[substat.Key] = substat.Value * RatioUpgrade * Level; ;
+                }
+            }
+            PlayFabManager.Instance.UpdateItem(this);
+        }
     }
 
     public void Upgrade(int _level) //Testing only
@@ -193,7 +210,7 @@ public class Gear : Item
         Debug.Log($"Upgrading {Name}...");
 
 
-        Value += (StatUpgrade * _level) + (Value * RatioUpgrade * _level);
+        Value += BaseValue * RatioUpgrade * _level;
 
         PlayFabManager.Instance.UpdateItem(this);
     }

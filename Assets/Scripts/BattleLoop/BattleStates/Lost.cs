@@ -7,7 +7,7 @@ public class Lost : State
     public override IEnumerator Start()
     {
         BattleSystem.LostPopUp.SetActive(true);
-        BattleSystem.BattleEnded(false);
+        BattleSystem.EndWave(false);
         yield break;
     }
 }

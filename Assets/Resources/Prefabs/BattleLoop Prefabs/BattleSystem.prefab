@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de67527f20dbfba419777314104fabef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _supportSlot: {fileID: 5459380103669371591, guid: 7660228cf75a79d4c960c859ed7ab982, type: 3}
   _entitySlot: {fileID: 3790394792616838198, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
   _skillButton: {fileID: 2275952967044057008, guid: c322eef8f48ee5f4d8b69710e1a85483, type: 3}
   _firstSupport: {fileID: 0}
