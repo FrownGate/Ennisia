@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81baf5f786a67ae46ae941cf20d0ae1a, type: 3}
-  m_Name: XPRewardData
+  m_Name: AccountXPRewardData
   m_EditorClassIdentifier: 
   RewardEntries:
   - Level: 1
@@ -19,837 +19,689 @@ MonoBehaviour:
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 3
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 4
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 5
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 6
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 7
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 8
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 9
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 0
       RewardType: 2
     - ItemName: Crystals
       Count: 70
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 10
     Rewards:
     - ItemName: SummonTicket
       Count: 10
-      Category: 3
       Rarity: 0
       RewardType: 3
   - Level: 11
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 0
       RewardType: 2
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 12
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 0
       RewardType: 2
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 13
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 0
       RewardType: 2
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 14
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 0
       RewardType: 2
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 15
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 0
       RewardType: 2
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 16
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 0
       RewardType: 2
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 17
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 0
       RewardType: 2
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 18
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 0
       RewardType: 2
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 19
     Rewards:
     - ItemName: SummonTicket
       Count: 2
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 0
       RewardType: 2
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 1
       RewardType: 2
     - ItemName: Crystals
       Count: 120
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 20
     Rewards:
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 2
       RewardType: 3
   - Level: 21
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 1
       RewardType: 2
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 22
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 1
       RewardType: 2
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 23
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 1
       RewardType: 2
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 24
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 1
       RewardType: 2
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 25
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 1
       RewardType: 2
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 26
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 1
       RewardType: 2
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 27
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 1
       RewardType: 2
     - ItemName: Armor Material
       Count: 5
-      Category: 1
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 28
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 1
       RewardType: 2
     - ItemName: Accessory Material
       Count: 5
-      Category: 2
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 29
     Rewards:
     - ItemName: SummonTicket
       Count: 3
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 1
       RewardType: 2
     - ItemName: Weapon Material
       Count: 5
-      Category: 0
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 160
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 30
     Rewards:
     - ItemName: Armor Set
       Count: 1
-      Category: 1
       Rarity: 1
       RewardType: 4
     - ItemName: Weapon
       Count: 1
-      Category: 0
       Rarity: 1
       RewardType: 5
   - Level: 31
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 10
-      Category: 1
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 32
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 10
-      Category: 2
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 33
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 10
-      Category: 0
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 34
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 10
-      Category: 1
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 35
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 10
-      Category: 2
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 36
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 10
-      Category: 0
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 37
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Armor Material
       Count: 10
-      Category: 1
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 38
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Accessory Material
       Count: 10
-      Category: 2
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 39
     Rewards:
     - ItemName: SummonTicket
       Count: 4
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 10
-      Category: 0
       Rarity: 2
       RewardType: 2
     - ItemName: Crystals
       Count: 200
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 40
     Rewards:
     - ItemName: Armor Set
       Count: 1
-      Category: 1
       Rarity: 2
       RewardType: 4
     - ItemName: Weapon
       Count: 1
-      Category: 0
       Rarity: 2
       RewardType: 5
   - Level: 41
     Rewards:
     - ItemName: SummonTicket
       Count: 5
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Crystals
       Count: 300
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 42
     Rewards:
     - ItemName: SummonTicket
       Count: 5
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Crystals
       Count: 300
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 43
     Rewards:
     - ItemName: SummonTicket
       Count: 5
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Crystals
       Count: 300
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 44
     Rewards:
     - ItemName: SummonTicket
       Count: 5
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Crystals
       Count: 300
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 45
     Rewards:
     - ItemName: SummonTicket
       Count: 30
-      Category: 3
       Rarity: 0
       RewardType: 3
     - ItemName: Weapon Material
       Count: 50
-      Category: 0
       Rarity: 3
       RewardType: 2
     - ItemName: Crystals
       Count: 500
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 46
     Rewards:
     - ItemName: Armor Material
       Count: 50
-      Category: 1
       Rarity: 3
       RewardType: 2
     - ItemName: Crystals
       Count: 500
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 47
     Rewards:
     - ItemName: Accessory Material
       Count: 50
-      Category: 2
       Rarity: 3
       RewardType: 2
     - ItemName: Crystals
       Count: 500
-      Category: 3
       Rarity: 0
       RewardType: 1
   - Level: 48
     Rewards:
     - ItemName: Armor
       Count: 1
-      Category: 1
       Rarity: 3
       RewardType: 6
   - Level: 49
     Rewards:
     - ItemName: Accessory
       Count: 1
-      Category: 2
       Rarity: 3
       RewardType: 7
   - Level: 50
     Rewards:
     - ItemName: Weapon
       Count: 1
-      Category: 0
       Rarity: 3
       RewardType: 5
     - ItemName: SummonTicket
       Count: 1
-      Category: 3
       Rarity: 3
       RewardType: 3

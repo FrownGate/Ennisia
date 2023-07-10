@@ -11,10 +11,11 @@ public class ExpManager : MonoBehaviour
 
     public static ExpManager Instance { get; private set; }
 
-    [Expandable] public XPRewardData Rewards;
+    [Expandable] public XPRewardData AccounRewards;
 
-    private Dictionary<int, int> _PlayerlevelExperienceMap;
-    private Dictionary<int, int> _AccountlevelExperienceMap;
+    public Dictionary<int, int> PlayerlevelExperienceMap;
+    public Dictionary<int, int> AccountlevelExperienceMap;
+
 
     private void Awake()
     {
@@ -31,26 +32,29 @@ public class ExpManager : MonoBehaviour
 
     public void GainExperienceAccount(int expToAdd)
     {
-        int _level = PlayFabManager.Instance.Account.Level;
-        int _experience = PlayFabManager.Instance.Account.Exp;
+        var accountLevel = PlayFabManager.Instance.Account.Level;
+        var experience = PlayFabManager.Instance.Account.Exp;
 
-        if (_level == _AccountlevelExperienceMap.Count)
-        {
+        if (accountLevel == AccountlevelExperienceMap.Count)
             // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
             return;
-        }
 
-        _experience += expToAdd; // Ajoute l'expérience spécifiée
+        experience += expToAdd; // Ajoute l'expérience spécifiée
         Debug.Log("player gain " + expToAdd);
 
-        while (_AccountlevelExperienceMap.ContainsKey(_level + 1) && _experience >= _AccountlevelExperienceMap[_level + 1])
+        while (AccountlevelExperienceMap.ContainsKey(accountLevel + 1) &&
+               experience >= AccountlevelExperienceMap[accountLevel + 1])
         {
-            _level++; // Incrémente le niveau
-            _experience -= _AccountlevelExperienceMap[_level]; // Déduit l'expérience requise pour atteindre le niveau suivant
-            PlayFabManager.Instance.Account.Level = _level;
+            accountLevel++; // Incrémente le niveau
+            experience -=
+                AccountlevelExperienceMap
+                    [accountLevel]; // Déduit l'expérience requise pour atteindre le niveau suivant
+            PlayFabManager.Instance.Account.Level = accountLevel;
+            PlayFabManager.Instance.Account.Exp = experience;
+            AccounRewards.LvlupReward(accountLevel);
         }
 
-        PlayFabManager.Instance.Account.Exp = _experience;
+        PlayFabManager.Instance.Account.Exp = experience;
         PlayFabManager.Instance.UpdateData();
 
         //UpdateUI(); // Met à jour l'interface utilisateur
@@ -58,27 +62,26 @@ public class ExpManager : MonoBehaviour
 
     public void GainExperiencePlayer(int expToAdd)
     {
-        int _level = PlayFabManager.Instance.Player.Level;
-        int _experience = PlayFabManager.Instance.Player.Exp;
+        var level = PlayFabManager.Instance.Player.Level;
+        var experience = PlayFabManager.Instance.Player.Exp;
 
-        if (_level == _PlayerlevelExperienceMap.Count)
-        {
+        if (level == PlayerlevelExperienceMap.Count)
             // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
             return;
-        }
 
-        _experience += expToAdd; // Ajoute l'expérience spécifiée
+        experience += expToAdd; // Ajoute l'expérience spécifiée
         Debug.Log("player gain " + expToAdd);
 
-        while (_PlayerlevelExperienceMap.ContainsKey(_level + 1) && _experience >= _PlayerlevelExperienceMap[_level + 1])
+        while (PlayerlevelExperienceMap.ContainsKey(level + 1) && experience >= PlayerlevelExperienceMap[level + 1])
         {
-            _level++; // Incrémente le niveau
-            _experience -= _PlayerlevelExperienceMap[_level]; // Déduit l'expérience requise pour atteindre le niveau suivant
-            PlayFabManager.Instance.Player.Level = _level;
-            Rewards.LVLUPReward(_level);
+            level++; // Incrémente le niveau
+            experience -=
+                PlayerlevelExperienceMap[level]; // Déduit l'expérience requise pour atteindre le niveau suivant
+            PlayFabManager.Instance.Player.Level = level;
+            PlayFabManager.Instance.Player.Exp = experience;
         }
 
-        PlayFabManager.Instance.Player.Exp = _experience;
+        PlayFabManager.Instance.Player.Exp = experience;
         PlayFabManager.Instance.UpdateData();
 
         //UpdateUI(); // Met à jour l'interface utilisateur
@@ -87,72 +90,51 @@ public class ExpManager : MonoBehaviour
     private void LoadLevelExperienceMap()
     {
         //TODO -> Use CSVUtils
-        _PlayerlevelExperienceMap = new();
+        PlayerlevelExperienceMap = new Dictionary<int, int>();
 
-        string filePath = Path.Combine(Application.dataPath, "Resources/CSV/PlayerXpCSVExport.csv");
+        var filePath = Path.Combine(Application.dataPath, "Resources/CSV/PlayerXpCSVExport.csv");
 
-        string[] csvLines = File.ReadAllLines(filePath);
+        var csvLines = File.ReadAllLines(filePath);
 
-        foreach (string line in csvLines)
+        foreach (var line in csvLines)
         {
-            string[] values = line.Split(',');
+            var values = line.Split(',');
 
             if (values.Length >= 2)
             {
-                int level = int.Parse(values[0]);
-                int experienceRequired = int.Parse(values[1]);
+                var level = int.Parse(values[0]);
+                var experienceRequired = int.Parse(values[1]);
 
-                _PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
+                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
             }
             else
             {
                 Debug.LogWarning("Format invalide dans le fichier CSV : " + line);
             }
         }
+
         //Account ###############################################################################################
-        _AccountlevelExperienceMap = new();
+        AccountlevelExperienceMap = new Dictionary<int, int>();
 
         filePath = Path.Combine(Application.dataPath, "Resources/CSV/AccountXpCSVExport.csv");
 
         csvLines = File.ReadAllLines(filePath);
 
-        foreach (string line in csvLines)
+        foreach (var line in csvLines)
         {
-            string[] values = line.Split(',');
+            var values = line.Split(',');
 
             if (values.Length >= 2)
             {
-                int level = int.Parse(values[0]);
-                int experienceRequired = int.Parse(values[1]);
+                var level = int.Parse(values[0]);
+                var experienceRequired = int.Parse(values[1]);
 
-                _AccountlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
+                AccountlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
             }
             else
             {
                 Debug.LogWarning("Format invalide dans le fichier CSV : " + line);
             }
         }
-
-        // UpdateUI(); // Met à jour l'interface utilisateur
     }
-
-    
-    //private void UpdateUI()
-    //{
-    //    if (_levelExperienceMap.ContainsKey(_level + 1))
-    //    {
-    //        int experienceRequired = _levelExperienceMap[_level + 1];
-    //        ExpText.text = _experience + " / " + experienceRequired; // Affiche l'expérience actuelle et l'expérience requise
-    //        LevelText.text = _level.ToString(); // Affiche le niveau sans "Lvl :"
-
-    //        float fillAmount = (float)_experience / experienceRequired; // Calcule le remplissage de la barre de progression
-    //        ProgressBar.fillAmount = fillAmount; // Applique le remplissage à la barre de progression
-    //    }
-    //    else
-    //    {
-    //        ExpText.text = "Max"; // Affiche "Max" lorsque le joueur atteint le niveau maximum
-    //        LevelText.text = _level.ToString(); // Affiche le niveau sans "Lvl :"
-    //        ProgressBar.fillAmount = 1f; // Remplit complètement la barre de progression
-    //    }
-    //}
 }
