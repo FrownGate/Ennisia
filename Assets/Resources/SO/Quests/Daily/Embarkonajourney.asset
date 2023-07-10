@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: 5-e
+  m_Name: Embarkonajourney
   m_EditorClassIdentifier: 
-  ID: 5
-  Name: e
-  Description: first time you beat the same boss 50 time
+  ID: 9
+  Name: Embark on a journey
+  QuestType: 0
+  Description: Do one story quest
   Energy: 20
   currencyList:
     _serializedList:
     - Key: 0
-      Value: 1000
-    - Key: 1
       Value: 300
+    - Key: 1
+      Value: 0

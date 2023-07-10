@@ -8,7 +8,13 @@ public class QuestSO : ScriptableObject
 {
     public int ID;
     public string Name;
+    public QuestType QuestType;
     public string Description;
     public int Energy;
     public SerializedDictionary<Currency, int> currencyList = new();
+}
+
+public enum QuestType
+{
+    Daily,Weekly,Achievement
 }

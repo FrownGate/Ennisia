@@ -190,11 +190,12 @@ public class CSVToSO : EditorWindow
         foreach (var skillSO in skillSOs) _skillSOMap[skillSO.Id] = skillSO;
     }
 
-    private static void AssignSkillData(Dictionary<string, string> rowData, string skillKey, ref List<SkillSO> skillData)
+    private static void AssignSkillData(Dictionary<string, string> rowData, string skillKey,
+        ref List<SkillSO> skillData)
     {
         if (!int.TryParse(rowData[skillKey], out var skillId) || skillId == 0) return;
         if (_skillSOMap.TryGetValue(skillId, out var skill)) skillData.Add(skill);
-        else UnityEngine.Debug.Log($"Skill with ID {skillId} not found.");
+        else Debug.Log($"Skill with ID {skillId} not found.");
     }
 
     #region CreateSO
@@ -295,11 +296,11 @@ public class CSVToSO : EditorWindow
 
         foreach (var rarity in rarities)
         {
-            StatMinMaxValuesSO valueSO = CreateInstance<StatMinMaxValuesSO>();
+            var valueSO = CreateInstance<StatMinMaxValuesSO>();
             valueSO.MinValue = int.Parse(rowData[$"{rarity.ToLower()}Min"]);
             valueSO.MaxValue = int.Parse(rowData[$"{rarity.ToLower()}Max"]);
 
-            string savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rarity}_{rowData["attribute"]}.asset";
+            var savePath = $"Assets/Resources/SO/EquipmentStats/Values/{rarity}_{rowData["attribute"]}.asset";
             AssetDatabase.CreateAsset(valueSO, savePath);
         }
     }
@@ -441,23 +442,39 @@ public class CSVToSO : EditorWindow
     private static void CreateQuestSO(Dictionary<string, string> rowData)
     {
         var scriptableObject = CreateInstance<QuestSO>();
+
+        // Assign values directly without using intermediate variables
         scriptableObject.ID = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
         scriptableObject.Description = rowData["Description"];
         scriptableObject.Energy = int.Parse(rowData["Energy"]);
 
-        var currencies = rowData.ToList();
-        for (var i = 4; i < rowData.Count; i++)
+        var values = rowData.ToList();
+        for (var i = 0; i < rowData.Count; i++)
         {
-            var type = currencies[i].Key;
-            if (!Enum.TryParse(type, out Currency currencyType)) continue;
-            Debug.Log(type);
-
-            scriptableObject.currencyList.Add(currencyType, int.Parse(rowData[type]));
+            var type = values[i].Key;
+            if (Enum.TryParse(type, out Currency currencyType))
+            {
+                Debug.Log(type);
+                scriptableObject.currencyList.Add(currencyType, int.Parse(rowData[type]));
+            }
         }
 
-        var savePath = $"Assets/Resources/SO/Quests/{scriptableObject.ID}-{scriptableObject.Name}.asset";
-        AssetDatabase.CreateAsset(scriptableObject, savePath);
+        if (Enum.TryParse(rowData["QuestType"], out QuestType questType))
+        {
+            scriptableObject.QuestType = questType;
+
+            // Create the folder if it doesn't exist
+            var folderPath = $"Assets/Resources/SO/Quests/{questType}";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+                AssetDatabase.Refresh();
+            }
+
+            var savePath = $"{folderPath}/{scriptableObject.Name.Replace(" ", string.Empty)}.asset";
+            AssetDatabase.CreateAsset(scriptableObject, savePath);
+        }
     }
 
     private static void CreateEnemySO(Dictionary<string, string> rowData)
@@ -478,7 +495,7 @@ public class CSVToSO : EditorWindow
             scriptableObject.Stats.Add(attribute, int.Parse(rowData[type]));
         }
 
-        
+
         AssignSkillData(rowData, "Skill 1", ref scriptableObject.SkillsData);
         AssignSkillData(rowData, "Skill 2", ref scriptableObject.SkillsData);
         AssignSkillData(rowData, "Skill 3", ref scriptableObject.SkillsData);

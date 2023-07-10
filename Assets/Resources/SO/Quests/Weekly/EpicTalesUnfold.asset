@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: 1-a
+  m_Name: EpicTalesUnfold
   m_EditorClassIdentifier: 
-  ID: 1
-  Name: a
-  Description: 'first time you beating a boss '
-  Energy: 20
+  ID: 16
+  Name: Epic Tales Unfold
+  QuestType: 1
+  Description: Do 5 story quest
+  Energy: 100
   currencyList:
     _serializedList:
     - Key: 0
-      Value: 1000
+      Value: 60
     - Key: 1
-      Value: 30
+      Value: 0
