@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 14-Amenda
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 6bbc007ac6f50af43a47e91871ca7bfa, type: 2}
+  - {fileID: 11400000, guid: 1992b1e19b108294bb2d6125e86fe782, type: 2}
   Id: 14
   Name: Amenda
   Rarity: Epic
   Race: Human
   Job: Shield-Bearer
   Element: 4
-  SkillsData:
-  - {fileID: 11400000, guid: c9aa3a1345cd5044c942aa3302a46852, type: 2}
-  - {fileID: 11400000, guid: 99f3544f8297fb14a9c69bfe758adf10, type: 2}
   Description: "Amenda is Amilya\u2019s best friend and right hand. Most of the time
     she is there to remember when Amilya forgets something. But is also a great Shield-Bearer
     that protects mages like Amilya from attacks while they cast spells"
   Catchphrase: None shall lay a hand on you without going through me first
+  Button: {fileID: 0}

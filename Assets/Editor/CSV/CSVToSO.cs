@@ -6,6 +6,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
+using Unity.VisualScripting;
 
 public class CSVToSO : EditorWindow
 {
@@ -184,10 +185,12 @@ public class CSVToSO : EditorWindow
     private static void LoadSkillSOs()
     {
         _skillSOMap = new Dictionary<int, SkillSO>();
-
-        var skillSOs = Resources.LoadAll<SkillSO>("SO/Skills");
-
-        foreach (var skillSO in skillSOs) _skillSOMap[skillSO.Id] = skillSO;
+        var skillTypeValues = Enum.GetValues(typeof(SkillType));
+        foreach (SkillType folderType in skillTypeValues)
+        {
+            var skillSOs = Resources.LoadAll<SkillSO>($"SO/Skills/{folderType}");
+            foreach (var skillSO in skillSOs) _skillSOMap[skillSO.Id] = skillSO;
+        }
     }
 
     private static void AssignSkillData(Dictionary<string, string> rowData, string skillKey,
@@ -235,45 +238,106 @@ public class CSVToSO : EditorWindow
         scriptableObject.IsAfter = bool.Parse(rowData["isAfter"]);
         scriptableObject.AOE = bool.Parse(rowData["AOE"]);
         scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
-        scriptableObject.IsPassive = bool.Parse(rowData["isPassive"]);
 
         var fileName = CSVUtils.GetFileName(scriptableObject.Name);
-        var savePath = $"Assets/Resources/SO/Skills/{fileName}.asset";
+        var type = rowData["SkillType"].Replace(" ", string.Empty);
+        if (!Enum.TryParse(type, out SkillType skillType))
+            return;
+        scriptableObject.SkillType = skillType;
+        scriptableObject.IsPassive = type.Contains("Passif");
+
+        // Create the folder if it doesn't exist
+        var folderPath = $"Assets/Resources/SO/Skills/{skillType}";
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+            AssetDatabase.Refresh();
+        }
+
+        var savePath = $"{folderPath}/{fileName}.asset";
+
+        // Check if the scriptable object already exists
+        //if (AssetDatabase.LoadAssetAtPath(savePath, typeof(SkillSO)) != null)
+        //{
+        //    Debug.Log($"Scriptable object already exists at: {savePath}");
+        //    return;
+        //}
+
         AssetDatabase.CreateAsset(scriptableObject, savePath);
 
-        // Check if the .cs file already exists
-        var scriptFilePath = $"Assets/Scripts/Skills/List/{fileName}.cs";
-        if (File.Exists(scriptFilePath)) return;
-        // Create the .cs file
-        using (var writer = File.CreateText(scriptFilePath))
-        {
-            writer.WriteLine("using System.Collections.Generic;");
-            writer.WriteLine("");
-            writer.WriteLine($"public class {fileName} : Skill");
-            writer.WriteLine("{");
-            writer.WriteLine($"//TODO -> {scriptableObject.Description}");
-            writer.WriteLine(
-                "    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }");
-            writer.WriteLine(
-                "\r\n    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }");
-            writer.WriteLine(
-                "\r\n    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }");
-            writer.WriteLine(
-                "\r\n    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }");
-            writer.WriteLine(
-                "\r\n    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }");
-            writer.WriteLine(
-                "\r\n    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }");
-            writer.WriteLine(
-                "\r\n    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }");
+        // Check if the .cs file already exists in any folder
+        var sourceFilePath = $"Assets/Scripts/Skills/List/{fileName}.cs";
+        var correctFolderPath = $"Assets/Scripts/Skills/List/{skillType}";
+        var correctFilePath = $"{correctFolderPath}/{fileName}.cs";
+        bool filefounded = false;
 
-            writer.WriteLine("}");
+        if (!Directory.Exists(correctFolderPath))
+        {
+            Directory.CreateDirectory(correctFolderPath);
+        }
+        var skillTypeValues = Enum.GetValues(typeof(SkillType));
+
+        foreach (SkillType folderType in skillTypeValues)
+        {
+            var folderTypePath = $"Assets/Scripts/Skills/List/{folderType}";
+            var destinationFilePath = $"{folderTypePath}/{fileName}.cs";
+
+            if (!File.Exists(destinationFilePath)) continue;
+            Debug.Log($"A .cs file already exists at: {destinationFilePath}");
+            if(destinationFilePath != correctFilePath) File.Move(destinationFilePath, correctFilePath);
+            AssetDatabase.Refresh();
+            Debug.Log($"Moved .cs file to: {correctFilePath}");
+            filefounded = true;
+            return;
+        }
+
+        // Move the .cs file to the correct folder
+
+
+        if (!filefounded)
+        {
+            if (File.Exists(sourceFilePath))
+            {
+            
+
+                File.Move(sourceFilePath, correctFilePath);
+                AssetDatabase.Refresh();
+                Debug.Log($"Moved .cs file to: {correctFilePath}");
+            }
+            else
+            {
+                // Create the .cs file in the correct folder
+
+                using var writer = File.CreateText(correctFilePath);
+                writer.WriteLine("using System.Collections.Generic;");
+                writer.WriteLine("");
+                writer.WriteLine($"public class {fileName} : Skill");
+                writer.WriteLine("{");
+                writer.WriteLine($"//TODO -> {scriptableObject.Description}");
+                writer.WriteLine(
+                    "    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }");
+                writer.WriteLine(
+                    "\r\n    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }");
+                writer.WriteLine(
+                    "\r\n    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }");
+                writer.WriteLine(
+                    "\r\n    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }");
+                writer.WriteLine(
+                    "\r\n    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }");
+                writer.WriteLine(
+                    "\r\n    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }");
+                writer.WriteLine(
+                    "\r\n    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }");
+                writer.WriteLine("}");
+
+                AssetDatabase.Refresh();
+                Debug.Log($"Created .cs file at: {correctFilePath}");
+            }
         }
 
         // Refresh the AssetDatabase to detect the newly created .cs file
         AssetDatabase.Refresh();
     }
-
     private static void CreateEquipmentStatDataSO(Dictionary<string, string> rowData)
     {
         var rarities = Enum.GetNames(typeof(Rarity));
@@ -460,21 +524,19 @@ public class CSVToSO : EditorWindow
             }
         }
 
-        if (Enum.TryParse(rowData["QuestType"], out QuestType questType))
+        if (!Enum.TryParse(rowData["QuestType"], out QuestType questType)) return;
+        scriptableObject.QuestType = questType;
+
+        // Create the folder if it doesn't exist
+        var folderPath = $"Assets/Resources/SO/Quests/{questType}";
+        if (!Directory.Exists(folderPath))
         {
-            scriptableObject.QuestType = questType;
-
-            // Create the folder if it doesn't exist
-            var folderPath = $"Assets/Resources/SO/Quests/{questType}";
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-                AssetDatabase.Refresh();
-            }
-
-            var savePath = $"{folderPath}/{scriptableObject.Name.Replace(" ", string.Empty)}.asset";
-            AssetDatabase.CreateAsset(scriptableObject, savePath);
+            Directory.CreateDirectory(folderPath);
+            AssetDatabase.Refresh();
         }
+
+        var savePath = $"{folderPath}/{scriptableObject.Name.Replace(" ", string.Empty)}.asset";
+        AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
     private static void CreateEnemySO(Dictionary<string, string> rowData)

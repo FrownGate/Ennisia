@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Crimson Moon
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 0922b567ab345324cb66fd46357987a0, type: 2}
+  - {fileID: 11400000, guid: 5882cee4de05254498a6729da8388f90, type: 2}
   Id: 3
   Name: Crimson Moon
   Level: 1
@@ -24,6 +27,3 @@ MonoBehaviour:
     _serializedList: []
   WeaponType: 2
   IsMagic: 1
-  SkillsData:
-  - {fileID: 11400000, guid: cf77b1bd17edbe0489d77790ebc3ad99, type: 2}
-  - {fileID: 11400000, guid: 5b7a74314b0a4594399781e31607fd66, type: 2}
