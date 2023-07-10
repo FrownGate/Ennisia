@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: GolemSmash
   m_EditorClassIdentifier: 
-  Id: 97
+  Id: 67
   Name: Golem Smash
-  Description: The user spreads its roots across the feild reducing enemy's attackbar
-    by 50%
-  DamageAmount: 0
+  Description: Hits the player with a huge hit, the damage is x2 and has a 10% chance
+    to stun
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
