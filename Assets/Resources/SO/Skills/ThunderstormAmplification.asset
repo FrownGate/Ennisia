@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 52
   Name: Thunderstorm Amplification
-  Description: Increase damage output by 15%
-  DamageRatio: 0
+  Description: When the player is attacked, has a 15% chance to stun the enemy.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

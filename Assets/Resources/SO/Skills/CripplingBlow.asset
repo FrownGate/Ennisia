@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 33
   Name: Crippling Blow
-  Description: "Deals 50% of physical attack before a 80% chance to decrease the
-    target\u2019s defense for 2 turns. // debuff"
-  DamageRatio: 0
+  Description: Gives a shield equivalent to 50% of missing health for 3 turns.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

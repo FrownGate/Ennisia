@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 24
   Name: Force Balancing
-  Description: If ennemy is buffed, give atk and def buff
-  DamageRatio: 0
+  Description: After an enemy attack, gives a shield, the shield strength is equivalent
+    to 20% of the damage received
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

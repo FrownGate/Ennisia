@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 43
   Name: Nurturing Earthbound
-  Description: Heals 80% of lost health
-  DamageRatio: 0
+  Description: Increase attack of player for 3 turns
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

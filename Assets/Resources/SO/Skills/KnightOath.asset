@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 20
   Name: Knight Oath
-  Description: Increase hp and defense by 15%. After receiving damage, give a shield
-    equivalent to 5% of max health.
-  DamageRatio: 0
+  Description: increases magical damages by 50%. Every 2 turns, decreases the third
+    skill cooldown by 1 turn.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

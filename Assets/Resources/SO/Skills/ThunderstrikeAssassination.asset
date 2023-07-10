@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 38
   Name: Thunderstrike Assassination
-  Description: .Penetrate defense by 100%
-  DamageRatio: 0
+  Description: heal for 30% of max health. Increase heal by 10% for each enemy still
+    alive.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

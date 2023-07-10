@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 6
   Name: Blood Contract
-  Description: "deals 4 hits to all enemies with a quick attack, recovering the user\u2019s
-    hp by 30% of damage dealt."
-  DamageRatio: 0
+  Description: deals 2 hits to an enemy with a powerful attack, penetrating his soul
+    and his defense by 50%.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 30
   MaxCooldown: 0

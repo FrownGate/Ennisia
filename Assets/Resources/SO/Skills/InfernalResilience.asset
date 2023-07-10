@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 34
   Name: Infernal Resilience
-  Description: Gives a shield equivalent to 50% of missing health for 3 turns.
-  DamageRatio: 0
+  Description: "Deals 25% of physical/magic att as true damage. If the player\u2019s
+    physical damage is higher than the enemy, remove all debuffs."
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

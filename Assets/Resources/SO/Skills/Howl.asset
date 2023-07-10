@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: Howl
   m_EditorClassIdentifier: 
-  Id: 81
+  Id: 111
   Name: Howl
-  Description: 'Gives all allies a atk buff for 2 turns '
-  DamageRatio: 0
+  Description: Hits the player dealing physical damage and has a 20% chance to defense
+    break
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

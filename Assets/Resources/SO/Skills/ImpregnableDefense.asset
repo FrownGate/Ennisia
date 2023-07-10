@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 12
   Name: Impregnable Defense
-  Description: increases defense of the player by 5% every turn, up to 20%.
-  DamageRatio: 0
+  Description: deals 1 hit to an enemy with all of their strength. If the enemy has
+    a defense debuff, deals an additional 50% damage.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 4
   Name: Holy Prayer
-  Description: grants attack buff and heals the user by 10% of their max health.
-  DamageRatio: 0
+  Description: deals 1 hit to all enemies with a light explosion.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 10
   MaxCooldown: 0

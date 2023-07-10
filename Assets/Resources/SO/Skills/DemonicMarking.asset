@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: DemonicMarking
   m_EditorClassIdentifier: 
-  Id: 78
+  Id: 108
   Name: Demonic Marking
-  Description: Hits the player dealing magic damage and has 100% chance to break
-    defence and 50% chance to inflict 2 demonic marks
-  DamageRatio: 0
+  Description: Hits the player dealing physical damage before inflicting a support
+    silence debuff
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

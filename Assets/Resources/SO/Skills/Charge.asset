@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 28
   Name: Charge!
-  Description: increase attack by 5%.
-  DamageRatio: 0
+  Description: increase defense by 5%.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

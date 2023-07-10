@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 21
   Name: Alchemy
-  Description: increases magical damages by 50%. Every 2 turns, decreases the third
-    skill cooldown by 1 turn.
-  DamageRatio: 0
+  Description: Always take the first turn, and convert 50% of defense into attack.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

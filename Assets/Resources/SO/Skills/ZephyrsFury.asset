@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 54
   Name: Zephyr's Fury
-  Description: Gives a Crit Damage Buff for 3 turns.
-  DamageRatio: 0
+  Description: Attacks all enemies, and gives a shield based off 40% of damage done.
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

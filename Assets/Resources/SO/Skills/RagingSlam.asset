@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: RagingSlam
   m_EditorClassIdentifier: 
-  Id: 75
+  Id: 105
   Name: Raging Slam
-  Description: Hits the player dealing physical damage before giving user an attack
-    buff
-  DamageRatio: 0
+  Description: Hits the player dealing magic damage and has a 10% to inflict a demonic
+    mark
+  DamageAmount: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
