@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 57
   Name: Refreshing Tideguard
-  Description: Increase physical attack by 20%
-  DamageAmount: 0
+  Description: Gives a shield to the player, scales with max Hp, for 2 turns.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
