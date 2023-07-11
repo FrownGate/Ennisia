@@ -25,4 +25,23 @@ MonoBehaviour:
         Value: 1000
       - Key: 1
         Value: 100
-  Goals: []
+  Goals:
+  - {fileID: 8297344324292620907}
+--- !u!114 &8297344324292620907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2961f53943d0b64bbd072178f059a42, type: 3}
+  m_Name: KillingGoal
+  m_EditorClassIdentifier: 
+  RequiredAmount: 1
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  ToKill:
+  - {fileID: 11400000, guid: afb3a6984893e1b48b1b490804a5c675, type: 2}

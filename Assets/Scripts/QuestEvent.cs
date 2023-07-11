@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameEvent
+public abstract class QuestEvent
 {
     public string EventDescription;
 }
 
-public class KillGameEvent : GameEvent
+public class KillQuestEvent : QuestEvent
 {
     public string KilledName;
-
-    public KillGameEvent(string name)
+    
+    public KillQuestEvent(string name)
     {
         KilledName = name;
     }

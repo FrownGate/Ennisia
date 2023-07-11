@@ -116,6 +116,9 @@ public class QuestEditor : Editor
     private List<string> _quesGoalType;
     private SerializedProperty _questGoalsListProperty;
 
+    private Dictionary<QuestSO.QuestGoal, Editor> _goalEditors = new Dictionary<QuestSO.QuestGoal, Editor>();
+    private List<QuestSO.QuestGoal> _goalsToRemove = new List<QuestSO.QuestGoal>();
+
     [MenuItem("Assets/Quest", priority = 0)]
     public static void CreateQuest()
     {
@@ -140,10 +143,11 @@ public class QuestEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        serializedObject.Update();
+
         var child = _questInfoProperty.Copy();
         var depth = child.depth;
         child.NextVisible(true);
-
 
         EditorGUILayout.LabelField("Quest Info", EditorStyles.boldLabel);
         while (child.depth > depth)
@@ -163,51 +167,112 @@ public class QuestEditor : Editor
             child.NextVisible(false);
         }
 
+        EditorGUILayout.Space();
+
         int choice = EditorGUILayout.Popup("Add new Quest Goal", -1, _quesGoalType.ToArray());
 
         if (choice != -1)
         {
-            var newInstance = ScriptableObject.CreateInstance(_quesGoalType[choice]);
-
-            AssetDatabase.AddObjectToAsset(newInstance,target);
-
-            _questGoalsListProperty.InsertArrayElementAtIndex(_questGoalsListProperty.arraySize);
-            _questGoalsListProperty.GetArrayElementAtIndex((_questGoalsListProperty.arraySize - 1)).objectReferenceValue = newInstance;
+            var newInstance = ScriptableObject.CreateInstance(_quesGoalType[choice]) as QuestSO.QuestGoal;
+            if (newInstance != null)
+            {
+                newInstance.name = _quesGoalType[choice];
+                AssetDatabase.AddObjectToAsset(newInstance, serializedObject.targetObject);
+                _questGoalsListProperty.arraySize++;
+                _questGoalsListProperty.GetArrayElementAtIndex(_questGoalsListProperty.arraySize - 1).objectReferenceValue = newInstance;
+                _goalEditors.Add(newInstance, Editor.CreateEditor(newInstance));
+            }
         }
 
-        Editor ed = null;
+        EditorGUILayout.Space();
 
-        int toDelete = -1;
         for (int i = 0; i < _questGoalsListProperty.arraySize; i++)
         {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.BeginVertical();
-            var item = _questGoalsListProperty.GetArrayElementAtIndex(i);
-            SerializedObject obj = new SerializedObject(item.objectReferenceValue);
+            SerializedProperty goalProperty = _questGoalsListProperty.GetArrayElementAtIndex(i);
+            QuestSO.QuestGoal goal = goalProperty.objectReferenceValue as QuestSO.QuestGoal;
 
-            Editor.CreateCachedEditor(item.objectReferenceValue,null,ref ed);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
-            ed.OnInspectorGUI();
+            EditorGUI.indentLevel++;
+
+            SerializedObject goalObject = new SerializedObject(goal);
+            goalObject.Update();
+
+            Editor goalEditor;
+            if (_goalEditors.ContainsKey(goal))
+            {
+                goalEditor = _goalEditors[goal];
+            }
+            else
+            {
+                goalEditor = Editor.CreateEditor(goal);
+                _goalEditors.Add(goal, goalEditor);
+            }
+
+            goalEditor.OnInspectorGUI();
+
+            goalObject.ApplyModifiedProperties();
+
+            EditorGUI.indentLevel--;
+
             EditorGUILayout.EndVertical();
 
-            if (GUILayout.Button("-", GUILayout.Width((32))))
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            if (GUILayout.Button("Remove", GUILayout.Width(80)))
             {
-                toDelete = i;
+                _goalsToRemove.Add(goal);
             }
+
+            GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space();
         }
 
-        if (toDelete != -1)
+        // Remove the goals marked for removal
+        foreach (var goalToRemove in _goalsToRemove)
         {
-            var item = _questGoalsListProperty.GetArrayElementAtIndex(toDelete).objectReferenceValue;
-            DestroyImmediate(item, true);
-
-            //need to do it twice, first null the entry, second remove it
-            _questGoalsListProperty.DeleteArrayElementAtIndex(toDelete);
-            _questGoalsListProperty.DeleteArrayElementAtIndex(toDelete);
+            int indexToRemove = GetGoalIndex(goalToRemove);
+            if (indexToRemove >= 0)
+            {
+                _questGoalsListProperty.DeleteArrayElementAtIndex(indexToRemove);
+                DestroyImmediate(goalToRemove, true);
+                _goalEditors.Remove(goalToRemove);
+            }
         }
+        _goalsToRemove.Clear();
 
         serializedObject.ApplyModifiedProperties();
     }
+
+    private int GetGoalIndex(QuestSO.QuestGoal goal)
+    {
+        for (int i = 0; i < _questGoalsListProperty.arraySize; i++)
+        {
+            SerializedProperty goalProperty = _questGoalsListProperty.GetArrayElementAtIndex(i);
+            if (goalProperty.objectReferenceValue == goal)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void OnDisable()
+    {
+        // Clean up goal editors
+        foreach (var goalEditor in _goalEditors.Values)
+        {
+            if (goalEditor != null)
+            {
+                DestroyImmediate(goalEditor);
+            }
+        }
+
+        _goalEditors.Clear();
+    }
 }
 #endif
+

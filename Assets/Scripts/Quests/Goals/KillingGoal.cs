@@ -4,20 +4,32 @@ using UnityEngine;
 
 public class KillingGoal : QuestSO.QuestGoal
 {
-    public string Kill;
+    private string _killName;
+    private Dictionary<string, int> _killHistory = new();
+    public List<EnemySO> ToKill;
+
 
     public override void Initialize()
     {
         base.Initialize();
-        EventManager.Instance.AddListener<KillGameEvent>(OnKilling);
-
+        QuestEventManager.Instance.AddListener<KillQuestEvent>(OnKilling);
+        foreach (var enemy in ToKill)
+        {
+            _killHistory.Add(enemy.Name,0);
+        }
     }
 
-    public void OnKilling(KillGameEvent eventInfo)
+    public void OnKilling(KillQuestEvent eventInfo)
     {
-        if (eventInfo.KilledName != Kill) return;
-        CurrentAmount++;
-        Evaluate();
+        foreach (var enemy in ToKill)
+        {
+            _killName = enemy.Name;
+            CurrentAmount = _killHistory[_killName];
+            if (eventInfo.KilledName != _killName) continue;
+            CurrentAmount++;
+            _killHistory[_killName] = CurrentAmount;
+            Evaluate();
+        }
     }
 
 }

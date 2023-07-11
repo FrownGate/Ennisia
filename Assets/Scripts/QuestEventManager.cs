@@ -2,34 +2,34 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventManager : MonoBehaviour
+public class QuestEventManager : MonoBehaviour
 {
     public bool LimitQueueProcesing = false;
     public float QueueProcessTime = 0.0f;
-    private static EventManager s_Instance = null;
+    private static QuestEventManager s_Instance = null;
     private Queue m_eventQueue = new Queue();
 
-    public delegate void EventDelegate<T>(T e) where T : GameEvent;
-    private delegate void EventDelegate(GameEvent e);
+    public delegate void EventDelegate<T>(T e) where T : QuestEvent;
+    private delegate void EventDelegate(QuestEvent e);
 
     private Dictionary<System.Type, EventDelegate> delegates = new Dictionary<System.Type, EventDelegate>();
     private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();
     private Dictionary<System.Delegate, System.Delegate> onceLookups = new Dictionary<System.Delegate, System.Delegate>();
 
     // override so we don't have the typecast the object
-    public static EventManager Instance
+    public static QuestEventManager Instance
     {
         get
         {
             if (s_Instance == null)
             {
-                s_Instance = GameObject.FindObjectOfType(typeof(EventManager)) as EventManager;
+                s_Instance = GameObject.FindObjectOfType(typeof(QuestEventManager)) as QuestEventManager;
             }
             return s_Instance;
         }
     }
 
-    private EventDelegate AddDelegate<T>(EventDelegate<T> del) where T : GameEvent
+    private EventDelegate AddDelegate<T>(EventDelegate<T> del) where T : QuestEvent
     {
         // Early-out if we've already registered this delegate
         if (delegateLookup.ContainsKey(del))
@@ -53,12 +53,12 @@ public class EventManager : MonoBehaviour
         return internalDelegate;
     }
 
-    public void AddListener<T>(EventDelegate<T> del) where T : GameEvent
+    public void AddListener<T>(EventDelegate<T> del) where T : QuestEvent
     {
         AddDelegate<T>(del);
     }
 
-    public void AddListenerOnce<T>(EventDelegate<T> del) where T : GameEvent
+    public void AddListenerOnce<T>(EventDelegate<T> del) where T : QuestEvent
     {
         EventDelegate result = AddDelegate<T>(del);
 
@@ -69,7 +69,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public void RemoveListener<T>(EventDelegate<T> del) where T : GameEvent
+    public void RemoveListener<T>(EventDelegate<T> del) where T : QuestEvent
     {
         EventDelegate internalDelegate;
         if (delegateLookup.TryGetValue(del, out internalDelegate))
@@ -99,12 +99,12 @@ public class EventManager : MonoBehaviour
         onceLookups.Clear();
     }
 
-    public bool HasListener<T>(EventDelegate<T> del) where T : GameEvent
+    public bool HasListener<T>(EventDelegate<T> del) where T : QuestEvent
     {
         return delegateLookup.ContainsKey(del);
     }
 
-    public void TriggerEvent(GameEvent e)
+    public void TriggerEvent(QuestEvent e)
     {
         EventDelegate del;
         if (delegates.TryGetValue(e.GetType(), out del))
@@ -135,7 +135,7 @@ public class EventManager : MonoBehaviour
     }
 
     //Inserts the event into the current queue.
-    public bool QueueEvent(GameEvent evt)
+    public bool QueueEvent(QuestEvent evt)
     {
         if (!delegates.ContainsKey(evt.GetType()))
         {
@@ -161,7 +161,7 @@ public class EventManager : MonoBehaviour
                     return;
             }
 
-            GameEvent evt = m_eventQueue.Dequeue() as GameEvent;
+            QuestEvent evt = m_eventQueue.Dequeue() as QuestEvent;
             TriggerEvent(evt);
 
             if (LimitQueueProcesing)
