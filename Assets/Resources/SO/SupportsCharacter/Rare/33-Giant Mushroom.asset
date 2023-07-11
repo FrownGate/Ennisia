@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 33-Giant Mushroom
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: b03624f25da609c45a641282a2ad2a90, type: 2}
   Id: 33
   Name: Giant Mushroom
   Rarity: Rare
   Race: none
   Job: none
   Element: 3
-  SkillsData:
-  - {fileID: 11400000, guid: fb8df59d9ef23db499976b31145095c3, type: 2}
   Description: none
   Catchphrase: none
+  Button: {fileID: 0}

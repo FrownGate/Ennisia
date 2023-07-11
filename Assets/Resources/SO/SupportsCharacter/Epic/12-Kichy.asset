@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 12-Kichy
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: b067a3e7d0c00c94dad377f7923369e4, type: 2}
+  - {fileID: 11400000, guid: a8d8cef85b921fd4d93e16d7010e5faa, type: 2}
   Id: 12
   Name: Kichy
   Rarity: Epic
   Race: Beast
   Job: Healer
   Element: 3
-  SkillsData:
-  - {fileID: 11400000, guid: 6d9cd62ad5436bb43bc5bac853f8699c, type: 2}
-  - {fileID: 11400000, guid: b5f073ebcb36b3541ab9aca1e31f1d72, type: 2}
   Description: Kichy has always been alone, and is looking for someone to spend her
     time with. She has lived in the woods all her life and has learned a great deal
     in healing from herbs.
   Catchphrase: "If you take me with you, you\u2019ll never get hurt."
+  Button: {fileID: 0}

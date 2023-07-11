@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 18-Vahl
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: d24790db5267d1f4f8b86c54df8e134b, type: 2}
+  - {fileID: 11400000, guid: 3d359067add47fb46a1b595c8a9a54fc, type: 2}
   Id: 18
   Name: Vahl
   Rarity: Epic
   Race: Elf
   Job: Mage
   Element: 4
-  SkillsData:
-  - {fileID: 11400000, guid: fce08ce3635c9534baa8895d8eb5b746, type: 2}
-  - {fileID: 11400000, guid: 47d5a6b177a59a244856ac6108112b6a, type: 2}
   Description: 
   Catchphrase: 
+  Button: {fileID: 0}
