@@ -2,8 +2,23 @@ using System.Collections.Generic;
 
 public class ForceBalancing : PassiveSkill
 {
-    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage)
+    private List<Effect> _debuffList;
+    private bool _hasBuff = false;
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        //TO DO Give a buff if enemy is buff
+        for (int i = 1; i < targets.Count; i++)
+        {
+            if (targets[i].Effects.Count > 1 && !_hasBuff)
+            {
+                _hasBuff = true;
+            }
+            else continue;
+        }
+
+        if (_hasBuff)
+        {
+            caster.ApplyEffect(new AttackBuff());
+            caster.ApplyEffect(new DefenseBuff());
+        }
     }
 }

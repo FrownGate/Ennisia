@@ -8,7 +8,7 @@ public class TorrentialAnnihilation : DamageSkill
         {
             if (caster.Stats[Attribute.PhysicalDamages].Value > targets[i].Stats[Attribute.PhysicalDamages].Value)
             {
-                //TODO -> cleanse target's buff
+                caster.Cleanse();
             }
         }
 
