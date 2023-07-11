@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: FallingArrows
   m_EditorClassIdentifier: 
-  Id: 102
+  Id: 72
   Name: Falling Arrows
-  Description: The user heals 20% health of all allies and gives a shield proportional
-    to max health
-  DamageAmount: 0
+  Description: Hits the player 4 times dealing physical damage and has a 50% chance
+    to recieve a Crit Rate and Crit Dmg buff
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

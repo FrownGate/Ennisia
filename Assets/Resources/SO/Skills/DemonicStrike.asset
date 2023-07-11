@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
   m_Name: DemonicStrike
   m_EditorClassIdentifier: 
-  Id: 109
+  Id: 79
   Name: Demonic Strike
-  Description: Hits the player dealing physical damage, inflicting demonic mark and
-    has 50% chance to break defense, if break defense atk bar 100%
-  DamageAmount: 0
+  Description: Hits the player dealing physical damage before inflicting a support
+    silence debuff
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
