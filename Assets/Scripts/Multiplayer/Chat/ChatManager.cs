@@ -1,8 +1,7 @@
-using Mirror;
 using TMPro;
 using UnityEngine;
 
-public class ChatManager : NetworkBehaviour
+public class ChatManager : MonoBehaviour
 {
     public TMP_Text chatText;
     public TMP_InputField chatInput;
@@ -24,39 +23,5 @@ public class ChatManager : NetworkBehaviour
     public static ChatManager GetInstance()
     {
         return instance;
-    }
-
-    private void Start()
-    {
-        chatInput.onSubmit.AddListener(SendMessage);
-    }
-
-    private void SendMessage(string message)
-    {
-        if (!string.IsNullOrWhiteSpace(message))
-        {
-            if (isOwned)
-            {
-                CmdSendMessage(message);
-            }
-            else
-            {
-                Debug.LogWarning("ChatManager does not have authority to send message.");
-            }
-
-            chatInput.text = "";
-        }
-    }
-
-    [Command]
-    private void CmdSendMessage(string message)
-    {
-        RpcReceiveMessage(message);
-    }
-
-    [ClientRpc]
-    private void RpcReceiveMessage(string message)
-    {
-        chatText.text += message + "\n";
     }
 }
