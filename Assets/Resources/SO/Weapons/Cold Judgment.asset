@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Cold Judgment
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 5bd9ec52e9d2ab94e8ebd40a522946c3, type: 2}
+  - {fileID: 11400000, guid: 70e58246fcbbd1a48bb53a1f6646dec3, type: 2}
   Id: 5
   Name: Cold Judgment
   Level: 1
@@ -24,6 +27,3 @@ MonoBehaviour:
     _serializedList: []
   WeaponType: 4
   IsMagic: 0
-  SkillsData:
-  - {fileID: 11400000, guid: 9a3a83ca4502e6646ae9d3205e49be96, type: 2}
-  - {fileID: 11400000, guid: 30edd0d220176ef42960663ffaeba368, type: 2}

@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 13-Oliver
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 75af3f1d521bc47419db37e25b4ee11f, type: 2}
+  - {fileID: 11400000, guid: 0269e17128be2cc4bae5086f8b09b0f1, type: 2}
   Id: 13
   Name: Oliver
   Rarity: Epic
   Race: Elf
   Job: Sword-Master
   Element: 0
-  SkillsData:
-  - {fileID: 11400000, guid: da7f87edfb5d2cd4a8c7bce7d6865e1d, type: 2}
-  - {fileID: 11400000, guid: f6fed5ad45f063b46987482e9c691a21, type: 2}
   Description: An elven officer that specializes in training new recruits. He was
     a very promising swordsman but due to an injury he lost a lot of his capabilities.
     Thus he retired from combat and became a very good teacher.
   Catchphrase: "If you\u2019re feeling down, let me raise you to new heights"
+  Button: {fileID: 0}

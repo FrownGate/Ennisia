@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 31-Haunted Tree
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 71251ada69fa96e4cad55dba38d019e1, type: 2}
   Id: 31
   Name: Haunted Tree
   Rarity: Rare
   Race: none
   Job: none
   Element: 4
-  SkillsData:
-  - {fileID: 11400000, guid: 1c37a7e5a64b91f4b9a5e56b1654346a, type: 2}
   Description: none
   Catchphrase: none
+  Button: {fileID: 0}

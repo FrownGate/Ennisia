@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 1-Djeamy
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 408e540558ce16a40a708f4da6a875e8, type: 2}
+  - {fileID: 11400000, guid: 82d385d918cf7e24ab64225c626006b8, type: 2}
   Id: 1
   Name: Djeamy
   Rarity: Legendary
   Race: Human
   Job: Sword-Master
   Element: 0
-  SkillsData:
-  - {fileID: 11400000, guid: a512c9a9069eebb4385770a7be399d99, type: 2}
-  - {fileID: 11400000, guid: 124c3fed72979b14a818d9eee9ff4d85, type: 2}
   Description: A general of the Human army, rumored to be the strongest; he is known
     for his great sword skills, and his cunning mind. He is very cocky and believes
     no one to be stronger than him. He has a very serious and intimidating nature;
     however, he has a heart of gold, and would do anything for his Queen.
   Catchphrase: Know your place, peasant! You are unworthy of facing me.
+  Button: {fileID: 0}

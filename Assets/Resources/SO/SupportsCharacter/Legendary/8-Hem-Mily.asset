@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 8-Hem-Mily
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 597fa2b84c4967d4e82ffc59c3b9cdd2, type: 2}
+  - {fileID: 11400000, guid: 01561f9df5b4cb940b6507cf98fe6a6f, type: 2}
   Id: 8
   Name: Hem-Mily
   Rarity: Legendary
   Race: Elf
   Job: Healer
   Element: 2
-  SkillsData:
-  - {fileID: 11400000, guid: c3de2071a96923e46963c182a6223419, type: 2}
-  - {fileID: 11400000, guid: 54b8c5d2c361b7648976ee2ccde6311c, type: 2}
   Description: Hem and Mily are elven twins that cannot be separated. Even Though
     they are two different people, they share the same thoughts and thus consider
     themselves as one. Since their birth they have been very close to the forest
     of Xothio, and developed a knack for healing and herb treatments. It is said
     that they can heal any wound and cure any sickness.
   Catchphrase: "Hi! Tell us what\u2019s wrong, I know we can make you feel better"
+  Button: {fileID: 0}

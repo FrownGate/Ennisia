@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Majestic Light
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 4405fb4b491195641848063f13282dc7, type: 2}
+  - {fileID: 11400000, guid: eb7cbce10681a5c4681f5cb694fe8fc4, type: 2}
   Id: 2
   Name: Majestic Light
   Level: 1
@@ -24,6 +27,3 @@ MonoBehaviour:
     _serializedList: []
   WeaponType: 1
   IsMagic: 1
-  SkillsData:
-  - {fileID: 11400000, guid: a8c70296a3d644545a29e186e9e68450, type: 2}
-  - {fileID: 11400000, guid: 2ecbab1adfe904c4682ba90029245d14, type: 2}

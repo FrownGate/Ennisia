@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 9-Elvan
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 568877186659e134ca2688fc7f0f82e3, type: 2}
+  - {fileID: 11400000, guid: 885bca2017592bd47a678fedf32a0c86, type: 2}
   Id: 9
   Name: Elvan
   Rarity: Legendary
   Race: Elf
   Job: Sword-Master
   Element: 1
-  SkillsData:
-  - {fileID: 11400000, guid: 30d510372b39d2047a9f6e108d9208e0, type: 2}
-  - {fileID: 11400000, guid: 9cc040eef52a7ee4db7d367ed283e67c, type: 2}
   Description: He is the son of the Elven chief, and next in line to become chief.
     To subdue the pressure he decided to learn the way of the sword. He became unrivaled
     by any other elves, the only one that came close was Oliver before his injury.
     He has great respect for his father and his goal in life is to make him proud.
   Catchphrase: I cannot disappoint my father, I will lead the elven kingdom to greatness.
+  Button: {fileID: 0}
