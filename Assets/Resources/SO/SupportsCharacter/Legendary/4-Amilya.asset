@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 4-Amilya
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: b8f30b568ad15b64cacfa4faa937d146, type: 2}
+  - {fileID: 11400000, guid: 23e313d706bcb7d43b45d57a90d6ef80, type: 2}
   Id: 4
   Name: Amilya
   Rarity: Legendary
   Race: Human
   Job: Mage
   Element: 1
-  SkillsData:
-  - {fileID: 11400000, guid: dceb626d9b32aaf459e790d5f4c1aed7, type: 2}
-  - {fileID: 11400000, guid: 95a47f6ff4dcc7e489b9d6f3150baa61, type: 2}
   Description: "Amilya is the King\u2019s first daughter, and is very proud to be.
     She has great magic affinity and became a general very fast. She is always accompanied
     by someone due to her short term memory problem. She is also in love with Theaume,
     but due to his social status, their relationship is impossible. "
   Catchphrase: "Aw man! This isn\u2019t my wand.. it\u2019s a random stick."
+  Button: {fileID: 0}

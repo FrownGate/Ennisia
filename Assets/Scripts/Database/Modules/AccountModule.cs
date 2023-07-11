@@ -35,11 +35,11 @@ public class AccountModule : Module
 
     public void StartLogin()
     {
-        if (HasLocalSave()) return;
-        AnonymousLogin();
+       /* if (HasLocalSave()) return;
+        AnonymousLogin();*/
 
         //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
-        //Login("testing@gmail.com", "Testing");
+        Login("testing@gmail.com", "testing");
     }
 
     #region Local Save

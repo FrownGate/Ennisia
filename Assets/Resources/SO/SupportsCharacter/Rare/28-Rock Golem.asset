@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 28-Rock Golem
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: b6254618a1bd8d64487faedfa5c85ac8, type: 2}
   Id: 28
   Name: Rock Golem
   Rarity: Rare
   Race: none
   Job: none
   Element: 3
-  SkillsData:
-  - {fileID: 11400000, guid: e6fba97c89491844ea5983919a17b9eb, type: 2}
   Description: none
   Catchphrase: none
+  Button: {fileID: 0}

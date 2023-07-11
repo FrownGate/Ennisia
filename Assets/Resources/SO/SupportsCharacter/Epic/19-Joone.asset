@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 19-Joone
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: bc9526100e0270e479364212c4351c4f, type: 2}
+  - {fileID: 11400000, guid: 67669b5ae7b9876408c6206f5e9a18f8, type: 2}
   Id: 19
   Name: Joone
   Rarity: Epic
   Race: Elf
   Job: Healer
   Element: 1
-  SkillsData:
-  - {fileID: 11400000, guid: e7a76c6dd8000ab498fdf043cb70c0d5, type: 2}
-  - {fileID: 11400000, guid: 099135a788791dd4584f7ecc48e675f0, type: 2}
   Description: 
   Catchphrase: 
+  Button: {fileID: 0}

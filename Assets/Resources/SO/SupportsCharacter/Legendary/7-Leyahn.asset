@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 7-Leyahn
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 1fa8ac35c78a9e4428e14e79376d99c6, type: 2}
+  - {fileID: 11400000, guid: f56538761fa3e154daa5d8a579ef584d, type: 2}
   Id: 7
   Name: Leyahn
   Rarity: Legendary
   Race: Beast
   Job: Assassin
   Element: 4
-  SkillsData:
-  - {fileID: 11400000, guid: df948ac70715d3142b42e10ada755682, type: 2}
-  - {fileID: 11400000, guid: 6ae8b1837ccb7c34ca9ba332102683eb, type: 2}
   Description: Leyahn is one of the fastest people in Ennisia, and also the sneakiest.
     She can fall from the top of a roof and make no noise, and can kill someone before
     he feels the pain of her claws. Leyahn lost her family from a young age and resorted
     to theft to survive. Thus she had to run and hide all her life, until a famous
     thief found her and raised her.
   Catchphrase: If I need a weapon, then I need more training.
+  Button: {fileID: 0}
