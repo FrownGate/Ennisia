@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 10
   Name: Bones Breaker
-  Description: deals one charged hit to an enemy, divided by the missing hp% then
-    heals hp according to damage dealt.
-  DamageAmount: 0
+  Description: deals one heavy hit to an enemy, debuffs his defense.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

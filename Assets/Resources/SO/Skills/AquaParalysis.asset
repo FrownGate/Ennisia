@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 53
   Name: Aqua Paralysis
-  Description: Gives a Crit Damage Buff for 3 turns.
-  DamageAmount: 0
+  Description: When the player is attacked, has a 15% chance to stun the enemy.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 11
   Name: Fatal Crash
-  Description: increases defense of the player by 5% every turn, up to 20%.
-  DamageAmount: 0
+  Description: deals one charged hit to an enemy, divided by the missing hp% then
+    heals hp according to damage dealt.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

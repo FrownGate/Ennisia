@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 46
   Name: Zephyr Swiftness
-  Description: Give an attack buff for 3 turns before attacking an enemy
-  DamageAmount: 0
+  Description: Increase base speed by 20%.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

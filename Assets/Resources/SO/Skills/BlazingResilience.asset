@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 49
   Name: Blazing Resilience
-  Description: Increase Crit Rate of player by 25%.
-  DamageAmount: 0
+  Description: When the player receives a debuff, give random buff (att, Crit Rate,
+    Crit Damage).
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
