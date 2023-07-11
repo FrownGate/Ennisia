@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 16-Alexit
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 9f14b6abd4352c94c93dd73daf6e702d, type: 2}
+  - {fileID: 11400000, guid: 5a1e362a96fb64343b83cdb3770ce223, type: 2}
   Id: 16
   Name: Alexit
   Rarity: Epic
   Race: Beast
   Job: Sword-Master
   Element: 2
-  SkillsData:
-  - {fileID: 11400000, guid: aad2b5a947b5ffe4ea410913cf3c42d2, type: 2}
-  - {fileID: 11400000, guid: 84246fbef0d32eb48b290a3061874b5d, type: 2}
   Description: 
   Catchphrase: 
+  Button: {fileID: 0}

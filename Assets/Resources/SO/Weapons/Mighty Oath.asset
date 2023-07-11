@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Mighty Oath
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 0eb109144c40feb499b027f30bdf2b27, type: 2}
+  - {fileID: 11400000, guid: 4ff1261f47b42d441aeed6728305d326, type: 2}
   Id: 6
   Name: Mighty Oath
   Level: 1
@@ -24,6 +27,3 @@ MonoBehaviour:
     _serializedList: []
   WeaponType: 5
   IsMagic: 0
-  SkillsData:
-  - {fileID: 11400000, guid: 74b26012eccac1845b8fccfbbf587e0c, type: 2}
-  - {fileID: 11400000, guid: c7c56b3badae38d439d9a680f93b1aba, type: 2}

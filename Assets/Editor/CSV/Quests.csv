@@ -1,7 +1,18 @@
-ID,Name,Description,Energy,Gold,Crystals
-1,a,first time you beating a boss ,20,1000,30
-2,b,reach max lvl for a weapon,20,1000,30
-3,c,reach max level for an equipement,20,1000,30
-4,d,first time you beat the same boss 10 time,20,1000,100
-5,e,first time you beat the same boss 50 time,20,1000,300
-6,f,first time you lose,20,1000,30
+ID,Name,QuestType,Description,Energy,Gold,Crystals
+1,Triumph Overlord,Achievement,"first time you beat a boss ",20,1000,30
+2,Apex Weapon,Achievement,reach max lvl for a weapon,20,1000,30
+3,Exalted Equipment,Achievement,reach max level for an equipement,20,1000,30
+4,Boss Bane,Achievement,first time you beat the same boss 10 time,20,1000,100
+5,Boss Conqueror,Achievement,first time you beat the same boss 50 time,20,1000,300
+6,First Taste of Defeat,Achievement,first time you lose,20,1000,30
+7,Energetic Endeavor,Daily,Use 50 energy,20,300,0
+8,Dungeon Delver,Daily,Defeat a dongeon,20,300,0
+9,Embark on a journey,Daily,Do one story quest,20,300,0
+10,Foe Slayer,Daily,Kill 30 enemies,20,300,0
+11,Empowering the Arsenal,Daily,Upgrade an equipment,20,300,0
+12,Raid Ravager,Weekly,Defeat 3 Raid,100,60,0
+13,Explorer's Triumph,Weekly,Finish one expedition,100,60,0
+14,Tower Ascendancy,Weekly,Do 10 floor in the Endless Tower,100,60,0
+15,Battlefield Conqueror,Weekly,Kill 100 enemies,100,60,0
+16,Epic Tales Unfold,Weekly,Do 5 story quest,100,60,0
+17,Wealthy Investments,Weekly,Spend 10 000 gold,100,60,0

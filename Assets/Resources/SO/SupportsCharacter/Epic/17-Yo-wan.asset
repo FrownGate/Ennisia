@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 17-Yo-wan
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 7449871e5aeb2e440a5fab017269b993, type: 2}
+  - {fileID: 11400000, guid: 311c661365e28fa4a8034a8c6f5d1d55, type: 2}
   Id: 17
   Name: Yo-wan
   Rarity: Epic
   Race: Human
   Job: Shield-Bearer
   Element: 3
-  SkillsData:
-  - {fileID: 11400000, guid: 2e4f55afd0e746a4788ea549d27b33f7, type: 2}
-  - {fileID: 11400000, guid: 043aa2ab20019e54cbc35610967dc344, type: 2}
   Description: 
   Catchphrase: 
+  Button: {fileID: 0}

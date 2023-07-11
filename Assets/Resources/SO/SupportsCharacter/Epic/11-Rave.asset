@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 11-Rave
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 7c1dc11edc136a649b7bf9f4eb08b221, type: 2}
+  - {fileID: 11400000, guid: d3225865d35d62d43849bc916eec3276, type: 2}
   Id: 11
   Name: Rave
   Rarity: Epic
   Race: Elf
   Job: Assassin
   Element: 2
-  SkillsData:
-  - {fileID: 11400000, guid: 1cf1c1ff5ca9e71428345c3f14546ded, type: 2}
-  - {fileID: 11400000, guid: 1b09088717d1738459fb5541cafab01e, type: 2}
   Description: "Rave knows how to use his opponent\u2019s strength against them.
     Making him a great assassin, and duelist."
   Catchphrase: I even the odds against any foe
+  Button: {fileID: 0}

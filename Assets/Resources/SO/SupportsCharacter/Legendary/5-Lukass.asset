@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 5-Lukass
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 06d8ec46e931ee543bdd75c322b06b77, type: 2}
+  - {fileID: 11400000, guid: 085fcf3de6e552e44aac226d99c5ae89, type: 2}
   Id: 5
   Name: Lukass
   Rarity: Legendary
   Race: Human
   Job: Shield-Bearer
   Element: 3
-  SkillsData:
-  - {fileID: 11400000, guid: f33c9dc6f0d45c94e9aefa3b85b4ef57, type: 2}
-  - {fileID: 11400000, guid: 80bba902b68a4ca48a7e196b6286f70e, type: 2}
   Description: "Lukass is a high ranking noble in the kingdom of Xothio. At an early
     age he was scared of everything, and it wasn\u2019t until his father gave him
     a shield that he started leaving the house. He is now a great Shield-Bearer and
     protects the people of Xothio with his shield. He has a great sense of justice
     and chivalry."
   Catchphrase: What is pain? I have never even been scratched
+  Button: {fileID: 0}
