@@ -11,9 +11,12 @@ public class LogHandler : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] Canvas _canvas;
     [SerializeField] private TextMeshProUGUI _promptText;
-
-    public CanvasGroup MessageBoxCanvasGroup;
+    [SerializeField] private ScrollRect _scrollRect;
     
+    public CanvasGroup MessageBoxCanvasGroup;
+    private bool _isMessageBoxVisible = true;
+    private float _offset => -1.5f;
+
     //private bool _isMessageBoxVisible = true;
 
     private void Awake()
@@ -61,7 +64,7 @@ public class LogHandler : MonoBehaviour, IPointerClickHandler
                 EnqueueMessage($"\n <color=#ff8a00>[{type}] {logString}</color>");
                 break;
             case LogType.Log:
-                EnqueueMessage($"\n <color=black>[{type}] {logString}</color>");
+                EnqueueMessage($"\n <color=white>[{type}] {logString}</color>");
                 break;
         }
     }
@@ -69,6 +72,7 @@ public class LogHandler : MonoBehaviour, IPointerClickHandler
     private void EnqueueMessage(string message)
     {
         _promptText.text += message;
+        _scrollRect.normalizedPosition = new Vector2(-0.1f, _offset);
     }
 
     private void InputSpaceToHideMessageBox()
@@ -81,15 +85,7 @@ public class LogHandler : MonoBehaviour, IPointerClickHandler
     
     public void ToggleMessageBox()
     {
-        if (MessageBoxCanvasGroup.alpha == 1.0f)
-        {
-            MessageBoxCanvasGroup.alpha = 0.5f; 
-        }
-        else
-        {
-            MessageBoxCanvasGroup.alpha = 1.0f; 
-        }
-        /*_isMessageBoxVisible = !_isMessageBoxVisible;
-        _canvas.gameObject.SetActive(_isMessageBoxVisible);*/
+        _isMessageBoxVisible = !_isMessageBoxVisible;
+        _canvas.gameObject.SetActive(_isMessageBoxVisible);
     }
 }
