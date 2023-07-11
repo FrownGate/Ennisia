@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 51
   Name: Tectonic Impact
-  Description: Increase damage output by 15%
-  DamageAmount: 0
+  Description: When the player attacks a single enemy, deal 15% of damage done to
+    all other enemies.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

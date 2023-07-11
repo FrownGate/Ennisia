@@ -19,6 +19,7 @@ public class BattleSystem : StateMachine
     public TextMeshProUGUI DialogueText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
+    //TODO -> move popup in BattleSystem game object
 
     public bool PlayerHasWin { get; private set; }
     public int Turn { get; set; }
