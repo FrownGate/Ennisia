@@ -35,7 +35,7 @@ public class ChatManager : NetworkBehaviour
     {
         if (!string.IsNullOrWhiteSpace(message))
         {
-            if (hasAuthority)
+            if (isOwned)
             {
                 CmdSendMessage(message);
             }
