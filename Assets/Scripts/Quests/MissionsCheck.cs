@@ -1,4 +1,3 @@
-using InfinityCode.UltimateEditorEnhancer.SceneTools;
 using UnityEngine;
 using UnityEngine.Rendering;
 
