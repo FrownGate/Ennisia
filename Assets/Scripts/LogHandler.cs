@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LogHandler : MonoBehaviour, IPointerClickHandler
+public class LogHandler : MonoBehaviour
 {
     public static LogHandler Instance { get; private set; }
 
@@ -16,9 +16,7 @@ public class LogHandler : MonoBehaviour, IPointerClickHandler
     public CanvasGroup MessageBoxCanvasGroup;
     private bool _isMessageBoxVisible = true;
     private float _offset => -1.5f;
-
-    //private bool _isMessageBoxVisible = true;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -43,12 +41,6 @@ public class LogHandler : MonoBehaviour, IPointerClickHandler
         InputSpaceToHideMessageBox();
     }
     
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        ToggleMessageBox();
-    }
-    
-
     private void LogMessageReceived(string logString, string stackTrace, LogType type)
     {
         switch (type)
