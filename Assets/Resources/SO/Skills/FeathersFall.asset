@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 14
   Name: "Feathers\u2019 Fall"
-  Description: "increases user\u2019s critical damage, attack and critical rate (buff),
-    then gives an additional turn."
-  DamageAmount: 0
+  Description: Deals 10 hits to all enemies with sharp feathers.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

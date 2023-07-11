@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 25
   Name: Fast Shield
-  Description: Once every turn; cleanse one debuff when attacked
-  DamageAmount: 0
+  Description: After an enemy attack, gives a shield, the shield strength is equivalent
+    to 20% of the damage received
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

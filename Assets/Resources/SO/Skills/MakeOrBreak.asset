@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 18
   Name: Make Or Break
-  Description: "Inverts the current weapon\u2019s damage type and increases it by
-    20%."
-  DamageAmount: 0
+  Description: increases hp by 150% of base attack. Heals 5% of damage dealt.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
