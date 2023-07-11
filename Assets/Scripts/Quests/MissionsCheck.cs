@@ -1,3 +1,4 @@
+using System;
 using InfinityCode.UltimateEditorEnhancer.SceneTools;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -40,16 +41,15 @@ public class MissionsCheck : MonoBehaviour
 
     private void CheckChallengeMission(ChallengeType challengeType, MissionSO missionSO, MissionManager.MissionType missionType, int challengeIndex)
     {
-        if (missionSO.Type == missionType)
+        if (missionSO.Type != missionType) return;
+        switch (challengeType)
         {
-            if (challengeType == ChallengeType.Daily)
-            {
+            case ChallengeType.Daily:
                 CheckChallengeDone(dailies[challengeIndex], missionCount[missionSO.Type], missionNeeded[missionSO.Type]);
-            }
-            else if (challengeType == ChallengeType.Weekly)
-            {
+                break;
+            case ChallengeType.Weekly:
                 CheckChallengeDone(weeklies[challengeIndex], missionCount[missionSO.Type], missionNeeded[missionSO.Type]);
-            }
+                break;
         }
     }
 

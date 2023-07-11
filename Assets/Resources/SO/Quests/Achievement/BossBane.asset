@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
   m_Name: BossBane
   m_EditorClassIdentifier: 
-  ID: 4
-  Name: Boss Bane
-  QuestType: 2
-  Description: first time you beat the same boss 10 time
-  Energy: 20
-  currencyList:
-    _serializedList:
-    - Key: 0
-      Value: 1000
-    - Key: 1
-      Value: 100
+  Information:
+    ID: 4
+    Name: Boss Bane
+    QuestType: 2
+    Description: first time you beat the same boss 10 time
+  Reward:
+    Energy: 20
+    currencyList:
+      _serializedList:
+      - Key: 0
+        Value: 1000
+      - Key: 1
+        Value: 100
+  Goals: []

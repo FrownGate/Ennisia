@@ -60,7 +60,7 @@ public abstract class AI
     private static bool CanBuff(Entity caster)
     {
 
-        if(caster.Skills.Contains(BuffSkill))
+        //if(caster.Skills.Contains(BuffSkill))
         foreach (Skill skill in caster.Skills)
         {
             if (skill.GetType() == typeof(BuffSkill) && skill.Cooldown == 0)

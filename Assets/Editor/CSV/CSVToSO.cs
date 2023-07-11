@@ -502,10 +502,10 @@ public class CSVToSO : EditorWindow
         var scriptableObject = CreateInstance<QuestSO>();
 
         // Assign values directly without using intermediate variables
-        scriptableObject.ID = int.Parse(rowData["ID"]);
-        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
-        scriptableObject.Description = rowData["Description"];
-        scriptableObject.Energy = int.Parse(rowData["Energy"]);
+        scriptableObject.Information.ID = int.Parse(rowData["ID"]);
+        scriptableObject.Information.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Information.Description = rowData["Description"];
+        scriptableObject.Reward.Energy = int.Parse(rowData["Energy"]);
 
         var values = rowData.ToList();
         for (var i = 0; i < rowData.Count; i++)
@@ -514,12 +514,12 @@ public class CSVToSO : EditorWindow
             if (Enum.TryParse(type, out Currency currencyType))
             {
                 Debug.Log(type);
-                scriptableObject.currencyList.Add(currencyType, int.Parse(rowData[type]));
+                scriptableObject.Reward.currencyList.Add(currencyType, int.Parse(rowData[type]));
             }
         }
 
         if (!Enum.TryParse(rowData["QuestType"], out QuestType questType)) return;
-        scriptableObject.QuestType = questType;
+        scriptableObject.Information.QuestType = questType;
 
         // Create the folder if it doesn't exist
         var folderPath = $"Assets/Resources/SO/Quests/{questType}";
@@ -529,7 +529,7 @@ public class CSVToSO : EditorWindow
             AssetDatabase.Refresh();
         }
 
-        var savePath = $"{folderPath}/{scriptableObject.Name.Replace(" ", string.Empty)}.asset";
+        var savePath = $"{folderPath}/{scriptableObject.Information.Name.Replace(" ", string.Empty)}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
