@@ -18,18 +18,6 @@ public abstract class AI
         return lowestEnemy;
     }
 
-    private static bool IsBdef(List<Entity> enemies)
-    {
-        foreach (Entity enemy in enemies)
-        {
-            if (enemy.Effects.Find(effect => effect.GetType() == typeof(BreakDefense)) != null) return true;
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private static List<Entity> FindBreakDefEnemy(List<Entity> ennemies)
     {
         List<Entity> bdef = new();
@@ -47,7 +35,7 @@ public abstract class AI
 
     public static Entity FindBestEnnemy(List<Entity> enemies)
     {
-        if (IsBdef(enemies))
+        if (FindBreakDefEnemy(enemies).Count > 0)
         {
             return FindLowestEnemy(FindBreakDefEnemy(enemies));
         }
@@ -71,6 +59,8 @@ public abstract class AI
 
     private static bool CanBuff(Entity caster)
     {
+
+        if(caster.Skills.Contains(BuffSkill))
         foreach (Skill skill in caster.Skills)
         {
             if (skill.GetType() == typeof(BuffSkill) && skill.Cooldown == 0)
