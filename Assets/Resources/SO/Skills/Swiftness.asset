@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 31
   Name: Swiftness
-  Description: "deals damage equivalent to 20% of the target\u2019s max health. For
-    every turn that has passed, damage increases by 5%, up to 50%."
-  DamageAmount: 0
+  Description: Increases speed by #
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

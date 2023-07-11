@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 3
   Name: "Blue Dragon\u2019s Wrath"
-  Description: grants attack buff and heals the user by 10% of their max health.
-  DamageAmount: 0
+  Description: deals 5 hits to an enemy with a majestic blue dragon.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

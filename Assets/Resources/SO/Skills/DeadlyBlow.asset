@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 9
   Name: Deadly Blow
-  Description: deals one heavy hit to an enemy, debuffs his defense.
-  DamageAmount: 0
+  Description: sneaks behind an enemy and stabs them, dealing 5 hits. If the enemy
+    is killed by this skill, reset its cooldown.
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
