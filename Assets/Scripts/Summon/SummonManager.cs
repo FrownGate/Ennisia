@@ -6,11 +6,10 @@ public class SummonManager : MonoBehaviour
 {
     public static SummonManager Instance {  get; private set; }
 
-    [SerializeField] private GameObject _supportImage; //TODO -> Move elsewhere
-    [SerializeField] private GameObject _canvasParent; //TODO -> Move elsewhere
+    public static event Action<List<SupportCharacterSO>> OnSupportPulled;
 
     public SummonBannerSO SummonBanner;
-    public int Amount;
+    private int _amount;
 
     private readonly double _legendaryChance = 0.75;
     private readonly double _epicChance = 10.25;
@@ -18,10 +17,12 @@ public class SummonManager : MonoBehaviour
     private readonly int _fragmentsPerDuplicate = 10;
 
     private Dictionary<int, int> _supports;
-    private List<SupportCharacterSO> _supportsPulled;
+    private List<SupportCharacterSO> _pulledSupports;
     private double _chance;
 
     private readonly Dictionary<Rarity, SupportCharacterSO[]> _supportsPool = new();
+
+    //TODO -> Add CheckCurrency script
 
     private void Awake()
     {
@@ -52,11 +53,11 @@ public class SummonManager : MonoBehaviour
     public void Summon()
     {
         _chance = GetChance();
-        Amount = 1; //TODO -> change depending on button
+        _amount = int.Parse(ScenesManager.Instance.Params);
         int newFragments = 0;
 
         //TODO -> Use tickets instead of crystals if _chance is < 100
-        if (PlayFabManager.Instance.Currencies[Currency.Crystals] < _cost * Amount)
+        if (PlayFabManager.Instance.Currencies[Currency.Crystals] < _cost * _amount)
         {
             Debug.LogError("not enough crystals");
             //TODO -> Show UI error message
@@ -64,16 +65,16 @@ public class SummonManager : MonoBehaviour
         }
         else
         {
-            PlayFabManager.Instance.RemoveCurrency(Currency.Crystals, _cost * Amount);
+            PlayFabManager.Instance.RemoveCurrency(Currency.Crystals, _cost * _amount);
         }
 
         _supports = PlayFabManager.Instance.GetSupports();
-        _supportsPulled = new();
+        _pulledSupports = new();
 
-        for (int i = 0; i < Amount; i++)
+        for (int i = 0; i < _amount; i++)
         {
             SupportCharacterSO pulledSupport = GetSupport();
-            _supportsPulled.Add(pulledSupport);
+            _pulledSupports.Add(pulledSupport);
             Debug.Log($"{pulledSupport.Name} has been pulled !");
 
             if (_supports.ContainsKey(pulledSupport.Id))
@@ -91,6 +92,7 @@ public class SummonManager : MonoBehaviour
             _supports[pulledSupport.Id] = 1;
         }
 
+        OnSupportPulled?.Invoke(_pulledSupports);
         PlayFabManager.Instance.AddSupports(_supports);
         //DisplayPull(); //TODO -> Use event
 
@@ -125,21 +127,5 @@ public class SummonManager : MonoBehaviour
         }
 
         return rarity;
-    }
-
-    private void DisplayPull() //TODO -> Move elsewhere
-    {
-        int row = 0;
-        int pos = 150;
-                   
-        for(int i = 0; i < _supportsPulled.Count; i++) 
-        {
-            row = i % 5 == 0 ? row +1 : row;
-            pos = i % 5 == 0 ? 0 : pos + 190 ;
-            Vector3 position = new(500 + pos, 300 + 190 * row ,3);
-
-            GameObject suppportImage = Instantiate(_supportImage, position, Quaternion.identity, _canvasParent.transform);
-            // supportImage.GetComponent<Image>().sprite = //_supportsPulled[i].sprite
-        }
     }
 }
