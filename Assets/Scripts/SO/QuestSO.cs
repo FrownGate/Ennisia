@@ -15,13 +15,12 @@ public enum QuestType
 
 public enum GoalType
 {
-    Killing,
+    Killing
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
 public class QuestSO : ScriptableObject
 {
-
     [System.Serializable]
     public struct Info
     {
@@ -37,11 +36,11 @@ public class QuestSO : ScriptableObject
     public struct Stat
     {
         public int Energy;
-        public SerializedDictionary<Currency, int> currencyList;
+        public SerializedDictionary<Currency, int> CurrencyList;
     }
 
     [Header("Reward")] public Stat Reward = new()
-        { Energy = 20, currencyList = new SerializedDictionary<Currency, int>() };
+        { Energy = 20, CurrencyList = new SerializedDictionary<Currency, int>() };
 
     public bool Completed { get; protected set; }
     public QuestCompletedEvent QuestCompleted;
@@ -98,12 +97,10 @@ public class QuestSO : ScriptableObject
     private void CheckGoals()
     {
         Completed = Goals.All(g => g.Completed);
-        if (Completed)
-        {
-            //give Rewards
-            QuestCompleted.Invoke(this);
-            QuestCompleted.RemoveAllListeners();
-        }
+        if (!Completed) return;
+        //give Rewards
+        QuestCompleted.Invoke(this);
+        QuestCompleted.RemoveAllListeners();
     }
 }
 
@@ -121,8 +118,8 @@ public class QuestEditor : Editor
     private List<string> _quesGoalType;
     private SerializedProperty _questGoalsListProperty;
 
-    private Dictionary<QuestSO.QuestGoal, Editor> _goalEditors = new Dictionary<QuestSO.QuestGoal, Editor>();
-    private List<QuestSO.QuestGoal> _goalsToRemove = new List<QuestSO.QuestGoal>();
+    private Dictionary<QuestSO.QuestGoal, Editor> _goalEditors = new();
+    private List<QuestSO.QuestGoal> _goalsToRemove = new();
 
     [MenuItem("Assets/Quest", priority = 0)]
     public static void CreateQuest()
@@ -174,33 +171,34 @@ public class QuestEditor : Editor
 
         EditorGUILayout.Space();
 
-        int choice = EditorGUILayout.Popup("Add new Quest Goal", -1, _quesGoalType.ToArray());
+        var choice = EditorGUILayout.Popup("Add new Quest Goal", -1, _quesGoalType.ToArray());
 
         if (choice != -1)
         {
-            var newInstance = ScriptableObject.CreateInstance(_quesGoalType[choice]) as QuestSO.QuestGoal;
+            var newInstance = CreateInstance(_quesGoalType[choice]) as QuestSO.QuestGoal;
             if (newInstance != null)
             {
                 newInstance.name = _quesGoalType[choice];
                 AssetDatabase.AddObjectToAsset(newInstance, serializedObject.targetObject);
                 _questGoalsListProperty.arraySize++;
-                _questGoalsListProperty.GetArrayElementAtIndex(_questGoalsListProperty.arraySize - 1).objectReferenceValue = newInstance;
-                _goalEditors.Add(newInstance, Editor.CreateEditor(newInstance));
+                _questGoalsListProperty.GetArrayElementAtIndex(_questGoalsListProperty.arraySize - 1)
+                    .objectReferenceValue = newInstance;
+                _goalEditors.Add(newInstance, CreateEditor(newInstance));
             }
         }
 
         EditorGUILayout.Space();
 
-        for (int i = 0; i < _questGoalsListProperty.arraySize; i++)
+        for (var i = 0; i < _questGoalsListProperty.arraySize; i++)
         {
-            SerializedProperty goalProperty = _questGoalsListProperty.GetArrayElementAtIndex(i);
-            QuestSO.QuestGoal goal = goalProperty.objectReferenceValue as QuestSO.QuestGoal;
+            var goalProperty = _questGoalsListProperty.GetArrayElementAtIndex(i);
+            var goal = goalProperty.objectReferenceValue as QuestSO.QuestGoal;
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
             EditorGUI.indentLevel++;
 
-            SerializedObject goalObject = new SerializedObject(goal);
+            var goalObject = new SerializedObject(goal);
             goalObject.Update();
 
             Editor goalEditor;
@@ -210,7 +208,7 @@ public class QuestEditor : Editor
             }
             else
             {
-                goalEditor = Editor.CreateEditor(goal);
+                goalEditor = CreateEditor(goal);
                 _goalEditors.Add(goal, goalEditor);
             }
 
@@ -225,10 +223,7 @@ public class QuestEditor : Editor
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
 
-            if (GUILayout.Button("Remove", GUILayout.Width(80)))
-            {
-                _goalsToRemove.Add(goal);
-            }
+            if (GUILayout.Button("Remove", GUILayout.Width(80))) _goalsToRemove.Add(goal);
 
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
@@ -239,14 +234,13 @@ public class QuestEditor : Editor
         // Remove the goals marked for removal
         foreach (var goalToRemove in _goalsToRemove)
         {
-            int indexToRemove = GetGoalIndex(goalToRemove);
-            if (indexToRemove >= 0)
-            {
-                _questGoalsListProperty.DeleteArrayElementAtIndex(indexToRemove);
-                DestroyImmediate(goalToRemove, true);
-                _goalEditors.Remove(goalToRemove);
-            }
+            var indexToRemove = GetGoalIndex(goalToRemove);
+            if (indexToRemove < 0) continue;
+            _questGoalsListProperty.DeleteArrayElementAtIndex(indexToRemove);
+            DestroyImmediate(goalToRemove, true);
+            _goalEditors.Remove(goalToRemove);
         }
+
         _goalsToRemove.Clear();
 
         serializedObject.ApplyModifiedProperties();
@@ -254,30 +248,22 @@ public class QuestEditor : Editor
 
     private int GetGoalIndex(QuestSO.QuestGoal goal)
     {
-        for (int i = 0; i < _questGoalsListProperty.arraySize; i++)
+        for (var i = 0; i < _questGoalsListProperty.arraySize; i++)
         {
-            SerializedProperty goalProperty = _questGoalsListProperty.GetArrayElementAtIndex(i);
-            if (goalProperty.objectReferenceValue == goal)
-            {
-                return i;
-            }
+            var goalProperty = _questGoalsListProperty.GetArrayElementAtIndex(i);
+            if (goalProperty.objectReferenceValue == goal) return i;
         }
+
         return -1;
     }
 
     private void OnDisable()
     {
         // Clean up goal editors
-        foreach (var goalEditor in _goalEditors.Values)
-        {
-            if (goalEditor != null)
-            {
-                DestroyImmediate(goalEditor);
-            }
-        }
+        foreach (var goalEditor in _goalEditors.Values.Where(goalEditor => goalEditor != null))
+            DestroyImmediate(goalEditor);
 
         _goalEditors.Clear();
     }
 }
 #endif
-

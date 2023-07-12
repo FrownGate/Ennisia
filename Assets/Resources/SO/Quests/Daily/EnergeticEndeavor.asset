@@ -19,7 +19,7 @@ MonoBehaviour:
     Description: Use 50 energy
   Reward:
     Energy: 20
-    currencyList:
+    CurrencyList:
       _serializedList:
       - Key: 0
         Value: 300

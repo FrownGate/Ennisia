@@ -19,7 +19,7 @@ MonoBehaviour:
     Description: Kill 30 enemies
   Reward:
     Energy: 20
-    currencyList:
+    CurrencyList:
       _serializedList:
       - Key: 0
         Value: 300

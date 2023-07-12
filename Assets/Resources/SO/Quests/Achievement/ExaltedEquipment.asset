@@ -19,7 +19,7 @@ MonoBehaviour:
     Description: reach max level for an equipement
   Reward:
     Energy: 20
-    currencyList:
+    CurrencyList:
       _serializedList:
       - Key: 0
         Value: 1000

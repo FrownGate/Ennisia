@@ -19,7 +19,7 @@ MonoBehaviour:
     Description: Finish one expedition
   Reward:
     Energy: 100
-    currencyList:
+    CurrencyList:
       _serializedList:
       - Key: 0
         Value: 60

@@ -19,7 +19,7 @@ MonoBehaviour:
     Description: Do 10 floor in the Endless Tower
   Reward:
     Energy: 100
-    currencyList:
+    CurrencyList:
       _serializedList:
       - Key: 0
         Value: 60

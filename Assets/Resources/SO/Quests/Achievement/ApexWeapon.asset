@@ -19,7 +19,7 @@ MonoBehaviour:
     Description: reach max lvl for a weapon
   Reward:
     Energy: 20
-    currencyList:
+    CurrencyList:
       _serializedList:
       - Key: 0
         Value: 1000

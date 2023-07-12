@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using AYellowpaper.SerializedCollections;
 
 public class KillingGoal : QuestSO.QuestGoal
 {
     private string _killName;
-    private Dictionary<string, int> _killHistory = new();
+    private SerializedDictionary<string, int> _killHistory = new();
     public List<EnemySO> ToKill = new();
 
     public override void Initialize()

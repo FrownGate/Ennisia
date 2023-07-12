@@ -19,7 +19,7 @@ MonoBehaviour:
     Description: Do 5 story quest
   Reward:
     Energy: 100
-    currencyList:
+    CurrencyList:
       _serializedList:
       - Key: 0
         Value: 60
