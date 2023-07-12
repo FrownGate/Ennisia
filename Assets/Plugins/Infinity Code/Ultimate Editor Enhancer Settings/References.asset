@@ -355,16 +355,34 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-  - name: Battle
-    path: Assets/Scenes/Battle.unity
-  - name: Loading_Mini
-    path: Assets/Scenes/Loading_Mini.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: Quests
+    path: Assets/Scenes/Quests.unity
+  - name: InventoryPopup
+    path: Assets/Scenes/Inventory/InventoryPopup.unity
+  - name: Summon
+    path: Assets/Scenes/Summon/Summon.unity
   - name: BattleModeSelection
     path: Assets/Scenes/Missions/BattleModeSelection.unity
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
+  - name: MainStory
+    path: Assets/Scenes/Missions/MainStory.unity
+  - name: StoryChapter
+    path: Assets/Scenes/Missions/StoryChapter.unity
+  - name: Raids&Dungeons
+    path: Assets/Scenes/Missions/Raids&Dungeons.unity
+  - name: StuffMenu
+    path: Assets/Scenes/Inventory/StuffMenu.unity
+  - name: GearSelectionPopup
+    path: Assets/Scenes/Inventory/GearSelectionPopup.unity
+  - name: SettingsPopup
+    path: Assets/Scenes/SettingsPopup.unity
+  - name: Battle
+    path: Assets/Scenes/Battle.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
   - name: EndlessTower
     path: Assets/Scenes/Missions/EndlessTower.unity
   _notes: []
