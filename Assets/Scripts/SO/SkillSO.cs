@@ -16,5 +16,12 @@ public class SkillSO : ScriptableObject
     public bool AOE;
     public bool IsMagic;
     public bool IsPassive;
+
+    public SkillType SkillType;
     //public Sprite Icon;
+}
+
+public enum SkillType
+{
+    NotSorted, Weapon, SupportPassif, SupportSkill, EnemySkill, EnemyPassif
 }
