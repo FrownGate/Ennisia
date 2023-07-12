@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 using NaughtyAttributes;
 using AYellowpaper.SerializedCollections;
-using HarmonyLib;
 using UnityEditor;
 using UnityEngine.Events;
 
@@ -16,7 +15,7 @@ public enum QuestType
 
 public enum GoalType
 {
-    Killing
+    Killing,Mission
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]

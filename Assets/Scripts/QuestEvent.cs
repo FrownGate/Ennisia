@@ -16,3 +16,12 @@ public class KillQuestEvent : QuestEvent
         KilledName = name;
     }
 }
+public class MissionQuestEvent : QuestEvent
+{
+    public string MissionName;
+    
+    public MissionQuestEvent(string name)
+    {
+        MissionName = name;
+    }
+}

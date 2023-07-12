@@ -4,6 +4,7 @@ using UnityEditor;
 using System;
 using System.IO;
 using static QuestSO;
+using System.Linq;
 
 public static class AdditionalGoalsLoader
 {
@@ -117,6 +118,8 @@ public static class AdditionalGoalsLoader
                 AssetDatabase.AddObjectToAsset(killingGoal, questSO);
                 return killingGoal;
             // Add more cases for different goal types if needed
+            case GoalType.Mission:
+                var MissionGoal = ScriptableObject.CreateInstance<MissionGoal>();
             default:
                 Debug.LogError($"Unknown goal type: {goalType}");
                 return null;
@@ -133,32 +136,74 @@ public static class AdditionalGoalsLoader
 
         foreach (var value in values)
         {
-            var found = false;
-
-            foreach (var enemySo in enemiesSO)
+            switch (value)
             {
-                if (enemySo.Name != value) continue;
-                var killingGoal = goal as KillingGoal;
-                if (killingGoal != null)
-                {
-                    killingGoal.ToKill.Add(enemySo);
-                }
-                else
-                {
-                    Debug.LogError("Invalid goal type for KillingGoal.");
-                    isValid = false;
-                }
-
-                found = true;
-                break;
+                case "all":
+                    var allEnemies = enemiesSO.ToList();
+                    if (goal is KillingGoal killingGoal)
+                    {
+                        killingGoal.ToKill.AddRange(allEnemies);
+                    }
+                    else
+                    {
+                        Debug.LogError("Invalid goal type for KillingGoal.");
+                        isValid = false;
+                    }
+                    break;
+                case "allboss":
+                    var allBossEnemies = enemiesSO.Where(enemy => enemy.IsBoss).ToList();
+                    if (goal is KillingGoal killingGoalAllBoss)
+                    {
+                        killingGoalAllBoss.ToKill.AddRange(allBossEnemies);
+                    }
+                    else
+                    {
+                        Debug.LogError("Invalid goal type for KillingGoal (AllBoss).");
+                        isValid = false;
+                    }
+                    break;
+                case "allnonboss":
+                    var allNonBossEnemies = enemiesSO.Where(enemy => !enemy.IsBoss).ToList();
+                    if (goal is KillingGoal killingGoalAllNonBoss)
+                    {
+                        killingGoalAllNonBoss.ToKill.AddRange(allNonBossEnemies);
+                    }
+                    else
+                    {
+                        Debug.LogError("Invalid goal type for KillingGoal (AllNonBoss).");
+                        isValid = false;
+                    }
+                    break;
+                default:
+                    var enemy = enemiesSO.FirstOrDefault(e => e.Name == value);
+                    if (enemy != null)
+                    {
+                        if (goal is KillingGoal killingGoalSomeByName)
+                        {
+                            killingGoalSomeByName.ToKill.Add(enemy);
+                        }
+                        else
+                        {
+                            Debug.LogError("Invalid goal type for KillingGoal (SomeByName).");
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"Enemy '{value}' not found for goal.");
+                        isValid = false;
+                    }
+                    break;
             }
-
-            if (found) continue;
-            Debug.LogError($"Enemy '{value}' not found for goal.");
-            isValid = false;
         }
 
         return isValid;
+    }
+
+    private static bool MissionProperties(QuestGoal goal, string goalValue)
+    {
+
+        return false;
     }
 }
 #endif
