@@ -48,6 +48,8 @@ public class EconomyModule : Module
         _storesById = new();
         _storesByName = new();
         _stores = new();
+        _bundlesById = new();
+        _bundlesByName = new();
         Currencies = new();
 
         foreach (CatalogItem item in response.Items)
