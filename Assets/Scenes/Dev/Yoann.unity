@@ -571,7 +571,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 932530173}
         m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
-        m_MethodName: Kill
+        m_MethodName: KillQuest
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class KillingGoal : QuestSO.QuestGoal
 {
     private string _killName;
     private Dictionary<string, int> _killHistory = new();
-    public List<EnemySO> ToKill;
-
+    public List<EnemySO> ToKill = new();
 
     public override void Initialize()
     {
         base.Initialize();
         QuestEventManager.Instance.AddListener<KillQuestEvent>(OnKilling);
-        foreach (var enemy in ToKill)
+
+        foreach (var enemy in ToKill.Where(enemy => !_killHistory.ContainsKey(enemy.Name)))
         {
-            _killHistory.Add(enemy.Name,0);
+            _killHistory.Add(enemy.Name, 0);
         }
     }
+
 
     public void OnKilling(KillQuestEvent eventInfo)
     {

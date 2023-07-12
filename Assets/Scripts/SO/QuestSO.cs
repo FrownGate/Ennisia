@@ -13,6 +13,11 @@ public enum QuestType
     Achievement
 }
 
+public enum GoalType
+{
+    Killing,
+}
+
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
 public class QuestSO : ScriptableObject
 {
@@ -77,7 +82,7 @@ public class QuestSO : ScriptableObject
         }
     }
 
-    public List<QuestGoal> Goals;
+    public List<QuestGoal> Goals = new();
 
     public void Initialize()
     {

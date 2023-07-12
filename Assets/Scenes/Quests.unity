@@ -2760,6 +2760,7 @@ GameObject:
   - component: {fileID: 1453494562}
   - component: {fileID: 1453494561}
   - component: {fileID: 1453494566}
+  - component: {fileID: 1453494567}
   m_Layer: 5
   m_Name: 'Mobile Canvas '
   m_TagString: Untagged
@@ -2882,6 +2883,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f0b64e5d4007e4880b42b60cf84d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1453494567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453494560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41503fe0a1e588458226b8ab2a79f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonPrefab: {fileID: 0}
+  PaddingPercentage: 0.03
 --- !u!1 &1520603939
 GameObject:
   m_ObjectHideFlags: 0

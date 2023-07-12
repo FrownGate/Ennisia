@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Unity.VisualScripting;
+using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class CSVToSO : EditorWindow
 {
@@ -496,7 +497,6 @@ public class CSVToSO : EditorWindow
         var savePath = $"Assets/Resources/SO/Pets/{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
-
     private static void CreateQuestSO(Dictionary<string, string> rowData)
     {
         var scriptableObject = CreateInstance<QuestSO>();
@@ -513,7 +513,6 @@ public class CSVToSO : EditorWindow
             var type = values[i].Key;
             if (Enum.TryParse(type, out Currency currencyType))
             {
-                Debug.Log(type);
                 scriptableObject.Reward.currencyList.Add(currencyType, int.Parse(rowData[type]));
             }
         }
@@ -530,8 +529,23 @@ public class CSVToSO : EditorWindow
         }
 
         var savePath = $"{folderPath}/{scriptableObject.Information.Name.Replace(" ", string.Empty)}.asset";
+
+        // Check if the asset already exists
+        var existingAsset = AssetDatabase.LoadAssetAtPath<QuestSO>(savePath);
+        if (existingAsset != null)
+        {
+            // If the asset already exists, delete it
+            AssetDatabase.DeleteAsset(savePath);
+        }
+
+        // Create a new asset
         AssetDatabase.CreateAsset(scriptableObject, savePath);
+
+        // Load the additional goals from the CSV file
+        AdditionalGoalsLoader.LoadAdditionalGoals(scriptableObject, savePath);
     }
+
+
 
     private static void CreateEnemySO(Dictionary<string, string> rowData)
     {

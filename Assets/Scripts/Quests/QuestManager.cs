@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    private static QuestManager s_Instance = null;
-
     public List<QuestSO> CurrentQuests;
 
 
