@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using NaughtyAttributes;
 using AYellowpaper.SerializedCollections;
+using HarmonyLib;
 using UnityEditor;
 using UnityEngine.Events;
 
@@ -98,9 +99,18 @@ public class QuestSO : ScriptableObject
     {
         Completed = Goals.All(g => g.Completed);
         if (!Completed) return;
-        //give Rewards
+        GiveRewards();
         QuestCompleted.Invoke(this);
         QuestCompleted.RemoveAllListeners();
+    }
+    private void GiveRewards()
+    {
+        foreach (var currency in Reward.CurrencyList)
+        {
+            PlayFabManager.Instance.AddCurrency(currency.Key, currency.Value);
+        }
+
+        PlayFabManager.Instance.AddEnergy(Reward.Energy);
     }
 }
 
@@ -121,13 +131,6 @@ public class QuestEditor : Editor
     private Dictionary<QuestSO.QuestGoal, Editor> _goalEditors = new();
     private List<QuestSO.QuestGoal> _goalsToRemove = new();
 
-    [MenuItem("Assets/Quest", priority = 0)]
-    public static void CreateQuest()
-    {
-        var newQuest = CreateInstance<QuestSO>();
-
-        ProjectWindowUtil.CreateAsset(newQuest, "quest.asset");
-    }
 
     private void OnEnable()
     {
