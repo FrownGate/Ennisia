@@ -21,7 +21,7 @@ public class EconomyModule : Module
     private Dictionary<string, string> _itemsByName;
     private Dictionary<string, string> _storesById;
     private Dictionary<string, string> _storesByName;
-    public Dictionary<string, CatalogItem> _stores;
+    public Dictionary<string, CatalogItem> Stores;
     private Dictionary<string, string> _bundlesByName;
     private Dictionary<string, string> _bundlesById;
 
@@ -47,7 +47,7 @@ public class EconomyModule : Module
         _currencies = new();
         _storesById = new();
         _storesByName = new();
-        _stores = new();
+        Stores = new();
         _bundlesById = new();
         _bundlesByName = new();
         Currencies = new();
@@ -70,7 +70,7 @@ public class EconomyModule : Module
             {
                 _storesById[item.Id] = item.AlternateIds[0].Value;
                 _storesByName[item.AlternateIds[0].Value] = item.Id;
-                _stores[item.Id] = item;
+                Stores[item.Id] = item;
 
             }
             else if (item.Type == "bundle")
