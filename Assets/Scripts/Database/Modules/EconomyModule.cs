@@ -19,6 +19,9 @@ public class EconomyModule : Module
     private Dictionary<string, string> _currencies;
     private Dictionary<string, string> _itemsById;
     private Dictionary<string, string> _itemsByName;
+    private Dictionary<string, string> _storesById;
+    private Dictionary<string, string> _storesByName;
+    public Dictionary<string, CatalogItem> _stores;
     private struct CurrencyData { public int Initial; } //TODO -> move elsewhere ?
     private bool _currencyAdded;
 
@@ -39,6 +42,9 @@ public class EconomyModule : Module
         _itemsById = new();
         _itemsByName = new();
         _currencies = new();
+        _storesById = new();
+        _storesByName = new();
+        _stores = new();
         Currencies = new();
 
         foreach (CatalogItem item in response.Items)
@@ -54,6 +60,13 @@ public class EconomyModule : Module
             {
                 _itemsById[item.Id] = item.AlternateIds[0].Value;
                 _itemsByName[item.AlternateIds[0].Value] = item.Id;
+            }
+            else if (item.Type == "store")
+            {
+                _storesById[item.Id] = item.AlternateIds[0].Value;
+                _storesByName[item.AlternateIds[0].Value] = item.Id;
+                _stores[item.Id] = item;
+
             }
         }
 
