@@ -5,6 +5,7 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
+using System.Linq;
 
 public enum Rarity
 {
@@ -14,6 +15,7 @@ public enum Rarity
 public class PlayFabManager : MonoBehaviour
 {
     public static PlayFabManager Instance { get; private set; }
+    public static string continuationToken;
 
     //Requests events
     public static event Action<PlayFabError> OnError;
@@ -256,5 +258,19 @@ public class PlayFabManager : MonoBehaviour
         //Debug.Log("Testing");
         //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
         //Player.Equip(Inventory.GetGearById(1));
+        Debug.LogWarning(Instance._economyMod.Stores.Count + " stores");
+        // display the numbers of items in the store
+        foreach (var store in Instance._economyMod.Stores)
+        {
+            Debug.LogWarning(store.Value.ItemReferences.Count + " items in " + store.Value.Id);
+            foreach (var item in store.Value.ItemReferences)
+            {
+                // Debug.LogWarning(item.Id);
+                // display the AlternateId Value of the item which is stored in the _itemsById dictionary
+                Debug.LogWarning(item.Id);
+                // Debug.LogWarning(Instance._economyMod.GetItemById(item.Id));
+            }
+            Debug.LogWarning("-------------------------");
+        }
     }
 }

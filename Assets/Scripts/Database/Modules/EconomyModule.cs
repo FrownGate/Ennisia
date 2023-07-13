@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public enum Currency
 {
     Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency, Gemstone
@@ -16,14 +18,14 @@ public class EconomyModule : Module
     public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
     public int Energy { get; private set; } //Player's energy
 
+
     private Dictionary<string, string> _currencies;
     private Dictionary<string, string> _itemsById;
     private Dictionary<string, string> _itemsByName;
     private Dictionary<string, string> _storesById;
     private Dictionary<string, string> _storesByName;
     public Dictionary<string, CatalogItem> Stores;
-    private Dictionary<string, string> _bundlesByName;
-    private Dictionary<string, string> _bundlesById;
+
 
     private struct CurrencyData { public int Initial; } //TODO -> move elsewhere ?
     private bool _currencyAdded;
@@ -33,7 +35,7 @@ public class EconomyModule : Module
     public void GetEconomyData()
     {
         _manager.StartRequest("Getting game currencies and catalog items...");
-        PlayFabEconomyAPI.SearchItems(new(), OnGetDataSuccess, _manager.OnRequestError);
+        PlayFabEconomyAPI.SearchItems(new() { }, OnGetDataSuccess, _manager.OnRequestError);
     }
 
     /// <summary>
@@ -48,11 +50,9 @@ public class EconomyModule : Module
         _storesById = new();
         _storesByName = new();
         Stores = new();
-        _bundlesById = new();
-        _bundlesByName = new();
         Currencies = new();
 
-        foreach (CatalogItem item in response.Items)
+        foreach (var item in response.Items)
         {
             //TODO -> Get bundle items and shops
             if (item.Type == "currency")
@@ -61,10 +61,11 @@ public class EconomyModule : Module
                 CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
                 Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = data.Initial;
             }
-            else if (item.Type == "catalogItem")
+            else if (item.Type == "catalogItem" || item.Type == "bundle")
             {
                 _itemsById[item.Id] = item.AlternateIds[0].Value;
                 _itemsByName[item.AlternateIds[0].Value] = item.Id;
+                Debug.LogError($"Item {item.AlternateIds[0].Value} found !");
             }
             else if (item.Type == "store")
             {
@@ -72,11 +73,6 @@ public class EconomyModule : Module
                 _storesByName[item.AlternateIds[0].Value] = item.Id;
                 Stores[item.Id] = item;
 
-            }
-            else if (item.Type == "bundle")
-            {
-                _bundlesById[item.Id] = item.AlternateIds[0].Value;
-                _bundlesByName[item.AlternateIds[0].Value] = item.Id;
             }
         }
 
@@ -355,6 +351,11 @@ public class EconomyModule : Module
             },
             Amount = item.Amount
         }, res => _manager.EndRequest($"Purchased {item} !"), _manager.OnRequestError);
+    }
+
+    public string GetItemById(string id)
+    {
+        return _itemsById[id];
     }
 
     #endregion
