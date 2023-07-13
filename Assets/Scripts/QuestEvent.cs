@@ -10,18 +10,19 @@ public abstract class QuestEvent
 public class KillQuestEvent : QuestEvent
 {
     public string KilledName;
-    
+
     public KillQuestEvent(string name)
     {
         KilledName = name;
     }
 }
+
 public class MissionQuestEvent : QuestEvent
 {
-    public string MissionName;
-    
-    public MissionQuestEvent(string name)
+    public MissionSO Mission;
+
+    public MissionQuestEvent(MissionSO mission)
     {
-        MissionName = name;
+        Mission = mission;
     }
 }

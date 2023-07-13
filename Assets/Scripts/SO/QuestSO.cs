@@ -15,7 +15,8 @@ public enum QuestType
 
 public enum GoalType
 {
-    Killing,Mission
+    Killing,
+    Mission
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
@@ -60,7 +61,10 @@ public class QuestSO : ScriptableObject
 
         public virtual void Initialize()
         {
+#if UNITY_EDITOR
             Completed = false;
+#endif
+            GoalCompleted = new UnityEvent();
         }
 
         protected void Evaluate()
@@ -75,6 +79,11 @@ public class QuestSO : ScriptableObject
             GoalCompleted.RemoveAllListeners();
         }
 
+        public virtual void Reset()
+        {
+            Completed = false;
+        }
+
         public void Skip()
         {
             //Pay to skip ?
@@ -85,7 +94,9 @@ public class QuestSO : ScriptableObject
 
     public void Initialize()
     {
+#if UNITY_EDITOR
         Completed = false;
+#endif
         QuestCompleted = new QuestCompletedEvent();
         foreach (var goal in Goals)
         {
@@ -102,14 +113,17 @@ public class QuestSO : ScriptableObject
         QuestCompleted.Invoke(this);
         QuestCompleted.RemoveAllListeners();
     }
+
     private void GiveRewards()
     {
-        foreach (var currency in Reward.CurrencyList)
-        {
-            PlayFabManager.Instance.AddCurrency(currency.Key, currency.Value);
-        }
+        foreach (var currency in Reward.CurrencyList) PlayFabManager.Instance.AddCurrency(currency.Key, currency.Value);
 
         PlayFabManager.Instance.AddEnergy(Reward.Energy);
+    }
+
+    public void Reset()
+    {
+        Completed = false;
     }
 }
 

@@ -4,33 +4,40 @@ using AYellowpaper.SerializedCollections;
 
 public class MissionGoal : QuestSO.QuestGoal
 {
-    private string _missionName;
+    private MissionSO _mission;
     private SerializedDictionary<string, int> _missionHistory = new();
-    public List<EnemySO> ToDo = new();
+    public List<MissionSO> ToDo = new();
 
     public override void Initialize()
     {
         base.Initialize();
         QuestEventManager.Instance.AddListener<MissionQuestEvent>(OnMissionDone);
 
-        foreach (var enemy in ToDo.Where(enemy => !_missionHistory.ContainsKey(enemy.Name)))
-        {
-            _missionHistory.Add(enemy.Name, 0);
-        }
+        foreach (var mission in ToDo.Where(mission => !_missionHistory.ContainsKey(mission.Name)))
+            _missionHistory.Add(mission.Name, 0);
+
+#if UNITY_EDITOR
+        //to reset the quest in the editor
+        foreach (var mission in ToDo) _missionHistory[mission.Name] = 0;
+#endif
     }
 
+    public override void Reset()
+    {
+        base.Reset();
+        foreach (var mission in ToDo) _missionHistory[mission.Name] = 0;
+    }
 
     public void OnMissionDone(MissionQuestEvent eventInfo)
     {
         foreach (var mission in ToDo)
         {
-            _missionName = mission.Name;
-            CurrentAmount = _missionHistory[_missionName];
-            if (eventInfo.MissionName != _missionName) continue;
+            _mission = mission;
+            CurrentAmount = _missionHistory[_mission.Name];
+            if (eventInfo.Mission != _mission) continue;
             CurrentAmount++;
-            _missionHistory[_missionName] = CurrentAmount;
+            _missionHistory[_mission.Name] = CurrentAmount;
             Evaluate();
         }
     }
-
 }

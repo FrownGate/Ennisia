@@ -14,23 +14,30 @@ public class KillingGoal : QuestSO.QuestGoal
         QuestEventManager.Instance.AddListener<KillQuestEvent>(OnKilling);
 
         foreach (var enemy in ToKill.Where(enemy => !_killHistory.ContainsKey(enemy.Name)))
-        {
             _killHistory.Add(enemy.Name, 0);
-        }
+
+#if UNITY_EDITOR
+        //to reset the quest in the editor
+        foreach (var enemy in ToKill) _killHistory[enemy.Name] = 0;
+#endif
     }
 
+    public override void Reset()
+    {
+        base.Reset();
+        foreach (var enemy in ToKill) _killHistory[enemy.Name] = 0;
+    }
 
     public void OnKilling(KillQuestEvent eventInfo)
     {
         foreach (var enemy in ToKill)
         {
             _killName = enemy.Name;
-            CurrentAmount = _killHistory[_killName];
             if (eventInfo.KilledName != _killName) continue;
-            CurrentAmount++;
-            _killHistory[_killName] = CurrentAmount;
-            Evaluate();
+            _killHistory[_killName] += 1;
         }
-    }
 
+        CurrentAmount = _killHistory.Values.Max();
+        Evaluate();
+    }
 }
