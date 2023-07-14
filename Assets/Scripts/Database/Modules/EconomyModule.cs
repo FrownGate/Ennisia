@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public enum Currency
 {
     Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency, Gemstone
@@ -21,6 +23,9 @@ public class EconomyModule : Module
     private readonly Dictionary<string, string> _currencies = new();
     private readonly Dictionary<string, string> _itemsById = new();
     private readonly Dictionary<string, string> _itemsByName = new();
+    private readonly Dictionary<string, string> _storesById = new();
+    private readonly Dictionary<string, string> _storesByName = new();
+    public readonly Dictionary<string, CatalogItem> Stores = new();
     private struct CurrencyData { public int Initial; }
     private bool _currencyAdded;
 
@@ -70,10 +75,18 @@ public class EconomyModule : Module
                 CurrencyData data = JsonUtility.FromJson<CurrencyData>(item.DisplayProperties.ToString());
                 Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = data.Initial;
             }
-            else if (item.Type == "catalogItem")
+            else if (item.Type == "catalogItem" || item.Type == "bundle")
             {
                 _itemsById[item.Id] = item.AlternateIds[0].Value;
                 _itemsByName[item.AlternateIds[0].Value] = item.Id;
+                Debug.LogError($"Item {item.AlternateIds[0].Value} found !");
+            }
+            else if (item.Type == "store")
+            {
+                _storesById[item.Id] = item.AlternateIds[0].Value;
+                _storesByName[item.AlternateIds[0].Value] = item.Id;
+                Stores[item.Id] = item;
+
             }
         }
 
@@ -115,7 +128,8 @@ public class EconomyModule : Module
                         Value = currency.Key.ToString()
                     }
                 }
-            }, res => {
+            }, res =>
+            {
                 Debug.Log($"{currency.Key} given !");
                 _currencyAdded = true;
             }, _manager.OnRequestError);
@@ -134,7 +148,8 @@ public class EconomyModule : Module
         PlayFabEconomyAPI.GetInventoryItems(new()
         {
             Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type }
-        }, res => {
+        }, res =>
+        {
             foreach (InventoryItem item in res.Items)
             {
                 if (item.Type == "currency")
@@ -170,7 +185,8 @@ public class EconomyModule : Module
                     Value = currency.ToString()
                 }
             }
-        }, res => {
+        }, res =>
+        {
             Currencies[currency] += amount;
             _manager.InvokeOnCurrencyUpdate();
             _manager.InvokeOnCurrencyGained(currency);
@@ -194,7 +210,8 @@ public class EconomyModule : Module
                     Value = currency.ToString()
                 }
             }
-        }, res => {
+        }, res =>
+        {
             Currencies[currency] -= amount;
             _manager.InvokeOnCurrencyUpdate();
             _manager.InvokeOnCurrencyUsed(currency);
@@ -210,7 +227,8 @@ public class EconomyModule : Module
         {
             Amount = amount,
             VirtualCurrency = "EN"
-        }, res => {
+        }, res =>
+        {
             Energy += amount;
             _manager.InvokeOnEnergyUpdate();
             _manager.EndRequest($"Added {amount} energy !");
@@ -225,7 +243,8 @@ public class EconomyModule : Module
         {
             Amount = amount,
             VirtualCurrency = "EN"
-        }, res => {
+        }, res =>
+        {
             Energy -= amount;
             _manager.InvokeOnEnergyUpdate();
             _manager.InvokeOnEnergyUsed();
@@ -332,5 +351,31 @@ public class EconomyModule : Module
             _manager.EndRequest("Item used !");
         }, _manager.OnRequestError);
     }
+
+    public IEnumerator PurchaseInventoryItem(Item item)
+    {
+        yield return _manager.StartAsyncRequest($"Purchasing {item}...");
+
+        PlayFabEconomyAPI.PurchaseInventoryItems(new()
+        {
+            Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type },
+            Item = new()
+            {
+                AlternateId = new()
+                {
+                    Type = "FriendlyId",
+                    Value = item.GetType().Name,
+                },
+                StackId = item.Stack
+            },
+            Amount = item.Amount
+        }, res => _manager.EndRequest($"Purchased {item} !"), _manager.OnRequestError);
+    }
+
+    public string GetItemById(string id)
+    {
+        return _itemsById[id];
+    }
+
     #endregion
 }
