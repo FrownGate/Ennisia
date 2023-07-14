@@ -1,6 +1,5 @@
 using NaughtyAttributes;
 using System;
-using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -16,20 +15,10 @@ public class SceneButton : MonoBehaviour
         box.size = GetComponent<RectTransform>().sizeDelta;
     }
 
-    private void OnMouseDown()
+    protected virtual void OnMouseUpAsButton()
     {
         ChangeSceneSFX?.Invoke(1);
         ScenesManager.Instance.SetScene($"{Scene}#{_params}");
-        // to do, manage mission start
-        /*switch (Scene)
-        {
-            case "Raids":
-                MissionManager.Instance.StartMission(MissionManager.MissionType.Raid,1 );
-                break;
-            case "MainStory":
-                MissionManager.Instance.StartMission(MissionManager.MissionType.MainStory, 1);
-                break;
-        }*/
     }
 
     public void SetParam(string param)

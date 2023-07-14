@@ -65,15 +65,18 @@ public class InventoryData
 
         Item foundItem = null;
 
-        foreach (Item item in Items[itemToGet.GetType().Name])
+        if (Items.TryGetValue(itemToGet.GetType().Name, out List<Item> items))
         {
-            if (type != item.Category) continue;
-            if (rarity != item.Rarity) continue;
+            foreach (Item item in items)
+            {
+                if (type != item.Category) continue;
+                if (rarity != item.Rarity) continue;
 
-            Debug.Log("Item found !");
+                Debug.Log("Item found !");
 
-            foundItem = item;
-            break;
+                foundItem = item;
+                break;
+            }
         }
 
         return foundItem;
