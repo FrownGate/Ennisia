@@ -9,7 +9,6 @@ public class SummonManager : MonoBehaviour
     public static event Action<List<SupportCharacterSO>> OnSupportPulled;
 
     public SummonBannerSO SummonBanner;
-    private readonly int _fragmentsPerDuplicate = 10;
 
     private Dictionary<int, int> _supports;
     private List<SupportCharacterSO> _pulledSupports;
@@ -17,8 +16,6 @@ public class SummonManager : MonoBehaviour
     private double _chance;
 
     private readonly Dictionary<Rarity, SupportCharacterSO[]> _supportsPool = new();
-
-    //TODO -> Add CheckCurrency script
 
     private void Awake()
     {
@@ -91,7 +88,7 @@ public class SummonManager : MonoBehaviour
                     continue;
                 }
 
-                //newFragments += _fragmentsPerDuplicate * (int)pulledSupport.Rarity;
+                //newFragments += PlayFabManager.Instance.FragmentsGain * (int)pulledSupport.Rarity;
                 continue;
             }
 

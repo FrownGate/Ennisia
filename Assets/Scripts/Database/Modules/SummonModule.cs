@@ -7,6 +7,7 @@ public class SummonModule : Module
     [SerializeField] private double _epicChance = 10.25;
 
     public readonly int SummonCost = 100;
+    public readonly int FragmentsGain = 10;
     public Dictionary<Rarity, double> Chances;
 
     private void Awake()
