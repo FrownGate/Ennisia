@@ -19,13 +19,14 @@ public class EconomyModule : Module
     public readonly Dictionary<Currency, int> Currencies = new(); //Player's currencies
     public int Energy { get; private set; } //Player's energy
 
-    private readonly List<CatalogItem> _catalogItems = new();
+    public readonly Dictionary<string, CatalogItem> Stores = new();
+    public readonly List<CatalogItem> CatalogItems = new();
+    
     private readonly Dictionary<string, string> _currencies = new();
     private readonly Dictionary<string, string> _itemsById = new();
     private readonly Dictionary<string, string> _itemsByName = new();
     private readonly Dictionary<string, string> _storesById = new();
     private readonly Dictionary<string, string> _storesByName = new();
-    public readonly Dictionary<string, CatalogItem> Stores = new();
     private struct CurrencyData { public int Initial; }
     private bool _currencyAdded;
 
