@@ -5,7 +5,7 @@ public class SupportCharacterSO : SkillsToInitSO
 {
     public int Id = 1;
     public string Name;
-    public string Rarity;
+    public Rarity Rarity;
     public string Race;
     public string Job;
     public Element.ElementType Element;
