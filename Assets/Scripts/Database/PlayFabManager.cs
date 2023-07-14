@@ -78,6 +78,7 @@ public class PlayFabManager : MonoBehaviour
 
     //Requests
     private int _requests;
+    public string Token;
 
     //TODO -> refresh ui after some events
 
@@ -104,6 +105,7 @@ public class PlayFabManager : MonoBehaviour
             GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
 
             _requests = 0;
+            Token = null;
         }
     }
 

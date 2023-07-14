@@ -13,35 +13,55 @@ public enum Currency
 public class EconomyModule : Module
 {
     public static event Action OnInitComplete;
-    public Dictionary<Currency, int> Currencies { get; private set; } //Player's currencies
+
+    public readonly Dictionary<Currency, int> Currencies = new(); //Player's currencies
     public int Energy { get; private set; } //Player's energy
 
-    private Dictionary<string, string> _currencies;
-    private Dictionary<string, string> _itemsById;
-    private Dictionary<string, string> _itemsByName;
-    private struct CurrencyData { public int Initial; } //TODO -> move elsewhere ?
+    private readonly List<CatalogItem> _catalogItems = new();
+    private readonly Dictionary<string, string> _currencies = new();
+    private readonly Dictionary<string, string> _itemsById = new();
+    private readonly Dictionary<string, string> _itemsByName = new();
+    private struct CurrencyData { public int Initial; }
     private bool _currencyAdded;
 
     //TODO -> Remove item from local inventory if database inventory isn't updated
 
     public void GetEconomyData()
     {
-        _manager.StartRequest("Getting game currencies and catalog items...");
-        PlayFabEconomyAPI.SearchItems(new(), OnGetDataSuccess, _manager.OnRequestError);
+        StartCoroutine(EconomyDataRequest());
+    }
+
+    public IEnumerator EconomyDataRequest()
+    {
+        yield return _manager.StartAsyncRequest("Getting game currencies and catalog items...");
+
+        PlayFabEconomyAPI.SearchItems(new()
+        {
+            ContinuationToken = _manager.Token,
+            Count = 50
+        }, res =>
+        {
+            _catalogItems.AddRange(res.Items);
+            _manager.EndRequest();
+
+            if (!string.IsNullOrEmpty(res.ContinuationToken))
+            {
+                _manager.Token = res.ContinuationToken;
+                StartCoroutine(EconomyDataRequest());
+                return;
+            }
+
+            InitEconomyData();
+        }, _manager.OnRequestError);
     }
 
     /// <summary>
     /// Get game currencies. New player -> Add initial currencies. Else -> Get currencies
     /// </summary>
-    private void OnGetDataSuccess(SearchItemsResponse response)
-    {
-        _manager.EndRequest();
-        _itemsById = new();
-        _itemsByName = new();
-        _currencies = new();
-        Currencies = new();
 
-        foreach (CatalogItem item in response.Items)
+    private void InitEconomyData()
+    {
+        foreach (CatalogItem item in _catalogItems)
         {
             //TODO -> Get bundle items and shops
             if (item.Type == "currency")
@@ -67,7 +87,6 @@ public class EconomyModule : Module
         PlayFabClientAPI.GetUserInventory(new(), res =>
         {
             Energy = res.VirtualCurrency["EN"];
-            //_manager.GetUserFiles();
             GetPlayerInventory();
         }, _manager.OnRequestError);
     }
