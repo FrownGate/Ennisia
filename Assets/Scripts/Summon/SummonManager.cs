@@ -9,14 +9,11 @@ public class SummonManager : MonoBehaviour
     public static event Action<List<SupportCharacterSO>> OnSupportPulled;
 
     public SummonBannerSO SummonBanner;
-    public int Amount;
-
-    private readonly double _legendaryChance = 0.75;
-    private readonly double _epicChance = 10.25;
     private readonly int _fragmentsPerDuplicate = 10;
 
     private Dictionary<int, int> _supports;
     private List<SupportCharacterSO> _pulledSupports;
+    private int _amount;
     private double _chance;
 
     private readonly Dictionary<Rarity, SupportCharacterSO[]> _supportsPool = new();
@@ -42,22 +39,45 @@ public class SummonManager : MonoBehaviour
         }
     }
 
-    private double GetChance()
+    public bool CanPull(int amount)
     {
-        if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Rarity.Legendary) != null) return _legendaryChance;
-        if (PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), Rarity.Epic) != null) return _epicChance;
-        return 100;
+        _amount = amount;
+        if (HasTicket()) return true;
+
+        int cost = PlayFabManager.Instance.SummonCost * amount;
+        if (!PlayFabManager.Instance.HasEnoughCurrency(cost, Currency.Crystals)) return false;
+
+        return true;
+    }
+
+    private bool HasTicket()
+    {
+        Rarity[] raritiesToCheck = { Rarity.Legendary, Rarity.Epic };
+
+        foreach (var rarity in raritiesToCheck)
+        {
+            Item ticket = PlayFabManager.Instance.Inventory.GetItem(new SummonTicket(), rarity);
+
+            if (ticket != null && ticket.Amount >= _amount)
+            {
+                PlayFabManager.Instance.UseItem(ticket, _amount);
+                _chance = PlayFabManager.Instance.Chances[rarity];
+                return true;
+            }
+        }
+
+        _chance = 100;
+        return false;
     }
 
     public void Summon()
     {
-        _chance = GetChance();
         int newFragments = 0;
 
         _supports = PlayFabManager.Instance.GetSupports();
         _pulledSupports = new();
 
-        for (int i = 0; i < Amount; i++)
+        for (int i = 0; i < _amount; i++)
         {
             SupportCharacterSO pulledSupport = GetSupport();
             _pulledSupports.Add(pulledSupport);
@@ -103,13 +123,13 @@ public class SummonManager : MonoBehaviour
         double rarityRoll = new System.Random().NextDouble() * _chance;
         Debug.Log($"rarity roll : {rarityRoll}");
 
-        if (rarityRoll <= _legendaryChance)
+        foreach (var chance in PlayFabManager.Instance.Chances)
         {
-            rarity = Rarity.Legendary;
-        }
-        else if (rarityRoll <= _epicChance)
-        {
-            rarity = Rarity.Epic;
+            if (rarityRoll <= chance.Value)
+            {
+                rarity = chance.Key;
+                break;
+            }
         }
 
         return rarity;

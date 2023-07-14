@@ -6,11 +6,7 @@ public class SummonButton : SceneButton
 
     protected override void OnMouseUpAsButton()
     {
-        //TODO -> check summon tickets
-        int cost = PlayFabManager.Instance.SummonCost * _pullAmount;
-        if (!PlayFabManager.Instance.HasEnoughCurrency(cost, Currency.Crystals)) return;
-
-        SummonManager.Instance.Amount = _pullAmount;
+        if (!SummonManager.Instance.CanPull(_pullAmount)) return;
         base.OnMouseUpAsButton();
     }
 }

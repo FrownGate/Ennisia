@@ -73,6 +73,7 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private SummonModule _summonMod;
 
     public int SummonCost => _summonMod.SummonCost;
+    public Dictionary<Rarity, double> Chances => _summonMod.Chances;
 
     //Requests
     private int _requests;
