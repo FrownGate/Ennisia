@@ -1,76 +1,95 @@
-using System;
-using System.Runtime.InteropServices.WindowsRuntime;
+using InfinityCode.UltimateEditorEnhancer.SceneTools;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 enum ChallengeType
 {
     Daily, Weekly
 }
-public class MissionsCheck
+public class MissionsCheck : MonoBehaviour
 {
     bool[] dailies;
     bool[] weeklies;
 
-    ChallengeType challengeType;
+    SerializedDictionary<MissionManager.MissionType, int> missionCount;
+    SerializedDictionary<MissionManager.MissionType, int> missionNeeded;
+
+    int _dailyGearUpgradeCount;
+    int _dailyKillCount;
+    int _dailyEnergyCount;
 
     public int goldAmount;
     public int crystalsAmount;
-    //TODO -> Move to parent script
-    public int enemyKilledNeeded;
-    public int gearUpgradeNeeded;
-    public int energyUsedNeeded;
+
+    public int _dailyKillNeeded;
+    public int _dailyGearUpgradeNeeded;
+    public int _dailyEnergyUsedNeeded;
 
     //TODO -> Move to parent script
     int _enemyKilledCount;
-    int _gearUpgradeCount;
     int _energyUsedCount;
 
-    private void CheckChallengeMission(ChallengeType challengeType, MissionSO mission, MissionManager.MissionType missionType, int count, int needed, int Index)
+    private void GetMissionComplete(MissionSO missionSO)
     {
-        if (mission.Type == missionType)
+        missionCount[missionSO.Type]++;
+        CheckChallengeMission(ChallengeType.Daily, missionSO, MissionManager.MissionType.Dungeon, 1);
+        CheckChallengeMission(ChallengeType.Daily, missionSO, MissionManager.MissionType.Raid, 2);
+        CheckChallengeMission(ChallengeType.Weekly, missionSO, MissionManager.MissionType.Dungeon, 1);
+        CheckChallengeMission(ChallengeType.Weekly, missionSO, MissionManager.MissionType.Raid, 2);
+    }
+
+    private void CheckChallengeMission(ChallengeType challengeType, MissionSO missionSO, MissionManager.MissionType missionType, int challengeIndex)
+    {
+        if (missionSO.Type == missionType)
         {
-            count++;
-            if(challengeType == ChallengeType.Daily)
+            if (challengeType == ChallengeType.Daily)
             {
-                CheckChallengeDone(dailies, count, needed, Index);
-            }else if(challengeType == ChallengeType.Weekly) 
+                CheckChallengeDone(dailies[challengeIndex], missionCount[missionSO.Type], missionNeeded[missionSO.Type]);
+            }
+            else if (challengeType == ChallengeType.Weekly)
             {
-                CheckChallengeDone(weeklies, count, needed, Index);
+                CheckChallengeDone(weeklies[challengeIndex], missionCount[missionSO.Type], missionNeeded[missionSO.Type]);
             }
         }
     }
 
-    private void CheckChallengeGearUpgrade()
+    private void GetGeraUpgrade()
     {
-
+        _dailyGearUpgradeCount++;
+        CheckChallengeDone(dailies[3], _dailyGearUpgradeCount, _dailyGearUpgradeNeeded);
     }
-    private void CheckChallengeDone(bool[] type, int count, int needed, int challengeIndex)
+    private void CheckChallengeDone(bool type, int count, int needed)
     {
         if (count < needed) return;
-        type[challengeIndex] = true;
-
+        type = true;
     }
 
-/*    private void CheckEnemyKilled(string name)
+    private void GetKill(string name)
     {
-        if (_enemyKilledCount >= enemyKilledNeeded)
-        {
-            daily?.Invoke(4);
-        }
-        else
-        {
-            _enemyKilledCount++;
-        }
+        _dailyKillCount++;
+        CheckChallengeDone(dailies[4], _dailyKillCount, _dailyKillNeeded);
+    }
+    private void GetEnergyUsed()
+    {
+        _energyUsedCount++;
+        CheckChallengeDone(weeklies[3], _energyUsedCount, _dailyEnergyUsedNeeded);
     }
 
-    private void CheckEnergyUsed()
+    private void OnEnable()
     {
-        if (_energyUsedCount >= energyUsedNeeded)
-        {
-            daily?.Invoke(5);
-        }
-        else
-        {
-            _energyUsedCount++;
-        }
-    }*/
+        MissionManager.OnMissionComplete += GetMissionComplete;
+        Gear.LevelUp += GetGeraUpgrade;
+        BattleSystem.OnEnemyKilled += GetKill;
+    }
+    private void OnDisable()
+    {
+        MissionManager.OnMissionComplete -= GetMissionComplete;
+        Gear.LevelUp -= GetGeraUpgrade;
+        BattleSystem.OnEnemyKilled -= GetKill;
+    }
+
+
+
+
 }
+

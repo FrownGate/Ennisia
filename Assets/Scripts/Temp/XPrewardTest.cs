@@ -9,6 +9,6 @@ public class XPRewardTest : MonoBehaviour
 {
     public void LVLUP(int lvl)
     {
-        ExperienceSystem.Instance.Rewards.LVLUPReward(lvl);
+        ExpManager.Instance.AccounRewards.LvlupReward(lvl);
     }
 }

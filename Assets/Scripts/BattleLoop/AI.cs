@@ -1,12 +1,7 @@
-using System.Collections;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public abstract class AI
 {
-
-    // Start is called before the first frame update
     private static Entity FindLowestEnemy(List<Entity> enemies)
     {
         int id = 0;
@@ -21,25 +16,11 @@ public abstract class AI
             }
         }
         return lowestEnemy;
-
     }
 
-    private static bool IsBdef(List<Entity> enemies)
-    {
-
-        foreach (Entity enemy in enemies)
-        {
-            if (enemy.Effects.Find(effect => effect.GetType() == typeof(BreakDefense)) != null)
-            {
-
-                return true;
-            }
-        }
-        return false;
-    }
     private static List<Entity> FindBreakDefEnemy(List<Entity> ennemies)
     {
-        List<Entity> bdef = new List<Entity>();
+        List<Entity> bdef = new();
 
         foreach (Entity enemy in ennemies)
         {
@@ -50,12 +31,11 @@ public abstract class AI
         }
 
         return bdef;
-
     }
 
     public static Entity FindBestEnnemy(List<Entity> enemies)
     {
-        if (IsBdef(enemies))
+        if (FindBreakDefEnemy(enemies).Count > 0)
         {
             return FindLowestEnemy(FindBreakDefEnemy(enemies));
         }
@@ -64,6 +44,7 @@ public abstract class AI
            return FindLowestEnemy(enemies);
         }
     }
+
     private static bool CanProtect(Entity caster)
     {
         foreach (Skill skill in caster.Skills)
@@ -75,8 +56,11 @@ public abstract class AI
         }
         return false;
     }
+
     private static bool CanBuff(Entity caster)
     {
+
+        //if(caster.Skills.Contains(BuffSkill)) ERROR
         foreach (Skill skill in caster.Skills)
         {
             if (skill.GetType() == typeof(BuffSkill) && skill.Cooldown == 0)
@@ -86,11 +70,13 @@ public abstract class AI
         }
         return false;
     }
+
     private static bool AllyLowAndAoeCheck(int casterID, BattleSystem battlesystem, bool enemyTurn)
     {
         if (!enemyTurn) { return false; }
 
         bool CanHealAOE = false;
+
         foreach (Skill skill in battlesystem.Enemies[casterID].Skills)
         {
             if(skill.GetType() == typeof(ProtectionSkill) && skill.Data.AOE)
@@ -99,6 +85,7 @@ public abstract class AI
                 break;
             }
         }
+
         foreach (Entity enemy in battlesystem.Enemies)
         {
             if (enemy.CurrentHp < enemy.Stats[Attribute.HP].Value * 20 / 100)
@@ -117,6 +104,7 @@ public abstract class AI
         List<Skill> list = caster.Skills;
         list.Reverse();
         Skill skillToUse = null;
+
         foreach (Skill skill in list)
         {
             if (skill.Cooldown == 0 && skill.GetType() != typeof(PassiveSkill))
@@ -156,6 +144,4 @@ public abstract class AI
         list.Reverse();
         return list.IndexOf(skillToUse);
     }
-
-
 }

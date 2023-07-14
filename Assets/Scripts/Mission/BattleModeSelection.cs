@@ -49,7 +49,7 @@ public class BattleModeSelection : MonoBehaviour
 
             sceneButton.Scene = missionType switch
             {
-                MissionType.Raid or MissionType.Dungeon => "Raid",
+                MissionType.Raid or MissionType.Dungeon => "Raids&Dungeons", //TODO -> don't use strings
                 _ => missionType.ToString(),
             };
             sceneButton.SetParam(missionType.ToString());

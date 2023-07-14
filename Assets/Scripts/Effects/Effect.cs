@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class Effect
 {
-    public enum AlterationState
-    {
-        None, Stun, Silence, SupportSilence, DemonicMark
-    }
+    //public enum AlterationState
+    //{
+    //    None, Stun, Silence, SupportSilence, DemonicMark, Break
+    //}
 
     public EffectSO Data { get; set; }
     public readonly Dictionary<Attribute, ModifierID> Modifiers = new();
     public int Duration { get; set; }
     public int InitialDuration { get; set; }
-    public bool HasAlteration => Data.Alteration != AlterationState.None;
+    public bool HasAlteration => Data.Alteration;
+    //public bool HasAlteration => Data.Alteration != AlterationState.None;
     private bool IsExpired => Duration <= 0;
     public virtual bool IsStackable => false;
     public virtual int Stacks { get; protected set; } = 0;
@@ -25,6 +26,7 @@ public class Effect
     }
 
     public virtual void AlterationEffect(Entity target) { }
+    public virtual void ApplyStack(int stack) { }
     public virtual float GetMultiplier() { return 1.0f; }
 
     public void AddEffectModifiers(Entity target)
@@ -47,7 +49,6 @@ public class Effect
         Duration = InitialDuration;
     }
 
-    public virtual void ApplyStack(int stack) { }
     public void Cleanse(Entity target)
     {
         foreach (var modifier in Modifiers) target.Stats[modifier.Key].RemoveModifier(modifier.Value);
@@ -78,4 +79,8 @@ public class BreakAttack : Effect
 public class BreakDefense : Effect
 {
     public BreakDefense(int? duration = null) : base(duration) { }
+}
+public class Immunity : Effect
+{
+    public Immunity(int? duration = null) : base(duration) { }
 }

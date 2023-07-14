@@ -71,8 +71,16 @@ public class PlayFabManager : MonoBehaviour
 
     public static event Action<List<FriendInfo>> OnGetFriends;
 
+    //Summon Module
+    [SerializeField] private SummonModule _summonMod;
+
+    public int SummonCost => _summonMod.SummonCost;
+    public int FragmentsGain => _summonMod.FragmentsGain;
+    public Dictionary<Rarity, double> Chances => _summonMod.Chances;
+
     //Requests
     private int _requests;
+    public string Token;
 
     //TODO -> refresh ui after some events
 
@@ -92,12 +100,14 @@ public class PlayFabManager : MonoBehaviour
             _economyMod.Init(this);
             _guildsMod.Init(this);
             _socialMod.Init(this);
+            _summonMod.Init(this);
 
             AccountModule.OnInitComplete += _economyMod.GetEconomyData;
             EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
             GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
 
             _requests = 0;
+            Token = null;
         }
     }
 
@@ -132,7 +142,7 @@ public class PlayFabManager : MonoBehaviour
     public void RemoveCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.RemoveCurrency(currency, amount));
     public void AddEnergy(int amount) => StartCoroutine(_economyMod.AddEnergy(amount));
     public void RemoveEnergy(int amount) => StartCoroutine(_economyMod.RemoveEnergy(amount));
-    public bool IsEnergyUsed(int amount) => _economyMod.EnergyIsUsed(amount);
+    public bool HasEnoughCurrency(int amount, Currency? currency = null) => _economyMod.HasEnoughCurrency(amount, currency);
 
     public void AddInventoryItem(Item item) => StartCoroutine(_economyMod.AddInventoryItem(item));
     public void UpdateItem(Item item) => StartCoroutine(_economyMod.UpdateItem(item));
@@ -170,45 +180,10 @@ public class PlayFabManager : MonoBehaviour
     public void RemoveFriend(string id) => StartCoroutine(_socialMod.RemoveFriend(id));
     #endregion
 
-    #region Gacha
-    public Dictionary<int, int> GetSupports()
-    {
-        Dictionary<int, int> supports = new();
-
-        foreach (SupportData support in Data.Inventory.Supports)
-        {
-            supports[support.Id] = support.Lvl;
-        }
-
-        return supports;
-    }
-
-    public int HasSupport(int id)
-    {
-        for (int i = 0; i < Data.Inventory.Supports.Count; i++)
-        {
-            if (Data.Inventory.Supports[i].Id == id) return i;
-        }
-
-        return 0;
-    }
-
-    public void AddSupports(Dictionary<int, int> pulledSupports)
-    {
-        List<SupportData> supports = new();
-
-        foreach (KeyValuePair<int, int> support in pulledSupports)
-        {
-            supports.Add(new()
-            {
-                Id = support.Key,
-                Lvl = support.Value
-            });
-        }
-
-        Data.Inventory.Supports = supports;
-        UpdateData();
-    }
+    #region Summon
+    public Dictionary<int, int> GetSupports() => _summonMod.GetSupports();
+    public int HasSupport(int id) => _summonMod.HasSupport(id);
+    public void AddSupports(Dictionary<int, int> pulledSupports) => _summonMod.AddSupports(pulledSupports);
     #endregion
 
     #region Requests
@@ -258,19 +233,5 @@ public class PlayFabManager : MonoBehaviour
         //Debug.Log("Testing");
         //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
         //Player.Equip(Inventory.GetGearById(1));
-        Debug.LogWarning(Instance._economyMod.Stores.Count + " stores");
-        // display the numbers of items in the store
-        foreach (var store in Instance._economyMod.Stores)
-        {
-            Debug.LogWarning(store.Value.ItemReferences.Count + " items in " + store.Value.Id);
-            foreach (var item in store.Value.ItemReferences)
-            {
-                // Debug.LogWarning(item.Id);
-                // display the AlternateId Value of the item which is stored in the _itemsById dictionary
-                Debug.LogWarning(item.Id);
-                // Debug.LogWarning(Instance._economyMod.GetItemById(item.Id));
-            }
-            Debug.LogWarning("-------------------------");
-        }
     }
 }

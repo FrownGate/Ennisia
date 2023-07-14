@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Final Resonances
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 5c17c2c9416b50d47b922191b44145ad, type: 2}
+  - {fileID: 11400000, guid: ba9b6a9b8ae8b1b47b165a7cfe2f6d28, type: 2}
   Id: 4
   Name: Final Resonances
   Level: 1
@@ -24,6 +27,3 @@ MonoBehaviour:
     _serializedList: []
   WeaponType: 3
   IsMagic: 0
-  SkillsData:
-  - {fileID: 11400000, guid: 3ba323af63536b14491f5d5fa5709fba, type: 2}
-  - {fileID: 11400000, guid: 0c15d0897c137a74ea698215d2e965c3, type: 2}

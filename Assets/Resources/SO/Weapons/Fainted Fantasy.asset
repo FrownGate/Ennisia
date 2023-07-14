@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Fainted Fantasy
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: ef137174eac791949ad0b3da948da3a7, type: 2}
+  - {fileID: 11400000, guid: 0f8564815e81b734a88c9dd19d84a517, type: 2}
   Id: 8
   Name: Fainted Fantasy
   Level: 1
@@ -24,6 +27,3 @@ MonoBehaviour:
     _serializedList: []
   WeaponType: 6
   IsMagic: 1
-  SkillsData:
-  - {fileID: 11400000, guid: ce0eafad73515bd48933fee90c193d7f, type: 2}
-  - {fileID: 11400000, guid: 4967bd2fd15859d42859420c70231f7f, type: 2}

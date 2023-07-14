@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fe75c08d623a40b17483b46f5e0bf, type: 3}
   m_Name: Pure Innocence
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 5b0e8fdc640c9134b873c85fca828f83, type: 2}
+  - {fileID: 11400000, guid: 5f3382fdf7fc9eb428809ee94b5ab55a, type: 2}
   Id: 1
   Name: Pure Innocence
   Level: 1
@@ -24,6 +27,3 @@ MonoBehaviour:
     _serializedList: []
   WeaponType: 0
   IsMagic: 0
-  SkillsData:
-  - {fileID: 11400000, guid: 80b9e4ef4067ab249a1092127c865f22, type: 2}
-  - {fileID: 11400000, guid: 7b6dddad4f8a8694985ecffa77695789, type: 2}

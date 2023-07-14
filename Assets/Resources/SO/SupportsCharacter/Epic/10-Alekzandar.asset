@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 10-Alekzandar
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 170d04a858252bf4e91eb6f4256bd8aa, type: 2}
+  - {fileID: 11400000, guid: 9a36af1cf27002442828b62cb64ac17a, type: 2}
   Id: 10
   Name: Alekzandar
   Rarity: Epic
   Race: Human
   Job: Healer
   Element: 0
-  SkillsData:
-  - {fileID: 11400000, guid: cedf5c7422ed80c498c6c3bbbd23cfc8, type: 2}
-  - {fileID: 11400000, guid: d30d73c81733c5040a982c9b4d2d87d9, type: 2}
   Description: "Alekzandar is Veronika\u2019s right hand and is in love with her.
     Thus he is very jealous of Djeamy who spends lots of time with her. His specialty
     is status effects and shields."
   Catchphrase: Give me your hand, I have the magic touch.
+  Button: {fileID: 0}

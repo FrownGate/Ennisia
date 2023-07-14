@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
   m_Name: 3-Veronika
   m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 8948a5b4011aca443887c85d24b40cc2, type: 2}
+  - {fileID: 11400000, guid: 6475faeee6b6f9a419f137f0eee3368d, type: 2}
   Id: 3
   Name: Veronika
   Rarity: Legendary
   Race: Human
   Job: Healer
   Element: 0
-  SkillsData:
-  - {fileID: 11400000, guid: 657590ddc9375fb43ba691c3af99bc92, type: 2}
-  - {fileID: 11400000, guid: d4a9f47182da4da4da0344df5d44e10f, type: 2}
   Description: "Veronika is the King of Anthrena\u2019s second daughter; however,
     she wants nothing to do with royalty or the castle. Her dream is to travel and
     adventure with the people she loves. However with the rise of the demons she
@@ -28,3 +28,4 @@ MonoBehaviour:
     often seen with Djeamy, is it a general\u2019s meeting or more?..."
   Catchphrase: "I am not a klutz, my legs just get tired very easily\u2026 *falls*
     Oops!"
+  Button: {fileID: 0}

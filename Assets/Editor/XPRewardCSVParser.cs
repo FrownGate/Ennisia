@@ -22,145 +22,121 @@ public class XPRewardCSVParserWindow : EditorWindow
         GUILayout.Label("CSV File", EditorStyles.boldLabel);
         _csvFile = EditorGUILayout.ObjectField("CSV File", _csvFile, typeof(TextAsset), false) as TextAsset;
 
-        if (GUILayout.Button("Parse CSV Data"))
+        if (!GUILayout.Button("Parse CSV Data")) return;
+        if (_csvFile != null)
         {
-            if (_csvFile != null)
-            {
-                XPRewardData xpRewardData = ScriptableObject.CreateInstance<XPRewardData>();
-                ParseCSVData(_csvFile, xpRewardData);
-                SaveParsedData(xpRewardData);
-                Debug.Log("CSV data parsed and saved successfully.");
-            }
-            else
-            {
-                Debug.LogError("Please select a CSV file to parse.");
-            }
+            var xpRewardData = CreateInstance<XPRewardData>();
+            ParseCSVData(_csvFile, xpRewardData);
+            SaveParsedData(xpRewardData);
+            Debug.Log("CSV data parsed and saved successfully.");
+        }
+        else
+        {
+            Debug.LogError("Please select a CSV file to parse.");
         }
     }
 
     private void ParseCSVData(TextAsset csvFile, XPRewardData xpRewardData)
     {
         xpRewardData.RewardEntries = new List<RewardEntry>();
-        string[] lines = csvFile.text.Split('\n');
+        var lines = csvFile.text.Split('\n');
 
-        for (int i = 1; i < lines.Length; i++)
+        for (var i = 1; i < lines.Length; i++)
         {
-            string line = lines[i].Trim();
+            var line = lines[i].Trim();
 
-            if (line.Length > 0)
+            if (line.Length <= 0) continue;
+            var parts = line.Split(',');
+
+            if (parts.Length < 2) continue;
+            var level = int.Parse(parts[0]);
+            var reward = parts[1];
+
+            var rewardComponents = ParseRewardComponents(reward);
+
+            var entry = new RewardEntry
             {
-                string[] parts = line.Split(',');
+                Level = level,
+                Rewards = rewardComponents
+            };
 
-                if (parts.Length >= 2)
-                {
-                    int level = int.Parse(parts[0]);
-                    string reward = parts[1];
-
-                    List<RewardComponent> rewardComponents = ParseRewardComponents(reward);
-
-                    RewardEntry entry = new RewardEntry
-                    {
-                        Level = level,
-                        Rewards = rewardComponents
-                    };
-
-                    xpRewardData.RewardEntries.Add(entry);
-                }
-            }
+            xpRewardData.RewardEntries.Add(entry);
         }
     }
 
     private List<RewardComponent> ParseRewardComponents(string reward)
     {
-        List<RewardComponent> rewardComponents = new List<RewardComponent>();
+        var rewardComponents = new List<RewardComponent>();
 
-        string[] rewardStrings = reward.Split('+');
+        var rewardStrings = reward.Split('+');
 
-        foreach (string rewardString in rewardStrings)
+        foreach (var rewardString in rewardStrings)
         {
-            string trimmedComponent = rewardString.Trim(); // Remove leading and trailing whitespace
+            var trimmedComponent = rewardString.Trim(); // Remove leading and trailing whitespace
 
             // Split the component into its count and item with rarity parts
-            string[] parts = trimmedComponent.Split('x');
+            var parts = trimmedComponent.Split('x');
 
-            if (parts.Length == 2)
+            if (parts.Length != 2) continue;
+            var countString = parts[1].Trim();
+            var count = int.Parse(countString);
+
+            var itemWithRarity = parts[0].Trim();
+
+            // Separate the rarity from the item
+            var match = Regex.Match(itemWithRarity, @"\((.*?)\)");
+
+            var rarity = string.Empty;
+            if (match.Success) rarity = match.Groups[1].Value.Trim();
+
+            var item = Regex.Replace(itemWithRarity, @"\s*\(.*?\)", "").Trim();
+            if (item.Contains("Summon")) item = item.Replace(" ", "");
+
+            var itemParts = item.Split(' ');
+
+            var component = new RewardComponent
             {
-                string countString = parts[1].Trim();
-                int count = int.Parse(countString);
+                ItemName = item,
+                Count = count,
+                Category = DetermineItemCategory(itemParts[0]),
+                Rarity = DetermineItemRarity(rarity),
+                RewardType = DetermineItemRewardType(itemParts[^1])
+            };
 
-                string itemWithRarity = parts[0].Trim();
-
-                // Separate the rarity from the item
-                Match match = Regex.Match(itemWithRarity, @"\((.*?)\)");
-
-                string rarity = string.Empty;
-                if (match.Success)
-                {
-                    rarity = match.Groups[1].Value.Trim();
-                }
-
-                string item = Regex.Replace(itemWithRarity, @"\s*\(.*?\)", "").Trim();
-                if (item.Contains("Summon")) item = item.Replace(" ", "");
-
-                string[] itemParts = item.Split(' ');
-
-                RewardComponent component = new RewardComponent
-                {
-                    ItemName = item,
-                    Count = count,
-                    Category = DetermineItemCategory(itemParts[0]),
-                    Rarity = DetermineItemRarity(rarity),
-                    RewardType = DetermineItemRewardType(itemParts[itemParts.Length - 1])
-                };
-
-                rewardComponents.Add(component);
-            }
+            rewardComponents.Add(component);
         }
 
         return rewardComponents;
     }
 
-    private ItemCategory? DetermineItemCategory(string itemName)
+    private ItemCategory DetermineItemCategory(string itemName)
     {
-        if (Enum.TryParse(itemName, out ItemCategory category))
-        {
-            return category;
-        }
-
-        // Handle unknown item categories or return a default value
-        return null;
+        return Enum.TryParse(itemName, out ItemCategory category) ? category :
+            // Handle unknown item categories or return a default value
+            ItemCategory.Accessory;
     }
 
     private Rarity DetermineItemRarity(string rarityName)
     {
-        if (Enum.TryParse(rarityName, out Rarity rarity))
-        {
-            return rarity;
-        }
-
-        // Handle unknown rarities or return a default value
-        return Rarity.Common;
+        return Enum.TryParse(rarityName, out Rarity rarity) ? rarity :
+            // Handle unknown rarities or return a default value
+            Rarity.Common;
     }
 
     private RewardType DetermineItemRewardType(string RewardTypeName)
     {
-        if (Enum.TryParse(RewardTypeName.Trim(), out RewardType type))
-        {
-            return type;
-        }
-
-        return RewardType.None;
+        return Enum.TryParse(RewardTypeName.Trim(), out RewardType type) ? type : RewardType.None;
     }
 
     private void SaveParsedData(XPRewardData xpRewardData)
     {
-        string savePath = EditorUtility.SaveFilePanelInProject("Save Parsed Data", "XPData", "asset", "Save the parsed XP reward data");
+        var savePath =
+            EditorUtility.SaveFilePanelInProject("Save Parsed Data", "XPData", "asset",
+                "Save the parsed XP reward data");
 
-        if (!string.IsNullOrEmpty(savePath))
-        {
-            AssetDatabase.CreateAsset(xpRewardData, savePath);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
+        if (string.IsNullOrEmpty(savePath)) return;
+        AssetDatabase.CreateAsset(xpRewardData, savePath);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 }

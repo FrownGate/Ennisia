@@ -355,10 +355,26 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-  - name: Battle
-    path: Assets/Scenes/Battle.unity
-  - name: EndlessTower
-    path: Assets/Scenes/Missions/EndlessTower.unity
   - name: BattleModeSelection
     path: Assets/Scenes/Missions/BattleModeSelection.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: SettingsPopup
+    path: Assets/Scenes/SettingsPopup.unity
+  - name: InventoryPopup
+    path: Assets/Scenes/Inventory/InventoryPopup.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: ProfilePopup
+    path: Assets/Scenes/ProfilePopup.unity
+  - name: Loading_Big
+    path: Assets/Scenes/Loading_Big.unity
+  - name: Pets
+    path: Assets/Scenes/Pets.unity
+  - name: Quests
+    path: Assets/Scenes/Quests.unity
+  - name: Shop
+    path: Assets/Scenes/Shop.unity
   _notes: []
