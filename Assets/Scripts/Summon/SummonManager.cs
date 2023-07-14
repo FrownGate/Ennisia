@@ -21,19 +21,18 @@ public class SummonManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(this);
+            return;
         }
-        else
+
+        Instance = this;
+        DontDestroyOnLoad(this);
+
+        ShowBanner.OnClick += SetBanner;
+
+        foreach (var rarity in Enum.GetNames(typeof(Rarity)))
         {
-            Instance = this;
-            DontDestroyOnLoad(this);
-
-            ShowBanner.OnClick += SetBanner;
-
-            foreach (var rarity in Enum.GetNames(typeof(Rarity)))
-            {
-                if (Enum.Parse<Rarity>(rarity) == Rarity.Common) continue;
-                _supportsPool[Enum.Parse<Rarity>(rarity)] = Resources.LoadAll<SupportCharacterSO>($"SO/SupportsCharacter/{rarity}");
-            }
+            if (Enum.Parse<Rarity>(rarity) == Rarity.Common) continue;
+            _supportsPool[Enum.Parse<Rarity>(rarity)] = Resources.LoadAll<SupportCharacterSO>($"SO/SupportsCharacter/{rarity}");
         }
     }
 
