@@ -214,18 +214,24 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public bool EnergyIsUsed(int amount)
+    public bool HasEnoughCurrency(int amount, Currency? currency = null)
     {
-        if (amount >= Energy)
+        int currencyToCheck = currency != null ? Currencies[(Currency)currency] : Energy;
+
+        if (currencyToCheck < amount)
         {
-            RemoveEnergy(amount);
-        }
-        else
-        {
-            Debug.LogError("Not enough energy");
+            Debug.LogError("Not enough energy or currency.");
+            return false;
         }
 
-        return amount >= Energy;
+        if (currency == null)
+        {
+            StartCoroutine(RemoveEnergy(amount));
+            return true;
+        }
+
+        StartCoroutine(RemoveCurrency((Currency)currency, amount));
+        return true;
     }
 
     #region Items

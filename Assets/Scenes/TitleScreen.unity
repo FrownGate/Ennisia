@@ -882,7 +882,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SummonBanner: {fileID: 0}
   Amount: 0
-  PulledSupports: []
 --- !u!1 &1424722012
 GameObject:
   m_ObjectHideFlags: 0

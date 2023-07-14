@@ -9,11 +9,10 @@ public class SummonManager : MonoBehaviour
     public static event Action<List<SupportCharacterSO>> OnSupportPulled;
 
     public SummonBannerSO SummonBanner;
-    private int _amount;
+    public int Amount;
 
     private readonly double _legendaryChance = 0.75;
     private readonly double _epicChance = 10.25;
-    private readonly int _cost = 100;
     private readonly int _fragmentsPerDuplicate = 10;
 
     private Dictionary<int, int> _supports;
@@ -53,25 +52,12 @@ public class SummonManager : MonoBehaviour
     public void Summon()
     {
         _chance = GetChance();
-        _amount = int.Parse(ScenesManager.Instance.Params);
         int newFragments = 0;
-
-        //TODO -> Use tickets instead of crystals if _chance is < 100
-        if (PlayFabManager.Instance.Currencies[Currency.Crystals] < _cost * _amount)
-        {
-            Debug.LogError("not enough crystals");
-            //TODO -> Show UI error message
-            return;
-        }
-        else
-        {
-            PlayFabManager.Instance.RemoveCurrency(Currency.Crystals, _cost * _amount);
-        }
 
         _supports = PlayFabManager.Instance.GetSupports();
         _pulledSupports = new();
 
-        for (int i = 0; i < _amount; i++)
+        for (int i = 0; i < Amount; i++)
         {
             SupportCharacterSO pulledSupport = GetSupport();
             _pulledSupports.Add(pulledSupport);
