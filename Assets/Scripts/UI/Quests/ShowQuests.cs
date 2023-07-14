@@ -1,3 +1,4 @@
+using System;
 using PlayFab.GroupsModels;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,8 @@ public class ShowQuests : MonoBehaviour
     private List<GameObject> _buttons;
     private QuestSO[] _quests;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-       
-       
+        throw new NotImplementedException();
     }
 }
