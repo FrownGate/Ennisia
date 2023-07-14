@@ -5,6 +5,7 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
+using System.Linq;
 
 public enum Rarity
 {
@@ -14,6 +15,7 @@ public enum Rarity
 public class PlayFabManager : MonoBehaviour
 {
     public static PlayFabManager Instance { get; private set; }
+    public static string continuationToken;
 
     //Requests events
     public static event Action<PlayFabError> OnError;
@@ -145,6 +147,7 @@ public class PlayFabManager : MonoBehaviour
     public void AddInventoryItem(Item item) => StartCoroutine(_economyMod.AddInventoryItem(item));
     public void UpdateItem(Item item) => StartCoroutine(_economyMod.UpdateItem(item));
     public void UseItem(Item item, int amount = 1) => StartCoroutine(_economyMod.UseItem(item, amount));
+    public void PurchaseInventoryItem(Item item) => StartCoroutine(_economyMod.PurchaseInventoryItem(item));
     #endregion
 
     #region Guilds
