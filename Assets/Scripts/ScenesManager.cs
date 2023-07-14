@@ -13,7 +13,6 @@ public class ScenesManager : MonoBehaviour
 
     private Scene _activeScene;
     private Scene _previousScene;
-    private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
 
     private bool _loading;
@@ -70,6 +69,7 @@ public class ScenesManager : MonoBehaviour
     public void SetScene(string scene)
     {
         _sceneToLoad = GetSceneName(scene);
+        if (IsPopupLoaded() && _sceneToLoad.Contains("Popup")) return;
         Debug.Log($"Going to scene {_sceneToLoad}");
         StartCoroutine(LoadingScene());
         //startTime = Time.time;
@@ -96,7 +96,6 @@ public class ScenesManager : MonoBehaviour
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
         _activeScene = scene.name.Contains("Loading") ? _activeScene : scene;
-        _sceneMode = mode;
 
         //Debug.Log($"{_activeScene.name} loaded !");
     }
@@ -154,7 +153,14 @@ public class ScenesManager : MonoBehaviour
 
     public bool IsPopupLoaded()
     {
-        return _sceneMode == LoadSceneMode.Additive;
+        return SceneManager.sceneCount > 1;
+    }
+
+    public void UnloadPopup()
+    {
+        string popup = _activeScene.name;
+        _activeScene = _previousScene;
+        SceneManager.UnloadSceneAsync(popup);
     }
 
     //private IEnumerator Loading()

@@ -6,6 +6,11 @@ public class Popup : MonoBehaviour
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
     }
+
+    public void Close()
+    {
+        ScenesManager.Instance.UnloadPopup();
+    }
     /*private void Start()
     {
         Canvas mainCanvas = FindObjectOfType<Canvas>();
