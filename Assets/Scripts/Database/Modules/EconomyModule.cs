@@ -79,7 +79,6 @@ public class EconomyModule : Module
             {
                 _itemsById[item.Id] = item.AlternateIds[0].Value;
                 _itemsByName[item.AlternateIds[0].Value] = item.Id;
-                Debug.LogError($"Item {item.AlternateIds[0].Value} found !");
             }
             else if (item.Type == "store")
             {
