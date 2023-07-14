@@ -8,8 +8,7 @@ public class SummonManager : MonoBehaviour
 
     public static event Action<List<SupportCharacterSO>> OnSupportPulled;
 
-    public SummonBannerSO SummonBanner;
-
+    private SummonBannerSO _summonBanner;
     private Dictionary<int, int> _supports;
     private List<SupportCharacterSO> _pulledSupports;
     private int _amount;
@@ -28,12 +27,19 @@ public class SummonManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
 
+            ShowBanner.OnClick += SetBanner;
+
             foreach (var rarity in Enum.GetNames(typeof(Rarity)))
             {
                 if (Enum.Parse<Rarity>(rarity) == Rarity.Common) continue;
                 _supportsPool[Enum.Parse<Rarity>(rarity)] = Resources.LoadAll<SupportCharacterSO>($"SO/SupportsCharacter/{rarity}");
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        ShowBanner.OnClick -= SetBanner;
     }
 
     public bool CanPull(int amount)
@@ -130,5 +136,10 @@ public class SummonManager : MonoBehaviour
         }
 
         return rarity;
+    }
+
+    private void SetBanner(SummonBannerSO banner)
+    {
+        _summonBanner = banner;
     }
 }
