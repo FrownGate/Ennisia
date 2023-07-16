@@ -4,18 +4,15 @@ public class CrushingEarthguard : DamageSkill
 {
     //TODO -> Attacks all enemies, and gives a shield based off 40% of damage done.
 
-    private float _totalDamage = 0;
-
     public override float Use(List<Entity> targets, Entity caster, int turn) 
     {
-       
-       
         foreach (Entity target in targets)
         {
             float damage = DamageCalculation(target,caster);
             target.TakeDamage(damage);
             TotalDamage += damage;
         }
+
         Cooldown = Data.MaxCooldown;
         return TotalDamage; 
     }
