@@ -83,6 +83,7 @@ public class BattleSystem : StateMachine
         Player = player ?? new();
         Player.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
         Player.HUD.Init((Player)Player);
+        Player.InitElement();
 
         int position = 0;
 
@@ -99,7 +100,6 @@ public class BattleSystem : StateMachine
     private void InitSupports()
     {
         int position = 100;
-        List<ElementType> elements = new();
 
         foreach (var support in Player.EquippedSupports)
         {
@@ -110,7 +110,6 @@ public class BattleSystem : StateMachine
             position -= 190; //TODO -> dynamic position
 
             if (support == null) continue;
-            elements.Add(support.Element);
             support.Button = hud;
 
             foreach (var skill in support.Skills)
@@ -118,8 +117,6 @@ public class BattleSystem : StateMachine
                 skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
             }
         }
-
-        Player.InitElement();
     }
 
     private void InitEnemies()
