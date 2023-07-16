@@ -9,7 +9,7 @@ public class ScenesManager : MonoBehaviour
     [SerializeField, Scene] private string _loadingMini;
 
     public static ScenesManager Instance { get; private set; }
-    public string Params { get; private set; }
+    public string Params { get; private set; } //TODO -> remove
 
     private Scene _activeScene;
     private Scene _previousScene;
@@ -17,33 +17,29 @@ public class ScenesManager : MonoBehaviour
     private bool _isPopupLoaded;
 
     private bool _loading;
-    //public float minLoadingTime = 2f;
-
-    //private float startTime;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(this);
+            return;
         }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
 
-            SceneManager.sceneLoaded += OnSceneLoad;
-            SceneManager.sceneUnloaded += OnSceneUnloaded;
-            PlayFabManager.OnLoadingStart += MiniLoading;
-            PlayFabManager.OnLoadingEnd += StopLoading;
-            PlayFabManager.OnBigLoadingStart += BigLoading;
-            PlayFabManager.OnLoginSuccess += StopBigLoading;
+        Instance = this;
+        DontDestroyOnLoad(this);
 
-            Params = null;
-            _activeScene = SceneManager.GetActiveScene();
-            _loading = false;
-            _isPopupLoaded = false;
-        }
+        SceneManager.sceneLoaded += OnSceneLoad;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+        PlayFabManager.OnLoadingStart += MiniLoading;
+        PlayFabManager.OnLoadingEnd += StopLoading;
+        PlayFabManager.OnBigLoadingStart += BigLoading;
+        PlayFabManager.OnLoginSuccess += StopBigLoading;
+
+        Params = null;
+        _activeScene = SceneManager.GetActiveScene();
+        _loading = false;
+        _isPopupLoaded = false;
     }
 
     private void OnDestroy()
@@ -54,6 +50,30 @@ public class ScenesManager : MonoBehaviour
         PlayFabManager.OnLoadingEnd -= StopLoading;
         PlayFabManager.OnBigLoadingStart -= BigLoading;
         PlayFabManager.OnLoginSuccess -= StopBigLoading;
+    }
+
+    public void SetScene(string scene)
+    {
+        _sceneToLoad = GetSceneName(scene);
+        if (_isPopupLoaded && _sceneToLoad.Contains("Popup")) return;
+        Debug.Log($"Going to scene {_sceneToLoad}");
+        StartCoroutine(LoadScene());
+    }
+
+    private string GetSceneName(string scene)
+    {
+        string[] splittedName = scene.Split('#');
+        Params = splittedName.Length > 1 ? splittedName[1] : null;
+        return splittedName[0];
+    }
+
+    private IEnumerator LoadScene()
+    {
+        AsyncOperation loading = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
+        MiniLoading();
+
+        while (!loading.isDone) yield return null;
+        StopLoading();
     }
 
     private LoadSceneMode SceneMode()
@@ -69,26 +89,10 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
-    public void SetScene(string scene)
+    public void UnloadPopup(Scene scene)
     {
-        _sceneToLoad = GetSceneName(scene);
-        if (_isPopupLoaded && _sceneToLoad.Contains("Popup")) return;
-        Debug.Log($"Going to scene {_sceneToLoad}");
-        StartCoroutine(LoadingScene());
-        //startTime = Time.time;
-
-        //switch (_sceneToLoad)
-        //{
-        //    case "MainMenu":
-        //    case "Battle":
-        //        StartCoroutine(Loading());
-        //        break;
-
-        //    default:
-        //        //if (IsPopupLoaded()) UnloadScene(_sceneToLoad);
-        //        SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-        //        break;
-        //}
+        _activeScene = SceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(scene);
     }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
@@ -105,18 +109,6 @@ public class ScenesManager : MonoBehaviour
 
         if (_previousScene.name == _loadingMini) _loading = false;
         if (_previousScene.name.Contains("Popup")) _isPopupLoaded = false;
-    }
-
-    private string GetSceneName(string scene)
-    {
-        string[] splittedName = scene.Split('#');
-        Params = splittedName.Length > 1 ? splittedName[1] : null;
-        return splittedName[0];
-    }
-
-    public bool HasParams()
-    {
-        return !string.IsNullOrEmpty(Params);
     }
 
     private void BigLoading()
@@ -140,65 +132,4 @@ public class ScenesManager : MonoBehaviour
     {
         if (SceneManager.GetSceneByName(_loadingBig).isLoaded) SceneManager.UnloadSceneAsync(_loadingBig);
     }
-
-    private IEnumerator LoadingScene()
-    {
-        AsyncOperation loading = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-        MiniLoading();
-
-        while (!loading.isDone) yield return null;
-        StopLoading();
-    }
-
-    public void UnloadPopup(Scene scene)
-    {
-        _activeScene = SceneManager.GetActiveScene();
-        SceneManager.UnloadSceneAsync(scene);
-    }
-
-    //private IEnumerator Loading()
-    //{
-    //    string loadScene = GetSceneName("Loading_Big");
-    //    Debug.Log($"Going to scene {loadScene}");
-    //    startTime = Time.time;
-
-    //    AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
-
-    //    while (!loadingScreenOperation.isDone)
-    //    {
-    //        yield return null;
-    //    }
-
-    //    Scene loadingScene = SceneManager.GetSceneByName(loadScene);
-    //    if (!loadingScene.IsValid())
-    //    {
-    //        Debug.LogError("Loading scene is not valid.");
-    //        yield break;
-    //    }
-
-    //    Slider progressBar = null;
-
-    //    foreach (GameObject rootObject in loadingScene.GetRootGameObjects())
-    //    {
-    //        progressBar = rootObject.GetComponentInChildren<Slider>();
-    //        if (progressBar != null)
-    //        {
-    //            break;
-    //        }
-    //    }
-
-    //    if (progressBar == null)
-    //    {
-    //        Debug.LogError("Slider component not found in the loading scene.");
-    //        yield break;
-    //    }
-
-    //    AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(_sceneToLoad, SceneMode());
-
-    //    while (!sceneOperation.isDone)
-    //    {
-    //        progressBar.value = sceneOperation.progress;
-    //        yield return null;
-    //    }
-    //}
 }
