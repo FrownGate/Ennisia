@@ -29,9 +29,12 @@ public abstract class Skill
     {
         Level = 0; //TODO -> Get from database
         var skillTypeValues = Enum.GetValues(typeof(SkillType));
+
+        //TODO -> optimization may be needed -> all SO are loaded for each skill ?
         foreach (SkillType folderType in skillTypeValues)
         {
             var skillSOs = Resources.LoadAll<SkillSO>($"SO/Skills/{folderType}");
+
             foreach (var skillSO in skillSOs)
             {
                 if (skillSO.name != GetType().Name) continue;
@@ -54,6 +57,16 @@ public abstract class Skill
     public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
     public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
+    public void Upgrade(int _Level) { Level = _Level; }
+
+    public void Upgrade()
+    {
+        if (Level >= 5) return;
+        Debug.Log($"Upgrading {Data.Name} skill...");
+
+        Level++;
+        OnLevelUp?.Invoke();
+    }
 
     public virtual float DamageCalculation(Entity target, Entity caster)
     {
@@ -71,17 +84,6 @@ public abstract class Skill
     {
         foreach (var modifier in _modifiers) caster.Stats[modifier.Key].RemoveModifier(modifier.Value);
     }
-
-    public virtual void Upgrade()
-    {
-        if (Level >= 5) return;
-        Debug.Log($"Upgrading {Data.Name} skill...");
-
-        Level++;
-        OnLevelUp?.Invoke();
-    }
-
-    public virtual void Upgrade(int _Level) { Level = _Level; }
 
     public void Tick()
     {
