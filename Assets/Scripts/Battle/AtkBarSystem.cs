@@ -46,7 +46,7 @@ public class AtkBarSystem
         foreach (Entity entity in AllEntities)
         {
             entity.AtkBar += entity.AtkBarFillAmount;
-            Debug.Log(entity.AtkBar);
+            //Debug.Log(entity.AtkBar);
         }
 
         foreach (Entity entity in AllEntities)
@@ -63,7 +63,7 @@ public class AtkBarSystem
         foreach (Entity entity in AllEntities)
         {
             entity.AtkBarPercentage = (entity.AtkBar * 100) / fastest.AtkBar;
-            Debug.Log(entity.Name + " atb " + entity.AtkBarPercentage);
+            //Debug.Log(entity.Name + " atb " + entity.AtkBarPercentage);
         }
     }
 
