@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +9,7 @@ public class DynamicButtonGenerator : MonoBehaviour
 
     private RectTransform _contentRect;
     private VerticalLayoutGroup _layoutGroup;
+
     public List<GameObject> GenerateButtonsInSlider(int numberOfButtons)
     {
         List<GameObject> buttonsCreated = new();
@@ -22,7 +22,6 @@ public class DynamicButtonGenerator : MonoBehaviour
             buttonsCreated.Add(button);
 
             RectTransform buttonRect = button.GetComponent<RectTransform>();
-            
 
             // Get the original width and height of the button
             float originalWidth = buttonRect.sizeDelta.x;
@@ -38,10 +37,8 @@ public class DynamicButtonGenerator : MonoBehaviour
 
             // Adjust the BoxCollider component
             BoxCollider2D boxCollider = button.GetComponent<BoxCollider2D>();
-            if (boxCollider != null)
-            {
-                boxCollider.size = new Vector3(adjustedWidth, adjustedHeight);
-            }
+
+            if (boxCollider != null) boxCollider.size = new Vector3(adjustedWidth, adjustedHeight);
             // Adjust the size of children objects within the button
             AdjustChildrenSize(button);
         }
@@ -52,6 +49,7 @@ public class DynamicButtonGenerator : MonoBehaviour
 
         return buttonsCreated;
     }
+
     public List<GameObject> AddButtonsToGridLayout(int numberOfButtons)
     {
         ScrollRect scrollRect = GetComponent<ScrollRect>();
@@ -88,7 +86,6 @@ public class DynamicButtonGenerator : MonoBehaviour
 
         return buttonsCreated;
     }
-
 
     private void AdjustChildrenSize(GameObject button)
     {
@@ -128,11 +125,6 @@ public class DynamicButtonGenerator : MonoBehaviour
             }
         }
     }
-
-
-
-
-
 
     private float CalculateTotalHeight(List<GameObject> buttons)
     {
