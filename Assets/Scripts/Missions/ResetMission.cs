@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ResetMission : MonoBehaviour
 {
-    private void OnMouseDown()
+    private void OnMouseUpAsButton()
     {
         MissionManager.Instance.ResetData();
     }

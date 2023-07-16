@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpdateExpBar : MonoBehaviour
+public class ShowExpBar : MonoBehaviour
 {
     public bool AccountBar;
     public bool PlayerBar;
