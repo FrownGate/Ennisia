@@ -11,6 +11,5 @@ public class SupportSilence : Effect
                 skill.Button.ToggleUse(false);
             }
         }
-
     }
 }

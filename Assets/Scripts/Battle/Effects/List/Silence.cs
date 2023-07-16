@@ -8,5 +8,7 @@ public class Silence : Effect
         {
             target.Skills[i].Button.ToggleUse(false);
         }
+
+        //TODO -> Check if buttons are toggled back if no silence
     }
 }

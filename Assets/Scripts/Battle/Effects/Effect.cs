@@ -3,20 +3,16 @@ using UnityEngine;
 
 public class Effect
 {
-    //public enum AlterationState
-    //{
-    //    None, Stun, Silence, SupportSilence, DemonicMark, Break
-    //}
-
     public EffectSO Data { get; set; }
     public readonly Dictionary<Attribute, ModifierID> Modifiers = new();
     public int Duration { get; set; }
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration;
-    //public bool HasAlteration => Data.Alteration != AlterationState.None;
     private bool IsExpired => Duration <= 0;
-    public virtual bool IsStackable => false;
-    public virtual int Stacks { get; protected set; } = 0;
+
+    public int Stacks { get; protected set; } = 0;
+    public bool IsStackable = false;
+    protected int _maxStacks;
 
     public Effect(int? duration = null)
     {
@@ -26,7 +22,6 @@ public class Effect
     }
 
     public virtual void AlterationEffect(Entity target) { }
-    public virtual void ApplyStack(int stack) { }
     public virtual float GetMultiplier() { return 1.0f; }
 
     public void AddEffectModifiers(Entity target)
@@ -53,6 +48,11 @@ public class Effect
     {
         foreach (var modifier in Modifiers) target.Stats[modifier.Key].RemoveModifier(modifier.Value);
         target.Effects.Remove(this);
+    }
+
+    public void ApplyStack(int stack)
+    {
+        Stacks = Stacks + stack <= _maxStacks ? Stacks += stack : _maxStacks;
     }
 }
 
