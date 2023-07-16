@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowPets : MonoBehaviour
+public class ShowAllPets : MonoBehaviour
 {
     public static event Action<string> OnPopupShow;
 
@@ -20,12 +20,12 @@ public class ShowPets : MonoBehaviour
         AllPets = new Dictionary<string,Pet>();
         _petList = Resources.LoadAll<PetSO>("SO/Pets");
 
-        PetButton.OnPetClick += ShowPetInfo;
+        ShowPetButton.OnPetClick += ShowPetInfo;
 
         foreach (PetSO file in _petList)
         {
             GameObject currentButton = Instantiate(_prefabPetButton, transform.position, transform.rotation, _buttonsContainer.transform);
-            currentButton.GetComponent<PetButton>().PetName = file.Name;
+            currentButton.GetComponent<ShowPetButton>().PetName = file.Name;
             Type type = Type.GetType(CSVUtils.GetFileName(file.Name));
             Debug.Log(file.Name);
             Debug.Log(type);
@@ -35,7 +35,7 @@ public class ShowPets : MonoBehaviour
 
     private void OnDestroy()
     {
-        PetButton.OnPetClick -= ShowPetInfo;
+        ShowPetButton.OnPetClick -= ShowPetInfo;
     }
 
     private void ShowPetInfo(string name)

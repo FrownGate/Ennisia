@@ -2,12 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PetPopup : MonoBehaviour
+public class ShowPetDatas : MonoBehaviour
 {
     private PetSO _data;
 
     [SerializeField] private Image _image;
-    [SerializeField] private ShowPets _showpet;
+    [SerializeField] private ShowAllPets _showpet;
     [SerializeField] private TextMeshProUGUI _lore;
     [SerializeField] private TextMeshProUGUI _level;
     [SerializeField] private TextMeshProUGUI _xp;
@@ -16,14 +16,14 @@ public class PetPopup : MonoBehaviour
     void Awake()
     {
         PetPet.OnUpdate += DisplayPet;
-        ShowPets.OnPopupShow += DisplayPet;
+        ShowAllPets.OnPopupShow += DisplayPet;
         ClosePetPopup.OnPetDiscard += Close;
     }
 
     private void OnDestroy()
     {
         PetPet.OnUpdate += DisplayPet;
-        ShowPets.OnPopupShow -= DisplayPet;
+        ShowAllPets.OnPopupShow -= DisplayPet;
         ClosePetPopup.OnPetDiscard -= Close;
     }
 

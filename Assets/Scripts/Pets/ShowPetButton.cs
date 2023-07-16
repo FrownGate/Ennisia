@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class PetButton : MonoBehaviour
+public class ShowPetButton : MonoBehaviour
 {
     public static event Action<string> OnPetClick;
 

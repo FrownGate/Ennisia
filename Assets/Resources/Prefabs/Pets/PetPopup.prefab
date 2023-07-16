@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 3732013889888990723}
   - component: {fileID: 939890508129021452}
   m_Layer: 0
-  m_Name: PetInfo
+  m_Name: PetPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
