@@ -10,7 +10,7 @@ public class EndlessTowerFloor : MonoBehaviour
         BoxCollider2D box = GetComponent<BoxCollider2D>();
         box.size = GetComponent<RectTransform>().sizeDelta;
     }
-    private void OnMouseDown()
+    private void OnMouseUpAsButton()
     {
         MissionManager.Instance.SetMission(FloorSO);
     }

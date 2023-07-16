@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ShowChapterName : MonoBehaviour
+public class ShowStoryChapterName : MonoBehaviour
 {
     private TextMeshProUGUI _text;
 

@@ -113,37 +113,37 @@ public class AudioManager : MonoBehaviour
         Debug.Log("mission Type:" + missionSO.Type);
         switch (missionSO.Type)
         {
-            case MissionManager.MissionType.Raid:
+            case MissionType.Raid:
                 FindObjectOfType<AudioManager>().Play("raidsBGM");
-                Debug.Log("Raid BGM played" + MissionManager.MissionType.Raid);
+                Debug.Log("Raid BGM played" + MissionType.Raid);
                 break;
 
-            case MissionManager.MissionType.Dungeon:
+            case MissionType.Dungeon:
                 FindObjectOfType<AudioManager>().Play("dungeonBGM");
                 Debug.Log("Dungeon BGM played");
                 break;
 
-            case MissionManager.MissionType.MainStory:
+            case MissionType.MainStory:
                 FindObjectOfType<AudioManager>().Play("mainStoryBGM");
                 Debug.Log("MainStory BGM played");
                 break;
 
-            case MissionManager.MissionType.SideStory:
+            case MissionType.SideStory:
                 FindObjectOfType<AudioManager>().Play("sideStoryBGM");
                 Debug.Log("SideStory BGM played");
                 break;
 
-            case MissionManager.MissionType.AlternativeStory:
+            case MissionType.AlternativeStory:
                 FindObjectOfType<AudioManager>().Play("alternativeStoryBGM");
                 Debug.Log("AlternativeStory BGM played");
                 break;
 
-            case MissionManager.MissionType.EndlessTower:
+            case MissionType.EndlessTower:
                 FindObjectOfType<AudioManager>().Play("endlessTowerBGM");
                 Debug.Log("EndlessTower BGM played");
                 break;
 
-            case MissionManager.MissionType.Expedition:
+            case MissionType.Expedition:
                 FindObjectOfType<AudioManager>().Play("expeditionBGM");
                 Debug.Log("Expedition BGM played");
                 break;

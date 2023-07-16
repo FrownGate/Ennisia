@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum MissionType
+{
+    MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
+}
+
+public enum MissionState
+{
+    Locked, Unlocked, InProgress, Completed
+}
+
+public enum Difficulty
+{
+    Peaceful, Easy, Normal, Hard, Insane, Ultimate
+}
+
 public class MissionManager : MonoBehaviour
 {
-    public enum MissionType
-    {
-        MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
-    }
-
-    public enum MissionState
-    {
-        Locked, Unlocked, InProgress, Completed
-    }
-
     public static MissionManager Instance { get; private set; }
-    
-    //private EnemyLoader _enemyLoader;
+
     public static event Action<MissionSO> OnMissionStart;
     public static event Action OnNextWave;
     public static event Action<MissionSO> OnMissionComplete;
+
     public ChapterSO CurrentChapter { get; private set; }
     public MissionSO CurrentMission { get; private set; }
     public int CurrentWave { get; private set; }
@@ -62,7 +67,7 @@ public class MissionManager : MonoBehaviour
 
     public void StartMission()
     {
-        //TODO -> load scene Battle only if energy is used
+        //TODO -> load scene Battle only if energy is used and mission is unlock
         //if (!PlayFabManager.Instance.IsEnergyUsed(CurrentMission.EnergyCost)) return;
         CurrentWave = 1;
         DisplayMissionNarrative(CurrentMission);
@@ -74,7 +79,6 @@ public class MissionManager : MonoBehaviour
         if (CurrentMission.State == MissionState.Unlocked) return true;
         Debug.LogError("Cannot start mission. Mission is either locked or already completed: " + CurrentMission.Id);
         return false;
-
     }
 
     public void NextWave()
@@ -181,14 +185,4 @@ public class MissionManager : MonoBehaviour
         CurrentMission = null;
         CurrentChapter = null;
     }
-
-    //public List<Enemy> GetMissionEnemyList()
-    //{
-    //    List<Enemy> MissionEnemies = new List<Enemy>();
-    //    for (int i = 0; i < CurrentMission.Enemies.Count; i++)
-    //    {
-    //        MissionEnemies.Add(_enemyLoader.LoadEnemyByName("Assets/Resources/CSV/Enemies.csv",CurrentMission.Enemies[i]));
-    //    }
-    //    return MissionEnemies;
-    //}
 }

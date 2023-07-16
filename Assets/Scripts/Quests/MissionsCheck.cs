@@ -12,8 +12,8 @@ public class MissionsCheck : MonoBehaviour
     bool[] dailies;
     bool[] weeklies;
 
-    SerializedDictionary<MissionManager.MissionType, int> missionCount;
-    SerializedDictionary<MissionManager.MissionType, int> missionNeeded;
+    SerializedDictionary<MissionType, int> missionCount;
+    SerializedDictionary<MissionType, int> missionNeeded;
 
     int _dailyGearUpgradeCount;
     int _dailyKillCount;
@@ -33,13 +33,13 @@ public class MissionsCheck : MonoBehaviour
     private void GetMissionComplete(MissionSO missionSO)
     {
         missionCount[missionSO.Type]++;
-        CheckChallengeMission(ChallengeType.Daily, missionSO, MissionManager.MissionType.Dungeon, 1);
-        CheckChallengeMission(ChallengeType.Daily, missionSO, MissionManager.MissionType.Raid, 2);
-        CheckChallengeMission(ChallengeType.Weekly, missionSO, MissionManager.MissionType.Dungeon, 1);
-        CheckChallengeMission(ChallengeType.Weekly, missionSO, MissionManager.MissionType.Raid, 2);
+        CheckChallengeMission(ChallengeType.Daily, missionSO, MissionType.Dungeon, 1);
+        CheckChallengeMission(ChallengeType.Daily, missionSO, MissionType.Raid, 2);
+        CheckChallengeMission(ChallengeType.Weekly, missionSO, MissionType.Dungeon, 1);
+        CheckChallengeMission(ChallengeType.Weekly, missionSO, MissionType.Raid, 2);
     }
 
-    private void CheckChallengeMission(ChallengeType challengeType, MissionSO missionSO, MissionManager.MissionType missionType, int challengeIndex)
+    private void CheckChallengeMission(ChallengeType challengeType, MissionSO missionSO, MissionType missionType, int challengeIndex)
     {
         if (missionSO.Type != missionType) return;
         switch (challengeType)

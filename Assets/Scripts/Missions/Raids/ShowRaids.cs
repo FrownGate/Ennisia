@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(DynamicButtonGenerator))]
-public class Raids : MonoBehaviour
+public class ShowRaids : MonoBehaviour
 {
     private DynamicButtonGenerator _generator;
     private List<GameObject> _buttons;
     private MissionSO[] _raidsSO;
-    // Start is called before the first frame update
+
     void Start()
     {
         _generator = GetComponent<DynamicButtonGenerator>();
@@ -32,7 +32,7 @@ public class Raids : MonoBehaviour
             image.sprite = Resources.Load<Sprite>($"Textures/UI/{type}/{uniqueNames[buttonIndex]}");
             buttonIndex++;
 
-            RaidsButton diff = image.gameObject.AddComponent<RaidsButton>();
+            ShowRaidDifficulties diff = image.gameObject.AddComponent<ShowRaidDifficulties>();
             diff.RaidName = go.name;
             diff.Raids = _buttons;
             diff.RaidDiffs = GetScriptableObjectsByName(go.name);
@@ -55,6 +55,7 @@ public class Raids : MonoBehaviour
         // Convert the set to a list and return
         return new List<string>(uniqueNames);
     }
+
     public List<MissionSO> GetScriptableObjectsByName(string name)
     {
         Dictionary<string, List<MissionSO>> scriptableObjectsByName = new();

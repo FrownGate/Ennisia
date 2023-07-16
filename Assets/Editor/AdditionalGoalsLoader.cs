@@ -218,10 +218,10 @@ public static class AdditionalGoalsLoader
 
     private static bool MissionProperties(QuestGoal goal, string goalValue)
     {
-        var missionTypes = Enum.GetValues(typeof(MissionManager.MissionType));
+        var missionTypes = Enum.GetValues(typeof(MissionType));
         List<MissionSO> missionSos = new();
 
-        foreach (MissionManager.MissionType type in missionTypes)
+        foreach (MissionType type in missionTypes)
             missionSos.AddRange(Resources.LoadAll<MissionSO>($"SO/Missions/{type}").ToList());
 
 
@@ -263,7 +263,7 @@ public static class AdditionalGoalsLoader
                     isValid = false;
                 }
             }
-            else if (Enum.TryParse(value, out MissionManager.MissionType missionType))
+            else if (Enum.TryParse(value, out MissionType missionType))
             {
                 var missionsOfType = missionSos.Where(mission => mission.Type == missionType).ToList();
                 if (goal is MissionGoal missionGoal)

@@ -4,28 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Difficulty
+public class ShowRaidDifficulties : MonoBehaviour
 {
-    Peaceful,
-    Easy,
-    Normal,
-    Hard,
-    Insane,
-    Ultimate
-}
-
-public class RaidsButton : MonoBehaviour
-{
-    public static Dictionary<int, Difficulty> IdToDifficulty = new()
-    {
-        { 1, Difficulty.Peaceful },
-        { 2, Difficulty.Easy },
-        { 3, Difficulty.Normal },
-        { 4, Difficulty.Hard },
-        { 5, Difficulty.Insane },
-        { 6, Difficulty.Ultimate }
-    }; //TODO -> remove and use (int)Difficulty.Peaceful for example
-
     public List<GameObject> Raids;
     public List<MissionSO> RaidDiffs;
     public List<GameObject> Buttons;
@@ -33,7 +13,6 @@ public class RaidsButton : MonoBehaviour
 
     private DynamicButtonGenerator _generator;
 
-    // Start is called before the first frame update
     void Start()
     {
         _generator = GetComponentInParent<DynamicButtonGenerator>();
@@ -46,6 +25,7 @@ public class RaidsButton : MonoBehaviour
 
         Buttons = _generator.GenerateButtonsInSlider(RaidDiffs.Count);
         int buttonIndex = 0;
+
         foreach (GameObject go in Buttons)
         {
             Image image = go.GetComponentInChildren<Image>();
@@ -53,35 +33,24 @@ public class RaidsButton : MonoBehaviour
             image.sprite = Resources.Load<Sprite>($"Textures/UI/Raid/Difficulty{RaidName}");
 
             TextMeshProUGUI buttonText = go.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = GetDifficultyById(RaidDiffs[buttonIndex].NumInChapter).ToString();
+            buttonText.text = ((Difficulty)RaidDiffs[buttonIndex].NumInChapter).ToString();
 
-            RaidsDifficulty diff = image.gameObject.AddComponent<RaidsDifficulty>();
+            SetRaidDifficulty diff = image.gameObject.AddComponent<SetRaidDifficulty>();
             diff.RaidDiff = RaidDiffs[buttonIndex];
 
             buttonIndex++;
         }
 
-        SceneButton[] scripts = FindObjectsOfType<SceneButton>();
+        SceneButton[] scripts = FindObjectsOfType<SceneButton>(); //TODO -> use serialized field
 
         foreach (SceneButton script in scripts)
         {
             if (script.Scene != "MainMenu") continue;
             Debug.Log("Found object with MyScript and myVariable set to : " + script.gameObject.name);
             // Do something with the found object
-            script.Scene = "Raids";
+            script.Scene = "Raids"; //TODO -> use serialized scene
         }
 
-        foreach (GameObject gameObject in Raids)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    Difficulty GetDifficultyById(int id)
-    {
-        if (IdToDifficulty.ContainsKey(id)) return IdToDifficulty[id];
-
-        Debug.LogWarning("Difficulty ID not found: " + id);
-        return Difficulty.Peaceful; // Return a default difficulty or handle the error accordingly
+        foreach (GameObject gameObject in Raids) Destroy(gameObject);
     }
 }

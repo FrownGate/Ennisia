@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using static MissionManager;
 
 [RequireComponent(typeof(DynamicButtonGenerator))]
 public class BattleModeSelection : MonoBehaviour
@@ -28,19 +26,19 @@ public class BattleModeSelection : MonoBehaviour
         List<GameObject> buttons = buttonGenerator.GenerateButtonsInSlider(buttonCount);
 #endif
         var buttonIndex = 0;
+
         for (var i = 0; i < missionTypes.Length; i++)
         {
             var missionType = missionTypes[i];
 
             // Ignore mission types that contain "Story"
-            if (missionType.ToString().Contains("Story"))
-                continue;
+            if (missionType.ToString().Contains("Story")) continue;
 
             // Set the button's name based on the MissionType enum value
             buttons[buttonIndex].name = missionType.ToString();
             var buttonText = buttons[buttonIndex].GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = missionType == MissionType.EndlessTower
-                ? $"<b>Endless Tower</b>\n"
+                ? $"<b>{MissionType.EndlessTower}</b>\n"
                 : $"<b>{buttons[buttonIndex].name}</b>\n";
 #if UNITY_IOS || UNITY_ANDROID
             buttonText.fontSize = 150;
@@ -49,10 +47,10 @@ public class BattleModeSelection : MonoBehaviour
 
             sceneButton.Scene = missionType switch
             {
-                MissionType.Raid or MissionType.Dungeon => "Raids&Dungeons", //TODO -> don't use strings
+                MissionType.Raid or MissionType.Dungeon => "Raids&Dungeons", //TODO -> use serialized scene
                 _ => missionType.ToString(),
             };
-            sceneButton.SetParam(missionType.ToString());
+            sceneButton.SetParam(missionType.ToString()); //TODO -> use manager instead of params
             buttonIndex++;
         }
     }

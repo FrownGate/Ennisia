@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RaidsDifficulty : MonoBehaviour
+public class SetRaidDifficulty : MonoBehaviour
 {
     public MissionSO RaidDiff;
 

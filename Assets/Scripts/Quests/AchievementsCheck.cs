@@ -25,11 +25,11 @@ public class AchievementsCheck : MonoBehaviour
 
     private void CheckMission(MissionSO mission)
     {
-        if (mission.Type == MissionManager.MissionType.Dungeon)
+        if (mission.Type == MissionType.Dungeon)
         {
             _dungeonCount++;
         }
-        if (mission.Type == MissionManager.MissionType.MainStory)
+        if (mission.Type == MissionType.MainStory)
         {
             _mainStoryCount++;
         }

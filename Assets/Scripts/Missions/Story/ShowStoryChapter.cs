@@ -1,10 +1,9 @@
-using NaughtyAttributes;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Chapter : MonoBehaviour
+public class ShowStoryChapter : MonoBehaviour
 {
     public GameObject Info;
     public GameObject StartBtn;
@@ -16,8 +15,8 @@ public class Chapter : MonoBehaviour
         CurrentChapter = MissionManager.Instance.CurrentChapter;
 
         RectTransform parentRect = GetComponent<RectTransform>();
-        List<MissionSO> missions =
-            MissionManager.Instance.GetMissionsByChapterId(CurrentChapter.MissionType, CurrentChapter.Id);
+
+        List<MissionSO> missions = MissionManager.Instance.GetMissionsByChapterId(CurrentChapter.MissionType, CurrentChapter.Id);
 
         foreach (MissionSO missionSO in missions)
         {

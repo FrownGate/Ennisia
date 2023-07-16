@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class MissionInfo : MonoBehaviour
+public class ShowMissionInfo : MonoBehaviour
 {
     private void Start()
     {
@@ -9,9 +9,6 @@ public class MissionInfo : MonoBehaviour
         buttonText.text = "Enemies :";
         MissionSO mission = MissionManager.Instance.CurrentMission;
 
-        foreach (string enemy in mission.Enemies)
-        {
-            buttonText.text += $"\n-{enemy}";
-        }
+        foreach (string enemy in mission.Enemies) buttonText.text += $"\n-{enemy}";
     }
 }

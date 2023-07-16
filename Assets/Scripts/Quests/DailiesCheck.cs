@@ -33,10 +33,10 @@ public class DailiesCheck
     {
         switch (mission.Type)
         {
-            case MissionManager.MissionType.Dungeon:
+            case MissionType.Dungeon:
                 _dungeonCount++;
                 break;
-            case MissionManager.MissionType.MainStory:
+            case MissionType.MainStory:
                 _mainStoryCount++;
                 break;
         }

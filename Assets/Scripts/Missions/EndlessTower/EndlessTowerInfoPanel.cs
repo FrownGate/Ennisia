@@ -6,8 +6,8 @@ public class EndlessTowerInfoPanel : MonoBehaviour
     private GameObject _startBtn;
 
     public GameObject PrefabStart;
-    // Update is called once per frame
-    void Update()
+
+    void Update() //TODO -> optimization may be needed (no update necessary, use events)
     {
         MissionSO floorInfo = MissionManager.Instance.CurrentMission;
 
@@ -18,7 +18,6 @@ public class EndlessTowerInfoPanel : MonoBehaviour
         {
             if (_startBtn == null)
             {
-
                 _startBtn = Instantiate(PrefabStart, transform);
                 Vector2 rectSize = GetComponent<RectTransform>().sizeDelta;
                 Vector2 rectPos = transform.position;

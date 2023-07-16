@@ -8,8 +8,8 @@ public class MissionSO : ScriptableObject
 {
     public int Id;
     public string Name;
-    public MissionManager.MissionType Type;
-    public MissionManager.MissionState State;
+    public MissionType Type;
+    public MissionState State;
     public int EnergyCost;
     public bool Unlocked;
     [SerializedDictionary("Number", "Enemies")]

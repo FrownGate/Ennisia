@@ -26,14 +26,14 @@ public class RewardsManager : MonoBehaviour
 
         switch (missionSO.Type)
         {
-            case MissionManager.MissionType.Dungeon:
+            case MissionType.Dungeon:
                 foreach (var matReward in missionSO.MaterialsRewards)
                 {
                     DropMaterial(missionSO.MaterialsRewards, _matAmount[matReward.Key]);
                     DropCurrency(missionSO.CurrencyRewards);
                 }
                 break;
-            case MissionManager.MissionType.Raid:
+            case MissionType.Raid:
                 for (int i = 0; i < missionSO.GearReward.Count; i++)
                 {
                     DropGear(missionSO.GearReward[i]);
@@ -41,7 +41,7 @@ public class RewardsManager : MonoBehaviour
 
                 }
                 break;
-            case MissionManager.MissionType.EndlessTower:
+            case MissionType.EndlessTower:
                 foreach (var matReward in missionSO.MaterialsRewards)
                 {
                     DropMaterial(missionSO.MaterialsRewards, _matAmount[matReward.Key]);
