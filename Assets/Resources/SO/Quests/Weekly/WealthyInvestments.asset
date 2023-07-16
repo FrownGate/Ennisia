@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
   m_Name: WealthyInvestments
   m_EditorClassIdentifier: 
-  ID: 17
-  Name: Wealthy Investments
-  QuestType: 1
-  Description: Spend 10 000 gold
-  Energy: 100
-  currencyList:
-    _serializedList:
-    - Key: 0
-      Value: 60
-    - Key: 1
-      Value: 0
+  Information:
+    ID: 17
+    Name: Wealthy Investments
+    QuestType: 1
+    Description: Spend 10 000 gold
+  Reward:
+    Energy: 100
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 60
+      - Key: 1
+        Value: 0
+  Goals: []

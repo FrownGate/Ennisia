@@ -3,10 +3,8 @@ using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 using System;
-using System.Text.RegularExpressions;
-using System.Linq;
 using AYellowpaper.SerializedCollections;
-using Unity.VisualScripting;
+using System.Linq;
 
 public class CSVToSO : EditorWindow
 {
@@ -66,6 +64,7 @@ public class CSVToSO : EditorWindow
     {
         if (type == TypeCSV.missions)
         {
+            // Handle mission type-specific CSV files
             var directoryPath = Application.dataPath + "/Editor/CSV";
             var csvFiles = Directory.GetFiles(directoryPath, "Mission-*.csv");
 
@@ -94,9 +93,10 @@ public class CSVToSO : EditorWindow
                         continue;
                     }
 
-                    Dictionary<string, string> rowData = new();
+                    var rowData = new Dictionary<string, string>();
 
-                    for (var j = 0; j < headers.Length; j++) rowData[headers[j]] = values[j];
+                    for (var j = 0; j < headers.Length; j++)
+                        rowData[headers[j]] = values[j];
 
                     CreateMissionSO(rowData, missionType);
                 }
@@ -104,6 +104,7 @@ public class CSVToSO : EditorWindow
         }
         else
         {
+            // Handle general CSV files
             var filePath = Application.dataPath + $"/Editor/CSV/{fileName}.csv";
             var lines = File.ReadAllLines(filePath);
             _lines = lines.Length;
@@ -128,9 +129,10 @@ public class CSVToSO : EditorWindow
                     continue;
                 }
 
-                Dictionary<string, string> rowData = new();
+                var rowData = new Dictionary<string, string>();
 
-                for (var j = 0; j < headers.Length; j++) rowData[headers[j]] = values[j];
+                for (var j = 0; j < headers.Length; j++)
+                    rowData[headers[j]] = values[j];
 
                 switch (type)
                 {
@@ -208,7 +210,10 @@ public class CSVToSO : EditorWindow
         var scriptableObject = CreateInstance<SupportCharacterSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
-        scriptableObject.Rarity = rowData["Rarity"];
+        if (Enum.TryParse(rowData["Rarity"], out Rarity type))
+        {
+            scriptableObject.Rarity = type;
+        }
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
         scriptableObject.Element = Enum.Parse<Element.ElementType>(rowData["Element"]);
@@ -256,25 +261,18 @@ public class CSVToSO : EditorWindow
 
         var savePath = $"{folderPath}/{fileName}.asset";
 
-        // Check if the scriptable object already exists
-        //if (AssetDatabase.LoadAssetAtPath(savePath, typeof(SkillSO)) != null)
-        //{
-        //    Debug.Log($"Scriptable object already exists at: {savePath}");
-        //    return;
-        //}
-
         AssetDatabase.CreateAsset(scriptableObject, savePath);
 
         // Check if the .cs file already exists in any folder
         var sourceFilePath = $"Assets/Scripts/Skills/List/{fileName}.cs";
         var correctFolderPath = $"Assets/Scripts/Skills/List/{skillType}";
         var correctFilePath = $"{correctFolderPath}/{fileName}.cs";
-        var filefounded = false;
+        var fileExists = false;
 
         if (!Directory.Exists(correctFolderPath)) Directory.CreateDirectory(correctFolderPath);
-        var skillTypeValues = Enum.GetValues(typeof(SkillType));
+
         // Move the .cs file to the correct folder
-        foreach (SkillType folderType in skillTypeValues)
+        foreach (var folderType in Enum.GetValues(typeof(SkillType)))
         {
             var folderTypePath = $"Assets/Scripts/Skills/List/{folderType}";
             var destinationFilePath = $"{folderTypePath}/{fileName}.cs";
@@ -284,12 +282,12 @@ public class CSVToSO : EditorWindow
             if (destinationFilePath != correctFilePath) File.Move(destinationFilePath, correctFilePath);
             AssetDatabase.Refresh();
             Debug.Log($"Moved .cs file to: {correctFilePath}");
-            filefounded = true;
-            return;
+            fileExists = true;
+            break;
         }
 
-        // Move the .cs file to the correct folder
-        if (!filefounded)
+        // Create the .cs file in the correct folder if it doesn't exist
+        if (!fileExists)
         {
             if (File.Exists(sourceFilePath))
             {
@@ -299,8 +297,6 @@ public class CSVToSO : EditorWindow
             }
             else
             {
-                // Create the .cs file in the correct folder
-
                 using var writer = File.CreateText(correctFilePath);
                 writer.WriteLine("using System.Collections.Generic;");
                 writer.WriteLine("");
@@ -310,17 +306,17 @@ public class CSVToSO : EditorWindow
                 writer.WriteLine(
                     "    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }");
                 writer.WriteLine(
-                    "\r\n    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }");
+                    "    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }");
                 writer.WriteLine(
-                    "\r\n    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }");
+                    "    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }");
                 writer.WriteLine(
-                    "\r\n    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }");
+                    "    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }");
                 writer.WriteLine(
-                    "\r\n    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }");
+                    "    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }");
                 writer.WriteLine(
-                    "\r\n    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }");
+                    "    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }");
                 writer.WriteLine(
-                    "\r\n    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }");
+                    "    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }");
                 writer.WriteLine("}");
 
                 AssetDatabase.Refresh();
@@ -328,7 +324,6 @@ public class CSVToSO : EditorWindow
             }
         }
 
-        // Refresh the AssetDatabase to detect the newly created .cs file
         AssetDatabase.Refresh();
     }
 
@@ -337,8 +332,7 @@ public class CSVToSO : EditorWindow
         var rarities = Enum.GetNames(typeof(Rarity));
 
         if (!_equipmentTypes.ContainsKey(rowData["type"]))
-            _equipmentTypes[rowData["type"]] = new List<Attribute>
-                { Enum.Parse<Attribute>(rowData["attribute"]) };
+            _equipmentTypes[rowData["type"]] = new List<Attribute> { Enum.Parse<Attribute>(rowData["attribute"]) };
         else
             _equipmentTypes[rowData["type"]].Add(Enum.Parse<Attribute>(rowData["attribute"]));
 
@@ -468,7 +462,6 @@ public class CSVToSO : EditorWindow
         // Remove special characters and spaces from the mission name
         var missionName = CSVUtils.GetFileName(rowData["Name"]);
 
-
         var savePath =
             $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
@@ -502,24 +495,21 @@ public class CSVToSO : EditorWindow
         var scriptableObject = CreateInstance<QuestSO>();
 
         // Assign values directly without using intermediate variables
-        scriptableObject.ID = int.Parse(rowData["ID"]);
-        scriptableObject.Name = rowData["Name"].Replace("\"", string.Empty);
-        scriptableObject.Description = rowData["Description"];
-        scriptableObject.Energy = int.Parse(rowData["Energy"]);
+        scriptableObject.Information.ID = int.Parse(rowData["ID"]);
+        scriptableObject.Information.Name = rowData["Name"].Replace("\"", string.Empty);
+        scriptableObject.Information.Description = rowData["Description"];
+        scriptableObject.Reward.Energy = int.Parse(rowData["Energy"]);
 
         var values = rowData.ToList();
         for (var i = 0; i < rowData.Count; i++)
         {
             var type = values[i].Key;
             if (Enum.TryParse(type, out Currency currencyType))
-            {
-                Debug.Log(type);
-                scriptableObject.currencyList.Add(currencyType, int.Parse(rowData[type]));
-            }
+                scriptableObject.Reward.CurrencyList.Add(currencyType, int.Parse(rowData[type]));
         }
 
         if (!Enum.TryParse(rowData["QuestType"], out QuestType questType)) return;
-        scriptableObject.QuestType = questType;
+        scriptableObject.Information.QuestType = questType;
 
         // Create the folder if it doesn't exist
         var folderPath = $"Assets/Resources/SO/Quests/{questType}";
@@ -529,8 +519,19 @@ public class CSVToSO : EditorWindow
             AssetDatabase.Refresh();
         }
 
-        var savePath = $"{folderPath}/{scriptableObject.Name.Replace(" ", string.Empty)}.asset";
+        var savePath = $"{folderPath}/{scriptableObject.Information.Name.Replace(" ", string.Empty)}.asset";
+
+        // Check if the asset already exists
+        var existingAsset = AssetDatabase.LoadAssetAtPath<QuestSO>(savePath);
+        if (existingAsset != null)
+            // If the asset already exists, delete it
+            AssetDatabase.DeleteAsset(savePath);
+
+        // Create a new asset
         AssetDatabase.CreateAsset(scriptableObject, savePath);
+
+        // Load the additional goals from the CSV file
+        AdditionalGoalsLoader.LoadAdditionalGoals(scriptableObject, savePath);
     }
 
     private static void CreateEnemySO(Dictionary<string, string> rowData)

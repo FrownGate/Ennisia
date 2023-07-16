@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
   m_Name: EmpoweringtheArsenal
   m_EditorClassIdentifier: 
-  ID: 11
-  Name: Empowering the Arsenal
-  QuestType: 0
-  Description: Upgrade an equipment
-  Energy: 20
-  currencyList:
-    _serializedList:
-    - Key: 0
-      Value: 300
-    - Key: 1
-      Value: 0
+  Information:
+    ID: 11
+    Name: Empowering the Arsenal
+    QuestType: 0
+    Description: Upgrade an equipment
+  Reward:
+    Energy: 20
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 300
+      - Key: 1
+        Value: 0
+  Goals: []
