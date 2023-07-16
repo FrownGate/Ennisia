@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Heals 60% hp of all allies and clense their debuffs
   DamageRatio: 0
   ShieldAmount: 0
-  HealingAmount: 0
+  HealingAmount: 60
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 0

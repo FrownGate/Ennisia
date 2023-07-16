@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Demonic Strike
   Description: Hits the player dealing physical damage before inflicting a support
     silence debuff
-  DamageRatio: 0
+  DamageRatio: 90
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

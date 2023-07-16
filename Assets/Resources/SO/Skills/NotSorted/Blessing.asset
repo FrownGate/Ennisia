@@ -18,7 +18,7 @@ MonoBehaviour:
     give immunity.
   DamageRatio: 0
   ShieldAmount: 0
-  HealingAmount: 0
+  HealingAmount: 10
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 0

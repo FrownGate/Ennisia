@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Fatal Crash
   Description: deals one charged hit to an enemy, divided by the missing hp% then
     heals hp according to damage dealt.
-  DamageRatio: 0
+  DamageRatio: 100
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

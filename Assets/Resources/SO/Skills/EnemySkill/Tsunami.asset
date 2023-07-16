@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Tsunami
   Description: 'Hits the player 6 times dealing magic damage and decreases atk bar
     of player by 30% '
-  DamageRatio: 0
+  DamageRatio: 50
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

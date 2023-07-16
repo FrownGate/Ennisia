@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Golem Smash
   Description: Hits the player with a huge hit, the damage is x2 and has a 10% chance
     to stun
-  DamageRatio: 0
+  DamageRatio: 80
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
