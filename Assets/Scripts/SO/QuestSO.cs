@@ -1,22 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using NaughtyAttributes;
 using AYellowpaper.SerializedCollections;
 using UnityEditor;
 using UnityEngine.Events;
 
 public enum QuestType
 {
-    Daily,
-    Weekly,
-    Achievement
+    Daily, Weekly, Achievement
 }
 
 public enum GoalType
 {
-    Killing,
-    Mission
+    Killing, Mission
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
@@ -54,10 +50,7 @@ public class QuestSO : ScriptableObject
         public bool Completed { get; protected set; }
         [HideInInspector] public UnityEvent GoalCompleted;
 
-        public virtual string GetDescription()
-        {
-            return Description;
-        }
+        public virtual string GetDescription() => Description;
 
         public virtual void Initialize()
         {

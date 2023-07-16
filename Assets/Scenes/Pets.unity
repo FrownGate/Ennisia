@@ -378,8 +378,8 @@ GameObject:
   - component: {fileID: 559282113}
   - component: {fileID: 559282112}
   - component: {fileID: 559282111}
-  - component: {fileID: 559282115}
   - component: {fileID: 559282116}
+  - component: {fileID: 559282117}
   m_Layer: 5
   m_Name: PC Canvas
   m_TagString: Untagged
@@ -475,21 +475,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &559282115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559282110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d731bc09dcbb74b40a0df0aa81a8d812, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefabPetButton: {fileID: 3117518621713359327, guid: 2b81cf64cb748ff4ba3ea620b12230d0, type: 3}
-  _petPopup: {fileID: 848641332}
-  _buttonsContainer: {fileID: 873556148}
 --- !u!114 &559282116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,6 +487,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e772dec005b09d14a99ed5df411147f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &559282117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559282110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d3e4f287f278546825e20a86ed527a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefabPetButton: {fileID: 3117518621713359327, guid: 2b81cf64cb748ff4ba3ea620b12230d0, type: 3}
+  _petPopup: {fileID: 848641332}
+  _buttonsContainer: {fileID: 873556148}
 --- !u!1 &613282085 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2063912074984702219, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720685d5558e4d54da8ff6995491fb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showPets: {fileID: 559282115}
+  _showPets: {fileID: 0}
 --- !u!1001 &829339492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -664,7 +664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 227769478935616379, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_Name
-      value: PetInfo
+      value: PetPopup
       objectReference: {fileID: 0}
     - target: {fileID: 227769478935616379, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_IsActive
@@ -673,7 +673,7 @@ PrefabInstance:
     - target: {fileID: 939890508129021452, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: _showpet
       value: 
-      objectReference: {fileID: 559282115}
+      objectReference: {fileID: 559282117}
     - target: {fileID: 3074740271300163568, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.462

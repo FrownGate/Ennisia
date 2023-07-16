@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LogHandler : MonoBehaviour
@@ -15,7 +12,7 @@ public class LogHandler : MonoBehaviour
     
     public CanvasGroup MessageBoxCanvasGroup;
     private bool _isMessageBoxVisible = true;
-    private float _offset => -1.5f;
+    private readonly float _offset = -1.5f;
     
     private void Awake()
     {
@@ -28,6 +25,7 @@ public class LogHandler : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         Application.logMessageReceived += LogMessageReceived;
     }
 
@@ -43,22 +41,24 @@ public class LogHandler : MonoBehaviour
     
     private void LogMessageReceived(string logString, string stackTrace, LogType type)
     {
+        string color = null;
+
         switch (type)
         {
             case LogType.Error:
-                EnqueueMessage($"\n <color=red>[{type}] {logString}</color>");
-                break;
             case LogType.Exception:
             case LogType.Assert:
-                EnqueueMessage($"\n <color=red>[{type}] {logString}</color>");
+                color = "red";
                 break;
             case LogType.Warning:
-                EnqueueMessage($"\n <color=#ff8a00>[{type}] {logString}</color>");
+                color = "#ff8a00";
                 break;
             case LogType.Log:
-                EnqueueMessage($"\n <color=white>[{type}] {logString}</color>");
+                color = "white";
                 break;
         }
+
+        EnqueueMessage($"\n <color={color}>[{type}] {logString}</color>");
     }
 
     private void EnqueueMessage(string message)

@@ -28,15 +28,15 @@ public class WeekliesCheck
 
     private void CheckMission(MissionSO mission)
     {
-        if (mission.Type == MissionManager.MissionType.MainStory)
+        if (mission.Type == MissionType.MainStory)
         {
             _mainStoryCount++;
         }
-        if (mission.Type == MissionManager.MissionType.Raid)
+        if (mission.Type == MissionType.Raid)
         {
             _raidCount++;
         }
-        if (mission.Type == MissionManager.MissionType.Expedition)
+        if (mission.Type == MissionType.Expedition)
         {
             _expeditionCount++;
         }
