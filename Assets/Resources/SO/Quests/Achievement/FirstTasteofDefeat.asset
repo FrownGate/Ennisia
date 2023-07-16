@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
   m_Name: FirstTasteofDefeat
   m_EditorClassIdentifier: 
-  ID: 6
-  Name: First Taste of Defeat
-  QuestType: 2
-  Description: first time you lose
-  Energy: 20
-  currencyList:
-    _serializedList:
-    - Key: 0
-      Value: 1000
-    - Key: 1
-      Value: 30
+  Information:
+    ID: 6
+    Name: First Taste of Defeat
+    QuestType: 2
+    Description: first time you lose
+  Reward:
+    Energy: 20
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 1000
+      - Key: 1
+        Value: 30
+  Goals: []

@@ -1,15 +1,18 @@
 using PlayFab.GroupsModels;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(DynamicButtonGenerator))]
 public class ShowQuests : MonoBehaviour
 {
-    [SerializeField] private GameObject _content;
-    [SerializeField] private GameObject _questPrefab;
-
-    private void Awake()
+    private DynamicButtonGenerator _generator;
+    private List<GameObject> _buttons;
+    private QuestSO[] _quests;
+    // Start is called before the first frame update
+    void Start()
     {
-        GameObject currentButton = Instantiate(_questPrefab, _content.transform);
-
+       
+       
     }
 }

@@ -9,22 +9,20 @@ public static class CSVUtils
         bool insideQuotes = false;
         string currentValue = "";
 
-        for (int i = 0; i < line.Length; i++)
+        foreach (var c in line)
         {
-            char c = line[i];
-
-            if (c == '\"')
+            switch (c)
             {
-                insideQuotes = !insideQuotes;
-            }
-            else if (c == ',' && !insideQuotes)
-            {
-                values.Add(currentValue);
-                currentValue = "";
-            }
-            else
-            {
-                currentValue += c;
+                case '\"':
+                    insideQuotes = !insideQuotes;
+                    break;
+                case ',' when !insideQuotes:
+                    values.Add(currentValue);
+                    currentValue = "";
+                    break;
+                default:
+                    currentValue += c;
+                    break;
             }
         }
 

@@ -12,14 +12,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
   m_Name: TowerAscendancy
   m_EditorClassIdentifier: 
-  ID: 14
-  Name: Tower Ascendancy
-  QuestType: 1
-  Description: Do 10 floor in the Endless Tower
-  Energy: 100
-  currencyList:
-    _serializedList:
-    - Key: 0
-      Value: 60
-    - Key: 1
-      Value: 0
+  Information:
+    ID: 14
+    Name: Tower Ascendancy
+    QuestType: 1
+    Description: Do 10 floor in the Endless Tower
+  Reward:
+    Energy: 100
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 60
+      - Key: 1
+        Value: 0
+  Goals:
+  - {fileID: 4557551406621068130}
+--- !u!114 &4557551406621068130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e72bb5549979740a7adb9ba0cfff49, type: 3}
+  m_Name: Mission
+  m_EditorClassIdentifier: 
+  RequiredAmount: 10
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  ToDo:
+  - {fileID: 11400000, guid: ef252405f7253bb4cb5aed1944edc78a, type: 2}
+  - {fileID: 11400000, guid: dd6e06863163b2640806c8d1f6e546b3, type: 2}
+  - {fileID: 11400000, guid: 2f8e32d2e32f34443a669856d5397cd3, type: 2}
+  - {fileID: 11400000, guid: b8f40080be6a3fb4bbe70a32986c1e2e, type: 2}
+  - {fileID: 11400000, guid: fe02ea039c39924428c09df6f7d9841c, type: 2}
+  - {fileID: 11400000, guid: 2848c476477e7f24cae308b4fd64a751, type: 2}
+  - {fileID: 11400000, guid: ae074510278ba5741a3dd2149b612faf, type: 2}
+  - {fileID: 11400000, guid: aa5e3b7f7607f704ebc85dfb21b9d4c9, type: 2}
+  - {fileID: 11400000, guid: c39c7a212edbded47bd88ce0c69882a4, type: 2}
+  - {fileID: 11400000, guid: a959e310d3c93464babddc308fe8f8ef, type: 2}
+  - {fileID: 11400000, guid: 09a83f2d83f2bb5419f40e3818836478, type: 2}
+  - {fileID: 11400000, guid: cc5ff558c9656e64899f063bc8ed3339, type: 2}
+  - {fileID: 11400000, guid: 44554002dc99779448be0aabbe3f2ede, type: 2}
+  - {fileID: 11400000, guid: c5ffe72d87bd41c4da0059b331b1f584, type: 2}
+  - {fileID: 11400000, guid: 060bdb36e05a4bb4387a544fe3e6011e, type: 2}
+  - {fileID: 11400000, guid: c5db59f2f56c1a0488660c0ef162e026, type: 2}
+  - {fileID: 11400000, guid: 6a50690bc2a796d41aa5b144de07753a, type: 2}
+  - {fileID: 11400000, guid: 0ae5fdb2199712e44888be17d2f7b4f2, type: 2}
+  - {fileID: 11400000, guid: e151779a4c525074b8de5a8c3a8ae319, type: 2}
+  - {fileID: 11400000, guid: df6711c90a967ed488f609814bb842be, type: 2}
+  - {fileID: 11400000, guid: dd12ba68936aefd48b69ba2ccd7597ea, type: 2}
+  - {fileID: 11400000, guid: 58c1a5c28a2f5394d9e862768f749d0b, type: 2}
+  - {fileID: 11400000, guid: 0c5f732707de61141941bc1ca688f12c, type: 2}
+  - {fileID: 11400000, guid: bd090641e7778ca468d26b181daa9098, type: 2}
+  - {fileID: 11400000, guid: a0cea4711e62eeb46a637009f114923c, type: 2}
+  - {fileID: 11400000, guid: 5b668343ccc3dda4f8d22d0e148efe29, type: 2}
+  - {fileID: 11400000, guid: 5ff9cc5943193ec409c8cfe99f39cc81, type: 2}
+  - {fileID: 11400000, guid: b284c1afe5b229d4b96eb1849198468a, type: 2}
+  - {fileID: 11400000, guid: 636b9c3d8ebe26d488735e85bcc8f7b9, type: 2}
+  - {fileID: 11400000, guid: fd199ccddb39b384e81800647fe34d3b, type: 2}
+  - {fileID: 11400000, guid: 8c29a3983d5b0da4eb2817e0023ac0c7, type: 2}
+  - {fileID: 11400000, guid: 45d8bff9cdf6cdc4aa0d43b38e2977f0, type: 2}
+  - {fileID: 11400000, guid: 86e72c1404b1e214ab82634c24a54ce3, type: 2}
+  - {fileID: 11400000, guid: 8e51b8ed233d7884a8e6fd0a2c9f1831, type: 2}
+  - {fileID: 11400000, guid: 2169e2e0113d12147b9cf6b751751abe, type: 2}
+  - {fileID: 11400000, guid: 33289616b9821ba4a830b6e9b03e4d35, type: 2}
+  - {fileID: 11400000, guid: 11df0013e9db2d44fb8df79cc01c3941, type: 2}
+  - {fileID: 11400000, guid: 80a85241dd61ce34999549b11c07d52a, type: 2}
+  - {fileID: 11400000, guid: 1b2989e99f25b9640a4e5031d31404f2, type: 2}
+  - {fileID: 11400000, guid: 058d563735e43e248b49c9a4c279bcbd, type: 2}
+  - {fileID: 11400000, guid: af4b0067df1c3cd408b852c1a1d3eadb, type: 2}
+  - {fileID: 11400000, guid: ad750e09f0749d448b64c3706f30ffac, type: 2}
+  - {fileID: 11400000, guid: e756cf1f319731d4ba43b1b73fb1ec9d, type: 2}
+  - {fileID: 11400000, guid: a301e12e005af704e80d2383753af0b2, type: 2}
+  - {fileID: 11400000, guid: 438d4d933c832834a8a4bdd0c69ebeb0, type: 2}
+  - {fileID: 11400000, guid: a72f9640a55c4ff46ba25fa6d56179b6, type: 2}
+  - {fileID: 11400000, guid: 790b75e9a133157479308f0f77cebe68, type: 2}
+  - {fileID: 11400000, guid: 0f9cb1af30fbbc7439d0585ec4a2f260, type: 2}
+  - {fileID: 11400000, guid: 6a3517205f869ec45be370c10b344570, type: 2}
+  - {fileID: 11400000, guid: 3b6b726f2815b59408d3c636d50a3e69, type: 2}

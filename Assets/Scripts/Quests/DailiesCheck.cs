@@ -31,14 +31,16 @@ public class DailiesCheck
 
     private void CheckMission(MissionSO mission)
     {
-        if (mission.Type == MissionManager.MissionType.Dungeon)
+        switch (mission.Type)
         {
-            _dungeonCount++;
+            case MissionManager.MissionType.Dungeon:
+                _dungeonCount++;
+                break;
+            case MissionManager.MissionType.MainStory:
+                _mainStoryCount++;
+                break;
         }
-        if (mission.Type == MissionManager.MissionType.MainStory)
-        {
-            _mainStoryCount++;
-        }
+
         if (_mainStoryCount >= mainStoryNeeded)
         {
             GiveRewards();
