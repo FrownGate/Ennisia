@@ -208,7 +208,10 @@ public class CSVToSO : EditorWindow
         var scriptableObject = CreateInstance<SupportCharacterSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);
         scriptableObject.Name = rowData["Name"];
-        scriptableObject.Rarity = rowData["Rarity"];
+        if (Enum.TryParse(rowData["Rarity"], out Rarity type))
+        {
+            scriptableObject.Rarity = type;
+        }
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
         scriptableObject.Element = Enum.Parse<Element.ElementType>(rowData["Element"]);

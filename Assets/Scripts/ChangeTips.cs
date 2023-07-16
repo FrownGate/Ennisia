@@ -25,12 +25,12 @@ public class ChangeTips : MonoBehaviour
 
         for (int i = 1; i < lines.Length; i++)
         {
-            _currentLine = i + 1;
+            _currentLine = i;
             string[] values = CSVUtils.SplitCSVLine(lines[i]);
-            rowData[int.Parse(values[0])] = values[1];
+            rowData[_currentLine] = values[1];
         }
 
-        int random = Random.Range(1, lines.Length);
+        int random = Random.Range(1, _currentLine + 1);
         _tip.text = rowData[random];
     }
 }

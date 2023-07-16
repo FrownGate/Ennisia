@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 195542360490332677}
   - component: {fileID: 4385832555721451390}
   - component: {fileID: 5834592376437626808}
+  - component: {fileID: 2724560524921248541}
   m_Layer: 5
-  m_Name: SupportImage
+  m_Name: PulledSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,3 +77,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2724560524921248541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552711304523899612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b140639e3451d441bb94651d143b437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 5834592376437626808}

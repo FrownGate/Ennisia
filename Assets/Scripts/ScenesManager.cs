@@ -13,8 +13,8 @@ public class ScenesManager : MonoBehaviour
 
     private Scene _activeScene;
     private Scene _previousScene;
-    private LoadSceneMode _sceneMode;
     private string _sceneToLoad;
+    private bool _isPopupLoaded;
 
     private bool _loading;
     //public float minLoadingTime = 2f;
@@ -42,6 +42,7 @@ public class ScenesManager : MonoBehaviour
             Params = null;
             _activeScene = SceneManager.GetActiveScene();
             _loading = false;
+            _isPopupLoaded = false;
         }
     }
 
@@ -59,6 +60,7 @@ public class ScenesManager : MonoBehaviour
     {
         if (_sceneToLoad.Contains("Popup"))
         {
+            _isPopupLoaded = true;
             return LoadSceneMode.Additive;
         }
         else
@@ -70,6 +72,7 @@ public class ScenesManager : MonoBehaviour
     public void SetScene(string scene)
     {
         _sceneToLoad = GetSceneName(scene);
+        if (_isPopupLoaded && _sceneToLoad.Contains("Popup")) return;
         Debug.Log($"Going to scene {_sceneToLoad}");
         StartCoroutine(LoadingScene());
         //startTime = Time.time;
@@ -88,15 +91,9 @@ public class ScenesManager : MonoBehaviour
         //}
     }
 
-    public void ClosePopup()
-    {
-        SceneManager.UnloadSceneAsync(_activeScene);
-    }
-
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
         _activeScene = scene.name.Contains("Loading") ? _activeScene : scene;
-        _sceneMode = mode;
 
         //Debug.Log($"{_activeScene.name} loaded !");
     }
@@ -107,6 +104,7 @@ public class ScenesManager : MonoBehaviour
         //Debug.Log($"{_previousScene.name} unloaded !");
 
         if (_previousScene.name == _loadingMini) _loading = false;
+        if (_previousScene.name.Contains("Popup")) _isPopupLoaded = false;
     }
 
     private string GetSceneName(string scene)
@@ -152,9 +150,10 @@ public class ScenesManager : MonoBehaviour
         StopLoading();
     }
 
-    public bool IsPopupLoaded()
+    public void UnloadPopup(Scene scene)
     {
-        return _sceneMode == LoadSceneMode.Additive;
+        _activeScene = SceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(scene);
     }
 
     //private IEnumerator Loading()
