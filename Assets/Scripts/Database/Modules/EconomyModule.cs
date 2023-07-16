@@ -5,8 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public enum Currency
 {
     Gold, Crystals, Fragments, EternalKeys, TerritoriesCurrency, Gemstone
@@ -47,7 +45,7 @@ public class EconomyModule : Module
             Count = 50
         }, res =>
         {
-            _catalogItems.AddRange(res.Items);
+            CatalogItems.AddRange(res.Items);
             _manager.EndRequest();
 
             if (!string.IsNullOrEmpty(res.ContinuationToken))
@@ -67,7 +65,7 @@ public class EconomyModule : Module
 
     private void InitEconomyData()
     {
-        foreach (CatalogItem item in _catalogItems)
+        foreach (CatalogItem item in CatalogItems)
         {
             //TODO -> Get bundle items and shops
             if (item.Type == "currency")
