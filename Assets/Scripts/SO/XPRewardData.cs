@@ -15,7 +15,7 @@ public class XPRewardData : ScriptableObject
         Weapon,
         Armor,
         Accessory
-    }
+    } //TODO -> Use Item class and Currency enum
 
     [Serializable]
     public class RewardEntry
