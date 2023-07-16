@@ -28,7 +28,22 @@ public abstract class Skill
     public Skill()
     {
         Level = 0; //TODO -> Get from database
-        Data = Resources.Load<SkillSO>("SO/Skills/" + GetType().Name);
+        var skillTypeValues = Enum.GetValues(typeof(SkillType));
+        foreach (SkillType folderType in skillTypeValues)
+        {
+            var skillSOs = Resources.LoadAll<SkillSO>($"SO/Skills/{folderType}");
+            foreach (var skillSO in skillSOs)
+            {
+                if (skillSO.name != GetType().Name) continue;
+                Data = Resources.Load<SkillSO>($"SO/Skills/{folderType}/" + GetType().Name);
+                break;
+            }
+
+            if (Data != null)
+            {
+                break;
+            }
+        }
     }
 
     public virtual void ConstantPassive(List<Entity> targets, Entity caster, int turn) { }
