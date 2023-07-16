@@ -71,6 +71,15 @@ public class BattleSystem : StateMachine
             return;
         }
 
+        if (!MissionManager.Instance.IsFirstWaveCleared)
+        {
+            Debug.Log($"Starting mission : {MissionManager.Instance.CurrentMission.Name}");
+        }
+        else
+        {
+            Debug.Log($"Starting next wave : {MissionManager.Instance.CurrentMission.Name}");
+        }
+
         InitPlayer();
         InitSupports();
         InitEnemies();
@@ -80,9 +89,14 @@ public class BattleSystem : StateMachine
 
     private void InitPlayer(Player player = null)
     {
-        Player = player ?? new();
-        Player.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
-        Player.HUD.Init((Player)Player);
+        if (!MissionManager.Instance.IsFirstWaveCleared)
+        {
+            Debug.Log("Creating new battle datas for player");
+            Player = player ?? new();
+            Player.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
+            Player.HUD.Init((Player)Player);
+        }
+
         Player.InitElement();
 
         int position = 0;
@@ -137,7 +151,7 @@ public class BattleSystem : StateMachine
 
         foreach (var enemyName in mission.Waves[wave])
         {
-            Debug.Log(enemyName);
+            //Debug.Log(enemyName);
             Enemy enemy = new(id, Resources.Load<EnemySO>($"SO/Enemies/{enemyName}"));
             Enemies.Add(enemy);
             id++;
@@ -288,6 +302,11 @@ public class BattleSystem : StateMachine
         //DialogueText.text = won ? "YOU WON" : "YOU LOST";
 
         foreach (var skill in Player.Skills) Destroy(skill.Button);
+
+        foreach (var support in Player.EquippedSupports)
+        {
+            if (support != null) Destroy(support.Button);
+        }
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();

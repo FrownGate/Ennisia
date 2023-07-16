@@ -83,6 +83,8 @@ public class MissionManager : MonoBehaviour
 
     public void NextWave()
     {
+        Debug.Log($"Next wave - {CurrentMission}");
+
         if (CurrentMission && CurrentWave < CurrentMission.Waves.Count)
         {
             CurrentWave++;
@@ -185,4 +187,7 @@ public class MissionManager : MonoBehaviour
         CurrentMission = null;
         CurrentChapter = null;
     }
+
+    public bool IsMissionStarted => CurrentMission != null;
+    public bool IsFirstWaveCleared => IsMissionStarted && CurrentWave > 1;
 }
