@@ -456,7 +456,7 @@ public class CSVToSO : EditorWindow
         {
             if (!Enum.TryParse(gearReward, out Rarity itemRarity)) continue;
 
-            scriptableObject.GearReward.Add(itemRarity);
+            //scriptableObject.GearReward.Add(itemRarity);
         }
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);

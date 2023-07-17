@@ -137,4 +137,16 @@ public class ExpManager : MonoBehaviour
             }
         }
     }
+
+
+    private void OnEnable()
+    {
+        RewardsManager.GainXp += GainExperienceAccount;
+        RewardsManager.GainXp += GainExperiencePlayer;
+    }
+    private void OnDisable()
+    {
+        RewardsManager.GainXp -= GainExperienceAccount;
+        RewardsManager.GainXp -= GainExperiencePlayer;
+    }
 }
