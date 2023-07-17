@@ -40,6 +40,5 @@ public class MissionGoal : QuestSO.QuestGoal
 
         if (Same)CurrentAmount = _missionHistory.Values.Max();
             Evaluate();
-        }
     }
 }

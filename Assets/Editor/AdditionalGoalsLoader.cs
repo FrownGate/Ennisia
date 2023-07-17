@@ -53,7 +53,7 @@ public static class AdditionalGoalsLoader
 
             var goalValue = additionalGoalData[2];
             var goalAmount = additionalGoalData[3];
-
+            var goalSame = additionalGoalData[4];
             // Check if the additional goal is associated with the current quest
             if (questId != questSO.Information.ID)
                 continue;
@@ -99,6 +99,13 @@ public static class AdditionalGoalsLoader
             }
 
             goalInstance.RequiredAmount = amount;
+            
+            if (!bool.TryParse(goalSame, out var same))
+            {
+                Debug.LogError($"Invalid goal amount '{goalSame}' on line {i + 1} in the Goals.csv file.");
+                continue;
+            }
+            goalInstance.Same = same;
 
             // Add the goal to the QuestSO's Goals list
             questSO.Goals.Add(goalInstance);
