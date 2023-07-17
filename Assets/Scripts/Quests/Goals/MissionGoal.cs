@@ -30,6 +30,7 @@ public class MissionGoal : QuestSO.QuestGoal
 
     public void OnMissionDone(MissionQuestEvent eventInfo)
     {
+        if (Completed) return;
         foreach (var mission in ToDo)
         {
             _mission = mission;
@@ -39,6 +40,6 @@ public class MissionGoal : QuestSO.QuestGoal
         }
 
         if (Same)CurrentAmount = _missionHistory.Values.Max();
-            Evaluate();
+        Evaluate();
     }
 }

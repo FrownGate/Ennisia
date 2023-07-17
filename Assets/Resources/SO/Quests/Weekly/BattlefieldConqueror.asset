@@ -26,8 +26,8 @@ MonoBehaviour:
       - Key: 1
         Value: 0
   Goals:
-  - {fileID: 5961783484211890409}
---- !u!114 &5961783484211890409
+  - {fileID: 7452375656823620049}
+--- !u!114 &7452375656823620049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Name: Killing
   m_EditorClassIdentifier: 
   RequiredAmount: 100
+  Same: 0
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []

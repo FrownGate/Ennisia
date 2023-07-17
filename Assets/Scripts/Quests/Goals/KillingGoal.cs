@@ -30,6 +30,7 @@ public class KillingGoal : QuestSO.QuestGoal
 
     public void OnKilling(KillQuestEvent eventInfo)
     {
+        if (Completed) return;
         foreach (var enemy in ToKill)
         {
             _killName = enemy.Name;

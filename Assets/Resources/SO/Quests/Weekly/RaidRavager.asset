@@ -26,8 +26,8 @@ MonoBehaviour:
       - Key: 1
         Value: 0
   Goals:
-  - {fileID: 8491700417933779542}
---- !u!114 &8491700417933779542
+  - {fileID: 3521480374304074980}
+--- !u!114 &3521480374304074980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Name: Mission
   m_EditorClassIdentifier: 
   RequiredAmount: 3
+  Same: 0
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []

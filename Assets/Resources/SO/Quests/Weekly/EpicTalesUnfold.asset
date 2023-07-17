@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-359610859765334286
+--- !u!114 &-1630181937012109400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mission
   m_EditorClassIdentifier: 
   RequiredAmount: 5
+  Same: 0
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -122,4 +123,4 @@ MonoBehaviour:
       - Key: 1
         Value: 0
   Goals:
-  - {fileID: -359610859765334286}
+  - {fileID: -1630181937012109400}

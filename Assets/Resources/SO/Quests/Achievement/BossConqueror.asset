@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1734177903670222017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2961f53943d0b64bbd072178f059a42, type: 3}
-  m_Name: Killing
-  m_EditorClassIdentifier: 
-  RequiredAmount: 50
-  GoalCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  ToKill:
-  - {fileID: 11400000, guid: afb3a6984893e1b48b1b490804a5c675, type: 2}
-  - {fileID: 11400000, guid: 61200f63d65697549a143c8528c441b5, type: 2}
-  - {fileID: 11400000, guid: b96238b7a1b1b02428830f131e56ffad, type: 2}
-  - {fileID: 11400000, guid: 29b3e015e9eaa644ba6e5c10efd21006, type: 2}
-  - {fileID: 11400000, guid: 6d7edc7e7edcba1418a2dcdcca8ecdb8, type: 2}
-  - {fileID: 11400000, guid: 5a031b7ba2edb144897a45e4be8cde62, type: 2}
-  - {fileID: 11400000, guid: b268cac82f15d6c40bcb59f4ff39d521, type: 2}
-  - {fileID: 11400000, guid: f517c22643c61174894223533b54efa1, type: 2}
-  - {fileID: 11400000, guid: a7bec180a313160429ed24e6d0e3fa6f, type: 2}
-  - {fileID: 11400000, guid: 813973ab0a11e014298275afaff146a7, type: 2}
-  - {fileID: 11400000, guid: d3be29fa5f24143478f67f8d013fe1f2, type: 2}
-  - {fileID: 11400000, guid: f0ff7473eb58a024da33a3d92c413ad6, type: 2}
-  - {fileID: 11400000, guid: 8af602bb07b0d6948849b0a2cbbfd8e2, type: 2}
-  - {fileID: 11400000, guid: 34b39b8c9addba341b795ee7b5d95c0c, type: 2}
-  - {fileID: 11400000, guid: f33ee0fe79784b24a930f5485a35158e, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,4 +26,37 @@ MonoBehaviour:
       - Key: 1
         Value: 300
   Goals:
-  - {fileID: -1734177903670222017}
+  - {fileID: 8165981585519162013}
+--- !u!114 &8165981585519162013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2961f53943d0b64bbd072178f059a42, type: 3}
+  m_Name: Killing
+  m_EditorClassIdentifier: 
+  RequiredAmount: 50
+  Same: 1
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  ToKill:
+  - {fileID: 11400000, guid: afb3a6984893e1b48b1b490804a5c675, type: 2}
+  - {fileID: 11400000, guid: 61200f63d65697549a143c8528c441b5, type: 2}
+  - {fileID: 11400000, guid: b96238b7a1b1b02428830f131e56ffad, type: 2}
+  - {fileID: 11400000, guid: 29b3e015e9eaa644ba6e5c10efd21006, type: 2}
+  - {fileID: 11400000, guid: 6d7edc7e7edcba1418a2dcdcca8ecdb8, type: 2}
+  - {fileID: 11400000, guid: 5a031b7ba2edb144897a45e4be8cde62, type: 2}
+  - {fileID: 11400000, guid: b268cac82f15d6c40bcb59f4ff39d521, type: 2}
+  - {fileID: 11400000, guid: f517c22643c61174894223533b54efa1, type: 2}
+  - {fileID: 11400000, guid: a7bec180a313160429ed24e6d0e3fa6f, type: 2}
+  - {fileID: 11400000, guid: 813973ab0a11e014298275afaff146a7, type: 2}
+  - {fileID: 11400000, guid: d3be29fa5f24143478f67f8d013fe1f2, type: 2}
+  - {fileID: 11400000, guid: f0ff7473eb58a024da33a3d92c413ad6, type: 2}
+  - {fileID: 11400000, guid: 8af602bb07b0d6948849b0a2cbbfd8e2, type: 2}
+  - {fileID: 11400000, guid: 34b39b8c9addba341b795ee7b5d95c0c, type: 2}
+  - {fileID: 11400000, guid: f33ee0fe79784b24a930f5485a35158e, type: 2}

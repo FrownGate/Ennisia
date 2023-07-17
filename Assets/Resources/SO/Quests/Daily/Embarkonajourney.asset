@@ -1,6 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7161634849744104524
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
+  m_Name: Embarkonajourney
+  m_EditorClassIdentifier: 
+  Information:
+    ID: 9
+    Name: Embark on a journey
+    QuestType: 0
+    Description: Do one story quest
+  Reward:
+    Energy: 20
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 300
+      - Key: 1
+        Value: 0
+  Goals:
+  - {fileID: 5094292847484397687}
+--- !u!114 &5094292847484397687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,6 +40,7 @@ MonoBehaviour:
   m_Name: Mission
   m_EditorClassIdentifier: 
   RequiredAmount: 1
+  Same: 0
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -96,30 +124,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b1591ef64b851245811d7025db485ff, type: 2}
   - {fileID: 11400000, guid: 70fc11b90c05d5f4b83be1a251e1ff37, type: 2}
   - {fileID: 11400000, guid: 4f8137c4a2887ad4aae9f54a75426b4f, type: 2}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: Embarkonajourney
-  m_EditorClassIdentifier: 
-  Information:
-    ID: 9
-    Name: Embark on a journey
-    QuestType: 0
-    Description: Do one story quest
-  Reward:
-    Energy: 20
-    CurrencyList:
-      _serializedList:
-      - Key: 0
-        Value: 300
-      - Key: 1
-        Value: 0
-  Goals:
-  - {fileID: -7161634849744104524}
