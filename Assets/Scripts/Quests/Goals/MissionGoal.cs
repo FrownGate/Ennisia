@@ -33,10 +33,12 @@ public class MissionGoal : QuestSO.QuestGoal
         foreach (var mission in ToDo)
         {
             _mission = mission;
-            CurrentAmount = _missionHistory[_mission.Name];
             if (eventInfo.Mission != _mission) continue;
-            CurrentAmount++;
-            _missionHistory[_mission.Name] = CurrentAmount;
+            if (Same) _missionHistory[_mission.Name] += 1;
+            else CurrentAmount += 1;
+        }
+
+        if (Same)CurrentAmount = _missionHistory.Values.Max();
             Evaluate();
         }
     }

@@ -34,10 +34,11 @@ public class KillingGoal : QuestSO.QuestGoal
         {
             _killName = enemy.Name;
             if (eventInfo.KilledName != _killName) continue;
-            _killHistory[_killName] += 1;
+            if (Same) _killHistory[_killName] += 1;
+            else CurrentAmount += 1;
         }
 
-        CurrentAmount = _killHistory.Values.Max();
+        if (Same)CurrentAmount = _killHistory.Values.Max();
         Evaluate();
     }
 }

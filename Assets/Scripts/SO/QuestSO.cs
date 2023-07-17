@@ -47,6 +47,7 @@ public class QuestSO : ScriptableObject
         protected string Description;
         public int CurrentAmount { get; protected set; }
         public int RequiredAmount = 1;
+        public bool Same;
         public bool Completed { get; protected set; }
         [HideInInspector] public UnityEvent GoalCompleted;
 
