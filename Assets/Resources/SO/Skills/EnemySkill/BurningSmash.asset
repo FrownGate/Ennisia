@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Burning Smash
   Description: Hits the player dealing physical damage and has a 20% chance to defense
     break
-  DamageRatio: 0
+  DamageRatio: 40
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

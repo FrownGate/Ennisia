@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 5
   Name: Light Bomb
   Description: deals 1 hit to all enemies with a light explosion.
-  DamageRatio: 0
+  DamageRatio: 100
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

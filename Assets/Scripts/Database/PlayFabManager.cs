@@ -52,6 +52,8 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnEnergyUsed;
 
     public Dictionary<Currency, int> Currencies => _economyMod.Currencies;
+    public Dictionary<string, PlayFab.EconomyModels.CatalogItem> Stores => _economyMod.Stores;
+    public List<PlayFab.EconomyModels.CatalogItem> Items => _economyMod.CatalogItems;
     public int Energy => _economyMod.Energy;
 
     //Guilds Module

@@ -173,15 +173,15 @@ public class CSVToSO : EditorWindow
         AssetDatabase.Refresh();
     }
 
-    private MissionManager.MissionType GetMissionTypeFromFilePath(string filePath)
+    private MissionType GetMissionTypeFromFilePath(string filePath)
     {
         // Extract the mission type from the file name (e.g., "Mission-Explore" => "Explore")
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
         var parts = fileNameWithoutExtension.Split('-');
-        if (parts.Length < 2) return MissionManager.MissionType.MainStory;
-        return Enum.TryParse(parts[1], out MissionManager.MissionType missionType)
+        if (parts.Length < 2) return MissionType.MainStory;
+        return Enum.TryParse(parts[1], out MissionType missionType)
             ? missionType
-            : MissionManager.MissionType.MainStory;
+            : MissionType.MainStory;
     }
 
     private static void LoadSkillSOs()
@@ -216,7 +216,7 @@ public class CSVToSO : EditorWindow
         }
         scriptableObject.Race = rowData["Race"];
         scriptableObject.Job = rowData["Class"];
-        scriptableObject.Element = Enum.Parse<Element.ElementType>(rowData["Element"]);
+        scriptableObject.Element = Enum.Parse<ElementType>(rowData["Element"]);
         AssignSkillData(rowData, "PrimarySkill", ref scriptableObject.SkillsData);
         AssignSkillData(rowData, "SecondarySkill", ref scriptableObject.SkillsData);
 
@@ -264,8 +264,9 @@ public class CSVToSO : EditorWindow
         AssetDatabase.CreateAsset(scriptableObject, savePath);
 
         // Check if the .cs file already exists in any folder
-        var sourceFilePath = $"Assets/Scripts/Skills/List/{fileName}.cs";
-        var correctFolderPath = $"Assets/Scripts/Skills/List/{skillType}";
+        //TODO -> Use variable to stock path start
+        var sourceFilePath = $"Assets/Scripts/Battle/Skills/List/{fileName}.cs";
+        var correctFolderPath = $"Assets/Scripts/Battle/Skills/List/{skillType}";
         var correctFilePath = $"{correctFolderPath}/{fileName}.cs";
         var fileExists = false;
 
@@ -274,7 +275,7 @@ public class CSVToSO : EditorWindow
         // Move the .cs file to the correct folder
         foreach (var folderType in Enum.GetValues(typeof(SkillType)))
         {
-            var folderTypePath = $"Assets/Scripts/Skills/List/{folderType}";
+            var folderTypePath = $"Assets/Scripts/Battle/Skills/List/{folderType}";
             var destinationFilePath = $"{folderTypePath}/{fileName}.cs";
 
             if (!File.Exists(destinationFilePath)) continue;
@@ -297,6 +298,7 @@ public class CSVToSO : EditorWindow
             }
             else
             {
+                //TODO -> remove functions
                 using var writer = File.CreateText(correctFilePath);
                 writer.WriteLine("using System.Collections.Generic;");
                 writer.WriteLine("");
@@ -396,7 +398,7 @@ public class CSVToSO : EditorWindow
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
-    private static void CreateMissionSO(Dictionary<string, string> rowData, MissionManager.MissionType type)
+    private static void CreateMissionSO(Dictionary<string, string> rowData, MissionType type)
     {
         var scriptableObject = CreateInstance<MissionSO>();
         scriptableObject.Id = int.Parse(rowData["ID"]);

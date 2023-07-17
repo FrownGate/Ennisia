@@ -105,11 +105,6 @@ public abstract class Entity
     public virtual void ResetTargetedState() { IsSelected = false; }
     public virtual void HaveBeenSelected() { IsSelected = true; }
 
-    //public ModifierID AlterateStat(AttributeStat stat, Func<float, float> func, int layer = 1)
-    //{
-    //    return Stats[stat].AddModifier(func, layer);
-    //}
-
     public void ApplyEffect(Effect effect, int stacks = 1)
     {
         if (effect.HasAlteration)
@@ -174,5 +169,23 @@ public abstract class Entity
         }
 
         return false;
+    }
+
+    public void InitElement()
+    {
+        List<ElementType> elements = new();
+
+        foreach (SupportCharacterSO support in EquippedSupports)
+        {
+            if (support == null) return;
+            elements.Add(support.Element);
+        }
+
+        if (elements[0] != elements[1]) return;
+        Type type = Type.GetType(elements[0].ToString());
+        Element elementToUse = (Element)Activator.CreateInstance(type);
+        elementToUse.Init(this);
+
+        Debug.Log($"{elementToUse.Name} initiated !");
     }
 }

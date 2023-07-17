@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: When player Hp falls below 40%, give a shield worth 70% of max health
     and an atkbuff for 2 turns
   DamageRatio: 0
-  ShieldAmount: 0
+  ShieldAmount: 70
   HealingAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0

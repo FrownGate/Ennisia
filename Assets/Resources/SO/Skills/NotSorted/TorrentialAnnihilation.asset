@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Torrential Annihilation
   Description: "Deals 25% of physical/magic att as true damage. If the player\u2019s
     physical damage is higher than the enemy, remove all debuffs."
-  DamageRatio: 0
+  DamageRatio: 100
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

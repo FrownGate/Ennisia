@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Demonic Dash
   Description: Hits the player 3 times and deal magic damage and has a 10% chance
     to give a demonic mark
-  DamageRatio: 0
+  DamageRatio: 50
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

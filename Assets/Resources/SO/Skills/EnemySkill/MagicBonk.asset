@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 59
   Name: Magic Bonk
   Description: Hits the player with magic damage
-  DamageRatio: 0
+  DamageRatio: 60
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

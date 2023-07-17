@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Infernal Resilience
   Description: Gives a shield equivalent to 50% of missing health for 3 turns.
   DamageRatio: 0
-  ShieldAmount: 0
+  ShieldAmount: 50
   HealingAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0

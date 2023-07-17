@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Increase hp and defense by 15%. After receiving damage, give a shield
     equivalent to 5% of max health.
   DamageRatio: 0
-  ShieldAmount: 0
+  ShieldAmount: 5
   HealingAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0

@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Refreshing Tideguard
   Description: Gives a shield to the player, scales with max Hp, for 2 turns.
   DamageRatio: 0
-  ShieldAmount: 0
+  ShieldAmount: 30
   HealingAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0

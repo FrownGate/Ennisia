@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Swift Strike
   Description: Hits an ennemy dealing physical damage and penetrating defense by
     10%, and increasing atkbar by 50%
-  DamageRatio: 0
+  DamageRatio: 70
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

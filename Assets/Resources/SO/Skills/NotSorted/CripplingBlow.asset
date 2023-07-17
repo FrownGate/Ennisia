@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Crippling Blow
   Description: "Deals 50% of physical attack before a 80% chance to decrease the
     target\u2019s defense for 2 turns. // debuff"
-  DamageRatio: 0
+  DamageRatio: 50
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 3
   Name: "Blue Dragon\u2019s Wrath"
   Description: deals 5 hits to an enemy with a majestic blue dragon.
-  DamageRatio: 0
+  DamageRatio: 80
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

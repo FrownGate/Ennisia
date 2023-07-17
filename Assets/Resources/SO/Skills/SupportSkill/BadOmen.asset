@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Bad Omen
   Description: Gives defense buff to player and a shield worth 25% of max health
   DamageRatio: 0
-  ShieldAmount: 0
+  ShieldAmount: 25
   HealingAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0

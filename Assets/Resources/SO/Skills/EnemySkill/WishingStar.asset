@@ -17,8 +17,8 @@ MonoBehaviour:
   Description: The user heals 20% health of all allies and gives a shield proportional
     to max health
   DamageRatio: 0
-  ShieldAmount: 0
-  HealingAmount: 0
+  ShieldAmount: 10
+  HealingAmount: 20
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 0

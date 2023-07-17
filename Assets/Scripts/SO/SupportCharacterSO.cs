@@ -8,7 +8,7 @@ public class SupportCharacterSO : SkillsToInitSO
     public Rarity Rarity;
     public string Race;
     public string Job;
-    public Element.ElementType Element;
+    public ElementType Element;
     public string Description;
     public string Catchphrase;
     //public Sprite Icon;

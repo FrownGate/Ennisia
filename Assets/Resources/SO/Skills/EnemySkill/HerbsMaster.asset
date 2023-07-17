@@ -18,7 +18,7 @@ MonoBehaviour:
     lowest health ally
   DamageRatio: 0
   ShieldAmount: 0
-  HealingAmount: 0
+  HealingAmount: 50
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 0

@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: "deals 50% of magical attack, has a 50% chance to stun the target
     for 1 turn, and has a 75% chance to increase the target\u2019s third skill cooldown
     by 2 turns."
-  DamageRatio: 0
+  DamageRatio: 50
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

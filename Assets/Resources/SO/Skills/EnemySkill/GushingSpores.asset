@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Gushing Spores
   Description: Hits the player with a smoke screen dealing magic damage and has 100%
     chance to inflict an attack break
-  DamageRatio: 0
+  DamageRatio: 50
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

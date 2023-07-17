@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 10
   Name: Bones Breaker
   Description: deals one heavy hit to an enemy, debuffs his defense.
-  DamageRatio: 0
+  DamageRatio: 120
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0

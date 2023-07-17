@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Raging Slam
   Description: Hits the player dealing physical damage before giving user an attack
     buff
-  DamageRatio: 0
+  DamageRatio: 70
   ShieldAmount: 0
   HealingAmount: 0
   MaxCooldown: 0
