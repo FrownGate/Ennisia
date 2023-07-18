@@ -52,15 +52,15 @@ Id,Name,HP,Attack,PhysicalDamages,PhysicalDefense,MagicalDamages,MagicalDefense,
 51,Betala,1,1,1,1,1,1,1,1,1,description,TRUE,0,0,0,0
 52,ShaDo,1,1,1,1,1,1,1,1,1,description,TRUE,0,0,0,0
 53,LaiJande,1,1,1,1,1,1,1,1,1,description,TRUE,0,0,0,0
-54,Desert King,6500,150,45,340,30,280,25,"1,3",150,description,TRUE,0,0,0,0
-55,Snadron,8000,160,55,60,110,200,50,2,125,description,TRUE,0,0,0,0
-56,Ghost Paladin,4000,200,50,450,50,100,30,"1,5",80,description,TRUE,0,0,0,0
-57,Demon Commander,5000,280,90,300,40,200,30,"1,2",90,description,TRUE,0,0,0,0
-58,The condemner,4000,400,85,150,20,150,40,"1,3",120,description,TRUE,0,0,0,0
-59,The Bishop,5000,170,10,150,90,300,35,1,100,description,TRUE,0,0,0,0
-60,The Necromancer,3000,700,5,100,85,100,40,"1,5",45,description,TRUE,0,0,0,0
-61,Akelio,3500,260,100,210,30,190,25,"1,7",60,description,TRUE,0,0,0,0
-62,Galadian,7500,100,40,150,60,160,40,"1,5",90,description,TRUE,0,0,0,0
-63,Elubinard,3500,350,40,230,45,210,30,"1,6",65,description,TRUE,0,0,0,0
-64,Spercer,4500,200,40,200,70,200,60,"1,5",80,description,TRUE,0,0,0,0
-65,Clemaline,8888,188,28,188,88,188,88,"1,8",88,description,TRUE,0,0,0,0
+54,Desert King,6500,150,45,340,30,280,25,30,150,description,TRUE,0,0,0,0
+55,Snadron,8000,160,55,60,110,200,50,100,125,description,TRUE,0,0,0,0
+56,Ghost Paladin,4000,200,50,450,50,100,30,50,80,description,TRUE,0,0,0,0
+57,Demon Commander,5000,280,90,300,40,200,30,20,90,description,TRUE,0,0,0,0
+58,The condemner,4000,400,85,150,20,150,40,30,120,description,TRUE,0,0,0,0
+59,The Bishop,5000,170,10,150,90,300,35,0,100,description,TRUE,0,0,0,0
+60,The Necromancer,3000,700,5,100,85,100,40,50,45,description,TRUE,0,0,0,0
+61,Akelio,3500,260,100,210,30,190,25,70,60,description,TRUE,0,0,0,0
+62,Galadian,7500,100,40,150,60,160,40,50,90,description,TRUE,0,0,0,0
+63,Elubinard,3500,350,40,230,45,210,30,60,65,description,TRUE,0,0,0,0
+64,Spercer,4500,200,40,200,70,200,60,50,80,description,TRUE,0,0,0,0
+65,Clemaline,8888,188,28,188,88,188,88,80,88,description,TRUE,0,0,0,0
