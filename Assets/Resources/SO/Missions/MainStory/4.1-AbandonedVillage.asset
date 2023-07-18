@@ -52,4 +52,10 @@ MonoBehaviour:
     - Key: 1
       Value: 100
   GearReward: 
+  MaterialsRewards:
+    _serializedList: []
+  MatAmount:
+    _serializedList: []
+  Tickets:
+    _serializedList: []
   Experience: 10

@@ -19,14 +19,8 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList:
-    - Key: 1
-      Value: []
-    - Key: 2
-      Value: []
-    - Key: 3
-      Value: []
-  WavesCount: 3
+    _serializedList: []
+  WavesCount: 0
   Enemies: []
   DialogueId: 0
   ChapterId: 1
@@ -38,4 +32,10 @@ MonoBehaviour:
     - Key: 1
       Value: 100
   GearReward: 
+  MaterialsRewards:
+    _serializedList: []
+  MatAmount:
+    _serializedList: []
+  Tickets:
+    _serializedList: []
   Experience: 10

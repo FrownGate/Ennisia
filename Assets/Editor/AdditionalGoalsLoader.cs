@@ -82,10 +82,14 @@ public static class AdditionalGoalsLoader
                     if (!MissionProperties(goalInstance, goalValue))
                     {
                         Debug.LogError(
-                            $"Error setting killing properties for goal on line {i + 1} in the Goals.csv file.");
+                            $"Error setting mission properties for goal on line {i + 1} in the Goals.csv file.");
                         continue;
                     }
 
+                    break;
+
+                case GoalType.LevelUp:
+                    
                     break;
                 default:
                     Debug.LogError($"Unknown goal type: {goalType}");
@@ -125,6 +129,8 @@ public static class AdditionalGoalsLoader
         AssetDatabase.ImportAsset(questSOPath, ImportAssetOptions.ForceUpdate);
     }
 
+    
+
     private static QuestGoal CreateGoal(GoalType goalType, QuestSO questSO)
     {
         switch (goalType)
@@ -141,6 +147,12 @@ public static class AdditionalGoalsLoader
                 AssetDatabase.AddObjectToAsset(missionGoal, questSO);
 
                 return missionGoal;
+            case GoalType.LevelUp:
+                var levelUpGoal = ScriptableObject.CreateInstance<LevelUpGoal>();
+                levelUpGoal.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(levelUpGoal, questSO);
+
+                return levelUpGoal;
             default:
                 Debug.LogError($"Unknown goal type: {goalType}");
                 return null;
@@ -291,5 +303,6 @@ public static class AdditionalGoalsLoader
 
         return isValid;
     }
+    
 }
 #endif

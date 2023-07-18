@@ -7,12 +7,12 @@ using UnityEngine.Events;
 
 public enum QuestType
 {
-    Daily, Weekly, Achievement
+     Daily, Weekly, Achievement
 }
 
 public enum GoalType
 {
-    Killing, Mission
+    Unknown, Killing, Mission, LevelUp
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
@@ -45,14 +45,11 @@ public class QuestSO : ScriptableObject
 
     public abstract class QuestGoal : ScriptableObject
     {
-        protected string Description;
         public int CurrentAmount { get; protected set; }
         public int RequiredAmount = 1;
         public bool Same;
         public bool Completed { get; protected set; }
         [HideInInspector] public UnityEvent GoalCompleted;
-
-        public virtual string GetDescription() => Description;
 
         public virtual void Initialize()
         {
