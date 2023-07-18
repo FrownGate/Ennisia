@@ -19,7 +19,7 @@ public class EconomyModule : Module
 
     public readonly Dictionary<string, CatalogItem> Stores = new();
     public readonly List<CatalogItem> CatalogItems = new();
-    
+
     private readonly Dictionary<string, string> _currencies = new();
     private readonly Dictionary<string, string> _itemsById = new();
     private readonly Dictionary<string, string> _itemsByName = new();
@@ -370,9 +370,10 @@ public class EconomyModule : Module
         }, res => _manager.EndRequest($"Purchased {item} !"), _manager.OnRequestError);
     }
 
-    public string GetItemById(string id)
+    public CatalogItem GetItemById(string id)
     {
-        return _itemsById[id];
+        CatalogItem item = CatalogItems.Find(i => i.Id == id);
+        return item;
     }
 
     #endregion
