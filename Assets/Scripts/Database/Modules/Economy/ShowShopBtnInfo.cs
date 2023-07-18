@@ -13,7 +13,7 @@ public class ShowShopBtnInfo : MonoBehaviour
     
     void Start()
     {
-
+        
     }
     
     
