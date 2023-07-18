@@ -9,7 +9,6 @@ public class QuestManager : MonoBehaviour
     public List<QuestSO> Daily;
     public List<QuestSO> Weekly;
 
-    public List<QuestSO> CurrentQuest;
     public List<QuestSO> AllQuests;
 
     public static QuestManager Instance { get; private set; }
