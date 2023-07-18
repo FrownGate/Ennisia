@@ -1,6 +1,7 @@
 using System;
 using PlayFab.GroupsModels;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,13 +17,38 @@ public class ShowQuests : MonoBehaviour
     private void Start()
     {
         _generator = GetComponent<DynamicButtonGenerator>();
-        _quests = QuestManager.Instance.AllQuests;
+        Achievement();
+    }
 
-        _buttons = _generator.GenerateButtonsInSlider(_quests.Count);
+    public void Achievement()
+    {
+        _quests = QuestManager.Instance.Achievement;
+        CreateQuestInfo();
+    }
+
+    public void Daily()
+    {
+        _quests = QuestManager.Instance.Daily;
+        CreateQuestInfo();
+    }
+
+    public void Weekly()
+    {
+        _quests = QuestManager.Instance.Weekly;
+        CreateQuestInfo();
+    }
+
+    private void CreateQuestInfo()
+    {
+        var sortedQuests = _quests.OrderBy(quest => quest.Information.ID).ToList();
+        if (_buttons != null)
+            foreach (var button in _buttons)
+                Destroy(button);
+        _buttons = _generator.GenerateButtonsInSlider(sortedQuests.Count);
         var buttonIndex = 0;
         foreach (var go in _buttons)
         {
-            var quest = _quests[buttonIndex];
+            var quest = sortedQuests[buttonIndex];
             go.name = quest.name;
 
             var questText = go.GetComponentInChildren<TextMeshProUGUI>();
@@ -37,7 +63,7 @@ public class ShowQuests : MonoBehaviour
             if (!quest.RewardGiven)
             {
                 var finishBtn = go.GetComponentInChildren<Button>();
-                finishBtn.onClick.AddListener(() => OnClickButton(quest,go)); 
+                finishBtn.onClick.AddListener(() => OnClickButton(quest, go));
                 if (quest.Completed) finishBtn.interactable = true;
             }
             else
@@ -45,16 +71,16 @@ public class ShowQuests : MonoBehaviour
                 var bg = go.GetComponent<Image>();
                 bg.color = new Color(0.63f, 0.63f, 0.63f);
             }
+
             buttonIndex++;
         }
     }
-    
-    public void OnClickButton(QuestSO quest, GameObject go)
+
+    private void OnClickButton(QuestSO quest, GameObject go)
     {
         Debug.Log("Button Finish Clicked!");
         quest.GiveRewards();
         var finishBtn = go.GetComponentInChildren<Button>();
         finishBtn.interactable = false;
-        
     }
 }
