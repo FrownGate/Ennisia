@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Demonic Slime
   m_EditorClassIdentifier: 
-  SkillsData: []
+  SkillsData:
+  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
+  - {fileID: 11400000, guid: 6160f9c95ae9a5e42852d9cd71c1603a, type: 2}
+  - {fileID: 11400000, guid: 7abc2d0db26faad468d0f76dd0fbe765, type: 2}
   ID: 4
   Name: Demonic Slime
   Description: description
@@ -20,20 +23,20 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 1
+      Value: 800
     - Key: 1
-      Value: 1
+      Value: 20
     - Key: 2
-      Value: 1
+      Value: 10
     - Key: 4
-      Value: 1
+      Value: 30
     - Key: 3
-      Value: 1
+      Value: 30
     - Key: 5
-      Value: 1
+      Value: 30
     - Key: 6
-      Value: 1
+      Value: 10
     - Key: 7
       Value: 1
     - Key: 8
-      Value: 1
+      Value: 60

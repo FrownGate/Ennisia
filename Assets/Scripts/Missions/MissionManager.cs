@@ -45,19 +45,16 @@ public class MissionManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         //Init missions list with MissionSO
-        foreach (MissionType missionType in Enum.GetValues(typeof(MissionType)))
-        {
-            LoadMissionsFromFolder(missionType);
-        }
+        foreach (MissionType missionType in Enum.GetValues(typeof(MissionType))) LoadMissionsFromFolder(missionType);
 
         BattleSystem.OnWaveCompleted += NextWave;
     }
 
     private void LoadMissionsFromFolder(MissionType missionType)
     {
-        MissionSO[] missions = Resources.LoadAll<MissionSO>(_path + missionType);
+        var missions = Resources.LoadAll<MissionSO>(_path + missionType);
 
-        foreach (MissionSO mission in missions)
+        foreach (var mission in missions)
         {
             //TODO -> Update SO with database datas
         }
@@ -114,15 +111,15 @@ public class MissionManager : MonoBehaviour
 
     private void UnlockNextMission()
     {
-        MissionType missionType = CurrentMission.Type;
+        var missionType = CurrentMission.Type;
 
-        if (!_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
+        if (!_missionLists.TryGetValue(missionType, out var missionList))
         {
             Debug.LogError("Invalid mission type: " + missionType);
             return;
         }
 
-        int completedMissionIndex = Array.IndexOf(missionList, CurrentMission);
+        var completedMissionIndex = Array.IndexOf(missionList, CurrentMission);
 
         if (completedMissionIndex == -1)
         {
@@ -132,7 +129,7 @@ public class MissionManager : MonoBehaviour
 
         if (completedMissionIndex + 1 < missionList.Length)
         {
-            MissionSO nextMission = missionList[completedMissionIndex + 1];
+            var nextMission = missionList[completedMissionIndex + 1];
 
             if (nextMission.State != MissionState.Locked) return;
             if (nextMission.ChapterId != CurrentMission.ChapterId)
@@ -155,12 +152,9 @@ public class MissionManager : MonoBehaviour
     private void DisplayMissionNarrative(MissionSO mission)
     {
         // Display the mission narrative or cutscene
-        if (mission.DialogueId != -1)
-        {
-            Debug.Log("Displaying mission narrative or cutscene");
-            //TODO -> check if narrative is already played (in DialogueManager)
-            //DialogueManager.Instance.StartDialogue(mission.DialogueID);
-        }
+        if (mission.DialogueId != -1) Debug.Log("Displaying mission narrative or cutscene");
+        //TODO -> check if narrative is already played (in DialogueManager)
+        //DialogueManager.Instance.StartDialogue(mission.DialogueID);
     }
 
     public void SetChapter(ChapterSO chapter)
@@ -176,7 +170,7 @@ public class MissionManager : MonoBehaviour
 
     public List<MissionSO> GetMissionsByChapterId(MissionType missionType, int chapterId)
     {
-        if (_missionLists.TryGetValue(missionType, out MissionSO[] missionList))
+        if (_missionLists.TryGetValue(missionType, out var missionList))
             return missionList.Where(missionSO => missionSO.ChapterId == chapterId).ToList();
         Debug.LogError("Invalid mission type: " + missionType);
         return new List<MissionSO>();

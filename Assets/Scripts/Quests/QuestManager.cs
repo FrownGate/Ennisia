@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
@@ -11,12 +9,12 @@ public class QuestManager : MonoBehaviour
     public List<QuestSO> Daily;
     public List<QuestSO> Weekly;
 
-
     public List<QuestSO> AllQuests;
 
     public static QuestManager Instance { get; private set; }
 
 
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,6 +31,8 @@ public class QuestManager : MonoBehaviour
 
         BattleSystem.OnEnemyKilled += KillQuest;
         MissionManager.OnMissionComplete += MissionQuest;
+        ExpManager.OnPlayerLevelUp += LevelUpQuest;
+        ExpManager.OnAccountLevelUp += LevelUpQuest;
     }
 
     private void LoadQuest()
@@ -84,13 +84,18 @@ public class QuestManager : MonoBehaviour
     }
 
 
-    public void KillQuest(string name)
+    private void KillQuest(string name)
     {
         QuestEventManager.Instance.QueueEvent(new KillQuestEvent(name));
     }
 
-    public void MissionQuest(MissionSO mission)
+    private void MissionQuest(MissionSO mission)
     {
         QuestEventManager.Instance.QueueEvent(new MissionQuestEvent(mission));
+    }
+
+    private void LevelUpQuest(int lvl)
+    {
+        QuestEventManager.Instance.QueueEvent(new LevelUpQuestEvent(lvl));
     }
 }

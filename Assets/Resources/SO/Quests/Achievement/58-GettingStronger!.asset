@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7983093414725260551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70d38626ddf4c3abe00cbeae8d4ecb4, type: 3}
+  m_Name: LevelUp
+  m_EditorClassIdentifier: 
+  RequiredAmount: 98
+  Same: 0
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
+  m_Name: 58-GettingStronger!
+  m_EditorClassIdentifier: 
+  Information:
+    ID: 58
+    Name: Getting Stronger!
+    QuestType: 2
+    Description: Reach player lvl 98
+  Reward:
+    Energy: 0
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 0
+      - Key: 1
+        Value: 0
+  Goals:
+  - {fileID: -7983093414725260551}
