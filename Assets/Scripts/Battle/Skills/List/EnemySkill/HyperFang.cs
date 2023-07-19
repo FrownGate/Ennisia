@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 
 public class HyperFang : DamageSkill
 {
@@ -8,6 +9,7 @@ public class HyperFang : DamageSkill
     {
         float damage = DamageCalculation(targets[0], caster);
         targets[0].TakeDamage(damage);
+
         int randomNumber = new Random().Next(1, 100);
         if (_percentChance >= randomNumber)
         {

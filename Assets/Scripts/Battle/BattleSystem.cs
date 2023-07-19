@@ -55,7 +55,7 @@ public class BattleSystem : StateMachine
     public void InitBattle()
     {
         //TODO -> set background
-        //TODO -> show turn n° ?
+        //TODO -> show turn nÂ° ?
         Targets = new();
 
         LostPopUp.SetActive(false);

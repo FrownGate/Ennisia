@@ -72,7 +72,7 @@ public abstract class Skill
     {
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
         _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
-        float damage = (caster.Stats[Attribute.Attack].Value * (Data.DamageRatio + RatioModifier) * _ratio * ((1000 - (_defense - target.DefIgnored)) / 1000));
+        float damage = (caster.Stats[Attribute.Attack].Value * ((Data.DamageRatio/100) + RatioModifier) * _ratio * ((1000 - (_defense - target.DefIgnored)) / 1000));
         foreach(var effect in target.Effects)
         {
             damage *= effect.GetMultiplier();

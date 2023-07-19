@@ -6,13 +6,13 @@ public class InAFlash : DamageSkill
     {
         foreach(Entity target in targets)
         {
-            target.DefIgnored += 50;
+            target.DefIgnored += Data.IgnoreDef;
             float damage = DamageCalculation(target, caster);
-            target.DefIgnored -= 50;
+            target.DefIgnored -= Data.IgnoreDef;
             TotalDamage += damage;
             target.TakeDamage(damage);
-
         }
+        Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
 }
