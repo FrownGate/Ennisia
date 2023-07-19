@@ -39,10 +39,14 @@ public class ShopSystem : MonoBehaviour
     public void InitShopItems(CatalogItemReference itemReference)
     {
         GameObject shopItemBtn = Instantiate(_shopItemBtnPrefab, transform);
+        
+        var btnImage = shopItemBtn.GetComponent<UnityEngine.UI.Image>();
+        btnImage.sprite = Resources.Load<Sprite>(itemReference.Id);
+        
         var itemInfo = shopItemBtn.GetComponent<ShowShopBtnInfo>();
-        //PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReference.id);
-        //itemInfo.ItemName = item.AlternateId[0].Value;
-        //itemInfo.Price = item.PriceOptions.Price[0].Amounts[0].Amount;
+        PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReference.Id);
+        itemInfo.ItemName = item.AlternateIds[0].Value;
+        itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
     }
 
     public void Buy()
