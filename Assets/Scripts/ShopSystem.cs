@@ -36,39 +36,21 @@ public class ShopSystem : MonoBehaviour
             shopBtnInfo.ShopName = store.Value.AlternateIds[0].Value;
             
             InitShopItems(store.Value.ItemReferences);
-     
         }
     }
 
     public void InitShopItems(List<CatalogItemReference> itemReferences)
     {
-        int columns = 3;
-        float xOffset = 1.5f;
-        float yOffset = -1.5f;
-
         for (int i = 0; i < itemReferences.Count; i++)
         {
-            int row = i / columns;
-            int column = i % columns;
-            Vector3 position = new Vector3(column * xOffset, row * yOffset, 0);
-
             GameObject shopItemBtn = Instantiate(_shopItemBtnPrefab, transform);
             shopItemBtn.transform.SetParent(_ShopItemBtnPanel.transform);
-            //shopItemBtn.transform.localPosition = position;
-
+            
             var itemInfo = shopItemBtn.GetComponent<ShowShopBtnInfo>();
             PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
             itemInfo.ItemName = item.AlternateIds[0].Value;
             itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
         }
-        /*GameObject shopItemBtn = Instantiate(_shopItemBtnPrefab, transform);
-        shopItemBtn.transform.SetParent(_ShopItemBtnPanel.transform);
-        //TODO -> Set up item photo
-        
-        var itemInfo = shopItemBtn.GetComponent<ShowShopBtnInfo>();
-        PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReference.Id);
-        itemInfo.ItemName = item.AlternateIds[0].Value;
-        itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;*/
     }
 
     public void Buy(PlayFab.EconomyModels.CatalogItem item)
