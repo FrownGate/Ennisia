@@ -8,8 +8,7 @@ public class HerbsMaster : ProtectionSkill
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         int lowestEnemyIndex = targets.Count > 2 ? FindLowestAlly(targets) : 1;
-        targets[lowestEnemyIndex].CurrentHp += (targets[lowestEnemyIndex].Stats[Attribute.HP].Value * 0.5f);
-
+        targets[lowestEnemyIndex].Heal(targets[lowestEnemyIndex].Stats[Attribute.HP].Value * Data.HealingAmount);
         return 0;
     }
 

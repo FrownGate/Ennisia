@@ -25,6 +25,7 @@ public class ArcaneTransference : BuffSkill
         {
             target.ApplyEffect(_debuffList[randomNumber]);
         }
+        Cooldown = Data.MaxCooldown;
         return 0;
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 
 public class GustofPrecision : PassiveSkill
 {
@@ -7,5 +8,5 @@ public class GustofPrecision : PassiveSkill
         _modifiers[Attribute.CritRate] = caster.Stats[Attribute.CritRate].AddModifier(AddCritRate);
     }
 
-    float AddCritRate(float value) => value + 25;
+    float AddCritRate(float value) => value + Data.BuffAmount;
 }
