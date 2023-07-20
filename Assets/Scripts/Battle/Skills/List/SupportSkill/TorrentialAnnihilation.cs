@@ -4,20 +4,33 @@ public class TorrentialAnnihilation : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        for (int i = 0; i < targets.Count; i++)
+
+        foreach (var target in targets)
         {
-            if (caster.Stats[Attribute.PhysicalDamages].Value > targets[i].Stats[Attribute.PhysicalDamages].Value)
+
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+
+            TotalDamage += damage;
+            if (caster.Stats[Attribute.PhysicalDamages].Value > target.Stats[Attribute.PhysicalDamages].Value)
             {
                 caster.Cleanse();
             }
         }
+        Cooldown = Data.MaxCooldown;
 
-        return 0;
+        return TotalDamage;
     }
 
     public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        for (int i = 0; i < targets.Count; i++) targets[i].TakeDamage(damage * 0.25f);
-        return 0;
+        foreach (var target in targets)
+        {
+            target.DefIgnored += 100;
+            target.TakeDamage(damage * Data.IgnoreDef);
+            TotalDamage += damage * Data.IgnoreDef;
+            target.DefIgnored -= 100;
+        }
+        return TotalDamage;
     }
 }

@@ -44,7 +44,7 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 43,Nurturing Earthbound,Heals 80% of lost health,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 44,Blazing Fury,Increase attack of player for 3 turns,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 45,Thunderous Impact,Stun the enemy for 1 turn // High CD,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
-46,Zephyr Swiftness,Increase base speed by 20%.,0,0,0,20,3,0,0,FALSE,FALSE,TRUE,Support Skill
+46,Zephyr Swiftness,Increase base speed by 20%.,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Support Passif
 47,Galeblade Strike,Give an attack buff for 3 turns before attacking an enemy,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
 48,Earthen Ward,"Once every 2 turns, give a barrier scaling based off of max Hp.",0,20,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
 49,Blazing Resilience,"When the player receives a debuff, give random buff (att, Crit Rate, Crit Damage).",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
@@ -56,11 +56,11 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 55,Crushing Earthguard,"Attacks all enemies, and gives a shield based off 40% of damage done.",50,40,0,0,3,0,0,FALSE,TRUE,TRUE,Support Skill
 56,Arcane Transference,"Cleanse 1 debuff, and gives the cleansed debuff to enemy/enemies.",0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 57,Refreshing Tideguard,"Gives a shield to the player, scales with max Hp, for 2 turns.",0,30,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
-58,Slice,Hits the player dealing physical damage ,40,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+58,Slice,"Hits the player dealing physical damage ",40,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 59,Magic Bonk,Hits the player with magic damage,60,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
 60,Slime Dash,Hits the player 3 times and deal physical damage and has a 10% chance to Silence for 1 turn,50,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 61,Demonic Dash,Hits the player 3 times and deal magic damage and has a 10% chance to give a demonic mark,50,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
-62,Biting Barrage ,Hits the player 4 times dealing physical damage,70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+62,"Biting Barrage ",Hits the player 4 times dealing physical damage,70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 63,Hyper Fang,Hits the player with huge fangs and has a 20% chance to defence break,70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 64,Spin Attack,Hits the player 3 times and increases attackbar by 25%,40,0,0,25,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 65,Herbs Master,"With the use of herbs and nature around it, restore 50% hp of the lowest health ally",0,0,50,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
@@ -79,15 +79,15 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 78,Demonic Marking,Hits the player dealing magic damage and has 100% chance to break defence and 50% chance to inflict 2 demonic marks,60,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
 79,Demonic Strike,Hits the player dealing physical damage before inflicting a support silence debuff,90,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 80,Demonic Bite,"Hits the player dealing physical damage, inflicting demonic mark and has 50% chance to break defense, if break defense atk bar 100%",70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
-81,Howl,Gives all allies a atk buff for 2 turns ,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+81,Howl,"Gives all allies a atk buff for 2 turns ",0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 82,Burning Smash,Hits the player dealing physical damage and has a 20% chance to defense break,40,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
-83,Tsunami,Hits the player 6 times dealing magic damage and decreases atk bar of player by 30% ,50,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
+83,Tsunami,"Hits the player 6 times dealing magic damage and decreases atk bar of player by 30% ",50,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
 84,Malevolent Strike,If user has an atk buff penetrate defense by 10%,0,0,0,0,0,10,0,FALSE,FALSE,TRUE,Enemy Passif
-85,Big Mushroom ,"If he's alone, increase his attack by 100% regen 50% of damage dealt",0,0,50,100,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-86,Goblin Chief ,"If the ennemy is stunned, penetrate the defense by 50%",0,0,0,0,0,50,0,FALSE,FALSE,TRUE,Enemy Passif
-87,Pack leader ,"If you're not alone, increase all stats by 10% + 5% per enemy",0,0,0,10,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+85,"Big Mushroom ","If he's alone, increase his attack by 100% regen 50% of damage dealt",0,0,50,100,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+86,"Goblin Chief ","If the ennemy is stunned, penetrate the defense by 50%",0,0,0,0,0,50,0,FALSE,FALSE,TRUE,Enemy Passif
+87,"Pack leader ","If you're not alone, increase all stats by 10% + 5% per enemy",0,0,0,10,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
 88,Demon knight,"If the enemy has a demonic mark, inflict 2 additionnal demonic mark",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-89,Demon archer ,Increase all defense by 20%,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+89,"Demon archer ",Increase all defense by 20%,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
 90,Demon mage,"When demon mage heals allies, deal damage to the enemy according to the amount recovered",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
 91,Swift Strike,"Hits an ennemy dealing physical damage and penetrating defense by 10%, and increasing atkbar by 50%",70,0,0,50,3,10,0,FALSE,FALSE,TRUE,Support Skill
 92,Doctor's Remedy,Gives imunity to the player for 3 turns,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill

@@ -6,10 +6,10 @@ public class FatalCrash : DamageSkill
     {
         foreach (Entity target in targets)
         {
-            float missingHpRatio = (target.CurrentHp / target.Stats[Attribute.HP].Value);
-            if (missingHpRatio < 0.3f) missingHpRatio = 0.3f;
+            float ratioHp = (target.CurrentHp / target.Stats[Attribute.HP].Value);
             float damage = DamageCalculation(target, caster);
-            damage *= (1 / missingHpRatio);
+            float missingHp = 1 - ratioHp;
+            damage = damage + (missingHp * 2 * damage);
             target.TakeDamage(damage);
             TotalDamage += damage;
         }

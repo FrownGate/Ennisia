@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BlazingResilience : PassiveSkill
 {
-    //TODO -> When the plate receives a debuff, give random buff (att, Crit Rate, Crit Damage).
-    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn) 
+    //TODO -> When the player receives a debuff, give random buff (att, Crit Rate, Crit Damage).
+    public override void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken)
     {
         //if player gain debuff
         int nbBuff = 3;

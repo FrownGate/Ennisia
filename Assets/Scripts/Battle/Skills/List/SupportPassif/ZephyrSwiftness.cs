@@ -7,5 +7,5 @@ public class ZephyrSwiftness : PassiveSkill
         _modifiers[Attribute.Speed] = caster.Stats[Attribute.Speed].AddModifier(SpeedModifier);
     }
 
-    float SpeedModifier(float value) => value + (int)(value * 20 / 100);
+    float SpeedModifier(float value) => value + (value * Data.BuffAmount / 100);
 }

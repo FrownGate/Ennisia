@@ -4,9 +4,9 @@ public class InfernalResilience : ProtectionSkill
 {
     public override float Use(List<Entity> target, Entity caster, int turn)
     {
-        float missingHealth = caster.Stats[Attribute.HP].Value - caster.CurrentHp;
-        ShieldModifier = missingHealth * StatUpgrade1 * Level;
+        ShieldModifier = ((Data.ShieldAmount / 100) + StatUpgrade1 * Level) * (caster.Stats[Attribute.HP].Value - caster.CurrentHp);
         caster.Shield += ShieldModifier;
+        Cooldown = Data.MaxCooldown;
         return 0;
     }
 }

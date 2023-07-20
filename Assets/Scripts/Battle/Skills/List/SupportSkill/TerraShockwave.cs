@@ -1,35 +1,34 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TerraShockwave: DamageSkill
 {
-    private float _stunPerc = 0.5f;
-    private float _increaseCDPerc = 0.75f;
-    private int _stunTurn;
-
-    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn)
-    {
-        if (turn <= _stunTurn)
-        {
-            //TODO -> stun   
-        }
-    }
+    [ShowInInspector] private float _stunPerc = 0.5f;
+    [ShowInInspector] private float _increaseCDPerc = 0.75f;
 
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        DamageModifier = caster.Stats[Attribute.PhysicalDamages].Value * StatUpgrade1 * Level;
-        targets[0].TakeDamage(DamageModifier);
-        float stunLuck = Random.Range(0, 1);
-
-        if (stunLuck > _stunPerc) _stunTurn = turn + 1;
-
-        float increaseCDLuck = Random.Range(0, 1);
-
-        if (increaseCDLuck > _increaseCDPerc)
+        foreach (Entity target in targets)
         {
-            //TODO -> targets[0].cd += 2;
-        }
+            RatioModifier = StatUpgrade1 * Level;
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
 
-        return 0;
+            float _luck = Random.Range(0, 100);
+            if (_luck <= _stunPerc)
+            {
+                target.ApplyEffect(new Stun(1));
+            }
+            float _luck2 = Random.Range(0, 100);
+            if (_luck2 <= _increaseCDPerc)
+            {
+                //TO DO -> increase target third skill cd by 2
+            }
+        }
+        Cooldown = Data.MaxCooldown;
+        
+        return TotalDamage;
     }
 }

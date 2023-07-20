@@ -8,6 +8,7 @@ public class ThunderousImpact : DamageSkill
         {
             target.ApplyEffect(new Stun());
         }
+        Cooldown = Data.MaxCooldown;
         return 0;
     }
 }

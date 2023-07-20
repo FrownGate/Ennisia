@@ -6,22 +6,21 @@ public class TidalExecution : DamageSkill
     {
         foreach (Entity target in targets)
         {
-            float percHPRemaining = target.CurrentHp / target.Stats[Attribute.HP].Value;
+            float ratioHp = (target.CurrentHp / target.Stats[Attribute.HP].Value);
 
-            if (percHPRemaining <= 0.05f)
+            if (ratioHp <= 0.05f)
             {
                 //TODO -> Execute
                 target.TakeDamage(5000000);
             }
 
-
-
-            float missingHealth = target.Stats[Attribute.HP].Value - target.CurrentHp;
-            float damage = DamageCalculation(target,caster) * missingHealth;
-            TotalDamage+= damage;
+            float damage = DamageCalculation(target,caster);
+            float missingHp = 1 - ratioHp;
+            damage = damage + (missingHp * 2 * damage);
             target.TakeDamage(damage);
+            TotalDamage += damage;
         }
-
+        Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
 }
