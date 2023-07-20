@@ -29,9 +29,11 @@ public enum GearSetData //TODO -> Use individual classes instead
 public class Item
 {
     public int Id;
+    public string Ide;
     public string Stack;
     public string Name;
     public int Amount; //Amount of item to add
+    public int Price; //Price of item in shop
     public Rarity? Rarity;
     public ItemCategory? Category;
     public GearType? Type;
@@ -46,30 +48,15 @@ public class Item
     public string JsonWeapon;
     public string JsonAttribute;
 
-    [Serializable]
-    private class DisplayPropertiesData
-    {
-        public int Amount;
-        public string Rarity;
-        public string Category;
-        public string Type;
-        public string WeaponType;
-    }
+    
     public static Item CreateFromCatalogItem(CatalogItem catalogItem)
     {
-        Item newItem = new Item();
-        newItem.Id = int.Parse(catalogItem.Id);
+        Item newItem = new();
+        newItem.Ide = catalogItem.Id;
         newItem.Name = catalogItem.AlternateIds[0].Value;
+        newItem.Price = catalogItem.PriceOptions.Prices[0].Amounts[0].Amount;
 
-        // Extract and set the additional properties from the DisplayProperties field
-        // Assuming that the DisplayProperties field is in JSON format
-        DisplayPropertiesData displayProperties = JsonUtility.FromJson<DisplayPropertiesData>(catalogItem.DisplayProperties.ToString());
-
-        newItem.Amount = displayProperties.Amount;
-        newItem.Rarity = Enum.Parse<Rarity>(displayProperties.Rarity);
-        newItem.Category = Enum.Parse<ItemCategory>(displayProperties.Category);
-        newItem.Type = Enum.Parse<GearType>(displayProperties.Type);
-        newItem.WeaponType = Enum.Parse<WeaponType>(displayProperties.WeaponType);
+        newItem.Deserialize();
 
         return newItem;
     }

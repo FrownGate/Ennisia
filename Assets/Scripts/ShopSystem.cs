@@ -47,36 +47,7 @@ public class ShopSystem : MonoBehaviour
 
     public void Buy(PlayFab.EconomyModels.CatalogItem item)
     {
-        //TODO -> Add item to player's inventory
-        //TODO -> Remove currency from player's inventory
-
-        // Item newItem = JsonUtility.FromJson<Item>(item.DisplayProperties.ToString());
-        // newItem.Deserialize();
         Item newItem = Item.CreateFromCatalogItem(item);
-
         PlayFabManager.Instance.PurchaseInventoryItem(newItem);
-        // Type type = Type.GetType(item.AlternateIds[0].Value);
-        // Item itemToBuy = new();
-        // Activator.CreateInstance(type, itemToBuy);
-
-        // PlayFabManager.Instance.PurchaseInventoryItem(itemToBuy);
-
-
-        // switch (item.ContentType)
-        // {
-        //     case "Gear":
-        // Gear gear = new(item);
-        //         Activator.CreateInstance(Type.GetType(item.Id), gear);
-        //         break;
-        //     case "Material":
-        //         Material material = new(item);
-        //         Activator.CreateInstance(Type.GetType(item.Id), material);
-        //         break;
-        //     case "SummonTicket":
-        //         SummonTicket summonTicket = new(item);
-        //         Activator.CreateInstance(Type.GetType(item.Id), summonTicket);
-        //         break;
-        // }
-
     }
 }
