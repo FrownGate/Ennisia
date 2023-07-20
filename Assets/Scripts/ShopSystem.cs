@@ -53,8 +53,8 @@ public class ShopSystem : MonoBehaviour
             Vector3 position = new Vector3(column * xOffset, row * yOffset, 0);
 
             GameObject shopItemBtn = Instantiate(_shopItemBtnPrefab, transform);
-            //shopItemBtn.transform.SetParent(_ShopItemBtnPanel.transform);
-            shopItemBtn.transform.localPosition = position;
+            shopItemBtn.transform.SetParent(_ShopItemBtnPanel.transform);
+            //shopItemBtn.transform.localPosition = position;
 
             var itemInfo = shopItemBtn.GetComponent<ShowShopBtnInfo>();
             PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
