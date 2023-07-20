@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class ShowShopBtnInfo : MonoBehaviour
 {
+    [HideInInspector]
     public int ItemId;
+    [HideInInspector]
     public int ItemPrice;
+    [HideInInspector]
     public string ItemName;
+    [HideInInspector]
     public string ItemDescription;
-    
-    private ShopSystem _shopSystem;
     
     void Start()
     {
