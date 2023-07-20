@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using PlayFab.EconomyModels;
 
 public enum ItemCategory
 {
@@ -45,6 +46,33 @@ public class Item
     public string JsonWeapon;
     public string JsonAttribute;
 
+    [Serializable]
+    private class DisplayPropertiesData
+    {
+        public int Amount;
+        public string Rarity;
+        public string Category;
+        public string Type;
+        public string WeaponType;
+    }
+    public static Item CreateFromCatalogItem(CatalogItem catalogItem)
+    {
+        Item newItem = new Item();
+        newItem.Id = int.Parse(catalogItem.Id);
+        newItem.Name = catalogItem.AlternateIds[0].Value;
+
+        // Extract and set the additional properties from the DisplayProperties field
+        // Assuming that the DisplayProperties field is in JSON format
+        DisplayPropertiesData displayProperties = JsonUtility.FromJson<DisplayPropertiesData>(catalogItem.DisplayProperties.ToString());
+
+        newItem.Amount = displayProperties.Amount;
+        newItem.Rarity = Enum.Parse<Rarity>(displayProperties.Rarity);
+        newItem.Category = Enum.Parse<ItemCategory>(displayProperties.Category);
+        newItem.Type = Enum.Parse<GearType>(displayProperties.Type);
+        newItem.WeaponType = Enum.Parse<WeaponType>(displayProperties.WeaponType);
+
+        return newItem;
+    }
     protected void AddToInventory()
     {
         Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
