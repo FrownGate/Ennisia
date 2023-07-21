@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
+  m_Name: InfernalResilience
+  m_EditorClassIdentifier: 
+  Id: 34
+  Name: Infernal Resilience
+  Description: Gives a shield equivalent to 50% of missing health for 3 turns.
+  DamageRatio: 0
+  ShieldAmount: 50
+  HealingAmount: 0
+  BuffAmount: 0
+  MaxCooldown: 3
+  IgnoreDef: 0
+  HitNumber: 0
+  AOE: 0
+  IsMagic: 0
+  IsPassive: 0
+  SkillType: 3

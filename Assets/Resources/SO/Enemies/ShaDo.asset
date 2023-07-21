@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: ShaDo
   m_EditorClassIdentifier: 
   SkillsData: []
-  ID: 53
+  ID: 52
   Name: ShaDo
   Description: description
   IsBoss: 1
   Stats:
     _serializedList:
     - Key: 0
-      Value: 1
+      Value: 6000
     - Key: 1
-      Value: 1
+      Value: 100
     - Key: 2
-      Value: 1
+      Value: 40
     - Key: 4
-      Value: 1
+      Value: 150
     - Key: 3
-      Value: 1
+      Value: 60
     - Key: 5
-      Value: 1
+      Value: 230
     - Key: 6
-      Value: 1
+      Value: 10
     - Key: 7
-      Value: 1
+      Value: 110
     - Key: 8
-      Value: 1
+      Value: 100

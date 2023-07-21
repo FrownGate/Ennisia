@@ -10,11 +10,12 @@ public class BloodContract : DamageSkill
             target.TakeDamage(damage);
             TotalDamage += damage;
         }
+        Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        caster.Heal(damage * 30 / 100);
+        caster.Heal(damage * Data.HealingAmount / 100);
     }
 }

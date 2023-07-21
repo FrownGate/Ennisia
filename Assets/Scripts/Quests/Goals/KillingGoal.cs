@@ -30,14 +30,16 @@ public class KillingGoal : QuestSO.QuestGoal
 
     public void OnKilling(KillQuestEvent eventInfo)
     {
+        if (Completed) return;
         foreach (var enemy in ToKill)
         {
             _killName = enemy.Name;
             if (eventInfo.KilledName != _killName) continue;
-            _killHistory[_killName] += 1;
+            if (Same) _killHistory[_killName] += 1;
+            else CurrentAmount += 1;
         }
 
-        CurrentAmount = _killHistory.Values.Max();
+        if (Same)CurrentAmount = _killHistory.Values.Max();
         Evaluate();
     }
 }

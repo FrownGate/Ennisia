@@ -237,10 +237,10 @@ public class CSVToSO : EditorWindow
         scriptableObject.DamageRatio = float.Parse(rowData["damageAmount"]);
         scriptableObject.ShieldAmount = float.Parse(rowData["shieldAmount"]);
         scriptableObject.HealingAmount = float.Parse(rowData["healingAmount"]);
+        scriptableObject.BuffAmount = float.Parse(rowData["buffAmount"]);
         scriptableObject.IgnoreDef = float.Parse(rowData["penDef"]);
         scriptableObject.HitNumber = int.Parse(rowData["hitNb"]);
         scriptableObject.MaxCooldown = int.Parse(rowData["maxCooldown"]);
-        scriptableObject.IsAfter = bool.Parse(rowData["isAfter"]);
         scriptableObject.AOE = bool.Parse(rowData["AOE"]);
         scriptableObject.IsMagic = bool.Parse(rowData["isMagic"]);
 
@@ -414,12 +414,11 @@ public class CSVToSO : EditorWindow
         {
             var wave = rowData[$"Wave{i}"];
             List<string> enemiesInWaveList = new();
-            if (!wave.Equals(""))
+            if (!wave.Equals("") && !wave.Equals("Talk Only"))
             {
                 var waveEnemies = wave.Split(',');
                 foreach (var enemy in waveEnemies)
                 {
-                    if (enemy == "Talk Only") continue;
                     enemiesInWaveList.Add(enemy);
                     enemies.Add(enemy);
                 }
@@ -521,7 +520,7 @@ public class CSVToSO : EditorWindow
             AssetDatabase.Refresh();
         }
 
-        var savePath = $"{folderPath}/{scriptableObject.Information.Name.Replace(" ", string.Empty)}.asset";
+        var savePath = $"{folderPath}/{scriptableObject.Information.ID}-{scriptableObject.Information.Name.Replace(" ", string.Empty)}.asset";
 
         // Check if the asset already exists
         var existingAsset = AssetDatabase.LoadAssetAtPath<QuestSO>(savePath);
