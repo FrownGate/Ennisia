@@ -18,11 +18,11 @@ MonoBehaviour:
     heals hp according to damage dealt.
   DamageRatio: 100
   ShieldAmount: 0
-  HealingAmount: 0
-  MaxCooldown: 0
+  HealingAmount: 80
+  BuffAmount: 0
+  MaxCooldown: 3
   IgnoreDef: 0
   HitNumber: 1
-  IsAfter: 0
   AOE: 0
   IsMagic: 0
   IsPassive: 0

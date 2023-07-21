@@ -18,10 +18,10 @@ MonoBehaviour:
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 60
-  MaxCooldown: 0
+  BuffAmount: 0
+  MaxCooldown: 3
   IgnoreDef: 0
   HitNumber: 0
-  IsAfter: 0
   AOE: 0
   IsMagic: 0
   IsPassive: 0

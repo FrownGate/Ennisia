@@ -6,7 +6,10 @@ public class FatalCrash : DamageSkill
     {
         foreach (Entity target in targets)
         {
-            float damage = Data.DamageRatio * (1 + (target.CurrentHp / target.Stats[Attribute.HP].Value));
+            float ratioHp = (target.CurrentHp / target.Stats[Attribute.HP].Value);
+            float damage = DamageCalculation(target, caster);
+            float missingHp = 1 - ratioHp;
+            damage = damage + (missingHp * 2 * damage);
             target.TakeDamage(damage);
             TotalDamage += damage;
         }
@@ -16,6 +19,6 @@ public class FatalCrash : DamageSkill
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        caster.CurrentHp += 0.8f * damage;
+        caster.CurrentHp += (Data.HealingAmount/100) * damage;
     }
 }

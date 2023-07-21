@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public abstract class AI
 {
@@ -101,6 +103,7 @@ public abstract class AI
 
     public static int ChooseSkill(BattleSystem battleSystem, Entity caster, bool enemyTurn)
     {
+        Console.WriteLine("a mere ");
         List<Skill> list = caster.Skills;
         list.Reverse();
         Skill skillToUse = null;
