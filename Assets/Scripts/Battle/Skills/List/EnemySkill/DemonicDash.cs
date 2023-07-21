@@ -7,12 +7,18 @@ public class DemonicDash : DamageSkill
 
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = DamageCalculation(targets[0], caster);
-        targets[0].TakeDamage(damage);
-        int randomNumber = new Random().Next(1, 100);
-        if (_percentChance >= randomNumber) targets[0].ApplyEffect(new DemonicMark());
-
+        foreach (Entity target in targets)
+        {
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+            int randomNumber = new Random().Next(1, 100);
+            if (randomNumber <= _percentChance)
+            {
+                target.ApplyEffect(new DemonicMark());
+            }
+        }
         Cooldown = Data.MaxCooldown;
-        return damage;
+        return TotalDamage;
     }
 }
