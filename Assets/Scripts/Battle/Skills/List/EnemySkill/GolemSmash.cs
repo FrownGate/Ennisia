@@ -6,14 +6,18 @@ public class GolemSmash : DamageSkill
     private int _percentChance = 10;
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = DamageCalculation(targets[0], caster);
-        targets[0].TakeDamage(damage);
-        int randomNumber = new Random().Next(1, 100);
-        if (_percentChance >= randomNumber)
+        foreach (Entity target in targets)
         {
-            targets[0].ApplyEffect(new Stun());
+            float damage = DamageCalculation(target, caster)*2;
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+            int randomNumber = new Random().Next(1, 100);
+            if (randomNumber <= _percentChance)
+            {
+                target.ApplyEffect(new Stun());
+            }
         }
         Cooldown = Data.MaxCooldown;
-        return damage * 2;
+        return TotalDamage;
     }
 }

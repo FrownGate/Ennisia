@@ -19,9 +19,13 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - ShaDo
+  WavesCount: 1
+  Enemies:
+  - ShaDo
   DialogueId: 0
   ChapterId: 2
   NumInChapter: 2
@@ -31,5 +35,5 @@ MonoBehaviour:
       Value: 1000
     - Key: 1
       Value: 100
-  GearReward: 
+  RewardData: []
   Experience: 10

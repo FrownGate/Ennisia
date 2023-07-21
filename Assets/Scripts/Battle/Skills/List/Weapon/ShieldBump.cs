@@ -5,10 +5,15 @@ public class ShieldBump : DamageSkill
     float additionalDamage;
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = Data.DamageRatio;
-        targets[0].TakeDamage(damage);
+        
+        foreach (Entity target in targets) 
+        {
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+        }
         Cooldown = Data.MaxCooldown;
-        return damage;
+        return TotalDamage;
     }
 
     public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage)
@@ -19,7 +24,7 @@ public class ShieldBump : DamageSkill
             {
                 if (effect.GetType() == typeof(DefenseBuff))
                 {
-                    additionalDamage = effect.GetType() == typeof(DefenseBuff) ? damage / 2 : 0;
+                    additionalDamage = effect.GetType() == typeof(DefenseBuff) ? damage * (Data.BuffAmount/100) : 0;
                 }
             }
             target.TakeDamage(additionalDamage);

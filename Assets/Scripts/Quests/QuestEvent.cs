@@ -26,3 +26,18 @@ public class MissionQuestEvent : QuestEvent
         Mission = mission;
     }
 }
+public class LevelUpQuestEvent : QuestEvent
+{
+    public int Level;
+    public enum LvlType
+    {
+        Account, Player
+    }
+    public LvlType LevelType;
+    public LevelUpQuestEvent(int lvl, LvlType type)
+    {
+        Level = lvl;
+        type = LevelType;
+
+    }
+}

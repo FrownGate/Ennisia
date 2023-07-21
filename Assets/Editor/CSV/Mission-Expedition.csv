@@ -1,0 +1,23 @@
+ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,IDDialogue,IDChap,Num,Gold,Crystals,XP,Gear
+1,Anthrena 1,0,FALSE,"Red Slime, Green Slime, Blue Slime","Goblin Cyclop, Slime,Goblin Cyclop","Goblin Cyclop, Cyclop, Goblin Cyclop",0,1,1,1000,100,10,none
+2,Anthrena 2,0,FALSE,"Goblin, Goblin, Goblin","Goblin,Higher Goblin,Goblin","Higher Goblin, Higher Goblin, Higher Goblin",0,1,2,1000,100,10,none
+3,Anthrena 3,0,FALSE,"Goblin Chief, Higher Goblin, Higher Goblin","Goblin Chief, Goblin Chief, Goblin Chief","Bandit chief, bandit, bandit",0,1,3,1000,100,10,none
+4,Anthrena 4,0,FALSE,"Brigand, Brigand, Brigand","Bandit Chief, Bandit Chief, Bandit Chief","Bandit Chief, Wolf, Wolf",0,1,4,1000,100,10,none
+5,Anthrena 5,0,FALSE,"Wolf Pack Leader, Wolf, Wolf","Berserker, Stixent, ",Ghost Paladin,0,1,5,1000,100,10,none
+6,Xothio 1,0,FALSE,"Evil Gardener, Haunted Mushroom,Haunted Mushroom","Giant Mushroom, Haunted Tree, Haunted Mushroom","Magic Flower, Mage Elf, Magic Flower",0,2,1,1000,100,10,none
+7,Xothio 2,0,FALSE,"Slime, Haunted Mushroom, Slime","Giant Mushroom, Giant Mushroom, Giant Mushroom","Evil Gardener, Haunted Tree, Haunted Tree",0,2,2,1000,100,10,none
+8,Xothio 3,0,FALSE,"Elf, Elf, Elf","Winderer, Elf, Elf","Spreegal, Spreegal, Spreegal",0,2,3,1000,100,10,none
+9,Xothio 4,0,FALSE,"Elf,Mage Elf, Elf","Elven Knight
+Elven Archer
+Elven Mage","Water Golem, Lava Golem, Mage Elf",0,2,4,1000,100,10,none
+10,Xothio 5,0,FALSE,"Elf, Elven Knight, Elf","ock Golem, Rock Golem, Mage Elf",Snadron,0,2,5,1000,100,10,none
+11,Thitria 1,0,FALSE,"Sanunter, Sanunter, Sanunter","Rock Worm, Rock Golem, Rock Golem","Sanunter, Sanunter, Sanunter",0,3,1,1000,100,10,none
+12,Thitria 2,0,FALSE,"Sanunter, Sanunter, Sanunter","Rock Worm, Rock Golem, Rock Golem","Sanunter, Sanunter, Sanunter",0,3,2,1000,100,10,none
+13,Thitria 3,0,FALSE,"Sanunter, Sanunter, Sanunter","Rock Worm, Rock Golem, Rock Golem","Sanunter, Sanunter, Sanunter",0,3,3,1000,100,10,none
+14,Thitria 4,0,FALSE,"Sanunter, Sanunter, Sanunter","Rock Worm, Rock Golem, Rock Golem","Sanunter, Sanunter, Sanunter",0,3,4,1000,100,10,none
+15,Thitria 5,0,FALSE,"Sanunter, Sanunter, Sanunter","Rock Worm, Rock Golem, Rock Golem",Desert King,0,3,5,1000,100,10,none
+16,Daissera 1,0,FALSE,"Minor Demon, Minor Demon, Demonic Slime","Skeleton, Skeleton, Skeleton","Golem Skeleton, Skeleton, Demonic Slime",0,4,1,1000,100,10,none
+17,Daissera 2,0,FALSE,"Demonic slime, Major Demon, Demonic Slime","Demonic Goblin, Demonic Goblin, Demonic Goblin","Major Demon, Major Demon, Major Demon",0,4,2,1000,100,10,none
+18,Daissera 3,0,FALSE,"Demon Mage, Demon Mage, Demon Knight","Major Demon, Demon Archer, Demon Archer","Golem Skeleton, Demon Mage, Demon Mage",0,4,3,1000,100,10,none
+19,Daissera 4,0,FALSE,"Demon Mage, Demon Mage, Demon Knight","Major Demon, Demon Archer, Demon Archer","Golem Skeleton, Demon Mage, Demon Mage",0,4,4,1000,100,10,none
+20,Daissera 5,0,FALSE,"Demon Mage, Demon Mage, Demon Knight","Major Demon, Demon Archer, Demon Archer",Demon Commander,0,4,5,1000,100,10,none

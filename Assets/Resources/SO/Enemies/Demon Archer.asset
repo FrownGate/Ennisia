@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Demon Archer
   m_EditorClassIdentifier: 
-  SkillsData: []
+  SkillsData:
+  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
   ID: 22
   Name: Demon Archer
   Description: description
@@ -20,20 +21,20 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 1
+      Value: 1700
     - Key: 1
-      Value: 1
+      Value: 120
     - Key: 2
-      Value: 1
+      Value: 70
     - Key: 4
-      Value: 1
+      Value: 35
     - Key: 3
-      Value: 1
+      Value: 30
     - Key: 5
-      Value: 1
+      Value: 25
     - Key: 6
-      Value: 1
+      Value: 65
     - Key: 7
-      Value: 1
+      Value: 65
     - Key: 8
-      Value: 1
+      Value: 90
