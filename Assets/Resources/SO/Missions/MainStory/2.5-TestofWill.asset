@@ -21,14 +21,12 @@ MonoBehaviour:
   Waves:
     _serializedList:
     - Key: 1
-      Value: []
+      Value:
+      - Djeamy
     - Key: 2
       Value:
       - Djeamy
-    - Key: 3
-      Value:
-      - Djeamy
-  WavesCount: 3
+  WavesCount: 2
   Enemies:
   - Djeamy
   DialogueId: 0
@@ -41,4 +39,10 @@ MonoBehaviour:
     - Key: 1
       Value: 100
   GearReward: 
+  MaterialsRewards:
+    _serializedList: []
+  MatAmount:
+    _serializedList: []
+  Tickets:
+    _serializedList: []
   Experience: 10

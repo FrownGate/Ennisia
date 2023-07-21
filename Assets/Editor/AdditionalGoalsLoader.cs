@@ -53,7 +53,7 @@ public static class AdditionalGoalsLoader
 
             var goalValue = additionalGoalData[2];
             var goalAmount = additionalGoalData[3];
-
+            var goalSame = additionalGoalData[4];
             // Check if the additional goal is associated with the current quest
             if (questId != questSO.Information.ID)
                 continue;
@@ -82,10 +82,14 @@ public static class AdditionalGoalsLoader
                     if (!MissionProperties(goalInstance, goalValue))
                     {
                         Debug.LogError(
-                            $"Error setting killing properties for goal on line {i + 1} in the Goals.csv file.");
+                            $"Error setting mission properties for goal on line {i + 1} in the Goals.csv file.");
                         continue;
                     }
 
+                    break;
+
+                case GoalType.LevelUp:
+                    
                     break;
                 default:
                     Debug.LogError($"Unknown goal type: {goalType}");
@@ -99,6 +103,13 @@ public static class AdditionalGoalsLoader
             }
 
             goalInstance.RequiredAmount = amount;
+            
+            if (!bool.TryParse(goalSame, out var same))
+            {
+                Debug.LogError($"Invalid goal amount '{goalSame}' on line {i + 1} in the Goals.csv file.");
+                continue;
+            }
+            goalInstance.Same = same;
 
             // Add the goal to the QuestSO's Goals list
             questSO.Goals.Add(goalInstance);
@@ -118,6 +129,8 @@ public static class AdditionalGoalsLoader
         AssetDatabase.ImportAsset(questSOPath, ImportAssetOptions.ForceUpdate);
     }
 
+    
+
     private static QuestGoal CreateGoal(GoalType goalType, QuestSO questSO)
     {
         switch (goalType)
@@ -134,6 +147,12 @@ public static class AdditionalGoalsLoader
                 AssetDatabase.AddObjectToAsset(missionGoal, questSO);
 
                 return missionGoal;
+            case GoalType.LevelUp:
+                var levelUpGoal = ScriptableObject.CreateInstance<LevelUpGoal>();
+                levelUpGoal.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(levelUpGoal, questSO);
+
+                return levelUpGoal;
             default:
                 Debug.LogError($"Unknown goal type: {goalType}");
                 return null;
@@ -284,5 +303,6 @@ public static class AdditionalGoalsLoader
 
         return isValid;
     }
+    
 }
 #endif

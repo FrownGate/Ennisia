@@ -1,5 +1,5 @@
 ID,Name,QuestType,Description,Energy,Gold,Crystals
-1,Triumph Overlord,Achievement,"first time you beat a boss ",20,1000,30
+1,Triumph Overlord,Achievement,first time you beat a boss ,20,1000,30
 2,Apex Weapon,Achievement,reach max lvl for a weapon,20,1000,30
 3,Exalted Equipment,Achievement,reach max level for an equipement,20,1000,30
 4,Boss Bane,Achievement,first time you beat the same boss 10 time,20,1000,100
@@ -7,12 +7,55 @@ ID,Name,QuestType,Description,Energy,Gold,Crystals
 6,First Taste of Defeat,Achievement,first time you lose,20,1000,30
 7,Energetic Endeavor,Daily,Use 50 energy,20,300,0
 8,Dungeon Delver,Daily,Defeat a dongeon,20,300,0
-9,Embark on a journey,Daily,Do one story quest,20,300,0
-10,Foe Slayer,Daily,Kill 30 enemies,20,300,0
+9,Suiting Up!,Daily,Acquire a piece of gear,20,300,0
+10,Foe Slayer,Daily,Kill 10 enemies,20,300,0
 11,Empowering the Arsenal,Daily,Upgrade an equipment,20,300,0
 12,Raid Ravager,Weekly,Defeat 3 Raid,100,60,0
 13,Explorer's Triumph,Weekly,Finish one expedition,100,60,0
 14,Tower Ascendancy,Weekly,Do 10 floor in the Endless Tower,100,60,0
-15,Battlefield Conqueror,Weekly,Kill 100 enemies,100,60,0
-16,Epic Tales Unfold,Weekly,Do 5 story quest,100,60,0
-17,Wealthy Investments,Weekly,Spend 10 000 gold,100,60,0
+15,Epic Tales Unfold,Weekly,Do 5 story quest,100,60,0
+16,Wealthy Investments,Weekly,Spend 10 000 gold,100,60,0
+17,Master Killer I,Achievement,Kill 30 enemies,0,0,50
+18,Master Killer II,Achievement,Kill 100 enemies,0,0,100
+19,Master Killer III,Achievement,Kill 200 enemies,0,0,150
+20,Master Killer IV,Achievement,Kill 400 enemies,0,0,200
+21,Master Killer V,Achievement,Kill 800 enemies,0,0,250
+22,Master Killer VI,Achievement,Kill 1200 enemies,0,0,300
+23,Master Killer VII,Achievement,Kill 2500 enemies,0,0,350
+24,Master Killer VIII,Achievement,Kill 3500 enemies,0,0,400
+25,Master Killer IX,Achievement,Kill 5000 enemies,0,0,450
+26,Master Killer X,Achievement,Kill 10000 enemies,0,0,500
+27,Dedicated! I,Achievement,Use 200 energy,50,1000,0
+28,Dedicated! II,Achievement,Use 500 energy,75,1000,0
+29,Dedicated! III,Achievement,Use 1000 energy,100,1000,0
+30,Dedicated! IV,Achievement,Use 2000 energy,100,10000,0
+31,Dedicated! V,Achievement,Use 5000 energy,100,10000,0
+32,Dedicated! VI,Achievement,Use 8000 energy,100,10000,0
+33,Dedicated! VII,Achievement,Use 10000 energy,150,10000,0
+34,Dedicated! VIII,Achievement,Use 25000 energy,200,50000,0
+35,Dedicated! IX,Achievement,Use 50000 energy,500,100000,0
+36,Dedicated! X,Achievement,Use 100000 energy,1000,1000000,0
+37,Getting Stronger!,Achievement,Reach player lvl 5,0,0,0
+38,Getting Stronger! ,Achievement,Reach player lvl 10,0,0,0
+39,Getting Stronger!,Achievement,Reach player lvl 15,0,0,0
+40,Getting Stronger!,Achievement,Reach player lvl 20,0,0,0
+41,Getting Stronger!,Achievement,Reach player lvl 25,0,0,0
+42,Getting Stronger!,Achievement,Reach player lvl 30,0,0,0
+43,Getting Stronger!,Achievement,Reach player lvl 35,0,0,0
+44,Getting Stronger!,Achievement,Reach player lvl 40,0,0,0
+45,Getting Stronger!,Achievement,Reach player lvl 45,0,0,0
+46,Getting Stronger!,Achievement,Reach player lvl 50,0,0,0
+47,Getting Stronger!,Achievement,Reach player lvl 55,0,0,0
+48,Getting Stronger!,Achievement,Reach player lvl 60,0,0,0
+49,Getting Stronger!,Achievement,Reach player lvl 65,0,0,0
+50,Getting Stronger!,Achievement,Reach player lvl 70,0,0,0
+51,Getting Stronger!,Achievement,Reach player lvl 75,0,0,0
+52,Getting Stronger!,Achievement,Reach player lvl 80,0,0,0
+53,Getting Stronger!,Achievement,Reach player lvl 85,0,0,0
+54,Getting Stronger!,Achievement,Reach player lvl 90,0,0,0
+55,Getting Stronger!,Achievement,Reach player lvl 95,0,0,0
+56,Getting Stronger!,Achievement,Reach player lvl 96,0,0,0
+57,Getting Stronger!,Achievement,Reach player lvl 97,0,0,0
+58,Getting Stronger!,Achievement,Reach player lvl 98,0,0,0
+59,Getting Stronger!,Achievement,Reach player lvl 99,0,0,0
+60,Getting Stronger!,Achievement,Reach player lvl 100,0,0,0

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Demon Mage
   m_EditorClassIdentifier: 
-  SkillsData: []
+  SkillsData:
+  - {fileID: 11400000, guid: 2955ac3caac4525468ce5afe9276b429, type: 2}
   ID: 23
   Name: Demon Mage
   Description: description

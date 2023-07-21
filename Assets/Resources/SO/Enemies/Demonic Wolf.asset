@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Demonic Wolf
   m_EditorClassIdentifier: 
-  SkillsData: []
+  SkillsData:
+  - {fileID: 11400000, guid: cb4d66c028d85494e9e76dd9df914124, type: 2}
   ID: 25
   Name: Demonic Wolf
   Description: description
