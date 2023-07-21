@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4838142392785812509
+--- !u!114 &-922393663322121930
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17,6 +17,7 @@ MonoBehaviour:
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []
+  lvlType: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,8 +40,8 @@ MonoBehaviour:
     CurrencyList:
       _serializedList:
       - Key: 0
-        Value: 0
+        Value: 10000
       - Key: 1
-        Value: 0
+        Value: 50
   Goals:
-  - {fileID: -4838142392785812509}
+  - {fileID: -922393663322121930}

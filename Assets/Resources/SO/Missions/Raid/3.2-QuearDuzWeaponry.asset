@@ -19,9 +19,13 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Betala
+  WavesCount: 1
+  Enemies:
+  - Betala
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 2

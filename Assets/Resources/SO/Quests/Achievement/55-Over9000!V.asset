@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-370591324760652666
+--- !u!114 &-3992423635528340957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70d38626ddf4c3abe00cbeae8d4ecb4, type: 3}
   m_Name: LevelUp
   m_EditorClassIdentifier: 
-  RequiredAmount: 30
+  RequiredAmount: 25
   Same: 0
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []
-  lvlType: 1
+  lvlType: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,20 +28,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: 42-GettingStronger!
+  m_Name: 55-Over9000!V
   m_EditorClassIdentifier: 
   Information:
-    ID: 42
-    Name: Getting Stronger!
+    ID: 55
+    Name: Over 9000! V
     QuestType: 2
-    Description: Reach player lvl 30
+    Description: Reach account lvl 25
   Reward:
     Energy: 0
     CurrencyList:
       _serializedList:
       - Key: 0
-        Value: 10000
+        Value: 0
       - Key: 1
-        Value: 50
+        Value: 3200
   Goals:
-  - {fileID: -370591324760652666}
+  - {fileID: -3992423635528340957}

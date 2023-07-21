@@ -35,27 +35,23 @@ ID,Name,QuestType,Description,Energy,Gold,Crystals
 34,Dedicated! VIII,Achievement,Use 25000 energy,200,50000,0
 35,Dedicated! IX,Achievement,Use 50000 energy,500,100000,0
 36,Dedicated! X,Achievement,Use 100000 energy,1000,1000000,0
-37,Getting Stronger!,Achievement,Reach player lvl 5,0,0,0
-38,Getting Stronger! ,Achievement,Reach player lvl 10,0,0,0
-39,Getting Stronger!,Achievement,Reach player lvl 15,0,0,0
-40,Getting Stronger!,Achievement,Reach player lvl 20,0,0,0
-41,Getting Stronger!,Achievement,Reach player lvl 25,0,0,0
-42,Getting Stronger!,Achievement,Reach player lvl 30,0,0,0
-43,Getting Stronger!,Achievement,Reach player lvl 35,0,0,0
-44,Getting Stronger!,Achievement,Reach player lvl 40,0,0,0
-45,Getting Stronger!,Achievement,Reach player lvl 45,0,0,0
-46,Getting Stronger!,Achievement,Reach player lvl 50,0,0,0
-47,Getting Stronger!,Achievement,Reach player lvl 55,0,0,0
-48,Getting Stronger!,Achievement,Reach player lvl 60,0,0,0
-49,Getting Stronger!,Achievement,Reach player lvl 65,0,0,0
-50,Getting Stronger!,Achievement,Reach player lvl 70,0,0,0
-51,Getting Stronger!,Achievement,Reach player lvl 75,0,0,0
-52,Getting Stronger!,Achievement,Reach player lvl 80,0,0,0
-53,Getting Stronger!,Achievement,Reach player lvl 85,0,0,0
-54,Getting Stronger!,Achievement,Reach player lvl 90,0,0,0
-55,Getting Stronger!,Achievement,Reach player lvl 95,0,0,0
-56,Getting Stronger!,Achievement,Reach player lvl 96,0,0,0
-57,Getting Stronger!,Achievement,Reach player lvl 97,0,0,0
-58,Getting Stronger!,Achievement,Reach player lvl 98,0,0,0
-59,Getting Stronger!,Achievement,Reach player lvl 99,0,0,0
-60,Getting Stronger!,Achievement,Reach player lvl 100,0,0,0
+37,Getting Stronger!,Achievement,Reach player lvl 5,0,10000,50
+38,Getting Stronger! ,Achievement,Reach player lvl 10,0,10000,50
+39,Getting Stronger!,Achievement,Reach player lvl 15,0,10000,50
+40,Getting Stronger!,Achievement,Reach player lvl 20,0,10000,50
+41,Getting Stronger!,Achievement,Reach player lvl 25,0,10000,50
+42,Getting Stronger!,Achievement,Reach player lvl 30,0,10000,50
+43,Getting Stronger!,Achievement,Reach player lvl 35,0,10000,50
+44,Getting Stronger!,Achievement,Reach player lvl 40,0,10000,50
+45,Getting Stronger!,Achievement,Reach player lvl 45,0,10000,50
+46,Getting Stronger!,Achievement,Reach player lvl 46,0,10000,100
+47,Getting Stronger!,Achievement,Reach player lvl 47,0,10000,200
+48,Getting Stronger!,Achievement,Reach player lvl 48,0,10000,300
+49,Getting Stronger!,Achievement,Reach player lvl 49,0,10000,400
+50,Getting Stronger!,Achievement,Reach player lvl 50,0,10000,500
+51,Over 9000! I,Achievement,Reach account lvl 5,0,0,200
+52,Over 9000! II,Achievement,Reach account lvl 10,0,0,400
+53,Over 9000! III,Achievement,Reach account lvl 15,0,0,800
+54,Over 9000! IV,Achievement,Reach account lvl 20,0,0,1600
+55,Over 9000! V,Achievement,Reach account lvl 25,0,0,3200
+56,Over 9000! VI,Achievement,Reach account lvl 30,0,0,6400

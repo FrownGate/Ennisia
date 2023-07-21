@@ -89,7 +89,12 @@ public static class AdditionalGoalsLoader
                     break;
 
                 case GoalType.LevelUp:
-                    
+                    if (!LevelUpProperties(goalInstance, goalValue))
+                    {
+                        Debug.LogError(
+                            $"Error setting level up properties for goal on line {i + 1} in the Goals.csv file.");
+                        continue;
+                    }
                     break;
                 default:
                     Debug.LogError($"Unknown goal type: {goalType}");
@@ -303,6 +308,27 @@ public static class AdditionalGoalsLoader
 
         return isValid;
     }
-    
+    private static bool LevelUpProperties(QuestGoal goal, string goalValue)
+    {
+        
+        var isValid = true;
+        var values = CSVUtils.SplitCSVLine(goalValue);
+        foreach (var value in values)
+        {
+            if (Enum.TryParse(value, out LevelUpQuestEvent.LvlType type))
+            {
+                if (goal is LevelUpGoal levelUpGoal)
+                {
+                    levelUpGoal.lvlType = type;
+                }
+            }
+            else
+            {
+                Debug.LogError($"Invalid levelup value: {value}.");
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
 }
 #endif

@@ -94,8 +94,8 @@ public class QuestManager : MonoBehaviour
         QuestEventManager.Instance.QueueEvent(new MissionQuestEvent(mission));
     }
 
-    private void LevelUpQuest(int lvl)
+    private void LevelUpQuest(int lvl,LevelUpQuestEvent.LvlType type)
     {
-        QuestEventManager.Instance.QueueEvent(new LevelUpQuestEvent(lvl));
+        QuestEventManager.Instance.QueueEvent(new LevelUpQuestEvent(lvl,type));
     }
 }

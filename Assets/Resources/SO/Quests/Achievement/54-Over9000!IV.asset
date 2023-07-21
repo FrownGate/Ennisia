@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: 46-GettingStronger!
+  m_Name: 54-Over9000!IV
   m_EditorClassIdentifier: 
   Information:
-    ID: 46
-    Name: Getting Stronger!
+    ID: 54
+    Name: Over 9000! IV
     QuestType: 2
-    Description: Reach player lvl 46
+    Description: Reach account lvl 20
   Reward:
     Energy: 0
     CurrencyList:
       _serializedList:
       - Key: 0
-        Value: 10000
+        Value: 0
       - Key: 1
-        Value: 100
+        Value: 1600
   Goals:
-  - {fileID: 2577721274913624810}
---- !u!114 &2577721274913624810
+  - {fileID: 5288439803944732001}
+--- !u!114 &5288439803944732001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,9 +39,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70d38626ddf4c3abe00cbeae8d4ecb4, type: 3}
   m_Name: LevelUp
   m_EditorClassIdentifier: 
-  RequiredAmount: 46
+  RequiredAmount: 20
   Same: 0
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []
-  lvlType: 1
+  lvlType: 0
