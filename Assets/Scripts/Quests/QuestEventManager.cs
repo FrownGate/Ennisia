@@ -7,14 +7,17 @@ public class QuestEventManager : MonoBehaviour
     public bool LimitQueueProcesing = false;
     public float QueueProcessTime = 0.0f;
     private static QuestEventManager s_Instance = null;
-    private Queue m_eventQueue = new Queue();
+    private Queue m_eventQueue = new();
 
     public delegate void EventDelegate<T>(T e) where T : QuestEvent;
+
     private delegate void EventDelegate(QuestEvent e);
 
-    private Dictionary<System.Type, EventDelegate> delegates = new Dictionary<System.Type, EventDelegate>();
-    private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();
-    private Dictionary<System.Delegate, System.Delegate> onceLookups = new Dictionary<System.Delegate, System.Delegate>();
+    private Dictionary<System.Type, EventDelegate> delegates = new();
+
+    private Dictionary<System.Delegate, EventDelegate> delegateLookup = new();
+
+    private Dictionary<System.Delegate, System.Delegate> onceLookups = new();
 
     // override so we don't have the typecast the object
     public static QuestEventManager Instance
@@ -25,6 +28,7 @@ public class QuestEventManager : MonoBehaviour
             {
                 s_Instance = GameObject.FindObjectOfType(typeof(QuestEventManager)) as QuestEventManager;
             }
+
             return s_Instance;
         }
     }
@@ -72,24 +76,22 @@ public class QuestEventManager : MonoBehaviour
     public void RemoveListener<T>(EventDelegate<T> del) where T : QuestEvent
     {
         EventDelegate internalDelegate;
-        if (delegateLookup.TryGetValue(del, out internalDelegate))
+        if (!delegateLookup.TryGetValue(del, out internalDelegate)) return;
+        EventDelegate tempDel;
+        if (delegates.TryGetValue(typeof(T), out tempDel))
         {
-            EventDelegate tempDel;
-            if (delegates.TryGetValue(typeof(T), out tempDel))
+            tempDel -= internalDelegate;
+            if (tempDel == null)
             {
-                tempDel -= internalDelegate;
-                if (tempDel == null)
-                {
-                    delegates.Remove(typeof(T));
-                }
-                else
-                {
-                    delegates[typeof(T)] = tempDel;
-                }
+                delegates.Remove(typeof(T));
             }
-
-            delegateLookup.Remove(del);
+            else
+            {
+                delegates[typeof(T)] = tempDel;
+            }
         }
+
+        delegateLookup.Remove(del);
     }
 
     public void RemoveAll()
@@ -114,18 +116,16 @@ public class QuestEventManager : MonoBehaviour
             // remove listeners which should only be called once
             foreach (EventDelegate k in delegates[e.GetType()].GetInvocationList())
             {
-                if (onceLookups.ContainsKey(k))
+                if (!onceLookups.ContainsKey(k)) continue;
+                delegates[e.GetType()] -= k;
+
+                if (delegates[e.GetType()] == null)
                 {
-                    delegates[e.GetType()] -= k;
-
-                    if (delegates[e.GetType()] == null)
-                    {
-                        delegates.Remove(e.GetType());
-                    }
-
-                    delegateLookup.Remove(onceLookups[k]);
-                    onceLookups.Remove(k);
+                    delegates.Remove(e.GetType());
                 }
+
+                delegateLookup.Remove(onceLookups[k]);
+                onceLookups.Remove(k);
             }
         }
         else

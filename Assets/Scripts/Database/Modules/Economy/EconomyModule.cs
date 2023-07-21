@@ -19,7 +19,7 @@ public class EconomyModule : Module
 
     public readonly Dictionary<string, CatalogItem> Stores = new();
     public readonly List<CatalogItem> CatalogItems = new();
-    
+
     private readonly Dictionary<string, string> _currencies = new();
     private readonly Dictionary<string, string> _itemsById = new();
     private readonly Dictionary<string, string> _itemsByName = new();
@@ -350,10 +350,12 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    public IEnumerator PurchaseInventoryItem(Item item)
+    public IEnumerator PurchaseInventoryItem(Item item, int amount = 1)
     {
         yield return _manager.StartAsyncRequest($"Purchasing {item}...");
 
+        string currency = PlayFabManager.Instance.GetItemById(item.Ide).PriceOptions.Prices[0].Amounts[0].ItemId;
+        
         PlayFabEconomyAPI.PurchaseInventoryItems(new()
         {
             Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type },
@@ -362,17 +364,26 @@ public class EconomyModule : Module
                 AlternateId = new()
                 {
                     Type = "FriendlyId",
-                    Value = item.GetType().Name,
+                    Value = item.Name,
                 },
                 StackId = item.Stack
             },
-            Amount = item.Amount
+            Amount = amount,
+            PriceAmounts = new()
+            {
+                new()
+                {
+                    ItemId = currency,
+                    Amount = item.Price
+                }
+            },
         }, res => _manager.EndRequest($"Purchased {item} !"), _manager.OnRequestError);
     }
 
-    public string GetItemById(string id)
+    public CatalogItem GetItemById(string id)
     {
-        return _itemsById[id];
+        CatalogItem item = CatalogItems.Find(i => i.Id == id);
+        return item;
     }
 
     #endregion

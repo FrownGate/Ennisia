@@ -29,6 +29,20 @@ public class Material : Item
         AddToInventory();
     }
 
+    public Material(CatalogItem item)
+    {
+        Material material = JsonUtility.FromJson<Material>(item.DisplayProperties.ToString());
+        material.Deserialize();
+
+        Stack = item.Id;
+        Amount = 1;
+        Category = material.Category;
+        Rarity = material.Rarity;
+        Name = material.Name;
+
+        AddToInventory();
+    }
+
     protected override void SetName()
     {
         Name = $"[{Rarity}] {Category} {GetType().Name}";

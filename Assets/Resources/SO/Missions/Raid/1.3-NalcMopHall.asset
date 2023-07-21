@@ -19,9 +19,13 @@ MonoBehaviour:
   EnergyCost: 10
   Unlocked: 0
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - LaiJande
+  WavesCount: 1
+  Enemies:
+  - LaiJande
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 3
@@ -31,5 +35,5 @@ MonoBehaviour:
       Value: 1000
     - Key: 1
       Value: 100
-  GearReward: 
+  RewardData: []
   Experience: 10

@@ -11,6 +11,7 @@ public class TidalCrash : DamageSkill
             target.TakeDamage(damage);
             TotalDamage += damage;
         }
+        Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
 }

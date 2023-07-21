@@ -5,112 +5,112 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
     guid: 6bf08872e64464d4a8698c0c7b4e782d
   - enabled: 1
     path: Assets/Scenes/Dev/Alexis/Chat.unity
     guid: f0f233a6e98464340885fe6771af26c7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2b29e92a81dd06d4da2cfea0a71712b2
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 3a5f7fd03cb1ec142b3944e7e2cd5a2d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Missions/Raids&Dungeons.unity
     guid: 2e81c5566a4cf7e4eb328b097aba487c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Inventory/StuffMenu.unity
     guid: 13df4a1a9f7f930478f0cfe13443000d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Summon/Summon.unity
     guid: feacd5e5cd9c95b40897c9cd78a5e001
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Summon/SummonPopup.unity
     guid: bd69628cd9c85b0469db253ca14f5c52
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Shop.unity
     guid: 91687e3abef33b547b352c3e26beccfa
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Forge.unity
     guid: f605877a7d36bfd4fbb79b7e342dddb9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Missions/BattleModeSelection.unity
     guid: 55d6fa4e1512ab041bdccdb546105acd
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MenuPopup.unity
     guid: c1e758dfa5282754a93a2b23908c3fd4
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SettingsPopup.unity
     guid: a2d12d7d40bbbb945a67991d2cf73c6b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/ProfilePopup.unity
     guid: 25425c78f2f85e445b7cfcfa3e0311dc
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Loading_Big.unity
     guid: 19f45cabb60b2e643838eaa7a7879245
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Loading_Mini.unity
     guid: 1a8dc37abfb99c54987e098715972d00
-  - enabled: 0
-    path: Assets/Scenes/Missions/StoryChapter.unity
+  - enabled: 1
+    path: Assets/Scenes/Missions/BattleEnd.unity
     guid: 724968815362d7c4688de4df3987eb20
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Pets.unity
     guid: 3c9309ffef9a5154783cee365ff7231b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Missions/MainStory.unity
     guid: 7541eecf0941bb9479a12b61d6250444
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Missions/EndlessTower.unity
     guid: 8461a66818b9f1f4ba83fa4c9b878dbb
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Inventory/GearSelectionPopup.unity
     guid: 81b8947530d81c44b8a672388ccd99e3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GenderSelection.unity
     guid: c4bbf528714eeff4ebd876947d4f6e19
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Inventory/InventoryPopup.unity
     guid: 5b26c1450d625164e884692e3cfa42f7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Inventory/SupportSelectionPopup.unity
     guid: d12afcbd6ca77db4f93ecf4a555d70b4
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Guilds/PlayerGuild.unity
     guid: fd2266221b4879d438068fc08193a1b2
   - enabled: 1
     path: Assets/Scenes/Forge.unity
     guid: f605877a7d36bfd4fbb79b7e342dddb9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Guilds/GuildsList.unity
     guid: a65a5679c6f78ef479ed679c5bddf2ba
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Missions/ExpeditionSelection.unity
     guid: 64d2a7f04c87f2648bd3f2ab531b32bc
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Missions/Expedition.unity
     guid: 2d8d56568982b9a498b53009f9c60e5e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MailPopup.unity
     guid: 902bd5c55e0f8364bbc98f1e01744f38
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/EventPopup.unity
     guid: 8d31d82bee3603d49855e7386e902f24
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Quests.unity
     guid: 077a8c99c9e9ec44596953631d89ad3f
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Guilds/GuildCommunity.unity
     guid: 55e92da6489c685469a73b1810a479a2
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Guilds/GuildShop.unity
     guid: bf89ec98b15dc884a87acfa8aca16a82
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Guilds/GuildMissions.unity
     guid: d8d9e7b7fad17b44e953b6ce8d60cc5c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Friends.unity
     guid: 0941cbb4f76ba6e4994e3a641ba97c13
   m_configObjects: {}

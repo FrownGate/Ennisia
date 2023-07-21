@@ -27,6 +27,19 @@ public class SummonTicket : Item
         AddToInventory();
     }
 
+    public SummonTicket(CatalogItem item)
+    {
+        SummonTicket summonTicket = JsonUtility.FromJson<SummonTicket>(item.DisplayProperties.ToString());
+        summonTicket.Deserialize();
+
+        Stack = item.Id;
+        Amount = 1;
+        Rarity = summonTicket.Rarity;
+        Name = summonTicket.Name;
+
+        AddToInventory();
+    }
+
     protected override void SetName()
     {
         Name = Rarity == global::Rarity.Common ? "Summon Ticket" : $"{Rarity} Summon Ticket";

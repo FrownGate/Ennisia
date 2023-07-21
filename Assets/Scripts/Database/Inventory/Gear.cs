@@ -80,6 +80,34 @@ public class Gear : Item
         AddToInventory();
     }
 
+    public Gear(CatalogItem item)
+    {
+        Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
+        gear.Deserialize();
+
+        Id = SetId();
+        Stack = item.Id;
+        Type = gear.Type;
+        Rarity = gear.Rarity;
+        Description = gear.Description;
+        Category = gear.Category;
+        Attribute = gear.Attribute;
+        BaseValue = gear.BaseValue;
+        Value = BaseValue;
+        BaseSubStats = gear.SubStats;
+        SubStats = BaseSubStats;
+        Level = gear.Level;
+        Name = gear.Name;
+
+        if (Category == ItemCategory.Weapon)
+        {
+            string weaponName = Name.Split($"[{Rarity}] ")[1];
+            WeaponSO = Resources.Load<GearSO>($"SO/Weapons/{weaponName}");
+        }
+
+        AddToInventory();
+    }
+
     public override void Serialize()
     {
         if (Category != ItemCategory.Weapon && Rarity != global::Rarity.Common)

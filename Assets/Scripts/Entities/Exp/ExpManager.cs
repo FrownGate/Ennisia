@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
@@ -5,9 +6,9 @@ using NaughtyAttributes;
 
 public class ExpManager : MonoBehaviour
 {
-    //public Image ProgressBar; // Référence à l'objet Image de la barre de progression
-    //public Text ExpText; // Référence au texte de l'expérience
-    //public Text LevelText; // Référence au texte du niveau
+    //public Image ProgressBar; // RÃ©fÃ©rence Ã  l'objet Image de la barre de progression
+    //public Text ExpText; // RÃ©fÃ©rence au texte de l'expÃ©rience
+    //public Text LevelText; // RÃ©fÃ©rence au texte du niveau
 
     public static ExpManager Instance { get; private set; }
 
@@ -15,6 +16,8 @@ public class ExpManager : MonoBehaviour
 
     public Dictionary<int, int> PlayerlevelExperienceMap;
     public Dictionary<int, int> AccountlevelExperienceMap;
+    public static event Action<int,LevelUpQuestEvent.LvlType> OnAccountLevelUp;
+    public static event Action<int,LevelUpQuestEvent.LvlType> OnPlayerLevelUp;
 
 
     private void Awake()
@@ -36,28 +39,29 @@ public class ExpManager : MonoBehaviour
         var experience = PlayFabManager.Instance.Account.Exp;
 
         if (accountLevel == AccountlevelExperienceMap.Count)
-            // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
+            // Le joueur a atteint le niveau maximum, ne gagne plus d'expÃ©rience
             return;
 
-        experience += expToAdd; // Ajoute l'expérience spécifiée
+        experience += expToAdd; // Ajoute l'expÃ©rience spÃ©cifiÃ©e
         Debug.Log("player gain " + expToAdd);
 
         while (AccountlevelExperienceMap.ContainsKey(accountLevel + 1) &&
                experience >= AccountlevelExperienceMap[accountLevel + 1])
         {
-            accountLevel++; // Incrémente le niveau
+            accountLevel++; // IncrÃ©mente le niveau
             experience -=
                 AccountlevelExperienceMap
-                    [accountLevel]; // Déduit l'expérience requise pour atteindre le niveau suivant
+                    [accountLevel]; // DÃ©duit l'expÃ©rience requise pour atteindre le niveau suivant
             PlayFabManager.Instance.Account.Level = accountLevel;
             PlayFabManager.Instance.Account.Exp = experience;
             AccounRewards.LvlupReward(accountLevel);
+            OnPlayerLevelUp?.Invoke(accountLevel,LevelUpQuestEvent.LvlType.Account);
         }
 
         PlayFabManager.Instance.Account.Exp = experience;
         PlayFabManager.Instance.UpdateData();
 
-        //UpdateUI(); // Met à jour l'interface utilisateur
+        //UpdateUI(); // Met Ã  jour l'interface utilisateur
     }
 
     public void GainExperiencePlayer(int expToAdd)
@@ -66,25 +70,26 @@ public class ExpManager : MonoBehaviour
         var experience = PlayFabManager.Instance.Player.Exp;
 
         if (level == PlayerlevelExperienceMap.Count)
-            // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
+            // Le joueur a atteint le niveau maximum, ne gagne plus d'expÃ©rience
             return;
 
-        experience += expToAdd; // Ajoute l'expérience spécifiée
+        experience += expToAdd; // Ajoute l'expÃ©rience spÃ©cifiÃ©e
         Debug.Log("player gain " + expToAdd);
 
         while (PlayerlevelExperienceMap.ContainsKey(level + 1) && experience >= PlayerlevelExperienceMap[level + 1])
         {
-            level++; // Incrémente le niveau
+            level++; // IncrÃ©mente le niveau
             experience -=
-                PlayerlevelExperienceMap[level]; // Déduit l'expérience requise pour atteindre le niveau suivant
+                PlayerlevelExperienceMap[level]; // DÃ©duit l'expÃ©rience requise pour atteindre le niveau suivant
             PlayFabManager.Instance.Player.Level = level;
             PlayFabManager.Instance.Player.Exp = experience;
+            OnPlayerLevelUp?.Invoke(level,LevelUpQuestEvent.LvlType.Player);
         }
 
         PlayFabManager.Instance.Player.Exp = experience;
         PlayFabManager.Instance.UpdateData();
 
-        //UpdateUI(); // Met à jour l'interface utilisateur
+        //UpdateUI(); // Met Ã  jour l'interface utilisateur
     }
 
     private void LoadLevelExperienceMap()
@@ -105,7 +110,7 @@ public class ExpManager : MonoBehaviour
                 var level = int.Parse(values[0]);
                 var experienceRequired = int.Parse(values[1]);
 
-                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
+                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau Ã  l'expÃ©rience requise
             }
             else
             {
@@ -129,12 +134,24 @@ public class ExpManager : MonoBehaviour
                 var level = int.Parse(values[0]);
                 var experienceRequired = int.Parse(values[1]);
 
-                AccountlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
+                AccountlevelExperienceMap[level] = experienceRequired; // Associe le niveau Ã  l'expÃ©rience requise
             }
             else
             {
                 Debug.LogWarning("Format invalide dans le fichier CSV : " + line);
             }
         }
+    }
+
+
+    private void OnEnable()
+    {
+        RewardsManager.GainXp += GainExperienceAccount;
+        RewardsManager.GainXp += GainExperiencePlayer;
+    }
+    private void OnDisable()
+    {
+        RewardsManager.GainXp -= GainExperienceAccount;
+        RewardsManager.GainXp -= GainExperiencePlayer;
     }
 }

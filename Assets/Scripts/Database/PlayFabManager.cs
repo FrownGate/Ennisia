@@ -56,6 +56,8 @@ public class PlayFabManager : MonoBehaviour
     public List<PlayFab.EconomyModels.CatalogItem> Items => _economyMod.CatalogItems;
     public int Energy => _economyMod.Energy;
 
+    public PlayFab.EconomyModels.CatalogItem GetItemById(string id) => _economyMod.GetItemById(id);
+
     //Guilds Module
     [SerializeField] private GuildsModule _guildsMod;
 
