@@ -20,7 +20,7 @@ public class ShopSystem : MonoBehaviour
     //private Dictionary<string, List<GameObject>> _shopItems = new ();
     private List<GameObject> _currentShopItems = new List<GameObject>();
     private string _currentShop;
-    
+      
 
     void Start()
     {
@@ -68,6 +68,7 @@ public class ShopSystem : MonoBehaviour
     
     public void OnShopBtnClick(string shopName)
     {
+        DestroyOnClear();
         foreach (var shop in _shops)
         {
             if (shop.Value.AlternateIds[0].Value == shopName)
@@ -76,5 +77,14 @@ public class ShopSystem : MonoBehaviour
                 InitShopItems(shop.Value.ItemReferences);
             }
         }
+    }
+
+    private void DestroyOnClear()
+    {
+        foreach (var item in _currentShopItems)
+        {
+            Destroy(item);
+        }
+        _currentShopItems.Clear();
     }
 }

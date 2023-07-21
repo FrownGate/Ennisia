@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,11 +18,17 @@ public class ShowShopBtnInfo : MonoBehaviour
     [HideInInspector]
     public string ItemDescription;
     
+    
+    private ItemPopUpController _itemPopUpController => FindObjectOfType<ItemPopUpController>();
     void Start()
     {
         _itemName.text = ItemName;
         _itemPrice.text = ItemPrice.ToString();
     }
-    
-    
+
+    private void OnMouseDown()
+    {
+        _itemPopUpController.SetUpPopupInfo(ItemPrice, ItemName, ItemDescription);
+        _itemPopUpController.OpenPopup();
+    }
 }
