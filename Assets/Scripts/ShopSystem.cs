@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using PlayFab.ClientModels;
@@ -16,7 +17,8 @@ public class ShopSystem : MonoBehaviour
     private Dictionary<string, PlayFab.EconomyModels.CatalogItem> _shops;
     private int _itemId;
     
-    private Dictionary<string, List<GameObject>> _shopItems = new ();
+    //private Dictionary<string, List<GameObject>> _shopItems = new ();
+    private List<GameObject> _currentShopItems = new List<GameObject>();
     private string _currentShop;
     
 
@@ -26,7 +28,7 @@ public class ShopSystem : MonoBehaviour
         InitShops();
     }
 
-    public void InitShops()
+    private void InitShops()
     {
         foreach (var store in PlayFabManager.Instance.Stores)
         {
@@ -39,8 +41,10 @@ public class ShopSystem : MonoBehaviour
         }
     }
 
-    public void InitShopItems(List<CatalogItemReference> itemReferences)
+    private void InitShopItems(List<CatalogItemReference> itemReferences)
     {
+        _currentShopItems.Clear();
+        
         for (int i = 0; i < itemReferences.Count; i++)
         {
             GameObject shopItemBtn = Instantiate(_shopItemBtnPrefab, transform);
@@ -50,6 +54,8 @@ public class ShopSystem : MonoBehaviour
             PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
             itemInfo.ItemName = item.AlternateIds[0].Value;
             itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
+            Debug.Log(itemInfo.ItemName + "Added");
+            _currentShopItems.Add(shopItemBtn);
         }
     }
 
@@ -57,5 +63,18 @@ public class ShopSystem : MonoBehaviour
     {
         Item newItem = Item.CreateFromCatalogItem(item);
         PlayFabManager.Instance.PurchaseInventoryItem(newItem);
+    }
+    
+    
+    public void OnShopBtnClick(string shopName)
+    {
+        foreach (var shop in _shops)
+        {
+            if (shop.Value.AlternateIds[0].Value == shopName)
+            {
+                _currentShop = shopName;
+                InitShopItems(shop.Value.ItemReferences);
+            }
+        }
     }
 }
