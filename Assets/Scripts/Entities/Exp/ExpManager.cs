@@ -16,8 +16,8 @@ public class ExpManager : MonoBehaviour
 
     public Dictionary<int, int> PlayerlevelExperienceMap;
     public Dictionary<int, int> AccountlevelExperienceMap;
-    public static event Action<int> OnAccountLevelUp;
-    public static event Action<int> OnPlayerLevelUp;
+    public static event Action<int,LevelUpQuestEvent.LvlType> OnAccountLevelUp;
+    public static event Action<int,LevelUpQuestEvent.LvlType> OnPlayerLevelUp;
 
 
     private void Awake()
@@ -55,7 +55,7 @@ public class ExpManager : MonoBehaviour
             PlayFabManager.Instance.Account.Level = accountLevel;
             PlayFabManager.Instance.Account.Exp = experience;
             AccounRewards.LvlupReward(accountLevel);
-            OnPlayerLevelUp?.Invoke(accountLevel);
+            OnPlayerLevelUp?.Invoke(accountLevel,LevelUpQuestEvent.LvlType.Account);
         }
 
         PlayFabManager.Instance.Account.Exp = experience;
@@ -83,7 +83,7 @@ public class ExpManager : MonoBehaviour
                 PlayerlevelExperienceMap[level]; // Déduit l'expérience requise pour atteindre le niveau suivant
             PlayFabManager.Instance.Player.Level = level;
             PlayFabManager.Instance.Player.Exp = experience;
-            OnPlayerLevelUp?.Invoke(level);
+            OnPlayerLevelUp?.Invoke(level,LevelUpQuestEvent.LvlType.Player);
         }
 
         PlayFabManager.Instance.Player.Exp = experience;

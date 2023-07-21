@@ -22,12 +22,12 @@ MonoBehaviour:
     CurrencyList:
       _serializedList:
       - Key: 0
-        Value: 0
+        Value: 10000
       - Key: 1
-        Value: 0
+        Value: 50
   Goals:
-  - {fileID: 8329399519564201479}
---- !u!114 &8329399519564201479
+  - {fileID: 7553571655121205065}
+--- !u!114 &7553571655121205065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,3 +44,4 @@ MonoBehaviour:
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []
+  lvlType: 1

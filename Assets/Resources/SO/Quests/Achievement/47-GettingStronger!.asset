@@ -16,18 +16,18 @@ MonoBehaviour:
     ID: 47
     Name: Getting Stronger!
     QuestType: 2
-    Description: Reach player lvl 55
+    Description: Reach player lvl 47
   Reward:
     Energy: 0
     CurrencyList:
       _serializedList:
       - Key: 0
-        Value: 0
+        Value: 10000
       - Key: 1
-        Value: 0
+        Value: 200
   Goals:
-  - {fileID: 700668532244695747}
---- !u!114 &700668532244695747
+  - {fileID: 3550890527845666187}
+--- !u!114 &3550890527845666187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,8 +39,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70d38626ddf4c3abe00cbeae8d4ecb4, type: 3}
   m_Name: LevelUp
   m_EditorClassIdentifier: 
-  RequiredAmount: 55
+  RequiredAmount: 47
   Same: 0
   GoalCompleted:
     m_PersistentCalls:
       m_Calls: []
+  lvlType: 1
