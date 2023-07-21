@@ -355,6 +355,12 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
+  - name: Loading_Big
+    path: Assets/Scenes/Loading_Big.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
   - name: StoryChapter
     path: Assets/Scenes/Missions/StoryChapter.unity
   - name: StoryChapter
@@ -375,8 +381,6 @@ MonoBehaviour:
     path: Assets/Scenes/Battle.unity
   - name: MailPopup
     path: Assets/Scenes/MailPopup.unity
-  - name: TitleScreen
-    path: Assets/Scenes/TitleScreen.unity
   - name: MainMenu
     path: Assets/Scenes/MainMenu.unity
   - name: ProfilePopup
@@ -389,8 +393,4 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/InventoryPopup.unity
   - name: Raids&Dungeons
     path: Assets/Scenes/Missions/Raids&Dungeons.unity
-  - name: MainStory
-    path: Assets/Scenes/Missions/MainStory.unity
-  - name: SummonPopup
-    path: Assets/Scenes/Summon/SummonPopup.unity
   _notes: []
