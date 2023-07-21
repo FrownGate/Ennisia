@@ -19,10 +19,10 @@ MonoBehaviour:
   DamageRatio: 50
   ShieldAmount: 0
   HealingAmount: 0
+  BuffAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 1
-  IsAfter: 0
   AOE: 0
   IsMagic: 0
   IsPassive: 0

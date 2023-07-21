@@ -17,11 +17,11 @@ MonoBehaviour:
   Description: If he's alone, increase his attack by 100% regen 50% of damage dealt
   DamageRatio: 0
   ShieldAmount: 0
-  HealingAmount: 0
+  HealingAmount: 50
+  BuffAmount: 100
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 0
-  IsAfter: 0
   AOE: 0
   IsMagic: 0
   IsPassive: 1

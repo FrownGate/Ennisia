@@ -9,10 +9,10 @@ public class SkillSO : ScriptableObject
     public float DamageRatio;
     public float ShieldAmount;
     public float HealingAmount;
+    public float BuffAmount;
     public int MaxCooldown;
     public float IgnoreDef;
     public int HitNumber;
-    public bool IsAfter;
     public bool AOE;
     public bool IsMagic;
     public bool IsPassive;

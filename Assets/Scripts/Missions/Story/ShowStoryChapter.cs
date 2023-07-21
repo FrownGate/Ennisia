@@ -65,12 +65,12 @@ public class ShowStoryChapter : MonoBehaviour
             buttonText.text += $"-{currencyReward.Key}: {currencyReward.Value}\n";
         }
 
-        if (mission.GearReward != null && mission.GearReward.Count > 0)
+        if (mission.RewardData != null && mission.RewardData.Count > 0)
         {
             buttonText.text += "<b>Gear:</b>\n";
-            foreach (var gearReward in mission.GearReward)
+            foreach (var reward in mission.RewardData)
             {
-                buttonText.text += $"-{gearReward}\n";
+                buttonText.text += $"-{reward}\n";
             }
         }
 

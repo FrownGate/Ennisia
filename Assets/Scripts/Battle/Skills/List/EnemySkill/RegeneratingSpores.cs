@@ -4,8 +4,11 @@ public class RegeneratingSpores : ProtectionSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        for (int i = 1; i < targets.Count; i++) targets[i].CurrentHp += (targets[i].Stats[Attribute.HP].Value * 0.6f);
-        for (int i = 1; i < targets.Count; i++) targets[i].Cleanse();
+        foreach (Entity target in targets)
+        {
+            target.Cleanse();
+            target.Heal(target.Stats[Attribute.HP].Value*(Data.HealingAmount/100));
+        }
         return 0;
     }
 }

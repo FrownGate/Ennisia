@@ -26,3 +26,12 @@ public class MissionQuestEvent : QuestEvent
         Mission = mission;
     }
 }
+public class LevelUpQuestEvent : QuestEvent
+{
+    public int Level;
+
+    public LevelUpQuestEvent(int lvl)
+    {
+        Level = lvl;
+    }
+}

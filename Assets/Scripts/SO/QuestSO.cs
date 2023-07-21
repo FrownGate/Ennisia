@@ -7,12 +7,12 @@ using UnityEngine.Events;
 
 public enum QuestType
 {
-    Daily, Weekly, Achievement
+     Daily, Weekly, Achievement
 }
 
 public enum GoalType
 {
-    Killing, Mission
+    Unknown, Killing, Mission, LevelUp
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
@@ -40,17 +40,16 @@ public class QuestSO : ScriptableObject
         { Energy = 20, CurrencyList = new SerializedDictionary<Currency, int>() };
 
     public bool Completed { get; protected set; }
+    public bool RewardGiven { get; protected set; }
     public QuestCompletedEvent QuestCompleted;
 
     public abstract class QuestGoal : ScriptableObject
     {
-        protected string Description;
         public int CurrentAmount { get; protected set; }
         public int RequiredAmount = 1;
+        public bool Same;
         public bool Completed { get; protected set; }
         [HideInInspector] public UnityEvent GoalCompleted;
-
-        public virtual string GetDescription() => Description;
 
         public virtual void Initialize()
         {
@@ -67,6 +66,7 @@ public class QuestSO : ScriptableObject
 
         public void Complete()
         {
+            Debug.Log($"Quest Complete!");
             Completed = true;
             GoalCompleted.Invoke();
             GoalCompleted.RemoveAllListeners();
@@ -89,12 +89,14 @@ public class QuestSO : ScriptableObject
     {
 #if UNITY_EDITOR
         Completed = false;
+        RewardGiven = false;
 #endif
         QuestCompleted = new QuestCompletedEvent();
         foreach (var goal in Goals)
         {
             goal.Initialize();
             goal.GoalCompleted.AddListener(delegate { CheckGoals(); });
+            
         }
     }
 
@@ -102,16 +104,16 @@ public class QuestSO : ScriptableObject
     {
         Completed = Goals.All(g => g.Completed);
         if (!Completed) return;
-        GiveRewards();
         QuestCompleted.Invoke(this);
         QuestCompleted.RemoveAllListeners();
     }
 
-    private void GiveRewards()
+    public void GiveRewards()
     {
         foreach (var currency in Reward.CurrencyList) PlayFabManager.Instance.AddCurrency(currency.Key, currency.Value);
-
+        
         PlayFabManager.Instance.AddEnergy(Reward.Energy);
+        RewardGiven = true;
     }
 
     public void Reset()

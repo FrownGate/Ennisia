@@ -20,10 +20,7 @@ public class MissionSO : ScriptableObject
     public int NumInChapter;
 
     [SerializedDictionary("Currency", "Value")] public SerializedDictionary<Currency, int> CurrencyRewards = new();
-    public List<Rarity> GearReward;
-    public SerializedDictionary<ItemCategory, Rarity> MaterialsRewards = new();
-    public SerializedDictionary<ItemCategory, int> MatAmount;
-    public SerializedDictionary<Rarity, int> Tickets;
+    public List<RewardData> RewardData;
     public int Experience; 
     // Add additional mission data as needed
 }

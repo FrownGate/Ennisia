@@ -4,9 +4,13 @@ public class Aftermath : PassiveSkill
 {
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        if (caster.HasAlteration())
+        foreach (Entity target in targets)
         {
-            caster.AtkBarPercentage += 70;
+            if (target.HasAlteration())
+            {
+                caster.AtkBarPercentage += 70;
+            }
         }
+        
     }
 }
