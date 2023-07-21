@@ -2510,6 +2510,7 @@ namespace PlayFab.AdminModels
         MultiplayerServerBuildReferencedByMatchmakingQueue,
         MultiplayerServerBuildReferencedByBuildAlias,
         MultiplayerServerBuildAliasReferencedByMatchmakingQueue,
+        PartySerializationError,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,
@@ -2574,6 +2575,7 @@ namespace PlayFab.AdminModels
         TelemetryKeyInvalid,
         TelemetryKeyCountOverLimit,
         TelemetryKeyDeactivated,
+        TelemetryKeyLongInsightsRetentionNotAllowed,
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
@@ -2598,7 +2600,9 @@ namespace PlayFab.AdminModels
         PlayerCustomPropertiesVersionMismatch,
         PlayerCustomPropertiesPropertyCountTooHigh,
         PlayerCustomPropertiesDuplicatePropertyName,
-        PlayerCustomPropertiesPropertyDoesNotExist
+        PlayerCustomPropertiesPropertyDoesNotExist,
+        AddonAlreadyExists,
+        AddonDoesntExist
     }
 
     [Serializable]

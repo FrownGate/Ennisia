@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 
 public class LevelUpGoal : QuestSO.QuestGoal
 {
+    public LevelUpQuestEvent.LvlType lvlType;
     public override void Initialize()
     {
         base.Initialize();
@@ -13,7 +15,7 @@ public class LevelUpGoal : QuestSO.QuestGoal
     public void OnLevelUP(LevelUpQuestEvent eventInfo)
     {
         if (Completed) return;
-        CurrentAmount = eventInfo.Level;
+        if (eventInfo.LevelType == lvlType) CurrentAmount = eventInfo.Level;
         Evaluate();
     }
 }

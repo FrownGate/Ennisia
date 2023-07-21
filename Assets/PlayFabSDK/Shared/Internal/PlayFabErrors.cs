@@ -650,6 +650,7 @@ namespace PlayFab
         MultiplayerServerBuildReferencedByMatchmakingQueue = 6002,
         MultiplayerServerBuildReferencedByBuildAlias = 6003,
         MultiplayerServerBuildAliasReferencedByMatchmakingQueue = 6004,
+        PartySerializationError = 6005,
         ExperimentationExperimentStopped = 7000,
         ExperimentationExperimentRunning = 7001,
         ExperimentationExperimentNotFound = 7002,
@@ -714,6 +715,7 @@ namespace PlayFab
         TelemetryKeyInvalid = 14203,
         TelemetryKeyCountOverLimit = 14204,
         TelemetryKeyDeactivated = 14205,
+        TelemetryKeyLongInsightsRetentionNotAllowed = 14206,
         EventSinkConnectionInvalid = 15000,
         EventSinkConnectionUnauthorized = 15001,
         EventSinkRegionInvalid = 15002,
@@ -738,7 +740,9 @@ namespace PlayFab
         PlayerCustomPropertiesVersionMismatch = 19004,
         PlayerCustomPropertiesPropertyCountTooHigh = 19005,
         PlayerCustomPropertiesDuplicatePropertyName = 19006,
-        PlayerCustomPropertiesPropertyDoesNotExist = 19007
+        PlayerCustomPropertiesPropertyDoesNotExist = 19007,
+        AddonAlreadyExists = 19008,
+        AddonDoesntExist = 19009
     }
 
     public class PlayFabError

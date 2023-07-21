@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 093286084a3d1994a9c28281a1c38b1d, type: 3}
   m_Name: PlayFabSharedSettings
-  m_EditorClassIdentifier: PlayFab::PlayFabSharedSettings
+  m_EditorClassIdentifier: 
   TitleId: 455A6
-  DeveloperSecretKey: 8MUAQ1XYZNKZJZR59XT16H838GH1F1N5JY8XD9MQOX79K5NHTC
+  DeveloperSecretKey: FDUEQXI6NECTJ5339QOR55IXDJM4PNG3AUUJK7I13NGGRNNK54
   ProductionEnvironmentUrl: 
   RequestType: 0
   DisableDeviceInfo: 0
