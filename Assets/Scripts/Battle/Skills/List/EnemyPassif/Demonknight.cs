@@ -4,13 +4,18 @@ public class DemonKnight : PassiveSkill
 {
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        foreach (Effect effect in targets[0].Effects)
+        foreach (Entity target in targets)
         {
-            if (effect.GetType() == typeof(DemonicMark))
+            foreach (Effect effect in target.Effects)
             {
-                targets[0].ApplyEffect(new DemonicMark());
-                targets[0].ApplyEffect(new DemonicMark());
+                if (effect.GetType() == typeof(DemonicMark))
+                {
+                    target.ApplyEffect(new DemonicMark());
+                    target.ApplyEffect(new DemonicMark());
+                    break;
+                }
             }
         }
+        
     }
 }

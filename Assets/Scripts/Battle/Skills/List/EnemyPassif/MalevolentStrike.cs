@@ -8,13 +8,19 @@ public class MalevolentStrike : PassiveSkill
         {
             if (effect.GetType() == typeof(AttackBuff))
             {
-                targets[0].DefIgnored += 10;
+                foreach(Entity target in targets)
+                {
+                    target.DefIgnored += 10;
+                }
             }
         }
     }
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {
-        targets[0].DefIgnored -= 10;
+        foreach (Entity target in targets)
+        {
+            target.DefIgnored -= 10;
+        }
     }
 }

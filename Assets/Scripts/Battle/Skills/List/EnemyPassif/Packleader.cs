@@ -7,11 +7,11 @@ public class PackLeader : PassiveSkill
 
     public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
     {
-        for (int i = 2; i < targets.Count; i++)
+        foreach (Entity target in targets)
         {
             _additionalStatIncrease += 0.05f;
-        }
 
+        }
         if (targets.Count >= 2 && !_hasModifier)
         {
             foreach (var stat in caster.Stats)
@@ -29,5 +29,5 @@ public class PackLeader : PassiveSkill
         }
     }
 
-    float AllStatBuf(float value) => (float)value * (1.10f + _additionalStatIncrease);
+    float AllStatBuf(float value) => value * (1 + (Data.BuffAmount/100) + _additionalStatIncrease);
 }

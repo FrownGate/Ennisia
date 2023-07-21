@@ -274,6 +274,11 @@ public class BattleSystem : StateMachine
         }
 
         Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
+        foreach (var entity in Enemies) 
+        {
+            entity.resetHealed();
+        }
+        Player.resetHealed();
     }
 
     public void UpdateEntitiesEffects()
