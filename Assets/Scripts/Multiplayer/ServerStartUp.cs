@@ -4,8 +4,9 @@ using PlayFab;
 using System;
 using PlayFab.Networking;
 using System.Collections.Generic;
-using PlayFab.MultiplayerAgent.Model;
+//using PlayFab.MultiplayerAgent.Model;
 using Mirror;
+using PlayFab.MultiplayerModels;
 
 public class ServerStartUp : MonoBehaviour
 {
