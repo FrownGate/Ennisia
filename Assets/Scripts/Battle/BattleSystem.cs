@@ -167,7 +167,8 @@ public class BattleSystem : StateMachine
             enemy.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
             enemy.HUD.Init(enemy, enemy.Id);
 
-            int x = enemy.Id == 2 ? 480 : enemy.Id % 2 == 0 ? 480 : 45;
+            //int x = enemy.Id == 1 ? 480 : enemy.Id == 2 ? 45 : enemy.Id % 2 == 0 ? 480 : 45;
+            int x = enemy.Id < 3 ? enemy.Id % 2 == 0 ? 45 : 480 : enemy.Id % 2 == 0 ? 480 : 45;
             int y = enemy.Id > 4 ? -250 : enemy.Id > 2 ? 250 : 0;
 
             if (enemy.Id > 2) x += 250;
