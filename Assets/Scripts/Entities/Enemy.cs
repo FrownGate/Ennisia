@@ -24,6 +24,7 @@ public class Enemy : Entity
         Name = data.Name;
         Description = data.Description;
         Level = 1; //Temp
+        IsBoss = data.IsBoss;
     }
 
     public override bool HaveBeenTargeted()
