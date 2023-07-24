@@ -8,6 +8,7 @@ using PlayFab.ClientModels;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AccountModule : Module
 {
@@ -17,6 +18,7 @@ public class AccountModule : Module
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
     public bool IsLoggedIn { get; private set; }
     public bool IsFirstLogin { get; private set; }
+    public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
 
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
@@ -35,8 +37,8 @@ public class AccountModule : Module
 
     public void StartLogin()
     {
-       /* if (HasLocalSave()) return;
-        AnonymousLogin();*/
+        //if (HasLocalSave()) return;
+        //AnonymousLogin();
 
         //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
         Login("testing@gmail.com", "testing");
@@ -106,8 +108,6 @@ public class AccountModule : Module
 
     private void OnLoginRequestSuccess(LoginResult result)
     {
-        CreateLocalData(CreateUsername());
-
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
         Debug.Log(_manager.Entity.Id);
@@ -115,8 +115,12 @@ public class AccountModule : Module
         UserAccountInfo info = result.InfoResultPayload.AccountInfo;
         IsFirstLogin = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
 
-        if (HasAuthData()) CreateSave();
         _manager.EndRequest("Login request success !");
+
+        CreateLocalData(CreateUsername());
+        StartCoroutine(GetPlayerBaseStats());
+
+        if (HasAuthData()) CreateSave();
 
         if (!IsFirstLogin)
         {
@@ -144,6 +148,25 @@ public class AccountModule : Module
     }
     #endregion
 
+    private IEnumerator GetPlayerBaseStats()
+    {
+        yield return _manager.StartAsyncRequest("Getting player base stats...");
+
+        PlayFabClientAPI.GetTitleData(new(), res =>
+        {
+            foreach (var data in res.Data)
+            {
+                if (Enum.TryParse(data.Key, out Attribute attribute))
+                {
+                    PlayerBaseStats[attribute] = float.Parse(data.Value);
+                }
+            }
+
+            Data.Player.UpdatePlayerStats();
+            _manager.EndRequest("Player base stats obtained !");
+        }, _manager.OnRequestError);
+    }
+
     public void GetAccountData()
     {
         _manager.StartRequest("Getting user files...");
@@ -158,7 +181,7 @@ public class AccountModule : Module
             if (res.Metadata.Count == 0)
             {
                 Debug.LogWarning("Missing datas - creating ones...");
-                UpdateData();
+                StartCoroutine(UpdateData());
                 OnInitComplete?.Invoke();
                 return;
             }

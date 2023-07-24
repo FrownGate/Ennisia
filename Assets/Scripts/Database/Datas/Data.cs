@@ -29,6 +29,7 @@ public class Data
         Inventory = data.Inventory;
 
         Player.UpdateEquippedSupports();
+        Player.UpdatePlayerStats();
 
         Debug.Log($"User has {Inventory.Supports.Count} support(s).");
     }

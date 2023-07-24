@@ -133,11 +133,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 875580410290774944, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875580410290774944, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875580410290774944, guid: a57751a33bef7e94a9ad58841ca6ec2e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1195,11 +1195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8153873438797590001, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8153873438797590001, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8153873438797590001, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1873,7 +1873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &974595049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3991,11 +3991,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8153873438797590001, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8153873438797590001, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8153873438797590001, guid: 6d06e3568bf46b649a8eade25b629189, type: 3}
       propertyPath: m_AnchoredPosition.x
