@@ -265,8 +265,9 @@ public class CSVToSO : EditorWindow
 
         // Check if the .cs file already exists in any folder
         //TODO -> Use variable to stock path start
-        var sourceFilePath = $"Assets/Scripts/Battle/Skills/List/{fileName}.cs";
-        var correctFolderPath = $"Assets/Scripts/Battle/Skills/List/{skillType}";
+        var filePath = $"Assets/Scripts/Battle/Skills/List/";
+        var sourceFilePath = filePath + $"{fileName}.cs";
+        var correctFolderPath =  filePath + $"{skillType}";
         var correctFilePath = $"{correctFolderPath}/{fileName}.cs";
         var fileExists = false;
 
@@ -275,7 +276,7 @@ public class CSVToSO : EditorWindow
         // Move the .cs file to the correct folder
         foreach (var folderType in Enum.GetValues(typeof(SkillType)))
         {
-            var folderTypePath = $"Assets/Scripts/Battle/Skills/List/{folderType}";
+            var folderTypePath =  filePath + $"{folderType}";
             var destinationFilePath = $"{folderTypePath}/{fileName}.cs";
 
             if (!File.Exists(destinationFilePath)) continue;
