@@ -33,6 +33,7 @@ public class QuestManager : MonoBehaviour
         MissionManager.OnMissionComplete += MissionQuest;
         ExpManager.OnPlayerLevelUp += LevelUpQuest;
         ExpManager.OnAccountLevelUp += LevelUpQuest;
+        Gear.MaxLevel += GearMaxLevelQuest;
     }
 
     private void LoadQuest()
@@ -97,5 +98,9 @@ public class QuestManager : MonoBehaviour
     private void LevelUpQuest(int lvl,LevelUpQuestEvent.LvlType type)
     {
         QuestEventManager.Instance.QueueEvent(new LevelUpQuestEvent(lvl,type));
+    }
+    private void GearMaxLevelQuest(GearType? type)
+    {
+        QuestEventManager.Instance.QueueEvent(new GearLevelMaxQuestEvent(type));
     }
 }
