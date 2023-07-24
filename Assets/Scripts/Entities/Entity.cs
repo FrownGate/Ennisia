@@ -35,8 +35,8 @@ public abstract class Entity
     public int AtkBarFillAmount { get; set; }
     public int AtkBarPercentage { get; set; }
 
-    public float AmountHealed { get; set; }
-    public bool Healed { get; set; }
+    public bool IsBoss { get; set; } = false;
+
     public EntityHUD HUD { get; set; }
 
     public Entity(Dictionary<Attribute, float> stats = null)
@@ -99,14 +99,9 @@ public abstract class Entity
 
     public virtual void Heal(float amount)
     {
-        Healed = true;
-        AmountHealed = amount;
         CurrentHp += amount;
         CurrentHp = CurrentHp > Stats[Attribute.HP].Value ? Stats[Attribute.HP].Value : CurrentHp;
     }
-
-    public void resetHealed() => Healed = false;
-
 
     public virtual bool HaveBeenTargeted() { return true; }
     public virtual void ResetTargetedState() { IsSelected = false; }

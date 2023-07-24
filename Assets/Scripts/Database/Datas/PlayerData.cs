@@ -145,4 +145,15 @@ public class PlayerData
             }
         }
     }
+
+    public void UpdatePlayerStats()
+    {
+        Dictionary<Attribute, float> basStats = PlayFabManager.Instance.PlayerBaseStats;
+
+        //TODO -> set level modifiers
+        foreach (var stat in basStats)
+        {
+            Stats[stat.Key] = new(stat.Value);
+        }
+    }
 }

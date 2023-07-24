@@ -28,7 +28,7 @@ public class EntityHUD : MonoBehaviour
         _hpBar.maxValue = _entity.Stats[Attribute.HP].Value;
         _hpBar.value = _entity.CurrentHp;
 
-        if (entity is not Player) //TODO -> check if boss
+        if (entity is not Player && !entity.IsBoss) //TODO -> check if boss
         {
             transform.localScale = transform.localScale / 1.5f;
             return;
