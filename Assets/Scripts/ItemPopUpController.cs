@@ -19,10 +19,25 @@ public class ItemPopUpController : MonoBehaviour
         outsideClickAreaEventTrigger.triggers.Clear();
 
         EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerClick;
+        entry.eventID = EventTriggerType.PointerUp;
         entry.callback.AddListener((eventData) => { ClosePopup(); });
         
         outsideClickAreaEventTrigger.triggers.Add(entry);
+    }
+    void Update () 
+    {
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100)) 
+            {
+                if (hit.transform == outsideClickArea.transform) 
+                {
+                    popup.SetActive(false);
+                }
+            }
+        }
     }
 
     public void OpenPopup()
