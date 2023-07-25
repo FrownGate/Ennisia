@@ -22,13 +22,14 @@ public class EnemyTurn : State
 
     public override IEnumerator Attack()
     {
-
+        Debug.Log("attack");
         UseSkill(BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills[AI.ChooseSkill(BattleSystem, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], true)]);
         yield break;
     }
 
     public void UseSkill(Skill skillUsed)
     {
+        Debug.Log($"Skill used : {skillUsed.Data.Name}");
         float totalDamage = 0;
         //IN ENEMY SKILL !!! TARGETS[0] IS THE PLAYER
         //THE PLAYER IN ENEMY SKILL IS THE ENEMY USING THE SKILL !!!
