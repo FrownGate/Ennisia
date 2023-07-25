@@ -209,7 +209,7 @@ public class BattleSystem : StateMachine
 
     private void SelectEntity(Entity entity)
     {
-        Debug.Log("Entity seleted.");
+        //Debug.Log("Entity seleted.");
         if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
         Targets.Add(entity);
         StartCoroutine(State.Attack());
