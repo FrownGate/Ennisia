@@ -54,6 +54,7 @@ public class ShopSystem : MonoBehaviour
             PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
             itemInfo.ItemName = item.AlternateIds[0].Value;
             itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
+            itemInfo.ItemSprite = Resources.Load<Sprite>("Sprites/Items/" + itemInfo.ItemName);
             Debug.Log(itemInfo.ItemName + "Added");
             _currentShopItems.Add(shopItemBtn);
         }

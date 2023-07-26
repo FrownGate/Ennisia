@@ -368,6 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: {fileID: 7577130959463407054}
   _itemPrice: {fileID: 3713187218671933344}
+  _itemImage: {fileID: 4703890899991781208}
   ItemId: 0
   ItemPrice: 0
   ItemName: 

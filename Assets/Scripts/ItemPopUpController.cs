@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class ItemPopUpController : MonoBehaviour
 {
+    //Pop Up
     [SerializeField] GameObject popup;  
     [SerializeField] TextMeshProUGUI _itemName;
     [SerializeField] TextMeshProUGUI _itemPrice;
     [SerializeField] TextMeshProUGUI _itemDescription;
     [SerializeField] TextMeshProUGUI _availableAmount;
+    [SerializeField] Image _itemImage;
+    [SerializeField] Image _currencyImage;
     
     [SerializeField] GameObject outsideClickArea;  
     [SerializeField] EventTrigger outsideClickAreaEventTrigger;
