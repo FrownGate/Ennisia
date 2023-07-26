@@ -4,8 +4,12 @@ public class Thief : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        targets[0].ApplyEffect(new BreakAttack());
+        foreach (var target in targets)
+        {
+            target.ApplyEffect(new BreakAttack());
+        }
         caster.ApplyEffect(new AttackBuff());
+        Cooldown = Data.MaxCooldown;
         return 0;
     }
 }
