@@ -16,6 +16,8 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
+    [SerializeField] private Canvas _canvasPC;
+    [SerializeField] private Canvas _canvasMobile;
     public TextMeshProUGUI DialogueText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
@@ -36,7 +38,7 @@ public class BattleSystem : StateMachine
     private void Awake()
     {
         OnBattleLoaded?.Invoke(this);
-        _canvas = GetComponentInParent<Canvas>();
+        _canvas = _canvasPC; //TODO -> check platform
         EntityHUD.OnEntitySelected += SelectEntity;
         HUD.OnSkillSelected += SelectSkill;
         MissionManager.OnNextWave += InitBattle;
@@ -207,7 +209,7 @@ public class BattleSystem : StateMachine
 
     private void SelectEntity(Entity entity)
     {
-        Debug.Log("Entity seleted.");
+        //Debug.Log("Entity seleted.");
         if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
         Targets.Add(entity);
         StartCoroutine(State.Attack());
