@@ -23,5 +23,5 @@ public class SkillSO : ScriptableObject
 
 public enum SkillType
 {
-    NotSorted, Weapon, SupportPassif, SupportSkill, EnemySkill, EnemyPassif
+    NotSorted, Weapon, SupportPassif, SupportSkill, EnemySkill, EnemyPassif, BossSkill, BossPassif
 }
