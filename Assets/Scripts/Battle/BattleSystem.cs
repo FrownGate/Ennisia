@@ -16,6 +16,8 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
+    [SerializeField] private Canvas _canvasPC;
+    [SerializeField] private Canvas _canvasMobile;
     public TextMeshProUGUI DialogueText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
@@ -36,7 +38,7 @@ public class BattleSystem : StateMachine
     private void Awake()
     {
         OnBattleLoaded?.Invoke(this);
-        _canvas = GetComponentInParent<Canvas>();
+        _canvas = _canvasPC; //TODO -> check platform
         EntityHUD.OnEntitySelected += SelectEntity;
         HUD.OnSkillSelected += SelectSkill;
         MissionManager.OnNextWave += InitBattle;
@@ -167,7 +169,8 @@ public class BattleSystem : StateMachine
             enemy.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
             enemy.HUD.Init(enemy, enemy.Id);
 
-            int x = enemy.Id == 2 ? 480 : enemy.Id % 2 == 0 ? 480 : 45;
+            //int x = enemy.Id == 1 ? 480 : enemy.Id == 2 ? 45 : enemy.Id % 2 == 0 ? 480 : 45;
+            int x = enemy.Id < 3 ? enemy.Id % 2 == 0 ? 45 : 480 : enemy.Id % 2 == 0 ? 480 : 45;
             int y = enemy.Id > 4 ? -250 : enemy.Id > 2 ? 250 : 0;
 
             if (enemy.Id > 2) x += 250;
@@ -206,7 +209,7 @@ public class BattleSystem : StateMachine
 
     private void SelectEntity(Entity entity)
     {
-        Debug.Log("Entity seleted.");
+        //Debug.Log("Entity seleted.");
         if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
         Targets.Add(entity);
         StartCoroutine(State.Attack());
@@ -274,6 +277,11 @@ public class BattleSystem : StateMachine
         }
 
         Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
+        foreach (var entity in Enemies) 
+        {
+            entity.resetHealed();
+        }
+        Player.resetHealed();
     }
 
     public void UpdateEntitiesEffects()

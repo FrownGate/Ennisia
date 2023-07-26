@@ -41,6 +41,7 @@ public class PlayFabManager : MonoBehaviour
     public PlayFab.ClientModels.EntityKey Entity => _accountMod.Entity;
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
+    public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
     [SerializeField] private EconomyModule _economyMod;

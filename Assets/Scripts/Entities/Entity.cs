@@ -25,15 +25,19 @@ public abstract class Entity
     public float CurrentHp { get; set; }
     public float DefIgnored { get; set; }
     public float Shield { get; set; }
+    public float AmountHealed { get; set; }
 
     public List<Skill> Skills { get; protected set; }
     public List<Effect> Effects { get; protected set; } = new();
     public bool IsSelected { get; protected set; } = false;
     public bool IsDead => CurrentHp <= 0;
+    public bool Healed { get; set; }
 
     public int AtkBar { get; set; }
     public int AtkBarFillAmount { get; set; }
     public int AtkBarPercentage { get; set; }
+
+    public bool IsBoss { get; set; } = false;
 
     public EntityHUD HUD { get; set; }
 
@@ -100,7 +104,11 @@ public abstract class Entity
         CurrentHp += amount;
         CurrentHp = CurrentHp > Stats[Attribute.HP].Value ? Stats[Attribute.HP].Value : CurrentHp;
     }
-
+    public virtual void resetHealed()
+    {
+        Healed = false;
+        AmountHealed = 0;
+    }
     public virtual bool HaveBeenTargeted() { return true; }
     public virtual void ResetTargetedState() { IsSelected = false; }
     public virtual void HaveBeenSelected() { IsSelected = true; }

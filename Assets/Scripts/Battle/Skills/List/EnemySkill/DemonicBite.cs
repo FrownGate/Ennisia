@@ -7,18 +7,22 @@ public class DemonicBite : DamageSkill
 
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = DamageCalculation(targets[0], caster);
-        targets[0].TakeDamage(damage);
-        targets[0].ApplyEffect(new DemonicMark());
-        int randomNumber = new Random().Next(1, 100);
 
-        if (_percentChance >= randomNumber)
+        foreach (var target in targets)
         {
-            targets[0].ApplyEffect(new BreakDefense());
-            caster.AtkBarPercentage = 100;
-        }
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+            target.ApplyEffect(new DemonicMark());
+            int _randomNumber = new Random().Next(1, 100);
 
+            if (_randomNumber <= _percentChance)
+            {
+                target.ApplyEffect(new BreakDefense());
+                caster.AtkBarPercentage = 100;
+            }
+        }
         Cooldown = Data.MaxCooldown;
-        return damage;
+        return TotalDamage;
     }
 }

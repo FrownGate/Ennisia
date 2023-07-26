@@ -95,6 +95,16 @@ public static class AdditionalGoalsLoader
                             $"Error setting level up properties for goal on line {i + 1} in the Goals.csv file.");
                         continue;
                     }
+
+                    break;
+                case GoalType.GearMaxLevel:
+                    if (!GearMaxLevelProperties(goalInstance, goalValue))
+                    {
+                        Debug.LogError(
+                            $"Error setting level up properties for goal on line {i + 1} in the Goals.csv file.");
+                        continue;
+                    }
+
                     break;
                 default:
                     Debug.LogError($"Unknown goal type: {goalType}");
@@ -108,12 +118,13 @@ public static class AdditionalGoalsLoader
             }
 
             goalInstance.RequiredAmount = amount;
-            
+
             if (!bool.TryParse(goalSame, out var same))
             {
                 Debug.LogError($"Invalid goal amount '{goalSame}' on line {i + 1} in the Goals.csv file.");
                 continue;
             }
+
             goalInstance.Same = same;
 
             // Add the goal to the QuestSO's Goals list
@@ -134,7 +145,6 @@ public static class AdditionalGoalsLoader
         AssetDatabase.ImportAsset(questSOPath, ImportAssetOptions.ForceUpdate);
     }
 
-    
 
     private static QuestGoal CreateGoal(GoalType goalType, QuestSO questSO)
     {
@@ -158,6 +168,11 @@ public static class AdditionalGoalsLoader
                 AssetDatabase.AddObjectToAsset(levelUpGoal, questSO);
 
                 return levelUpGoal;
+            case GoalType.GearMaxLevel:
+                var gearLevelMax = ScriptableObject.CreateInstance<GearMaxLevelGoal>();
+                gearLevelMax.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(gearLevelMax, questSO);
+                return gearLevelMax;
             default:
                 Debug.LogError($"Unknown goal type: {goalType}");
                 return null;
@@ -308,26 +323,56 @@ public static class AdditionalGoalsLoader
 
         return isValid;
     }
+
     private static bool LevelUpProperties(QuestGoal goal, string goalValue)
     {
-        
+
         var isValid = true;
         var values = CSVUtils.SplitCSVLine(goalValue);
         foreach (var value in values)
-        {
             if (Enum.TryParse(value, out LevelUpQuestEvent.LvlType type))
             {
-                if (goal is LevelUpGoal levelUpGoal)
-                {
-                    levelUpGoal.lvlType = type;
-                }
+                if (goal is LevelUpGoal levelUpGoal) levelUpGoal.lvlType = type;
             }
             else
             {
                 Debug.LogError($"Invalid levelup value: {value}.");
                 isValid = false;
             }
-        }
+
+        return isValid;
+    }
+
+    private static bool GearMaxLevelProperties(QuestGoal goal, string goalValue)
+    {
+        var isValid = true;
+        var values = CSVUtils.SplitCSVLine(goalValue);
+        foreach (var value in values)
+            switch (value)
+            {
+                case "gear":
+                {
+                    foreach (GearType type in Enum.GetValues(typeof(GearType)))
+                    {
+                        if (goal is not GearMaxLevelGoal gearMaxLevelGoal) continue;
+                        if (type == GearType.Weapon) continue;
+                        gearMaxLevelGoal.Type.Add(type);
+                    }
+
+                    break;
+                }
+                case "weapon":
+                {
+                    if (goal is not GearMaxLevelGoal gearMaxLevelGoal) continue;
+                    gearMaxLevelGoal.Type.Add(GearType.Weapon);
+                    break;
+                }
+                default:
+                    Debug.LogError($"Invalid levelup value: {value}.");
+                    isValid = false;
+                    break;
+            }
+
         return isValid;
     }
 }
