@@ -1818,7 +1818,7 @@ GameObject:
   m_Component:
   - component: {fileID: 386051432}
   m_Layer: 5
-  m_Name: Chat
+  m_Name: ChatUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2009,7 +2009,7 @@ GameObject:
   - component: {fileID: 489068670}
   - component: {fileID: 489068669}
   m_Layer: 5
-  m_Name: BackgroundPanel
+  m_Name: FastChat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3453,6 +3453,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009040216}
   m_CullTransparentMesh: 1
+--- !u!1001 &1024598786
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 251920227345568087, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_Name
+      value: playerChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586759329627575744, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: ChatText
+      value: 
+      objectReference: {fileID: 1400611826}
+    - target: {fileID: 1586759329627575744, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: InputField
+      value: 
+      objectReference: {fileID: 1093232099}
+    - target: {fileID: 8291550034856404915, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: sceneId
+      value: 1432732195
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419893603561056204, guid: 48599340be00fb94991e2a2863437d08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 48599340be00fb94991e2a2863437d08, type: 3}
 --- !u!1 &1093232097
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,7 +3539,7 @@ GameObject:
   - component: {fileID: 1093232100}
   - component: {fileID: 1093232099}
   m_Layer: 5
-  m_Name: ChatInput
+  m_Name: InputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4572,12 +4645,12 @@ GameObject:
   - component: {fileID: 1540826016}
   - component: {fileID: 1540826015}
   m_Layer: 5
-  m_Name: ChatPanel
+  m_Name: Chat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1540826014
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5224,7 +5297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1838188758
 Transform:
   m_ObjectHideFlags: 0
@@ -5672,7 +5745,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2088908166}
   m_Layer: 5
-  m_Name: Emoji
+  m_Name: FastChatUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
