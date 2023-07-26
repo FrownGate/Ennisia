@@ -2,21 +2,17 @@ using System.Collections.Generic;
 
 public class SwiftStrike : DamageSkill
 {
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
-    {
-        foreach (Entity target in targets)
-        {
-            target.DefIgnored += 10;
-        }
-    }
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
         foreach (var target in targets)
         {
+            target.DefIgnored += 10;
             float damage = DamageCalculation(target, caster);
             target.TakeDamage(damage);
             TotalDamage += damage;
         }
+        caster.AtkBarPercentage += 50;
+        Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
@@ -25,6 +21,5 @@ public class SwiftStrike : DamageSkill
         {
             target.DefIgnored -= 10;
         }
-        caster.AtkBarPercentage += 50;
     }
 }
