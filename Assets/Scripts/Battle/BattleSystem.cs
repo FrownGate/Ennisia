@@ -64,7 +64,7 @@ public class BattleSystem : StateMachine
         WonPopUp.SetActive(false);
 
         PlayerHasWin = false;
-        Turn = 0;
+        Turn = 1;
 
         if (MissionManager.Instance.CurrentMission == null)
         {

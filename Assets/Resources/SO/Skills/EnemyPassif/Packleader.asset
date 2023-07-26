@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
-  m_Name: Packleader
+  m_Name: PackLeader
   m_EditorClassIdentifier: 
   Id: 87
-  Name: 'Pack leader '
+  Name: 'Pack Leader '
   Description: If you're not alone, increase all stats by 10% + 5% per enemy
   DamageRatio: 0
   ShieldAmount: 0
