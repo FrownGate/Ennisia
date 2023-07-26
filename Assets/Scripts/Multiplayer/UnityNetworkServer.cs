@@ -75,7 +75,7 @@
 				{
 					Connection = connection,
 					ConnectionId = connection.connectionId,
-					LobbyId = PlayFabMultiplayerAgentAPI.SessionConfig.SessionId
+					//LobbyId = PlayFabMultiplayerAgentAPI.SessionConfig.SessionId
 				});
 			}
 		}
