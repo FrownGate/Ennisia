@@ -9,6 +9,7 @@ public class BattleSystem : StateMachine
     public static event Action<BattleSystem> OnBattleLoaded;
     public static event Action OnWaveCompleted;
     public static event Action OnBattleCompleted;
+    public static event Action<bool> OnPlayerLose;
     public static event Action<BattleSystem> OnSimulationStart;
     public static event Action<string> OnEnemyKilled;
 
@@ -318,13 +319,13 @@ public class BattleSystem : StateMachine
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
-
         if (won)
         {
             OnWaveCompleted?.Invoke();
             return;
         }
 
+        OnPlayerLose ?.Invoke(true);
         //TODO -> Load game over popup
     }
 
