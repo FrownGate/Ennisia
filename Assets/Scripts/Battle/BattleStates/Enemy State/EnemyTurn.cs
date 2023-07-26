@@ -26,6 +26,7 @@ public class EnemyTurn : State
         {
             BattleSystem.SetState(new CheckTurn(BattleSystem));
         }
+        BattleSystem.Turn += 1;
     }
 
     public void UseSkill(Skill skillUsed)

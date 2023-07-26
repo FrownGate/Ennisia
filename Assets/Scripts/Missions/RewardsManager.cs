@@ -52,6 +52,7 @@ public class RewardsManager : MonoBehaviour
     private void OnEnable()
     {
         MissionManager.OnMissionComplete += Drop;
+        
     }
 
     private void OnDisable()
