@@ -6,7 +6,7 @@ public class CallofHeros : PassiveSkill
     {
         if (player.CurrentHp <= (player.Stats[Attribute.HP].Value * 0.40f))
         {
-            player.Shield += (int)(caster.Stats[Attribute.HP].Value * 0.70f);
+            player.Shield += (caster.Stats[Attribute.HP].Value * Data.ShieldAmount);
             player.ApplyEffect(new AttackBuff(2));
         }
     }

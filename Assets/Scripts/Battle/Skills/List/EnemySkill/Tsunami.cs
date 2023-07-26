@@ -1,13 +1,18 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Tsunami : DamageSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        float damage = DamageCalculation(targets[0], caster);
-        targets[0].TakeDamage(damage);
-        targets[0].AtkBarPercentage -= 30;
+        foreach (var target in targets)
+        {
+            float damage = DamageCalculation(target, caster);
+            target.TakeDamage(damage);
+            TotalDamage += damage;
+            target.AtkBar -= 30;
+        }
         Cooldown = Data.MaxCooldown;
-        return damage;
-    }
+        return TotalDamage;
+    }       
 }

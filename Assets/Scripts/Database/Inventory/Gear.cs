@@ -7,6 +7,7 @@ using System.Linq;
 public class Gear : Item
 {
     public static event Action LevelUp;
+    public static event Action<GearType?> MaxLevel;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
     public float BaseValue; //used for upgrade
@@ -217,19 +218,18 @@ public class Gear : Item
         Debug.Log($"Upgrading {Name}...");
         LevelUp?.Invoke();
         int rand = UnityEngine.Random.Range(0, 100);
-        if (rand <= (100 - Level))
+        if (rand > (100 - Level)) return;
+        Level++;
+        Value += BaseValue * RatioUpgrade * Level;
+        if (Level % 5 == 0)
         {
-            Level++;
-            Value += BaseValue * RatioUpgrade * Level;
-            if (Level % 5 == 0)
+            foreach (var substat in BaseSubStats)
             {
-                foreach (var substat in BaseSubStats)
-                {
-                    SubStats[substat.Key] = substat.Value * RatioUpgrade * Level; ;
-                }
+                SubStats[substat.Key] = substat.Value * RatioUpgrade * Level; ;
             }
-            PlayFabManager.Instance.UpdateItem(this);
         }
+        if(Level==50) MaxLevel?.Invoke(Type);
+        PlayFabManager.Instance.UpdateItem(this);
     }
 
     public void Upgrade(int _level) //Testing only

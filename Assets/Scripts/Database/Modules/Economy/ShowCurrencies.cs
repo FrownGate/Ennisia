@@ -16,7 +16,7 @@ public class ShowCurrencies : MonoBehaviour
 
         foreach (KeyValuePair<Currency, int> currency in PlayFabManager.Instance.Currencies) 
         {
-            Debug.Log($"{currency.Key} : {currency.Value}");
+            //Debug.Log($"{currency.Key} : {currency.Value}");
 
             GameObject currencyObject = Instantiate(_currencyPrefab, gameObject.transform);
             currencyObject.transform.localPosition = new Vector3((0 - _rectTransform.rect.width / 2.3f) + position, 0, 0);

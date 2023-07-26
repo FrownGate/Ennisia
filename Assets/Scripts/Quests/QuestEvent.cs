@@ -41,3 +41,12 @@ public class LevelUpQuestEvent : QuestEvent
 
     }
 }
+
+public class GearLevelMaxQuestEvent : QuestEvent
+{
+    public GearType? Type;
+    public GearLevelMaxQuestEvent(GearType? type)
+    {
+        Type = type;
+    }
+}
