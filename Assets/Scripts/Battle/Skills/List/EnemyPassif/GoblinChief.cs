@@ -4,16 +4,15 @@ public class GoblinChief : PassiveSkill
 {
     public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
     {
-        foreach (Effect effect in caster.Effects)
+        foreach (Entity target in targets)
         {
-            if (effect.GetType() == typeof(Stun))
+            foreach (Effect effect in target.Effects)
             {
-                targets[0].DefIgnored += 50;
+                if (effect.GetType() == typeof(Stun))
+                {
+                    target.ApplyEffect(new BreakAttack());
+                }
             }
         }
-    }
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
-    {
-        targets[0].DefIgnored -= 50;
     }
 }

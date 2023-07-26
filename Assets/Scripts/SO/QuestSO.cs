@@ -12,7 +12,7 @@ public enum QuestType
 
 public enum GoalType
 {
-    Unknown, Killing, Mission, LevelUp
+    Unknown, Killing, Mission, LevelUp, GearMaxLevel
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]

@@ -4,11 +4,13 @@ public class WishingStar : ProtectionSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn)
     {
-        for (int i = 1; i < targets.Count; i++)
+
+        foreach (Entity target in targets)
         {
-            targets[i].CurrentHp += (targets[i].Stats[Attribute.HP].Value * 0.2f);
-            targets[i].Shield += (int)(targets[i].Stats[Attribute.HP].Value * 0.15f);
+            target.Heal(target.Stats[Attribute.HP].Value * Data.HealingAmount);
+            target.Shield += target.Stats[Attribute.HP].Value * Data.ShieldAmount;
         }
+        Cooldown = Data.MaxCooldown;
 
         return 0;
     }
