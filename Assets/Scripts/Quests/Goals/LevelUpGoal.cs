@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AYellowpaper.SerializedCollections;
-
+﻿
 public class LevelUpGoal : QuestSO.QuestGoal
 {
     public LevelUpQuestEvent.LvlType lvlType;
