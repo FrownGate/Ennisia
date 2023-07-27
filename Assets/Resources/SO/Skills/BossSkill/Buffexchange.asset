@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
-  m_Name: DemonKnight
+  m_Name: Buffexchange
   m_EditorClassIdentifier: 
-  Id: 88
-  Name: Demon Knight
-  Description: If the enemy has a demonic mark, inflict 2 additionnal demonic mark
+  Id: 110
+  Name: Buff exchange
+  Description: Deal physical damage to player and if player has a buff, has 50% chance
+    to steal a buff.
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
   MaxCooldown: 0
   IgnoreDef: 0
-  HitNumber: 0
+  HitNumber: 1
   AOE: 0
   IsMagic: 0
-  IsPassive: 1
-  SkillType: 5
+  IsPassive: 0
+  SkillType: 6

@@ -85,10 +85,10 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 84,Malevolent Strike,If user has an atk buff penetrate defense by 10%,0,0,0,0,0,10,0,FALSE,FALSE,TRUE,Enemy Passif
 85,Big Mushroom ,"If he's alone, increase his attack by 100% regen 50% of damage dealt",0,0,50,100,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
 86,Goblin Chief ,"If the ennemy is stunned, give a break attack debuff",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-87,Pack leader ,"If you're not alone, increase all stats by 10% + 5% per enemy",0,0,0,10,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-88,Demon knight,"If the enemy has a demonic mark, inflict 2 additionnal demonic mark",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-89,Demon archer ,Increase all defense by 20%,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-90,Demon mage,"When demon mage heals allies, deal damage to the enemy according to the amount recovered",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+87,Pack Leader ,"If you're not alone, increase all stats by 10% + 5% per enemy",0,0,0,10,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+88,Demon Knight,"If the enemy has a demonic mark, inflict 2 additionnal demonic mark",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+89,Demon Archer ,Increase all defense by 20%,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+90,Demon Mage,"When demon mage heals allies, deal damage to the enemy according to the amount recovered",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
 91,Swift Strike,"Hits an ennemy dealing physical damage and penetrating defense by 10%, and increasing atkbar by 50%",70,0,0,50,3,10,0,FALSE,FALSE,TRUE,Support Skill
 92,Doctor's Remedy,Gives imunity to the player for 3 turns,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 93,Comet Crash,Deal physical damge to all enemies decreasing the thier atkbar by 70% and silencing them,100,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
@@ -99,7 +99,17 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 98,Call of Heros,"When player Hp falls below 40%, give a shield worth 70% of max health and an atkbuff for 2 turns",0,70,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
 99,Shield Bash,Inflicts damage based on 25% of his defense and has a 40% chance of Taunting. ,25,0,0,0,0,0,1,FALSE,FALSE,FALSE,Boss Skill
 100,Heavenly Armor,Each turn increases his defense by 2.5%.,0,0,0,2.5,0,0,0,FALSE,FALSE,TRUE,Boss Passif
-101,Aspect of the Fallen Angel,"Deal damage equal to 60% of his defense and inflicts defense break (debuff) to caster for 2 turns. Cooldown 3 turns. If battle difficulty is insane, deal damage equal to 60% of his defense and inflicts an Attack break (debuff) to caster for 2 turns. Cooldown 3 turns.",60,0,0,0,3,0,3,FALSE,FALSE,FALSE,Boss Skill
-102,Aspect of the Guardian Angel,Gain Immunity for 2 turns and Silence the Supports Characters of the enemy for 2 turns. Cooldown 4 turns.,0,0,0,0,0,0,4,FALSE,FALSE,FALSE,Boss Skill
+101,Aspect of the Fallen Angel,"Deal damage equal to 60% of his defense and inflicts defense break (debuff) to caster for 2 turns. Cooldown 3 turns. If battle difficulty is insane, deal damage equal to 60% of his defense and inflicts an Attack break (debuff) to caster for 2 turns.",60,0,0,0,3,0,3,FALSE,FALSE,FALSE,Boss Skill
+102,Aspect of the Guardian Angel,Gain Immunity for 2 turns and Silence the Supports Characters of the enemy for 2 turns.,0,0,0,0,0,0,4,FALSE,FALSE,FALSE,Boss Skill
 103,Heavenly Blessing,"When Hp is lower than 30%, convert defense percentage gained by Heavenly Armor into Attack.",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
-104,Aspect of the Demonic Angel,"When Hp is lower than 30% of max health, activate Berserk, gives undispellable attack and Crit dmg buff. ",0,0,0,0,0,0,0,FALSE,FALSE,FALSE,Boss Passif
+104,Aspect of the Demonic Angel,"When Hp is lower than 30% of max health, activate Berserk, gives undispellable attack and Crit dmg buff. ",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+105,Cursed Marking,"Hits the player 2 times, with 50% chance each of inflicting Demonic Mark and deals Physical Damage. If the difficulty is on Insane, has 100% chance each of inflicting Demonic Mark",50,0,0,0,0,0,2,FALSE,FALSE,FALSE,Boss Skill
+106,Demonic Gamble,"Attacks the player with a 50% chance to stun dealing 70% of attack as physical damage, if the player is stunned after attack, inflict 2 Demonic Mark. If the player is not stunned after the attack, inflict a defense break (debuff) to the user.",70,0,0,0,2,0,1,FALSE,FALSE,FALSE,Boss Skill
+107,Curse of the Primordial Demon,Inflicts Demonic Mark at the end of every turn. ,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+108,Demonic Reckoning,"If the player has 6 or more Demonic Marks, Consumes all Demonic Marks on the player and inflicts a defense break (debuff) before dealing 50% of attack as physical damage. Has a 50% (100% on insane) chance to attack again for each Demonic Marks, each hit deals damage equivalent to 25% of the boss's Attack as Magical Damages. After attacking, inflict an attack (debuff).",50,0,0,0,5,0,1,FALSE,FALSE,TRUE,Boss Passif
+109,Demon’s Don’t Play Fair,"If the user has a debuff before attacking, strip the player of all buffs.",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+110,Buff exchange,"Deal physical damage to player and if player has a buff, has 50% chance to steal a buff.",0,0,0,0,0,0,1,FALSE,FALSE,FALSE,Boss Skill
+111,Golden Rule,Takes 20% less damage from critical hits. Does 20% more damage to non-buffed enemies.,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+112,A King’s Blessing,Gives himself defense and attack buffs for 2 turns.,0,0,0,0,3,0,0,FALSE,FALSE,FALSE,Boss Skill
+113,Noble Gratitude,"Everytime the user(Betala) receives a buff, adds one buff mark. Once the number of buff marks reaches 5, If the user has a buff, deals magic damage equivalent to 70% of attack for each buff active.",70,0,0,0,0,0,1,FALSE,FALSE,TRUE,Boss Passif
+114,Level Adjustment,"Before attacking, if the user(Betala) has a debuff, and the player has a buff, inflict a support silence(debuff) to the player and give immunity to the user(Betala).",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
