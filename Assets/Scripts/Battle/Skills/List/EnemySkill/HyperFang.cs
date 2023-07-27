@@ -3,8 +3,8 @@ using System;
 
 public class HyperFang : DamageSkill
 {
-    private int _percentChance = 20;
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    private int _percentChance = 0;
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

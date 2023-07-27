@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 43-Demonic Goblin
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 71251ada69fa96e4cad55dba38d019e1, type: 2}
+  - {fileID: 11400000, guid: 3962f9729b6ab59409cae1039db02f87, type: 2}
   Id: 43
   Name: Demonic Goblin
   Rarity: 1

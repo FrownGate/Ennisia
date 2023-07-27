@@ -21,6 +21,16 @@ public class EntityHUD : MonoBehaviour
     public void Init(Entity entity, int id = 0)
     {
         //TODO -> set sprite
+        if(entity.Name != "") _sprite.sprite = Resources.Load<Sprite>( $"Textures/Enemies/{entity.Name}");
+        else
+        {
+            _sprite.sprite = Resources.Load<Sprite>( $"Textures/Enemies/Player");
+
+        }
+        //Tempo parce que c'est uwu
+        if (entity.Name == "Wolf Pack Leader") _sprite.flipX = true;
+        ////////
+        Debug.Log($"Assets/Resources/Textures/Enemies/{entity.Name}");
         //TODO -> Show Id on HUD
         _entity = entity;
         _id = id;

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 public class ForceBalancing : PassiveSkill
 {
     private bool _hasBuff = false;
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

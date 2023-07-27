@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 77
   Name: Demonic Arrow
   Description: Has a 40% chance to inflict a defense break to the player
-  DamageRatio: 50
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

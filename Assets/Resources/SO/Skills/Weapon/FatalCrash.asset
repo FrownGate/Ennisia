@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 11
   Name: Fatal Crash
-  Description: deals one charged hit to an enemy, divided by the missing hp% then
-    heals hp according to damage dealt.
-  DamageRatio: 100
+  Description: deals one charged hit to an enemy, damage increase on target's missing
+    hp, then heals hp according to damage dealt.
+  DamageRatio: 200
   ShieldAmount: 0
   HealingAmount: 80
   BuffAmount: 0

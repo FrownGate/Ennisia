@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Analytics;
 
 public class RewardsManager : MonoBehaviour
 {
@@ -23,14 +24,14 @@ public class RewardsManager : MonoBehaviour
 
     public void Drop(MissionSO missionSO)
     {
-
+    Debug.Log("uwu");
         foreach (RewardData reward in missionSO.RewardData)
         {
-            Type type = Type.GetType(CSVUtils.GetFileName(reward.Name));            
+            Type type = Type.GetType(CSVUtils.GetFileName(reward.Name));           
             Rewards.Add((Item)Activator.CreateInstance(type));
         }
         
-
+        Drop(missionSO.CurrencyRewards);
         GainXp?.Invoke(missionSO.Experience);
     }
 
@@ -52,6 +53,7 @@ public class RewardsManager : MonoBehaviour
     private void OnEnable()
     {
         MissionManager.OnMissionComplete += Drop;
+        
     }
 
     private void OnDisable()

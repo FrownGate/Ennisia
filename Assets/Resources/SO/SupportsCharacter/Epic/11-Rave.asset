@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 11-Rave
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 7c1dc11edc136a649b7bf9f4eb08b221, type: 2}
-  - {fileID: 11400000, guid: d3225865d35d62d43849bc916eec3276, type: 2}
+  - {fileID: 11400000, guid: 6546e39a148c9e04da5f97a2b2511af4, type: 2}
+  - {fileID: 11400000, guid: 0429c5734ea441b44a3ea8cc59012922, type: 2}
   Id: 11
   Name: Rave
   Rarity: 2

@@ -4,7 +4,7 @@ public class Giant : PassiveSkill
 {
 
 
-    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn, List<Entity> allies)
     {
 
         _modifiers[Attribute.HP] = caster.Stats[Attribute.HP].AddModifier(MaxHPBuff);

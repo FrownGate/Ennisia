@@ -4,7 +4,7 @@ public class RisingPower : PassiveSkill
 {
 
     private float _attackBuff;
-    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn, List<Entity> allies)
     {
         float attackBuffRatio = (Data.BuffAmount/100) + (StatUpgrade1 * Level);
        

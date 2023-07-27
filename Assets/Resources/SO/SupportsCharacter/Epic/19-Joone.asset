@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 19-Joone
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: bc9526100e0270e479364212c4351c4f, type: 2}
-  - {fileID: 11400000, guid: 67669b5ae7b9876408c6206f5e9a18f8, type: 2}
+  - {fileID: 11400000, guid: 5f8d6e675a01f3f43b249e67df95f10e, type: 2}
+  - {fileID: 11400000, guid: f57cd6080ca9a4b4e86eea46628beb2f, type: 2}
   Id: 19
   Name: Joone
   Rarity: 2

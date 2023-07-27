@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class BreezeOfVitality : ProtectionSkill
 {
 
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         float addHeal = 0;
 
