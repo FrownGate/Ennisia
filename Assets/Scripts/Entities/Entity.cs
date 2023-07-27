@@ -81,6 +81,11 @@ public abstract class Entity
         {
             return;
         }
+        if (this.Effects.Find(effect => effect.GetType() == typeof(Invincibility)) != null)
+        {
+            damage = 0;
+            return;
+        }
         Debug.Log($"Damage taken : {damage}");
         if (Shield > 0)
         {

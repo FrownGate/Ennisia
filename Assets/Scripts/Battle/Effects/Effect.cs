@@ -85,3 +85,7 @@ public class Immunity : Effect
 {
     public Immunity(int? duration = null) : base(duration) { }
 }
+public class Invincibility : Effect
+{
+    public Invincibility(int? duration = null) : base(duration) { }
+}
