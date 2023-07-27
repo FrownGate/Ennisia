@@ -109,7 +109,7 @@ public abstract class Entity
         CurrentHp += amount;
         CurrentHp = CurrentHp > Stats[Attribute.HP].Value ? Stats[Attribute.HP].Value : CurrentHp;
     }
-    public virtual void resetHealed()
+    public virtual void ResetHealed()
     {
         Healed = false;
         AmountHealed = 0;
