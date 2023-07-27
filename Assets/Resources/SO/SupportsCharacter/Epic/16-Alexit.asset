@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 16-Alexit
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 9f14b6abd4352c94c93dd73daf6e702d, type: 2}
-  - {fileID: 11400000, guid: 5a1e362a96fb64343b83cdb3770ce223, type: 2}
+  - {fileID: 11400000, guid: eb59fb52834c8654b985a1418f8d6dc4, type: 2}
+  - {fileID: 11400000, guid: 006c8471b04fbb6478a4d4b820b15164, type: 2}
   Id: 16
   Name: Alexit
   Rarity: 2

@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Demonic Marking
   Description: Hits the player dealing magic damage and has 100% chance to break
     defence and 50% chance to inflict 2 demonic marks
-  DamageRatio: 60
+  DamageRatio: 160
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

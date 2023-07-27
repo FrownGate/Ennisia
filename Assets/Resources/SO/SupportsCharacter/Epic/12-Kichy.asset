@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 12-Kichy
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: b067a3e7d0c00c94dad377f7923369e4, type: 2}
-  - {fileID: 11400000, guid: a8d8cef85b921fd4d93e16d7010e5faa, type: 2}
+  - {fileID: 11400000, guid: 12dcb86a0efafe145a37f6a9368036d7, type: 2}
+  - {fileID: 11400000, guid: 8b9c82f46ba30e14b880c3e828b872c3, type: 2}
   Id: 12
   Name: Kichy
   Rarity: 2

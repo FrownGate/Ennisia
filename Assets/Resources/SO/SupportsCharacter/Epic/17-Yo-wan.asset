@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 17-Yo-wan
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 7449871e5aeb2e440a5fab017269b993, type: 2}
-  - {fileID: 11400000, guid: 311c661365e28fa4a8034a8c6f5d1d55, type: 2}
+  - {fileID: 11400000, guid: c09eb2c21c30a674ebfe1ab745f800c6, type: 2}
+  - {fileID: 11400000, guid: 2bceb2e691a38204b8335c79cd681e84, type: 2}
   Id: 17
   Name: Yo-wan
   Rarity: 2

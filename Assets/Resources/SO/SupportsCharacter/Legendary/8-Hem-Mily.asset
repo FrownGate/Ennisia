@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 8-Hem-Mily
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 597fa2b84c4967d4e82ffc59c3b9cdd2, type: 2}
-  - {fileID: 11400000, guid: 01561f9df5b4cb940b6507cf98fe6a6f, type: 2}
+  - {fileID: 11400000, guid: 8e5dc8a2d1f9806428a51d46ae58442d, type: 2}
+  - {fileID: 11400000, guid: 2e5bce613081edd489504b393a658acb, type: 2}
   Id: 8
   Name: Hem-Mily
   Rarity: 3

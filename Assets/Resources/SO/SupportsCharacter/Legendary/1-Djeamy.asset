@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 1-Djeamy
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 408e540558ce16a40a708f4da6a875e8, type: 2}
   - {fileID: 11400000, guid: 82d385d918cf7e24ab64225c626006b8, type: 2}
   Id: 1
   Name: Djeamy
