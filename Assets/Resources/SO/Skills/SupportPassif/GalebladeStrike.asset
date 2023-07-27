@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 47
   Name: Galeblade Strike
-  Description: Give an attack buff for 3 turns before attacking an enemy
+  Description: Give an attack buff for 2 turns before attacking an enemy
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0

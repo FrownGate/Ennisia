@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Demonic Slime
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
-  - {fileID: 11400000, guid: 6160f9c95ae9a5e42852d9cd71c1603a, type: 2}
-  - {fileID: 11400000, guid: 7abc2d0db26faad468d0f76dd0fbe765, type: 2}
+  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
+  - {fileID: 11400000, guid: 07a1ceca638a9af499859a19697b9d45, type: 2}
+  - {fileID: 11400000, guid: 9a67a53e2256a7a43bae5ffdc7ae8278, type: 2}
   ID: 4
   Name: Demonic Slime
   Description: description
@@ -23,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 800
+      Value: 400
     - Key: 1
       Value: 20
     - Key: 2

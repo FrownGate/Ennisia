@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Bandit Chief
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
+  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
+  - {fileID: 11400000, guid: 6d5aba02c4a56404689ce33a364a1042, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: b70ef20f7880bf2419aa7eead5f81d09, type: 2}
   ID: 20
   Name: Bandit Chief
   Description: description
@@ -21,7 +24,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 1600
+      Value: 800
     - Key: 1
       Value: 90
     - Key: 2

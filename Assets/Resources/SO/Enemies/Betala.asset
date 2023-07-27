@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Betala
   m_EditorClassIdentifier: 
-  SkillsData: []
+  SkillsData:
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 51
   Name: Betala
   Description: description
@@ -20,7 +21,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 3000
+      Value: 1500
     - Key: 1
       Value: 200
     - Key: 2

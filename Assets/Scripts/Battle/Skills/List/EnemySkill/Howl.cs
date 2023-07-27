@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class How : BuffSkill
+public class Howl : BuffSkill
 {
     
     public override float Use(List<Entity> targets, Entity caster, int turn)

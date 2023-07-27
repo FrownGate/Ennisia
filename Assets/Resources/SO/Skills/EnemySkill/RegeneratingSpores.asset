@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 70
   Name: Regenerating Spores
-  Description: Heals 60% hp of all allies and clense their debuffs
+  Description: Clense all debuffs and heals 30% hp of all allies
   DamageRatio: 0
   ShieldAmount: 0
-  HealingAmount: 60
+  HealingAmount: 30
   BuffAmount: 0
   MaxCooldown: 3
   IgnoreDef: 0

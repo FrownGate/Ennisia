@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 51
   Name: Tectonic Impact
-  Description: When the player attacks a single enemy, deal 15% of damage done to
-    all other enemies.
+  Description: Deal 15% of damage done to all other enemies.
   DamageRatio: 15
   ShieldAmount: 0
   HealingAmount: 0
