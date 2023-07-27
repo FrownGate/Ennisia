@@ -14,7 +14,7 @@ public abstract class Skill
     public float DamageModifier { get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
-    public float Cooldown { get; set; }
+    public int Cooldown { get; set; }
     public int Level { get; set; }
     public float StatUpgrade1 { get; set; }
     public float StatUpgrade2 { get; set; }
@@ -72,7 +72,8 @@ public abstract class Skill
     {
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
         _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
-        float damage = (caster.Stats[Attribute.Attack].Value * ((Data.DamageRatio / 100) + RatioModifier) * _ratio * ((1000 - (_defense - (_defense * target.DefIgnored / 100))) / 1000));
+        float dmgReduction = _defense / (_defense + 1000);
+        float damage = caster.Stats[Attribute.Attack].Value * (Data.DamageRatio / 100 + RatioModifier) * (1+_ratio/100) * (1-dmgReduction);
         foreach (var effect in target.Effects)
         {
             damage *= effect.GetMultiplier();

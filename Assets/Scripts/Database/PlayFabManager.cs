@@ -50,7 +50,7 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<Currency> OnCurrencyUsed;
     public static event Action<Currency> OnCurrencyGained;
     public static event Action OnEnergyUpdate;
-    public static event Action OnEnergyUsed;
+    public static event Action<int> OnEnergyUsed;
 
     public Dictionary<Currency, int> Currencies => _economyMod.Currencies;
     public Dictionary<string, PlayFab.EconomyModels.CatalogItem> Stores => _economyMod.Stores;
@@ -141,7 +141,7 @@ public class PlayFabManager : MonoBehaviour
     public void InvokeOnCurrencyUsed(Currency currency) => OnCurrencyUsed?.Invoke(currency);
     public void InvokeOnCurrencyGained(Currency currency) => OnCurrencyGained?.Invoke(currency);
     public void InvokeOnEnergyUpdate() => OnEnergyUpdate?.Invoke();
-    public void InvokeOnEnergyUsed() => OnEnergyUsed?.Invoke();
+    public void InvokeOnEnergyUsed(int amount) => OnEnergyUsed?.Invoke(amount);
 
     public void AddCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.AddCurrency(currency, amount));
     public void RemoveCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.RemoveCurrency(currency, amount));

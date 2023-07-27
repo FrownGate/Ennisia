@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Green Slime
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
-  - {fileID: 11400000, guid: 6160f9c95ae9a5e42852d9cd71c1603a, type: 2}
+  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
+  - {fileID: 11400000, guid: 07a1ceca638a9af499859a19697b9d45, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 3
   Name: Green Slime
   Description: description
@@ -22,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 550
+      Value: 275
     - Key: 1
       Value: 10
     - Key: 2

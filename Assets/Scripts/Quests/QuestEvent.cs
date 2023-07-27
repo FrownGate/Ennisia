@@ -50,3 +50,27 @@ public class GearLevelMaxQuestEvent : QuestEvent
         Type = type;
     }
 }
+public class DefeatQuestEvent : QuestEvent
+{
+    public bool Lost;
+    public DefeatQuestEvent(bool lost)
+    {
+        Lost = lost;
+    }
+}
+public class EnergyQuestEvent : QuestEvent
+{
+    public int Amount;
+    public EnergyQuestEvent(int amount)
+    {
+        Amount = amount;
+    }
+}
+public class GearUpgradeQuestEvent : QuestEvent
+{
+   
+    public GearUpgradeQuestEvent()
+    {
+        
+    }
+}

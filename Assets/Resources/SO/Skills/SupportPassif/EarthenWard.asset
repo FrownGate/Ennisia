@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 48
   Name: Earthen Ward
-  Description: Once every 2 turns, give a barrier scaling based off of max Hp.
+  Description: Once every 2 turns, give a barrier scaling on max Hp.
   DamageRatio: 0
   ShieldAmount: 20
   HealingAmount: 0

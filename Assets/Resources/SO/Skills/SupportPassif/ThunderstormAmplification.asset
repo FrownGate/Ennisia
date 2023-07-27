@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 52
   Name: Thunderstorm Amplification
-  Description: Increase damage output by 15%
+  Description: Increase caster's magic attack by 20%
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
-  BuffAmount: 0
+  BuffAmount: 20
   MaxCooldown: 0
   IgnoreDef: 0
   HitNumber: 0

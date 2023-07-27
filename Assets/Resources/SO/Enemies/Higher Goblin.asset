@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Higher Goblin
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
-  - {fileID: 11400000, guid: dba8c084413b9704f857fb9df0f782c5, type: 2}
-  - {fileID: 11400000, guid: 1d08eb0f3f95ef545913ba9861ccb184, type: 2}
+  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
+  - {fileID: 11400000, guid: e56a9c0d48e88ad4bbf4b6ce2b2e47b5, type: 2}
+  - {fileID: 11400000, guid: 7310cf52db46d3b4a8afb617afba4591, type: 2}
   ID: 8
   Name: Higher Goblin
   Description: description
@@ -23,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 700
+      Value: 350
     - Key: 1
       Value: 30
     - Key: 2

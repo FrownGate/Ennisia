@@ -74,7 +74,9 @@ public class ExpManager : MonoBehaviour
             return;
 
         experience += expToAdd; // Ajoute l'expérience spécifiée
-        Debug.Log("player gain " + expToAdd);
+        Debug.Log("player gain " + expToAdd + " xp");
+        
+        
 
         while (PlayerlevelExperienceMap.ContainsKey(level + 1) && experience >= PlayerlevelExperienceMap[level + 1])
         {
@@ -85,7 +87,8 @@ public class ExpManager : MonoBehaviour
             PlayFabManager.Instance.Player.Exp = experience;
             OnPlayerLevelUp?.Invoke(level,LevelUpQuestEvent.LvlType.Player);
         }
-
+        Debug.Log("player xp " + experience);
+        Debug.Log("Level " + level);
         PlayFabManager.Instance.Player.Exp = experience;
         PlayFabManager.Instance.UpdateData();
 
