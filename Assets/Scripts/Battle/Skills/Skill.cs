@@ -14,7 +14,7 @@ public abstract class Skill
     public float DamageModifier { get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
-    public float Cooldown { get; set; }
+    public int Cooldown { get; set; }
     public int Level { get; set; }
     public float StatUpgrade1 { get; set; }
     public float StatUpgrade2 { get; set; }

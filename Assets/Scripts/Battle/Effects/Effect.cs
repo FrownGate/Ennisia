@@ -18,7 +18,7 @@ public class Effect
     {
         Data = Resources.Load<EffectSO>("SO/Effects/" + GetType().Name);
         InitialDuration = duration ?? Data.Duration;
-        Duration = 0;
+        Duration = InitialDuration;
     }
 
     public virtual void AlterationEffect(Entity target) { }
@@ -36,6 +36,7 @@ public class Effect
     {
         Duration--;
         if (!IsExpired) return;
+        // FIXME: Cleanse() is called within a foreach loop, looping on the Effects list of the Entity. -> InvalidOperationException: Collection was modified; enumeration operation may not execute.
         Cleanse(target);
     }
 
