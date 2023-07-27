@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PlayFab.ClientModels;
 using PlayFab.EconomyModels;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ShopSystem : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class ShopSystem : MonoBehaviour
             PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
             itemInfo.ItemName = item.AlternateIds[0].Value;
             itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
-            itemInfo.ItemSprite = Resources.Load<Sprite>("Sprites/Items/" + itemInfo.ItemName);
+            SetImageFromURL(item.Images[0].Url, itemInfo);
             Debug.Log(itemInfo.ItemName + "Added");
             _currentShopItems.Add(shopItemBtn);
         }
@@ -87,5 +88,30 @@ public class ShopSystem : MonoBehaviour
             Destroy(item);
         }
         _currentShopItems.Clear();
+    }
+    
+    public void SetImageFromURL(string url, ShowShopBtnInfo item)
+    {
+        StartCoroutine(DownloadImage(url, item));
+    }
+
+    private IEnumerator DownloadImage(string url, ShowShopBtnInfo item)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        yield return request.SendWebRequest();
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError(request.error);
+        }
+        else
+        {
+            Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            item._itemImage.sprite = Texture2DToSprite(texture);
+        }
+    }
+
+    private Sprite Texture2DToSprite(Texture2D texture)
+    {
+        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 }
