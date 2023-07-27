@@ -6,6 +6,7 @@ public class Silence : Effect
     {
         for (int i = 1; i < target.Skills.Count; i++)
         {
+            // FIXME: ToggleUse doesn't work
             target.Skills[i].Button.ToggleUse(false);
         }
 
