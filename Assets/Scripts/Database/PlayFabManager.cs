@@ -238,5 +238,12 @@ public class PlayFabManager : MonoBehaviour
         //Debug.Log("Testing");
         //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
         //Player.Equip(Inventory.GetGearById(1));
+
+        //Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
+        //Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
+        //Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
+        //Player.Equip(new Gear(GearType.Necklace, Rarity.Common, null), false);
+        //Player.Equip(new Gear(GearType.Ring, Rarity.Common, null), false);
+        //Player.Equip(new Gear(GearType.Earrings, Rarity.Common, null), false);
     }
 }
