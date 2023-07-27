@@ -40,8 +40,10 @@ public class QuestManager : MonoBehaviour
         ExpManager.OnAccountLevelUp += LevelUpQuest;
         Gear.LevelUp += OnGearUpgrade;
         Gear.MaxLevel += GearMaxLevelQuest;
+        Gear.ObtainGear += ObtainGear;
         BattleSystem.OnPlayerLose += DefeatQuest;
         PlayFabManager.OnEnergyUsed += OnEnergyUsed;
+        PlayFabManager.OnCurrencyUsed += OnCurrencyGain;
     }
 
     private void OnDisable()
@@ -54,6 +56,8 @@ public class QuestManager : MonoBehaviour
         Gear.MaxLevel -= GearMaxLevelQuest;
         BattleSystem.OnPlayerLose -= DefeatQuest;
         PlayFabManager.OnEnergyUsed -= OnEnergyUsed;
+        PlayFabManager.OnCurrencyUsed -= OnCurrencyGain;
+
     }
 
     private void LoadQuest()
@@ -137,5 +141,15 @@ public class QuestManager : MonoBehaviour
     private void OnGearUpgrade()
     {
         QuestEventManager.Instance.QueueEvent(new GearUpgradeQuestEvent());
+    }
+
+    private void OnCurrencyGain(Currency currency,int amount)
+    {
+        QuestEventManager.Instance.QueueEvent(new CurrencyQuestEvent(currency,amount));
+    }
+
+    private void ObtainGear(GearType? type)
+    {
+        QuestEventManager.Instance.QueueEvent(new ObtainGearQuestEvent(type));
     }
 }

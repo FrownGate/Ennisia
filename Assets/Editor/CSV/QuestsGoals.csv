@@ -7,14 +7,14 @@ QuestID,GoalType,Value,Amount,Same
 6,Defeat,,1,FALSE
 7,Energy,,50,FALSE
 8,Mission,Dungeon,1,FALSE
-9,ObtainGear,,1,FALSE
+9,ObtainGear,gear,1,FALSE
 10,Killing,all,10,FALSE
 11,GearUpgrade,,1,FALSE
 12,Mission,Raid,3,FALSE
 13,Mission,Expedition,1,FALSE
 14,Mission,EndlessTower,10,FALSE
 15,Mission,"MainStory, SideStory, AlternativeStory",5,FALSE
-16,Gold,,10000,FALSE
+16,Currency,Gold,10000,FALSE
 17,Killing,all,30,FALSE
 18,Killing,all,100,FALSE
 19,Killing,all,200,FALSE

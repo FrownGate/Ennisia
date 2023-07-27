@@ -47,8 +47,8 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private EconomyModule _economyMod;
 
     public static event Action OnCurrencyUpdate;
-    public static event Action<Currency> OnCurrencyUsed;
-    public static event Action<Currency> OnCurrencyGained;
+    public static event Action<Currency,int> OnCurrencyUsed;
+    public static event Action<Currency,int> OnCurrencyGained;
     public static event Action OnEnergyUpdate;
     public static event Action<int> OnEnergyUsed;
 
@@ -138,8 +138,8 @@ public class PlayFabManager : MonoBehaviour
 
     #region Economy
     public void InvokeOnCurrencyUpdate() => OnCurrencyUpdate?.Invoke();
-    public void InvokeOnCurrencyUsed(Currency currency) => OnCurrencyUsed?.Invoke(currency);
-    public void InvokeOnCurrencyGained(Currency currency) => OnCurrencyGained?.Invoke(currency);
+    public void InvokeOnCurrencyUsed(Currency currency,int amount) => OnCurrencyUsed?.Invoke(currency,amount);
+    public void InvokeOnCurrencyGained(Currency currency,int amount) => OnCurrencyGained?.Invoke(currency,amount);
     public void InvokeOnEnergyUpdate() => OnEnergyUpdate?.Invoke();
     public void InvokeOnEnergyUsed(int amount) => OnEnergyUsed?.Invoke(amount);
 
