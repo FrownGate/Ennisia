@@ -34,7 +34,7 @@ public class ShopSystem : MonoBehaviour
 
                 Buy(PlayFabManager.Instance.GetItemById(item.Id));
             }
-        }g
+        }
     }
 
     private void InitShops()
