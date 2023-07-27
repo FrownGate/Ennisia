@@ -2,7 +2,7 @@ public class Silence : Effect
 {
     public Silence(int? duration = null) : base(duration) { }
 
-    public override void AlterationEffect(Entity target)
+    public override void AlterationEffect(Entity target, Entity caster = null)
     {
         for (int i = 1; i < target.Skills.Count; i++)
         {
