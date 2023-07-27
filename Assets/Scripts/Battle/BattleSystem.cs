@@ -200,7 +200,10 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             skill.Button.ToggleHUD(active);
+            if (Player.HasEffect(new Silence())) break;
         }
+
+        if (Player.HasEffect(new SupportSilence())) return;
 
         foreach (var support in Player.EquippedSupports)
         {
