@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
+  m_Name: Veronika
+  m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 8948a5b4011aca443887c85d24b40cc2, type: 2}
+  - {fileID: 11400000, guid: 75f22977dad7d2f4c9876a89505d920d, type: 2}
+  Id: 3
+  Name: Veronika
+  Rarity: 3
+  Race: Human
+  Job: Healer
+  Element: 0
+  Description: "Veronika is the King of Anthrena\u2019s second daughter; however,
+    she wants nothing to do with royalty or the castle. Her dream is to travel and
+    adventure with the people she loves. However with the rise of the demons she
+    has become the general of the health department. Her beauty is unmatched and
+    often seen with Djeamy, is it a general\u2019s meeting or more?..."
+  Catchphrase: "I am not a klutz, my legs just get tired very easily\u2026 *falls*
+    Oops!"
+  Button: {fileID: 0}
