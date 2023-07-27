@@ -9,6 +9,7 @@ public class Effect
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration;
     private bool IsExpired => Duration <= 0;
+    public bool IsUndispellable => Data.Undispellable;
 
     public int Stacks { get; protected set; } = 0;
     public bool IsStackable = false;
@@ -88,4 +89,9 @@ public class Immunity : Effect
 public class Invincibility : Effect
 {
     public Invincibility(int? duration = null) : base(duration) { }
+}
+public class Berserk : Effect
+{
+    public Berserk(int? duration = null) : base(duration) { }
+    
 }

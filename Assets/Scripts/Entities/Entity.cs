@@ -142,15 +142,16 @@ public abstract class Entity
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);
     }
 
-    public void Cleanse()
+    public void Strip()
     {
         foreach (var effect in Effects)
         {
+            if (effect.IsUndispellable) return;
             if (!effect.HasAlteration) effect.Cleanse(this);
         }
     }
 
-    public void Strip()
+    public void Cleanse()
     {
         foreach (var effect in Effects)
         {
