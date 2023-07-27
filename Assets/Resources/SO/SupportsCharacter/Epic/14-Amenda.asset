@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 14-Amenda
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 6bbc007ac6f50af43a47e91871ca7bfa, type: 2}
-  - {fileID: 11400000, guid: 1992b1e19b108294bb2d6125e86fe782, type: 2}
+  - {fileID: 11400000, guid: a5af49efb588c6a4c89974bb2084f0de, type: 2}
+  - {fileID: 11400000, guid: 089a5329be04fa947bf447447620a45d, type: 2}
   Id: 14
   Name: Amenda
   Rarity: 2

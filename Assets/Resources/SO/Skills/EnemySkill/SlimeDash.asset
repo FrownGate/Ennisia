@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Slime Dash
   Description: Hits the player 3 times and deal physical damage and has a 10% chance
     to Silence for 1 turn
-  DamageRatio: 50
+  DamageRatio: 150
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

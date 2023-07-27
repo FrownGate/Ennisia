@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 14
   Name: "Feathers\u2019 Fall"
   Description: Deals 10 hits to all enemies with sharp feathers.
-  DamageRatio: 80
+  DamageRatio: 180
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

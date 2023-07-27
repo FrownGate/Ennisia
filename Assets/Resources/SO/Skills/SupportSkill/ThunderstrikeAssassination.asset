@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 38
   Name: Thunderstrike Assassination
   Description: Penetrate defense by 100%
-  DamageRatio: 50
+  DamageRatio: 150
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

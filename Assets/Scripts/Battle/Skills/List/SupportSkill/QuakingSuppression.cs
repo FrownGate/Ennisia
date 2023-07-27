@@ -5,7 +5,7 @@ public class QuakingSuppression : DamageSkill
 {
     private float _stunPerc = 0.7f;
 
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         float stunLuck = Random.Range(0, 1);
         foreach (Entity target in targets)

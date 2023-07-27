@@ -5,7 +5,7 @@ public class AllIn : PassiveSkill
     private float _defBaseRatio;
     private float _attackBuff;
 
-    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn, List<Entity> allies)
     {
         caster.AtkBarPercentage = 100;
         _attackBuff = (caster.Stats[Attribute.PhysicalDefense].Value + caster.Stats[Attribute.MagicalDefense].Value ) * ((Data.BuffAmount / 100) + (StatUpgrade1 * Level));

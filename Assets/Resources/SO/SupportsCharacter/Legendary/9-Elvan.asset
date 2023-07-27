@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillsData:
   - {fileID: 11400000, guid: 568877186659e134ca2688fc7f0f82e3, type: 2}
-  - {fileID: 11400000, guid: 885bca2017592bd47a678fedf32a0c86, type: 2}
+  - {fileID: 11400000, guid: 25a7e9aa3d307024abe22c1f9e111356, type: 2}
   Id: 9
   Name: Elvan
   Rarity: 3

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 public class Blessing : PassiveSkill
 {
 
-    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         caster.Heal((Data.HealingAmount / 100) + (StatUpgrade1 * Level));
 

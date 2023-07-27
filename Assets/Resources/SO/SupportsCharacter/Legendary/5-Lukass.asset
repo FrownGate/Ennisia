@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillsData:
   - {fileID: 11400000, guid: 06d8ec46e931ee543bdd75c322b06b77, type: 2}
-  - {fileID: 11400000, guid: 085fcf3de6e552e44aac226d99c5ae89, type: 2}
+  - {fileID: 11400000, guid: 3dbc25fa66f491c4e9985b738bf20ac5, type: 2}
   Id: 5
   Name: Lukass
   Rarity: 3
