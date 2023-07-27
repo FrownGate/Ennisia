@@ -179,6 +179,11 @@ public abstract class Entity
         return false;
     }
 
+    public bool HasEffect(Effect effect)
+    {
+        return Effects.Exists(x => x.Data.Name == effect.Data.Name);
+    }
+
     public void InitElement()
     {
         List<ElementType> elements = new();

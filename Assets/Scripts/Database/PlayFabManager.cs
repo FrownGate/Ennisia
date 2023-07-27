@@ -249,5 +249,20 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log(support.Name + "jjj");
         Player.Equip(support, 1,false); //Slot 2
         //Player.Equip(Inventory.GetGearById(1));
+
+        //Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
+        //Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
+        //Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
+        //Player.Equip(new Gear(GearType.Necklace, Rarity.Common, null), false);
+        //Player.Equip(new Gear(GearType.Ring, Rarity.Common, null), false);
+        //Player.Equip(new Gear(GearType.Earrings, Rarity.Common, null), false);
+
+        //SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Epic/20-Red Slime");
+        //Debug.Log(support.Name);
+        //Player.Equip(support, 0, false); //Slot 1
+
+        //support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/3-Veronika");
+        //Debug.Log(support.Name);
+        //Player.Equip(support, 1, false); //Slot 2
     }
 }

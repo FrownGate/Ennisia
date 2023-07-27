@@ -23,7 +23,7 @@ public abstract class Skill
     private float _defense;
     //TODO -> Move fields/functions in child classes
 
-    protected Dictionary<Attribute, ModifierID> _modifiers;
+    protected readonly Dictionary<Attribute, ModifierID> _modifiers = new();
 
     public Skill()
     {
