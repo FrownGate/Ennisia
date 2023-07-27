@@ -18,7 +18,7 @@ public class BigMushroom : PassiveSkill
         }
     }
 
-    float AttackBuf(float value) => (float)value * 2;
+    float AttackBuf(float value) => value * 2;
 
     public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
     {

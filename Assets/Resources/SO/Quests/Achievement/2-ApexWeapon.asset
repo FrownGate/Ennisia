@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3717604438022286203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525f8c1d5f0c49158459ce24f2eba624, type: 3}
+  m_Name: GearMaxLevel
+  m_EditorClassIdentifier: 
+  RequiredAmount: 1
+  Same: 0
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  Type: 06000000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,4 +43,5 @@ MonoBehaviour:
         Value: 1000
       - Key: 1
         Value: 30
-  Goals: []
+  Goals:
+  - {fileID: -3717604438022286203}

@@ -1,7 +1,7 @@
 QuestID,GoalType,Value,Amount,Same
 1,Killing,allboss,1,TRUE
-2,Unknown,,1,FALSE
-3,Unknown,,1,FALSE
+2,GearMaxLevel,weapon,1,FALSE
+3,GearMaxLevel,gear,1,FALSE
 4,Killing,allboss,10,TRUE
 5,Killing,allboss,50,TRUE
 6,Unknown,,1,FALSE
