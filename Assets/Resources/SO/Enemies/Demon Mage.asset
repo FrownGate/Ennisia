@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Demon Mage
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 2955ac3caac4525468ce5afe9276b429, type: 2}
+  - {fileID: 11400000, guid: 27dac9dedf2a24c4b948571fe2f26ce2, type: 2}
+  - {fileID: 11400000, guid: 47b270e85d721694386b81c8ba8df298, type: 2}
+  - {fileID: 11400000, guid: 9d372ffdcdb3c1841b4dfc7c95050a2c, type: 2}
+  - {fileID: 11400000, guid: 6160f9c95ae9a5e42852d9cd71c1603a, type: 2}
   ID: 23
   Name: Demon Mage
   Description: description
@@ -21,7 +24,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 1650
+      Value: 825
     - Key: 1
       Value: 85
     - Key: 2

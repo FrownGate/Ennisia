@@ -12,8 +12,9 @@ public class EnemyTurn : State
         BattleSystem.ToggleSkills(false);
         BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
         BattleSystem.Enemies[BattleSystem.EnemyPlayingID].AtkBar = 0;
-
-        UseSkill(BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills[AI.ChooseSkill(BattleSystem, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], true)]);
+        Debug.Log("truc bidule = " + BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills[AI.ChooseSkill(BattleSystem, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], true)]);
+        UseSkill(BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills[AI.ChooseSkill(BattleSystem,
+            BattleSystem.Enemies[BattleSystem.EnemyPlayingID], true)]);
 
         yield return new WaitForSeconds(1f);
 
@@ -25,6 +26,7 @@ public class EnemyTurn : State
         {
             BattleSystem.SetState(new CheckTurn(BattleSystem));
         }
+        BattleSystem.Turn += 1;
     }
 
     public void UseSkill(Skill skillUsed)

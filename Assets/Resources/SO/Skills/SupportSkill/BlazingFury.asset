@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 44
   Name: Blazing Fury
-  Description: Increase attack of player for 3 turns
+  Description: give attack buff for 3 turns
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0

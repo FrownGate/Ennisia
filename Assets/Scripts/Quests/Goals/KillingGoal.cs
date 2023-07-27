@@ -28,7 +28,7 @@ public class KillingGoal : QuestSO.QuestGoal
         foreach (var enemy in ToKill) _killHistory[enemy.Name] = 0;
     }
 
-    public void OnKilling(KillQuestEvent eventInfo)
+    private void OnKilling(KillQuestEvent eventInfo)
     {
         if (Completed) return;
         foreach (var enemy in ToKill)

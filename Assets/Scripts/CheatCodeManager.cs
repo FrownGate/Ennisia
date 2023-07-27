@@ -43,7 +43,8 @@ namespace CheatCodeNS
         AttackBuff,
         AttackUnlimited,
         Victory,
-        Defeat
+        Defeat,
+        CleanWave
     }
 
     public class CheatCodeManager
@@ -78,7 +79,8 @@ namespace CheatCodeNS
                 new CheatCodeData("atkbuff","attackbuff", ActivateAttackBuff, null, CheatCode.AttackBuff),
                 new CheatCodeData("attackunlimited","ICanDoThisAllDay", ActivateAttackUnlimited, RemoveAttackUnlimited, CheatCode.AttackUnlimited),
                 new CheatCodeData("victory","WhatIsBestInLife", ActivateVictory, null, CheatCode.Victory),
-                new CheatCodeData("defeat","IllBeBack", ActivateDefeat, null, CheatCode.Defeat)
+                new CheatCodeData("defeat","IllBeBack", ActivateDefeat, null, CheatCode.Defeat),
+                new CheatCodeData("cleanwave","cleanwave", ActivateCleanWave, null, CheatCode.CleanWave)
             };
             _battleInstance = battleSystem;
 
@@ -265,6 +267,12 @@ namespace CheatCodeNS
             _battleInstance.SetState(new Lost(_battleInstance));
             Debug.LogWarning("Defeat activated");
             ActiveCheatCodes.Remove(CheatCode.Defeat);
+        }
+        private void ActivateCleanWave()
+        {
+            _battleInstance.EndWave(true);
+            Debug.LogWarning("Clean wave activated");
+            ActiveCheatCodes.Remove(CheatCode.CleanWave);
         }
 
         // REMOVERS
