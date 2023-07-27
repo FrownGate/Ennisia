@@ -357,6 +357,8 @@ MonoBehaviour:
   _sceneHistory:
   - name: Chat
     path: Assets/Scenes/Dev/Alexis/Chat.unity
+  - name: Forge
+    path: Assets/Scenes/Forge.unity
   - name: Yoann
     path: Assets/Scenes/Dev/Yoann.unity
   _notes: []

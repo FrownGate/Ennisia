@@ -10,6 +10,7 @@ public class PlayerControllerChat : NetworkBehaviour
         chatManager = ChatManager.GetInstance();
         Debug.Log($"Player is LocalPlayer : {isLocalPlayer}");
         Debug.Log($"Player is Owned : {isOwned}");
+        Debug.Log(PlayFabManager.Instance.Account.Name);
     }
 
     private void Update()
