@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 57
   Name: Refreshing Tideguard
-  Description: Gives a shield to the player, scales with max Hp, for 2 turns.
+  Description: Gives a shield to the player, scales with max Hp
   DamageRatio: 0
   ShieldAmount: 30
   HealingAmount: 0

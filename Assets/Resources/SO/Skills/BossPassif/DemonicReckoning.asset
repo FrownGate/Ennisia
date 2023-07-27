@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
+  m_Name: DemonicReckoning
+  m_EditorClassIdentifier: 
+  Id: 108
+  Name: Demonic Reckoning
+  Description: If the player has 6 or more Demonic Marks, Consumes all Demonic Marks
+    on the player and inflicts a defense break (debuff) before dealing 50% of attack
+    as physical damage. Has a 50% (100% on insane) chance to attack again for each
+    Demonic Marks, each hit deals damage equivalent to 25% of the boss's Attack as
+    Magical Damages. After attacking, inflict an attack (debuff).
+  DamageRatio: 50
+  ShieldAmount: 0
+  HealingAmount: 0
+  BuffAmount: 0
+  MaxCooldown: 5
+  IgnoreDef: 0
+  HitNumber: 1
+  AOE: 0
+  IsMagic: 0
+  IsPassive: 1
+  SkillType: 7

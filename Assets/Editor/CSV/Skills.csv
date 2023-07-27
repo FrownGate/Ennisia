@@ -9,15 +9,15 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 8,Flawless Technique,"increase critical rate of the player by 15%. When an enemy is killed, grants Attack buff",0,0,0,15,3,0,0,FALSE,FALSE,FALSE,Weapon
 9,Deadly Blow,"sneaks behind an enemy and stabs them, dealing 5 hits. If the enemy is killed by this skill, reset its cooldown.",110,0,0,0,3,0,5,FALSE,FALSE,FALSE,Weapon
 10,Bones Breaker,"deals one heavy hit to an enemy, debuffs his defense.",120,0,0,0,3,0,1,FALSE,FALSE,FALSE,Weapon
-11,Fatal Crash,"deals one charged hit to an enemy, divided by the missing hp% then heals hp according to damage dealt.",100,0,0,0,3,0,1,FALSE,FALSE,FALSE,Weapon
+11,Fatal Crash,"deals one charged hit to an enemy, damage increase on target's missing hp, then heals hp according to damage dealt.",100,0,80,0,3,0,1,FALSE,FALSE,FALSE,Weapon
 12,Impregnable Defense,"increases defense of the player by 5% every turn, up to 20%.",0,0,0,5,3,0,0,FALSE,FALSE,FALSE,Weapon
-13,Shield Bump,"deals 1 hit to an enemy with all of their strength. If the enemy has a defense debuff, deals an additional 50% damage.",70,0,0,0,3,0,1,FALSE,FALSE,FALSE,Weapon
+13,Shield Bump,"deals 1 hit to an enemy with all of their strength. If the enemy has a defense debuff, deals an additional 50% damage.",70,0,0,50,3,0,1,FALSE,FALSE,FALSE,Weapon
 14,Feathers’ Fall,Deals 10 hits to all enemies with sharp feathers.,80,0,0,0,3,0,10,TRUE,FALSE,FALSE,Weapon
 15,Hawk’s Eye,"increases user’s critical damage, attack and critical rate (buff), then gives an additional turn.",0,0,0,0,3,0,0,FALSE,FALSE,FALSE,Weapon
 16,Rising Power,"increases base attack by 15%, or by 30% if a two-handed sword is equipped.",0,0,0,15,0,0,0,FALSE,FALSE,TRUE,Support Passif
 17,In The Shadow,"penetrates the target’s defense by 40% ; if the enemy is debuffed, has a 50% chance to play again.",0,0,0,0,3,40,0,FALSE,FALSE,TRUE,Support Skill
 18,Make Or Break,increases hp by 150% of base attack. Heals 5% of damage dealt.,0,0,5,150,3,0,0,FALSE,FALSE,TRUE,Weapon
-19,Soul Convertion,Inverts the current weapon’s damage type and increases it by 20%.,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Weapon
+19,Soul Convertion,Inverts the current weapon’s damage type and increases it by 20%.,0,0,0,20,3,0,0,FALSE,FALSE,TRUE,Weapon
 20,Knight Oath,"Increase hp and defense by 15%. After receiving damage, give a shield equivalent to 5% of max health.",0,5,0,15,0,0,0,FALSE,FALSE,TRUE,Support Passif
 21,Alchemy,"increases magical damages by 50%. Every 2 turns, decreases the third skill cooldown by 1 turn.",0,0,0,50,0,0,0,FALSE,FALSE,TRUE,Support Passif
 22,All In,"Always take the first turn, and convert 50% of defense into attack.",0,0,0,50,0,0,0,FALSE,FALSE,TRUE,Support Passif
@@ -29,8 +29,8 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 28,Charge!,increase attack by 5%.,0,0,0,5,0,0,0,FALSE,FALSE,TRUE,Support Passif
 29,Reinforcement,increase defense by 5%.,0,0,0,5,0,0,0,FALSE,FALSE,TRUE,Support Passif
 30,Giant,increase Hp by 5%.,0,0,0,5,0,0,0,FALSE,FALSE,TRUE,Support Passif
-31,Swiftness,Increases speed by #,0,0,0,5,0,0,0,FALSE,FALSE,TRUE,Support Passif
-32,Rampant Assault,"deals damage equivalent to 20% of the target’s max health. For every turn that has passed, damage increases by 5%, up to 50%.",20,0,0,5,3,0,0,FALSE,FALSE,TRUE,Support Skill
+31,Swiftness,Increases speed by 5%,0,0,0,5,0,0,0,FALSE,FALSE,TRUE,Support Passif
+32,Rampant Assault,"deals damage equivalent to 20% of the target’s max health. For every turn that has passed, damage increases by 5%, up to 25%.",0,0,0,5,3,0,0,FALSE,FALSE,TRUE,Support Skill
 33,Crippling Blow,Deals 50% of physical attack before a 80% chance to decrease the target’s defense for 2 turns. // debuff,50,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 34,Infernal Resilience,Gives a shield equivalent to 50% of missing health for 3 turns.,0,50,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 35,Torrential Annihilation,"Deals 25% of physical/magic att as true damage. If the player’s physical damage is higher than the enemy, remove all debuffs.",100,0,0,0,3,25,0,FALSE,FALSE,TRUE,Support Skill
@@ -41,26 +41,26 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 40,Tidal Execution,"Deals damage scaling by the target’s lost health, if the target has 5% hp or lower, execute the target.",0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 41,Flame Purification,Cleanse all debuffs,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 42,Gale Disruption,Remove all buffs from target,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
-43,Nurturing Earthbound,Heals 80% of lost health,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
-44,Blazing Fury,Increase attack of player for 3 turns,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
+43,Nurturing Earthbound,Heals 40% of lost health,0,0,40,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
+44,Blazing Fury,give attack buff for 3 turns,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 45,Thunderous Impact,Stun the enemy for 1 turn // High CD,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 46,Zephyr Swiftness,Increase base speed by 20%.,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Support Passif
-47,Galeblade Strike,Give an attack buff for 3 turns before attacking an enemy,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
-48,Earthen Ward,"Once every 2 turns, give a barrier scaling based off of max Hp.",0,20,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
+47,Galeblade Strike,Give an attack buff for 2 turns before attacking an enemy,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
+48,Earthen Ward,"Once every 2 turns, give a barrier scaling on max Hp.",0,20,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
 49,Blazing Resilience,"When the player receives a debuff, give random buff (att, Crit Rate, Crit Damage).",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
 50,Gust of Precision,Increase Crit Rate of player by 25%.,0,0,0,25,0,0,0,FALSE,FALSE,TRUE,Support Passif
-51,Tectonic Impact,"When the player attacks a single enemy, deal 15% of damage done to all other enemies.",15,0,0,15,0,0,0,FALSE,FALSE,TRUE,Support Passif
-52,Thunderstorm Amplification,Increase damage output by 15%,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
+51,Tectonic Impact,Deal 15% of damage done to all other enemies.,15,0,0,15,0,0,0,FALSE,FALSE,TRUE,Support Passif
+52,Thunderstorm Amplification,Increase caster's magic attack by 20%,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Support Passif
 53,Aqua Paralysis,"When the player is attacked, has a 15% chance to stun the enemy.",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
 54,Zephyr's Fury,Gives a Crit Damage Buff for 3 turns.,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
-55,Crushing Earthguard,"Attacks all enemies, and gives a shield based off 40% of damage done.",50,40,0,0,3,0,0,FALSE,TRUE,TRUE,Support Skill
+55,Crushing Earthguard,"Attacks all enemies, and gives a shield based off 40% of damage done.",50,20,0,0,3,0,0,FALSE,TRUE,TRUE,Support Skill
 56,Arcane Transference,"Cleanse 1 debuff, and gives the cleansed debuff to enemy/enemies.",0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
-57,Refreshing Tideguard,"Gives a shield to the player, scales with max Hp, for 2 turns.",0,30,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
-58,Slice,"Hits the player dealing physical damage ",40,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+57,Refreshing Tideguard,"Gives a shield to the player, scales with max Hp",0,30,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
+58,Slice,Hits the player dealing physical damage ,40,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 59,Magic Bonk,Hits the player with magic damage,60,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
 60,Slime Dash,Hits the player 3 times and deal physical damage and has a 10% chance to Silence for 1 turn,50,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 61,Demonic Dash,Hits the player 3 times and deal magic damage and has a 10% chance to give a demonic mark,50,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
-62,"Biting Barrage ",Hits the player 4 times dealing physical damage,70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+62,Biting Barrage ,Hits the player 4 times dealing physical damage,70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 63,Hyper Fang,Hits the player with huge fangs and has a 20% chance to defence break,70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 64,Spin Attack,Hits the player 3 times and increases attackbar by 25%,40,0,0,25,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 65,Herbs Master,"With the use of herbs and nature around it, restore 50% hp of the lowest health ally",0,0,50,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
@@ -68,27 +68,27 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 67,Golem Smash,"Hits the player with a huge hit, the damage is x2 and has a 10% chance to stun",80,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
 68,Sticky roots,The user spreads its roots across the feild reducing enemy's attackbar by 50%,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 69,Gushing Spores,Hits the player with a smoke screen dealing magic damage and has 100% chance to inflict an attack break,50,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
-70,Regenerating Spores,Heals 60% hp of all allies and clense their debuffs,0,0,60,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+70,Regenerating Spores,Clense all debuffs and heals 30% hp of all allies,0,0,30,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 71,Sharpening Sword,User gives himself an attack buff for 3 turns,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 72,Falling Arrows,Hits the player 4 times dealing physical damage and has a 50% chance to recieve a Crit Rate and Crit Dmg buff,50,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 73,Wishing Star,The user heals 20% health of all allies and gives a shield proportional to max health,0,10,20,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
-74,Thief,Gives break attack debuff to player and gives a attack buff to user,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+74,Thief,Gives break attack debuff to player and gives an attack buff to user,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 75,Raging Slam,Hits the player dealing physical damage before giving user an attack buff,70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 76,Demonic Slash,Hits the player dealing magic damage and has a 10% to inflict a demonic mark,40,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
-77,Demonic Arrow,Has a 40% chance to inflict a defense break to the player,50,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+77,Demonic Arrow,Has a 40% chance to inflict a defense break to the player,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 78,Demonic Marking,Hits the player dealing magic damage and has 100% chance to break defence and 50% chance to inflict 2 demonic marks,60,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
 79,Demonic Strike,Hits the player dealing physical damage before inflicting a support silence debuff,90,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 80,Demonic Bite,"Hits the player dealing physical damage, inflicting demonic mark and has 50% chance to break defense, if break defense atk bar 100%",70,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
-81,Howl,"Gives all allies a atk buff for 2 turns ",0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
+81,Howl,Gives all allies a atk buff for 2 turns ,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
 82,Burning Smash,Hits the player dealing physical damage and has a 20% chance to defense break,40,0,0,0,3,0,0,FALSE,FALSE,TRUE,Enemy Skill
-83,Tsunami,"Hits the player 6 times dealing magic damage and decreases atk bar of player by 30% ",50,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
+83,Tsunami,Hits the player 6 times dealing magic damage and decreases atk bar of player by 30% ,50,0,0,0,3,0,0,FALSE,TRUE,TRUE,Enemy Skill
 84,Malevolent Strike,If user has an atk buff penetrate defense by 10%,0,0,0,0,0,10,0,FALSE,FALSE,TRUE,Enemy Passif
-85,"Big Mushroom ","If he's alone, increase his attack by 100% regen 50% of damage dealt",0,0,50,100,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-86,"Goblin Chief ","If the ennemy is stunned, penetrate the defense by 50%",0,0,0,0,0,50,0,FALSE,FALSE,TRUE,Enemy Passif
-87,"Pack leader ","If you're not alone, increase all stats by 10% + 5% per enemy",0,0,0,10,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-88,Demon knight,"If the enemy has a demonic mark, inflict 2 additionnal demonic mark",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-89,"Demon archer ",Increase all defense by 20%,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
-90,Demon mage,"When demon mage heals allies, deal damage to the enemy according to the amount recovered",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+85,Big Mushroom ,"If he's alone, increase his attack by 100% regen 50% of damage dealt",0,0,50,100,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+86,Goblin Chief ,"If the ennemy is stunned, give a break attack debuff",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+87,Pack Leader ,"If you're not alone, increase all stats by 10% + 5% per enemy",0,0,0,10,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+88,Demon Knight,"If the enemy has a demonic mark, inflict 2 additionnal demonic mark",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+89,Demon Archer ,Increase all defense by 20%,0,0,0,20,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
+90,Demon Mage,"When demon mage heals allies, deal damage to the enemy according to the amount recovered",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Enemy Passif
 91,Swift Strike,"Hits an ennemy dealing physical damage and penetrating defense by 10%, and increasing atkbar by 50%",70,0,0,50,3,10,0,FALSE,FALSE,TRUE,Support Skill
 92,Doctor's Remedy,Gives imunity to the player for 3 turns,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 93,Comet Crash,Deal physical damge to all enemies decreasing the thier atkbar by 70% and silencing them,100,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
@@ -97,3 +97,19 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 96,Doctor's Orders,"When suffering an attack that would kill, leaves the player at 1 hp",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
 97,Aftermath,"If the target is debuffed after attacking, increase atkbar by 70%",0,0,0,70,0,0,0,FALSE,FALSE,TRUE,Support Passif
 98,Call of Heros,"When player Hp falls below 40%, give a shield worth 70% of max health and an atkbuff for 2 turns",0,70,0,0,0,0,0,FALSE,FALSE,TRUE,Support Passif
+99,Shield Bash,Inflicts damage based on 25% of his defense and has a 40% chance of Taunting. ,25,0,0,0,0,0,1,FALSE,FALSE,FALSE,Boss Skill
+100,Heavenly Armor,Each turn increases his defense by 2.5%.,0,0,0,2.5,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+101,Aspect of the Fallen Angel,"Deal damage equal to 60% of his defense and inflicts defense break (debuff) to caster for 2 turns. Cooldown 3 turns. If battle difficulty is insane, deal damage equal to 60% of his defense and inflicts an Attack break (debuff) to caster for 2 turns.",60,0,0,0,3,0,3,FALSE,FALSE,FALSE,Boss Skill
+102,Aspect of the Guardian Angel,Gain Immunity for 2 turns and Silence the Supports Characters of the enemy for 2 turns.,0,0,0,0,0,0,4,FALSE,FALSE,FALSE,Boss Skill
+103,Heavenly Blessing,"When Hp is lower than 30%, convert defense percentage gained by Heavenly Armor into Attack.",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+104,Aspect of the Demonic Angel,"When Hp is lower than 30% of max health, activate Berserk, gives undispellable attack and Crit dmg buff. ",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+105,Cursed Marking,"Hits the player 2 times, with 50% chance each of inflicting Demonic Mark and deals Physical Damage. If the difficulty is on Insane, has 100% chance each of inflicting Demonic Mark",50,0,0,0,0,0,2,FALSE,FALSE,FALSE,Boss Skill
+106,Demonic Gamble,"Attacks the player with a 50% chance to stun dealing 70% of attack as physical damage, if the player is stunned after attack, inflict 2 Demonic Mark. If the player is not stunned after the attack, inflict a defense break (debuff) to the user.",70,0,0,0,2,0,1,FALSE,FALSE,FALSE,Boss Skill
+107,Curse of the Primordial Demon,Inflicts Demonic Mark at the end of every turn. ,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+108,Demonic Reckoning,"If the player has 6 or more Demonic Marks, Consumes all Demonic Marks on the player and inflicts a defense break (debuff) before dealing 50% of attack as physical damage. Has a 50% (100% on insane) chance to attack again for each Demonic Marks, each hit deals damage equivalent to 25% of the boss's Attack as Magical Damages. After attacking, inflict an attack (debuff).",50,0,0,0,5,0,1,FALSE,FALSE,TRUE,Boss Passif
+109,Demon’s Don’t Play Fair,"If the user has a debuff before attacking, strip the player of all buffs.",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+110,Buff exchange,"Deal physical damage to player and if player has a buff, has 50% chance to steal a buff.",0,0,0,0,0,0,1,FALSE,FALSE,FALSE,Boss Skill
+111,Golden Rule,Takes 20% less damage from critical hits. Does 20% more damage to non-buffed enemies.,0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif
+112,A King’s Blessing,Gives himself defense and attack buffs for 2 turns.,0,0,0,0,3,0,0,FALSE,FALSE,FALSE,Boss Skill
+113,Noble Gratitude,"Everytime the user(Betala) receives a buff, adds one buff mark. Once the number of buff marks reaches 5, If the user has a buff, deals magic damage equivalent to 70% of attack for each buff active.",70,0,0,0,0,0,1,FALSE,FALSE,TRUE,Boss Passif
+114,Level Adjustment,"Before attacking, if the user(Betala) has a debuff, and the player has a buff, inflict a support silence(debuff) to the player and give immunity to the user(Betala).",0,0,0,0,0,0,0,FALSE,FALSE,TRUE,Boss Passif

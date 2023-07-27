@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Crushing Earthguard
   Description: Attacks all enemies, and gives a shield based off 40% of damage done.
   DamageRatio: 50
-  ShieldAmount: 40
+  ShieldAmount: 20
   HealingAmount: 0
   BuffAmount: 0
   MaxCooldown: 3

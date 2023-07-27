@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 86
   Name: 'Goblin Chief '
-  Description: If the ennemy is stunned, penetrate the defense by 50%
+  Description: If the ennemy is stunned, give a break attack debuff
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
   MaxCooldown: 0
-  IgnoreDef: 50
+  IgnoreDef: 0
   HitNumber: 0
   AOE: 0
   IsMagic: 0
