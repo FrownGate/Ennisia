@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 32-Small Mushroom
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: b6254618a1bd8d64487faedfa5c85ac8, type: 2}
+  - {fileID: 11400000, guid: 9968d77ecb6eb7e41a9d0bbb5e26d02f, type: 2}
   Id: 32
   Name: Small Mushroom
   Rarity: 1

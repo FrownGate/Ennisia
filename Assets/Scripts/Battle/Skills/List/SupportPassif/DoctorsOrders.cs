@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 public class DoctorsOrders : PassiveSkill
 {
-    public override void UseIfAttacked(List<Entity> targets, Entity player, Entity caster, int turn, float damageTaken)
+    public override void UseIfAttacked(List<Entity> targets, Entity player, Entity caster, int turn, float damageTaken,
+        List<Entity> allies)
     {
         if (player.CurrentHp <= 0)
         {

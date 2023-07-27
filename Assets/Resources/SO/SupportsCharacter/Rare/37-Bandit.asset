@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 37-Bandit
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: b03624f25da609c45a641282a2ad2a90, type: 2}
+  - {fileID: 11400000, guid: 0f5b4cd4038937d499e6bd23d3dcbfd0, type: 2}
   Id: 37
   Name: Bandit
   Rarity: 1

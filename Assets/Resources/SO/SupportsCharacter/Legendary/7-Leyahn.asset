@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 7-Leyahn
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 1fa8ac35c78a9e4428e14e79376d99c6, type: 2}
-  - {fileID: 11400000, guid: f56538761fa3e154daa5d8a579ef584d, type: 2}
+  - {fileID: 11400000, guid: ea3ac5b8275ca3f4ba0f4a0b0510ce5a, type: 2}
+  - {fileID: 11400000, guid: a60b00c2a84f0bb47803d4fecfd407ca, type: 2}
   Id: 7
   Name: Leyahn
   Rarity: 3

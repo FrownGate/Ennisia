@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 6-Ugho
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 4088ef5107f0d11458c23915ee7ce601, type: 2}
-  - {fileID: 11400000, guid: a44e12025cfecc541a281b4efda26cbd, type: 2}
+  - {fileID: 11400000, guid: a993b8add08849e4984f3d9bf5a45e4e, type: 2}
+  - {fileID: 11400000, guid: d5946c290ca708441875706f67da9927, type: 2}
   Id: 6
   Name: Ugho
   Rarity: 3

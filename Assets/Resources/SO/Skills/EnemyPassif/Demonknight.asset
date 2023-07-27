@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
-  m_Name: Demonknight
+  m_Name: DemonKnight
   m_EditorClassIdentifier: 
   Id: 88
-  Name: Demon knight
+  Name: Demon Knight
   Description: If the enemy has a demonic mark, inflict 2 additionnal demonic mark
   DamageRatio: 0
   ShieldAmount: 0

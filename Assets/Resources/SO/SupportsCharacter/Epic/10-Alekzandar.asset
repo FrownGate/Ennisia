@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 10-Alekzandar
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 170d04a858252bf4e91eb6f4256bd8aa, type: 2}
-  - {fileID: 11400000, guid: 9a36af1cf27002442828b62cb64ac17a, type: 2}
+  - {fileID: 11400000, guid: 8123e8c3cd26d10478bc8a9308c29d46, type: 2}
+  - {fileID: 11400000, guid: 9832ce5b3ec0b9446b84e657a1bc2600, type: 2}
   Id: 10
   Name: Alekzandar
   Rarity: 2

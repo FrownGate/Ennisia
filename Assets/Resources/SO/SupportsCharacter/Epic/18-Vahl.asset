@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 18-Vahl
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d24790db5267d1f4f8b86c54df8e134b, type: 2}
-  - {fileID: 11400000, guid: 3d359067add47fb46a1b595c8a9a54fc, type: 2}
+  - {fileID: 11400000, guid: 3a08b598382feb04c8fc54c6b817c6c2, type: 2}
+  - {fileID: 11400000, guid: 5c21c3e39fb4af847a7a23e719630d7e, type: 2}
   Id: 18
   Name: Vahl
   Rarity: 2

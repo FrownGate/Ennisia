@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 13-Oliver
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 75af3f1d521bc47419db37e25b4ee11f, type: 2}
-  - {fileID: 11400000, guid: 0269e17128be2cc4bae5086f8b09b0f1, type: 2}
+  - {fileID: 11400000, guid: 5f9ec868434a3e54d99243f84e5d1fdf, type: 2}
+  - {fileID: 11400000, guid: 7e7f1e9f5c453d643b1e13c17105de84, type: 2}
   Id: 13
   Name: Oliver
   Rarity: 2

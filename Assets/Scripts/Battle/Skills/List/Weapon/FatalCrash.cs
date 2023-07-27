@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class FatalCrash : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {
@@ -11,14 +11,11 @@ public class FatalCrash : DamageSkill
             float missingHp = 1 - ratioHp;
             damage = damage + (missingHp * 2 * damage);
             target.TakeDamage(damage);
+            caster.CurrentHp += (Data.HealingAmount / 100) * damage;
             TotalDamage += damage;
         }
         Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
-
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
-    {
-        caster.CurrentHp += (Data.HealingAmount/100) * damage;
-    }
+    
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class TorrentialAnnihilation : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
 
         foreach (var target in targets)
@@ -22,7 +22,8 @@ public class TorrentialAnnihilation : DamageSkill
         return TotalDamage;
     }
 
-    public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage)
+    public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         foreach (var target in targets)
         {

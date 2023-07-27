@@ -4,7 +4,7 @@ public class Reinforcement : PassiveSkill
 {
     float PhdefBuff;
     float MdefBuff;
-    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn, List<Entity> allies)
     {
         float defRatio = (Data.BuffAmount/100) + StatUpgrade1 * Level;
         PhdefBuff = caster.Stats[Attribute.PhysicalDefense].Value * defRatio;

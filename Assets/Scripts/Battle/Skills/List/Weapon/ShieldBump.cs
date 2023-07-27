@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class ShieldBump : DamageSkill
 {
     float additionalDamage;
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         
         foreach (Entity target in targets) 
@@ -16,7 +16,8 @@ public class ShieldBump : DamageSkill
         return TotalDamage;
     }
 
-    public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage)
+    public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         foreach (Entity target in targets)
         {
