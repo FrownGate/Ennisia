@@ -15,8 +15,8 @@ MonoBehaviour:
   Id: 32
   Name: Rampant Assault
   Description: "deals damage equivalent to 20% of the target\u2019s max health. For
-    every turn that has passed, damage increases by 5%, up to 50%."
-  DamageRatio: 20
+    every turn that has passed, damage increases by 5%, up to 25%."
+  DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 5

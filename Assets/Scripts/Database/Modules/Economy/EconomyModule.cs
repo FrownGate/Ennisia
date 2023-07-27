@@ -245,7 +245,7 @@ public class EconomyModule : Module
         {
             Energy -= amount;
             _manager.InvokeOnEnergyUpdate();
-            _manager.InvokeOnEnergyUsed();
+            _manager.InvokeOnEnergyUsed(amount);
             _manager.EndRequest($"Removed {amount} energy !");
         }, _manager.OnRequestError);
     }

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Wolf Pack Leader
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: cb4d66c028d85494e9e76dd9df914124, type: 2}
-  - {fileID: 11400000, guid: 98f592ec1ffdea641b58f15bbf9e7c24, type: 2}
+  - {fileID: 11400000, guid: a41afa4271358d04398d39bae7825e0f, type: 2}
+  - {fileID: 11400000, guid: 618f188436bc0cf47ab8073e50f68900, type: 2}
+  - {fileID: 11400000, guid: 1ccfbde3db16c9743a67714392987647, type: 2}
+  - {fileID: 11400000, guid: 9d99da0ba9afa5d4391e471a55e7ade2, type: 2}
   ID: 6
   Name: Wolf Pack Leader
   Description: description
@@ -22,7 +24,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 950
+      Value: 475
     - Key: 1
       Value: 45
     - Key: 2

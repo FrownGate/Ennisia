@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Giant Mushroom
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 2955ac3caac4525468ce5afe9276b429, type: 2}
+  - {fileID: 11400000, guid: 27dac9dedf2a24c4b948571fe2f26ce2, type: 2}
+  - {fileID: 11400000, guid: bf063bcd4a495b24c8d0d40a8ade0afd, type: 2}
+  - {fileID: 11400000, guid: 6797e9351a8801941aa2543efc12e7c8, type: 2}
+  - {fileID: 11400000, guid: 45569fbe2b3fa264a8deb9f806a168da, type: 2}
   ID: 15
   Name: Giant Mushroom
   Description: description
@@ -21,7 +24,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 600
+      Value: 300
     - Key: 1
       Value: 60
     - Key: 2

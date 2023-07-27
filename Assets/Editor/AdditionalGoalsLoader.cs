@@ -106,8 +106,14 @@ public static class AdditionalGoalsLoader
                     }
 
                     break;
+                case GoalType.Defeat:
+                case GoalType.Energy:
+                case GoalType.GearUpgrade:
+                case GoalType.ObtainGear:
+                case GoalType.Gold:
+                    break;
                 default:
-                    Debug.LogError($"Unknown goal type: {goalType}");
+                    //Debug.LogError($"Unknown goal type: {goalType}");
                     continue;
             }
 
@@ -173,6 +179,32 @@ public static class AdditionalGoalsLoader
                 gearLevelMax.name = goalType.ToString();
                 AssetDatabase.AddObjectToAsset(gearLevelMax, questSO);
                 return gearLevelMax;
+            case GoalType.Defeat:
+                var defeat = ScriptableObject.CreateInstance<DefeatGoal>();
+                Debug.Log("defeat = " + defeat);
+                defeat.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(defeat, questSO);
+                return defeat;
+            case GoalType.Energy:
+                var energy = ScriptableObject.CreateInstance<EnergyGoal>();
+                energy.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(energy, questSO);
+                return energy;
+            case GoalType.GearUpgrade:
+                var upgradeGoal = ScriptableObject.CreateInstance<GearUpgradeGoal>();
+                upgradeGoal.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(upgradeGoal, questSO);
+                return upgradeGoal;
+            case GoalType.ObtainGear:
+                var obtainGearGoal = ScriptableObject.CreateInstance<GearUpgradeGoal>();
+                obtainGearGoal.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(obtainGearGoal, questSO);
+                return obtainGearGoal;
+            case GoalType.Gold:
+                var goldGoal = ScriptableObject.CreateInstance<EnergyGoal>();
+                goldGoal.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(goldGoal, questSO);
+                return goldGoal;
             default:
                 Debug.LogError($"Unknown goal type: {goalType}");
                 return null;
@@ -375,5 +407,7 @@ public static class AdditionalGoalsLoader
 
         return isValid;
     }
+
+   
 }
 #endif

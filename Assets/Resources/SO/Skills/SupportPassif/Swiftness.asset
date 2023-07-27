@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 31
   Name: Swiftness
-  Description: Increases speed by #
+  Description: Increases speed by 5%
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0
