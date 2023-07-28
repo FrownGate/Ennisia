@@ -22,7 +22,7 @@ public class Effect
         Duration = InitialDuration;
     }
 
-    public virtual void AlterationEffect(Entity target, Entity? caster = null) { }
+    public virtual void AlterationEffect(Entity target, Entity caster = null) { }
     public virtual float GetMultiplier() { return 1.0f; }
 
     public void AddEffectModifiers(Entity target)
