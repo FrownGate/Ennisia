@@ -21,7 +21,9 @@ public class ShopSystem : MonoBehaviour
     //private Dictionary<string, List<GameObject>> _shopItems = new ();
     private List<GameObject> _currentShopItems = new List<GameObject>();
     private string _currentShop;
-      
+
+    private Dictionary<Item, int> Items = new();
+
 
     void Start()
     {
@@ -71,18 +73,30 @@ public class ShopSystem : MonoBehaviour
 
     public void Buy(PlayFab.EconomyModels.CatalogItem item)
     {
-        Item newItem = Item.CreateFromCatalogItem(item);
+        Item itemToBuy = JsonUtility.FromJson<Bundle>(item.DisplayProperties.ToString());
+        switch (item.Type)
+        {
+            case "SummonTicket":
+                itemToBuy = JsonUtility.FromJson<SummonTicket>(item.DisplayProperties.ToString());
+                break;
+            case "Gear":
+                // itemToBuy = JsonUtility.FromJson<Bundle>(item.DisplayProperties.ToString());
+                break;
+            case "Bundle":
+                itemToBuy = JsonUtility.FromJson<Bundle>(item.DisplayProperties.ToString());
+                break;
+        }
+        itemToBuy.IdString = item.Id;
+        itemToBuy.Name = item.AlternateIds[0].Value;
+        itemToBuy.Price = item.PriceOptions.Prices[0].Amounts[0].Amount;
 
-        int quantity = 0;
-        // search in the display properties the quantity
-        Item testItem = JsonUtility.FromJson<Item>(item.DisplayProperties.ToString());
-        
-        // Debug.LogWarning(item.DisplayProperties.ToString());
+        Debug.LogWarning(itemToBuy.Available);
+        Debug.LogWarning(item.DisplayProperties.ToString());
 
 
 
 
-        PlayFabManager.Instance.PurchaseInventoryItem(newItem);
+        PlayFabManager.Instance.PurchaseInventoryItem(itemToBuy);
     }
 
 

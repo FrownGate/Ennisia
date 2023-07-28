@@ -29,7 +29,7 @@ public enum GearSetData //TODO -> Use individual classes instead
 public class Item
 {
     public int Id;
-    public string Ide;
+    public string IdString;
     public string Stack;
     public string Name;
     public int Amount; //Amount of item to add
@@ -40,6 +40,7 @@ public class Item
     public WeaponType? WeaponType;
     public Attribute? Attribute;
     public GearSetData? Set;
+    public int? Available;
 
     //Json Utility
     public string JsonRarity;
@@ -47,20 +48,9 @@ public class Item
     public string JsonType;
     public string JsonWeapon;
     public string JsonAttribute;
+    public string JsonShopQuantityAvailable;
 
-
-    public static Item CreateFromCatalogItem(CatalogItem catalogItem)
-    {
-        Item newItem = JsonUtility.FromJson<Item>(catalogItem.DisplayProperties.ToString());
-        newItem.Deserialize();
-
-        newItem.Ide = catalogItem.Id;
-        newItem.Name = catalogItem.AlternateIds[0].Value;
-        newItem.Price = catalogItem.PriceOptions.Prices[0].Amounts[0].Amount;
-
-
-        return newItem;
-    }
+    
     protected void AddToInventory()
     {
         Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
