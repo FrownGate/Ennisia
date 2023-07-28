@@ -8,7 +8,7 @@ public class LevelUpGoal : QuestSO.QuestGoal
         QuestEventManager.Instance.AddListener<LevelUpQuestEvent>(OnLevelUP);
     }
 
-    public void OnLevelUP(LevelUpQuestEvent eventInfo)
+    private void OnLevelUP(LevelUpQuestEvent eventInfo)
     {
         if (Completed) return;
         if (eventInfo.LevelType == lvlType) CurrentAmount = eventInfo.Level;

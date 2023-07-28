@@ -6,7 +6,7 @@ public class KnightOath : PassiveSkill
     float buffMaxHp;
     float buffPhDef;
     float buffMDef;
-    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn, List<Entity> allies)
     {
         _BuffBaseRatio = (Data.BuffAmount/100) + (StatUpgrade1 * Level);
         buffMaxHp = caster.Stats[Attribute.HP].Value * _BuffBaseRatio;
@@ -26,7 +26,8 @@ public class KnightOath : PassiveSkill
     float MDefBuff(float value) => value + buffMDef;
 
 
-    public override void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken) //caster + player ?
+    public override void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken,
+        List<Entity> allies) //caster + player ?
     {
         player.Shield += player.Stats[Attribute.HP].Value * (Data.ShieldAmount / 100);
     }

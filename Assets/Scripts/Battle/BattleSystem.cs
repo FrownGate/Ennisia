@@ -9,6 +9,7 @@ public class BattleSystem : StateMachine
     public static event Action<BattleSystem> OnBattleLoaded;
     public static event Action OnWaveCompleted;
     public static event Action OnBattleCompleted;
+    public static event Action<bool> OnPlayerLose;
     public static event Action<BattleSystem> OnSimulationStart;
     public static event Action<string> OnEnemyKilled;
 
@@ -28,6 +29,7 @@ public class BattleSystem : StateMachine
 
     public Entity Player { get; set; }
     public List<Entity> Enemies { get; private set; }
+    public List<Entity> Allies { get; private set; }
     public int EnemyPlayingID { get; set; }
     public List<Entity> Targets { get; private set; }
 
@@ -64,7 +66,7 @@ public class BattleSystem : StateMachine
         WonPopUp.SetActive(false);
 
         PlayerHasWin = false;
-        Turn = 0;
+        Turn = 1;
 
         if (MissionManager.Instance.CurrentMission == null)
         {
@@ -106,7 +108,7 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             //TODO -> Set position
-            skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
+            skill.ConstantPassive(Enemies, Player, Turn, Allies); // constant passive at battle start
             skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             skill.Button.Init(skill, position);
             position += 160; //TODO -> dynamic position
@@ -130,7 +132,7 @@ public class BattleSystem : StateMachine
 
             foreach (var skill in support.Skills)
             {
-                skill.ConstantPassive(Enemies, Player, Turn); // constant passive at battle start
+                skill.ConstantPassive(Enemies, Player, Turn, Allies); // constant passive at battle start
             }
         }
     }
@@ -198,7 +200,10 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             skill.Button.ToggleHUD(active);
+            if (Player.HasEffect(new Silence())) break;
         }
+
+        if (Player.HasEffect(new SupportSilence())) return;
 
         foreach (var support in Player.EquippedSupports)
         {
@@ -254,18 +259,18 @@ public class BattleSystem : StateMachine
 
         foreach (var skill in Player.Skills)
         {
-            skill.PassiveBeforeAttack(Enemies, Player, Turn);
+            skill.PassiveBeforeAttack(Enemies, Player, Turn, Allies);
         }
 
-        totalDamage += selectedSkill.SkillBeforeUse(Targets, Player, Turn);
-        totalDamage += selectedSkill.Use(Targets, Player, Turn);
-        totalDamage += selectedSkill.AdditionalDamage(Targets, Player, Turn, totalDamage);
+        totalDamage += selectedSkill.SkillBeforeUse(Targets, Player, Turn, Allies);
+        totalDamage += selectedSkill.Use(Targets, Player, Turn, Allies);
+        totalDamage += selectedSkill.AdditionalDamage(Targets, Player, Turn, totalDamage, Allies);
 
-        selectedSkill.SkillAfterDamage(Targets, Player, Turn, totalDamage);
+        selectedSkill.SkillAfterDamage(Targets, Player, Turn, totalDamage, Allies);
 
         foreach (var skill in Player.Skills)
         {
-            skill.PassiveAfterAttack(Enemies, Player, Turn, totalDamage);
+            skill.PassiveAfterAttack(Enemies, Player, Turn, totalDamage, Allies);
         }
     }
 
@@ -318,13 +323,13 @@ public class BattleSystem : StateMachine
 
         //foreach (var skill in Player.Skills) skill.TakeOffStats(Enemies, Player, 0); //constant passives at battle end
         foreach (var stat in Player.Stats) stat.Value.RemoveAllModifiers();
-
         if (won)
         {
             OnWaveCompleted?.Invoke();
             return;
         }
 
+        OnPlayerLose ?.Invoke(true);
         //TODO -> Load game over popup
     }
 

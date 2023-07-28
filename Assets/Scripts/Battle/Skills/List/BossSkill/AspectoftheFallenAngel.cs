@@ -34,7 +34,7 @@ public class AspectoftheFallenAngel : DamageSkill
             caster.ApplyEffect(new BreakDefense(2));
         }
         else
-        {
+{
             caster.ApplyEffect(new BreakAttack(2));
         }
     }

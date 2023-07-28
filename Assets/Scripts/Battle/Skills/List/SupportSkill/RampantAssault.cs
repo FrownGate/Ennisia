@@ -4,7 +4,7 @@ public class RampantAssault : DamageSkill
 {
     private float _targetMaxHpBaseRatio;
 
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (var target in targets)
         {

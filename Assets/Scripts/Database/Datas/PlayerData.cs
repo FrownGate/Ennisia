@@ -84,6 +84,7 @@ public class PlayerData
 
     public void Equip(Gear gear, bool update = true)
     {
+        Debug.Log(gear.Type+"uwu");
         EquipGear(gear);
         if (update) PlayFabManager.Instance.UpdateData();
     }
@@ -135,8 +136,9 @@ public class PlayerData
 
     private void RemoveModifiers(GearType type)
     {
-        if (EquippedGears[type] == null) return;
+        Debug.Log(type + "type");
 
+        if (EquippedGears[type] == null) return;
         foreach (var attribute in _modifiers[type])
         {
             foreach (var modifier in attribute.Value)

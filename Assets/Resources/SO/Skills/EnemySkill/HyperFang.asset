@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 63
   Name: Hyper Fang
   Description: Hits the player with huge fangs and has a 20% chance to defence break
-  DamageRatio: 70
+  DamageRatio: 170
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

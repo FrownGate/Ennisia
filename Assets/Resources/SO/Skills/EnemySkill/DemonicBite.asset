@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Demonic Bite
   Description: Hits the player dealing physical damage, inflicting demonic mark and
     has 50% chance to break defense, if break defense atk bar 100%
-  DamageRatio: 70
+  DamageRatio: 170
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

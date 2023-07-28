@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Wolf
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: cb4d66c028d85494e9e76dd9df914124, type: 2}
-  - {fileID: 11400000, guid: 98f592ec1ffdea641b58f15bbf9e7c24, type: 2}
+  - {fileID: 11400000, guid: a41afa4271358d04398d39bae7825e0f, type: 2}
+  - {fileID: 11400000, guid: 618f188436bc0cf47ab8073e50f68900, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 5
   Name: Wolf
   Description: description
@@ -22,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 800
+      Value: 400
     - Key: 1
       Value: 40
     - Key: 2

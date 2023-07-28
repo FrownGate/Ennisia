@@ -25,4 +25,22 @@ MonoBehaviour:
         Value: 10000
       - Key: 1
         Value: 0
-  Goals: []
+  Goals:
+  - {fileID: 6594029275725793836}
+--- !u!114 &6594029275725793836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79fb0119b9d4291bf7e722b0b631645, type: 3}
+  m_Name: Energy
+  m_EditorClassIdentifier: 
+  RequiredAmount: 5000
+  Same: 0
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []

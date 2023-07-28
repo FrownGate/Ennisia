@@ -9,7 +9,7 @@ public class ImpregnableDefense : PassiveSkill
         _percentage = 0;
     }
 
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         if (_percentage < ((Data.BuffAmount/100) * 4))
         {

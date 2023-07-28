@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a97590c7d88994a8102bbc6ad94687, type: 3}
+  m_Name: Vahl
+  m_EditorClassIdentifier: 
+  SkillsData:
+  - {fileID: 11400000, guid: 3a08b598382feb04c8fc54c6b817c6c2, type: 2}
+  - {fileID: 11400000, guid: 5c21c3e39fb4af847a7a23e719630d7e, type: 2}
+  Id: 18
+  Name: Vahl
+  Rarity: 2
+  Race: Elf
+  Job: Mage
+  Element: 4
+  Description: 
+  Catchphrase: 
+  Button: {fileID: 0}

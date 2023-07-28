@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class HolyPrayer : ProtectionSkill
 {
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         caster.Heal(caster.Stats[Attribute.HP].Value * Data.HealingAmount / 100);
         caster.ApplyEffect(new AttackBuff());

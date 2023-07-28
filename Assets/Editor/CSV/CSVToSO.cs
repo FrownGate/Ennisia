@@ -223,8 +223,16 @@ public class CSVToSO : EditorWindow
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
-        var savePath =
-            $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}/{scriptableObject.Id}-{scriptableObject.Name}.asset";
+        // Create the folder if it doesn't exist
+        var folderPath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}";
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+            AssetDatabase.Refresh();
+        }
+
+        var savePath = $"{folderPath}/{scriptableObject.Name}.asset";
+        
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
@@ -307,19 +315,19 @@ public class CSVToSO : EditorWindow
                 writer.WriteLine("{");
                 writer.WriteLine($"//TODO -> {scriptableObject.Description}");
                 writer.WriteLine(
-                    "    public override void ConstantPassive(List<Entity> targets, Entity player, int turn) { }");
+                    "    public override void ConstantPassive(List<Entity> targets, Entity player, int turn, List<Entity> allies) { }");
                 writer.WriteLine(
-                    "    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn) { }");
+                    "    public override void PassiveBeforeAttack(List<Entity> targets, Entity player, int turn, List<Entity> allies) { }");
                 writer.WriteLine(
-                    "    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn) { return 0; }");
+                    "    public override float SkillBeforeUse(List<Entity> targets, Entity player, int turn, List<Entity> allies) { return 0; }");
                 writer.WriteLine(
-                    "    public override float Use(List<Entity> targets, Entity player, int turn) { return 0; }");
+                    "    public override float Use(List<Entity> targets, Entity player, int turn, List<Entity> allies) { return 0; }");
                 writer.WriteLine(
-                    "    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage) { return 0; }");
+                    "    public override float AdditionalDamage(List<Entity> targets, Entity player, int turn, float damage, List<Entity> allies) { return 0; }");
                 writer.WriteLine(
-                    "    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage) { }");
+                    "    public override void SkillAfterDamage(List<Entity> targets, Entity player, int turn, float damage, List<Entity> allies) { }");
                 writer.WriteLine(
-                    "    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage) { }");
+                    "    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage, List<Entity> allies) { }");
                 writer.WriteLine("}");
 
                 AssetDatabase.Refresh();
