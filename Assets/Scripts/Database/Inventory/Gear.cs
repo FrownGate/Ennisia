@@ -8,6 +8,7 @@ public class Gear : Item
 {
     public static event Action LevelUp;
     public static event Action<GearType?> MaxLevel;
+    public static event Action<GearType?> ObtainGear;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
     public float BaseValue; //used for upgrade
@@ -50,6 +51,7 @@ public class Gear : Item
         Amount = 1;
 
         AddToInventory();
+        ObtainGear?.Invoke(type);
     }
 
     public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon) { }
@@ -81,6 +83,7 @@ public class Gear : Item
         }
 
         AddToInventory();
+        //ObtainGear?.Invoke(Type); ????
     }
 
     public Gear(CatalogItem item)
@@ -109,6 +112,7 @@ public class Gear : Item
         }
 
         AddToInventory();
+        
     }
 
     public override void Serialize()

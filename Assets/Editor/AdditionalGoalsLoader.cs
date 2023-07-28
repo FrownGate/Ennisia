@@ -101,7 +101,25 @@ public static class AdditionalGoalsLoader
                     if (!GearMaxLevelProperties(goalInstance, goalValue))
                     {
                         Debug.LogError(
-                            $"Error setting level up properties for goal on line {i + 1} in the Goals.csv file.");
+                            $"Error setting max gear level properties for goal on line {i + 1} in the Goals.csv file.");
+                        continue;
+                    }
+
+                    break;
+                case GoalType.Currency:
+                    if (!CurrencyProperties(goalInstance, goalValue))
+                    {
+                        Debug.LogError(
+                            $"Error setting currency properties for goal on line {i + 1} in the Goals.csv file.");
+                        continue;
+                    }
+
+                    break;
+                case GoalType.ObtainGear:
+                    if (!ObtainGearProperties(goalInstance, goalValue))
+                    {
+                        Debug.LogError(
+                            $"Error setting obtain gear properties for goal on line {i + 1} in the Goals.csv file.");
                         continue;
                     }
 
@@ -109,8 +127,6 @@ public static class AdditionalGoalsLoader
                 case GoalType.Defeat:
                 case GoalType.Energy:
                 case GoalType.GearUpgrade:
-                case GoalType.ObtainGear:
-                case GoalType.Gold:
                     break;
                 default:
                     //Debug.LogError($"Unknown goal type: {goalType}");
@@ -196,15 +212,15 @@ public static class AdditionalGoalsLoader
                 AssetDatabase.AddObjectToAsset(upgradeGoal, questSO);
                 return upgradeGoal;
             case GoalType.ObtainGear:
-                var obtainGearGoal = ScriptableObject.CreateInstance<GearUpgradeGoal>();
+                var obtainGearGoal = ScriptableObject.CreateInstance<ObtainGearGoal>();
                 obtainGearGoal.name = goalType.ToString();
                 AssetDatabase.AddObjectToAsset(obtainGearGoal, questSO);
                 return obtainGearGoal;
-            case GoalType.Gold:
-                var goldGoal = ScriptableObject.CreateInstance<EnergyGoal>();
-                goldGoal.name = goalType.ToString();
-                AssetDatabase.AddObjectToAsset(goldGoal, questSO);
-                return goldGoal;
+            case GoalType.Currency:
+                var currencyGoal = ScriptableObject.CreateInstance<CurrencyGoal>();
+                currencyGoal.name = goalType.ToString();
+                AssetDatabase.AddObjectToAsset(currencyGoal, questSO);
+                return currencyGoal;
             default:
                 Debug.LogError($"Unknown goal type: {goalType}");
                 return null;
@@ -408,6 +424,74 @@ public static class AdditionalGoalsLoader
         return isValid;
     }
 
-   
+    private static bool ObtainGearProperties(QuestGoal goal, string goalValue)
+    {
+        var isValid = true;
+        var values = CSVUtils.SplitCSVLine(goalValue);
+        foreach (var value in values)
+            switch (value)
+            {
+                case "gear":
+                {
+                    foreach (GearType type in Enum.GetValues(typeof(GearType)))
+                    {
+                        if (goal is not ObtainGearGoal obtainGearGoal) continue;
+                        if (type == GearType.Weapon) continue;
+                        obtainGearGoal.Type.Add(type);
+                    }
+
+                    break;
+                }
+                case "weapon":
+                {
+                    if (goal is not ObtainGearGoal obtainGearGoal) continue;
+                    obtainGearGoal.Type.Add(GearType.Weapon);
+                    break;
+                }
+                default:
+                    if (Enum.TryParse(value, out GearType gearType))
+                    {
+                        if (goal is not ObtainGearGoal obtainGearGoal) continue;
+                        obtainGearGoal.Type.Add(gearType);
+                        break;
+                    }
+                    else
+                    {
+                        Debug.LogError($"Invalid levelup value: {value}.");
+                        isValid = false;
+                        break;
+                    }
+            }
+
+        return isValid;
+    }
+
+    private static bool CurrencyProperties(QuestGoal goal, string goalValue)
+    {
+        bool isValid = true;
+        var values = CSVUtils.SplitCSVLine(goalValue);
+        foreach (var value in values)
+        {
+            if (Enum.TryParse(value, out Currency currency))
+            {
+                if (goal is CurrencyGoal currencyGoal)
+                {
+                    currencyGoal.CurrencyType = currency;
+                }
+                else
+                {
+                    Debug.LogError("Invalid goal type for CurrencyGoal.");
+                    isValid = false;
+                }
+            }
+            else
+            {
+                Debug.LogError($"Invalid currency value: {value}.");
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
 }
 #endif

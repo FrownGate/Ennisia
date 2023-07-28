@@ -223,8 +223,16 @@ public class CSVToSO : EditorWindow
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
-        var savePath =
-            $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}/{scriptableObject.Id}-{scriptableObject.Name}.asset";
+        // Create the folder if it doesn't exist
+        var folderPath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}";
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+            AssetDatabase.Refresh();
+        }
+
+        var savePath = $"{folderPath}/{scriptableObject.Name}.asset";
+        
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }
 
