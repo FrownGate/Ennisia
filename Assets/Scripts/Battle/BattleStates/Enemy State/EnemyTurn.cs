@@ -35,8 +35,6 @@ public class EnemyTurn : State
     public void UseSkill(Skill skillUsed)
     {
         Entity enemy = BattleSystem.Enemies[BattleSystem.EnemyPlayingID];
-
-        Debug.Log($"Skill used : {skillUsed.Data.Name}");
         float totalDamage = 0;
         //IN ENEMY SKILL !!! TARGETS[0] IS THE PLAYER
         //THE PLAYER IN ENEMY SKILL IS THE ENEMY USING THE SKILL !!!
