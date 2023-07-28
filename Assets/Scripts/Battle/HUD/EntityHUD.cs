@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class EntityHUD : MonoBehaviour
 {
     public static event Action<Entity> OnEntitySelected;
 
+    [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Slider _hpBar;
     [SerializeField] private SpriteRenderer _sprite;
 
@@ -16,6 +18,7 @@ public class EntityHUD : MonoBehaviour
     {
         if (_entity == null) return;
         _hpBar.value = _entity.CurrentHp >= 0 ? _entity.CurrentHp : 0;
+        _text.text = _entity.CurrentHp + "/" + _entity.Stats[Attribute.HP].Value;
     }
 
     public void Init(Entity entity, int id = 0)
@@ -34,7 +37,6 @@ public class EntityHUD : MonoBehaviour
         //TODO -> Show Id on HUD
         _entity = entity;
         _id = id;
-
         _hpBar.maxValue = _entity.Stats[Attribute.HP].Value;
         _hpBar.value = _entity.CurrentHp;
 
