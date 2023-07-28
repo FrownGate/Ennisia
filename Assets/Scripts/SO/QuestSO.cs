@@ -66,7 +66,9 @@ public class QuestSO : ScriptableObject
 
         protected void Evaluate()
         {
-            if (CurrentAmount >= RequiredAmount) Complete();
+            if (CurrentAmount < RequiredAmount) return;
+            CurrentAmount = RequiredAmount;
+            Complete();
         }
 
         public void Complete()

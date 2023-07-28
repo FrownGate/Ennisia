@@ -241,13 +241,20 @@ public class PlayFabManager : MonoBehaviour
         Player.Equip(new Gear(GearType.Helmet,Rarity.Legendary,null),false);
 
  
-        SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Epic/17-Yo-wan");
+        SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Epic/Yo-wan");
         Debug.Log(support.Name + "papap");
         Player.Equip(support, 0,false); //Slot 1
 
-        support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/8-Hem-Mily");
+        support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
         Debug.Log(support.Name + "jjj");
         Player.Equip(support, 1,false); //Slot 2
+        
+        // PlayFabManager.Instance.Player.Level = 1;
+        // PlayFabManager.Instance.Player.Exp = 1;
+        //
+        // PlayFabManager.Instance.Account.Level = 1;
+        // PlayFabManager.Instance.Account.Exp = 1;
+        // UpdateData();
         //Player.Equip(Inventory.GetGearById(1));
 
         //Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);

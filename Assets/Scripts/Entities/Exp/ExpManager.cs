@@ -43,7 +43,7 @@ public class ExpManager : MonoBehaviour
             return;
 
         experience += expToAdd; // Ajoute l'expérience spécifiée
-        Debug.Log("player gain " + expToAdd);
+        Debug.Log("account gain " + expToAdd);
 
         while (AccountlevelExperienceMap.ContainsKey(accountLevel + 1) &&
                experience >= AccountlevelExperienceMap[accountLevel + 1])
@@ -55,7 +55,8 @@ public class ExpManager : MonoBehaviour
             PlayFabManager.Instance.Account.Level = accountLevel;
             PlayFabManager.Instance.Account.Exp = experience;
             AccounRewards.LvlupReward(accountLevel);
-            OnPlayerLevelUp?.Invoke(accountLevel,LevelUpQuestEvent.LvlType.Account);
+            Debug.Log("account levelup ");
+            OnAccountLevelUp?.Invoke(accountLevel,LevelUpQuestEvent.LvlType.Account);
         }
 
         PlayFabManager.Instance.Account.Exp = experience;
@@ -85,6 +86,8 @@ public class ExpManager : MonoBehaviour
                 PlayerlevelExperienceMap[level]; // Déduit l'expérience requise pour atteindre le niveau suivant
             PlayFabManager.Instance.Player.Level = level;
             PlayFabManager.Instance.Player.Exp = experience;
+            Debug.Log("account levelup ");
+
             OnPlayerLevelUp?.Invoke(level,LevelUpQuestEvent.LvlType.Player);
         }
         Debug.Log("player xp " + experience);
