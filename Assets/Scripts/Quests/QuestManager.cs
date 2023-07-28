@@ -36,7 +36,7 @@ public class QuestManager : MonoBehaviour
     {
         BattleSystem.OnEnemyKilled += KillQuest;
         MissionManager.OnMissionComplete += MissionQuest;
-        ExpManager.OnPlayerLevelUp += LevelUpQuest;
+        PlayerData.OnPlayerLevelUp += LevelUpQuest;
         ExpManager.OnAccountLevelUp += LevelUpQuest;
         Gear.LevelUp += OnGearUpgrade;
         Gear.MaxLevel += GearMaxLevelQuest;
@@ -50,7 +50,7 @@ public class QuestManager : MonoBehaviour
     {
         BattleSystem.OnEnemyKilled -= KillQuest;
         MissionManager.OnMissionComplete -= MissionQuest;
-        ExpManager.OnPlayerLevelUp -= LevelUpQuest;
+        PlayerData.OnPlayerLevelUp -= LevelUpQuest;
         ExpManager.OnAccountLevelUp -= LevelUpQuest;
         Gear.LevelUp -= OnGearUpgrade;
         Gear.MaxLevel -= GearMaxLevelQuest;

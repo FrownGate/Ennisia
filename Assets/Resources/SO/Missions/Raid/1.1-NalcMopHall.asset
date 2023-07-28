@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 1
   Name: "Nalc\u2019Mop Hall"
   Type: 4
-  State: 3
+  State: 0
   EnergyCost: 3
   Unlocked: 0
   Waves:
@@ -36,4 +36,4 @@ MonoBehaviour:
     - Key: 1
       Value: 100
   RewardData: []
-  Experience: 100
+  Experience: 10

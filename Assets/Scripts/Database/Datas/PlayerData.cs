@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
-public class PlayerData
+public class PlayerData : MonoBehaviour
 {
     public string Name;
     public int Level;
@@ -14,6 +16,8 @@ public class PlayerData
     [NonSerialized] public readonly Dictionary<GearType, Gear> EquippedGears = new();
     [NonSerialized] public readonly Dictionary<Attribute, Stat<float>> Stats = new();
     [NonSerialized] private readonly Dictionary<GearType, Dictionary<Attribute, List<ModifierID>>> _modifiers = new();
+    public Dictionary<int, int> PlayerlevelExperienceMap;
+    public static event Action<int, LevelUpQuestEvent.LvlType> OnPlayerLevelUp;
 
     public PlayerData()
     {
@@ -33,7 +37,7 @@ public class PlayerData
         {
             Stats[Enum.Parse<Attribute>(stat)] = new(1);
         }
-
+        LoadLevelExperienceMap();
         InitModifiers();
     }
 
@@ -84,7 +88,7 @@ public class PlayerData
 
     public void Equip(Gear gear, bool update = true)
     {
-        Debug.Log(gear.Type+"uwu");
+        Debug.Log(gear.Type + "uwu");
         EquipGear(gear);
         if (update) PlayFabManager.Instance.UpdateData();
     }
@@ -152,10 +156,88 @@ public class PlayerData
     {
         Dictionary<Attribute, float> basStats = PlayFabManager.Instance.PlayerBaseStats;
 
-        //TODO -> set level modifiers
         foreach (var stat in basStats)
         {
-            Stats[stat.Key] = new(stat.Value);
+            Stats[stat.Key] = new(PlayFabManager.Instance.PlayerBaseStats[stat.Key] + PlayFabManager.Instance.PlayerBaseStats[stat.Key] * CalculationChoice(stat.Key));
         }
+    }
+
+    private float CalculationChoice(Attribute stat)
+    {
+        switch (stat)
+        {
+            case Attribute.HP: return Level / 2.5f;
+            case Attribute.Attack: return Level / 6.5f + 20;
+            case Attribute.PhysicalDefense: return Level / 25;
+            case Attribute.MagicalDefense: return Level / 20;
+            case Attribute.Speed: return Level / 100;
+        }
+        return 1;
+    }
+
+    private void LoadLevelExperienceMap()
+    {
+        //TODO -> Use CSVUtils
+        PlayerlevelExperienceMap = new Dictionary<int, int>();
+
+        var filePath = Path.Combine(Application.dataPath, "Resources/CSV/PlayerXpCSVExport.csv");
+
+        var csvLines = File.ReadAllLines(filePath);
+
+        foreach (var line in csvLines)
+        {
+            var values = line.Split(',');
+
+            if (values.Length >= 2)
+            {
+                var level = int.Parse(values[0]);
+                var experienceRequired = int.Parse(values[1]);
+
+                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
+            }
+            else
+            {
+                Debug.LogWarning("Format invalide dans le fichier CSV : " + line);
+            }
+        }
+    }
+    public void GainExperiencePlayer(int expToAdd)
+    {
+        Level = PlayFabManager.Instance.Player.Level;
+        Exp = PlayFabManager.Instance.Player.Exp;
+
+        if (Level >= PlayerlevelExperienceMap.Count)
+            // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
+            return;
+
+        Exp += expToAdd; // Ajoute l'expérience spécifiée
+        Debug.Log("player gain " + expToAdd + " xp");
+
+
+
+        while (PlayerlevelExperienceMap.ContainsKey(Level + 1) && Exp >= PlayerlevelExperienceMap[Level + 1])
+        {
+            Level++; // Incrémente le niveau
+            Exp -=
+                PlayerlevelExperienceMap[Level]; // Déduit l'expérience requise pour atteindre le niveau suivant
+            PlayFabManager.Instance.Player.Level = Level;
+            PlayFabManager.Instance.Player.Exp = Exp;
+            OnPlayerLevelUp?.Invoke(Level, LevelUpQuestEvent.LvlType.Player);
+        }
+        Debug.Log("player xp " + Exp);
+        Debug.Log("Level " + Level);
+        PlayFabManager.Instance.Player.Exp = Exp;
+        PlayFabManager.Instance.UpdateData();
+
+        //UpdateUI(); // Met à jour l'interface utilisateur
+    }
+
+    private void OnEnable()
+    {
+        RewardsManager.GainXp += GainExperiencePlayer;
+    }
+    private void OnDisable()
+    {
+        RewardsManager.GainXp -= GainExperiencePlayer;
     }
 }
