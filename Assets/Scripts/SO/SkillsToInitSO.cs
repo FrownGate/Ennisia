@@ -14,7 +14,7 @@ public class SkillsToInitSO : ScriptableObject
 
         foreach (SkillSO skill in SkillsData)
         {
-            Debug.Log(skill.Name);
+            //Debug.Log(skill.Name);
             Type type = Type.GetType(CSVUtils.GetFileName(skill.Name));
             Skills.Add((Skill)Activator.CreateInstance(type));
         }
