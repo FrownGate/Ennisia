@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1067590330032728831
+--- !u!114 &-8900593929180757986
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,4 +44,4 @@ MonoBehaviour:
       - Key: 1
         Value: 50
   Goals:
-  - {fileID: -1067590330032728831}
+  - {fileID: -8900593929180757986}

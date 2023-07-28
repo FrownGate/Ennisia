@@ -5,7 +5,7 @@ public class MakeOrBreak : PassiveSkill
 
     private float _maxHpBuff;
 
-    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn, List<Entity> allies)
     {
         _maxHpBuff = caster.Stats[Attribute.Attack].Value * ((Data.BuffAmount/100) + StatUpgrade1 * Level);
         _modifiers[Attribute.HP] = caster.Stats[Attribute.HP].AddModifier(AttackBuff);
@@ -13,7 +13,8 @@ public class MakeOrBreak : PassiveSkill
 
     float AttackBuff(float input) => input + _maxHpBuff;
 
-    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         caster.Heal(damage * ((Data.HealingAmount/100) + StatUpgrade2 * Level));
     }

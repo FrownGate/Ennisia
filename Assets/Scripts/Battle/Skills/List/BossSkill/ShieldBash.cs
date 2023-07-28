@@ -3,9 +3,10 @@ using System;
 
 public class ShieldBash : DamageSkill
 {
-    //TODO -> Inflicts damage based on 25% of his defense and has a 40% chance of Taunting.
+    //TODO -> Inflicts damage based on 25% of his defense and has a 40% chance of Taunting. 
     private readonly int _percentChance = 40;
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

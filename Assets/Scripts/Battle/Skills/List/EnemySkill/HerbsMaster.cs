@@ -5,19 +5,19 @@ public class HerbsMaster : ProtectionSkill
     private float _lowestEnemy;
     private int _enemyNum;
 
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
-        int lowestEnemyIndex = targets.Count > 2 ? FindLowestAlly(targets) : 1;
-        targets[lowestEnemyIndex].Heal(targets[lowestEnemyIndex].Stats[Attribute.HP].Value * Data.HealingAmount);
+        int lowestEnemyIndex = allies.Count > 2 ? FindLowestAlly(allies) : 1;
+        allies[lowestEnemyIndex].Heal(allies[lowestEnemyIndex].Stats[Attribute.HP].Value * Data.HealingAmount);
         return 0;
     }
 
-    private int FindLowestAlly(List<Entity> targets)
+    private int FindLowestAlly(List<Entity> allies)
     {
-        _lowestEnemy = targets[1].Stats[Attribute.HP].Value;
-        for (int i = 2; i < targets.Count; i++)
+        _lowestEnemy = allies[1].Stats[Attribute.HP].Value;
+        for (int i = 2; i < allies.Count; i++)
         {
-            if (_lowestEnemy >= targets[i].Stats[Attribute.HP].Value)
+            if (_lowestEnemy >= allies[i].Stats[Attribute.HP].Value)
             {
                 _enemyNum = i;
             }

@@ -23,7 +23,7 @@ public abstract class Skill
     private float _defense;
     //TODO -> Move fields/functions in child classes
 
-    protected Dictionary<Attribute, ModifierID> _modifiers;
+    protected readonly Dictionary<Attribute, ModifierID> _modifiers = new();
 
     public Skill()
     {
@@ -49,14 +49,18 @@ public abstract class Skill
         }
     }
 
-    public virtual void ConstantPassive(List<Entity> targets, Entity caster, int turn) { }
-    public virtual void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn) { }
-    public virtual float SkillBeforeUse(List<Entity> targets, Entity caster, int turn) { return 0; }
-    public virtual float Use(List<Entity> targets, Entity caster, int turn) { return 0; }
-    public virtual void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken) { }
-    public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
-    public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
-    public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
+    public virtual void ConstantPassive(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { }
+    public virtual void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { }
+    public virtual float SkillBeforeUse(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { return 0; }
+    public virtual float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { return 0; }
+    public virtual void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken,
+        List<Entity> allies) { }
+    public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies) { return 0; }
+    public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies) { }
+    public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies) { }
     public void Upgrade(int _Level) { Level = _Level; }
 
     public void Upgrade()

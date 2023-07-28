@@ -24,10 +24,10 @@ public class RewardsManager : MonoBehaviour
 
     public void Drop(MissionSO missionSO)
     {
-    Debug.Log("uwu");
+
         foreach (RewardData reward in missionSO.RewardData)
         {
-            Type type = Type.GetType(CSVUtils.GetFileName(reward.Name));            
+            Type type = Type.GetType(CSVUtils.GetFileName(reward.Name));           
             Rewards.Add((Item)Activator.CreateInstance(type));
         }
         

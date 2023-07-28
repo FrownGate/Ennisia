@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Demonic Slash
   Description: Hits the player dealing magic damage and has a 10% to inflict a demonic
     mark
-  DamageRatio: 40
+  DamageRatio: 140
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
