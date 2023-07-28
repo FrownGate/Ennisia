@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 51
   Name: Tectonic Impact
   Description: Deal 15% of damage done to all other enemies.
-  DamageRatio: 115
+  DamageRatio: 15
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 15

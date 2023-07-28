@@ -85,6 +85,30 @@ public abstract class Skill
         return damage;
     }
 
+    public virtual float DamageCalculation(Entity target, Entity caster, Attribute stat)
+    {
+        _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
+        _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
+        float damage = (caster.Stats[stat].Value * ((Data.DamageRatio / 100) + RatioModifier) * _ratio * ((1000 - (_defense - (_defense * target.DefIgnored / 100))) / 1000));
+        foreach (var effect in target.Effects)
+        {
+            damage *= effect.GetMultiplier();
+        }
+        return damage;
+    }
+
+    public virtual float DamageCalculation(Entity target, Entity caster, Attribute stat1, Attribute stat2)
+    {
+        _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
+        _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
+        float damage = ((caster.Stats[stat1].Value + caster.Stats[stat2].Value) * ((Data.DamageRatio / 100) + RatioModifier) * _ratio * ((1000 - (_defense - (_defense * target.DefIgnored / 100))) / 1000));
+        foreach (var effect in target.Effects)
+        {
+            damage *= effect.GetMultiplier();
+        }
+        return damage;
+    }
+
     public void TakeOffStats(Entity caster)
     {
         foreach (var modifier in _modifiers) caster.Stats[modifier.Key].RemoveModifier(modifier.Value);
