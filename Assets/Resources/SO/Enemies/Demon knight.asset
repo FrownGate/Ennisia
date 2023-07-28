@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Demon knight
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
+  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
+  - {fileID: 11400000, guid: 0f70c3b43f5267340889d2e1a2c48712, type: 2}
+  - {fileID: 11400000, guid: 2955ac3caac4525468ce5afe9276b429, type: 2}
   ID: 21
   Name: Demon knight
   Description: description
@@ -21,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 2000
+      Value: 1000
     - Key: 1
       Value: 80
     - Key: 2

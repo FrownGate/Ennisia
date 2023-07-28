@@ -355,26 +355,24 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-  - name: InventoryPopup
-    path: Assets/Scenes/Inventory/InventoryPopup.unity
-  - name: Shop
-    path: Assets/Scenes/Shop.unity
+  - name: Raids&Dungeons
+    path: Assets/Scenes/Missions/Raids&Dungeons.unity
   - name: Battle
     path: Assets/Scenes/Battle.unity
-  - name: PauseBattlePopup
-    path: Assets/Scenes/PauseBattlePopup.unity
-  - name: PauseBatllePopup
-    path: Assets/Scenes/PauseBatllePopup.unity
-  - name: SettingsPopup
-    path: Assets/Scenes/SettingsPopup.unity
-  - name: TitleScreen
-    path: Assets/Scenes/TitleScreen.unity
-  - name: Loading_Mini
-    path: Assets/Scenes/Loading_Mini.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: Summon
+    path: Assets/Scenes/Summon/Summon.unity
   - name: Loading_Big
     path: Assets/Scenes/Loading_Big.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: MainStory
+    path: Assets/Scenes/Missions/MainStory.unity
   - name: StoryChapter
     path: Assets/Scenes/Missions/StoryChapter.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
   - name: StoryChapter
     path: Assets/Scenes/StoryChapter.unity
   - name: EndlessTower
@@ -391,6 +389,8 @@ MonoBehaviour:
     path: Assets/Scenes/DailyRewardsPopup.unity
   - name: MailPopup
     path: Assets/Scenes/MailPopup.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
+  - name: ProfilePopup
+    path: Assets/Scenes/ProfilePopup.unity
+  - name: EventPopup
+    path: Assets/Scenes/EventPopup.unity
   _notes: []

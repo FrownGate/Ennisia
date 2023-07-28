@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 public class DemonMage : PassiveSkill
 {
-    public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage)
+    public override float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         float dmgOnHeal = 0;
         if (caster.Healed)

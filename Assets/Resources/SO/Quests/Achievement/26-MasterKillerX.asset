@@ -1,6 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6486918348163261353
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
+  m_Name: 26-MasterKillerX
+  m_EditorClassIdentifier: 
+  Information:
+    ID: 26
+    Name: Master Killer X
+    QuestType: 2
+    Description: Kill 10000 enemies
+  Reward:
+    Energy: 0
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 0
+      - Key: 1
+        Value: 500
+  Goals:
+  - {fileID: 1900061668122831976}
+--- !u!114 &1900061668122831976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,30 +110,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c0093abd3a5e69149a7ada52eb8297a8, type: 2}
   - {fileID: 11400000, guid: 9103520407d477a418b74bf5535b0e0c, type: 2}
   - {fileID: 11400000, guid: b3806131f3f677b4a99c38fb08b5728d, type: 2}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: 26-MasterKillerX
-  m_EditorClassIdentifier: 
-  Information:
-    ID: 26
-    Name: Master Killer X
-    QuestType: 2
-    Description: Kill 10000 enemies
-  Reward:
-    Energy: 0
-    CurrencyList:
-      _serializedList:
-      - Key: 0
-        Value: 0
-      - Key: 1
-        Value: 500
-  Goals:
-  - {fileID: -6486918348163261353}

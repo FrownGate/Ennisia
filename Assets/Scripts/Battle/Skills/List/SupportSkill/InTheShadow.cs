@@ -3,14 +3,15 @@ using System;
 public class InTheShadow : DamageSkill
 {
     private int _percentChance = 50;
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {
             target.DefIgnored += Data.IgnoreDef;
         }
     }
-    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity player, int turn, float damage,
+        List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

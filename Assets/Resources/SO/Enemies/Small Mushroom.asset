@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Small Mushroom
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: 2955ac3caac4525468ce5afe9276b429, type: 2}
+  - {fileID: 11400000, guid: 27dac9dedf2a24c4b948571fe2f26ce2, type: 2}
+  - {fileID: 11400000, guid: bf063bcd4a495b24c8d0d40a8ade0afd, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 14
   Name: Small Mushroom
   Description: description
@@ -21,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 300
+      Value: 150
     - Key: 1
       Value: 30
     - Key: 2

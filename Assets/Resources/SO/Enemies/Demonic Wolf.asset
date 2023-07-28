@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Demonic Wolf
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: cb4d66c028d85494e9e76dd9df914124, type: 2}
+  - {fileID: 11400000, guid: a41afa4271358d04398d39bae7825e0f, type: 2}
+  - {fileID: 11400000, guid: 1ccfbde3db16c9743a67714392987647, type: 2}
+  - {fileID: 11400000, guid: 66bb875415c1bd144b8121ef47332532, type: 2}
+  - {fileID: 11400000, guid: 9d99da0ba9afa5d4391e471a55e7ade2, type: 2}
   ID: 25
   Name: Demonic Wolf
   Description: description
@@ -21,7 +24,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 1200
+      Value: 600
     - Key: 1
       Value: 60
     - Key: 2

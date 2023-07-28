@@ -14,7 +14,7 @@ public abstract class Skill
     public float DamageModifier { get; protected set; }
     public float ShieldModifier { get; protected set; }
     public float HealingModifier { get; protected set; }
-    public float Cooldown { get; set; }
+    public int Cooldown { get; set; }
     public int Level { get; set; }
     public float StatUpgrade1 { get; set; }
     public float StatUpgrade2 { get; set; }
@@ -23,7 +23,7 @@ public abstract class Skill
     private float _defense;
     //TODO -> Move fields/functions in child classes
 
-    protected Dictionary<Attribute, ModifierID> _modifiers;
+    protected readonly Dictionary<Attribute, ModifierID> _modifiers = new();
 
     public Skill()
     {
@@ -49,14 +49,18 @@ public abstract class Skill
         }
     }
 
-    public virtual void ConstantPassive(List<Entity> targets, Entity caster, int turn) { }
-    public virtual void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn) { }
-    public virtual float SkillBeforeUse(List<Entity> targets, Entity caster, int turn) { return 0; }
-    public virtual float Use(List<Entity> targets, Entity caster, int turn) { return 0; }
-    public virtual void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken) { }
-    public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage) { return 0; }
-    public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage) { }
-    public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage) { }
+    public virtual void ConstantPassive(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { }
+    public virtual void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { }
+    public virtual float SkillBeforeUse(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { return 0; }
+    public virtual float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { return 0; }
+    public virtual void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken,
+        List<Entity> allies) { }
+    public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies) { return 0; }
+    public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies) { }
+    public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies) { }
     public void Upgrade(int _Level) { Level = _Level; }
 
     public void Upgrade()
@@ -72,7 +76,8 @@ public abstract class Skill
     {
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
         _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
-        float damage = (caster.Stats[Attribute.Attack].Value * ((Data.DamageRatio / 100) + RatioModifier) * _ratio * ((1000 - (_defense - (_defense * target.DefIgnored / 100))) / 1000));
+        float dmgReduction = _defense / (_defense + 1000);
+        float damage = caster.Stats[Attribute.Attack].Value * (Data.DamageRatio / 100 + RatioModifier) * (1+_ratio/100) * (1-dmgReduction);
         foreach (var effect in target.Effects)
         {
             damage *= effect.GetMultiplier();

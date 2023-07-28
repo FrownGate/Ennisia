@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class Swiftness : PassiveSkill
 {
-    public override void ConstantPassive(List<Entity> target, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> target, Entity caster, int turn, List<Entity> allies)
     {
         _modifiers[Attribute.Speed] = caster.Stats[Attribute.Speed].AddModifier(Speed);
     }

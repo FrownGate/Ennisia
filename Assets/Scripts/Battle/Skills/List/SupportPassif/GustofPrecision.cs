@@ -3,7 +3,7 @@ using System.Data;
 
 public class GustofPrecision : PassiveSkill
 {
-    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         _modifiers[Attribute.CritRate] = caster.Stats[Attribute.CritRate].AddModifier(AddCritRate);
     }

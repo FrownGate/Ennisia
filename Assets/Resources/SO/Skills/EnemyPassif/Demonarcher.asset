@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
-  m_Name: Demonarcher
+  m_Name: DemonArcher
   m_EditorClassIdentifier: 
   Id: 89
-  Name: 'Demon archer '
+  Name: 'Demon Archer '
   Description: Increase all defense by 20%
   DamageRatio: 0
   ShieldAmount: 0

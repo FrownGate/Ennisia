@@ -5,7 +5,7 @@ public class ArcaneTransference : BuffSkill
 {
     private List<Effect> _debuffList;
     private int _debuff = 0;
-    public override float Use(List<Entity> targets, Entity caster, int turn) 
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies) 
     {
 
         //player.debuff -1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 74
   Name: Thief
-  Description: Gives break attack debuff to player and gives a attack buff to user
+  Description: Gives break attack debuff to player and gives an attack buff to user
   DamageRatio: 0
   ShieldAmount: 0
   HealingAmount: 0

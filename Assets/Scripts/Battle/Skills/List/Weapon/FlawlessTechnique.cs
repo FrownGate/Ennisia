@@ -2,14 +2,15 @@ using System.Collections.Generic;
 
 public class FlawlessTechnique : PassiveSkill
 {
-    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn)
+    public override void ConstantPassive(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         _modifiers[Attribute.CritRate] = caster.Stats[Attribute.CritRate].AddModifier(AddCritRate);
     }
 
     float AddCritRate(float value) => value + (Data.BuffAmount/100);
 
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         foreach (var target in targets)
         {

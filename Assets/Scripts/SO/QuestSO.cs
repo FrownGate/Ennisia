@@ -7,12 +7,15 @@ using UnityEngine.Events;
 
 public enum QuestType
 {
-     Daily, Weekly, Achievement
+    Daily, Weekly, Achievement
 }
 
 public enum GoalType
 {
-    Unknown, Killing, Mission, LevelUp, GearMaxLevel
+    Unknown, Killing, Mission,
+    LevelUp, GearMaxLevel, Defeat,
+    Energy, GearUpgrade, ObtainGear,
+    Currency
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
@@ -37,7 +40,9 @@ public class QuestSO : ScriptableObject
     }
 
     [Header("Reward")] public Stat Reward = new()
-        { Energy = 20, CurrencyList = new SerializedDictionary<Currency, int>() };
+    {
+        Energy = 20, CurrencyList = new SerializedDictionary<Currency, int>()
+    };
 
     public bool Completed { get; protected set; }
     public bool RewardGiven { get; protected set; }
@@ -47,7 +52,7 @@ public class QuestSO : ScriptableObject
     {
         public int CurrentAmount { get; protected set; }
         public int RequiredAmount = 1;
-        public bool Same;
+        [HideInInspector] public bool Same;
         public bool Completed { get; protected set; }
         [HideInInspector] public UnityEvent GoalCompleted;
 
@@ -96,7 +101,7 @@ public class QuestSO : ScriptableObject
         {
             goal.Initialize();
             goal.GoalCompleted.AddListener(delegate { CheckGoals(); });
-            
+
         }
     }
 
@@ -111,7 +116,7 @@ public class QuestSO : ScriptableObject
     public void GiveRewards()
     {
         foreach (var currency in Reward.CurrencyList) PlayFabManager.Instance.AddCurrency(currency.Key, currency.Value);
-        
+
         PlayFabManager.Instance.AddEnergy(Reward.Energy);
         RewardGiven = true;
     }
