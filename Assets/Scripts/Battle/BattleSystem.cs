@@ -200,10 +200,10 @@ public class BattleSystem : StateMachine
         foreach (var skill in Player.Skills)
         {
             skill.Button.ToggleHUD(active);
-            if (Player.HasEffect(new Silence())) break;
+            //if (Player.HasEffect(new Silence())) break;
         }
 
-        if (Player.HasEffect(new SupportSilence())) return;
+        //if (Player.HasEffect(new SupportSilence())) return;
 
         foreach (var support in Player.EquippedSupports)
         {
@@ -306,6 +306,19 @@ public class BattleSystem : StateMachine
 
                 if (effect.HasAlteration) effect.AlterationEffect(enemy);
             }
+        }
+    }
+
+    public void UpdateEntityEffects(Entity entity)
+    {
+        Debug.Log($"Updating effects of {entity.Name}...");
+
+        foreach (var effect in entity.Effects)
+        {
+            Debug.Log(effect.Data.Name);
+            effect.Tick(entity);
+
+            if (effect.HasAlteration) effect.AlterationEffect(entity);
         }
     }
 
