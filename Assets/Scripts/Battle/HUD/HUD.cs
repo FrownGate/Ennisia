@@ -14,12 +14,14 @@ public class HUD : MonoBehaviour
 
     public void ToggleHUD(bool active)
     {
+        if (active && !_skill.IsUseable()) return;
         _canvas.alpha = active ? 1 : 0;
         ToggleUse(active);
     }
 
     public void ToggleUse(bool active)
     {
+        if (active && !_skill.IsUseable()) return;
         _isActive = active;
     }
 

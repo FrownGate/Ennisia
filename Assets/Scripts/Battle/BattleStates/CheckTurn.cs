@@ -17,7 +17,6 @@ public class CheckTurn : State
     {
         BattleSystem.AttackBarSystem.IncreaseAtkBars();
         BattleSystem.UpdateEntities();
-        BattleSystem.UpdateEntitiesEffects();
         CompareAttackBars();
         //BattleSystem.SetState(new PlayerTurn(BattleSystem));
         yield return new WaitForSeconds(1.5f);
