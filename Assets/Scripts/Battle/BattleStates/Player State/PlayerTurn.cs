@@ -12,9 +12,12 @@ public class PlayerTurn : State
             BattleSystem.SetState(new Lost(BattleSystem));
             yield break;
         }
-        
+
         BattleSystem.Turn += 1;
         BattleSystem.ToggleSkills(true);
+
+        BattleSystem.UpdateEntityEffects(BattleSystem.Player);
+
         BattleSystem.DialogueText.text = "Your turn";
         yield return new WaitForSeconds(1.0f);
     }

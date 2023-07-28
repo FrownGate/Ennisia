@@ -122,7 +122,11 @@ public abstract class Skill
         }
 
         Cooldown = Cooldown > 0 ? Cooldown - 1 : 0;
-        if (Button != null) Button.ToggleUse(Cooldown == 0);
+    }
+
+    public bool IsUseable()
+    {
+        return Cooldown == 0;
     }
 
     public void ResetCoolDown(int duration)

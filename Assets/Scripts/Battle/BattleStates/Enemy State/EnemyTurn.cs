@@ -8,13 +8,16 @@ public class EnemyTurn : State
 
     public override IEnumerator Start()
     {
+        Entity enemy = BattleSystem.Enemies[BattleSystem.EnemyPlayingID];
+
+        BattleSystem.UpdateEntityEffects(enemy);
         BattleSystem.ResetSelectedEnemies();
         BattleSystem.ToggleSkills(false);
+
         BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
         BattleSystem.Enemies[BattleSystem.EnemyPlayingID].AtkBar = 0;
-        Debug.Log("truc bidule = " + BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills[AI.ChooseSkill(BattleSystem, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], true)]);
-        UseSkill(BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills[AI.ChooseSkill(BattleSystem,
-            BattleSystem.Enemies[BattleSystem.EnemyPlayingID], true)]);
+
+        UseSkill(enemy.Skills[AI.ChooseSkill(BattleSystem, enemy, true)]);
 
         yield return new WaitForSeconds(1f);
 
@@ -31,7 +34,7 @@ public class EnemyTurn : State
 
     public void UseSkill(Skill skillUsed)
     {
-        Debug.Log($"Skill used : {skillUsed.Data.Name}");
+        Entity enemy = BattleSystem.Enemies[BattleSystem.EnemyPlayingID];
         float totalDamage = 0;
         //IN ENEMY SKILL !!! TARGETS[0] IS THE PLAYER
         //THE PLAYER IN ENEMY SKILL IS THE ENEMY USING THE SKILL !!!
@@ -42,25 +45,25 @@ public class EnemyTurn : State
         //TODO -> use Targets & Allies Lists
         //foreach (Entity entity in BattleSystem.Enemies) { allTargets.Add(entity); }
 
-        foreach (var skill in BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills)
+        foreach (var skill in enemy.Skills)
         {
-            skill.PassiveBeforeAttack(Targets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, Allies);
+            skill.PassiveBeforeAttack(Targets, enemy, BattleSystem.Turn, Allies);
         }
 
-        totalDamage += skillUsed.SkillBeforeUse(Targets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, Allies);
-        totalDamage += skillUsed.Use(Targets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, Allies);
-        totalDamage += skillUsed.AdditionalDamage(Targets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, totalDamage, Allies);
+        totalDamage += skillUsed.SkillBeforeUse(Targets, enemy, BattleSystem.Turn, Allies);
+        totalDamage += skillUsed.Use(Targets, enemy, BattleSystem.Turn, Allies);
+        totalDamage += skillUsed.AdditionalDamage(Targets, enemy, BattleSystem.Turn, totalDamage, Allies);
 
         foreach(Skill skills in BattleSystem.Player.Skills)
         {
-            skills.UseIfAttacked(Targets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Player, BattleSystem.Turn, totalDamage, Allies);
+            skills.UseIfAttacked(Targets, enemy, BattleSystem.Player, BattleSystem.Turn, totalDamage, Allies);
         }
 
-        skillUsed.SkillAfterDamage(Targets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, totalDamage, Allies);
+        skillUsed.SkillAfterDamage(Targets, enemy, BattleSystem.Turn, totalDamage, Allies);
 
-        foreach (var skill in BattleSystem.Enemies[BattleSystem.EnemyPlayingID].Skills)
+        foreach (var skill in enemy.Skills)
         {
-            skill.PassiveAfterAttack(Targets, BattleSystem.Enemies[BattleSystem.EnemyPlayingID], BattleSystem.Turn, totalDamage, Allies);
+            skill.PassiveAfterAttack(Targets, enemy, BattleSystem.Turn, totalDamage, Allies);
         }
     }
 }
