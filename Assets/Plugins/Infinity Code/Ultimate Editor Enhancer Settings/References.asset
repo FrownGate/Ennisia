@@ -355,6 +355,8 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: Chat
+    path: Assets/Scenes/Dev/Alexis/Chat.unity
   - name: MainMenu
     path: Assets/Scenes/MainMenu.unity
   - name: Battle
@@ -391,6 +393,4 @@ MonoBehaviour:
     path: Assets/Scenes/EventPopup.unity
   - name: MenuPopup
     path: Assets/Scenes/MenuPopup.unity
-  - name: InventoryPopup
-    path: Assets/Scenes/Inventory/InventoryPopup.unity
   _notes: []
