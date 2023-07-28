@@ -24,7 +24,7 @@ public class RewardsManager : MonoBehaviour
 
     public void Drop(MissionSO missionSO)
     {
-    Debug.Log("uwu");
+
         foreach (RewardData reward in missionSO.RewardData)
         {
             Type type = Type.GetType(CSVUtils.GetFileName(reward.Name));           

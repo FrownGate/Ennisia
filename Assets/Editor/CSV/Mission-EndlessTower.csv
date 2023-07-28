@@ -1,51 +1,151 @@
 ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,IDDialogue,IDChap,Num,Gold,Crystals,XP,Gear
-1,Floor 1,0,FALSE,,,,-1,1,1,1000,100,10,none
-2,Floor 2,0,FALSE,,,,-1,1,2,1000,100,10,none
-3,Floor 3,0,FALSE,,,,-1,1,3,1000,100,10,none
-4,Floor 4,0,FALSE,,,,-1,1,4,1000,100,10,none
-5,Floor 5,0,FALSE,,,,-1,1,5,1000,100,10,none
-6,Floor 6,0,FALSE,,,,-1,1,6,1000,100,10,none
-7,Floor 7,0,FALSE,,,,-1,1,7,1000,100,10,none
-8,Floor 8,0,FALSE,,,,-1,1,8,1000,100,10,none
-9,Floor 9,0,FALSE,,,,-1,1,9,1000,100,10,none
-10,Floor 10,0,FALSE,,,,-1,1,10,1000,100,10,none
-11,Floor 11,0,FALSE,,,,-1,1,11,1000,100,10,none
-12,Floor 12,0,FALSE,,,,-1,1,12,1000,100,10,none
-13,Floor 13,0,FALSE,,,,-1,1,13,1000,100,10,none
-14,Floor 14,0,FALSE,,,,-1,1,14,1000,100,10,none
-15,Floor 15,0,FALSE,,,,-1,1,15,1000,100,10,none
-16,Floor 16,0,FALSE,,,,-1,1,16,1000,100,10,none
-17,Floor 17,0,FALSE,,,,-1,1,17,1000,100,10,none
-18,Floor 18,0,FALSE,,,,-1,1,18,1000,100,10,none
-19,Floor 19,0,FALSE,,,,-1,1,19,1000,100,10,none
-20,Floor 20,0,FALSE,,,,-1,1,20,1000,100,10,none
-21,Floor 21,0,FALSE,,,,-1,1,21,1000,100,10,none
-22,Floor 22,0,FALSE,,,,-1,1,22,1000,100,10,none
-23,Floor 23,0,FALSE,,,,-1,1,23,1000,100,10,none
-24,Floor 24,0,FALSE,,,,-1,1,24,1000,100,10,none
-25,Floor 25,0,FALSE,,,,-1,1,25,1000,100,10,none
-26,Floor 26,0,FALSE,,,,-1,1,26,1000,100,10,none
-27,Floor 27,0,FALSE,,,,-1,1,27,1000,100,10,none
-28,Floor 28,0,FALSE,,,,-1,1,28,1000,100,10,none
-29,Floor 29,0,FALSE,,,,-1,1,29,1000,100,10,none
-30,Floor 30,0,FALSE,,,,-1,1,30,1000,100,10,none
-31,Floor 31,0,FALSE,,,,-1,1,31,1000,100,10,none
-32,Floor 32,0,FALSE,,,,-1,1,32,1000,100,10,none
-33,Floor 33,0,FALSE,,,,-1,1,33,1000,100,10,none
-34,Floor 34,0,FALSE,,,,-1,1,34,1000,100,10,none
-35,Floor 35,0,FALSE,,,,-1,1,35,1000,100,10,none
-36,Floor 36,0,FALSE,,,,-1,1,36,1000,100,10,none
-37,Floor 37,0,FALSE,,,,-1,1,37,1000,100,10,none
-38,Floor 38,0,FALSE,,,,-1,1,38,1000,100,10,none
-39,Floor 39,0,FALSE,,,,-1,1,39,1000,100,10,none
-40,Floor 40,0,FALSE,,,,-1,1,40,1000,100,10,none
-41,Floor 41,0,FALSE,,,,-1,1,41,1000,100,10,none
-42,Floor 42,0,FALSE,,,,-1,1,42,1000,100,10,none
-43,Floor 43,0,FALSE,,,,-1,1,43,1000,100,10,none
-44,Floor 44,0,FALSE,,,,-1,1,44,1000,100,10,none
-45,Floor 45,0,FALSE,,,,-1,1,45,1000,100,10,none
-46,Floor 46,0,FALSE,,,,-1,1,46,1000,100,10,none
-47,Floor 47,0,FALSE,,,,-1,1,47,1000,100,10,none
-48,Floor 48,0,FALSE,,,,-1,1,48,1000,100,10,none
-49,Floor 49,0,FALSE,,,,-1,1,49,1000,100,10,none
-50,Floor 50,0,FALSE,,,,-1,1,50,1000,100,10,none
+1,Floor 1.1,0,FALSE,"Blue Slime,Blue Slime,Blue Slime","Red Slime,Red Slime,Red Slime","Green Slime,Green Slime,Green Slime",-1,1,1,1000,100,10,none
+2,Floor 1.2,0,FALSE,"Goblin,Goblin,Goblin","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,2,1000,100,10,none
+3,Floor 1.3,0,FALSE,"Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime",-1,1,3,1000,100,10,none
+4,Floor 2.1,0,FALSE,"Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Giant Mushroom,Small Mushroom","Giant Mushroom,Giant Mushroom,Giant Mushroom",-1,1,4,1000,100,10,none
+5,Floor 2.2,0,FALSE,"Haunted Tree,Evil Gardener,Haunted Tree","Small Mushroom,Haunted Tree,Evil Gardener","Evil Gardener,Haunted Tree,Haunted Tree",-1,1,5,1000,100,10,none
+6,Floor 2.3,0,FALSE,"Small Mushroom,Magic Flower,Small Mushroom","Magic Flower,Small Mushroom,Magic Flower","Magic Flower,Evil Gardener,Small Mushroom",-1,1,6,1000,100,10,none
+7,Floor 3.1,0,FALSE,"Goblin Cyclop,Cyclop,Goblin Cyclop","Evil Gardener,Evil Gardener,Evil Gardener","Evil Gardener,Evil Gardener,Evil Gardener",-1,1,7,1000,100,10,none
+8,Floor 3.2,0,FALSE,"Cyclop,Cyclop,Cyclop","Cyclop,Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,8,1000,100,10,none
+9,Floor 3.3,0,FALSE,"Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin",-1,1,9,1000,100,10,none
+10,Floor 4.1,0,FALSE,"Demonic Goblin,Demonic Goblin,Demonic Goblin","Demonic Goblin,Demonic Slime,Demonic Goblin","Demonic Slime,Demonic Slime,Demonic Slime,",-1,1,10,1000,100,10,none
+11,Floor 4.2,0,FALSE,"Demonic Goblin, Demonic Wolf, Demonic Goblin","Demonic Slime, Demonic Goblin, Demonic Slime ","Demonic Goblin,Demonic Wolf,Demonic Goblin",-1,1,11,1000,100,10,none
+12,Floor 4.3,0,FALSE,"Demonic Wolf,Demonic Wolf,Demonic Wolf","Demonic Wolf, Demonic Goblin, Demonic Wolf","Demonic Slime,Demonic Slime,Demonic Slime",-1,1,12,1000,100,10,none
+13,Floor 5.1,0,FALSE,"Skeleton,Golem Skeleton,Skeleton","Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem",-1,1,13,1000,100,10,none
+14,Floor 5.2,0,FALSE,"Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem","Rock Worm,Lava Golem,Lava Golem",-1,1,14,1000,100,10,none
+15,Floor 5.3,0,FALSE,"Rock Worm,Rock Worm,Rock Worm","Golem Skeleton,Rock Worm, Rock Worm","Rock Golem, Rock Worm, Golem Skeleton",-1,1,15,1000,100,10,none
+16,Floor 6.1,0,FALSE,"Wolf,Wolf,Wolf","Wolf,Wolf Pack Leader,Wolf","Wolf Pack Leader,Wolf Pack Leader,Wolf Pack Leader",-1,1,16,1000,100,10,none
+17,Floor 6.2,0,FALSE,"Spreegal,Spreegal,Spreegal","Spreegal,Winderer,Spreegal","Winderer,Winderer,Winderer",-1,1,17,1000,100,10,none
+18,Floor 6.3,0,FALSE,"Wolf,Spreegal,Winderer","Spreegal,Wolf Pack Leader,Spreegal","Backan,Backan,Winderer",-1,1,18,1000,100,10,none
+19,Floor 7.1,0,FALSE,"Berserker,Bandit,Bandit Chief","Bandit,Bandit,Bandit","Berserker,Berserker,Bandit Chief",-1,1,19,1000,100,10,none
+20,Floor 7.2,0,FALSE,"Demon Archer,Demon Archer,Demon Archer","Demon Archer, Demon knight, Demon Archer ","Demon Mage,Demon knight,Demon Mage",-1,1,20,1000,100,10,none
+21,Floor 7.3,0,FALSE,"Demon Mage,Demon Mage,Demon Mage","Demon knight,Demon knight,Demon knight","Demon Mage,Demon knight,Demon Archer",-1,1,21,1000,100,10,none
+22,Floor 8.1,0,FALSE,"Elven Archer,Elven Mage,Elven Mage","Elven Knight,Elf,Elven Knight","Elven Knight,Elven Knight,Elven Knight",-1,1,22,1000,100,10,none
+23,Floor 8.2,0,FALSE,"Elven Mage,Elven Mage,Elven Mage","Elf,Elf,Elf","Elven Archer,Elven Knight,Elven Knight",-1,1,23,1000,100,10,none
+24,Floor 8.3,0,FALSE,"Elven Mage,Elf,Elevn Mage","Elf,Elven Knight,Elf","Elven Knight,Elven Archer,Elven Mage",-1,1,24,1000,100,10,none
+25,Floor 9.1,0,FALSE,"Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter",-1,1,25,1000,100,10,none
+26,Floor 9.2,0,FALSE,"Stixent,Stixent,Stixent","Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter",-1,1,26,1000,100,10,none
+27,Floor 9.3,0,FALSE,"Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter","Stixent,Stixent,Stixent",-1,1,27,1000,100,10,none
+28,Floor 10.1,0,FALSE,Akelio,Betala,Demon Commander,-1,1,28,1000,100,10,none
+29,Floor 10.2,0,FALSE,Desert King,Elubinard,Galadian,-1,1,29,1000,100,10,none
+30,Floor 10.3,0,FALSE,Ghost Paladin,LaiJande,Clemaline,-1,1,30,1000,100,10,none
+31,Floor 11.1,0,FALSE,"Blue Slime,Blue Slime,Blue Slime","Red Slime,Red Slime,Red Slime","Green Slime,Green Slime,Green Slime",-1,1,31,1000,100,10,none
+32,Floor 11.2,0,FALSE,"Goblin,Goblin,Goblin","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,32,1000,100,10,none
+33,Floor 11.3,0,FALSE,"Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime",-1,1,33,1000,100,10,none
+34,Floor 12.1,0,FALSE,"Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Giant Mushroom,Small Mushroom","Giant Mushroom,Giant Mushroom,Giant Mushroom",-1,1,34,1000,100,10,none
+35,Floor 12.2,0,FALSE,"Haunted Tree,Evil Gardener,Haunted Tree","Small Mushroom,Haunted Tree,Evil Gardener","Evil Gardener,Haunted Tree,Haunted Tree",-1,1,35,1000,100,10,none
+36,Floor 12.3,0,FALSE,"Small Mushroom,Magic Flower,Small Mushroom","Magic Flower,Small Mushroom,Magic Flower","Magic Flower,Evil Gardener,Small Mushroom",-1,1,36,1000,100,10,none
+37,Floor 13.1,0,FALSE,"Goblin Cyclop,Cyclop,Goblin Cyclop","Evil Gardener,Evil Gardener,Evil Gardener","Evil Gardener,Evil Gardener,Evil Gardener",-1,1,37,1000,100,10,none
+38,Floor 13.2,0,FALSE,"Cyclop,Cyclop,Cyclop","Cyclop,Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,38,1000,100,10,none
+39,Floor 13.3,0,FALSE,"Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin",-1,1,39,1000,100,10,none
+40,Floor 14.1,0,FALSE,"Demonic Goblin,Demonic Goblin,Demonic Goblin","Demonic Goblin,Demonic Slime,Demonic Goblin","Demonic Slime,Demonic Slime,Demonic Slime,",-1,1,40,1000,100,10,none
+41,Floor 14.2,0,FALSE,"Demonic Goblin, Demonic Wolf, Demonic Goblin","Demonic Slime, Demonic Goblin, Demonic Slime ","Demonic Goblin,Demonic Wolf,Demonic Goblin",-1,1,41,1000,100,10,none
+42,Floor 14.3,0,FALSE,"Demonic Wolf,Demonic Wolf,Demonic Wolf","Demonic Wolf, Demonic Goblin, Demonic Wolf","Demonic Slime,Demonic Slime,Demonic Slime",-1,1,42,1000,100,10,none
+43,Floor 15.1,0,FALSE,"Skeleton,Golem Skeleton,Skeleton","Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem",-1,1,43,1000,100,10,none
+44,Floor 15.2,0,FALSE,"Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem","Rock Worm,Lava Golem,Lava Golem",-1,1,44,1000,100,10,none
+45,Floor 15.3,0,FALSE,"Rock Worm,Rock Worm,Rock Worm","Golem Skeleton,Rock Worm, Rock Worm","Rock Golem, Rock Worm, Golem Skeleton",-1,1,45,1000,100,10,none
+46,Floor 16.1,0,FALSE,"Wolf,Wolf,Wolf","Wolf,Wolf Pack Leader,Wolf","Wolf Pack Leader,Wolf Pack Leader,Wolf Pack Leader",-1,1,46,1000,100,10,none
+47,Floor 16.2,0,FALSE,"Spreegal,Spreegal,Spreegal","Spreegal,Winderer,Spreegal","Winderer,Winderer,Winderer",-1,1,47,1000,100,10,none
+48,Floor 16.3,0,FALSE,"Wolf,Spreegal,Winderer","Spreegal,Wolf Pack Leader,Spreegal","Backan,Backan,Winderer",-1,1,48,1000,100,10,none
+49,Floor 17.1,0,FALSE,"Berserker,Bandit,Bandit Chief","Bandit,Bandit,Bandit","Berserker,Berserker,Bandit Chief",-1,1,49,1000,100,10,none
+50,Floor 17.2,0,FALSE,"Demon Archer,Demon Archer,Demon Archer","Demon Archer, Demon knight, Demon Archer ","Demon Mage,Demon knight,Demon Mage",-1,1,50,1000,100,10,none
+51,Floor 17.3,0,FALSE,"Demon Mage,Demon Mage,Demon Mage","Demon knight,Demon knight,Demon knight","Demon Mage,Demon knight,Demon Archer",-1,1,51,1000,100,10,none
+52,Floor 18.1,0,FALSE,"Elven Archer,Elven Mage,Elven Mage","Elven Knight,Elf,Elven Knight","Elven Knight,Elven Knight,Elven Knight",-1,1,52,1000,100,10,none
+53,Floor 18.2,0,FALSE,"Elven Mage,Elven Mage,Elven Mage","Elf,Elf,Elf","Elven Archer,Elven Knight,Elven Knight",-1,1,53,1000,100,10,none
+54,Floor 18.3,0,FALSE,"Elven Mage,Elf,Elevn Mage","Elf,Elven Knight,Elf","Elven Knight,Elven Archer,Elven Mage",-1,1,54,1000,100,10,none
+55,Floor 19.1,0,FALSE,"Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter",-1,1,55,1000,100,10,none
+56,Floor 19.2,0,FALSE,"Stixent,Stixent,Stixent","Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter",-1,1,56,1000,100,10,none
+57,Floor 19.3,0,FALSE,"Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter","Stixent,Stixent,Stixent",-1,1,57,1000,100,10,none
+58,Floor 20.1,0,FALSE,Akelio,Betala,Demon Commander,-1,1,58,1000,100,10,none
+59,Floor 20.2,0,FALSE,Desert King,Elubinard,Galadian,-1,1,59,1000,100,10,none
+60,Floor 20.3,0,FALSE,Ghost Paladin,LaiJande,Clemaline,-1,1,60,1000,100,10,none
+61,Floor 21.1,0,FALSE,"Blue Slime,Blue Slime,Blue Slime","Red Slime,Red Slime,Red Slime","Green Slime,Green Slime,Green Slime",-1,1,61,1000,100,10,none
+62,Floor 21.2,0,FALSE,"Goblin,Goblin,Goblin","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,62,1000,100,10,none
+63,Floor 21.3,0,FALSE,"Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime",-1,1,63,1000,100,10,none
+64,Floor 22.1,0,FALSE,"Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Giant Mushroom,Small Mushroom","Giant Mushroom,Giant Mushroom,Giant Mushroom",-1,1,64,1000,100,10,none
+65,Floor 22.2,0,FALSE,"Haunted Tree,Evil Gardener,Haunted Tree","Small Mushroom,Haunted Tree,Evil Gardener","Evil Gardener,Haunted Tree,Haunted Tree",-1,1,65,1000,100,10,none
+66,Floor 22.3,0,FALSE,"Small Mushroom,Magic Flower,Small Mushroom","Magic Flower,Small Mushroom,Magic Flower","Magic Flower,Evil Gardener,Small Mushroom",-1,1,66,1000,100,10,none
+67,Floor 23.1,0,FALSE,"Goblin Cyclop,Cyclop,Goblin Cyclop","Evil Gardener,Evil Gardener,Evil Gardener","Evil Gardener,Evil Gardener,Evil Gardener",-1,1,67,1000,100,10,none
+68,Floor 23.2,0,FALSE,"Cyclop,Cyclop,Cyclop","Cyclop,Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,68,1000,100,10,none
+69,Floor 23.3,0,FALSE,"Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin",-1,1,69,1000,100,10,none
+70,Floor 24.1,0,FALSE,"Demonic Goblin,Demonic Goblin,Demonic Goblin","Demonic Goblin,Demonic Slime,Demonic Goblin","Demonic Slime,Demonic Slime,Demonic Slime,",-1,1,70,1000,100,10,none
+71,Floor 24.2,0,FALSE,"Demonic Goblin, Demonic Wolf, Demonic Goblin","Demonic Slime, Demonic Goblin, Demonic Slime ","Demonic Goblin,Demonic Wolf,Demonic Goblin",-1,1,71,1000,100,10,none
+72,Floor 24.3,0,FALSE,"Demonic Wolf,Demonic Wolf,Demonic Wolf","Demonic Wolf, Demonic Goblin, Demonic Wolf","Demonic Slime,Demonic Slime,Demonic Slime",-1,1,72,1000,100,10,none
+73,Floor 25.1,0,FALSE,"Skeleton,Golem Skeleton,Skeleton","Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem",-1,1,73,1000,100,10,none
+74,Floor 25.2,0,FALSE,"Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem","Rock Worm,Lava Golem,Lava Golem",-1,1,74,1000,100,10,none
+75,Floor 25.3,0,FALSE,"Rock Worm,Rock Worm,Rock Worm","Golem Skeleton,Rock Worm, Rock Worm","Rock Golem, Rock Worm, Golem Skeleton",-1,1,75,1000,100,10,none
+76,Floor 26.1,0,FALSE,"Wolf,Wolf,Wolf","Wolf,Wolf Pack Leader,Wolf","Wolf Pack Leader,Wolf Pack Leader,Wolf Pack Leader",-1,1,76,1000,100,10,none
+77,Floor 26.2,0,FALSE,"Spreegal,Spreegal,Spreegal","Spreegal,Winderer,Spreegal","Winderer,Winderer,Winderer",-1,1,77,1000,100,10,none
+78,Floor 26.3,0,FALSE,"Wolf,Spreegal,Winderer","Spreegal,Wolf Pack Leader,Spreegal","Backan,Backan,Winderer",-1,1,78,1000,100,10,none
+79,Floor 27.1,0,FALSE,"Berserker,Bandit,Bandit Chief","Bandit,Bandit,Bandit","Berserker,Berserker,Bandit Chief",-1,1,79,1000,100,10,none
+80,Floor 27.2,0,FALSE,"Demon Archer,Demon Archer,Demon Archer","Demon Archer, Demon knight, Demon Archer ","Demon Mage,Demon knight,Demon Mage",-1,1,80,1000,100,10,none
+81,Floor 27.3,0,FALSE,"Demon Mage,Demon Mage,Demon Mage","Demon knight,Demon knight,Demon knight","Demon Mage,Demon knight,Demon Archer",-1,1,81,1000,100,10,none
+82,Floor 28.1,0,FALSE,"Elven Archer,Elven Mage,Elven Mage","Elven Knight,Elf,Elven Knight","Elven Knight,Elven Knight,Elven Knight",-1,1,82,1000,100,10,none
+83,Floor 28.2,0,FALSE,"Elven Mage,Elven Mage,Elven Mage","Elf,Elf,Elf","Elven Archer,Elven Knight,Elven Knight",-1,1,83,1000,100,10,none
+84,Floor 28.3,0,FALSE,"Elven Mage,Elf,Elevn Mage","Elf,Elven Knight,Elf","Elven Knight,Elven Archer,Elven Mage",-1,1,84,1000,100,10,none
+85,Floor 29.1,0,FALSE,"Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter",-1,1,85,1000,100,10,none
+86,Floor 29.2,0,FALSE,"Stixent,Stixent,Stixent","Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter",-1,1,86,1000,100,10,none
+87,Floor 29.3,0,FALSE,"Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter","Stixent,Stixent,Stixent",-1,1,87,1000,100,10,none
+88,Floor 30.1,0,FALSE,Akelio,Betala,Demon Commander,-1,1,88,1000,100,10,none
+89,Floor 30.2,0,FALSE,Desert King,Elubinard,Galadian,-1,1,89,1000,100,10,none
+90,Floor 30.3,0,FALSE,Ghost Paladin,LaiJande,Clemaline,-1,1,90,1000,100,10,none
+91,Floor 31.1,0,FALSE,"Blue Slime,Blue Slime,Blue Slime","Red Slime,Red Slime,Red Slime","Green Slime,Green Slime,Green Slime",-1,1,91,1000,100,10,none
+92,Floor 31.2,0,FALSE,"Goblin,Goblin,Goblin","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,92,1000,100,10,none
+93,Floor 31.3,0,FALSE,"Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime",-1,1,93,1000,100,10,none
+94,Floor 32.1,0,FALSE,"Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Giant Mushroom,Small Mushroom","Giant Mushroom,Giant Mushroom,Giant Mushroom",-1,1,94,1000,100,10,none
+95,Floor 32.2,0,FALSE,"Haunted Tree,Evil Gardener,Haunted Tree","Small Mushroom,Haunted Tree,Evil Gardener","Evil Gardener,Haunted Tree,Haunted Tree",-1,1,95,1000,100,10,none
+96,Floor 32.3,0,FALSE,"Small Mushroom,Magic Flower,Small Mushroom","Magic Flower,Small Mushroom,Magic Flower","Magic Flower,Evil Gardener,Small Mushroom",-1,1,96,1000,100,10,none
+97,Floor 33.1,0,FALSE,"Goblin Cyclop,Cyclop,Goblin Cyclop","Evil Gardener,Evil Gardener,Evil Gardener","Evil Gardener,Evil Gardener,Evil Gardener",-1,1,97,1000,100,10,none
+98,Floor 33.2,0,FALSE,"Cyclop,Cyclop,Cyclop","Cyclop,Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,98,1000,100,10,none
+99,Floor 33.3,0,FALSE,"Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin",-1,1,99,1000,100,10,none
+100,Floor 34.1,0,FALSE,"Demonic Goblin,Demonic Goblin,Demonic Goblin","Demonic Goblin,Demonic Slime,Demonic Goblin","Demonic Slime,Demonic Slime,Demonic Slime,",-1,1,100,1000,100,10,none
+101,Floor 34.2,0,FALSE,"Demonic Goblin, Demonic Wolf, Demonic Goblin","Demonic Slime, Demonic Goblin, Demonic Slime ","Demonic Goblin,Demonic Wolf,Demonic Goblin",-1,1,101,1000,100,10,none
+102,Floor 34.3,0,FALSE,"Demonic Wolf,Demonic Wolf,Demonic Wolf","Demonic Wolf, Demonic Goblin, Demonic Wolf","Demonic Slime,Demonic Slime,Demonic Slime",-1,1,102,1000,100,10,none
+103,Floor 35.1,0,FALSE,"Skeleton,Golem Skeleton,Skeleton","Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem",-1,1,103,1000,100,10,none
+104,Floor 35.2,0,FALSE,"Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem","Rock Worm,Lava Golem,Lava Golem",-1,1,104,1000,100,10,none
+105,Floor 35.3,0,FALSE,"Rock Worm,Rock Worm,Rock Worm","Golem Skeleton,Rock Worm, Rock Worm","Rock Golem, Rock Worm, Golem Skeleton",-1,1,105,1000,100,10,none
+106,Floor 36.1,0,FALSE,"Wolf,Wolf,Wolf","Wolf,Wolf Pack Leader,Wolf","Wolf Pack Leader,Wolf Pack Leader,Wolf Pack Leader",-1,1,106,1000,100,10,none
+107,Floor 36.2,0,FALSE,"Spreegal,Spreegal,Spreegal","Spreegal,Winderer,Spreegal","Winderer,Winderer,Winderer",-1,1,107,1000,100,10,none
+108,Floor 36.3,0,FALSE,"Wolf,Spreegal,Winderer","Spreegal,Wolf Pack Leader,Spreegal","Backan,Backan,Winderer",-1,1,108,1000,100,10,none
+109,Floor 37.1,0,FALSE,"Berserker,Bandit,Bandit Chief","Bandit,Bandit,Bandit","Berserker,Berserker,Bandit Chief",-1,1,109,1000,100,10,none
+110,Floor 37.2,0,FALSE,"Demon Archer,Demon Archer,Demon Archer","Demon Archer, Demon knight, Demon Archer ","Demon Mage,Demon knight,Demon Mage",-1,1,110,1000,100,10,none
+111,Floor 37.3,0,FALSE,"Demon Mage,Demon Mage,Demon Mage","Demon knight,Demon knight,Demon knight","Demon Mage,Demon knight,Demon Archer",-1,1,111,1000,100,10,none
+112,Floor 38.1,0,FALSE,"Elven Archer,Elven Mage,Elven Mage","Elven Knight,Elf,Elven Knight","Elven Knight,Elven Knight,Elven Knight",-1,1,112,1000,100,10,none
+113,Floor 38.2,0,FALSE,"Elven Mage,Elven Mage,Elven Mage","Elf,Elf,Elf","Elven Archer,Elven Knight,Elven Knight",-1,1,113,1000,100,10,none
+114,Floor 38.3,0,FALSE,"Elven Mage,Elf,Elevn Mage","Elf,Elven Knight,Elf","Elven Knight,Elven Archer,Elven Mage",-1,1,114,1000,100,10,none
+115,Floor 39.1,0,FALSE,"Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter",-1,1,115,1000,100,10,none
+116,Floor 39.2,0,FALSE,"Stixent,Stixent,Stixent","Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter",-1,1,116,1000,100,10,none
+117,Floor 39.3,0,FALSE,"Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter","Stixent,Stixent,Stixent",-1,1,117,1000,100,10,none
+118,Floor 40.1,0,FALSE,Akelio,Betala,Demon Commander,-1,1,118,1000,100,10,none
+119,Floor 40.2,0,FALSE,Desert King,Elubinard,Galadian,-1,1,119,1000,100,10,none
+120,Floor 40.3,0,FALSE,Ghost Paladin,LaiJande,Clemaline,-1,1,120,1000,100,10,none
+121,Floor 41.1,0,FALSE,"Blue Slime,Blue Slime,Blue Slime","Red Slime,Red Slime,Red Slime","Green Slime,Green Slime,Green Slime",-1,1,121,1000,100,10,none
+122,Floor 41.2,0,FALSE,"Goblin,Goblin,Goblin","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,122,1000,100,10,none
+123,Floor 41.3,0,FALSE,"Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime","Blue Slime,Green Slime,Red Slime",-1,1,123,1000,100,10,none
+124,Floor 42.1,0,FALSE,"Small Mushroom,Small Mushroom,Small Mushroom","Small Mushroom,Giant Mushroom,Small Mushroom","Giant Mushroom,Giant Mushroom,Giant Mushroom",-1,1,124,1000,100,10,none
+125,Floor 42.2,0,FALSE,"Haunted Tree,Evil Gardener,Haunted Tree","Small Mushroom,Haunted Tree,Evil Gardener","Evil Gardener,Haunted Tree,Haunted Tree",-1,1,125,1000,100,10,none
+126,Floor 42.3,0,FALSE,"Small Mushroom,Magic Flower,Small Mushroom","Magic Flower,Small Mushroom,Magic Flower","Magic Flower,Evil Gardener,Small Mushroom",-1,1,126,1000,100,10,none
+127,Floor 43.1,0,FALSE,"Goblin Cyclop,Cyclop,Goblin Cyclop","Evil Gardener,Evil Gardener,Evil Gardener","Evil Gardener,Evil Gardener,Evil Gardener",-1,1,127,1000,100,10,none
+128,Floor 43.2,0,FALSE,"Cyclop,Cyclop,Cyclop","Cyclop,Cyclop,Goblin Cyclop","Goblin Cyclop,Goblin Cyclop,Goblin Cyclop",-1,1,128,1000,100,10,none
+129,Floor 43.3,0,FALSE,"Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin","Higher Goblin,Higher Goblin,Higher Goblin",-1,1,129,1000,100,10,none
+130,Floor 44.1,0,FALSE,"Demonic Goblin,Demonic Goblin,Demonic Goblin","Demonic Goblin,Demonic Slime,Demonic Goblin","Demonic Slime,Demonic Slime,Demonic Slime,",-1,1,130,1000,100,10,none
+131,Floor 44.2,0,FALSE,"Demonic Goblin, Demonic Wolf, Demonic Goblin","Demonic Slime, Demonic Goblin, Demonic Slime ","Demonic Goblin,Demonic Wolf,Demonic Goblin",-1,1,131,1000,100,10,none
+132,Floor 44.3,0,FALSE,"Demonic Wolf,Demonic Wolf,Demonic Wolf","Demonic Wolf, Demonic Goblin, Demonic Wolf","Demonic Slime,Demonic Slime,Demonic Slime",-1,1,132,1000,100,10,none
+133,Floor 45.1,0,FALSE,"Skeleton,Golem Skeleton,Skeleton","Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem",-1,1,133,1000,100,10,none
+134,Floor 45.2,0,FALSE,"Rock Golem,Rock Golem,Golem Skeleton","Water Golem,Lava Golem,Rock Golem","Rock Worm,Lava Golem,Lava Golem",-1,1,134,1000,100,10,none
+135,Floor 45.3,0,FALSE,"Rock Worm,Rock Worm,Rock Worm","Golem Skeleton,Rock Worm, Rock Worm","Rock Golem, Rock Worm, Golem Skeleton",-1,1,135,1000,100,10,none
+136,Floor 46.1,0,FALSE,"Wolf,Wolf,Wolf","Wolf,Wolf Pack Leader,Wolf","Wolf Pack Leader,Wolf Pack Leader,Wolf Pack Leader",-1,1,136,1000,100,10,none
+137,Floor 46.2,0,FALSE,"Spreegal,Spreegal,Spreegal","Spreegal,Winderer,Spreegal","Winderer,Winderer,Winderer",-1,1,137,1000,100,10,none
+138,Floor 46.3,0,FALSE,"Wolf,Spreegal,Winderer","Spreegal,Wolf Pack Leader,Spreegal","Backan,Backan,Winderer",-1,1,138,1000,100,10,none
+139,Floor 47.1,0,FALSE,"Berserker,Bandit,Bandit Chief","Bandit,Bandit,Bandit","Berserker,Berserker,Bandit Chief",-1,1,139,1000,100,10,none
+140,Floor 47.2,0,FALSE,"Demon Archer,Demon Archer,Demon Archer","Demon Archer, Demon knight, Demon Archer ","Demon Mage,Demon knight,Demon Mage",-1,1,140,1000,100,10,none
+141,Floor 47.3,0,FALSE,"Demon Mage,Demon Mage,Demon Mage","Demon knight,Demon knight,Demon knight","Demon Mage,Demon knight,Demon Archer",-1,1,141,1000,100,10,none
+142,Floor 48.1,0,FALSE,"Elven Archer,Elven Mage,Elven Mage","Elven Knight,Elf,Elven Knight","Elven Knight,Elven Knight,Elven Knight",-1,1,142,1000,100,10,none
+143,Floor 48.2,0,FALSE,"Elven Mage,Elven Mage,Elven Mage","Elf,Elf,Elf","Elven Archer,Elven Knight,Elven Knight",-1,1,143,1000,100,10,none
+144,Floor 48.3,0,FALSE,"Elven Mage,Elf,Elevn Mage","Elf,Elven Knight,Elf","Elven Knight,Elven Archer,Elven Mage",-1,1,144,1000,100,10,none
+145,Floor 49.1,0,FALSE,"Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter",-1,1,145,1000,100,10,none
+146,Floor 49.2,0,FALSE,"Stixent,Stixent,Stixent","Sanunter,Sanunter,Sanunter","Sanunter,Rock Worm,Sanunter",-1,1,146,1000,100,10,none
+147,Floor 49.3,0,FALSE,"Sanunter,Rock Worm,Sanunter","Sanunter, Stixent,Sanunter","Stixent,Stixent,Stixent",-1,1,147,1000,100,10,none
+148,Floor 50.1,0,FALSE,Akelio,Betala,Demon Commander,-1,1,148,1000,100,10,none
+149,Floor 50.2,0,FALSE,Desert King,Elubinard,Galadian,-1,1,149,1000,100,10,none
+150,Floor 50.3,0,FALSE,Ghost Paladin,LaiJande,Clemaline,-1,1,150,1000,100,10,none

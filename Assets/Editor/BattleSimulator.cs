@@ -409,7 +409,7 @@ public class BattleSimulator : EditorWindow
         foreach (var gear in _selectedGears)
         {
             if (gear.Value == null) continue;
-            PlayFabManager.Instance.Player.Equip(gear.Value, false);
+            //PlayFabManager.Instance.Player.Equip(gear.Value, false);
         }
 
         _player = new()

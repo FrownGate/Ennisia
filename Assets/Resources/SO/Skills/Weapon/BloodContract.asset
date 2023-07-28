@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Blood Contract
   Description: "deals 4 hits to all enemies with a quick attack, recovering the user\u2019s
     hp by 30% of damage dealt."
-  DamageRatio: 170
+  DamageRatio: 500
   ShieldAmount: 0
   HealingAmount: 30
   BuffAmount: 0

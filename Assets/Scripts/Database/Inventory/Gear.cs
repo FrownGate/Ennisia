@@ -30,6 +30,8 @@ public class Gear : Item
 
     public Gear(GearType type, Rarity rarity, GearSet gearSet, GearSO weapon = null)
     {
+        Debug.Log("gear created");
+
         WeaponSO = weapon;
         WeaponType = weapon ? weapon.WeaponType : null;
         Id = SetId();
