@@ -7,7 +7,7 @@ public class AspectoftheDemonicAngel : PassiveSkill
     {
         if (caster.CurrentHp < (caster.Stats[Attribute.HP].Value * 0.3f))
         {
-            // add Berserk Buff
+            caster.ApplyEffect(new Berserk());
         }
     }
 }

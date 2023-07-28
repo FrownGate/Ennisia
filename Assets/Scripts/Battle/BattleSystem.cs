@@ -282,11 +282,11 @@ public class BattleSystem : StateMachine
         }
 
         Player = AttackBarSystem.AllEntities[AttackBarSystem.AllEntities.Count - 1];
-        foreach (var entity in Enemies) 
+        foreach (var entity in Enemies)
         {
-            entity.resetHealed();
+            entity.ResetHealed();
         }
-        Player.resetHealed();
+        Player.ResetHealed();
     }
 
     public void UpdateEntitiesEffects()
@@ -329,7 +329,7 @@ public class BattleSystem : StateMachine
             return;
         }
 
-        OnPlayerLose ?.Invoke(true);
+        OnPlayerLose?.Invoke(true);
         //TODO -> Load game over popup
     }
 

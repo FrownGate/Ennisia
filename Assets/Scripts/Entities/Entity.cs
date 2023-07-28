@@ -81,6 +81,11 @@ public abstract class Entity
         {
             return;
         }
+        if (this.Effects.Find(effect => effect.GetType() == typeof(Invincibility)) != null)
+        {
+            damage = 0;
+            return;
+        }
         Debug.Log($"Damage taken : {damage}");
         if (Shield > 0)
         {
@@ -104,7 +109,7 @@ public abstract class Entity
         CurrentHp += amount;
         CurrentHp = CurrentHp > Stats[Attribute.HP].Value ? Stats[Attribute.HP].Value : CurrentHp;
     }
-    public virtual void resetHealed()
+    public virtual void ResetHealed()
     {
         Healed = false;
         AmountHealed = 0;
@@ -137,15 +142,16 @@ public abstract class Entity
         if (!effect.HasAlteration) effect.AddEffectModifiers(this);
     }
 
-    public void Cleanse()
+    public void Strip()
     {
         foreach (var effect in Effects)
         {
+            if (effect.IsUndispellable) return;
             if (!effect.HasAlteration) effect.Cleanse(this);
         }
     }
 
-    public void Strip()
+    public void Cleanse()
     {
         foreach (var effect in Effects)
         {
