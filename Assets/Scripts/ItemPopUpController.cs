@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,53 +15,74 @@ public class ItemPopUpController : MonoBehaviour
     [SerializeField] TextMeshProUGUI _itemPrice;
     [SerializeField] TextMeshProUGUI _itemDescription;
     [SerializeField] TextMeshProUGUI _availableAmount;
+    [SerializeField] TextMeshProUGUI _numberToBuy;
     [SerializeField] Image _itemImage;
     [SerializeField] Image _currencyImage;
+    [SerializeField] CanvasGroup canvasGroup;
     
-    [SerializeField] GameObject outsideClickArea;  
-    [SerializeField] EventTrigger outsideClickAreaEventTrigger;
-    private void Start()
-    {
-        outsideClickAreaEventTrigger.triggers.Clear();
-
-        EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerUp;
-        entry.callback.AddListener((eventData) => { ClosePopup(); });
-        
-        outsideClickAreaEventTrigger.triggers.Add(entry);
-    }
-    void Update () 
-    {
-        if (Input.GetMouseButtonDown(0)) 
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100)) 
-            {
-                if (hit.transform == outsideClickArea.transform) 
-                {
-                    popup.SetActive(false);
-                }
-            }
-        }
-    }
-
+    private float _itemPriceFloat;
+    
     public void OpenPopup()
     {
         popup.SetActive(true);
-        outsideClickArea.SetActive(true);
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
     }
 
-    private void ClosePopup()
+    public void ClosePopup()
     {
         popup.SetActive(false);
-        outsideClickArea.SetActive(false);
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
     
     public void SetUpPopupInfo(int price, string name, string description)
     {
+        _itemPriceFloat = price;
+        
         _itemName.text = name;
         _itemPrice.text = price.ToString();
         _itemDescription.text = description;
+        _numberToBuy.text = "1";
     }
+    
+    public void IncreaseNumberToBuy()
+    {
+        int amount = int.Parse(_numberToBuy.text);
+        amount++;
+        _numberToBuy.text = amount.ToString();
+    }
+    
+    public void IncreaseTenNumberToBuy()
+    {
+        int amount = int.Parse(_numberToBuy.text);
+        amount += 10;
+        _numberToBuy.text = amount.ToString();
+    }
+    
+    public void DecreaseNumberToBuy()
+    {
+        int amount = int.Parse(_numberToBuy.text);
+        amount--;
+        if (amount < 1)
+        {
+            amount = 1;
+        }
+        _numberToBuy.text = amount.ToString();
+    }
+    
+    public void DecreaseTenNumberToBuy()
+    {
+        int amount = int.Parse(_numberToBuy.text);
+        amount -= 10;
+        if (amount < 1)
+        {
+            amount = 1;
+        }
+        _numberToBuy.text = amount.ToString();
+    }
+    
+    
 }

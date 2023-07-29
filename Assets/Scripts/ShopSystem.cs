@@ -21,8 +21,7 @@ public class ShopSystem : MonoBehaviour
     //private Dictionary<string, List<GameObject>> _shopItems = new ();
     private List<GameObject> _currentShopItems = new List<GameObject>();
     private string _currentShop;
-      
-
+    
     void Start()
     {
         _shops = PlayFabManager.Instance.Stores;
@@ -31,21 +30,20 @@ public class ShopSystem : MonoBehaviour
 
     private void InitShops()
     {
-        foreach (var store in PlayFabManager.Instance.Stores)
+        foreach (var shop in _shops)
         {
             GameObject shopBtn = Instantiate(_shopBtnPrefab, transform);
             shopBtn.transform.SetParent(_ShopBtnPanel.transform);
             var shopBtnInfo = shopBtn.GetComponent<ShowShopInfo>();
-            shopBtnInfo.ShopName = store.Value.AlternateIds[0].Value;
-            
-            InitShopItems(store.Value.ItemReferences);
+            shopBtnInfo.ShopName = shop.Value.AlternateIds[0].Value;
         }
+        //First Shop's items
+        _currentShop = "32ae8b20-5684-4937-8150-3b17958bdbbe";
+        InitShopItems(_shops[_currentShop].ItemReferences);
     }
 
     private void InitShopItems(List<CatalogItemReference> itemReferences)
     {
-        _currentShopItems.Clear();
-        
         for (int i = 0; i < itemReferences.Count; i++)
         {
             GameObject shopItemBtn = Instantiate(_shopItemBtnPrefab, transform);
@@ -55,12 +53,12 @@ public class ShopSystem : MonoBehaviour
             PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
             itemInfo.ItemName = item.AlternateIds[0].Value;
             itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
-            SetImageFromURL(item.Images[0].Url, itemInfo);
+            //SetImageFromURL(item.Images[0].Url, itemInfo); //TODO: Fix the bug with the images
             Debug.Log(itemInfo.ItemName + "Added");
             _currentShopItems.Add(shopItemBtn);
         }
     }
-
+    
     public void Buy(PlayFab.EconomyModels.CatalogItem item)
     {
         Item newItem = Item.CreateFromCatalogItem(item);
@@ -77,6 +75,7 @@ public class ShopSystem : MonoBehaviour
             {
                 _currentShop = shopName;
                 InitShopItems(shop.Value.ItemReferences);
+                return;
             }
         }
     }
@@ -109,7 +108,7 @@ public class ShopSystem : MonoBehaviour
             item._itemImage.sprite = Texture2DToSprite(texture);
         }
     }
-
+    
     private Sprite Texture2DToSprite(Texture2D texture)
     {
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
