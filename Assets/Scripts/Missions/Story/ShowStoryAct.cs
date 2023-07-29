@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,6 +9,7 @@ public class ShowStoryAct : MonoBehaviour
     public int TargetActId;
     public GameObject ButtonPrefab; // The prefab for the UI button
     [Scene] public string scene;
+    public static event Action<int> Onclick;
 
     public void Start()
     {
@@ -55,6 +57,7 @@ public class ShowStoryAct : MonoBehaviour
 
     private void ButtonClicked(ChapterSO scriptableObject)
     {
+        Onclick?.Invoke(2);
         MissionManager.Instance.SetChapter(scriptableObject);
         ScenesManager.Instance.SetScene(scene);
     }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [Serializable]
-public class PlayerData : MonoBehaviour
+public class PlayerData
 {
     public string Name;
     public int Level;
@@ -88,7 +89,6 @@ public class PlayerData : MonoBehaviour
 
     public void Equip(Gear gear, bool update = true)
     {
-        Debug.Log(gear.Type + "uwu");
         EquipGear(gear);
         if (update) PlayFabManager.Instance.UpdateData();
     }
@@ -158,6 +158,7 @@ public class PlayerData : MonoBehaviour
 
         foreach (var stat in basStats)
         {
+            Debug.Log("Base stats : " + PlayFabManager.Instance.PlayerBaseStats[stat.Key] + stat.Key);
             Stats[stat.Key] = new(PlayFabManager.Instance.PlayerBaseStats[stat.Key] + PlayFabManager.Instance.PlayerBaseStats[stat.Key] * CalculationChoice(stat.Key));
         }
     }
@@ -167,11 +168,12 @@ public class PlayerData : MonoBehaviour
         switch (stat)
         {
             case Attribute.HP: return Level / 2.5f;
-            case Attribute.Attack: return Level / 6.5f + 20;
+            case Attribute.Attack: return Level / 6.5f;
             case Attribute.PhysicalDefense: return Level / 25;
             case Attribute.MagicalDefense: return Level / 20;
             case Attribute.Speed: return Level / 100;
         }
+        
         return 1;
     }
 
@@ -193,7 +195,7 @@ public class PlayerData : MonoBehaviour
                 var level = int.Parse(values[0]);
                 var experienceRequired = int.Parse(values[1]);
 
-                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
+                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau Ã  l'expÃ©rience requise
             }
             else
             {
@@ -207,19 +209,19 @@ public class PlayerData : MonoBehaviour
         Exp = PlayFabManager.Instance.Player.Exp;
 
         if (Level >= PlayerlevelExperienceMap.Count)
-            // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
+            // Le joueur a atteint le niveau maximum, ne gagne plus d'expÃ©rience
             return;
 
-        Exp += expToAdd; // Ajoute l'expérience spécifiée
+        Exp += expToAdd; // Ajoute l'expÃ©rience spÃ©cifiÃ©e
         Debug.Log("player gain " + expToAdd + " xp");
 
 
 
         while (PlayerlevelExperienceMap.ContainsKey(Level + 1) && Exp >= PlayerlevelExperienceMap[Level + 1])
         {
-            Level++; // Incrémente le niveau
+            Level++; // IncrÃ©mente le niveau
             Exp -=
-                PlayerlevelExperienceMap[Level]; // Déduit l'expérience requise pour atteindre le niveau suivant
+                PlayerlevelExperienceMap[Level]; // DÃ©duit l'expÃ©rience requise pour atteindre le niveau suivant
             PlayFabManager.Instance.Player.Level = Level;
             PlayFabManager.Instance.Player.Exp = Exp;
             OnPlayerLevelUp?.Invoke(Level, LevelUpQuestEvent.LvlType.Player);
@@ -229,15 +231,6 @@ public class PlayerData : MonoBehaviour
         PlayFabManager.Instance.Player.Exp = Exp;
         PlayFabManager.Instance.UpdateData();
 
-        //UpdateUI(); // Met à jour l'interface utilisateur
-    }
-
-    private void OnEnable()
-    {
-        RewardsManager.GainXp += GainExperiencePlayer;
-    }
-    private void OnDisable()
-    {
-        RewardsManager.GainXp -= GainExperiencePlayer;
+        //UpdateUI(); // Met Ã  jour l'interface utilisateur
     }
 }
