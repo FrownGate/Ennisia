@@ -25,8 +25,12 @@ public class InputManager : MonoBehaviour
         {
             foreach (var stat in PlayFabManager.Instance.Player.Stats)
             {
-                Debug.Log(stat);
+                Debug.Log(stat.Key + " : " + stat.Value.Value);
             }
+        }
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            ScenesManager.Instance.SetScene("StuffMenu");
         }
     }
 }

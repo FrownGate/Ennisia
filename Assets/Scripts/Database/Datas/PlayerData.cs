@@ -158,7 +158,7 @@ public class PlayerData
 
         foreach (var stat in basStats)
         {
-            Debug.Log("Base stats : " + PlayFabManager.Instance.PlayerBaseStats[stat.Key] + stat.Key);
+            //Debug.Log("Base stats : " + PlayFabManager.Instance.PlayerBaseStats[stat.Key] + stat.Key);
             Stats[stat.Key] = new(PlayFabManager.Instance.PlayerBaseStats[stat.Key] + PlayFabManager.Instance.PlayerBaseStats[stat.Key] * CalculationChoice(stat.Key));
         }
     }

@@ -265,27 +265,27 @@ public class PlayFabManager : MonoBehaviour
     {
 
 
-        Debug.LogWarning("TESTING ACTIVATED");
-
-        Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
-        Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
-        Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
-        Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
-        Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
-        Player.Equip(new Gear(GearType.Earrings, Rarity.Legendary, null), false);
-
-        foreach (var gear in Player.EquippedGears)
-        {
-            Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
-        }
-        
-        SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
-        Debug.Log(support.Name);
-        Player.Equip(support, 0, false); //Slot 1
-
-        support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Ugho");
-        Debug.Log(support.Name);
-        Player.Equip(support, 1, false); //Slot 2
+        // Debug.LogWarning("TESTING ACTIVATED");
+        //
+        // Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Earrings, Rarity.Legendary, null), false);
+        //
+        // foreach (var gear in Player.EquippedGears)
+        // {
+        //     Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
+        // }
+        //
+        // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
+        // Debug.Log(support.Name);
+        // Player.Equip(support, 0, false); //Slot 1
+        //
+        // support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Ugho");
+        // Debug.Log(support.Name);
+        // Player.Equip(support, 1, false); //Slot 2
 
         
     }
