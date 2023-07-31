@@ -48,6 +48,10 @@ public class Item
     public string JsonWeapon;
     public string JsonAttribute;
 
+    public Item()
+    {
+        //TODO -> Set default slot image
+    }
 
     public static Item CreateFromCatalogItem(CatalogItem catalogItem)
     {

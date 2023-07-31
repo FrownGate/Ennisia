@@ -150,15 +150,12 @@ public class PlayFabManager : MonoBehaviour
     public void InvokeOnEnergyUsed(int amount) => OnEnergyUsed?.Invoke(amount);
 
     public void AddCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.AddCurrency(currency, amount));
-
-    public void RemoveCurrency(Currency currency, int amount) =>
-        StartCoroutine(_economyMod.RemoveCurrency(currency, amount));
-
+    public void RemoveCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.RemoveCurrency(currency, amount));
     public void AddEnergy(int amount) => StartCoroutine(_economyMod.AddEnergy(amount));
     public void RemoveEnergy(int amount) => StartCoroutine(_economyMod.RemoveEnergy(amount));
+    public bool HasEnoughCurrency(int amount, Currency? currency = null) => _economyMod.HasEnoughCurrency(amount, currency);
 
-    public bool HasEnoughCurrency(int amount, Currency? currency = null) =>
-        _economyMod.HasEnoughCurrency(amount, currency);
+    public List<Item> GetItems(Item category = null) => _economyMod.GetItems(category);
 
     public void AddInventoryItem(Item item) => StartCoroutine(_economyMod.AddInventoryItem(item));
     public void UpdateItem(Item item) => StartCoroutine(_economyMod.UpdateItem(item));
