@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 64
   Name: Spin Attack
   Description: Hits the player 3 times and increases attackbar by 25%
-  DamageRatio: 40
+  DamageRatio: 140
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 25

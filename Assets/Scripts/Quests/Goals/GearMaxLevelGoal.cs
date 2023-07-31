@@ -10,7 +10,7 @@ public class GearMaxLevelGoal : QuestSO.QuestGoal
         QuestEventManager.Instance.AddListener<GearLevelMaxQuestEvent>(OnMaxLevel);
     }
 
-    public void OnMaxLevel(GearLevelMaxQuestEvent eventInfo)
+    private void OnMaxLevel(GearLevelMaxQuestEvent eventInfo)
     {
         if (Completed) return;
         if (Type.Where(type => eventInfo.Type == type).Any())

@@ -235,7 +235,7 @@ public class BattleSimulator : EditorWindow
                     ChangeEnemyFields(data);
                     return;
                 }
-                
+
                 HideData(data);
             });
         }
@@ -279,8 +279,8 @@ public class BattleSimulator : EditorWindow
 
             foreach (var skillData in supportSO.SkillsData)
             {
-                var skill = supportSO.Skills.FirstOrDefault(s => s.GetType().Name == skillData.Name);
-                if (skill == null) continue;
+                SkillSO skill = supportSO.SkillsData.FirstOrDefault(s => s.GetType().Name == skillData.Name);
+                // if (skill == null) continue;
 
                 supportData.TextFields[textFieldIndex].visible = true;
                 supportData.TextFields[textFieldIndex].label = skillData.IsPassive ? "Passive" : "Active";
@@ -409,7 +409,7 @@ public class BattleSimulator : EditorWindow
         foreach (var gear in _selectedGears)
         {
             if (gear.Value == null) continue;
-            PlayFabManager.Instance.Player.Equip(gear.Value, false);
+            //PlayFabManager.Instance.Player.Equip(gear.Value, false);
         }
 
         _player = new()

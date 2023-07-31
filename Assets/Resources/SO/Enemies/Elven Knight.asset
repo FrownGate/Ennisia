@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Elven Knight
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
+  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
+  - {fileID: 11400000, guid: 0f70c3b43f5267340889d2e1a2c48712, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 16
   Name: Elven Knight
   Description: description
@@ -21,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 1500
+      Value: 750
     - Key: 1
       Value: 40
     - Key: 2

@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Falling Arrows
   Description: Hits the player 4 times dealing physical damage and has a 50% chance
     to recieve a Crit Rate and Crit Dmg buff
-  DamageRatio: 50
+  DamageRatio: 150
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

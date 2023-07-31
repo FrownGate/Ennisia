@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
-    List<Sound> sounds = new List<Sound>();
+    public List<Sound> sounds = new List<Sound>();
     AudioClip[] audioClip;
+    public float DefautlVolume = 0.05f;
     private float _saveVolume = 0.1f;
     private float _stepVolume = 0.01f;
     public static AudioManager Instance { get; private set; }
@@ -45,7 +46,7 @@ public class AudioManager : MonoBehaviour
             sound.Source = gameObject.AddComponent<AudioSource>();
             sound.name = sound.clip.name;
             sound.Source.clip = sound.clip;
-            sound.Source.volume = 0.2f; //default value, will be change by the audio setting in game.
+            sound.Source.volume = DefautlVolume;
             sound.Source.pitch = 1;
             sound.Source.loop = sound.loop;
         }
@@ -59,7 +60,7 @@ public class AudioManager : MonoBehaviour
     private void Update()
     {
         //To mute/Un mute
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             Debug.Log("wui");
             foreach (var sound in sounds)
@@ -106,7 +107,7 @@ public class AudioManager : MonoBehaviour
     private void OnClickSFX(int index)
     {
         FindObjectOfType<AudioManager>().Play("button" + index);
-        Debug.Log("button sfx " + index + " played");
+        //Debug.Log("button sfx " + index + " played");
     }
     private void MissionStartBGM(MissionSO missionSO)
     {
@@ -180,6 +181,7 @@ public class AudioManager : MonoBehaviour
         //Move event to SkillHUD
         //BattleSystem.OnClickSFX += OnClickSFX;
         SceneButton.ChangeSceneSFX += OnClickSFX;
+        ShowStoryAct.Onclick += OnClickSFX;
         MissionManager.OnMissionStart += MissionStartBGM;
 
     }
@@ -190,6 +192,7 @@ public class AudioManager : MonoBehaviour
         //Move event to SkillHUD
         //BattleSystem.OnClickSFX -= OnClickSFX;
         SceneButton.ChangeSceneSFX -= OnClickSFX;
+        ShowStoryAct.Onclick -= OnClickSFX;
         MissionManager.OnMissionStart -= MissionStartBGM;
     }
 }

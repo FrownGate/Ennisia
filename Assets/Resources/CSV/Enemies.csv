@@ -1,66 +1,66 @@
 Id,Name,HP,Attack,PhysicalDamages,PhysicalDefense,MagicalDamages,MagicalDefense,CritRate,CritDmg,Speed,Description,IsBoss,Skill 1,Skill 2,Skill 3,Passif
-1,Red Slime,400,15,5,15,15,15,5,10,50,description,FALSE,88,90,0,0
-2,Blue Slime,400,10,5,20,15,20,5,10,50,description,FALSE,88,90,0,0
-3,Green Slime,550,10,5,15,15,15,5,10,50,description,FALSE,88,90,0,0
-4,Demonic Slime,800,20,10,30,30,30,10,10,60,description,FALSE,88,90,91,0
-5,Wolf,800,40,30,25,10,25,10,10,60,description,FALSE,92,93,0,0
-6,Wolf Pack Leader,950,45,40,25,10,25,20,10,60,description,FALSE,92,93,111,117
-7,Goblin,450,10,15,10,15,10,5,10,70,description,FALSE,88,94,0,0
-8,Higher Goblin,700,30,20,25,20,40,15,30,60,description,FALSE,88,94,95,0
-9,Goblin Chief,1000,70,50,45,10,35,20,60,50,description,FALSE,88,94,96,116
-10,Rock Golem,1000,40,60,90,20,50,10,10,45,description,FALSE,88,97,0,0
-11,Lava Golem,1000,40,20,50,60,40,15,10,50,description,FALSE,88,112,0,0
-12,Water Golem,1000,40,20,30,70,60,10,10,55,description,FALSE,88,113,0,0
-13,Haunted Tree,2000,30,10,45,35,45,10,20,35,description,FALSE,89,98,0,0
-14,Small Mushroom,300,30,10,20,25,15,30,20,70,description,FALSE,89,99,0,0
-15,Giant Mushroom,600,60,20,35,50,35,35,50,40,description,FALSE,89,99,100,115
-16,Elven Knight,1500,40,40,40,20,40,20,20,60,description,FALSE,88,101,0,0
-17,Elven Archer,1100,70,50,20,20,20,35,35,90,description,FALSE,88,102,0,0
-18,Elven Mage,1000,45,10,10,70,70,20,60,70,description,FALSE,89,103,0,0
-19,Bandit,1000,40,35,45,25,35,25,30,75,description,FALSE,88,104,0,0
-20,Bandit Chief,1600,90,50,50,25,45,25,40,80,description,FALSE,88,105,0,114
-21,Demon knight,2000,80,65,65,45,65,30,55,75,description,FALSE,88,101,106,119
-22,Demon Archer,1700,120,70,35,30,25,65,65,90,description,FALSE,88,102,107,120
-23,Demon Mage,1650,85,15,35,90,35,25,45,85,description,FALSE,89,103,108,120
-24,Demonic Goblin,850,45,45,35,10,35,45,20,110,description,FALSE,88,94,109,0
-25,Demonic Wolf,1200,60,40,35,10,35,15,25,100,description,FALSE,92,111,110,117
-26,Skeleton,1500,25,20,65,35,65,15,30,75,description,FALSE,0,0,0,0
-27,Golem Skeleton,3500,35,40,55,40,90,10,25,65,description,FALSE,0,0,0,0
-28,Fanatic Follower,1000,90,65,15,55,25,10,10,90,description,FALSE,0,0,0,0
-29,Devilish Priest,1100,45,20,20,75,55,45,40,70,description,FALSE,0,0,0,0
-30,Goblin Cyclop,500,15,20,10,15,10,15,45,70,description,FALSE,0,0,0,0
-31,Haunted Mushroom,550,20,10,20,20,25,10,10,140,description,FALSE,0,0,0,0
-32,Magic Flower,800,35,5,15,55,15,55,30,80,description,FALSE,0,0,0,0
-33,Sanunter,1200,40,40,40,35,40,25,20,85,description,FALSE,0,0,0,0
-34,Spreegal,900,25,25,20,20,20,15,15,90,description,FALSE,0,0,0,0
-35,Brigand,1300,45,30,35,15,45,35,70,80,description,FALSE,0,0,0,0
-36,Evil Gardener,2500,30,5,45,30,70,10,60,55,description,FALSE,0,0,0,0
-37,Minor Demon,1200,35,25,20,25,20,20,20,90,description,FALSE,0,0,0,0
-38,Cyclop,1000,50,40,30,15,30,10,40,20,description,FALSE,0,0,0,0
-39,Rock Worm,1500,50,70,60,30,60,5,30,40,description,FALSE,0,0,0,0
-40,Winderer,1000,50,40,30,90,30,10,55,110,description,FALSE,0,0,0,0
-41,Berserker,1200,60,130,30,30,30,15,35,80,description,FALSE,0,0,0,0
-42,Elf,900,60,30,40,60,40,10,65,70,description,FALSE,0,0,0,0
-43,Mage Elf,900,70,20,35,80,35,30,20,65,description,FALSE,0,0,0,0
-44,Major Demon,1200,70,100,30,50,30,15,75,90,description,FALSE,0,0,0,0
-45,Backan,1200,80,50,30,30,30,15,80,100,description,FALSE,0,0,0,0
-46,Stixent,1000,90,100,30,40,30,30,100,80,description,FALSE,0,0,0,0
-47,Training Dummy,5000,0,0,100,0,100,0,0,0,description,FALSE,0,0,0,0
-48,Oliver,3000,130,55,70,25,65,20,70,110,description,FALSE,0,0,0,0
-49,Djeamy,3500,160,60,90,30,80,35,50,90,description,FALSE,0,0,0,0
-50,The Twin,1,1,1,1,1,1,1,1,1,description,FALSE,0,0,0,0
-51,Betala,3000,200,30,200,60,200,20,60,150,description,TRUE,0,0,0,0
-52,ShaDo,6000,100,40,150,60,230,10,110,100,description,TRUE,0,0,0,0
-53,LaiJande,4000,330,55,90,20,95,35,70,110,description,TRUE,0,0,0,0
-54,Desert King,6500,150,45,340,30,280,25,30,150,description,TRUE,0,0,0,0
-55,Snadron,8000,160,55,60,110,200,50,100,125,description,TRUE,0,0,0,0
-56,Ghost Paladin,4000,200,50,450,50,100,30,50,80,description,TRUE,0,0,0,0
-57,Demon Commander,5000,280,90,300,40,200,30,20,90,description,TRUE,0,0,0,0
-58,The condemner,4000,400,85,150,20,150,40,30,120,description,TRUE,0,0,0,0
-59,The Bishop,5000,170,10,150,90,300,35,10,100,description,TRUE,0,0,0,0
-60,The Necromancer,3000,700,5,100,85,100,40,50,45,description,TRUE,0,0,0,0
-61,Akelio,3500,260,100,210,30,190,25,70,60,description,TRUE,0,0,0,0
-62,Galadian,7500,100,40,150,60,160,40,50,90,description,TRUE,0,0,0,0
-63,Elubinard,3500,350,40,230,45,210,30,60,65,description,TRUE,0,0,0,0
-64,Spercer,4500,200,40,200,70,200,60,50,80,description,TRUE,0,0,0,0
-65,Clemaline,8888,188,28,188,88,188,88,80,88,description,TRUE,0,0,0,0
+1,Red Slime,200,15,5,15,15,15,5,10,50,description,FALSE,58,60,1,0
+2,Blue Slime,200,10,5,20,15,20,5,10,50,description,FALSE,58,60,1,0
+3,Green Slime,275,10,5,15,15,15,5,10,50,description,FALSE,58,60,1,0
+4,Demonic Slime,400,20,10,30,30,30,10,10,60,description,FALSE,58,60,61,0
+5,Wolf,400,40,30,25,10,25,10,10,60,description,FALSE,62,63,1,0
+6,Wolf Pack Leader,475,45,40,25,10,25,20,10,60,description,FALSE,62,63,81,87
+7,Goblin,225,10,15,10,15,10,5,10,70,description,FALSE,58,64,1,0
+8,Higher Goblin,350,30,20,25,20,40,15,30,60,description,FALSE,58,64,65,0
+9,Goblin Chief,500,70,50,45,10,35,20,60,50,description,FALSE,58,64,66,86
+10,Rock Golem,500,40,60,90,20,50,10,10,45,description,FALSE,58,67,1,0
+11,Lava Golem,500,40,20,50,60,40,15,10,50,description,FALSE,58,82,1,0
+12,Water Golem,500,40,20,30,70,60,10,10,55,description,FALSE,58,83,1,0
+13,Haunted Tree,1000,30,10,45,35,45,10,20,35,description,FALSE,59,68,1,0
+14,Small Mushroom,150,30,10,20,25,15,30,20,70,description,FALSE,59,69,1,0
+15,Giant Mushroom,300,60,20,35,50,35,35,50,40,description,FALSE,59,69,70,85
+16,Elven Knight,750,40,40,40,20,40,20,20,60,description,FALSE,58,71,1,0
+17,Elven Archer,550,70,50,20,20,20,35,35,90,description,FALSE,58,72,1,0
+18,Elven Mage,500,45,10,10,70,70,20,60,70,description,FALSE,59,73,1,0
+19,Bandit,500,40,35,45,25,35,25,30,75,description,FALSE,58,74,1,0
+20,Bandit Chief,800,90,50,50,25,45,25,40,80,description,FALSE,58,75,1,84
+21,Demon knight,1000,80,65,65,45,65,30,55,75,description,FALSE,58,71,#N/A,89
+22,Demon Archer,850,120,70,35,30,25,65,65,90,description,FALSE,58,72,77,90
+23,Demon Mage,825,85,15,35,90,35,25,45,85,description,FALSE,59,73,78,90
+24,Demonic Goblin,425,45,45,35,10,35,45,20,110,description,FALSE,58,64,79,0
+25,Demonic Wolf,600,60,40,35,10,35,15,25,100,description,FALSE,62,81,80,87
+26,Skeleton,750,25,20,65,35,65,15,30,75,description,FALSE,0,0,1,0
+27,Golem Skeleton,1750,35,40,55,40,90,10,25,65,description,FALSE,0,0,1,0
+28,Fanatic Follower,500,90,65,15,55,25,10,10,90,description,FALSE,0,0,1,0
+29,Devilish Priest,550,45,20,20,75,55,45,40,70,description,FALSE,0,0,1,0
+30,Goblin Cyclop,250,15,20,10,15,10,15,45,70,description,FALSE,0,0,1,0
+31,Haunted Mushroom,275,20,10,20,20,25,10,10,140,description,FALSE,0,0,1,0
+32,Magic Flower,400,35,5,15,55,15,55,30,80,description,FALSE,0,0,1,0
+33,Sanunter,600,40,40,40,35,40,25,20,85,description,FALSE,0,0,1,0
+34,Spreegal,450,25,25,20,20,20,15,15,90,description,FALSE,0,0,1,0
+35,Brigand,650,45,30,35,15,45,35,70,80,description,FALSE,0,0,1,0
+36,Evil Gardener,1250,30,5,45,30,70,10,60,55,description,FALSE,0,0,1,0
+37,Minor Demon,600,35,25,20,25,20,20,20,90,description,FALSE,0,0,1,0
+38,Cyclop,500,50,40,30,15,30,10,40,20,description,FALSE,0,0,1,0
+39,Rock Worm,750,50,70,60,30,60,5,30,40,description,FALSE,0,0,1,0
+40,Winderer,500,50,40,30,90,30,10,55,110,description,FALSE,0,0,1,0
+41,Berserker,600,60,130,30,30,30,15,35,80,description,FALSE,0,0,1,0
+42,Elf,450,60,30,40,60,40,10,65,70,description,FALSE,0,0,1,0
+43,Mage Elf,450,70,20,35,80,35,30,20,65,description,FALSE,0,0,1,0
+44,Major Demon,600,70,100,30,50,30,15,75,90,description,FALSE,0,0,1,0
+45,Backan,600,80,50,30,30,30,15,80,100,description,FALSE,0,0,1,0
+46,Stixent,500,90,100,30,40,30,30,100,80,description,FALSE,0,0,1,0
+47,Training Dummy,2500,0,0,100,0,100,0,0,0,description,FALSE,0,0,1,0
+48,Oliver,1500,130,55,70,25,65,20,70,110,description,FALSE,0,0,1,0
+49,Djeamy,1750,160,60,90,30,80,35,50,90,description,FALSE,0,0,1,0
+50,The Twin,1,1,1,1,1,1,1,1,1,description,FALSE,0,0,1,0
+51,Betala,1500,200,30,200,60,200,20,60,150,description,TRUE,0,0,1,0
+52,ShaDo,3000,100,40,150,60,230,10,110,100,description,TRUE,0,0,1,0
+53,LaiJande,2000,330,55,90,20,95,35,70,110,description,TRUE,0,0,1,0
+54,Desert King,3250,150,45,340,30,280,25,30,150,description,TRUE,0,0,1,0
+55,Snadron,4000,160,55,60,110,200,50,100,125,description,TRUE,0,0,1,0
+56,Ghost Paladin,2000,200,50,450,50,100,30,50,80,description,TRUE,0,0,1,0
+57,Demon Commander,2500,280,90,300,40,200,30,20,90,description,TRUE,0,0,1,0
+58,The condemner,2000,400,85,150,20,150,40,30,120,description,TRUE,0,0,1,0
+59,The Bishop,2500,170,10,150,90,300,35,10,100,description,TRUE,0,0,1,0
+60,The Necromancer,1500,700,5,100,85,100,40,50,45,description,TRUE,0,0,1,0
+61,Akelio,1750,260,100,210,30,190,25,70,60,description,TRUE,0,0,1,0
+62,Galadian,3750,100,40,150,60,160,40,50,90,description,TRUE,0,0,1,0
+63,Elubinard,1750,350,40,230,45,210,30,60,65,description,TRUE,0,0,1,0
+64,Spercer,2250,200,40,200,70,200,60,50,80,description,TRUE,0,0,1,0
+65,Clemaline,4444,188,28,188,88,188,88,80,88,description,TRUE,0,0,1,0

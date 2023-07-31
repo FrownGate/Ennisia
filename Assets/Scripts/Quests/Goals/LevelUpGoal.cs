@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class LevelUpGoal : QuestSO.QuestGoal
 {
     public LevelUpQuestEvent.LvlType lvlType;
@@ -8,9 +10,11 @@ public class LevelUpGoal : QuestSO.QuestGoal
         QuestEventManager.Instance.AddListener<LevelUpQuestEvent>(OnLevelUP);
     }
 
-    public void OnLevelUP(LevelUpQuestEvent eventInfo)
+    private void OnLevelUP(LevelUpQuestEvent eventInfo)
     {
         if (Completed) return;
+        Debug.Log("eventInfo.LevelType = " + eventInfo.LevelType);
+        
         if (eventInfo.LevelType == lvlType) CurrentAmount = eventInfo.Level;
         Evaluate();
     }

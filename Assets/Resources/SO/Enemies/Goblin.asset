@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: d8f03f1b72d0d1a4ebcc6c647233c5c6, type: 2}
-  - {fileID: 11400000, guid: dba8c084413b9704f857fb9df0f782c5, type: 2}
+  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
+  - {fileID: 11400000, guid: e56a9c0d48e88ad4bbf4b6ce2b2e47b5, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 7
   Name: Goblin
   Description: description
@@ -22,7 +23,7 @@ MonoBehaviour:
   Stats:
     _serializedList:
     - Key: 0
-      Value: 450
+      Value: 225
     - Key: 1
       Value: 10
     - Key: 2

@@ -18,7 +18,7 @@ public class Player : Entity
 
     public override GearSO Weapon => Data != null && EquippedGears[GearType.Weapon] != null
         ? EquippedGears[GearType.Weapon].WeaponSO
-        : Resources.Load<GearSO>("SO/Weapons/Pure Innocence");
+        : Resources.Load<GearSO>("SO/Weapons/Crimson Moon");
 
     public Player()
     {

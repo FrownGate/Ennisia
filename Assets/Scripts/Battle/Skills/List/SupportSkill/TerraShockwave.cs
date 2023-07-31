@@ -7,7 +7,7 @@ public class TerraShockwave: DamageSkill
     [ShowInInspector] private float _stunPerc = 0.5f;
     [ShowInInspector] private float _increaseCDPerc = 0.75f;
 
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

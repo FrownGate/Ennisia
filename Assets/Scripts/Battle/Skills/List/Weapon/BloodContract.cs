@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class BloodContract : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {
@@ -14,7 +14,8 @@ public class BloodContract : DamageSkill
         return TotalDamage;
     }
 
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
+    public override void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         caster.Heal(damage * Data.HealingAmount / 100);
     }

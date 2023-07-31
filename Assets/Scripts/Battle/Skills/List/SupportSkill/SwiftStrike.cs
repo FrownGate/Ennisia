@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class SwiftStrike : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (var target in targets)
         {
@@ -15,7 +15,8 @@ public class SwiftStrike : DamageSkill
         Cooldown = Data.MaxCooldown;
         return TotalDamage;
     }
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

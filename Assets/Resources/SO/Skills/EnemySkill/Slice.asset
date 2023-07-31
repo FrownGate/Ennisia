@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 58
   Name: Slice
   Description: 'Hits the player dealing physical damage '
-  DamageRatio: 40
+  DamageRatio: 140
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
