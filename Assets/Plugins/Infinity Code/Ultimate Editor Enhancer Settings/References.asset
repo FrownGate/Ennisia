@@ -355,19 +355,6 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-<<<<<<< HEAD
-  - name: Shop
-    path: Assets/Scenes/Shop.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
-  - name: Battle
-    path: Assets/Scenes/Battle.unity
-  - name: MainStory
-    path: Assets/Scenes/Missions/MainStory.unity
-  - name: Loading_Big
-    path: Assets/Scenes/Loading_Big.unity
-=======
->>>>>>> 768d07e0e98cca2bb751fc9572e987376779da7b
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
   - name: Loading_Mini
