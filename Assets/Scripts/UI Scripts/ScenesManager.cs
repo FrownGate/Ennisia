@@ -89,6 +89,12 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
+    public void UnloadPopup(string scene)
+    {
+        Scene popup = SceneManager.GetSceneByName(scene);
+        UnloadPopup(popup);
+    }
+
     public void UnloadPopup(Scene scene)
     {
         _activeScene = SceneManager.GetActiveScene();

@@ -29,6 +29,8 @@ public class Gear : Item
         public float Value;
     }
 
+    public Gear() { }
+
     public Gear(GearType type, Rarity rarity, GearSet gearSet, GearSO weapon = null)
     {
         Debug.Log("gear created");
