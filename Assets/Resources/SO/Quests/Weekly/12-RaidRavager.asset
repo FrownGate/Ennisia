@@ -1,6 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5474437100305823067
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
+  m_Name: 12-RaidRavager
+  m_EditorClassIdentifier: 
+  Information:
+    ID: 12
+    Name: Raid Ravager
+    QuestType: 1
+    Description: Defeat 3 Raid
+  Reward:
+    Energy: 100
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 60
+      - Key: 1
+        Value: 0
+  Goals:
+  - {fileID: 1088710812652146579}
+--- !u!114 &1088710812652146579
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36,30 +63,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 23601d2fe98283f409751525a42cff42, type: 2}
   - {fileID: 11400000, guid: 4fe8c55835f64974c95f53bfcfda519c, type: 2}
   - {fileID: 11400000, guid: 6c45bcfcbfafaf54ba3aa8ebfee682c5, type: 2}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: 12-RaidRavager
-  m_EditorClassIdentifier: 
-  Information:
-    ID: 12
-    Name: Raid Ravager
-    QuestType: 1
-    Description: Defeat 3 Raid
-  Reward:
-    Energy: 100
-    CurrencyList:
-      _serializedList:
-      - Key: 0
-        Value: 60
-      - Key: 1
-        Value: 0
-  Goals:
-  - {fileID: -5474437100305823067}
