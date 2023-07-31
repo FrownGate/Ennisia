@@ -75,10 +75,10 @@ EditorBuildSettings:
     path: Assets/Scenes/GenderSelection.unity
     guid: c4bbf528714eeff4ebd876947d4f6e19
   - enabled: 1
-    path: Assets/Scenes/Inventory/InventoryPopup.unity
+    path: Assets/Scenes/Inventory/Inventory.unity
     guid: 5b26c1450d625164e884692e3cfa42f7
   - enabled: 1
-    path: Assets/Scenes/Inventory/SupportSelectionPopup.unity
+    path: Assets/Scenes/Inventory/SupportSelection.unity
     guid: d12afcbd6ca77db4f93ecf4a555d70b4
   - enabled: 1
     path: Assets/Scenes/Guilds/PlayerGuild.unity
