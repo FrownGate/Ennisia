@@ -217,16 +217,16 @@ public class Gear : Item
         Name = Category == ItemCategory.Weapon ? $"[{Rarity}] {WeaponSO.Name}" : $"[{Rarity}] {Type}";
     }
 
-    public override void Upgrade()
+    public override bool Upgrade()
     {
         //TODO -> add upgrade chances (50%)
         //TODO -> check and use materials
         //TODO -> substats upgrade formula
-        if (Level >= 50) return;
+        if (Level >= 50) return false;
         Debug.Log($"Upgrading {Name}...");
         LevelUp?.Invoke();
         int rand = UnityEngine.Random.Range(0, 100);
-        if (rand > (100 - Level)) return;
+        if (rand > (100 - Level)) return false;
         Level++;
         Value += BaseValue * RatioUpgrade * Level;
         if (Level % 5 == 0)
@@ -238,6 +238,7 @@ public class Gear : Item
         }
         if(Level==50) MaxLevel?.Invoke(Type);
         PlayFabManager.Instance.UpdateItem(this);
+        return true;
     }
 
     public void Upgrade(int _level) //Testing only
