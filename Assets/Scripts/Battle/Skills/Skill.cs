@@ -54,13 +54,17 @@ public abstract class Skill
     public virtual float SkillBeforeUse(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { return 0; }
     public virtual float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies) { return 0; }
     public virtual void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken,
-        List<Entity> allies) { }
+        List<Entity> allies)
+    { }
     public virtual float AdditionalDamage(List<Entity> targets, Entity caster, int turn, float damage,
-        List<Entity> allies) { return 0; }
+        List<Entity> allies)
+    { return 0; }
     public virtual void SkillAfterDamage(List<Entity> targets, Entity caster, int turn, float damage,
-        List<Entity> allies) { }
+        List<Entity> allies)
+    { }
     public virtual void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
-        List<Entity> allies) { }
+        List<Entity> allies)
+    { }
     public void Upgrade(int _Level) { Level = _Level; }
 
     public void Upgrade()
@@ -77,7 +81,7 @@ public abstract class Skill
         _ratio = Data.IsMagic ? caster.Stats[Attribute.MagicalDamages].Value : caster.Stats[Attribute.PhysicalDamages].Value;
         _defense = Data.IsMagic ? target.Stats[Attribute.MagicalDefense].Value : target.Stats[Attribute.PhysicalDefense].Value;
         float dmgReduction = _defense / (_defense + 1000);
-        float damage = caster.Stats[Attribute.Attack].Value * (Data.DamageRatio / 100 + RatioModifier) * (1+_ratio/100) * (1-dmgReduction);
+        float damage = caster.Stats[Attribute.Attack].Value * (Data.DamageRatio / 100 + RatioModifier) * (1 + _ratio / 100) * (1 - dmgReduction);
         foreach (var effect in target.Effects)
         {
             damage *= effect.GetMultiplier();

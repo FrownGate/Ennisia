@@ -5,6 +5,7 @@ public class Effect
 {
     public EffectSO Data { get; set; }
     public readonly Dictionary<Attribute, ModifierID> Modifiers = new();
+    public Entity? Caster { get; set; }
     public int Duration { get; set; }
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration;
@@ -15,11 +16,12 @@ public class Effect
     public bool IsStackable = false;
     protected int _maxStacks;
 
-    public Effect(int? duration = null)
+    public Effect(int? duration = null, Entity? caster = null)
     {
         Data = Resources.Load<EffectSO>("SO/Effects/" + GetType().Name);
         InitialDuration = duration ?? Data.Duration;
         Duration = InitialDuration;
+        Caster = caster;
     }
 
     public virtual void AlterationEffect(Entity target, Entity caster = null) { }

@@ -134,6 +134,12 @@ public abstract class Entity
                 existingEffect.ApplyStack(stacks);
             }
             existingEffect.ResetDuration();
+            Debug.LogWarning($"{effect.Data.Name} refreshed !");
+            foreach (var effects in Effects)
+            {
+                Debug.LogWarning("Number of effects : " + Effects.Count);
+                Debug.LogWarning($"{effects.Data.Name} remaining duration : {effects.Duration}");
+            }
             return;
         }
 

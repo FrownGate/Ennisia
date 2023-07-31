@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerTurn : State
@@ -12,10 +13,21 @@ public class PlayerTurn : State
             BattleSystem.SetState(new Lost(BattleSystem));
             yield break;
         }
-        
+
         BattleSystem.Turn += 1;
-        BattleSystem.ToggleSkills(true);
-        BattleSystem.DialogueText.text = "Your turn";
-        yield return new WaitForSeconds(1.0f);
+        if (BattleSystem.Player.Effects.Find(effect => effect.GetType() == typeof(Taunt)) != null)
+        {
+            Entity caster = BattleSystem.Player.Effects.Find(effect => effect.GetType() == typeof(Taunt)).Caster;
+            List<Entity> targets = new() { caster };
+            BattleSystem.ToggleSkills(false);
+            BattleSystem.Player.Skills[0].Use(targets, BattleSystem.Player, BattleSystem.Turn, null);
+            BattleSystem.SetState(new CheckTurn(BattleSystem));
+        }
+        else
+        {
+            BattleSystem.ToggleSkills(true);
+            BattleSystem.DialogueText.text = "Your turn";
+            yield return new WaitForSeconds(1.0f);
+        }
     }
 }

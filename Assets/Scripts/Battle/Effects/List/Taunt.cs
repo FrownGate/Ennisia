@@ -1,9 +1,8 @@
 public class Taunt : Effect
 {
-    public Taunt(int? duration = null) : base(duration) { }
+    public Taunt(int? duration = null, Entity? caster = null) : base(duration, caster) { }
 
-    public override void AlterationEffect(Entity target, Entity caster = null)
+    public override void AlterationEffect(Entity entity, Entity caster)
     {
-        // target.Skills[0].Use();
     }
 }
