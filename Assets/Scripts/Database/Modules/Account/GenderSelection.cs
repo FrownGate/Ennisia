@@ -6,14 +6,16 @@ public partial class GenderSelection : MonoBehaviour
 {
     [SerializeField, Scene] private string _mainMenu;
     [SerializeField, Dropdown(nameof(GetGendersValues))] private int _gender;
-    
+    [SerializeField] private GameObject _borderImage;
     private Vector3 initialScale;
+    private Vector3 borderImageinitialScale;
     private Image image;
     
     void Start()
     {
         image = GetComponent<Image>();
         initialScale = this.transform.localScale;
+        borderImageinitialScale = _borderImage.transform.localScale;
     }
     
     private DropdownList<int> GetGendersValues()
@@ -33,15 +35,17 @@ public partial class GenderSelection : MonoBehaviour
     
     public void OnHover()
     {
-        image.color = Color.yellow; // Change to the hover color.
-        transform.localScale = initialScale * 1.1f;
-        transform.position += new Vector3(0.1f, 0, 0);
+        image.color = new Color(0.16f, 0.49f, 1f); //DELETE IT FOR BUILD 
+        transform.localScale = initialScale * 1.2f;
+        _borderImage.transform.localScale = borderImageinitialScale * 1.1f;
+        _borderImage.SetActive(true);
     }
 
     public void OnHoverExit()
     {
-        image.color = Color.white; // Change back to the normal color.
-        transform.localScale = initialScale; 
-        transform.position -= new Vector3(0.1f, 0, 0);
+        image.color = Color.white;
+        transform.localScale = initialScale;
+        _borderImage.transform.localScale = borderImageinitialScale;
+        _borderImage.SetActive(false);
     }
 }
