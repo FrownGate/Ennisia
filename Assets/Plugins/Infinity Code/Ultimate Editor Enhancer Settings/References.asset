@@ -355,6 +355,10 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: SettingsPopup
+    path: Assets/Scenes/SettingsPopup.unity
+  - name: LoginRegisterPopup
+    path: Assets/Scenes/LoginRegisterPopup.unity
   - name: ProfilePopup
     path: Assets/Scenes/ProfilePopup.unity
   - name: SupportSelection
@@ -381,8 +385,6 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/GearSelectionPopup.unity
   - name: MenuPopup
     path: Assets/Scenes/MenuPopup.unity
-  - name: SettingsPopup
-    path: Assets/Scenes/SettingsPopup.unity
   - name: Loading_Big
     path: Assets/Scenes/Loading_Big.unity
   - name: Battle
