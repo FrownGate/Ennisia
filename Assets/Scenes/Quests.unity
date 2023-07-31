@@ -2721,7 +2721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ce0af72b309f548a413562ab0d0f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _questTotalCompletionSlider: {fileID: 0}
+  _questTotalCompletionSlider: {fileID: 1520603941}
+  _totalCompletionPercentage: 0
 --- !u!114 &1440330870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2808,6 +2809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questTotalCompletionSlider: {fileID: 0}
+  _totalCompletionPercentage: 0
 --- !u!114 &1453494562
 MonoBehaviour:
   m_ObjectHideFlags: 0

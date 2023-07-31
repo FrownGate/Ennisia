@@ -26,8 +26,8 @@ MonoBehaviour:
       - Key: 1
         Value: 100
   Goals:
-  - {fileID: 8417022159834554643}
---- !u!114 &8417022159834554643
+  - {fileID: 3959299715321205558}
+--- !u!114 &3959299715321205558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

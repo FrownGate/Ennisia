@@ -12,6 +12,7 @@ public class ShowQuests : MonoBehaviour
     private List<QuestSO> _quests;
 
     [SerializeField] private Slider _questTotalCompletionSlider;
+    [SerializeField] private float _totalCompletionPercentage;
     
     private void Start()
     {
@@ -43,7 +44,7 @@ public class ShowQuests : MonoBehaviour
         if (_buttons != null)
             foreach (var button in _buttons)
                 Destroy(button);
-
+        _totalCompletionPercentage = 0;
         // Split quests into three groups based on status
         var completedQuests = sortedQuests.Where(quest => quest.Completed && !quest.RewardGiven).ToList();
         var inProgressQuests = sortedQuests.Where(quest => !quest.Completed && !quest.RewardGiven).ToList();
@@ -84,22 +85,32 @@ public class ShowQuests : MonoBehaviour
                 finishBtn.interactable = true;
             }
             
-            // Calculate the quest completion percentage
-            float completionPercentage = 0f;
-            if (quest.Goals.Count > 0)
-            {
-                float totalRequiredAmount = quest.Goals.Sum(goal => goal.RequiredAmount);
-                float totalCurrentAmount = quest.Goals.Sum(goal => goal.CurrentAmount);
-                completionPercentage = totalCurrentAmount / totalRequiredAmount;
-            }
-
-            // Set the slider value
-            var completionSlider = go.GetComponentInChildren<Slider>();
-            if (completionSlider != null)
-                completionSlider.value = completionPercentage;
+            IndividualQuestCompletion(quest, go);
 
             buttonIndex++;
         }
+
+        _totalCompletionPercentage = _totalCompletionPercentage / _buttons.Count;
+        _questTotalCompletionSlider.value = _totalCompletionPercentage;
+    }
+
+    private void IndividualQuestCompletion(QuestSO quest, GameObject go)
+    {
+
+        // Calculate the quest completion percentage
+        float completionPercentage = 0f;
+        if (quest.Goals.Count > 0)
+        {
+            float totalRequiredAmount = quest.Goals.Sum(goal => goal.RequiredAmount);
+            float totalCurrentAmount = quest.Goals.Sum(goal => goal.CurrentAmount);
+            completionPercentage = totalCurrentAmount / totalRequiredAmount;
+        }
+
+        // Set the slider value
+        var completionSlider = go.GetComponentInChildren<Slider>();
+        if (completionSlider != null)
+            completionSlider.value = completionPercentage;
+        _totalCompletionPercentage += completionPercentage;
     }
 
 
@@ -109,5 +120,6 @@ public class ShowQuests : MonoBehaviour
         quest.GiveRewards();
         var finishBtn = go.GetComponentInChildren<Button>();
         finishBtn.interactable = false;
+        CreateQuestInfo();
     }
 }
