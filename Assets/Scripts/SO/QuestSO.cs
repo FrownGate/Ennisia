@@ -15,7 +15,7 @@ public enum GoalType
     Unknown, Killing, Mission,
     LevelUp, GearMaxLevel, Defeat,
     Energy, GearUpgrade, ObtainGear,
-    Gold
+    Currency
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Ennisia/Quest")]
@@ -52,7 +52,7 @@ public class QuestSO : ScriptableObject
     {
         public int CurrentAmount { get; protected set; }
         public int RequiredAmount = 1;
-        public bool Same;
+        [HideInInspector] public bool Same;
         public bool Completed { get; protected set; }
         [HideInInspector] public UnityEvent GoalCompleted;
 
@@ -66,7 +66,9 @@ public class QuestSO : ScriptableObject
 
         protected void Evaluate()
         {
-            if (CurrentAmount >= RequiredAmount) Complete();
+            if (CurrentAmount < RequiredAmount) return;
+            CurrentAmount = RequiredAmount;
+            Complete();
         }
 
         public void Complete()

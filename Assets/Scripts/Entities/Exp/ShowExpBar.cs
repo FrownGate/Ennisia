@@ -26,7 +26,7 @@ public class ShowExpBar : MonoBehaviour
         {
             _level = PlayFabManager.Instance.Player.Level;
             _exp = PlayFabManager.Instance.Player.Exp;
-            _expBarSlider.maxValue = ExpManager.Instance.PlayerlevelExperienceMap[_level + 1];
+            _expBarSlider.maxValue = PlayFabManager.Instance.Player.PlayerlevelExperienceMap[_level + 1];
         }
 
         _expBarSlider.value = _exp;

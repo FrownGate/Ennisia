@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Hits the player 2 times, with 50% chance each of inflicting Demonic
     Mark and deals Physical Damage. If the difficulty is on Insane, has 100% chance
     each of inflicting Demonic Mark
-  DamageRatio: 150
+  DamageRatio: 50
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

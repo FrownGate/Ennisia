@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Everytime the user(Betala) receives a buff, adds one buff mark. Once
     the number of buff marks reaches 5, If the user has a buff, deals magic damage
     equivalent to 70% of attack for each buff active.
-  DamageRatio: 170
+  DamageRatio: 70
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

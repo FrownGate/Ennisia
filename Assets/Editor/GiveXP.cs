@@ -21,7 +21,7 @@ public class GiveXP : EditorWindow
         _value = EditorGUILayout.IntField("Xp to add", _value);
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("To Account")) ExpManager.Instance.GainExperienceAccount(_value);
-        if (GUILayout.Button("To Player")) ExpManager.Instance.GainExperiencePlayer(_value);
+        if (GUILayout.Button("To Player")) PlayFabManager.Instance.Player.GainExperiencePlayer(_value);
         EditorGUILayout.EndHorizontal();
     }
 }

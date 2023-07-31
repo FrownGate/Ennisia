@@ -8,5 +8,6 @@ public class EffectSO : ScriptableObject
     public string Description;
     public int Duration;
     public bool Alteration;
+    public bool Undispellable;
     [SerializedDictionary("Stat", "Modifier")] public SerializedDictionary<Attribute, float> StatsModifiers;
 }

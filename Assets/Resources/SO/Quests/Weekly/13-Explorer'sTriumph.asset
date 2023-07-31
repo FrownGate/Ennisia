@@ -26,8 +26,8 @@ MonoBehaviour:
       - Key: 1
         Value: 0
   Goals:
-  - {fileID: 6062332416732053531}
---- !u!114 &6062332416732053531
+  - {fileID: 8380176404356101494}
+--- !u!114 &8380176404356101494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c03ec53ca19ce6f49905ba0bf3740fa0, type: 2}
   - {fileID: 11400000, guid: eb12433e2f7bf204bbc7f01211a18df1, type: 2}
   - {fileID: 11400000, guid: c844153c124bb974c81b955259fb4042, type: 2}
+  - {fileID: 11400000, guid: 4824bc58e6c1f02468eae9cb59d74956, type: 2}
   - {fileID: 11400000, guid: 445620a519fc314438d98244ecf51701, type: 2}
   - {fileID: 11400000, guid: 7284940c85ecbde46b40f3d8524cd2dd, type: 2}
   - {fileID: 11400000, guid: d8cf2b68149dc184eb527baf0f5c830a, type: 2}

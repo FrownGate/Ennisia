@@ -296,4 +296,21 @@ public class AccountModule : Module
         _manager.Testing();
     }
     #endregion
+
+
+    private void PlayerCpEarned(int exp)
+    {
+        if (Data.Player == null) return;
+        Data.Player.GainExperiencePlayer(exp);
+    }
+    
+    private void OnEnable()
+    {
+        RewardsManager.GainXp += PlayerCpEarned;
+    }
+
+    private void OnDisable()
+    {
+        RewardsManager.GainXp -= PlayerCpEarned;
+    }
 }

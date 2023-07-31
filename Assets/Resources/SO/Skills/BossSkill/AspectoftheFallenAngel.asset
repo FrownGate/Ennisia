@@ -18,7 +18,7 @@ MonoBehaviour:
     (debuff) to caster for 2 turns. Cooldown 3 turns. If battle difficulty is insane,
     deal damage equal to 60% of his defense and inflicts an Attack break (debuff)
     to caster for 2 turns.
-  DamageRatio: 160
+  DamageRatio: 60
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

@@ -9,6 +9,8 @@ public class Effect
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration;
     private bool IsExpired => Duration <= 0;
+    public bool IsUndispellable => Data.Undispellable;
+    public Entity Caster { get; set; }
 
     public int Stacks { get; protected set; } = 0;
     public bool IsStackable = false;
@@ -19,6 +21,11 @@ public class Effect
         Data = Resources.Load<EffectSO>("SO/Effects/" + GetType().Name);
         InitialDuration = duration ?? Data.Duration;
         Duration = InitialDuration;
+    }
+
+    public Effect(Entity caster, int? duration = null) : this(duration)
+    {
+        Caster = caster;
     }
 
     public virtual void AlterationEffect(Entity target) { }
@@ -84,4 +91,13 @@ public class BreakDefense : Effect
 public class Immunity : Effect
 {
     public Immunity(int? duration = null) : base(duration) { }
+}
+public class Invincibility : Effect
+{
+    public Invincibility(int? duration = null) : base(duration) { }
+}
+public class Berserk : Effect
+{
+    public Berserk(int? duration = null) : base(duration) { }
+    
 }

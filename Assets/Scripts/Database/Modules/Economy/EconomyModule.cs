@@ -187,7 +187,7 @@ public class EconomyModule : Module
         {
             Currencies[currency] += amount;
             _manager.InvokeOnCurrencyUpdate();
-            _manager.InvokeOnCurrencyGained(currency);
+            _manager.InvokeOnCurrencyGained(currency,amount);
             _manager.EndRequest($"Added {amount} {currency} !");
         }, _manager.OnRequestError);
     }
@@ -212,7 +212,7 @@ public class EconomyModule : Module
         {
             Currencies[currency] -= amount;
             _manager.InvokeOnCurrencyUpdate();
-            _manager.InvokeOnCurrencyUsed(currency);
+            _manager.InvokeOnCurrencyUsed(currency,amount);
             _manager.EndRequest($"Removed {amount} {currency} !");
         }, _manager.OnRequestError);
     }
