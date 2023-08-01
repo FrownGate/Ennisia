@@ -270,6 +270,25 @@ public class EconomyModule : Module
         return true;
     }
 
+    public List<Item> GetItems(Item category = null)
+    {
+        List<Item> items = new();
+
+        if (category == null)
+        {
+            foreach (var itemCategory in _manager.Inventory.Items)
+            {
+                items.AddRange(itemCategory.Value);
+            }
+        }
+        else if (_manager.Inventory.Items.ContainsKey(category.GetType().Name))
+        {
+            items = _manager.Inventory.Items[category.GetType().Name];
+        }
+
+        return items;
+    }
+
     #region Items
     public IEnumerator AddInventoryItem(Item item)
     {
@@ -354,7 +373,7 @@ public class EconomyModule : Module
     {
         yield return _manager.StartAsyncRequest($"Purchasing {item}...");
 
-        string currency = PlayFabManager.Instance.GetItemById(item.Ide).PriceOptions.Prices[0].Amounts[0].ItemId;
+        string currency = PlayFabManager.Instance.GetItemById(item.IdString).PriceOptions.Prices[0].Amounts[0].ItemId;
         
         PlayFabEconomyAPI.PurchaseInventoryItems(new()
         {

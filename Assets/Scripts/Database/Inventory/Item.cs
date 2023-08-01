@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using PlayFab.EconomyModels;
 
 public enum ItemCategory
 {
@@ -29,7 +27,7 @@ public enum GearSetData //TODO -> Use individual classes instead
 public class Item
 {
     public int Id;
-    public string Ide;
+    public string IdString;
     public string Stack;
     public string Name;
     public int Amount; //Amount of item to add
@@ -40,6 +38,7 @@ public class Item
     public WeaponType? WeaponType;
     public Attribute? Attribute;
     public GearSetData? Set;
+    public int? Available;
 
     //Json Utility
     public string JsonRarity;
@@ -48,19 +47,11 @@ public class Item
     public string JsonWeapon;
     public string JsonAttribute;
 
-
-    public static Item CreateFromCatalogItem(CatalogItem catalogItem)
+    public Item()
     {
-        Item newItem = JsonUtility.FromJson<Item>(catalogItem.DisplayProperties.ToString());
-        newItem.Deserialize();
-
-        newItem.Ide = catalogItem.Id;
-        newItem.Name = catalogItem.AlternateIds[0].Value;
-        newItem.Price = catalogItem.PriceOptions.Prices[0].Amounts[0].Amount;
-
-
-        return newItem;
+        //TODO -> Set default slot image
     }
+  
     protected void AddToInventory()
     {
         Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
@@ -106,5 +97,9 @@ public class Item
     }
 
     protected virtual void SetName() { }
-    public virtual void Upgrade() { }
+
+    public virtual bool Upgrade()
+    {
+        return false;
+    }
 }
