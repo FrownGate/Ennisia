@@ -1237,7 +1237,7 @@ MonoBehaviour:
   MaximizeSocketBuffers: 1
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1195
-  debugLog: 0
+  debugLog: 1
   statisticsGUI: 0
   statisticsLog: 0
 --- !u!114 &213638244
@@ -1260,13 +1260,14 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 0}
-  networkAddress: localhost
+  networkAddress: 192.168.1.128
   maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 251920227345568087, guid: 48599340be00fb94991e2a2863437d08, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 0}
   snapshotSettings:
     bufferTimeMultiplier: 2
     catchupNegativeThreshold: -1
