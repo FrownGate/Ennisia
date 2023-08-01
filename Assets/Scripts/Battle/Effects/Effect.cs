@@ -16,15 +16,11 @@ public class Effect
     public bool IsStackable = false;
     protected int _maxStacks;
 
-    public Effect(int? duration = null)
+    public Effect(int? duration = null, Entity caster = null)
     {
         Data = Resources.Load<EffectSO>("SO/Effects/" + GetType().Name);
         InitialDuration = duration ?? Data.Duration;
         Duration = InitialDuration;
-    }
-
-    public Effect(Entity caster, int? duration = null) : this(duration)
-    {
         Caster = caster;
     }
 
@@ -99,5 +95,8 @@ public class Invincibility : Effect
 public class Berserk : Effect
 {
     public Berserk(int? duration = null) : base(duration) { }
-    
+}
+public class Taunt : Effect
+{
+    public Taunt(int? duration = null, Entity caster = null) : base(duration, caster) { }
 }

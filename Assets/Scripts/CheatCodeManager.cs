@@ -33,6 +33,7 @@ namespace CheatCodeNS
         Purify,
         SilenceEffect,
         StunEffect,
+        TauntEffect,
         DemonicMarkEffect,
         ImmunityBuff,
         SupportSilenceEffect,
@@ -69,6 +70,7 @@ namespace CheatCodeNS
                 new CheatCodeData("purify","", ActivatePurify, null, CheatCode.Purify),
                 new CheatCodeData("silence","StayAwhileAndListen", ActivateSilence, null, CheatCode.SilenceEffect),
                 new CheatCodeData("stun","stun", ActivateStun, null, CheatCode.StunEffect),
+                new CheatCodeData("taunt","taunt", ActivateTaunt, null, CheatCode.TauntEffect),
                 new CheatCodeData("demonicmark","gotthedemoninme", ActivateDemonicMark, null, CheatCode.DemonicMarkEffect),
                 new CheatCodeData("suppsilence","junglerisbetter", ActivateSupportSilence, null, CheatCode.SupportSilenceEffect),
                 new CheatCodeData("immunity","immunitybuff", ActivateImmunityBuff, null, CheatCode.ImmunityBuff),
@@ -191,6 +193,12 @@ namespace CheatCodeNS
             Debug.LogWarning("Stun activated");
             ActiveCheatCodes.Remove(CheatCode.StunEffect);
 
+        }
+        private void ActivateTaunt()
+        {
+            _battleInstance.Player.ApplyEffect(new Taunt(2));
+            Debug.LogWarning("Taunt activated");
+            ActiveCheatCodes.Remove(CheatCode.TauntEffect);
         }
         private void ActivateDemonicMark()
         {
