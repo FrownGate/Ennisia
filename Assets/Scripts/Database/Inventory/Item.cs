@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using PlayFab.EconomyModels;
 
 public enum ItemCategory
 {
@@ -53,9 +51,7 @@ public class Item
     {
         //TODO -> Set default slot image
     }
-    public string JsonShopQuantityAvailable;
-
-    
+  
     protected void AddToInventory()
     {
         Dictionary<string, List<Item>> inventory = PlayFabManager.Instance.Data.Inventory.Items;
