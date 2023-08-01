@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using PlayFab.ClientModels;
 using PlayFab.EconomyModels;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,9 +11,7 @@ public class ShopSystem : MonoBehaviour
     [SerializeField] private GameObject _shopItemBtnPrefab;
     [SerializeField] private GameObject _shopBtnPrefab;
 
-
-
-    private Dictionary<string, PlayFab.EconomyModels.CatalogItem> _shops;
+    private Dictionary<string, CatalogItem> _shops;
     private int _itemId;
 
     //private Dictionary<string, List<GameObject>> _shopItems = new ();
@@ -24,7 +19,6 @@ public class ShopSystem : MonoBehaviour
     private string _currentShop;
 
     private Dictionary<Item, int> Items = new();
-
 
     void Start()
     {
@@ -64,7 +58,7 @@ public class ShopSystem : MonoBehaviour
             shopItemBtn.transform.SetParent(_ShopItemBtnPanel.transform);
 
             var itemInfo = shopItemBtn.GetComponent<ShowShopBtnInfo>();
-            PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
+            CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
             itemInfo.ItemName = item.AlternateIds[0].Value;
             itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
             //SetImageFromURL(item.Images[0].Url, itemInfo); //TODO: Fix the bug with the images
@@ -73,7 +67,7 @@ public class ShopSystem : MonoBehaviour
         }
     }
     
-    public void Buy(PlayFab.EconomyModels.CatalogItem item)
+    public void Buy(CatalogItem item)
     {
         Item itemToBuy = JsonUtility.FromJson<Bundle>(item.DisplayProperties.ToString());
         switch (item.Type)
