@@ -119,6 +119,7 @@ public class ScenesManager : MonoBehaviour
 
     private void BigLoading()
     {
+        _loading = true;
         SceneManager.LoadScene(_loadingBig, LoadSceneMode.Additive);
     }
 
@@ -136,6 +137,7 @@ public class ScenesManager : MonoBehaviour
 
     private void StopBigLoading()
     {
+        _loading = false;
         if (SceneManager.GetSceneByName(_loadingBig).isLoaded) SceneManager.UnloadSceneAsync(_loadingBig);
     }
 }
