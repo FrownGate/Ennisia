@@ -80,9 +80,9 @@ public class MissionManager : MonoBehaviour
 
     public void NextWave()
     {
-        Debug.Log($"Next wave - {CurrentMission}");
+        Debug.LogWarning($"Next wave - {CurrentMission}");
 
-        if (CurrentMission && CurrentWave < CurrentMission.Waves.Count)
+        if (CurrentMission != null && CurrentWave < CurrentMission.Waves.Count)
         {
             CurrentWave++;
             OnNextWave?.Invoke();
@@ -101,7 +101,7 @@ public class MissionManager : MonoBehaviour
         }
 
         CurrentMission.State = MissionState.Completed;
-        Debug.Log("Mission completed");
+        Debug.LogWarning("Mission completed");
         //TODO -> Update database
         //GiveRewards();
         UnlockNextMission();
@@ -165,7 +165,6 @@ public class MissionManager : MonoBehaviour
     public void SetMission(MissionSO mission)
     {
         CurrentMission = mission;
-        StartMission();
     }
 
     public List<MissionSO> GetMissionsByChapterId(MissionType missionType, int chapterId)

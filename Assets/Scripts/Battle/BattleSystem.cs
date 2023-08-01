@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class BattleSystem : StateMachine
 {
@@ -14,11 +15,13 @@ public class BattleSystem : StateMachine
     public static event Action<string> OnEnemyKilled;
 
     //UI
+    [Header("UI")]
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
     [SerializeField] private Canvas _canvasPC;
     [SerializeField] private Canvas _canvasMobile;
+    [SerializeField] private Image _background;
     public TextMeshProUGUI DialogueText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
@@ -59,6 +62,7 @@ public class BattleSystem : StateMachine
     public void InitBattle()
     {
         //TODO -> set background
+        _background.sprite = Resources.Load<Sprite>("Textures/Backgrounds/V1_PRAIRIE"); //to change based on mission
         //TODO -> show turn n° ?
         Targets = new();
 

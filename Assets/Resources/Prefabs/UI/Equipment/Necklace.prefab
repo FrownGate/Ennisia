@@ -134,5 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a636cd8c9a63a748891134322785363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equipment: {fileID: 11400000, guid: bcd15c0950d707c4b998a071819ffce6, type: 2}
-  _icon: {fileID: 8258958647636171049}
+  _isSelectable: 0
+  _selectionScene: TitleScreen
+  _hasType: 0
+  _gearType: 0
