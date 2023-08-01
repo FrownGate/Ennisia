@@ -4,7 +4,8 @@ using UnityEngine;
 public class BlazingResilience : PassiveSkill
 {
 
-    public override void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken)
+    public override void UseIfAttacked(List<Entity> targets, Entity caster, Entity player, int turn, float damageTaken,
+        List<Entity> allies)
     {
         bool _Debuffed = false;
         foreach (Effect effect in caster.Effects)

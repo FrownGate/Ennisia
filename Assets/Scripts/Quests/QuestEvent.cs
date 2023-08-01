@@ -37,7 +37,7 @@ public class LevelUpQuestEvent : QuestEvent
     public LevelUpQuestEvent(int lvl, LvlType type)
     {
         Level = lvl;
-        type = LevelType;
+        LevelType = type;
 
     }
 }
@@ -46,6 +46,48 @@ public class GearLevelMaxQuestEvent : QuestEvent
 {
     public GearType? Type;
     public GearLevelMaxQuestEvent(GearType? type)
+    {
+        Type = type;
+    }
+}
+public class DefeatQuestEvent : QuestEvent
+{
+    public bool Lost;
+    public DefeatQuestEvent(bool lost)
+    {
+        Lost = lost;
+    }
+}
+public class EnergyQuestEvent : QuestEvent
+{
+    public int Amount;
+    public EnergyQuestEvent(int amount)
+    {
+        Amount = amount;
+    }
+}
+public class GearUpgradeQuestEvent : QuestEvent
+{
+   
+    public GearUpgradeQuestEvent()
+    {
+        
+    }
+}
+public class CurrencyQuestEvent : QuestEvent
+{
+    public int Amount;
+    public Currency Currency;
+    public CurrencyQuestEvent(Currency currency,int amount)
+    {
+        Amount = amount;
+        Currency = currency;
+    }
+}
+public class ObtainGearQuestEvent : QuestEvent
+{
+    public GearType? Type;
+    public ObtainGearQuestEvent(GearType? type)
     {
         Type = type;
     }

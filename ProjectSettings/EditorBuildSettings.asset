@@ -39,6 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Missions/BattleModeSelection.unity
     guid: 55d6fa4e1512ab041bdccdb546105acd
   - enabled: 1
+    path: Assets/Scenes/PauseBattlePopup.unity
+    guid: 29232a39660558943a8c6a88ab02d745
+  - enabled: 1
     path: Assets/Scenes/MenuPopup.unity
     guid: c1e758dfa5282754a93a2b23908c3fd4
   - enabled: 1
@@ -72,10 +75,10 @@ EditorBuildSettings:
     path: Assets/Scenes/GenderSelection.unity
     guid: c4bbf528714eeff4ebd876947d4f6e19
   - enabled: 1
-    path: Assets/Scenes/Inventory/InventoryPopup.unity
+    path: Assets/Scenes/Inventory/Inventory.unity
     guid: 5b26c1450d625164e884692e3cfa42f7
   - enabled: 1
-    path: Assets/Scenes/Inventory/SupportSelectionPopup.unity
+    path: Assets/Scenes/Inventory/SupportSelection.unity
     guid: d12afcbd6ca77db4f93ecf4a555d70b4
   - enabled: 1
     path: Assets/Scenes/Guilds/PlayerGuild.unity
@@ -116,4 +119,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Friends.unity
     guid: 0941cbb4f76ba6e4994e3a641ba97c13
+  - enabled: 1
+    path: Assets/Scenes/Inventory/ItemsToSelectPopup.unity
+    guid: 8a01bb3b26c9f234fa46d7640174dbd3
   m_configObjects: {}

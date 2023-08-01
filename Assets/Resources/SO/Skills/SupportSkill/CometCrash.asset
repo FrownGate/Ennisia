@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Comet Crash
   Description: Deal physical damge to all enemies decreasing the thier atkbar by
     70% and silencing them
-  DamageRatio: 100
+  DamageRatio: 200
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

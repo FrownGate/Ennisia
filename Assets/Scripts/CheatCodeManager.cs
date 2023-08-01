@@ -33,6 +33,7 @@ namespace CheatCodeNS
         Purify,
         SilenceEffect,
         StunEffect,
+        TauntEffect,
         DemonicMarkEffect,
         ImmunityBuff,
         SupportSilenceEffect,
@@ -43,7 +44,8 @@ namespace CheatCodeNS
         AttackBuff,
         AttackUnlimited,
         Victory,
-        Defeat
+        Defeat,
+        CleanWave
     }
 
     public class CheatCodeManager
@@ -68,6 +70,7 @@ namespace CheatCodeNS
                 new CheatCodeData("purify","", ActivatePurify, null, CheatCode.Purify),
                 new CheatCodeData("silence","StayAwhileAndListen", ActivateSilence, null, CheatCode.SilenceEffect),
                 new CheatCodeData("stun","stun", ActivateStun, null, CheatCode.StunEffect),
+                new CheatCodeData("taunt","taunt", ActivateTaunt, null, CheatCode.TauntEffect),
                 new CheatCodeData("demonicmark","gotthedemoninme", ActivateDemonicMark, null, CheatCode.DemonicMarkEffect),
                 new CheatCodeData("suppsilence","junglerisbetter", ActivateSupportSilence, null, CheatCode.SupportSilenceEffect),
                 new CheatCodeData("immunity","immunitybuff", ActivateImmunityBuff, null, CheatCode.ImmunityBuff),
@@ -78,7 +81,8 @@ namespace CheatCodeNS
                 new CheatCodeData("atkbuff","attackbuff", ActivateAttackBuff, null, CheatCode.AttackBuff),
                 new CheatCodeData("attackunlimited","ICanDoThisAllDay", ActivateAttackUnlimited, RemoveAttackUnlimited, CheatCode.AttackUnlimited),
                 new CheatCodeData("victory","WhatIsBestInLife", ActivateVictory, null, CheatCode.Victory),
-                new CheatCodeData("defeat","IllBeBack", ActivateDefeat, null, CheatCode.Defeat)
+                new CheatCodeData("defeat","IllBeBack", ActivateDefeat, null, CheatCode.Defeat),
+                new CheatCodeData("cleanwave","cleanwave", ActivateCleanWave, null, CheatCode.CleanWave)
             };
             _battleInstance = battleSystem;
 
@@ -190,6 +194,12 @@ namespace CheatCodeNS
             ActiveCheatCodes.Remove(CheatCode.StunEffect);
 
         }
+        private void ActivateTaunt()
+        {
+            _battleInstance.Player.ApplyEffect(new Taunt(2));
+            Debug.LogWarning("Taunt activated");
+            ActiveCheatCodes.Remove(CheatCode.TauntEffect);
+        }
         private void ActivateDemonicMark()
         {
             _battleInstance.Player.ApplyEffect(new DemonicMark(), 4);
@@ -265,6 +275,12 @@ namespace CheatCodeNS
             _battleInstance.SetState(new Lost(_battleInstance));
             Debug.LogWarning("Defeat activated");
             ActiveCheatCodes.Remove(CheatCode.Defeat);
+        }
+        private void ActivateCleanWave()
+        {
+            _battleInstance.EndWave(true);
+            Debug.LogWarning("Clean wave activated");
+            ActiveCheatCodes.Remove(CheatCode.CleanWave);
         }
 
         // REMOVERS

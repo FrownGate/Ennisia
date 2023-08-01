@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Shield Bump
   Description: deals 1 hit to an enemy with all of their strength. If the enemy has
     a defense debuff, deals an additional 50% damage.
-  DamageRatio: 70
+  DamageRatio: 170
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 50

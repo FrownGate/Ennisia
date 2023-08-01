@@ -4,7 +4,7 @@ public class BigMushroom : PassiveSkill
 {
     private bool _hasModifier = false;
 
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         if (targets.Count <= 2 && !_hasModifier)
         {
@@ -20,7 +20,8 @@ public class BigMushroom : PassiveSkill
 
     float AttackBuf(float value) => value * 2;
 
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         caster.Heal(damage);
     }

@@ -29,11 +29,35 @@ public class QuestManager : MonoBehaviour
         LoadQuest();
         foreach (var quest in AllQuests) quest.Initialize();
 
+        
+    }
+
+    private void OnEnable()
+    {
         BattleSystem.OnEnemyKilled += KillQuest;
         MissionManager.OnMissionComplete += MissionQuest;
-        ExpManager.OnPlayerLevelUp += LevelUpQuest;
+        PlayerData.OnPlayerLevelUp += LevelUpQuest;
         ExpManager.OnAccountLevelUp += LevelUpQuest;
+        Gear.LevelUp += OnGearUpgrade;
         Gear.MaxLevel += GearMaxLevelQuest;
+        Gear.ObtainGear += ObtainGear;
+        BattleSystem.OnPlayerLose += DefeatQuest;
+        PlayFabManager.OnEnergyUsed += OnEnergyUsed;
+        PlayFabManager.OnCurrencyUsed += OnCurrencyGain;
+    }
+
+    private void OnDisable()
+    {
+        BattleSystem.OnEnemyKilled -= KillQuest;
+        MissionManager.OnMissionComplete -= MissionQuest;
+        PlayerData.OnPlayerLevelUp -= LevelUpQuest;
+        ExpManager.OnAccountLevelUp -= LevelUpQuest;
+        Gear.LevelUp -= OnGearUpgrade;
+        Gear.MaxLevel -= GearMaxLevelQuest;
+        BattleSystem.OnPlayerLose -= DefeatQuest;
+        PlayFabManager.OnEnergyUsed -= OnEnergyUsed;
+        PlayFabManager.OnCurrencyUsed -= OnCurrencyGain;
+
     }
 
     private void LoadQuest()
@@ -102,5 +126,30 @@ public class QuestManager : MonoBehaviour
     private void GearMaxLevelQuest(GearType? type)
     {
         QuestEventManager.Instance.QueueEvent(new GearLevelMaxQuestEvent(type));
+    }
+
+    private void DefeatQuest(bool lost)
+    {
+        QuestEventManager.Instance.QueueEvent(new DefeatQuestEvent(lost));
+    }
+
+    private void OnEnergyUsed(int amount)
+    {
+        QuestEventManager.Instance.QueueEvent(new EnergyQuestEvent(amount));
+    }
+
+    private void OnGearUpgrade()
+    {
+        QuestEventManager.Instance.QueueEvent(new GearUpgradeQuestEvent());
+    }
+
+    private void OnCurrencyGain(Currency currency,int amount)
+    {
+        QuestEventManager.Instance.QueueEvent(new CurrencyQuestEvent(currency,amount));
+    }
+
+    private void ObtainGear(GearType? type)
+    {
+        QuestEventManager.Instance.QueueEvent(new ObtainGearQuestEvent(type));
     }
 }

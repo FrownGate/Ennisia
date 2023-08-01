@@ -1,6 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5481591558904983276
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
+  m_Name: 15-EpicTalesUnfold
+  m_EditorClassIdentifier: 
+  Information:
+    ID: 15
+    Name: Epic Tales Unfold
+    QuestType: 1
+    Description: Do 5 story quest
+  Reward:
+    Energy: 100
+    CurrencyList:
+      _serializedList:
+      - Key: 0
+        Value: 60
+      - Key: 1
+        Value: 0
+  Goals:
+  - {fileID: 8603199899852053219}
+--- !u!114 &8603199899852053219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,30 +124,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b1591ef64b851245811d7025db485ff, type: 2}
   - {fileID: 11400000, guid: 70fc11b90c05d5f4b83be1a251e1ff37, type: 2}
   - {fileID: 11400000, guid: 4f8137c4a2887ad4aae9f54a75426b4f, type: 2}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b25fe1f8ffc844fa5304e73bdd8be8, type: 3}
-  m_Name: 15-EpicTalesUnfold
-  m_EditorClassIdentifier: 
-  Information:
-    ID: 15
-    Name: Epic Tales Unfold
-    QuestType: 1
-    Description: Do 5 story quest
-  Reward:
-    Energy: 100
-    CurrencyList:
-      _serializedList:
-      - Key: 0
-        Value: 60
-      - Key: 1
-        Value: 0
-  Goals:
-  - {fileID: -5481591558904983276}

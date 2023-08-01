@@ -9,7 +9,10 @@ using System.Linq;
 
 public enum Rarity
 {
-    Common, Rare, Epic, Legendary
+    Common,
+    Rare,
+    Epic,
+    Legendary
 }
 
 public class PlayFabManager : MonoBehaviour
@@ -47,10 +50,10 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private EconomyModule _economyMod;
 
     public static event Action OnCurrencyUpdate;
-    public static event Action<Currency> OnCurrencyUsed;
-    public static event Action<Currency> OnCurrencyGained;
+    public static event Action<Currency, int> OnCurrencyUsed;
+    public static event Action<Currency, int> OnCurrencyGained;
     public static event Action OnEnergyUpdate;
-    public static event Action OnEnergyUsed;
+    public static event Action<int> OnEnergyUsed;
 
     public Dictionary<Currency, int> Currencies => _economyMod.Currencies;
     public Dictionary<string, PlayFab.EconomyModels.CatalogItem> Stores => _economyMod.Stores;
@@ -130,18 +133,21 @@ public class PlayFabManager : MonoBehaviour
     }
 
     #region Account
+
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
 
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
+
     #endregion
 
     #region Economy
+
     public void InvokeOnCurrencyUpdate() => OnCurrencyUpdate?.Invoke();
-    public void InvokeOnCurrencyUsed(Currency currency) => OnCurrencyUsed?.Invoke(currency);
-    public void InvokeOnCurrencyGained(Currency currency) => OnCurrencyGained?.Invoke(currency);
+    public void InvokeOnCurrencyUsed(Currency currency, int amount) => OnCurrencyUsed?.Invoke(currency, amount);
+    public void InvokeOnCurrencyGained(Currency currency, int amount) => OnCurrencyGained?.Invoke(currency, amount);
     public void InvokeOnEnergyUpdate() => OnEnergyUpdate?.Invoke();
-    public void InvokeOnEnergyUsed() => OnEnergyUsed?.Invoke();
+    public void InvokeOnEnergyUsed(int amount) => OnEnergyUsed?.Invoke(amount);
 
     public void AddCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.AddCurrency(currency, amount));
     public void RemoveCurrency(Currency currency, int amount) => StartCoroutine(_economyMod.RemoveCurrency(currency, amount));
@@ -149,49 +155,67 @@ public class PlayFabManager : MonoBehaviour
     public void RemoveEnergy(int amount) => StartCoroutine(_economyMod.RemoveEnergy(amount));
     public bool HasEnoughCurrency(int amount, Currency? currency = null) => _economyMod.HasEnoughCurrency(amount, currency);
 
+    public List<Item> GetItems(Item category = null) => _economyMod.GetItems(category);
+
     public void AddInventoryItem(Item item) => StartCoroutine(_economyMod.AddInventoryItem(item));
     public void UpdateItem(Item item) => StartCoroutine(_economyMod.UpdateItem(item));
     public void UseItem(Item item, int amount = 1) => StartCoroutine(_economyMod.UseItem(item, amount));
     public void PurchaseInventoryItem(Item item) => StartCoroutine(_economyMod.PurchaseInventoryItem(item));
+
     #endregion
 
     #region Guilds
+
     public void InvokeOnGetGuilds(List<GroupWithRoles> guilds) => OnGetGuilds?.Invoke(guilds);
-    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) => OnGetGuildData?.Invoke(guild, members);
+
+    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) =>
+        OnGetGuildData?.Invoke(guild, members);
+
     public void InvokeOnGetApplications(List<GroupApplication> applications) => OnGetApplications?.Invoke(applications);
     public void InvokeOnGetInvitations(List<GroupInvitation> invitations) => OnGetInvitations?.Invoke(invitations);
 
-    public void CreateGuild(string name, string description) => StartCoroutine(_guildsMod.CreateGuild(name, description));
+    public void CreateGuild(string name, string description) =>
+        StartCoroutine(_guildsMod.CreateGuild(name, description));
+
     public void UpdatePlayerGuild() => StartCoroutine(_guildsMod.UpdatePlayerGuild());
     public void GetGuildData(GroupWithRoles guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
     public void GetGuilds() => StartCoroutine(_guildsMod.GetGuilds());
     public void GetPlayerOpportunities() => StartCoroutine(_guildsMod.GetPlayerOpportunities());
     public void ApplyToGuild(GroupWithRoles guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
     public void GetGuildApplications() => StartCoroutine(_guildsMod.GetGuildApplications());
-    public void AcceptGuildApplication(string applicant) => StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
+
+    public void AcceptGuildApplication(string applicant) =>
+        StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
+
     public void DenyGuildApplication(string applicant) => StartCoroutine(_guildsMod.DenyGuildApplication(applicant));
     public void SendGuildInvitation(string username) => StartCoroutine(_guildsMod.SendGuildInvitation(username));
     public void GetGuildInvitations() => StartCoroutine(_guildsMod.GetGuildInvitations());
     public void AcceptGuildInvitation(string guild) => StartCoroutine(_guildsMod.AcceptGuildInvitation(guild));
     public void DenyGuildInvitation(string guild) => StartCoroutine(_guildsMod.DenyGuildInvitation(guild));
     public void KickPlayer(PlayFab.GroupsModels.EntityKey player) => StartCoroutine(_guildsMod.KickPlayer(player));
+
     #endregion
 
     #region Social
+
     public void InvokeOnGetFriends(List<FriendInfo> friends) => OnGetFriends?.Invoke(friends);
 
     public void GetFriends() => StartCoroutine(_socialMod.GetFriends());
     public void AddFriend(string username) => StartCoroutine(_socialMod.AddFriend(username));
     public void RemoveFriend(string id) => StartCoroutine(_socialMod.RemoveFriend(id));
+
     #endregion
 
     #region Summon
+
     public Dictionary<int, int> GetSupports() => _summonMod.GetSupports();
     public int HasSupport(int id) => _summonMod.HasSupport(id);
     public void AddSupports(Dictionary<int, int> pulledSupports) => _summonMod.AddSupports(pulledSupports);
+
     #endregion
 
     #region Requests
+
     public void OnRequestError(PlayFabError error)
     {
         Debug.LogError(error.GenerateErrorReport());
@@ -230,13 +254,36 @@ public class PlayFabManager : MonoBehaviour
             OnSuccessMessage?.Invoke(log);
         }
     }
+
     #endregion
 
     //Called after login success to test code
     public void Testing()
     {
-        //Debug.Log("Testing");
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
-        //Player.Equip(Inventory.GetGearById(1));
+
+
+        // Debug.LogWarning("TESTING ACTIVATED");
+        //
+        // Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
+        // Player.Equip(new Gear(GearType.Earrings, Rarity.Legendary, null), false);
+        //
+        // foreach (var gear in Player.EquippedGears)
+        // {
+        //     Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
+        // }
+        //
+        // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
+        // Debug.Log(support.Name);
+        // Player.Equip(support, 0, false); //Slot 1
+        //
+        // support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Ugho");
+        // Debug.Log(support.Name);
+        // Player.Equip(support, 1, false); //Slot 2
+
+        
     }
 }

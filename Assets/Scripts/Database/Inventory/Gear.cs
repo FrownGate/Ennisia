@@ -8,6 +8,7 @@ public class Gear : Item
 {
     public static event Action LevelUp;
     public static event Action<GearType?> MaxLevel;
+    public static event Action<GearType?> ObtainGear;
     public string Icon; //TODO -> create function to return icon path with name
     public float Value;
     public float BaseValue; //used for upgrade
@@ -28,8 +29,12 @@ public class Gear : Item
         public float Value;
     }
 
+    public Gear() { }
+
     public Gear(GearType type, Rarity rarity, GearSet gearSet, GearSO weapon = null)
     {
+        Debug.Log("gear created");
+
         WeaponSO = weapon;
         WeaponType = weapon ? weapon.WeaponType : null;
         Id = SetId();
@@ -48,6 +53,7 @@ public class Gear : Item
         Amount = 1;
 
         AddToInventory();
+        ObtainGear?.Invoke(type);
     }
 
     public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon) { }
@@ -79,6 +85,7 @@ public class Gear : Item
         }
 
         AddToInventory();
+        //ObtainGear?.Invoke(Type); ????
     }
 
     public Gear(CatalogItem item)
@@ -107,6 +114,7 @@ public class Gear : Item
         }
 
         AddToInventory();
+        
     }
 
     public override void Serialize()
@@ -209,16 +217,16 @@ public class Gear : Item
         Name = Category == ItemCategory.Weapon ? $"[{Rarity}] {WeaponSO.Name}" : $"[{Rarity}] {Type}";
     }
 
-    public override void Upgrade()
+    public override bool Upgrade()
     {
         //TODO -> add upgrade chances (50%)
         //TODO -> check and use materials
         //TODO -> substats upgrade formula
-        if (Level >= 50) return;
+        if (Level >= 50) return false;
         Debug.Log($"Upgrading {Name}...");
         LevelUp?.Invoke();
         int rand = UnityEngine.Random.Range(0, 100);
-        if (rand > (100 - Level)) return;
+        if (rand > (100 - Level)) return false;
         Level++;
         Value += BaseValue * RatioUpgrade * Level;
         if (Level % 5 == 0)
@@ -230,6 +238,7 @@ public class Gear : Item
         }
         if(Level==50) MaxLevel?.Invoke(Type);
         PlayFabManager.Instance.UpdateItem(this);
+        return true;
     }
 
     public void Upgrade(int _level) //Testing only
