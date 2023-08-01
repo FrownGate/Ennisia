@@ -14,7 +14,7 @@ public class TorrentialAnnihilation : DamageSkill
             TotalDamage += damage;
             if (caster.Stats[Attribute.PhysicalDamages].Value > target.Stats[Attribute.PhysicalDamages].Value)
             {
-                caster.Cleanse();
+                caster.RemoveAlterations();
             }
         }
         Cooldown = Data.MaxCooldown;

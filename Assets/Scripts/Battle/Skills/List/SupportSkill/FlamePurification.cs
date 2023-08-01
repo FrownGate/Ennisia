@@ -4,7 +4,7 @@ public class FlamePurification : BuffSkill
 {
     public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
-        caster.Cleanse();
+        caster.RemoveAlterations();
         Cooldown = Data.MaxCooldown;
         return 0;
     }
