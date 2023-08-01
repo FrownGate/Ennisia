@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 66
   Name: Chief's Orders
   Description: Hits the player 5 times and has a 25% chance to stun
-  DamageRatio: 40
+  DamageRatio: 140
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5206985838662610587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145cccb839772e84db149b5da8437391, type: 3}
+  m_Name: LevelUp
+  m_EditorClassIdentifier: 
+  RequiredAmount: 10
+  Same: 0
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  lvlType: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,22 +44,4 @@ MonoBehaviour:
       - Key: 1
         Value: 50
   Goals:
-  - {fileID: 7589331706357137173}
---- !u!114 &7589331706357137173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 145cccb839772e84db149b5da8437391, type: 3}
-  m_Name: LevelUp
-  m_EditorClassIdentifier: 
-  RequiredAmount: 10
-  Same: 0
-  GoalCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  lvlType: 1
+  - {fileID: -5206985838662610587}

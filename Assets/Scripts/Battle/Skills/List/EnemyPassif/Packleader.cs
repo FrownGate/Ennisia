@@ -5,7 +5,7 @@ public class PackLeader : PassiveSkill
     private bool _hasModifier = false;
     private float _additionalStatIncrease;
 
-    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn)
+    public override void PassiveBeforeAttack(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

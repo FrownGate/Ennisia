@@ -4,7 +4,8 @@ public class PurifyingWard : PassiveSkill
 {
     private List<Effect> _debuffList;
     private int _debuffCount;
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         foreach (Effect effect in caster.Effects)
         {

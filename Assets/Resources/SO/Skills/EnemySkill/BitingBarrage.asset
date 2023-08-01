@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 62
   Name: 'Biting Barrage '
   Description: Hits the player 4 times dealing physical damage
-  DamageRatio: 70
+  DamageRatio: 170
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

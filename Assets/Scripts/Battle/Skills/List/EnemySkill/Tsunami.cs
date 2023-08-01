@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 
 public class Tsunami : DamageSkill
 {
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (var target in targets)
         {

@@ -5,7 +5,7 @@ public class DemonicDash : DamageSkill
 {
     private readonly int _percentChance = 10;
 
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         foreach (Entity target in targets)
         {

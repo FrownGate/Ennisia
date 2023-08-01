@@ -4,7 +4,8 @@ public class LastHope : PassiveSkill
 {
     private bool _isUsed = false;
 
-    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage)
+    public override void PassiveAfterAttack(List<Entity> target, Entity caster, int turn, float damage,
+        List<Entity> allies)
     {
         float healBuff = (Data.HealingAmount/100) + StatUpgrade1 * Level;
 

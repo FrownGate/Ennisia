@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class BadOmen : BuffSkill
 {
-    public override float Use(List<Entity> targets, Entity caster, int turn)
+    public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies)
     {
         caster.ApplyEffect(new DefenseBuff());
         caster.Shield += (caster.Stats[Attribute.HP].Value * Data.ShieldAmount);

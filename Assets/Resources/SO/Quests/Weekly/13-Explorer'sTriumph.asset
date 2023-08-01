@@ -1,5 +1,43 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5943307817695840945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e72bb5549979740a7adb9ba0cfff49, type: 3}
+  m_Name: Mission
+  m_EditorClassIdentifier: 
+  RequiredAmount: 1
+  Same: 0
+  GoalCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  ToDo:
+  - {fileID: 11400000, guid: 6e6492016bb27a54488619c0507786ca, type: 2}
+  - {fileID: 11400000, guid: d5f6d38f78a87914bb07604574e671f2, type: 2}
+  - {fileID: 11400000, guid: 6b0f86f815d73524cbd39cc2b1a54964, type: 2}
+  - {fileID: 11400000, guid: b5751bfd4037e52489d08a8856b0c5af, type: 2}
+  - {fileID: 11400000, guid: 6630446587f84d84fba9bdbbd96c8f1b, type: 2}
+  - {fileID: 11400000, guid: c03ec53ca19ce6f49905ba0bf3740fa0, type: 2}
+  - {fileID: 11400000, guid: eb12433e2f7bf204bbc7f01211a18df1, type: 2}
+  - {fileID: 11400000, guid: c844153c124bb974c81b955259fb4042, type: 2}
+  - {fileID: 11400000, guid: 4824bc58e6c1f02468eae9cb59d74956, type: 2}
+  - {fileID: 11400000, guid: 445620a519fc314438d98244ecf51701, type: 2}
+  - {fileID: 11400000, guid: 7284940c85ecbde46b40f3d8524cd2dd, type: 2}
+  - {fileID: 11400000, guid: d8cf2b68149dc184eb527baf0f5c830a, type: 2}
+  - {fileID: 11400000, guid: c769d211378b97e4b9293e4548dceb9d, type: 2}
+  - {fileID: 11400000, guid: bb731bac18dd2f14e9b516c6ed7233ba, type: 2}
+  - {fileID: 11400000, guid: b68b750614fd0fd4d8ce066405093837, type: 2}
+  - {fileID: 11400000, guid: bc893a581b4f92c41873f714e3aebd04, type: 2}
+  - {fileID: 11400000, guid: cefe6e2a8b5892d478a3b16449f2d3b7, type: 2}
+  - {fileID: 11400000, guid: d386abd68a03f664cac271190b95ac68, type: 2}
+  - {fileID: 11400000, guid: b57f5c44a117ae444aa57742b70a7c75, type: 2}
+  - {fileID: 11400000, guid: e9d0e84b0a7b60443b1a92967da07182, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,41 +64,4 @@ MonoBehaviour:
       - Key: 1
         Value: 0
   Goals:
-  - {fileID: 6062332416732053531}
---- !u!114 &6062332416732053531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e72bb5549979740a7adb9ba0cfff49, type: 3}
-  m_Name: Mission
-  m_EditorClassIdentifier: 
-  RequiredAmount: 1
-  Same: 0
-  GoalCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  ToDo:
-  - {fileID: 11400000, guid: 6e6492016bb27a54488619c0507786ca, type: 2}
-  - {fileID: 11400000, guid: d5f6d38f78a87914bb07604574e671f2, type: 2}
-  - {fileID: 11400000, guid: 6b0f86f815d73524cbd39cc2b1a54964, type: 2}
-  - {fileID: 11400000, guid: b5751bfd4037e52489d08a8856b0c5af, type: 2}
-  - {fileID: 11400000, guid: 6630446587f84d84fba9bdbbd96c8f1b, type: 2}
-  - {fileID: 11400000, guid: c03ec53ca19ce6f49905ba0bf3740fa0, type: 2}
-  - {fileID: 11400000, guid: eb12433e2f7bf204bbc7f01211a18df1, type: 2}
-  - {fileID: 11400000, guid: c844153c124bb974c81b955259fb4042, type: 2}
-  - {fileID: 11400000, guid: 445620a519fc314438d98244ecf51701, type: 2}
-  - {fileID: 11400000, guid: 7284940c85ecbde46b40f3d8524cd2dd, type: 2}
-  - {fileID: 11400000, guid: d8cf2b68149dc184eb527baf0f5c830a, type: 2}
-  - {fileID: 11400000, guid: c769d211378b97e4b9293e4548dceb9d, type: 2}
-  - {fileID: 11400000, guid: bb731bac18dd2f14e9b516c6ed7233ba, type: 2}
-  - {fileID: 11400000, guid: b68b750614fd0fd4d8ce066405093837, type: 2}
-  - {fileID: 11400000, guid: bc893a581b4f92c41873f714e3aebd04, type: 2}
-  - {fileID: 11400000, guid: cefe6e2a8b5892d478a3b16449f2d3b7, type: 2}
-  - {fileID: 11400000, guid: d386abd68a03f664cac271190b95ac68, type: 2}
-  - {fileID: 11400000, guid: b57f5c44a117ae444aa57742b70a7c75, type: 2}
-  - {fileID: 11400000, guid: e9d0e84b0a7b60443b1a92967da07182, type: 2}
+  - {fileID: -5943307817695840945}
