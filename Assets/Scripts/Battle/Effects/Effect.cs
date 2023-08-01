@@ -11,6 +11,7 @@ public class Effect
     public bool HasAlteration => Data.Alteration;
     private bool IsExpired => Duration <= 0;
     public bool IsUndispellable => Data.Undispellable;
+    public Entity Caster { get; set; }
 
     public int Stacks { get; protected set; } = 0;
     public bool IsStackable = false;
@@ -24,7 +25,12 @@ public class Effect
         Caster = caster;
     }
 
-    public virtual void AlterationEffect(Entity target, Entity caster = null) { }
+    public Effect(Entity caster, int? duration = null) : this(duration)
+    {
+        Caster = caster;
+    }
+
+    public virtual void AlterationEffect(Entity target) { }
     public virtual float GetMultiplier() { return 1.0f; }
 
     public void AddEffectModifiers(Entity target)

@@ -37,7 +37,7 @@ public class LevelUpQuestEvent : QuestEvent
     public LevelUpQuestEvent(int lvl, LvlType type)
     {
         Level = lvl;
-        type = LevelType;
+        LevelType = type;
 
     }
 }

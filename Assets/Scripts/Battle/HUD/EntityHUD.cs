@@ -18,12 +18,12 @@ public class EntityHUD : MonoBehaviour
     {
         if (_entity == null) return;
         _hpBar.value = _entity.CurrentHp >= 0 ? _entity.CurrentHp : 0;
-        _text.text = _entity.CurrentHp + "/" + _entity.Stats[Attribute.HP].Value;
+        _text.text = Mathf.Round(_entity.CurrentHp) + "/" + Mathf.Round(_entity.Stats[Attribute.HP].Value);
     }
 
     public void Init(Entity entity, int id = 0)
     {
-        //TODO -> set sprite
+
         if(entity.Name != "") _sprite.sprite = Resources.Load<Sprite>( $"Textures/Enemies/{entity.Name}");
         else
         {

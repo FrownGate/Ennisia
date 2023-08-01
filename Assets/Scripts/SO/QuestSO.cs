@@ -60,18 +60,20 @@ public class QuestSO : ScriptableObject
         {
 #if UNITY_EDITOR
             Completed = false;
+            CurrentAmount = 0;
 #endif
             GoalCompleted = new UnityEvent();
         }
 
         protected void Evaluate()
         {
-            if (CurrentAmount >= RequiredAmount) Complete();
+            if (CurrentAmount < RequiredAmount) return;
+            CurrentAmount = RequiredAmount;
+            Complete();
         }
 
         public void Complete()
         {
-            Debug.Log($"Quest Complete!");
             Completed = true;
             GoalCompleted.Invoke();
             GoalCompleted.RemoveAllListeners();
@@ -109,6 +111,7 @@ public class QuestSO : ScriptableObject
     {
         Completed = Goals.All(g => g.Completed);
         if (!Completed) return;
+        Debug.Log($"Quest {Information.Name} Complete!");
         QuestCompleted.Invoke(this);
         QuestCompleted.RemoveAllListeners();
     }

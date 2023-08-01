@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 1
   Name: 'Tutorial : The Beginning'
   Type: 0
-  State: 0
+  State: 3
   EnergyCost: 5
   Unlocked: 1
   Waves:
@@ -44,4 +44,4 @@ MonoBehaviour:
     - Key: 1
       Value: 100
   RewardData: []
-  Experience: 10
+  Experience: 100
