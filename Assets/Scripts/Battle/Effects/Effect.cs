@@ -8,8 +8,9 @@ public class Effect
     public int Duration { get; set; }
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration;
-    private bool IsExpired => Duration <= 0;
+    public bool IsExpired => Duration <= 0;
     public bool IsUndispellable => Data.Undispellable;
+    public Entity Target { get; set; }
     public Entity Caster { get; set; }
 
     public int Stacks { get; protected set; } = 0;
@@ -24,23 +25,20 @@ public class Effect
         Caster = caster;
     }
 
-    public virtual void AlterationEffect(Entity target) { }
+    public virtual void AlterationEffect() { }
     public virtual float GetMultiplier() { return 1.0f; }
 
-    public void AddEffectModifiers(Entity target)
+    public void AddEffectModifiers()
     {
         foreach (var modifier in Data.StatsModifiers)
         {
-            Modifiers[modifier.Key] = target.Stats[modifier.Key].AddModifier((float value) => value * modifier.Value);
+            Modifiers[modifier.Key] = Target.Stats[modifier.Key].AddModifier((float value) => value * modifier.Value);
         }
     }
 
-    public void Tick(Entity target)
+    public void Tick()
     {
         Duration--;
-        if (!IsExpired) return;
-        // FIXME: Cleanse() is called within a foreach loop, looping on the Effects list of the Entity. -> InvalidOperationException: Collection was modified; enumeration operation may not execute.
-        Cleanse(target);
     }
 
     public void ResetDuration()
@@ -48,10 +46,10 @@ public class Effect
         Duration = InitialDuration;
     }
 
-    public void Cleanse(Entity target)
+    public void RemoveEffect()
     {
-        foreach (var modifier in Modifiers) target.Stats[modifier.Key].RemoveModifier(modifier.Value);
-        target.Effects.Remove(this);
+        foreach (var modifier in Modifiers) Target.Stats[modifier.Key].RemoveModifier(modifier.Value);
+        Target.Effects.Remove(this);
     }
 
     public void ApplyStack(int stack)

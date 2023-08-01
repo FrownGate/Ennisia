@@ -10,7 +10,7 @@ public class EnemyTurn : State
     {
         Entity enemy = BattleSystem.Enemies[BattleSystem.EnemyPlayingID];
 
-        BattleSystem.UpdateEntityEffects(enemy);
+        enemy.UpdateEffects();
         BattleSystem.ResetSelectedEnemies();
         BattleSystem.ToggleSkills(false);
 

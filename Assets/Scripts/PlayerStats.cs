@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using InfinityCode.UltimateEditorEnhancer.EditorMenus.Actions;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour

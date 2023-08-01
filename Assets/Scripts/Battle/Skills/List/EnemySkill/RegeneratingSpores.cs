@@ -6,7 +6,7 @@ public class RegeneratingSpores : ProtectionSkill
     {
         foreach (Entity target in targets)
         {
-            target.Cleanse();
+            target.RemoveAlterations();
             target.Heal(target.Stats[Attribute.HP].Value*(Data.HealingAmount/100));
         }
         return 0;

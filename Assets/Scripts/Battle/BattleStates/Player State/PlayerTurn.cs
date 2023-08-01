@@ -14,6 +14,7 @@ public class PlayerTurn : State
         }
 
         BattleSystem.Turn += 1;
+        BattleSystem.Player.UpdateEffects();
 
         if (BattleSystem.Player.HasEffect(new Taunt()))
         {
