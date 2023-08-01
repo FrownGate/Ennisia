@@ -5,9 +5,9 @@ public class ArcaneTransference : BuffSkill
 {
     private List<Effect> _debuffList;
     private int _debuff = 0;
+
     public override float Use(List<Entity> targets, Entity caster, int turn, List<Entity> allies) 
     {
-
         //player.debuff -1
         foreach (Effect effect in caster.Effects)
         {
@@ -17,14 +17,16 @@ public class ArcaneTransference : BuffSkill
                 _debuff++;
             }
         }
+
         int randomNumber = new Random().Next(0, _debuffList.Count);
-        _debuffList[randomNumber].Cleanse(caster);
+        _debuffList[randomNumber].RemoveEffect();
 
         //give debuff to enemy
         foreach (Entity target in targets)
         {
             target.ApplyEffect(_debuffList[randomNumber]);
         }
+
         Cooldown = Data.MaxCooldown;
         return 0;
     }

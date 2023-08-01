@@ -293,39 +293,6 @@ public class BattleSystem : StateMachine
         Player.ResetHealed();
     }
 
-    //public void UpdateEntitiesEffects()
-    //{
-    //    foreach (var effect in Player.Effects)
-    //    {
-    //        effect.Tick(Player);
-
-    //        if (effect.HasAlteration) effect.AlterationEffect(Player);
-    //    }
-
-    //    foreach (var enemy in Enemies)
-    //    {
-    //        foreach (var effect in enemy.Effects)
-    //        {
-    //            effect.Tick(enemy);
-
-    //            if (effect.HasAlteration) effect.AlterationEffect(enemy);
-    //        }
-    //    }
-    //}
-
-    public void UpdateEntityEffects(Entity entity)
-    {
-        Debug.Log($"Updating effects of {entity.Name}...");
-
-        foreach (var effect in entity.Effects)
-        {
-            Debug.Log(effect.Data.Name);
-            effect.Tick(entity);
-
-            if (effect.HasAlteration) effect.AlterationEffect(entity);
-        }
-    }
-
     public void EndWave(bool won)
     {
         //TODO -> add end wave animation ?

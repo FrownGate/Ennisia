@@ -122,10 +122,10 @@ public abstract class Entity
     {
         if (effect.HasAlteration)
         {
-            if (Effects.Find(effect => effect.GetType() == typeof(Immunity)) != null) return;
+            if (HasEffect(new Immunity())) return;
         }
 
-        Effect existingEffect = Effects.Find(x => x.Data.Name == effect.Data.Name);
+        Effect existingEffect = GetEffect(effect);
 
         if (existingEffect != null)
         {
@@ -143,25 +143,61 @@ public abstract class Entity
             return;
         }
 
+        effect.Target = this;
         Effects.Add(effect);
         if (effect.IsStackable) effect.ApplyStack(stacks);
-        if (!effect.HasAlteration) effect.AddEffectModifiers(this);
+        if (!effect.HasAlteration) effect.AddEffectModifiers();
     }
 
-    public void Strip()
+    public void UpdateEffects()
     {
+        Debug.Log($"Updating effects of {Name}...");
+
+        List<Effect> effects = new();
+
         foreach (var effect in Effects)
         {
-            if (effect.IsUndispellable) return;
-            if (!effect.HasAlteration) effect.Cleanse(this);
+            Debug.Log(effect.Data.Name);
+            effect.Tick();
+
+            if (effect.IsExpired) continue;
+            effects.Add(effect);
+
+            if (effect.HasAlteration) effect.AlterationEffect();
+        }
+
+        Effects = effects;
+    }
+
+    public void RemoveBuffs()
+    {
+        List<Effect> effects = new();
+
+        foreach (var effect in Effects)
+        {
+            if (effect.HasAlteration || effect.IsUndispellable)
+            {
+                effects.Add(effect);
+                continue;
+            }
+
+            effect.RemoveEffect();
         }
     }
 
-    public void Cleanse()
+    public void RemoveAlterations()
     {
+        List<Effect> effects = new();
+
         foreach (var effect in Effects)
         {
-            if (effect.HasAlteration) effect.Cleanse(this);
+            if (!effect.HasAlteration || effect.IsUndispellable)
+            {
+                effects.Add(effect);
+                continue;
+            }
+
+            effect.RemoveEffect();
         }
     }
 
