@@ -10,7 +10,7 @@ public class ShowShopBtnInfo : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _itemName;
     [SerializeField] TextMeshProUGUI _itemPrice;
-    [SerializeField] Image _itemImage;
+    public Image _itemImage;
     
     [HideInInspector]
     public int ItemId;
@@ -20,15 +20,13 @@ public class ShowShopBtnInfo : MonoBehaviour
     public string ItemName;
     [HideInInspector]
     public string ItemDescription;
-    [HideInInspector]
-    public Sprite ItemSprite;
+    
     
     private ItemPopUpController _itemPopUpController => FindObjectOfType<ItemPopUpController>();
     void Start()
     {
         _itemName.text = ItemName;
         _itemPrice.text = ItemPrice.ToString();
-        
     }
 
     private void OnMouseDown()
