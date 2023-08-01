@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using InfinityCode.UltimateEditorEnhancer.Windows;
 using UnityEngine;
 
 public class UpgradeGear : MonoBehaviour
