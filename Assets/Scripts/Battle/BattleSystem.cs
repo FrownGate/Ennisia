@@ -293,25 +293,25 @@ public class BattleSystem : StateMachine
         Player.ResetHealed();
     }
 
-    public void UpdateEntitiesEffects()
-    {
-        foreach (var effect in Player.Effects)
-        {
-            effect.Tick(Player);
+    //public void UpdateEntitiesEffects()
+    //{
+    //    foreach (var effect in Player.Effects)
+    //    {
+    //        effect.Tick(Player);
 
-            if (effect.HasAlteration) effect.AlterationEffect(Player);
-        }
+    //        if (effect.HasAlteration) effect.AlterationEffect(Player);
+    //    }
 
-        foreach (var enemy in Enemies)
-        {
-            foreach (var effect in enemy.Effects)
-            {
-                effect.Tick(enemy);
+    //    foreach (var enemy in Enemies)
+    //    {
+    //        foreach (var effect in enemy.Effects)
+    //        {
+    //            effect.Tick(enemy);
 
-                if (effect.HasAlteration) effect.AlterationEffect(enemy);
-            }
-        }
-    }
+    //            if (effect.HasAlteration) effect.AlterationEffect(enemy);
+    //        }
+    //    }
+    //}
 
     public void UpdateEntityEffects(Entity entity)
     {
