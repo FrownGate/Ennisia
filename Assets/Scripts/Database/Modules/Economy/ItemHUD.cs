@@ -7,7 +7,7 @@ public class ItemHUD : MonoBehaviour
 {
     public static event Action<Item, GearType?> OnSelectionOpened;
 
-    [SerializeField] private Image _image;
+    private Image _sprite;
     [SerializeField] protected bool _isSelectable;
     [SerializeField, Scene] private string _selectionScene;
 
@@ -20,8 +20,10 @@ public class ItemHUD : MonoBehaviour
     public void Init(Item item)
     {
         Item = item;
+        _sprite = GetComponentInChildren<Image>();
+        _sprite.sprite = Resources.Load<Sprite>( $"Textures/Equipments/Default");
+        if(Item.Type != null) _sprite.sprite = Resources.Load<Sprite>( $"Textures/Equipments/{Item.Name}");
 
-        //TODO -> change sprite with item image
     }
 
     private void OnMouseUpAsButton()
