@@ -22,6 +22,8 @@ public class ShopSystem : MonoBehaviour
     private List<GameObject> _currentShopItems = new List<GameObject>();
     private string _currentShop;
 
+    private Dictionary<Item, int> Items = new();
+
 
     void Start()
     {
@@ -63,6 +65,7 @@ public class ShopSystem : MonoBehaviour
             PlayFab.EconomyModels.CatalogItem item = PlayFabManager.Instance.GetItemById(itemReferences[i].Id);
             itemInfo.ItemName = item.AlternateIds[0].Value;
             itemInfo.ItemPrice = item.PriceOptions.Prices[0].Amounts[0].Amount;
+            itemInfo.ItemSprite = Resources.Load<Sprite>("Sprites/Items/" + itemInfo.ItemName);
             Debug.Log(itemInfo.ItemName + "Added");
             _currentShopItems.Add(shopItemBtn);
         }
@@ -70,23 +73,36 @@ public class ShopSystem : MonoBehaviour
 
     public void Buy(PlayFab.EconomyModels.CatalogItem item)
     {
-        Item newItem = Item.CreateFromCatalogItem(item);
+        Item itemToBuy = JsonUtility.FromJson<Bundle>(item.DisplayProperties.ToString());
+        switch (item.Type)
+        {
+            case "SummonTicket":
+                itemToBuy = JsonUtility.FromJson<SummonTicket>(item.DisplayProperties.ToString());
+                break;
+            case "Gear":
+                // itemToBuy = JsonUtility.FromJson<Bundle>(item.DisplayProperties.ToString());
+                break;
+            case "Bundle":
+                itemToBuy = JsonUtility.FromJson<Bundle>(item.DisplayProperties.ToString());
+                break;
+        }
+        itemToBuy.IdString = item.Id;
+        itemToBuy.Name = item.AlternateIds[0].Value;
+        itemToBuy.Price = item.PriceOptions.Prices[0].Amounts[0].Amount;
 
-        int quantity = 0;
-        // search in the display properties the quantity
-        Item testItem = JsonUtility.FromJson<Item>(item.DisplayProperties.ToString());
-        
-        // Debug.LogWarning(item.DisplayProperties.ToString());
+        Debug.LogWarning(itemToBuy.Available);
+        Debug.LogWarning(item.DisplayProperties.ToString());
 
 
 
 
-        PlayFabManager.Instance.PurchaseInventoryItem(newItem);
+        PlayFabManager.Instance.PurchaseInventoryItem(itemToBuy);
     }
 
 
     public void OnShopBtnClick(string shopName)
     {
+        DestroyOnClear();
         foreach (var shop in _shops)
         {
             if (shop.Value.AlternateIds[0].Value == shopName)
@@ -95,5 +111,14 @@ public class ShopSystem : MonoBehaviour
                 InitShopItems(shop.Value.ItemReferences);
             }
         }
+    }
+
+    private void DestroyOnClear()
+    {
+        foreach (var item in _currentShopItems)
+        {
+            Destroy(item);
+        }
+        _currentShopItems.Clear();
     }
 }

@@ -373,7 +373,7 @@ public class EconomyModule : Module
     {
         yield return _manager.StartAsyncRequest($"Purchasing {item}...");
 
-        string currency = PlayFabManager.Instance.GetItemById(item.Ide).PriceOptions.Prices[0].Amounts[0].ItemId;
+        string currency = PlayFabManager.Instance.GetItemById(item.IdString).PriceOptions.Prices[0].Amounts[0].ItemId;
         
         PlayFabEconomyAPI.PurchaseInventoryItems(new()
         {
