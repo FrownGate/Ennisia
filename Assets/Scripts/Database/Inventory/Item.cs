@@ -48,15 +48,20 @@ public class Item
     public string JsonWeapon;
     public string JsonAttribute;
 
-    
+    public Item()
+    {
+        //TODO -> Set default slot image
+    }
+
     public static Item CreateFromCatalogItem(CatalogItem catalogItem)
     {
-        Item newItem = new();
+        Item newItem = JsonUtility.FromJson<Item>(catalogItem.DisplayProperties.ToString());
+        newItem.Deserialize();
+
         newItem.Ide = catalogItem.Id;
         newItem.Name = catalogItem.AlternateIds[0].Value;
         newItem.Price = catalogItem.PriceOptions.Prices[0].Amounts[0].Amount;
 
-        newItem.Deserialize();
 
         return newItem;
     }
@@ -105,5 +110,9 @@ public class Item
     }
 
     protected virtual void SetName() { }
-    public virtual void Upgrade() { }
+
+    public virtual bool Upgrade()
+    {
+        return false;
+    }
 }

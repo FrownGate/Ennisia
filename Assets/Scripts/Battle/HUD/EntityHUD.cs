@@ -23,7 +23,7 @@ public class EntityHUD : MonoBehaviour
 
     public void Init(Entity entity, int id = 0)
     {
-        //TODO -> set sprite
+
         if(entity.Name != "") _sprite.sprite = Resources.Load<Sprite>( $"Textures/Enemies/{entity.Name}");
         else
         {

@@ -119,4 +119,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Friends.unity
     guid: 0941cbb4f76ba6e4994e3a641ba97c13
+  - enabled: 1
+    path: Assets/Scenes/Inventory/ItemsToSelectPopup.unity
+    guid: 8a01bb3b26c9f234fa46d7640174dbd3
   m_configObjects: {}
