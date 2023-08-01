@@ -196,6 +196,12 @@ public abstract class Entity
         return Effects.Exists(x => x.Data.Name == effect.Data.Name);
     }
 
+    public Effect GetEffect(Effect effect)
+    {
+        if (!HasEffect(effect)) return null;
+        return Effects.Find(x => x.Data.Name == effect.Data.Name);
+    }
+
     public void InitElement()
     {
         List<ElementType> elements = new();

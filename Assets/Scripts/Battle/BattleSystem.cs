@@ -299,7 +299,7 @@ public class BattleSystem : StateMachine
         {
             effect.Tick(Player);
 
-            if (effect.HasAlteration) effect.AlterationEffect(Player, effect.Caster);
+            if (effect.HasAlteration) effect.AlterationEffect(Player);
         }
 
         foreach (var enemy in Enemies)
@@ -308,7 +308,7 @@ public class BattleSystem : StateMachine
             {
                 effect.Tick(enemy);
 
-                if (effect.HasAlteration) effect.AlterationEffect(enemy, Player);
+                if (effect.HasAlteration) effect.AlterationEffect(enemy);
             }
         }
     }

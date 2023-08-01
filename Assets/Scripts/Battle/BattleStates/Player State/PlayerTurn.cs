@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class PlayerTurn : State
@@ -15,13 +14,12 @@ public class PlayerTurn : State
         }
 
         BattleSystem.Turn += 1;
-        if (BattleSystem.Player.Effects.Find(effect => effect.GetType() == typeof(Taunt)) != null)
+
+        if (BattleSystem.Player.HasEffect(new Taunt()))
         {
-            Entity caster = BattleSystem.Player.Effects.Find(effect => effect.GetType() == typeof(Taunt)).Caster;
-            List<Entity> targets = new() { caster };
-            BattleSystem.ToggleSkills(false);
-            BattleSystem.Player.Skills[0].Use(targets, BattleSystem.Player, BattleSystem.Turn, null);
-            BattleSystem.SetState(new CheckTurn(BattleSystem));
+            Entity caster = BattleSystem.Player.GetEffect(new Taunt()).Caster;
+            BattleSystem.Targets.Add(caster);
+            BattleSystem.SetState(new SelectTarget(BattleSystem, BattleSystem.Player.Skills[0]));
         }
         else
         {

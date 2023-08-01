@@ -5,7 +5,6 @@ public class Effect
 {
     public EffectSO Data { get; set; }
     public readonly Dictionary<Attribute, ModifierID> Modifiers = new();
-    public Entity? Caster { get; set; }
     public int Duration { get; set; }
     public int InitialDuration { get; set; }
     public bool HasAlteration => Data.Alteration;
@@ -17,16 +16,11 @@ public class Effect
     public bool IsStackable = false;
     protected int _maxStacks;
 
-    public Effect(int? duration = null, Entity? caster = null)
+    public Effect(int? duration = null, Entity caster = null)
     {
         Data = Resources.Load<EffectSO>("SO/Effects/" + GetType().Name);
         InitialDuration = duration ?? Data.Duration;
         Duration = InitialDuration;
-        Caster = caster;
-    }
-
-    public Effect(Entity caster, int? duration = null) : this(duration)
-    {
         Caster = caster;
     }
 
@@ -101,5 +95,8 @@ public class Invincibility : Effect
 public class Berserk : Effect
 {
     public Berserk(int? duration = null) : base(duration) { }
-    
+}
+public class Taunt : Effect
+{
+    public Taunt(int? duration = null, Entity caster = null) : base(duration, caster) { }
 }
