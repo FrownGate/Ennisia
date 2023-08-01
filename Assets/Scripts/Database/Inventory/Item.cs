@@ -48,6 +48,11 @@ public class Item
     public string JsonType;
     public string JsonWeapon;
     public string JsonAttribute;
+
+    public Item()
+    {
+        //TODO -> Set default slot image
+    }
     public string JsonShopQuantityAvailable;
 
     
@@ -96,5 +101,9 @@ public class Item
     }
 
     protected virtual void SetName() { }
-    public virtual void Upgrade() { }
+
+    public virtual bool Upgrade()
+    {
+        return false;
+    }
 }

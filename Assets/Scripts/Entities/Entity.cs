@@ -134,6 +134,12 @@ public abstract class Entity
                 existingEffect.ApplyStack(stacks);
             }
             existingEffect.ResetDuration();
+            Debug.LogWarning($"{effect.Data.Name} refreshed !");
+            foreach (var effects in Effects)
+            {
+                Debug.LogWarning("Number of effects : " + Effects.Count);
+                Debug.LogWarning($"{effects.Data.Name} remaining duration : {effects.Duration}");
+            }
             return;
         }
 
@@ -188,6 +194,12 @@ public abstract class Entity
     public bool HasEffect(Effect effect)
     {
         return Effects.Exists(x => x.Data.Name == effect.Data.Name);
+    }
+
+    public Effect GetEffect(Effect effect)
+    {
+        if (!HasEffect(effect)) return null;
+        return Effects.Find(x => x.Data.Name == effect.Data.Name);
     }
 
     public void InitElement()

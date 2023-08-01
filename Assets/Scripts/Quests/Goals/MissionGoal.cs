@@ -13,7 +13,7 @@ public class MissionGoal : QuestSO.QuestGoal
         base.Initialize();
         QuestEventManager.Instance.AddListener<MissionQuestEvent>(OnMissionDone);
 
-        foreach (var mission in ToDo.Where(mission => !_missionHistory.ContainsKey(mission.Name)))
+        foreach (var mission in ToDo.Where(mission =>    !_missionHistory.ContainsKey(mission.Name)))
             _missionHistory.Add(mission.Name, 0);
 
 #if UNITY_EDITOR
