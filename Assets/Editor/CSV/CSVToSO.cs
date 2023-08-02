@@ -469,8 +469,24 @@ public class CSVToSO : EditorWindow
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);
 
-        // Remove special characters and spaces from the mission name
         var missionName = CSVUtils.GetFileName(rowData["Name"]);
+
+        // Load all sprites from the "Resources/Missions" folder with the given mission name prefix
+        Sprite[] missionSprites = Resources.LoadAll<Sprite>($"Textures/Backgrounds/Missions/{scriptableObject.Type}/{missionName}");
+
+        if(scriptableObject.Type == MissionType.MainStory) Debug.Log("truc = " );
+        // Check if any sprites were loaded
+        if (missionSprites.Length > 0)
+        {
+            // Assuming you want the first sprite (e.g., "floor 1") from the list
+            Sprite missionSprite = missionSprites[0];
+            scriptableObject.MissionBackground = missionSprite;
+        }
+        else
+        {
+            Debug.Log($"Sprites for mission '{missionName}' not found in 'Resources/Textures/Missions' folder with the prefix '{missionName}'.");
+        }
+        // Remove special characters and spaces from the mission name
 
         var savePath =
             $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";

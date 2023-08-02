@@ -62,7 +62,7 @@ public class BattleSystem : StateMachine
     public void InitBattle()
     {
         //TODO -> set background
-        _background.sprite = Resources.Load<Sprite>("Textures/Backgrounds/V1_PRAIRIE"); //to change based on mission
+        _background.sprite = MissionManager.Instance.CurrentMission.MissionBackground != null ? MissionManager.Instance.CurrentMission.MissionBackground : Resources.Load<Sprite>( $"Textures/Backgrounds/V1_PRAIRIE");
         //TODO -> show turn n° ?
         Targets = new();
 
