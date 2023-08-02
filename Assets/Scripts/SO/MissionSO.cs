@@ -23,4 +23,5 @@ public class MissionSO : ScriptableObject
     public List<RewardData> RewardData;
     public int Experience; 
     // Add additional mission data as needed
+    public Sprite MissionBackground;
 }
