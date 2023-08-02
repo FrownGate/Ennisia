@@ -23,7 +23,6 @@ public class ItemHUD : MonoBehaviour
         _sprite = GetComponentInChildren<Image>();
         _sprite.sprite = Resources.Load<Sprite>( $"Textures/Equipments/Default");
         if(Item.Type != null) _sprite.sprite = Resources.Load<Sprite>( $"Textures/Equipments/{Item.Name}");
-
     }
 
     private void OnMouseUpAsButton()
