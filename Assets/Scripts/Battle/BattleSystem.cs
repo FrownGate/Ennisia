@@ -159,7 +159,7 @@ public class BattleSystem : StateMachine
 
         foreach (var enemyName in mission.Waves[wave])
         {
-            //Debug.Log(enemyName);
+            Debug.Log(enemyName);
             Enemy enemy = new(id, Resources.Load<EnemySO>($"SO/Enemies/{enemyName}"));
             Enemies.Add(enemy);
             id++;

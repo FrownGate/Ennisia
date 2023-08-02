@@ -7,7 +7,7 @@ public class UpgradeGear : MonoBehaviour
 
     private void Start()
     {
-        _item = _gear.GetComponent<ItemHUD>().Item;
+        _item = _gear.GetComponent<ShowGear>().Item;
         Debug.Log(_item.Name + "aieaieaiea");
     }
 
