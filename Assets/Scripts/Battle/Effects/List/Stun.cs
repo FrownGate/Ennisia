@@ -2,14 +2,19 @@ public class Stun : Effect
 {
     public Stun(int? duration = null) : base(duration) { }
 
-    public override void AlterationEffect(Entity target)
+    public override void AlterationEffect()
     {
-        if (target.Effects.Find(effect => effect.GetType() == typeof(Stun)) == null)
+        //if (Target.Effects.Find(effect => effect.GetType() == typeof(Stun)) == null)
+        //{
+        //    if (Target.AtkBarPercentage == 100)
+        //    {
+        //        Target.ResetAtb();
+        //    }
+        //}
+
+        if (Target.AtkBarPercentage == 100)
         {
-            if (target.AtkBarPercentage == 100)
-            {
-                target.ResetAtb();
-            }
+            Target.ResetAtb();
         }
     }
 }
