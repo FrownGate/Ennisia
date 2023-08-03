@@ -275,7 +275,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
         }
-        //
+        
         // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
         // Debug.Log(support.Name);
         // Player.Equip(support, 0, false); //Slot 1
