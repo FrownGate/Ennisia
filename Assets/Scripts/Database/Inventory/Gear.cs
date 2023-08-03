@@ -29,7 +29,9 @@ public class Gear : Item
         public float Value;
     }
 
-    public Gear() { }
+    public Gear()
+    {
+    }
 
     public Gear(GearType type, Rarity rarity, GearSet gearSet, GearSO weapon = null)
     {
@@ -56,8 +58,13 @@ public class Gear : Item
         ObtainGear?.Invoke(type);
     }
 
-    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon) { }
-    public Gear(GearSO gear) : this(gear.Type, gear.Rarity, null, gear.Type == GearType.Weapon ? gear : null) { }
+    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon)
+    {
+    }
+
+    public Gear(GearSO gear) : this(gear.Type, gear.Rarity, null, gear.Type == GearType.Weapon ? gear : null)
+    {
+    }
 
     public Gear(InventoryItem item)
     {
@@ -114,7 +121,6 @@ public class Gear : Item
         }
 
         AddToInventory();
-        
     }
 
     public override void Serialize()
@@ -178,7 +184,8 @@ public class Gear : Item
     {
         if (Category == ItemCategory.Weapon) return WeaponSO.Attribute;
 
-        List<Attribute> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
+        List<Attribute> possiblesAttributes =
+            Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
@@ -186,7 +193,8 @@ public class Gear : Item
     {
         if (Category == ItemCategory.Weapon) return WeaponSO.StatValue;
 
-        StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{Attribute}");
+        StatMinMaxValuesSO possibleValues =
+            Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
@@ -206,7 +214,8 @@ public class Gear : Item
                 possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
             } while (possibleValues == null);
 
-            substats[(Attribute)stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
+            substats[(Attribute)stat] =
+                UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
         }
 
         return substats;
@@ -224,19 +233,26 @@ public class Gear : Item
         //TODO -> substats upgrade formula
         if (Level >= 50) return false;
         Debug.Log($"Upgrading {Name}...");
+        Debug.Log("lvl :" + Level);
         LevelUp?.Invoke();
         int rand = UnityEngine.Random.Range(0, 100);
         if (rand > (100 - Level)) return false;
         Level++;
+        Debug.Log("level up !");
+        Debug.Log(Value + " ->");
         Value += BaseValue * RatioUpgrade * Level;
+        Debug.Log(Value);
         if (Level % 5 == 0)
         {
             foreach (var substat in BaseSubStats)
             {
-                SubStats[substat.Key] = substat.Value * RatioUpgrade * Level; ;
+                Debug.Log(SubStats[substat.Key] + "before");
+                SubStats[substat.Key] = substat.Value * RatioUpgrade * Level;
+                Debug.Log(SubStats[substat.Key] + "after");
             }
         }
-        if(Level==50) MaxLevel?.Invoke(Type);
+
+        if (Level == 50) MaxLevel?.Invoke(Type);
         PlayFabManager.Instance.UpdateItem(this);
         return true;
     }
