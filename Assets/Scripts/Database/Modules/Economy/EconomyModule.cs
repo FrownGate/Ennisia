@@ -326,7 +326,10 @@ public class EconomyModule : Module
                 DisplayProperties = item
             } : new(),
             Amount = item.Amount
-        }, res => _manager.EndRequest("Item added to inventory !"), _manager.OnRequestError);
+        }, res => {
+            item.Deserialize();
+            _manager.EndRequest("Item added to inventory !");
+        }, _manager.OnRequestError);
     }
 
     public IEnumerator UpdateItem(Item item)
@@ -345,7 +348,11 @@ public class EconomyModule : Module
                 DisplayProperties = item,
                 StackId = item.Stack
             }
-        }, res => _manager.EndRequest("Item updated !"), _manager.OnRequestError);
+        }, res =>
+        {
+            item.Deserialize();
+            _manager.EndRequest("Item updated !");
+        }, _manager.OnRequestError);
     }
 
     public IEnumerator UseItem(Item item, int amount = 1)
