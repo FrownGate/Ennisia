@@ -289,9 +289,23 @@ public class EconomyModule : Module
         return items;
     }
 
+    private bool CheckLocalInventory(Item item)
+    {
+        if (item == null || !_manager.Inventory.HasItem(item))
+        {
+            Debug.LogError("Item not found in local inventory ! " +
+                "If you were creating a new item instance, don't use its constructor without parameters.");
+            return false;
+        }
+
+        return true;
+    }
+
     #region Items
     public IEnumerator AddInventoryItem(Item item)
     {
+        if (!CheckLocalInventory(item)) yield break;
+
         yield return _manager.StartAsyncRequest("Adding item...");
         item.Serialize();
 
@@ -317,11 +331,7 @@ public class EconomyModule : Module
 
     public IEnumerator UpdateItem(Item item)
     {
-        if (item == null || !_manager.Inventory.HasItem(item))
-        {
-            Debug.LogError("Item not found !");
-            yield break;
-        }
+        if (!CheckLocalInventory(item)) yield break;
 
         yield return _manager.StartAsyncRequest();
         item.Serialize();
@@ -340,11 +350,7 @@ public class EconomyModule : Module
 
     public IEnumerator UseItem(Item item, int amount = 1)
     {
-        if (item == null || !_manager.Inventory.HasItem(item))
-        {
-            Debug.LogError("Item not found !");
-            yield break;
-        }
+        if (!CheckLocalInventory(item)) yield break;
 
         yield return _manager.StartAsyncRequest();
 
@@ -371,6 +377,8 @@ public class EconomyModule : Module
 
     public IEnumerator PurchaseInventoryItem(Item item, int amount = 1)
     {
+        if (!CheckLocalInventory(item)) yield break;
+
         yield return _manager.StartAsyncRequest($"Purchasing {item}...");
 
         string currency = PlayFabManager.Instance.GetItemById(item.IdString).PriceOptions.Prices[0].Amounts[0].ItemId;
