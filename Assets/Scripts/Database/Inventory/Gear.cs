@@ -19,6 +19,7 @@ public class Gear : Item
     public int Level;
     public float StatUpgrade;
     public float RatioUpgrade = 0.04f;
+    public float RatioUpgradeSubStat = 0.01f;
     public GearSO WeaponSO;
     public GearSet GearSet;
 
@@ -246,9 +247,9 @@ public class Gear : Item
         {
             foreach (var substat in BaseSubStats)
             {
-                Debug.Log(SubStats[substat.Key] + "before");
-                SubStats[substat.Key] = substat.Value * RatioUpgrade * Level;
-                Debug.Log(SubStats[substat.Key] + "after");
+                Debug.Log(substat.Key + " " + SubStats[substat.Key] + " before");
+                SubStats[substat.Key] = substat.Value + substat.Value * RatioUpgradeSubStat * Level;
+                Debug.Log(substat.Key + " " + SubStats[substat.Key] + "after");
             }
         }
 
