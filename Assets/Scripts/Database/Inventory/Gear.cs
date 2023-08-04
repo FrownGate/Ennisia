@@ -254,10 +254,15 @@ public class Gear : Item
         Debug.Log("lvl :" + Level);
         LevelUp?.Invoke();
         int rand = UnityEngine.Random.Range(0, 100);
-        if (rand > (100 - Level)) return false;
+        if (rand > (100 - Level))
+        {
+            Debug.Log("failed to upgrade");
+            return false;
+        }
         Level++;
         Debug.Log("level up !");
         Debug.Log(Value + " ->");
+        Debug.Log(BaseValue);
         Value += BaseValue * RatioUpgrade * Level;
         Debug.Log(Value);
         if (Level % 5 == 0)
@@ -265,6 +270,7 @@ public class Gear : Item
             foreach (var substat in BaseSubStats)
             {
                 Debug.Log(substat.Key + " " + SubStats[substat.Key] + " before");
+                Debug.Log(substat.Value + "UwU");
                 SubStats[substat.Key] = substat.Value + substat.Value * RatioUpgradeSubStat * Level;
                 Debug.Log(substat.Key + " " + SubStats[substat.Key] + "after");
             }

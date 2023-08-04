@@ -355,26 +355,32 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
+  - name: ProfilePopup
+    path: Assets/Scenes/ProfilePopup.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
+  - name: SettingsPopup
+    path: Assets/Scenes/SettingsPopup.unity
+  - name: Inventory
+    path: Assets/Scenes/Inventory/Inventory.unity
   - name: Forge
     path: Assets/Scenes/Forge.unity
   - name: Quests
     path: Assets/Scenes/Quests.unity
   - name: Loading_Big
     path: Assets/Scenes/Loading_Big.unity
-  - name: TitleScreen
-    path: Assets/Scenes/TitleScreen.unity
   - name: Raids&Dungeons
     path: Assets/Scenes/Missions/Raids&Dungeons.unity
   - name: Battle
     path: Assets/Scenes/Battle.unity
   - name: ItemsToSelectPopup
     path: Assets/Scenes/Inventory/ItemsToSelectPopup.unity
-  - name: Loading_Mini
-    path: Assets/Scenes/Loading_Mini.unity
   - name: MailPopup
     path: Assets/Scenes/MailPopup.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
   - name: StuffMenu
     path: Assets/Scenes/Inventory/StuffMenu.unity
   - name: InventoryPopup
@@ -383,8 +389,6 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/GearSelectionPopup.unity
   - name: MenuPopup
     path: Assets/Scenes/MenuPopup.unity
-  - name: SettingsPopup
-    path: Assets/Scenes/SettingsPopup.unity
   - name: MainStory
     path: Assets/Scenes/Missions/MainStory.unity
   _notes: []
