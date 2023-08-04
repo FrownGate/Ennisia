@@ -261,6 +261,7 @@ public class Gear : Item
         }
         Level++;
         Debug.Log("level up !");
+        Debug.Log("lvl :" + Level);
         Debug.Log(Value + " ->");
         Debug.Log(BaseValue);
         Value += BaseValue * RatioUpgrade * Level;

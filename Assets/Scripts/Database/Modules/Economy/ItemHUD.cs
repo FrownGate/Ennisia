@@ -12,7 +12,8 @@ public class ItemHUD : MonoBehaviour
     public static event Action<Item, GearType?> OnSelectionOpened;
 
     private Image _sprite;
-    private TextMeshProUGUI _textValue;
+    [SerializeField] private TextMeshProUGUI _textValue;
+    [SerializeField] private TextMeshProUGUI _textLvl;
     [SerializeField] protected bool _isSelectable;
     [SerializeField, Scene] private string _selectionScene;
 
@@ -27,14 +28,14 @@ public class ItemHUD : MonoBehaviour
     {
         Item = item;
         if (item is Gear gear) Gear = gear;
-        
+
         _sprite = GetComponentInChildren<Image>();
         _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/Default");
         if (Item.Type != null) _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/{Item.Name}");
-        _textValue = GetComponentInChildren<TextMeshProUGUI>();
         if (Gear == null) return;
         Debug.Log(Gear.Attribute + " " + Gear.Value);
-        _textValue.text = Gear.Value.ToString(CultureInfo.CurrentCulture);
+        _textValue.text = Gear.Attribute + " " + Gear.Value;
+        _textLvl.text = "Level : " + Gear.Level;
     }
 
     private void OnMouseUpAsButton()

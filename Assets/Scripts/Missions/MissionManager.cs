@@ -5,17 +5,31 @@ using UnityEngine;
 
 public enum MissionType
 {
-    MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
+    MainStory,
+    SideStory,
+    AlternativeStory,
+    Dungeon,
+    Raid,
+    Expedition,
+    EndlessTower
 }
 
 public enum MissionState
 {
-    Locked, Unlocked, InProgress, Completed
+    Locked,
+    Unlocked,
+    InProgress,
+    Completed
 }
 
 public enum Difficulty
 {
-    Peaceful, Easy, Normal, Hard, Insane, Ultimate
+    Peaceful,
+    Easy,
+    Normal,
+    Hard,
+    Insane,
+    Ultimate
 }
 
 public class MissionManager : MonoBehaviour
@@ -81,9 +95,9 @@ public class MissionManager : MonoBehaviour
 
     public void NextWave()
     {
-        Debug.LogWarning($"Next wave - {Instance.CurrentMission}");
+        Debug.LogWarning($"Next wave - {CurrentMission}");
 
-        if (Instance.CurrentMission != null && CurrentWave < Instance.CurrentMission.Waves.Count)
+        if (CurrentMission != null && CurrentWave < CurrentMission.Waves.Count)
         {
             CurrentWave++;
             OnNextWave?.Invoke();
