@@ -44,6 +44,7 @@ public class InventoryData
 
     public Gear GetGearById(int id)
     {
+        if (!Items.ContainsKey("Gear")) return null;
         return (Gear)Items["Gear"].Find(gear => gear.Id == id);
     }
 
