@@ -2,7 +2,6 @@ using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
 public class Gear : Item
 {
@@ -15,6 +14,7 @@ public class Gear : Item
     public Dictionary<Attribute, float> BaseSubStats; //used for upgrade
     public Dictionary<Attribute, float> SubStats;
     public JsonSubstatsDictionary[] JsonSubstats;
+    public JsonSubstatsDictionary[] JsonBaseSubStats;
     public string Description;
     public int Level;
     public float StatUpgrade;
@@ -81,8 +81,8 @@ public class Gear : Item
         Attribute = gear.Attribute;
         BaseValue = gear.BaseValue;
         Value = BaseValue;
-        BaseSubStats = gear.SubStats;
-        SubStats = BaseSubStats;
+        BaseSubStats = gear.BaseSubStats;
+        SubStats = gear.SubStats;
         Level = gear.Level;
         Name = gear.Name;
 
@@ -110,8 +110,8 @@ public class Gear : Item
         Attribute = gear.Attribute;
         BaseValue = gear.BaseValue;
         Value = BaseValue;
-        BaseSubStats = gear.SubStats;
-        SubStats = BaseSubStats;
+        BaseSubStats = gear.BaseSubStats;
+        SubStats = gear.SubStats;
         Level = gear.Level;
         Name = gear.Name;
 
@@ -129,6 +129,7 @@ public class Gear : Item
         if (Category != ItemCategory.Weapon && Rarity != global::Rarity.Common)
         {
             JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
+            JsonBaseSubStats = new JsonSubstatsDictionary[(int)Rarity];
             int i = 0;
 
             foreach (KeyValuePair<Attribute, float> substat in SubStats)
@@ -141,9 +142,24 @@ public class Gear : Item
 
                 i++;
             }
+
+            i = 0;
+
+            foreach (KeyValuePair<Attribute, float> substat in BaseSubStats)
+            {
+                JsonBaseSubStats[i] = new JsonSubstatsDictionary
+                {
+                    Key = substat.Key.ToString(),
+                    Value = substat.Value
+                };
+
+                i++;
+            }
         }
 
         WeaponSO = null;
+        SubStats = null;
+        BaseSubStats = null;
         base.Serialize();
     }
 
@@ -152,12 +168,13 @@ public class Gear : Item
         base.Deserialize();
 
         if (Category == ItemCategory.Weapon || Rarity == global::Rarity.Common) return;
+        BaseSubStats = new();
         SubStats = new();
 
         for (int i = 0; i < JsonSubstats.Length; i++)
         {
-            SubStats[System.Enum.Parse<Attribute>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
-            Debug.Log(JsonSubstats[i].Key);
+            BaseSubStats[Enum.Parse<Attribute>(JsonBaseSubStats[i].Key)] = JsonBaseSubStats[i].Value;
+            SubStats[Enum.Parse<Attribute>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
         }
     }
 

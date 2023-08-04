@@ -260,7 +260,7 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
-
+        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
 
         Debug.LogWarning("TESTING ACTIVATED");
         
