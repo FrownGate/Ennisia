@@ -642,7 +642,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 280317708}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 280317710}
+        m_TargetAssemblyTypeName: DismantleGear, Assembly-CSharp
+        m_MethodName: Dismantle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &280317708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e1c04911f84c04aa6d8f97801ae43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gear: {fileID: 0}
+  _gear: {fileID: 1677540069}
 --- !u!1 &283931228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3123,7 +3135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ccff2fc90e6e094e9635a79e4eb51e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gear: {fileID: 1677540069}
+  _gearGO: {fileID: 1677540069}
 --- !u!1 &1677540069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2814415651691544923, guid: 6833da238965483409a7c4bae594b635, type: 3}

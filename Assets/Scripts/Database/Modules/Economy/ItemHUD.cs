@@ -33,7 +33,7 @@ public class ItemHUD : MonoBehaviour
         if (Item.Type != null) _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/{Item.Name}");
         _textValue = GetComponentInChildren<TextMeshProUGUI>();
         if (Gear == null) return;
-        Debug.Log(Gear.Value);
+        Debug.Log(Gear.Attribute + " " + Gear.Value);
         _textValue.text = Gear.Value.ToString(CultureInfo.CurrentCulture);
     }
 

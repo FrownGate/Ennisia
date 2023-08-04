@@ -12,9 +12,10 @@ public class DismantleGear : MonoBehaviour
         _item = _gear.GetComponent<ItemHUD>().Item;
         if (_item.Type != null)
         {
+            Debug.Log("unequipping item");
             PlayFabManager.Instance.Player.Unequip((GearType)_item.Type);
             Debug.Log("removing item");
-            PlayFabManager.Instance.Inventory.Items.Remove(_item.Name);
+            PlayFabManager.Instance.Inventory.RemoveItem(_item);
         }else Debug.Log("item type null");
     }
 }
