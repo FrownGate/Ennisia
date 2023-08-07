@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System;
+
 public class PurifyingWard : PassiveSkill
 {
     private List<Effect> _debuffList;
     private int _debuffCount;
-    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage,
-        List<Entity> allies)
+
+    public override void PassiveAfterAttack(List<Entity> targets, Entity caster, int turn, float damage, List<Entity> allies)
     {
         foreach (Effect effect in caster.Effects)
         {
@@ -15,7 +16,8 @@ public class PurifyingWard : PassiveSkill
                 _debuffCount++;
             }
         }
-        int randomNumber = new Random().Next(0, caster.Effects.Count);
-        _debuffList[_debuffCount].Cleanse(caster);
+
+        int randomNumber = new Random().Next(0, caster.Effects.Count); //Used ?
+        _debuffList[_debuffCount].RemoveEffect();
     }
 }

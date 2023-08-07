@@ -174,7 +174,7 @@ namespace CheatCodeNS
         }
         private void ActivatePurify()
         {
-            _battleInstance.Player.Cleanse();
+            _battleInstance.Player.RemoveAlterations();
             Debug.LogWarning("Purify activated");
             ActiveCheatCodes.Remove(CheatCode.Purify);
             Debug.Log(_battleInstance.Player.Effects.Count);

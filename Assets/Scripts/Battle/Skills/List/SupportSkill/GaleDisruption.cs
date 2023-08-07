@@ -6,7 +6,7 @@ public class GaleDisruption : BuffSkill
     {
         foreach (var target in targets)
         {
-            target.Strip();
+            target.RemoveBuffs();
         }
         Cooldown = Data.MaxCooldown;
         return 0;

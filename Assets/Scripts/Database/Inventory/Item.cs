@@ -85,6 +85,12 @@ public class Item
         JsonType = Type.ToString();
         JsonWeapon = WeaponType.ToString();
         JsonAttribute = Attribute.ToString();
+
+        Rarity = null;
+        Category = null;
+        Type = null;
+        WeaponType = null;
+        Attribute = null;
     }
 
     public virtual void Deserialize()
