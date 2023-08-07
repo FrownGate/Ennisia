@@ -11,7 +11,6 @@ public class EndlessTower : MonoBehaviour
     private ScrollRect _scrollRect;
     private List<GameObject> _buttons;
     private List<MissionSO> _etSO;
-    private int _nextFloor;
 
     void Awake()
     {
@@ -36,7 +35,6 @@ public class EndlessTower : MonoBehaviour
             
             if (_etSO[buttonIndex].State == MissionState.Unlocked)
             {
-                // set the position of the slider to the first unlocked floor
                 _scrollRect.verticalNormalizedPosition = 1 - (float)buttonIndex / (_etSO.Count - 1);
             }
 
