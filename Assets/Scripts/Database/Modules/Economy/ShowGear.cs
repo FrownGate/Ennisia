@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class ShowGear : ItemHUD
 {
-    private List<Item> _items;
+    private Item _item;
     private void Awake()
     {
         Gear gear = new Gear();
-        _items = PlayFabManager.Instance.GetItems(gear);
-        Init(_items[0]);
+        _item = PlayFabManager.Instance.GetItems(gear)[0];
+        Init(_item);
     }
 }

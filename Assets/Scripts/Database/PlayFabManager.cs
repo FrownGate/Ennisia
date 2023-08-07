@@ -260,9 +260,12 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
 
-        // Debug.LogWarning("TESTING ACTIVATED");
+        //Debug.LogWarning("TESTING ACTIVATED");
+        
+        //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Epic,300));
+        
+        
         // List<Gear> _gearList = new List<Gear>();
         // _gearList.Add(new Gear(GearType.Helmet, Rarity.Epic, null));
         // foreach (var gear in _gearList)

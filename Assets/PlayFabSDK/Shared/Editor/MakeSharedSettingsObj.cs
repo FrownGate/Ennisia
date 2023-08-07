@@ -10,7 +10,8 @@ public class MakeScriptableObject
     {
         PlayFabSharedSettings asset = ScriptableObject.CreateInstance<PlayFabSharedSettings>();
 
-        AssetDatabase.CreateAsset(asset, "Assets/PlayFabSdk/Shared/Public/Resources/PlayFabSharedSettings.asset"); // TODO: Path should not be hard coded
+        AssetDatabase.CreateAsset(asset,
+            "Assets/PlayFabSdk/Shared/Public/Resources/PlayFabSharedSettings.asset"); // TODO: Path should not be hard coded
         AssetDatabase.SaveAssets();
 
         EditorUtility.FocusProjectWindow();

@@ -7,11 +7,9 @@ namespace Mirror.Examples.AdditiveScenes
     [AddComponentMenu("")]
     public class AdditiveNetworkManager : NetworkManager
     {
-        [Tooltip("Trigger Zone Prefab")]
-        public GameObject Zone;
+        [Tooltip("Trigger Zone Prefab")] public GameObject Zone;
 
-        [Scene]
-        [Tooltip("Add all sub-scenes to this list")]
+        [Scene] [Tooltip("Add all sub-scenes to this list")]
         public string[] subScenes;
 
         public static new AdditiveNetworkManager singleton { get; private set; }
@@ -61,7 +59,8 @@ namespace Mirror.Examples.AdditiveScenes
             Debug.Log("Unloading Subscenes");
 
             foreach (string sceneName in subScenes)
-                if (SceneManager.GetSceneByName(sceneName).IsValid() || SceneManager.GetSceneByPath(sceneName).IsValid())
+                if (SceneManager.GetSceneByName(sceneName).IsValid() ||
+                    SceneManager.GetSceneByPath(sceneName).IsValid())
                     yield return SceneManager.UnloadSceneAsync(sceneName);
 
             yield return Resources.UnloadUnusedAssets();

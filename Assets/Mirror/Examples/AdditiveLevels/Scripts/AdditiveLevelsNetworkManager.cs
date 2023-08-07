@@ -20,13 +20,10 @@ namespace Mirror.Examples.AdditiveLevels
         }
 
         [Header("Additive Scenes - First is start scene")]
-
         [Scene, Tooltip("Add additive scenes here.\nFirst entry will be players' start scene")]
         public string[] additiveScenes;
 
-        [Header("Fade Control - See child FadeCanvas")]
-
-        [Tooltip("Reference to FadeInOut script on child FadeCanvas")]
+        [Header("Fade Control - See child FadeCanvas")] [Tooltip("Reference to FadeInOut script on child FadeCanvas")]
         public FadeInOut fadeInOut;
 
         // This is set true after server loads all subscene instances
@@ -174,7 +171,8 @@ namespace Mirror.Examples.AdditiveLevels
                 yield return null;
 
             // Send Scene msg to client telling it to load the first additive scene
-            conn.Send(new SceneMessage { sceneName = additiveScenes[0], sceneOperation = SceneOperation.LoadAdditive, customHandling = true });
+            conn.Send(new SceneMessage
+                { sceneName = additiveScenes[0], sceneOperation = SceneOperation.LoadAdditive, customHandling = true });
 
             // We have Network Start Positions in first additive scene...pick one
             Transform start = GetStartPosition();

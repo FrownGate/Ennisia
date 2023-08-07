@@ -8,48 +8,37 @@ namespace Mirror.Examples.NetworkRoom
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : NetworkBehaviour
     {
-        public enum GroundState : byte { Jumping, Falling, Grounded }
+        public enum GroundState : byte
+        {
+            Jumping,
+            Falling,
+            Grounded
+        }
 
-        [Header("Avatar Components")]
-        public CharacterController characterController;
+        [Header("Avatar Components")] public CharacterController characterController;
 
-        [Header("Movement")]
-        [Range(1, 20)]
-        public float moveSpeedMultiplier = 8f;
+        [Header("Movement")] [Range(1, 20)] public float moveSpeedMultiplier = 8f;
 
-        [Header("Turning")]
-        [Range(1f, 200f)]
-        public float maxTurnSpeed = 100f;
-        [Range(.5f, 5f)]
-        public float turnDelta = 3f;
+        [Header("Turning")] [Range(1f, 200f)] public float maxTurnSpeed = 100f;
+        [Range(.5f, 5f)] public float turnDelta = 3f;
 
-        [Header("Jumping")]
-        [Range(0.1f, 1f)]
-        public float initialJumpSpeed = 0.2f;
-        [Range(1f, 10f)]
-        public float maxJumpSpeed = 5f;
-        [Range(0.1f, 1f)]
-        public float jumpDelta = 0.2f;
+        [Header("Jumping")] [Range(0.1f, 1f)] public float initialJumpSpeed = 0.2f;
+        [Range(1f, 10f)] public float maxJumpSpeed = 5f;
+        [Range(0.1f, 1f)] public float jumpDelta = 0.2f;
 
         [Header("Diagnostics - Do Not Modify")]
         public GroundState groundState = GroundState.Grounded;
 
-        [Range(-1f, 1f)]
-        public float horizontal;
-        [Range(-1f, 1f)]
-        public float vertical;
+        [Range(-1f, 1f)] public float horizontal;
+        [Range(-1f, 1f)] public float vertical;
 
-        [Range(-200f, 200f)]
-        public float turnSpeed;
+        [Range(-200f, 200f)] public float turnSpeed;
 
-        [Range(-10f, 10f)]
-        public float jumpSpeed;
+        [Range(-10f, 10f)] public float jumpSpeed;
 
-        [Range(-1.5f, 1.5f)]
-        public float animVelocity;
+        [Range(-1.5f, 1.5f)] public float animVelocity;
 
-        [Range(-1.5f, 1.5f)]
-        public float animRotation;
+        [Range(-1.5f, 1.5f)] public float animRotation;
 
         public Vector3Int velocity;
         public Vector3 direction;

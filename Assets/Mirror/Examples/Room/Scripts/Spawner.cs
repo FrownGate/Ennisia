@@ -15,7 +15,8 @@ namespace Mirror.Examples.NetworkRoom
         internal static void SpawnReward()
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-19, 20), 1, Random.Range(-19, 20));
-            NetworkServer.Spawn(Object.Instantiate(NetworkRoomManagerExt.singleton.rewardPrefab, spawnPosition, Quaternion.identity));
+            NetworkServer.Spawn(Object.Instantiate(NetworkRoomManagerExt.singleton.rewardPrefab, spawnPosition,
+                Quaternion.identity));
         }
     }
 }

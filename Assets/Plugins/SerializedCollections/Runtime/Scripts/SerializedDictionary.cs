@@ -9,8 +9,9 @@ namespace AYellowpaper.SerializedCollections
     public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
         [SerializeField]
-        internal List<SerializedKeyValuePair<TKey, TValue>> _serializedList = new List<SerializedKeyValuePair<TKey, TValue>>();
-        
+        internal List<SerializedKeyValuePair<TKey, TValue>> _serializedList =
+            new List<SerializedKeyValuePair<TKey, TValue>>();
+
 #if UNITY_EDITOR
         internal IKeyable LookupTable
         {
@@ -24,10 +25,13 @@ namespace AYellowpaper.SerializedCollections
 
         private DictionaryLookupTable<TKey, TValue> _lookupTable;
 #endif
-        
-        public SerializedDictionary() : base() {}
 
-        public SerializedDictionary(SerializedDictionary<TKey, TValue> serializedDictionary) : base(serializedDictionary)
+        public SerializedDictionary() : base()
+        {
+        }
+
+        public SerializedDictionary(SerializedDictionary<TKey, TValue> serializedDictionary) : base(
+            serializedDictionary)
         {
 #if UNITY_EDITOR
             foreach (var kvp in serializedDictionary._serializedList)
@@ -56,10 +60,19 @@ namespace AYellowpaper.SerializedCollections
         {
             SyncDictionaryToBackingField_Editor();
         }
-        public SerializedDictionary(IEqualityComparer<TKey> comparer) : base(comparer) { }
-        public SerializedDictionary(int capacity) : base(capacity) { }
-        public SerializedDictionary(int capacity, IEqualityComparer<TKey> comparer) : base(capacity, comparer) { }
-        
+
+        public SerializedDictionary(IEqualityComparer<TKey> comparer) : base(comparer)
+        {
+        }
+
+        public SerializedDictionary(int capacity) : base(capacity)
+        {
+        }
+
+        public SerializedDictionary(int capacity, IEqualityComparer<TKey> comparer) : base(capacity, comparer)
+        {
+        }
+
         [Conditional("UNITY_EDITOR")]
         private void SyncDictionaryToBackingField_Editor()
         {
@@ -84,12 +97,12 @@ namespace AYellowpaper.SerializedCollections
                     kvp.Value = value;
                     _serializedList[i] = kvp;
                 }
-                
+
                 if (!anyEntryWasFound)
                     _serializedList.Add(new SerializedKeyValuePair<TKey, TValue>(key, value));
             }
         }
-        
+
         public new void Add(TKey key, TValue value)
         {
             base.Add(key, value);

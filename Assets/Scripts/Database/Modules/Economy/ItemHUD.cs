@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class ItemHUD : MonoBehaviour
 {
     public static event Action<Item, GearType?> OnSelectionOpened;
+    public static event Action<Item, Item> OnItemChange;
 
     private Image _sprite;
     [SerializeField] private TextMeshProUGUI _textValue;
@@ -55,9 +56,26 @@ public class ItemHUD : MonoBehaviour
     private void ChangeItem(Item item)
     {
         Debug.Log($"{item.Name} is now selected.");
+        OnItemChange?.Invoke(item,Item);
         Init(item);
         ItemSelection.OnItemSelected -= ChangeItem;
         ShowItems.OnPopupLoaded -= SetSelection;
         ScenesManager.Instance.UnloadPopup(_selectionScene);
+    }
+
+    private void UpdateHUD(Item item)
+    {
+        Init(item);
+        Debug.Log("HUD updated !");
+    }
+
+    private void OnEnable()
+    {
+        UpgradeGear.OnUpgraded += UpdateHUD;
+    }
+
+    private void OnDisable()
+    {
+        UpgradeGear.OnUpgraded -= UpdateHUD;
     }
 }
