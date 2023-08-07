@@ -1062,7 +1062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7740135011233363191, guid: cc70b53ee996d8645baa013239e2375b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7740135011233363191, guid: cc70b53ee996d8645baa013239e2375b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1070,11 +1070,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8419072795699127479, guid: cc70b53ee996d8645baa013239e2375b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8419072795699127479, guid: cc70b53ee996d8645baa013239e2375b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8419072795699127479, guid: cc70b53ee996d8645baa013239e2375b, type: 3}
       propertyPath: m_AnchorMin.y
@@ -1268,7 +1268,7 @@ PrefabInstance:
     - target: {fileID: 939890508129021452, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: _showpet
       value: 
-      objectReference: {fileID: 2069642242}
+      objectReference: {fileID: 0}
     - target: {fileID: 983199800616799780, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_Size.x
       value: 406.767
@@ -1303,11 +1303,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3074740271300163568, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.462
       objectReference: {fileID: 0}
     - target: {fileID: 3074740271300163568, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3408099836403074622, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1526,11 +1526,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1504290394}
   m_SourcePrefab: {fileID: 100100000, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
---- !u!1 &1504290391 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 227769478935616379, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
-  m_PrefabInstance: {fileID: 1504290390}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1504290392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3732013889888990723, guid: e2ec3978cbb45f045bb2ccc493eab9c2, type: 3}
@@ -1553,7 +1548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720685d5558e4d54da8ff6995491fb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showPets: {fileID: 2069642242}
+  _showPets: {fileID: 0}
 --- !u!224 &1517986419 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6337190801150936780, guid: cc70b53ee996d8645baa013239e2375b, type: 3}
@@ -1926,30 +1921,15 @@ GameObject:
   - component: {fileID: 2069642245}
   - component: {fileID: 2069642244}
   - component: {fileID: 2069642243}
-  - component: {fileID: 2069642242}
   - component: {fileID: 2069642247}
+  - component: {fileID: 2069642248}
   m_Layer: 5
   m_Name: 'Mobile Canvas '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2069642242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069642241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d731bc09dcbb74b40a0df0aa81a8d812, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefabPetButton: {fileID: 3117518621713359327, guid: 2b81cf64cb748ff4ba3ea620b12230d0, type: 3}
-  _petPopup: {fileID: 1504290391}
-  _buttonsContainer: {fileID: 1145437732}
+  m_IsActive: 0
 --- !u!114 &2069642243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2050,6 +2030,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f0b64e5d4007e4880b42b60cf84d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2069642248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069642241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d3e4f287f278546825e20a86ed527a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefabPetButton: {fileID: 0}
+  _petPopup: {fileID: 0}
+  _buttonsContainer: {fileID: 0}
 --- !u!1001 &765015940213007818
 PrefabInstance:
   m_ObjectHideFlags: 0
