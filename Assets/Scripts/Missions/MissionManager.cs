@@ -81,9 +81,9 @@ public class MissionManager : MonoBehaviour
 
     public void NextWave()
     {
-        Debug.LogWarning($"Next wave - {Instance.CurrentMission}");
+        Debug.LogWarning($"Next wave - {CurrentMission}");
 
-        if (Instance.CurrentMission != null && CurrentWave < Instance.CurrentMission.Waves.Count)
+        if (CurrentMission != null && CurrentWave < CurrentMission.Waves.Count)
         {
             CurrentWave++;
             OnNextWave?.Invoke();
@@ -141,6 +141,7 @@ public class MissionManager : MonoBehaviour
             {
                 nextMission.State = MissionState.Unlocked;
                 Debug.Log("Next mission unlocked: " + nextMission.Id);
+                Debug.LogWarning(nextMission.State);
                 //TODO -> Update database
             }
         }
