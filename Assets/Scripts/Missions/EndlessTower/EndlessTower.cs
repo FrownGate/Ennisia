@@ -9,6 +9,7 @@ public class EndlessTower : MonoBehaviour
     private DynamicButtonGenerator _generator;
     private List<GameObject> _buttons;
     private List<MissionSO> _etSO;
+    private int _currentFloor;
 
     void Awake()
     {
@@ -31,5 +32,7 @@ public class EndlessTower : MonoBehaviour
             floor.FloorSO = _etSO[buttonIndex];
             buttonIndex++;
         }
+
+        _currentFloor = MissionManager.Instance.CurrentMission.Name == "Endless Tower" ? MissionManager.Instance.CurrentMission.NumInChapter : 0;
     }
 }
