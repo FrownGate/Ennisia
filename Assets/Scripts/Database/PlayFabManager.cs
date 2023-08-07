@@ -262,7 +262,7 @@ public class PlayFabManager : MonoBehaviour
     {
         //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
 
-        // Debug.LogWarning("TESTING ACTIVATED");
+        Debug.LogWarning("TESTING ACTIVATED");
         //
         // Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
         // Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);

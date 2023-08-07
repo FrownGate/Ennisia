@@ -223,6 +223,9 @@ public class CSVToSO : EditorWindow
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
+        scriptableObject.Icon = Resources.Load<Sprite>($"Textures/Supports/{scriptableObject.Name}");
+
+        
         // Create the folder if it doesn't exist
         var folderPath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}";
         if (!Directory.Exists(folderPath))
@@ -259,6 +262,9 @@ public class CSVToSO : EditorWindow
         scriptableObject.SkillType = skillType;
         scriptableObject.IsPassive = type.Contains("Passif");
 
+        scriptableObject.Icon = Resources.Load<Sprite>($"Textures/Skills/{scriptableObject.Name}");
+        
+        
         // Create the folder if it doesn't exist
         var folderPath = $"Assets/Resources/SO/Skills/{skillType}";
         if (!Directory.Exists(folderPath))
@@ -584,7 +590,8 @@ public class CSVToSO : EditorWindow
         AssignSkillData(rowData, "Skill 3", ref scriptableObject.SkillsData);
         AssignSkillData(rowData, "Passif", ref scriptableObject.SkillsData);
 
-
+        scriptableObject.EnemySprite = Resources.Load<Sprite>($"Textures/Enemies/{scriptableObject.Name}");
+        
         var savePath = $"Assets/Resources/SO/Enemies/{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }

@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scene: Battle
+  _params: 
 --- !u!1 &6127540248445566730
 GameObject:
   m_ObjectHideFlags: 0

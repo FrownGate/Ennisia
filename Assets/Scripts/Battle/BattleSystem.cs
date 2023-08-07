@@ -128,7 +128,7 @@ public class BattleSystem : StateMachine
             SupportHUD hud = Instantiate(_supportSlot, _canvas.transform).GetComponent<SupportHUD>();
 
             if (support != null) support.Init();
-            hud.Init(support == null ? null : support.Skills, position);
+            hud.Init(support,  position);
             position -= 190; //TODO -> dynamic position
 
             if (support == null) continue;

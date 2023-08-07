@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
     public static event Action<Skill> OnSkillSelected;
-
-    [SerializeField] protected SpriteRenderer _sprite;
-    [SerializeField] protected CanvasGroup _canvas;
+    
+    [SerializeField] protected Image _image;
     [SerializeField] protected Sprite _blankSprite;
+    [SerializeField] protected CanvasGroup _canvas;
+    
 
     protected Skill _skill;
     protected bool _isActive;
