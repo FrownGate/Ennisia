@@ -35,17 +35,11 @@ public partial class GenderSelection : MonoBehaviour
     
     public void OnHover()
     {
-        image.color = new Color(0.16f, 0.49f, 1f); //DELETE IT FOR BUILD 
-        transform.localScale = initialScale * 1.2f;
-        _borderImage.transform.localScale = borderImageinitialScale * 1.1f;
         _borderImage.SetActive(true);
     }
 
     public void OnHoverExit()
     {
-        image.color = Color.white;
-        transform.localScale = initialScale;
-        _borderImage.transform.localScale = borderImageinitialScale;
         _borderImage.SetActive(false);
     }
 }
