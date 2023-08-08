@@ -8,31 +8,40 @@ public class ShowCell : MonoBehaviour
 {
     [SerializeField] private GameObject _itemHUD;
     [SerializeField] private GridLayoutGroup _layout;
-    private List<Item> _itemSelected;
+    public List<Item> ItemSelected;
+    public static ShowCell Instance { get; private set; }
+
     private void Awake()
     {
-        int j = 0;
-        int k = 0;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+
         for (int i = 0; i < 10; i++)
         {
-            GameObject gearCell = Instantiate(_itemHUD, _layout.transform);
-            if (gearCell != null)
-            {
-                gearCell.transform.localPosition = new Vector3(200 + j, 200 + k);
-            }
-            j += 50;
-            if (i % 5 == 0) k += 100;
+            Instantiate(_itemHUD, _layout.transform);
         }
     }
-    
-    private void UpdateSelectedItems(Item itemToAdd, item itemToRemove)
+
+    private void UpdateSelectedItems(Item itemToAdd, Item itemToRemove)
     {
-        _itemSelected.Remove(itemToRemove);
-        _itemSelected.Add(itemToAdd);
+        ItemSelected.Remove(itemToRemove);
+        ItemSelected.Add(itemToAdd);
     }
 
     private void OnEnable()
     {
-        ItemSelection.OnItemSelected += UpdateSelectedItems();
+        ItemHUD.OnItemChange += UpdateSelectedItems;
+    }
+
+    private void OnDisable()
+    {
+        ItemHUD.OnItemChange -= UpdateSelectedItems;
     }
 }

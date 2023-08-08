@@ -36,7 +36,7 @@ public class ItemHUD : MonoBehaviour
         if (Gear == null) return;
         Debug.Log(Gear.Attribute + " " + Gear.Value);
         _textValue.text = Gear.Attribute + " " + Gear.Value;
-        _textLvl.text = "Level : " + Gear.Level;
+        _textLvl.text = Gear.Level.ToString();
     }
 
     private void OnMouseUpAsButton()

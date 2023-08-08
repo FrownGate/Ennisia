@@ -261,18 +261,32 @@ public class PlayFabManager : MonoBehaviour
     public void Testing()
     {
 
-        //Debug.LogWarning("TESTING ACTIVATED");
+        Debug.LogWarning("TESTING ACTIVATED");
         
-        //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Epic,300));
+        //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
         
+        // AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
         
-        // List<Gear> _gearList = new List<Gear>();
-        // _gearList.Add(new Gear(GearType.Helmet, Rarity.Epic, null));
-        // foreach (var gear in _gearList)
-        // {
-        //     Player.Equip(gear, false);
-        //     UpdateItem(gear);
-        // }
+         // List<Gear> _gearList = new List<Gear>
+         // {
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null)
+         // };
+         // foreach (var gear in _gearList)
+         // {
+         //     AddInventoryItem(gear);
+         //     //Player.Equip(gear, false);
+         //     UpdateItem(gear);
+         // }
 
          
         // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
