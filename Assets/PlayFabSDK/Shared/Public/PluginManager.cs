@@ -6,7 +6,8 @@ namespace PlayFab
 {
     public class PluginManager
     {
-        private ConcurrentDictionary<PluginContractKey, IPlayFabPlugin> plugins = new ConcurrentDictionary<PluginContractKey, IPlayFabPlugin>(new PluginContractKeyComparator());
+        private ConcurrentDictionary<PluginContractKey, IPlayFabPlugin> plugins =
+            new ConcurrentDictionary<PluginContractKey, IPlayFabPlugin>(new PluginContractKeyComparator());
 
         /// <summary>
         /// The singleton instance of plugin manager.

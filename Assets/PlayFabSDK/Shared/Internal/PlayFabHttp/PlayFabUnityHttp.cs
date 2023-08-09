@@ -14,30 +14,46 @@ namespace PlayFab.Internal
         private bool _isInitialized = false;
         private readonly int _pendingWwwMessages = 0;
 
-        public bool IsInitialized { get { return _isInitialized; } }
+        public bool IsInitialized
+        {
+            get { return _isInitialized; }
+        }
 
-        public void Initialize() { _isInitialized = true; }
+        public void Initialize()
+        {
+            _isInitialized = true;
+        }
 
-        public void Update() { }
+        public void Update()
+        {
+        }
 
-        public void OnDestroy() { }
+        public void OnDestroy()
+        {
+        }
 
         public void SimpleGetCall(string fullUrl, Action<byte[]> successCallback, Action<string> errorCallback)
         {
-            PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("get", fullUrl, null, successCallback, errorCallback));
+            PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("get", fullUrl, null, successCallback,
+                errorCallback));
         }
 
-        public void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        public void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback,
+            Action<string> errorCallback)
         {
-            PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("put", fullUrl, payload, successCallback, errorCallback));
+            PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("put", fullUrl, payload, successCallback,
+                errorCallback));
         }
 
-        public void SimplePostCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        public void SimplePostCall(string fullUrl, byte[] payload, Action<byte[]> successCallback,
+            Action<string> errorCallback)
         {
-            PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("post", fullUrl, payload, successCallback, errorCallback));
+            PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("post", fullUrl, payload, successCallback,
+                errorCallback));
         }
 
-        private static IEnumerator SimpleCallCoroutine(string method, string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        private static IEnumerator SimpleCallCoroutine(string method, string fullUrl, byte[] payload,
+            Action<byte[]> successCallback, Action<string> errorCallback)
         {
             if (payload == null)
             {
@@ -53,11 +69,12 @@ namespace PlayFab.Internal
                         errorCallback(www.error);
                     else
                         successCallback(www.downloadHandler.data);
-                };
+                }
+
+                ;
             }
             else
             {
-
                 UnityWebRequest request;
                 if (method == "put")
                 {
@@ -82,7 +99,8 @@ namespace PlayFab.Internal
 #endif
 
 #if UNITY_2020_1_OR_NEWER
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+                if (request.result == UnityWebRequest.Result.ConnectionError ||
+                    request.result == UnityWebRequest.Result.ProtocolError)
 #else
                 if (request.isNetworkError || request.isHttpError)
 #endif
@@ -163,6 +181,7 @@ namespace PlayFab.Internal
                     OnError("Unhandled error in PlayFabUnityHttp: " + e, reqContainer);
                 }
             }
+
             www.Dispose();
         }
 
@@ -191,11 +210,13 @@ namespace PlayFab.Internal
 
                     PlayFabHttp.instance.OnPlayFabApiResult(reqContainer);
 #if !DISABLE_PLAYFABCLIENT_API
-                    PlayFabDeviceUtil.OnPlayFabLogin(reqContainer.ApiResult, reqContainer.settings, reqContainer.instanceApi);
+                    PlayFabDeviceUtil.OnPlayFabLogin(reqContainer.ApiResult, reqContainer.settings,
+                        reqContainer.instanceApi);
 #endif
                     try
                     {
-                        PlayFabHttp.SendEvent(reqContainer.ApiEndpoint, reqContainer.ApiRequest, reqContainer.ApiResult, ApiProcessingEventType.Post);
+                        PlayFabHttp.SendEvent(reqContainer.ApiEndpoint, reqContainer.ApiRequest, reqContainer.ApiResult,
+                            ApiProcessingEventType.Post);
                     }
                     catch (Exception e)
                     {
@@ -215,7 +236,8 @@ namespace PlayFab.Internal
                 {
                     if (reqContainer.ErrorCallback != null)
                     {
-                        reqContainer.Error = PlayFabHttp.GeneratePlayFabError(reqContainer.ApiEndpoint, response, reqContainer.CustomData);
+                        reqContainer.Error = PlayFabHttp.GeneratePlayFabError(reqContainer.ApiEndpoint, response,
+                            reqContainer.CustomData);
                         PlayFabHttp.SendErrorEvent(reqContainer.ApiRequest, reqContainer.Error);
                         reqContainer.ErrorCallback(reqContainer.Error);
                     }
@@ -232,7 +254,8 @@ namespace PlayFab.Internal
             reqContainer.JsonResponse = error;
             if (reqContainer.ErrorCallback != null)
             {
-                reqContainer.Error = PlayFabHttp.GeneratePlayFabError(reqContainer.ApiEndpoint, reqContainer.JsonResponse, reqContainer.CustomData);
+                reqContainer.Error = PlayFabHttp.GeneratePlayFabError(reqContainer.ApiEndpoint,
+                    reqContainer.JsonResponse, reqContainer.CustomData);
                 PlayFabHttp.SendErrorEvent(reqContainer.ApiRequest, reqContainer.Error);
                 reqContainer.ErrorCallback(reqContainer.Error);
             }

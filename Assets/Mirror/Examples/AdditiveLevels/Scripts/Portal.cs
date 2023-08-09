@@ -63,7 +63,11 @@ namespace Mirror.Examples.AdditiveLevels
                 if (conn == null) yield break;
 
                 // Tell client to unload previous subscene. No custom handling for this.
-                conn.Send(new SceneMessage { sceneName = gameObject.scene.path, sceneOperation = SceneOperation.UnloadAdditive, customHandling = true });
+                conn.Send(new SceneMessage
+                {
+                    sceneName = gameObject.scene.path, sceneOperation = SceneOperation.UnloadAdditive,
+                    customHandling = true
+                });
 
                 yield return new WaitForSeconds(AdditiveLevelsNetworkManager.singleton.fadeInOut.GetDuration());
 
@@ -77,12 +81,16 @@ namespace Mirror.Examples.AdditiveLevels
                 SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByPath(destinationScene));
 
                 // Tell client to load the new subscene with custom handling (see NetworkManager::OnClientChangeScene).
-                conn.Send(new SceneMessage { sceneName = destinationScene, sceneOperation = SceneOperation.LoadAdditive, customHandling = true });
+                conn.Send(new SceneMessage
+                {
+                    sceneName = destinationScene, sceneOperation = SceneOperation.LoadAdditive, customHandling = true
+                });
 
                 NetworkServer.AddPlayerForConnection(conn, player);
 
                 // host client would have been disabled by OnTriggerEnter above
-                if (NetworkClient.localPlayer != null && NetworkClient.localPlayer.TryGetComponent(out PlayerController playerController))
+                if (NetworkClient.localPlayer != null &&
+                    NetworkClient.localPlayer.TryGetComponent(out PlayerController playerController))
                     playerController.enabled = true;
             }
         }

@@ -761,8 +761,8 @@ namespace PlayFab
             return GenerateErrorReport();
         }
 
-        [ThreadStatic]
-        private static StringBuilder _tempSb;
+        [ThreadStatic] private static StringBuilder _tempSb;
+
         /// <summary>
         /// This converts the PlayFabError into a human readable string describing the error.
         /// If error is not found, it will return the http code, status, and error
@@ -775,7 +775,9 @@ namespace PlayFab
             _tempSb.Length = 0;
             if (String.IsNullOrEmpty(ErrorMessage))
             {
-                _tempSb.Append(ApiEndpoint).Append(": ").Append("Http Code: ").Append(HttpCode.ToString()).Append("\nHttp Status: ").Append(HttpStatus).Append("\nError: ").Append(Error.ToString()).Append("\n");
+                _tempSb.Append(ApiEndpoint).Append(": ").Append("Http Code: ").Append(HttpCode.ToString())
+                    .Append("\nHttp Status: ").Append(HttpStatus).Append("\nError: ").Append(Error.ToString())
+                    .Append("\n");
             }
             else
             {
@@ -784,8 +786,8 @@ namespace PlayFab
 
             if (ErrorDetails != null)
                 foreach (var pair in ErrorDetails)
-                    foreach (var msg in pair.Value)
-                        _tempSb.Append("\n").Append(pair.Key).Append(": ").Append(msg);
+                foreach (var msg in pair.Value)
+                    _tempSb.Append("\n").Append(pair.Key).Append(": ").Append(msg);
             return _tempSb.ToString();
         }
     }
@@ -793,6 +795,7 @@ namespace PlayFab
     public class PlayFabException : Exception
     {
         public readonly PlayFabExceptionCode Code;
+
         public PlayFabException(PlayFabExceptionCode code, string message) : base(message)
         {
             Code = code;

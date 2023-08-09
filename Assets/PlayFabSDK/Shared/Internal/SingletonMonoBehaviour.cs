@@ -28,6 +28,7 @@ namespace PlayFab.Internal
                     var go = new GameObject(typeof(T).Name);
                     _instance = go.AddComponent<T>();
                 }
+
                 //initialize instance if necessary
                 if (!_instance.initialized)
                 {
@@ -37,7 +38,7 @@ namespace PlayFab.Internal
             }
         }
 
-        public virtual void Awake ()
+        public virtual void Awake()
         {
             if (Application.isPlaying)
             {
@@ -47,12 +48,14 @@ namespace PlayFab.Internal
             //check if instance already exists when reloading original scene
             if (_instance != null)
             {
-                DestroyImmediate (gameObject);
+                DestroyImmediate(gameObject);
             }
         }
 
         protected bool initialized;
 
-        protected virtual void Initialize() { }
+        protected virtual void Initialize()
+        {
+        }
     }
 }

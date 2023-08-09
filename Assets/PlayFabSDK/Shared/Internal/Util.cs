@@ -12,10 +12,15 @@ namespace PlayFab.Internal
 {
     public static class PlayFabUtil
     {
-        static PlayFabUtil() { }
+        static PlayFabUtil()
+        {
+        }
 
         private static string _localSettingsFileName = "playfab.local.settings.json";
-        public static readonly string[] _defaultDateTimeFormats = new string[]{ // All parseable ISO 8601 formats for DateTime.[Try]ParseExact - Lets us deserialize any legacy timestamps in one of these formats
+
+        public static readonly string[] _defaultDateTimeFormats = new string[]
+        {
+            // All parseable ISO 8601 formats for DateTime.[Try]ParseExact - Lets us deserialize any legacy timestamps in one of these formats
             // These are the standard format with ISO 8601 UTC markers (T/Z)
             "yyyy-MM-ddTHH:mm:ss.FFFFFFZ",
             "yyyy-MM-ddTHH:mm:ss.FFFFZ",
@@ -37,8 +42,13 @@ namespace PlayFab.Internal
             "yyyy-MM-dd HH:mm.ss.FF",
             "yyyy-MM-dd HH:mm.ss",
         };
+
         public const int DEFAULT_UTC_OUTPUT_INDEX = 2; // The default format everybody should use
-        public const int DEFAULT_LOCAL_OUTPUT_INDEX = 9; // The default format if you want to use local time (This doesn't have universal support in all PlayFab code)
+
+        public const int
+            DEFAULT_LOCAL_OUTPUT_INDEX =
+                9; // The default format if you want to use local time (This doesn't have universal support in all PlayFab code)
+
         public static DateTimeStyles DateTimeStyles = DateTimeStyles.RoundtripKind;
 
         public static string timeStamp
@@ -56,8 +66,8 @@ namespace PlayFab.Internal
             return args.Length > 0 ? string.Format(text, args) : text;
         }
 
-        [ThreadStatic]
-        private static StringBuilder _sb;
+        [ThreadStatic] private static StringBuilder _sb;
+
         /// <summary>
         /// A threadsafe way to block and load a text file
         ///
@@ -75,6 +85,7 @@ namespace PlayFab.Internal
             {
                 _sb = new StringBuilder();
             }
+
             _sb.Length = 0;
 
             using (var fs = new FileStream(filename, FileMode.Open))
@@ -150,6 +161,7 @@ namespace PlayFab.Internal
                     return string.Empty;
                 }
             }
+
             return string.Empty;
         }
 #endif

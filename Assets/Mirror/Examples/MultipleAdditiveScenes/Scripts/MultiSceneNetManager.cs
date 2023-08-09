@@ -8,15 +8,12 @@ namespace Mirror.Examples.MultipleAdditiveScenes
     [AddComponentMenu("")]
     public class MultiSceneNetManager : NetworkManager
     {
-        [Header("Spawner Setup")]
-        [Tooltip("Reward Prefab for the Spawner")]
+        [Header("Spawner Setup")] [Tooltip("Reward Prefab for the Spawner")]
         public GameObject rewardPrefab;
 
-        [Header("MultiScene Setup")]
-        public int instances = 3;
+        [Header("MultiScene Setup")] public int instances = 3;
 
-        [Scene]
-        public string gameScene;
+        [Scene] public string gameScene;
 
         // This is set true after server loads all subscene instances
         bool subscenesLoaded;
@@ -101,7 +98,9 @@ namespace Mirror.Examples.MultipleAdditiveScenes
         {
             for (int index = 1; index <= instances; index++)
             {
-                yield return SceneManager.LoadSceneAsync(gameScene, new LoadSceneParameters { loadSceneMode = LoadSceneMode.Additive, localPhysicsMode = LocalPhysicsMode.Physics3D });
+                yield return SceneManager.LoadSceneAsync(gameScene,
+                    new LoadSceneParameters
+                        { loadSceneMode = LoadSceneMode.Additive, localPhysicsMode = LocalPhysicsMode.Physics3D });
 
                 Scene newScene = SceneManager.GetSceneAt(index);
                 subScenes.Add(newScene);
@@ -116,7 +115,8 @@ namespace Mirror.Examples.MultipleAdditiveScenes
         /// </summary>
         public override void OnStopServer()
         {
-            NetworkServer.SendToAll(new SceneMessage { sceneName = gameScene, sceneOperation = SceneOperation.UnloadAdditive });
+            NetworkServer.SendToAll(new SceneMessage
+                { sceneName = gameScene, sceneOperation = SceneOperation.UnloadAdditive });
             StartCoroutine(ServerUnloadSubScenes());
             clientIndex = 0;
         }

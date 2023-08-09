@@ -81,7 +81,7 @@ namespace AYellowpaper.SerializedCollections
         public void AddKey(object key)
         {
             var entry = new SerializedKeyValuePair<TKey, TValue>();
-            entry.Key = (TKey) key;
+            entry.Key = (TKey)key;
             _dictionary._serializedList.Add(entry);
         }
     }
