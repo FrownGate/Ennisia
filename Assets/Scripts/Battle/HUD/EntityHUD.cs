@@ -12,6 +12,7 @@ public class EntityHUD : MonoBehaviour
     [SerializeField] private SpriteRenderer _sprite;
 
     private Entity _entity;
+    public EffectHUD EffectHUD { get; set; }
     private int _id;
 
     private void Update()
@@ -42,6 +43,7 @@ public class EntityHUD : MonoBehaviour
         }
 
         transform.localPosition = new Vector3(-495, 0, 0);
+        EffectHUD.Init(_entity);
     }
 
     private void OnMouseUpAsButton()
