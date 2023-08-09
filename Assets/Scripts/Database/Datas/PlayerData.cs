@@ -119,6 +119,7 @@ public class PlayerData
 
     public void Unequip(GearType type, bool update = true)
     {
+        Debug.Log("unequipped gear :" + type + "|id : " + (int)type);
         RemoveModifiers(type);
         EquippedGearsId[(int)type] = 0;
         EquippedGears[type] = null;

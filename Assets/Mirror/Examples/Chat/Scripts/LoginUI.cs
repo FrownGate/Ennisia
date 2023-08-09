@@ -5,8 +5,9 @@ namespace Mirror.Examples.Chat
 {
     public class LoginUI : MonoBehaviour
     {
-        [Header("UI Elements")]
-        [SerializeField] internal InputField usernameInput;
+        [Header("UI Elements")] [SerializeField]
+        internal InputField usernameInput;
+
         [SerializeField] internal Button hostButton;
         [SerializeField] internal Button clientButton;
         [SerializeField] internal Text errorText;

@@ -34,7 +34,10 @@ namespace PlayFab.Public
         private Thread _writeLogThread;
         private readonly object _threadLock = new object();
         private static readonly TimeSpan _threadKillTimeout = TimeSpan.FromSeconds(60);
-        private DateTime _threadKillTime = DateTime.UtcNow + _threadKillTimeout; // Kill the thread after 1 minute of inactivity
+
+        private DateTime
+            _threadKillTime = DateTime.UtcNow + _threadKillTimeout; // Kill the thread after 1 minute of inactivity
+
         private bool _isApplicationPlaying = true;
         private int _pendingLogsCount;
 
@@ -92,11 +95,13 @@ namespace PlayFab.Public
         /// BeginUploadLog is called at the begining of each burst
         /// </summary>
         protected abstract void BeginUploadLog();
+
         /// <summary>
         /// Logs are cached and written in bursts
         /// UploadLog is called for each cached log, between BeginUploadLog and EndUploadLog
         /// </summary>
         protected abstract void UploadLog(string message);
+
         /// <summary>
         /// Logs are cached and written in bursts
         /// EndUploadLog is called at the end of each burst
@@ -126,13 +131,15 @@ namespace PlayFab.Public
             }
             else if (type == LogType.Error || type == LogType.Exception)
             {
-                Sb.Append(type).Append(": ").Append(message).Append("\n").Append(stacktrace).Append(StackTraceUtility.ExtractStackTrace());
+                Sb.Append(type).Append(": ").Append(message).Append("\n").Append(stacktrace)
+                    .Append(StackTraceUtility.ExtractStackTrace());
                 message = Sb.ToString();
                 lock (LogMessageQueue)
                 {
                     LogMessageQueue.Enqueue(message);
                 }
             }
+
             ActivateThreadWorker();
         }
 
@@ -144,6 +151,7 @@ namespace PlayFab.Public
                 {
                     return;
                 }
+
                 _writeLogThread = new Thread(WriteLogThreadWorker);
                 _writeLogThread.Start();
             }
@@ -176,6 +184,7 @@ namespace PlayFab.Public
                     EndUploadLog();
 
                     #region Expire Thread.
+
                     // Check if we've been inactive
                     lock (_threadLock)
                     {
@@ -185,6 +194,7 @@ namespace PlayFab.Public
                             // Still active, reset the _threadKillTime
                             _threadKillTime = now + _threadKillTimeout;
                         }
+
                         // Kill the thread after 1 minute of inactivity
                         active = now <= _threadKillTime;
                         if (!active)
@@ -193,11 +203,11 @@ namespace PlayFab.Public
                         }
                         // This thread will be stopped, so null this now, inside lock (_threadLock)
                     }
+
                     #endregion
 
                     Thread.Sleep(LOG_CACHE_INTERVAL_MS);
                 } while (active);
-
             }
             catch (Exception e)
             {
@@ -252,6 +262,7 @@ namespace PlayFab.Public
         protected override void BeginUploadLog()
         {
         }
+
         /// <summary>
         /// Logs are cached and written in bursts
         /// UploadLog is called for each cached log, between BeginUploadLog and EndUploadLog
@@ -259,6 +270,7 @@ namespace PlayFab.Public
         protected override void UploadLog(string message)
         {
         }
+
         /// <summary>
         /// Logs are cached and written in bursts
         /// EndUploadLog is called at the end of each burst

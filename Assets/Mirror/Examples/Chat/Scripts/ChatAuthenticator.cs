@@ -15,8 +15,7 @@ namespace Mirror.Examples.Chat
         readonly HashSet<NetworkConnection> connectionsPendingDisconnect = new HashSet<NetworkConnection>();
         internal static readonly HashSet<string> playerNames = new HashSet<string>();
 
-        [Header("Client Username")]
-        public string playerName;
+        [Header("Client Username")] public string playerName;
 
         #region Messages
 

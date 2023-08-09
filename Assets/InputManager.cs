@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.S))
         {
-            ScenesManager.Instance.SetScene("StuffMenu");
+            ScenesManager.Instance.SetScene("Crafting");
         }
     }
 }

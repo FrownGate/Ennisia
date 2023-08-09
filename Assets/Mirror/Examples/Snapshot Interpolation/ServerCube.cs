@@ -5,29 +5,31 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
 {
     public class ServerCube : MonoBehaviour
     {
-        [Header("Components")]
-        public ClientCube client;
+        [Header("Components")] public ClientCube client;
 
-        [Header("Movement")]
-        public float distance = 10;
+        [Header("Movement")] public float distance = 10;
         public float speed = 3;
         Vector3 start;
 
-        [Header("Snapshot Interpolation")]
-        [Tooltip("Send N snapshots per second. Multiples of frame rate make sense.")]
-        public int sendRate = 30; // in Hz. easier to work with as int for EMA. easier to display '30' than '0.333333333'
+        [Header("Snapshot Interpolation")] [Tooltip("Send N snapshots per second. Multiples of frame rate make sense.")]
+        public int
+            sendRate = 30; // in Hz. easier to work with as int for EMA. easier to display '30' than '0.333333333'
+
         public float sendInterval => 1f / sendRate;
         float lastSendTime;
 
-        [Header("Latency Simulation")]
-        [Tooltip("Latency in seconds")]
+        [Header("Latency Simulation")] [Tooltip("Latency in seconds")]
         public float latency = 0.05f; // 50 ms
-        [Tooltip("Latency jitter, randomly added to latency.")]
-        [Range(0, 1)] public float jitter = 0.05f;
-        [Tooltip("Packet loss in %")]
-        [Range(0, 1)] public float loss = 0.1f;
+
+        [Tooltip("Latency jitter, randomly added to latency.")] [Range(0, 1)]
+        public float jitter = 0.05f;
+
+        [Tooltip("Packet loss in %")] [Range(0, 1)]
+        public float loss = 0.1f;
+
         [Tooltip("Scramble % of unreliable messages, just like over the real network. Mirror unreliable is unordered.")]
-        [Range(0, 1)] public float scramble = 0.1f;
+        [Range(0, 1)]
+        public float scramble = 0.1f;
 
         // random
         // UnityEngine.Random.value is [0, 1] with both upper and lower bounds inclusive

@@ -13,10 +13,13 @@ namespace PlayFab.Internal
     /// </summary>
     public class PlayFabHttp : SingletonMonoBehaviour<PlayFabHttp>
     {
-        private static List<CallRequestContainer> _apiCallQueue = new List<CallRequestContainer>(); // Starts initialized, and is nulled when it's flushed
+        private static List<CallRequestContainer>
+            _apiCallQueue = new List<CallRequestContainer>(); // Starts initialized, and is nulled when it's flushed
 
         public delegate void ApiProcessingEvent<in TEventArgs>(TEventArgs e);
+
         public delegate void ApiProcessErrorEvent(PlayFabRequestCommon request, PlayFabError error);
+
         public static event ApiProcessingEvent<ApiProcessingEventArgs> ApiProcessingEventHandler;
         public static event ApiProcessErrorEvent ApiProcessingErrorEventHandler;
         public static readonly Dictionary<string, string> GlobalHeaderInjection = new Dictionary<string, string>();
@@ -56,7 +59,8 @@ namespace PlayFab.Internal
         public static void InitializeHttp()
         {
             if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
-                throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "You must set PlayFabSettings.TitleId before making API Calls.");
+                throw new PlayFabException(PlayFabExceptionCode.TitleNotSet,
+                    "You must set PlayFabSettings.TitleId before making API Calls.");
             var transport = PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport);
             if (transport.IsInitialized)
                 return;
@@ -107,40 +111,51 @@ namespace PlayFab.Internal
         public static void SimpleGetCall(string fullUrl, Action<byte[]> successCallback, Action<string> errorCallback)
         {
             InitializeHttp();
-            PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport).SimpleGetCall(fullUrl, successCallback, errorCallback);
+            PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport)
+                .SimpleGetCall(fullUrl, successCallback, errorCallback);
         }
 
 
-        public static void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        public static void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback,
+            Action<string> errorCallback)
         {
             InitializeHttp();
-            PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport).SimplePutCall(fullUrl, payload, successCallback, errorCallback);
+            PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport)
+                .SimplePutCall(fullUrl, payload, successCallback, errorCallback);
         }
 
-        public static void SimplePostCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        public static void SimplePostCall(string fullUrl, byte[] payload, Action<byte[]> successCallback,
+            Action<string> errorCallback)
         {
             InitializeHttp();
-            PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport).SimplePostCall(fullUrl, payload, successCallback, errorCallback);
+            PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport)
+                .SimplePostCall(fullUrl, payload, successCallback, errorCallback);
         }
 
         protected internal static void MakeApiCall<TResult>(string apiEndpoint,
             PlayFabRequestCommon request, AuthType authType, Action<TResult> resultCallback,
-            Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null, PlayFabAuthenticationContext authenticationContext = null, PlayFabApiSettings apiSettings = null, IPlayFabInstanceApi instanceApi = null)
+            Action<PlayFabError> errorCallback, object customData = null,
+            Dictionary<string, string> extraHeaders = null, PlayFabAuthenticationContext authenticationContext = null,
+            PlayFabApiSettings apiSettings = null, IPlayFabInstanceApi instanceApi = null)
             where TResult : PlayFabResultCommon
         {
             apiSettings = apiSettings ?? PlayFabSettings.staticSettings;
             var fullUrl = apiSettings.GetFullUrl(apiEndpoint, apiSettings.RequestGetParams);
-            _MakeApiCall(apiEndpoint, fullUrl, request, authType, resultCallback, errorCallback, customData, extraHeaders, false, authenticationContext, apiSettings, instanceApi);
+            _MakeApiCall(apiEndpoint, fullUrl, request, authType, resultCallback, errorCallback, customData,
+                extraHeaders, false, authenticationContext, apiSettings, instanceApi);
         }
 
         protected internal static void MakeApiCallWithFullUri<TResult>(string fullUri,
             PlayFabRequestCommon request, AuthType authType, Action<TResult> resultCallback,
-            Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null, PlayFabAuthenticationContext authenticationContext = null, PlayFabApiSettings apiSettings = null, IPlayFabInstanceApi instanceApi = null)
+            Action<PlayFabError> errorCallback, object customData = null,
+            Dictionary<string, string> extraHeaders = null, PlayFabAuthenticationContext authenticationContext = null,
+            PlayFabApiSettings apiSettings = null, IPlayFabInstanceApi instanceApi = null)
             where TResult : PlayFabResultCommon
         {
             apiSettings = apiSettings ?? PlayFabSettings.staticSettings;
             // This will not be called if environment file does not exist or does not contain property the debugging URI
-            _MakeApiCall(null, fullUri, request, authType, resultCallback, errorCallback, customData, extraHeaders, false, authenticationContext, apiSettings, instanceApi);
+            _MakeApiCall(null, fullUri, request, authType, resultCallback, errorCallback, customData, extraHeaders,
+                false, authenticationContext, apiSettings, instanceApi);
         }
 
         /// <summary>
@@ -148,7 +163,9 @@ namespace PlayFab.Internal
         /// </summary>
         private static void _MakeApiCall<TResult>(string apiEndpoint, string fullUrl,
             PlayFabRequestCommon request, AuthType authType, Action<TResult> resultCallback,
-            Action<PlayFabError> errorCallback, object customData, Dictionary<string, string> extraHeaders, bool allowQueueing, PlayFabAuthenticationContext authenticationContext, PlayFabApiSettings apiSettings, IPlayFabInstanceApi instanceApi)
+            Action<PlayFabError> errorCallback, object customData, Dictionary<string, string> extraHeaders,
+            bool allowQueueing, PlayFabAuthenticationContext authenticationContext, PlayFabApiSettings apiSettings,
+            IPlayFabInstanceApi instanceApi)
             where TResult : PlayFabResultCommon
         {
             InitializeHttp();
@@ -165,7 +182,8 @@ namespace PlayFab.Internal
                 Payload = Encoding.UTF8.GetBytes(serializer.SerializeObject(request)),
                 ApiRequest = request,
                 ErrorCallback = errorCallback,
-                RequestHeaders = extraHeaders ?? new Dictionary<string, string>(), // Use any headers provided by the customer
+                RequestHeaders =
+                    extraHeaders ?? new Dictionary<string, string>(), // Use any headers provided by the customer
                 instanceApi = instanceApi
             };
             // Append any additional headers
@@ -180,14 +198,19 @@ namespace PlayFab.Internal
 
             // Add PlayFab Headers
             var transport = PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport);
-            reqContainer.RequestHeaders["X-ReportErrorAsSuccess"] = "true"; // Makes processing PlayFab errors a little easier
-            reqContainer.RequestHeaders["X-PlayFabSDK"] = PlayFabSettings.VersionString; // Tell PlayFab which SDK this is
+            reqContainer.RequestHeaders["X-ReportErrorAsSuccess"] =
+                "true"; // Makes processing PlayFab errors a little easier
+            reqContainer.RequestHeaders["X-PlayFabSDK"] =
+                PlayFabSettings.VersionString; // Tell PlayFab which SDK this is
             switch (authType)
             {
 #if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API || UNITY_EDITOR || ENABLE_PLAYFAB_SECRETKEY
                 case AuthType.DevSecretKey:
-                    if (apiSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
-                    reqContainer.RequestHeaders["X-SecretKey"] = apiSettings.DeveloperSecretKey; break;
+                    if (apiSettings.DeveloperSecretKey == null)
+                        throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet,
+                            "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+                    reqContainer.RequestHeaders["X-SecretKey"] = apiSettings.DeveloperSecretKey;
+                    break;
 #endif
 #if !DISABLE_PLAYFABCLIENT_API
                 case AuthType.LoginSession:
@@ -254,13 +277,17 @@ namespace PlayFab.Internal
             var regRes = result as ClientModels.RegisterPlayFabUserResult;
             if (logRes != null)
             {
-                logRes.AuthenticationContext = new PlayFabAuthenticationContext(logRes.SessionTicket, logRes.EntityToken.EntityToken, logRes.PlayFabId, logRes.EntityToken.Entity.Id, logRes.EntityToken.Entity.Type);
+                logRes.AuthenticationContext = new PlayFabAuthenticationContext(logRes.SessionTicket,
+                    logRes.EntityToken.EntityToken, logRes.PlayFabId, logRes.EntityToken.Entity.Id,
+                    logRes.EntityToken.Entity.Type);
                 if (reqContainer.context != null)
                     reqContainer.context.CopyFrom(logRes.AuthenticationContext);
             }
             else if (regRes != null)
             {
-                regRes.AuthenticationContext = new PlayFabAuthenticationContext(regRes.SessionTicket, regRes.EntityToken.EntityToken, regRes.PlayFabId, regRes.EntityToken.Entity.Id, regRes.EntityToken.Entity.Type);
+                regRes.AuthenticationContext = new PlayFabAuthenticationContext(regRes.SessionTicket,
+                    regRes.EntityToken.EntityToken, regRes.PlayFabId, regRes.EntityToken.Entity.Id,
+                    regRes.EntityToken.Entity.Type);
                 if (reqContainer.context != null)
                     reqContainer.context.CopyFrom(regRes.AuthenticationContext);
             }
@@ -367,6 +394,7 @@ namespace PlayFab.Internal
                         transport.MakeApiCall(eachRequest); // Flush the queue
                     _apiCallQueue = null; // null this after it's flushed
                 }
+
                 transport.Update();
             }
 
@@ -384,6 +412,7 @@ namespace PlayFab.Internal
         }
 
         #region Helpers
+
         protected internal static PlayFabError GeneratePlayFabError(string apiEndpoint, string json, object customData)
         {
             Dictionary<string, object> errorDict = null;
@@ -394,25 +423,42 @@ namespace PlayFab.Internal
                 // Deserialize the error
                 errorDict = serializer.DeserializeObject<Dictionary<string, object>>(json);
             }
-            catch (Exception) { /* Unusual, but shouldn't actually matter */ }
+            catch (Exception)
+            {
+                /* Unusual, but shouldn't actually matter */
+            }
+
             try
             {
                 object errorDetailsString;
                 if (errorDict != null && errorDict.TryGetValue("errorDetails", out errorDetailsString))
-                    errorDetails = serializer.DeserializeObject<Dictionary<string, List<string>>>(errorDetailsString.ToString());
+                    errorDetails =
+                        serializer.DeserializeObject<Dictionary<string, List<string>>>(errorDetailsString.ToString());
             }
-            catch (Exception) { /* Unusual, but shouldn't actually matter */ }
+            catch (Exception)
+            {
+                /* Unusual, but shouldn't actually matter */
+            }
 
             return new PlayFabError
             {
                 ApiEndpoint = apiEndpoint,
-                HttpCode = errorDict != null && errorDict.ContainsKey("code") ? Convert.ToInt32(errorDict["code"]) : 400,
-                HttpStatus = errorDict != null && errorDict.ContainsKey("status") ? (string)errorDict["status"] : "BadRequest",
-                Error = errorDict != null && errorDict.ContainsKey("errorCode") ? (PlayFabErrorCode)Convert.ToInt32(errorDict["errorCode"]) : PlayFabErrorCode.ServiceUnavailable,
-                ErrorMessage = errorDict != null && errorDict.ContainsKey("errorMessage") ? (string)errorDict["errorMessage"] : json,
+                HttpCode =
+                    errorDict != null && errorDict.ContainsKey("code") ? Convert.ToInt32(errorDict["code"]) : 400,
+                HttpStatus = errorDict != null && errorDict.ContainsKey("status")
+                    ? (string)errorDict["status"]
+                    : "BadRequest",
+                Error = errorDict != null && errorDict.ContainsKey("errorCode")
+                    ? (PlayFabErrorCode)Convert.ToInt32(errorDict["errorCode"])
+                    : PlayFabErrorCode.ServiceUnavailable,
+                ErrorMessage = errorDict != null && errorDict.ContainsKey("errorMessage")
+                    ? (string)errorDict["errorMessage"]
+                    : json,
                 ErrorDetails = errorDetails,
                 CustomData = customData,
-                RetryAfterSeconds = errorDict != null && errorDict.ContainsKey("retryAfterSeconds") ? Convert.ToUInt32(errorDict["retryAfterSeconds"]) : (uint?)null,
+                RetryAfterSeconds = errorDict != null && errorDict.ContainsKey("retryAfterSeconds")
+                    ? Convert.ToUInt32(errorDict["retryAfterSeconds"])
+                    : (uint?)null,
             };
         }
 
@@ -431,7 +477,8 @@ namespace PlayFab.Internal
             }
         }
 
-        protected internal static void SendEvent(string apiEndpoint, PlayFabRequestCommon request, PlayFabResultCommon result, ApiProcessingEventType eventType)
+        protected internal static void SendEvent(string apiEndpoint, PlayFabRequestCommon request,
+            PlayFabResultCommon result, ApiProcessingEventType eventType)
         {
             if (ApiProcessingEventHandler == null)
                 return;
@@ -466,7 +513,9 @@ namespace PlayFab.Internal
             }
         }
 #endif
+
         #endregion
+
         private readonly Queue<IEnumerator> _injectedCoroutines = new Queue<IEnumerator>();
         private readonly Queue<Action> _injectedAction = new Queue<Action>();
 
@@ -482,6 +531,7 @@ namespace PlayFab.Internal
     }
 
     #region Event Classes
+
     public enum ApiProcessingEventType
     {
         Pre,
@@ -500,5 +550,6 @@ namespace PlayFab.Internal
             return Request as TRequest;
         }
     }
+
     #endregion
 }

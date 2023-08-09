@@ -260,12 +260,35 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
 
-        // Debug.LogWarning("TESTING ACTIVATED");
-        //
-        // Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
+        Debug.LogWarning("TESTING ACTIVATED");
+        
+        //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
+        
+        // AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
+        
+         // List<Gear> _gearList = new List<Gear>
+         // {
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null)
+         // };
+         // foreach (var gear in _gearList)
+         // {
+         //     AddInventoryItem(gear);
+         //     //Player.Equip(gear, false);
+         //     UpdateItem(gear);
+         // }
+
+         
         // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
         // Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
         // Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
@@ -275,7 +298,7 @@ public class PlayFabManager : MonoBehaviour
         // {
         //     Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
         // }
-        //
+        
         // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
         // Debug.Log(support.Name);
         // Player.Equip(support, 0, false); //Slot 1

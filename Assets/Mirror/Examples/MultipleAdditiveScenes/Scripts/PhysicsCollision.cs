@@ -36,7 +36,8 @@ namespace Mirror.Examples.MultipleAdditiveScenes
                 direction = direction.normalized;
 
                 // push this away from player...a bit less force for host player
-                if (other.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId == NetworkConnection.LocalConnectionId)
+                if (other.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId ==
+                    NetworkConnection.LocalConnectionId)
                     rigidbody3D.AddForce(direction * force * .5f);
                 else
                     rigidbody3D.AddForce(direction * force);

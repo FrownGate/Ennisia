@@ -5,8 +5,7 @@ namespace Mirror.Examples.Benchmark
     [AddComponentMenu("")]
     public class BenchmarkNetworkManager : NetworkManager
     {
-        [Header("Spawns")]
-        public GameObject spawnPrefab;
+        [Header("Spawns")] public GameObject spawnPrefab;
         public int spawnAmount = 5000;
         public float interleave = 1;
 

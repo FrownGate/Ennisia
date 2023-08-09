@@ -8,17 +8,15 @@ namespace Mirror.Examples.CCU
 
         // automated movement.
         // player may switch to manual movement any time
-        [Header("Automated Movement")]
-        public bool autoMove = true;
-        public float autoSpeed           = 2;
+        [Header("Automated Movement")] public bool autoMove = true;
+        public float autoSpeed = 2;
         public float movementProbability = 0.5f;
-        public float movementDistance    = 20;
-        bool         moving;
-        Vector3      start;
-        Vector3      destination;
+        public float movementDistance = 20;
+        bool moving;
+        Vector3 start;
+        Vector3 destination;
 
-        [Header("Manual Movement")]
-        public float manualSpeed = 10;
+        [Header("Manual Movement")] public float manualSpeed = 10;
 
         // cache .transform for benchmark demo.
         // Component.get_transform shows in profiler otherwise.
