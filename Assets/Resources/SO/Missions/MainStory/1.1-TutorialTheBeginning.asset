@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 1
   Name: 'Tutorial : The Beginning'
   Type: 0
-  State: 3
+  State: 0
   EnergyCost: 5
   Unlocked: 1
   Waves:
@@ -44,4 +44,5 @@ MonoBehaviour:
     - Key: 1
       Value: 100
   RewardData: []
-  Experience: 100
+  Experience: 10
+  MissionBackground: {fileID: 21300000, guid: ffdecfe877fcc8c488a81984d71236d9, type: 3}

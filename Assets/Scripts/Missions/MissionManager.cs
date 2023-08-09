@@ -27,7 +27,7 @@ public class MissionManager : MonoBehaviour
     public static event Action<MissionSO> OnMissionComplete;
 
     public ChapterSO CurrentChapter { get; private set; }
-    public MissionSO CurrentMission { get; private set; }
+    public MissionSO CurrentMission;
     public int CurrentWave { get; private set; }
 
     private readonly Dictionary<MissionType, MissionSO[]> _missionLists = new();
@@ -69,6 +69,7 @@ public class MissionManager : MonoBehaviour
         CurrentWave = 1;
         DisplayMissionNarrative(CurrentMission);
         OnMissionStart?.Invoke(CurrentMission);
+        CurrentMission.State = MissionState.InProgress;
     }
 
     public bool IsUnlocked()
@@ -140,6 +141,7 @@ public class MissionManager : MonoBehaviour
             {
                 nextMission.State = MissionState.Unlocked;
                 Debug.Log("Next mission unlocked: " + nextMission.Id);
+                Debug.LogWarning(nextMission.State);
                 //TODO -> Update database
             }
         }
