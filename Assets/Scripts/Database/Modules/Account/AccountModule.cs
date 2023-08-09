@@ -72,6 +72,18 @@ public class AccountModule : Module
         _manager.InvokeOnLocalDatasChecked(username);
     }
 
+    private void CreateAccountData(string email, string password)
+    {
+        //Create binary file with user datas
+        _authData = new()
+        {
+            Email = email,
+            Password = password
+        };
+    }
+    #endregion
+
+    #region Login
     public void Login()
     {
         //Use these line instead of AnonymousLogin to test PlayFab Login with no local save
@@ -87,19 +99,7 @@ public class AccountModule : Module
         Login(_authData.Email, _authData.Password);
     }
 
-    private void CreateAccountData(string email, string password)
-    {
-        //Create binary file with user datas
-        _authData = new()
-        {
-            Email = email,
-            Password = password
-        };
-    }
-    #endregion
-
-    #region Login
-    private void Login(string email, string password)
+    public void Login(string email, string password)
     {
         _manager.StartRequest($"Starting login to {email}...");
 
@@ -127,6 +127,7 @@ public class AccountModule : Module
 
     private void OnLoginRequestSuccess(LoginResult result)
     {
+        _manager.InvokeOnBigLoadingStart();
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
         Debug.Log(_manager.Entity.Id);
