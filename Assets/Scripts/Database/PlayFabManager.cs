@@ -261,7 +261,7 @@ public class PlayFabManager : MonoBehaviour
     public void Testing()
     {
 
-        Debug.LogWarning("TESTING ACTIVATED");
+        //Debug.LogWarning("TESTING ACTIVATED");
         
         //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
         
