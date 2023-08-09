@@ -13,9 +13,11 @@ using System.Collections.Generic;
 public class AccountModule : Module
 {
     public static event Action OnInitComplete;
+
     public Data Data { get; private set; } //Account, Player and Inventory datas
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
+    private bool _hasLocalSave;
     public bool IsLoggedIn { get; private set; }
     public bool IsFirstLogin { get; private set; }
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
@@ -32,23 +34,23 @@ public class AccountModule : Module
         _binaryFormatter = new();
         _path = Application.persistentDataPath + "/ennisia.save";
         Debug.Log($"Your save path is : {_path}");
+        _hasLocalSave = false;
         IsLoggedIn = false;
     }
 
-    public void StartLogin()
-    {
-        // if (HasLocalSave()) return;
-        // AnonymousLogin();
-
-        //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
-        Login("testing@gmail.com", "testing");
-    }
-
     #region Local Save
-    private bool HasLocalSave()
+    public void CheckLocalDatas()
     {
+        Debug.Log("Checking local datas...");
+        string username = null;
+
         //Check if binary file with user datas exists
-        if (!File.Exists(_path)) return false;
+        if (!File.Exists(_path))
+        {
+            Debug.Log("No local datas found.");
+            _manager.InvokeOnLocalDatasChecked(username);
+            return;
+        }
 
         try
         {
@@ -57,15 +59,32 @@ public class AccountModule : Module
                 _authData = (AuthData)_binaryFormatter.Deserialize(file);
             }
 
-            Debug.Log("Loading local save...");
-            Login(_authData.Email, _authData.Password);
-            return true;
+            Debug.Log("Local datas found !");
+            _hasLocalSave = true;
+            username = CreateUsername(_authData.Email);
         }
         catch
         {
+            Debug.LogError("Error with local datas");
             File.Delete(_path);
-            return false;
         }
+
+        _manager.InvokeOnLocalDatasChecked(username);
+    }
+
+    public void Login()
+    {
+        //Use these line instead of AnonymousLogin to test PlayFab Login with no local save
+        //Login("testing@gmail.com", "testing");
+        //return;
+
+        if (!_hasLocalSave)
+        {
+            AnonymousLogin();
+            return;
+        }
+
+        Login(_authData.Email, _authData.Password);
     }
 
     private void CreateAccountData(string email, string password)
@@ -82,7 +101,7 @@ public class AccountModule : Module
     #region Login
     private void Login(string email, string password)
     {
-        _manager.StartRequest();
+        _manager.StartRequest($"Starting login to {email}...");
 
         if (_authData == null) CreateAccountData(email, password);
 
@@ -96,7 +115,7 @@ public class AccountModule : Module
 
     private void AnonymousLogin()
     {
-        _manager.StartRequest("No local save found -> anonymous login...");
+        _manager.StartRequest("Starting anonymous login...");
 
         PlayFabClientAPI.LoginWithCustomID(new()
         {
