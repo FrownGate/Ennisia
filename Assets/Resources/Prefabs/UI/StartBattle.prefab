@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4284726704495545575}
   - component: {fileID: 6785158479206706427}
   - component: {fileID: 3661501371173984441}
+  - component: {fileID: 4747656846064970577}
   m_Layer: 5
   m_Name: StartBattle
   m_TagString: Untagged
@@ -137,6 +138,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scene: Battle
+  _params: 
+--- !u!114 &4747656846064970577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679442198184944353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89187cae02cabfc45a8ca7940b07c0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6127540248445566730
 GameObject:
   m_ObjectHideFlags: 0
