@@ -57,6 +57,8 @@ public class PlayerData
 
     public void UpdateEquippedSupports()
     {
+        Debug.LogWarning("PLAYER SUPPORTS");
+
         for (int i = 0; i < EquippedSupportsPath.Length; i++)
         {
             EquippedSupports[i] = EquippedSupportsPath[i] != null ? Resources.Load<SupportCharacterSO>(EquippedSupportsPath[i]) : null;
