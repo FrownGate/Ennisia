@@ -36,19 +36,44 @@ public class Data
 
     public void UpdateEquippedGears()
     {
+        int index = 0;
+        int[] gears = new int[Player.EquippedGearsId.Length];
+        bool changes = false;
+
+        Debug.LogWarning("PLAYER EQUIPMENTS");
+
         foreach (var id in Player.EquippedGearsId)
         {
             if (id != 0)
             {
-                // FIXME: Gear gear = Inventory.GetGearById(id);
-                Gear gear = null;
+                Debug.Log(id);
+                Gear gear = Inventory.GetGearById(id);
 
-                if (gear == null) continue;
+                if (gear == null)
+                {
+                    changes = true;
+                    gears[index] = 0;
+                    continue;
+                }
+
                 Player.Equip(gear, false);
                 Debug.Log($"Equipped {gear.Type} = {gear.Name}");
             }
+            else
+            {
+                Debug.Log($"No equipped gear on {(GearType)index} slot.");
+            }
+
+            index++;
         }
 
+        if (changes)
+        {
+            Player.EquippedGearsId = gears;
+            PlayFabManager.Instance.UpdateData();
+        }
+
+        Debug.LogWarning("PLAYER STATS");
         foreach (var stat in Player.Stats) Debug.Log($"{stat.Key} : {stat.Value.Value}");
     }
 }
