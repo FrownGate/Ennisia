@@ -17,7 +17,6 @@ public class AccountModule : Module
     public Data Data { get; private set; } //Account, Player and Inventory datas
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
-    private bool _hasLocalSave;
     public bool IsLoggedIn { get; private set; }
     public bool IsFirstLogin { get; private set; }
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
@@ -28,13 +27,16 @@ public class AccountModule : Module
 
     //TODO -> event when file upload is finished, prevent double uploads
 
+    //Testing account
+    //Email : testing@gmail.com
+    //Password : testing
+
     private void Awake()
     {
         _authData = new();
         _binaryFormatter = new();
         _path = Application.persistentDataPath + "/ennisia.save";
         Debug.Log($"Your save path is : {_path}");
-        _hasLocalSave = false;
         IsLoggedIn = false;
     }
 
@@ -60,7 +62,6 @@ public class AccountModule : Module
             }
 
             Debug.Log("Local datas found !");
-            _hasLocalSave = true;
             username = CreateUsername(_authData.Email);
         }
         catch
@@ -74,6 +75,7 @@ public class AccountModule : Module
 
     private void CreateAccountData(string email, string password)
     {
+        Debug.Log("Creating account data...");
         //Create binary file with user datas
         _authData = new()
         {
@@ -86,11 +88,7 @@ public class AccountModule : Module
     #region Login
     public void Login()
     {
-        //Use these line instead of AnonymousLogin to test PlayFab Login with no local save
-        //Login("testing@gmail.com", "testing");
-        //return;
-
-        if (!_hasLocalSave)
+        if (!HasAuthData())
         {
             AnonymousLogin();
             return;
@@ -103,7 +101,7 @@ public class AccountModule : Module
     {
         _manager.StartRequest($"Starting login to {email}...");
 
-        if (_authData == null) CreateAccountData(email, password);
+        CreateAccountData(email, password);
 
         PlayFabClientAPI.LoginWithEmailAddress(new()
         {
@@ -156,7 +154,7 @@ public class AccountModule : Module
 
     private bool HasAuthData()
     {
-        return !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Email);
+        return !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
     }
 
     private void OnLoginRequestError(PlayFabError error)
