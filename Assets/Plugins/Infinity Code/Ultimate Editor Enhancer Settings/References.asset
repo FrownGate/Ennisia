@@ -357,18 +357,32 @@ MonoBehaviour:
   _sceneHistory:
   - name: ItemsToSelectPopup
     path: Assets/Scenes/Inventory/ItemsToSelectPopup.unity
+  - name: Crafting
+    path: Assets/Scenes/Dev/Crafting.unity
   - name: Forge
     path: Assets/Scenes/Forge.unity
-  - name: Battle
-    path: Assets/Scenes/Battle.unity
+  - name: SettingsPopup
+    path: Assets/Scenes/SettingsPopup.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: Loading_Big
+    path: Assets/Scenes/Loading_Big.unity
   - name: TitleScreen
     path: Assets/Scenes/TitleScreen.unity
   - name: Loading_Mini
     path: Assets/Scenes/Loading_Mini.unity
+  - name: ProfilePopup
+    path: Assets/Scenes/ProfilePopup.unity
+  - name: Inventory
+    path: Assets/Scenes/Inventory/Inventory.unity
+  - name: Quests
+    path: Assets/Scenes/Quests.unity
+  - name: Raids&Dungeons
+    path: Assets/Scenes/Missions/Raids&Dungeons.unity
+  - name: Battle
+    path: Assets/Scenes/Battle.unity
   - name: MailPopup
     path: Assets/Scenes/MailPopup.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
   - name: StuffMenu
     path: Assets/Scenes/Inventory/StuffMenu.unity
   - name: InventoryPopup
@@ -377,10 +391,6 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/GearSelectionPopup.unity
   - name: MenuPopup
     path: Assets/Scenes/MenuPopup.unity
-  - name: SettingsPopup
-    path: Assets/Scenes/SettingsPopup.unity
-  - name: Loading_Big
-    path: Assets/Scenes/Loading_Big.unity
   - name: MainStory
     path: Assets/Scenes/Missions/MainStory.unity
   _notes: []

@@ -68,13 +68,15 @@ namespace Mirror
             {
                 title = new GUIContent("Network Information");
             }
+
             return title;
         }
 
         public override bool HasPreviewGUI()
         {
             // need to check if target is null to stop MissingReferenceException
-            return target != null && target is GameObject gameObject && gameObject.GetComponent<NetworkIdentity>() != null;
+            return target != null && target is GameObject gameObject &&
+                   gameObject.GetComponent<NetworkIdentity>() != null;
         }
 
         public override void OnPreviewGUI(Rect r, GUIStyle background)
@@ -114,7 +116,6 @@ namespace Mirror
             Y = DrawObservers(identity, initialX, Y);
 
             _ = DrawOwner(identity, initialX, Y);
-
         }
 
         float DrawNetworkIdentityInfo(NetworkIdentity identity, float initialX, float Y)
@@ -161,7 +162,8 @@ namespace Mirror
                     continue;
                 }
 
-                GUI.Label(behaviourRect, info.name, info.behaviour.enabled ? styles.componentName : styles.disabledName);
+                GUI.Label(behaviourRect, info.name,
+                    info.behaviour.enabled ? styles.componentName : styles.disabledName);
                 behaviourRect.y += behaviourRect.height;
                 Y = behaviourRect.y;
             }
@@ -196,9 +198,11 @@ namespace Mirror
             if (identity.connectionToClient != null)
             {
                 Rect ownerRect = new Rect(initialX, Y + 10, 400, 20);
-                GUI.Label(ownerRect, new GUIContent($"Client Authority: {identity.connectionToClient}"), styles.labelStyle);
+                GUI.Label(ownerRect, new GUIContent($"Client Authority: {identity.connectionToClient}"),
+                    styles.labelStyle);
                 Y += ownerRect.height;
             }
+
             return Y;
         }
 
@@ -213,11 +217,13 @@ namespace Mirror
                 {
                     maxLabelSize.x = labelSize.x;
                 }
+
                 if (maxLabelSize.y < labelSize.y)
                 {
                     maxLabelSize.y = labelSize.y;
                 }
             }
+
             return maxLabelSize;
         }
 
@@ -231,11 +237,13 @@ namespace Mirror
                 {
                     maxLabelSize.x = labelSize.x;
                 }
+
                 if (maxLabelSize.y < labelSize.y)
                 {
                     maxLabelSize.y = labelSize.y;
                 }
             }
+
             return maxLabelSize;
         }
 
@@ -255,6 +263,7 @@ namespace Mirror
                 infos.Add(GetBoolean("Is Owned", identity.isOwned));
                 infos.Add(GetBoolean("Is Local Player", identity.isLocalPlayer));
             }
+
             return infos;
         }
 
@@ -271,6 +280,7 @@ namespace Mirror
                     behaviour = behaviour
                 });
             }
+
             return behaviourInfos;
         }
 
@@ -281,6 +291,7 @@ namespace Mirror
             {
                 assetId = "<object has no prefab>";
             }
+
             return GetString("Asset ID", assetId);
         }
 

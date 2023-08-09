@@ -13,8 +13,7 @@ namespace Mirror.Examples.Basic
         // Players List to manage playerNumber
         static readonly List<Player> playersList = new List<Player>();
 
-        [Header("Player UI")]
-        public GameObject playerUIPrefab;
+        [Header("Player UI")] public GameObject playerUIPrefab;
 
         GameObject playerUIObject;
         PlayerUI playerUI = null;
@@ -22,7 +21,6 @@ namespace Mirror.Examples.Basic
         #region SyncVars
 
         [Header("SyncVars")]
-
         /// <summary>
         /// This is appended to the player name text, e.g. "Player 01"
         /// </summary>
