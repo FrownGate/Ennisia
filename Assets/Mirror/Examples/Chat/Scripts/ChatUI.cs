@@ -7,8 +7,9 @@ namespace Mirror.Examples.Chat
 {
     public class ChatUI : NetworkBehaviour
     {
-        [Header("UI Elements")]
-        [SerializeField] Text chatHistory;
+        [Header("UI Elements")] [SerializeField]
+        Text chatHistory;
+
         [SerializeField] Scrollbar scrollbar;
         [SerializeField] InputField chatMessage;
         [SerializeField] Button sendButton;
@@ -17,7 +18,8 @@ namespace Mirror.Examples.Chat
         internal static string localPlayerName;
 
         // Server-only cross-reference of connections to player names
-        internal static readonly Dictionary<NetworkConnectionToClient, string> connNames = new Dictionary<NetworkConnectionToClient, string>();
+        internal static readonly Dictionary<NetworkConnectionToClient, string> connNames =
+            new Dictionary<NetworkConnectionToClient, string>();
 
         public override void OnStartServer()
         {
@@ -42,9 +44,9 @@ namespace Mirror.Examples.Chat
         [ClientRpc]
         void RpcReceive(string playerName, string message)
         {
-            string prettyMessage = playerName == localPlayerName ?
-                $"<color=red>{playerName}:</color> {message}" :
-                $"<color=blue>{playerName}:</color> {message}";
+            string prettyMessage = playerName == localPlayerName
+                ? $"<color=red>{playerName}:</color> {message}"
+                : $"<color=blue>{playerName}:</color> {message}";
             AppendMessage(prettyMessage);
         }
 
@@ -82,7 +84,8 @@ namespace Mirror.Examples.Chat
         // Called by UI element MessageField.OnEndEdit
         public void OnEndEdit(string input)
         {
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetButtonDown("Submit"))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) ||
+                Input.GetButtonDown("Submit"))
                 SendMessage();
         }
 

@@ -17,11 +17,15 @@ namespace Mirror
                     // try to load it from the build settings for legacy compatibility
                     sceneObject = GetBuildSettingsSceneObject(property.stringValue);
                 }
+
                 if (sceneObject == null && !string.IsNullOrWhiteSpace(property.stringValue))
                 {
-                    Debug.LogError($"Could not find scene {property.stringValue} in {property.propertyPath}, assign the proper scenes in your NetworkManager");
+                    Debug.LogError(
+                        $"Could not find scene {property.stringValue} in {property.propertyPath}, assign the proper scenes in your NetworkManager");
                 }
-                SceneAsset scene = (SceneAsset)EditorGUI.ObjectField(position, label, sceneObject, typeof(SceneAsset), true);
+
+                SceneAsset scene =
+                    (SceneAsset)EditorGUI.ObjectField(position, label, sceneObject, typeof(SceneAsset), true);
 
                 property.stringValue = AssetDatabase.GetAssetPath(scene);
             }
@@ -36,11 +40,12 @@ namespace Mirror
             foreach (EditorBuildSettingsScene buildScene in EditorBuildSettings.scenes)
             {
                 SceneAsset sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(buildScene.path);
-                if (sceneAsset!= null && sceneAsset.name == sceneName)
+                if (sceneAsset != null && sceneAsset.name == sceneName)
                 {
                     return sceneAsset;
                 }
             }
+
             return null;
         }
     }

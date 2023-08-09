@@ -14,11 +14,9 @@ public class PlayerGender : MonoBehaviour
         {
             case 1:
                 characterImage.sprite = _female;
-                Debug.LogWarning("Female");
                 break;
             case 2:
                 characterImage.sprite = _male;
-                Debug.LogWarning("Male");
                 break;
         }
     }
