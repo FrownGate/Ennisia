@@ -155,6 +155,7 @@ public class MissionManager : MonoBehaviour
             {
                 nextMission.State = MissionState.Unlocked;
                 Debug.Log("Next mission unlocked: " + nextMission.Id);
+                Debug.LogWarning(nextMission.State);
                 //TODO -> Update database
             }
         }
