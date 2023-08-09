@@ -21,7 +21,7 @@ public class ShowWhenLocalDatasChecked : MonoBehaviour
         gameObject.SetActive(true);
 
         _startText.text = !string.IsNullOrEmpty(username) ?
-            $"Local data found. Click anywhere to login to {PlayFabManager.Instance.Data.Account.Name}."
+            $"Local data found. Click anywhere to login to {username}."
             : "No local data found. Click anywhere to create a new account.";
     }
 }
