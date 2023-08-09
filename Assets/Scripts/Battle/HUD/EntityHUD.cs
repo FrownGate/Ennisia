@@ -10,10 +10,15 @@ public class EntityHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Slider _hpBar;
     [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private EffectHUD EffectHUD;
 
     private Entity _entity;
-    public EffectHUD EffectHUD { get; set; }
     private int _id;
+
+    private void Start()
+    {
+        EffectHUD.Init(_entity);
+    }
 
     private void Update()
     {
@@ -43,7 +48,7 @@ public class EntityHUD : MonoBehaviour
         }
 
         transform.localPosition = new Vector3(-495, 0, 0);
-        EffectHUD.Init(_entity);
+        
     }
 
     private void OnMouseUpAsButton()
