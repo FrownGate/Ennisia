@@ -37,6 +37,7 @@ public class ShowStoryAct : MonoBehaviour
         GameObject buttonObj = Instantiate(ButtonPrefab, transform);
         buttonObj.name = "upcomming";
         Button buttonComponent = buttonObj.GetComponent<Button>();
+        buttonComponent.interactable = false;
         TextMeshProUGUI buttonText = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = "Coming Soon";
     }

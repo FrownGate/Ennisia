@@ -355,10 +355,24 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-  - name: Raids&Dungeons
-    path: Assets/Scenes/Missions/Raids&Dungeons.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
+  - name: Loading_Mini
+    path: Assets/Scenes/Loading_Mini.unity
+  - name: EventPopup
+    path: Assets/Scenes/EventPopup.unity
+  - name: MailPopup
+    path: Assets/Scenes/MailPopup.unity
+  - name: StoryChapter
+    path: Assets/Scenes/Missions/StoryChapter.unity
+  - name: MainStory
+    path: Assets/Scenes/Missions/MainStory.unity
+  - name: Expedition
+    path: Assets/Scenes/Missions/Expedition.unity
   - name: Battle
     path: Assets/Scenes/Battle.unity
+  - name: Raids&Dungeons
+    path: Assets/Scenes/Missions/Raids&Dungeons.unity
   - name: EndlessTower
     path: Assets/Scenes/Missions/EndlessTower.unity
   - name: TitleScreen
@@ -367,12 +381,6 @@ MonoBehaviour:
     path: Assets/Scenes/Inventory/ItemsToSelectPopup.unity
   - name: Forge
     path: Assets/Scenes/Forge.unity
-  - name: Loading_Mini
-    path: Assets/Scenes/Loading_Mini.unity
-  - name: MailPopup
-    path: Assets/Scenes/MailPopup.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
   - name: StuffMenu
     path: Assets/Scenes/Inventory/StuffMenu.unity
   - name: InventoryPopup
@@ -385,6 +393,4 @@ MonoBehaviour:
     path: Assets/Scenes/SettingsPopup.unity
   - name: Loading_Big
     path: Assets/Scenes/Loading_Big.unity
-  - name: MainStory
-    path: Assets/Scenes/Missions/MainStory.unity
   _notes: []
