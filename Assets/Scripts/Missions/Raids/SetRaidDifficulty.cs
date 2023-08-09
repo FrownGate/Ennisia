@@ -7,5 +7,6 @@ public class SetRaidDifficulty : MonoBehaviour
     private void OnMouseDown()
     {
         MissionManager.Instance.SetMission(RaidDiff);
+        MissionManager.Instance.StartMission();
     }
 }
