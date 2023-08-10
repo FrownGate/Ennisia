@@ -7,6 +7,7 @@ public class PetSO : ScriptableObject
     public string Name;
     public string Rarity;
     public string Lore;
+    public int BonusAmount;
     public Sprite Icon;
     public int Level;
 }

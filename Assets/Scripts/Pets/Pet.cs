@@ -8,29 +8,29 @@ public abstract class Pet
 
     private PetSO _data;
     public string _name; //will be private
+    public int BonusAmount; //will be private
     private Sprite _icon;
-    private bool _obtained;
+    public bool Obatined;
 
     public Pet()
     {
         _data = Resources.Load<PetSO>("SO/Pets/" + GetType().Name);
         _name = _data.name;
         _icon = _data.Icon;
+        BonusAmount = _data.BonusAmount;
         Debug.Log($"Loaded {_name} datas !");
 
         //TODO -> set obtained, level and actual xp with database
-        _obtained = false;
+        Obatined = false;
         AffinityLevel = 0;
         ToGetXp = 100;
-
-        if (_obtained) Init();
     }
 
     public virtual void Init() { }
 
     public virtual void GetPet(Player player)
     {
-        _obtained = true;
+        Obatined = true;
         Init();
     }
 
