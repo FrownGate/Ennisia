@@ -29,7 +29,9 @@ namespace PlayFab.Internal
         /// </summary>
         public static void SkipCertificateValidation()
         {
-            var rcvc = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications); //(sender, cert, chain, ssl) => true
+            var rcvc =
+                new System.Net.Security.RemoteCertificateValidationCallback(
+                    AcceptAllCertifications); //(sender, cert, chain, ssl) => true
             ServicePointManager.ServerCertificateValidationCallback = rcvc;
             certValidationSet = true;
         }
@@ -59,7 +61,10 @@ namespace PlayFab.Internal
         private static Thread _requestQueueThread;
         private static readonly object _ThreadLock = new object();
         private static readonly TimeSpan ThreadKillTimeout = TimeSpan.FromSeconds(60);
-        private static DateTime _threadKillTime = DateTime.UtcNow + ThreadKillTimeout; // Kill the thread after 1 minute of inactivity
+
+        private static DateTime
+            _threadKillTime = DateTime.UtcNow + ThreadKillTimeout; // Kill the thread after 1 minute of inactivity
+
         private static bool _isApplicationPlaying;
         private static int _activeCallCount;
 
@@ -67,7 +72,10 @@ namespace PlayFab.Internal
 
         private bool _isInitialized = false;
 
-        public bool IsInitialized { get { return _isInitialized; } }
+        public bool IsInitialized
+        {
+            get { return _isInitialized; }
+        }
 
         public void Initialize()
         {
@@ -84,10 +92,12 @@ namespace PlayFab.Internal
             {
                 ResultQueueTransferThread.Clear();
             }
+
             lock (ActiveRequests)
             {
                 ActiveRequests.Clear();
             }
+
             lock (_ThreadLock)
             {
                 _requestQueueThread = null;
@@ -102,15 +112,20 @@ namespace PlayFab.Internal
 
             if (!certValidationSet)
             {
-                Debug.LogWarning("PlayFab API calls will likely fail because you have not set up a HttpWebRequest certificate validation mechanism");
-                Debug.LogWarning("Please set a validation callback into PlayFab.Internal.PlayFabWebRequest.CustomCertValidationHook, or set PlayFab.Internal.PlayFabWebRequest.SkipCertificateValidation()");
+                Debug.LogWarning(
+                    "PlayFab API calls will likely fail because you have not set up a HttpWebRequest certificate validation mechanism");
+                Debug.LogWarning(
+                    "Please set a validation callback into PlayFab.Internal.PlayFabWebRequest.CustomCertValidationHook, or set PlayFab.Internal.PlayFabWebRequest.SkipCertificateValidation()");
             }
         }
 
         /// <summary>
         /// This disables certificate validation, if it's been activated by a customer via SkipCertificateValidation()
         /// </summary>
-        private static bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        private static bool AcceptAllCertifications(object sender,
+            System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+            System.Security.Cryptography.X509Certificates.X509Chain chain,
+            System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }
@@ -122,22 +137,27 @@ namespace PlayFab.Internal
             newThread.Start();
         }
 
-        public void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        public void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback,
+            Action<string> errorCallback)
         {
             // This needs to be improved to use a decent thread-pool, but it can be improved invisibly later
-            var newThread = new Thread(() => SimpleHttpsWorker("PUT", fullUrl, payload, successCallback, errorCallback));
+            var newThread =
+                new Thread(() => SimpleHttpsWorker("PUT", fullUrl, payload, successCallback, errorCallback));
             newThread.Start();
         }
 
-        public void SimplePostCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        public void SimplePostCall(string fullUrl, byte[] payload, Action<byte[]> successCallback,
+            Action<string> errorCallback)
         {
             // This needs to be improved to use a decent thread-pool, but it can be improved invisibly later
-            var newThread = new Thread(() => SimpleHttpsWorker("POST", fullUrl, payload, successCallback, errorCallback));
+            var newThread =
+                new Thread(() => SimpleHttpsWorker("POST", fullUrl, payload, successCallback, errorCallback));
             newThread.Start();
         }
 
 
-        private void SimpleHttpsWorker(string httpMethod, string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
+        private void SimpleHttpsWorker(string httpMethod, string fullUrl, byte[] payload,
+            Action<byte[]> successCallback, Action<string> errorCallback)
         {
             // This should also use a pooled HttpWebRequest object, but that too can be improved invisibly later
             var httpRequest = (HttpWebRequest)WebRequest.Create(fullUrl);
@@ -169,6 +189,7 @@ namespace PlayFab.Internal
                         responseStream.Read(output, 0, output.Length);
                     }
                 }
+
                 successCallback(output);
             }
             catch (WebException webException)
@@ -214,6 +235,7 @@ namespace PlayFab.Internal
                 {
                     return;
                 }
+
                 _requestQueueThread = new Thread(WorkerThreadMainLoop);
                 _requestQueueThread.Start();
             }
@@ -242,21 +264,28 @@ namespace PlayFab.Internal
                     }
 
                     var activeCalls = localActiveRequests.Count;
-                    for (var i = activeCalls - 1; i >= 0; i--) // We must iterate backwards, because we remove at index i in some cases
+                    for (var i = activeCalls - 1;
+                         i >= 0;
+                         i--) // We must iterate backwards, because we remove at index i in some cases
                     {
                         switch (localActiveRequests[i].HttpState)
                         {
                             case HttpRequestState.Error:
-                                localActiveRequests.RemoveAt(i); break;
+                                localActiveRequests.RemoveAt(i);
+                                break;
                             case HttpRequestState.Idle:
-                                Post(localActiveRequests[i]); break;
+                                Post(localActiveRequests[i]);
+                                break;
                             case HttpRequestState.Sent:
-                                if (!localActiveRequests[i].CalledGetResponse) { // Else we'll GetResponse try again next tick
+                                if (!localActiveRequests[i].CalledGetResponse)
+                                {
+                                    // Else we'll GetResponse try again next tick
                                     localActiveRequests[i].HttpRequest.GetResponseAsync();
                                     localActiveRequests[i].CalledGetResponse = true;
                                 }
                                 else if (localActiveRequests[i].HttpRequest.HaveResponse)
                                     ProcessHttpResponse(localActiveRequests[i]);
+
                                 break;
                             case HttpRequestState.Received:
                                 ProcessJsonResponse(localActiveRequests[i]);
@@ -266,6 +295,7 @@ namespace PlayFab.Internal
                     }
 
                     #region Expire Thread.
+
                     // Check if we've been inactive
                     lock (_ThreadLock)
                     {
@@ -275,6 +305,7 @@ namespace PlayFab.Internal
                             // Still active, reset the _threadKillTime
                             _threadKillTime = now + ThreadKillTimeout;
                         }
+
                         // Kill the thread after 1 minute of inactivity
                         active = now <= _threadKillTime;
                         if (!active)
@@ -283,11 +314,11 @@ namespace PlayFab.Internal
                         }
                         // This thread will be stopped, so null this now, inside lock (_threadLock)
                     }
+
                     #endregion
 
                     Thread.Sleep(1);
                 } while (active);
-
             }
             catch (Exception e)
             {
@@ -331,7 +362,8 @@ namespace PlayFab.Internal
             }
             catch (WebException e)
             {
-                reqContainer.JsonResponse = ResponseToString(e.Response) ?? e.Status + ": WebException making http request to: " + reqContainer.FullUrl;
+                reqContainer.JsonResponse = ResponseToString(e.Response) ??
+                                            e.Status + ": WebException making http request to: " + reqContainer.FullUrl;
                 var enhancedError = new WebException(reqContainer.JsonResponse, e);
                 Debug.LogException(enhancedError);
                 QueueRequestError(reqContainer);
@@ -387,7 +419,8 @@ namespace PlayFab.Internal
         /// </summary>
         private static void QueueRequestError(CallRequestContainer reqContainer)
         {
-            reqContainer.Error = PlayFabHttp.GeneratePlayFabError(reqContainer.ApiEndpoint, reqContainer.JsonResponse, reqContainer.CustomData); // Decode the server-json error
+            reqContainer.Error = PlayFabHttp.GeneratePlayFabError(reqContainer.ApiEndpoint, reqContainer.JsonResponse,
+                reqContainer.CustomData); // Decode the server-json error
             reqContainer.HttpState = HttpRequestState.Error;
             lock (ResultQueueTransferThread)
             {
@@ -424,7 +457,7 @@ namespace PlayFab.Internal
                 reqContainer.ApiResult.Request = reqContainer.ApiRequest;
                 reqContainer.ApiResult.CustomData = reqContainer.CustomData;
 
-                if(_isApplicationPlaying)
+                if (_isApplicationPlaying)
                 {
                     PlayFabHttp.instance.OnPlayFabApiResult(reqContainer);
                 }
@@ -432,7 +465,11 @@ namespace PlayFab.Internal
 #if !DISABLE_PLAYFABCLIENT_API
                 lock (ResultQueueTransferThread)
                 {
-                    ResultQueueTransferThread.Enqueue(() => { PlayFabDeviceUtil.OnPlayFabLogin(reqContainer.ApiResult, reqContainer.settings, reqContainer.instanceApi); });
+                    ResultQueueTransferThread.Enqueue(() =>
+                    {
+                        PlayFabDeviceUtil.OnPlayFabLogin(reqContainer.ApiResult, reqContainer.settings,
+                            reqContainer.instanceApi);
+                    });
                 }
 #endif
                 lock (ResultQueueTransferThread)
@@ -447,12 +484,14 @@ namespace PlayFab.Internal
 #endif
                         try
                         {
-                            PlayFabHttp.SendEvent(reqContainer.ApiEndpoint, reqContainer.ApiRequest, reqContainer.ApiResult, ApiProcessingEventType.Post);
+                            PlayFabHttp.SendEvent(reqContainer.ApiEndpoint, reqContainer.ApiRequest,
+                                reqContainer.ApiResult, ApiProcessingEventType.Post);
                             reqContainer.InvokeSuccessCallback();
                         }
                         catch (Exception e)
                         {
-                            Debug.LogException(e); // Log the user's callback exception back to them without halting PlayFabHttp
+                            Debug.LogException(
+                                e); // Log the user's callback exception back to them without halting PlayFabHttp
                         }
                     });
                 }

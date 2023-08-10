@@ -8,8 +8,7 @@ namespace Mirror.Examples.MultipleMatch
     {
         Guid matchId;
 
-        [Header("GUI Elements")]
-        public Image image;
+        [Header("GUI Elements")] public Image image;
         public Toggle toggleButton;
         public Text matchName;
         public Text playerCount;

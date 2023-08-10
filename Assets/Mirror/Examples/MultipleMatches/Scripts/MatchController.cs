@@ -9,14 +9,15 @@ namespace Mirror.Examples.MultipleMatch
     [RequireComponent(typeof(NetworkMatch))]
     public class MatchController : NetworkBehaviour
     {
-        internal readonly SyncDictionary<NetworkIdentity, MatchPlayerData> matchPlayerData = new SyncDictionary<NetworkIdentity, MatchPlayerData>();
+        internal readonly SyncDictionary<NetworkIdentity, MatchPlayerData> matchPlayerData =
+            new SyncDictionary<NetworkIdentity, MatchPlayerData>();
+
         internal readonly Dictionary<CellValue, CellGUI> MatchCells = new Dictionary<CellValue, CellGUI>();
 
         CellValue boardScore = CellValue.None;
         bool playAgain = false;
 
-        [Header("GUI References")]
-        public CanvasGroup canvasGroup;
+        [Header("GUI References")] public CanvasGroup canvasGroup;
         public Text gameText;
         public Button exitButton;
         public Button playAgainButton;
@@ -25,12 +26,12 @@ namespace Mirror.Examples.MultipleMatch
 
         [Header("Diagnostics - Do Not Modify")]
         public CanvasController canvasController;
+
         public NetworkIdentity player1;
         public NetworkIdentity player2;
         public NetworkIdentity startingPlayer;
 
-        [SyncVar(hook = nameof(UpdateGameUI))]
-        public NetworkIdentity currentPlayer;
+        [SyncVar(hook = nameof(UpdateGameUI))] public NetworkIdentity currentPlayer;
 
         void Awake()
         {
@@ -48,8 +49,12 @@ namespace Mirror.Examples.MultipleMatch
         {
             yield return null;
 
-            matchPlayerData.Add(player1, new MatchPlayerData { playerIndex = CanvasController.playerInfos[player1.connectionToClient].playerIndex });
-            matchPlayerData.Add(player2, new MatchPlayerData { playerIndex = CanvasController.playerInfos[player2.connectionToClient].playerIndex });
+            matchPlayerData.Add(player1,
+                new MatchPlayerData
+                    { playerIndex = CanvasController.playerInfos[player1.connectionToClient].playerIndex });
+            matchPlayerData.Add(player2,
+                new MatchPlayerData
+                    { playerIndex = CanvasController.playerInfos[player2.connectionToClient].playerIndex });
         }
 
         public override void OnStartClient()
@@ -82,7 +87,8 @@ namespace Mirror.Examples.MultipleMatch
         }
 
         [ClientCallback]
-        public void UpdateWins(SyncDictionary<NetworkIdentity, MatchPlayerData>.Operation op, NetworkIdentity key, MatchPlayerData matchPlayerData)
+        public void UpdateWins(SyncDictionary<NetworkIdentity, MatchPlayerData>.Operation op, NetworkIdentity key,
+            MatchPlayerData matchPlayerData)
         {
             if (key.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
                 winCountLocal.text = $"Player {matchPlayerData.playerIndex}\n{matchPlayerData.wins}";
@@ -123,7 +129,6 @@ namespace Mirror.Examples.MultipleMatch
                 // Set currentPlayer SyncVar so clients know whose turn it is
                 currentPlayer = currentPlayer == player1 ? player2 : player1;
             }
-
         }
 
         [ServerCallback]

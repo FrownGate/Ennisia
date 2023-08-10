@@ -2,8 +2,7 @@ namespace Mirror.Examples.Chat
 {
     public class Player : NetworkBehaviour
     {
-        [SyncVar]
-        public string playerName;
+        [SyncVar] public string playerName;
 
         public override void OnStartServer()
         {

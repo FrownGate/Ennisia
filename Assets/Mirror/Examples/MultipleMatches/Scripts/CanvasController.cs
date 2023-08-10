@@ -17,7 +17,8 @@ namespace Mirror.Examples.MultipleMatch
         /// <summary>
         /// Cross-reference of client that created the corresponding match in openMatches below
         /// </summary>
-        internal static readonly Dictionary<NetworkConnectionToClient, Guid> playerMatches = new Dictionary<NetworkConnectionToClient, Guid>();
+        internal static readonly Dictionary<NetworkConnectionToClient, Guid> playerMatches =
+            new Dictionary<NetworkConnectionToClient, Guid>();
 
         /// <summary>
         /// Open matches that are available for joining
@@ -27,17 +28,20 @@ namespace Mirror.Examples.MultipleMatch
         /// <summary>
         /// Network Connections of all players in a match
         /// </summary>
-        internal static readonly Dictionary<Guid, HashSet<NetworkConnectionToClient>> matchConnections = new Dictionary<Guid, HashSet<NetworkConnectionToClient>>();
+        internal static readonly Dictionary<Guid, HashSet<NetworkConnectionToClient>> matchConnections =
+            new Dictionary<Guid, HashSet<NetworkConnectionToClient>>();
 
         /// <summary>
         /// Player informations by Network Connection
         /// </summary>
-        internal static readonly Dictionary<NetworkConnection, PlayerInfo> playerInfos = new Dictionary<NetworkConnection, PlayerInfo>();
+        internal static readonly Dictionary<NetworkConnection, PlayerInfo> playerInfos =
+            new Dictionary<NetworkConnection, PlayerInfo>();
 
         /// <summary>
         /// Network Connections that have neither started nor joined a match yet
         /// </summary>
-        internal static readonly List<NetworkConnectionToClient> waitingConnections = new List<NetworkConnectionToClient>();
+        internal static readonly List<NetworkConnectionToClient> waitingConnections =
+            new List<NetworkConnectionToClient>();
 
         /// <summary>
         /// GUID of a match the local player has created
@@ -57,8 +61,7 @@ namespace Mirror.Examples.MultipleMatch
         // Used in UI for "Player #"
         int playerIndex = 1;
 
-        [Header("GUI References")]
-        public GameObject matchList;
+        [Header("GUI References")] public GameObject matchList;
         public GameObject matchPrefab;
         public GameObject matchControllerPrefab;
         public Button createButton;
@@ -153,7 +156,8 @@ namespace Mirror.Examples.MultipleMatch
         {
             if (selectedMatch == Guid.Empty) return;
 
-            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Join, matchId = selectedMatch });
+            NetworkClient.Send(new ServerMatchMessage
+                { serverMatchOperation = ServerMatchOperation.Join, matchId = selectedMatch });
         }
 
         /// <summary>
@@ -164,7 +168,8 @@ namespace Mirror.Examples.MultipleMatch
         {
             if (localJoinedMatch == Guid.Empty) return;
 
-            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Leave, matchId = localJoinedMatch });
+            NetworkClient.Send(new ServerMatchMessage
+                { serverMatchOperation = ServerMatchOperation.Leave, matchId = localJoinedMatch });
         }
 
         /// <summary>
@@ -188,7 +193,8 @@ namespace Mirror.Examples.MultipleMatch
 
             Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
 
-            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Ready, matchId = matchId });
+            NetworkClient.Send(new ServerMatchMessage
+                { serverMatchOperation = ServerMatchOperation.Ready, matchId = matchId });
         }
 
         /// <summary>
@@ -278,7 +284,8 @@ namespace Mirror.Examples.MultipleMatch
 
                     foreach (NetworkConnectionToClient playerConn in matchConnections[playerInfo.matchId])
                         if (playerConn != conn)
-                            playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+                            playerConn.Send(new ClientMatchMessage
+                                { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
                 }
             }
 
@@ -331,40 +338,40 @@ namespace Mirror.Examples.MultipleMatch
             switch (msg.serverMatchOperation)
             {
                 case ServerMatchOperation.None:
-                    {
-                        Debug.LogWarning("Missing ServerMatchOperation");
-                        break;
-                    }
+                {
+                    Debug.LogWarning("Missing ServerMatchOperation");
+                    break;
+                }
                 case ServerMatchOperation.Create:
-                    {
-                        OnServerCreateMatch(conn);
-                        break;
-                    }
+                {
+                    OnServerCreateMatch(conn);
+                    break;
+                }
                 case ServerMatchOperation.Cancel:
-                    {
-                        OnServerCancelMatch(conn);
-                        break;
-                    }
+                {
+                    OnServerCancelMatch(conn);
+                    break;
+                }
                 case ServerMatchOperation.Start:
-                    {
-                        OnServerStartMatch(conn);
-                        break;
-                    }
+                {
+                    OnServerStartMatch(conn);
+                    break;
+                }
                 case ServerMatchOperation.Join:
-                    {
-                        OnServerJoinMatch(conn, msg.matchId);
-                        break;
-                    }
+                {
+                    OnServerJoinMatch(conn, msg.matchId);
+                    break;
+                }
                 case ServerMatchOperation.Leave:
-                    {
-                        OnServerLeaveMatch(conn, msg.matchId);
-                        break;
-                    }
+                {
+                    OnServerLeaveMatch(conn, msg.matchId);
+                    break;
+                }
                 case ServerMatchOperation.Ready:
-                    {
-                        OnServerPlayerReady(conn, msg.matchId);
-                        break;
-                    }
+                {
+                    OnServerPlayerReady(conn, msg.matchId);
+                    break;
+                }
             }
         }
 
@@ -379,7 +386,8 @@ namespace Mirror.Examples.MultipleMatch
             PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
 
             foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
-                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+                playerConn.Send(new ClientMatchMessage
+                    { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
         }
 
         [ServerCallback]
@@ -401,7 +409,8 @@ namespace Mirror.Examples.MultipleMatch
             PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
 
             foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
-                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+                playerConn.Send(new ClientMatchMessage
+                    { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
 
             SendMatchList();
 
@@ -426,7 +435,8 @@ namespace Mirror.Examples.MultipleMatch
 
             PlayerInfo[] infos = matchConnections[newMatchId].Select(playerConn => playerInfos[playerConn]).ToArray();
 
-            conn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.Created, matchId = newMatchId, playerInfos = infos });
+            conn.Send(new ClientMatchMessage
+                { clientMatchOperation = ClientMatchOperation.Created, matchId = newMatchId, playerInfos = infos });
 
             SendMatchList();
         }
@@ -520,10 +530,12 @@ namespace Mirror.Examples.MultipleMatch
             PlayerInfo[] infos = matchConnections[matchId].Select(playerConn => playerInfos[playerConn]).ToArray();
             SendMatchList();
 
-            conn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.Joined, matchId = matchId, playerInfos = infos });
+            conn.Send(new ClientMatchMessage
+                { clientMatchOperation = ClientMatchOperation.Joined, matchId = matchId, playerInfos = infos });
 
             foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
-                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+                playerConn.Send(new ClientMatchMessage
+                    { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
         }
 
         /// <summary>
@@ -534,10 +546,14 @@ namespace Mirror.Examples.MultipleMatch
         internal void SendMatchList(NetworkConnectionToClient conn = null)
         {
             if (conn != null)
-                conn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.List, matchInfos = openMatches.Values.ToArray() });
+                conn.Send(new ClientMatchMessage
+                    { clientMatchOperation = ClientMatchOperation.List, matchInfos = openMatches.Values.ToArray() });
             else
                 foreach (NetworkConnectionToClient waiter in waitingConnections)
-                    waiter.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.List, matchInfos = openMatches.Values.ToArray() });
+                    waiter.Send(new ClientMatchMessage
+                    {
+                        clientMatchOperation = ClientMatchOperation.List, matchInfos = openMatches.Values.ToArray()
+                    });
         }
 
         #endregion
@@ -550,58 +566,58 @@ namespace Mirror.Examples.MultipleMatch
             switch (msg.clientMatchOperation)
             {
                 case ClientMatchOperation.None:
-                    {
-                        Debug.LogWarning("Missing ClientMatchOperation");
-                        break;
-                    }
+                {
+                    Debug.LogWarning("Missing ClientMatchOperation");
+                    break;
+                }
                 case ClientMatchOperation.List:
-                    {
-                        openMatches.Clear();
-                        foreach (MatchInfo matchInfo in msg.matchInfos)
-                            openMatches.Add(matchInfo.matchId, matchInfo);
+                {
+                    openMatches.Clear();
+                    foreach (MatchInfo matchInfo in msg.matchInfos)
+                        openMatches.Add(matchInfo.matchId, matchInfo);
 
-                        RefreshMatchList();
-                        break;
-                    }
+                    RefreshMatchList();
+                    break;
+                }
                 case ClientMatchOperation.Created:
-                    {
-                        localPlayerMatch = msg.matchId;
-                        ShowRoomView();
-                        roomGUI.RefreshRoomPlayers(msg.playerInfos);
-                        roomGUI.SetOwner(true);
-                        break;
-                    }
+                {
+                    localPlayerMatch = msg.matchId;
+                    ShowRoomView();
+                    roomGUI.RefreshRoomPlayers(msg.playerInfos);
+                    roomGUI.SetOwner(true);
+                    break;
+                }
                 case ClientMatchOperation.Cancelled:
-                    {
-                        localPlayerMatch = Guid.Empty;
-                        ShowLobbyView();
-                        break;
-                    }
+                {
+                    localPlayerMatch = Guid.Empty;
+                    ShowLobbyView();
+                    break;
+                }
                 case ClientMatchOperation.Joined:
-                    {
-                        localJoinedMatch = msg.matchId;
-                        ShowRoomView();
-                        roomGUI.RefreshRoomPlayers(msg.playerInfos);
-                        roomGUI.SetOwner(false);
-                        break;
-                    }
+                {
+                    localJoinedMatch = msg.matchId;
+                    ShowRoomView();
+                    roomGUI.RefreshRoomPlayers(msg.playerInfos);
+                    roomGUI.SetOwner(false);
+                    break;
+                }
                 case ClientMatchOperation.Departed:
-                    {
-                        localJoinedMatch = Guid.Empty;
-                        ShowLobbyView();
-                        break;
-                    }
+                {
+                    localJoinedMatch = Guid.Empty;
+                    ShowLobbyView();
+                    break;
+                }
                 case ClientMatchOperation.UpdateRoom:
-                    {
-                        roomGUI.RefreshRoomPlayers(msg.playerInfos);
-                        break;
-                    }
+                {
+                    roomGUI.RefreshRoomPlayers(msg.playerInfos);
+                    break;
+                }
                 case ClientMatchOperation.Started:
-                    {
-                        lobbyView.SetActive(false);
-                        roomView.SetActive(false);
-                        break;
-                    }
+                {
+                    lobbyView.SetActive(false);
+                    roomView.SetActive(false);
+                    break;
+                }
             }
         }
 

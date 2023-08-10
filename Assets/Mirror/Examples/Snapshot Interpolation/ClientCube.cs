@@ -6,16 +6,13 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
 {
     public class ClientCube : MonoBehaviour
     {
-        [Header("Components")]
-        public ServerCube server;
+        [Header("Components")] public ServerCube server;
         public Renderer render;
 
-        [Header("Toggle")]
-        public bool interpolate = true;
+        [Header("Toggle")] public bool interpolate = true;
 
         // snapshot interpolation settings
-        [Header("Snapshot Interpolation")]
-        public SnapshotInterpolationSettings snapshotSettings =
+        [Header("Snapshot Interpolation")] public SnapshotInterpolationSettings snapshotSettings =
             new SnapshotInterpolationSettings();
 
         // runtime settings
@@ -41,13 +38,11 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
         ExponentialMovingAverage deliveryTimeEma; // average delivery time (standard deviation gives average jitter)
 
         // debugging ///////////////////////////////////////////////////////////
-        [Header("Debug")]
-        public Color catchupColor = Color.green; // green traffic light = go fast
-        public Color slowdownColor = Color.red;  // red traffic light = go slow
+        [Header("Debug")] public Color catchupColor = Color.green; // green traffic light = go fast
+        public Color slowdownColor = Color.red; // red traffic light = go slow
         Color defaultColor;
 
-        [Header("Simulation")]
-        bool lowFpsMode;
+        [Header("Simulation")] bool lowFpsMode;
         double accumulatedDeltaTime;
 
         void Awake()
@@ -181,10 +176,12 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
             {
                 localTimeline -= 10.0;
             }
+
             if (GUILayout.Button("Timeline 1s behind"))
             {
                 localTimeline -= 1.0;
             }
+
             if (GUILayout.Button("Timeline 0.1s behind"))
             {
                 localTimeline -= 0.1;
@@ -196,10 +193,12 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
             {
                 localTimeline += 0.1;
             }
+
             if (GUILayout.Button("Timeline 1s ahead"))
             {
                 localTimeline += 1.0;
             }
+
             if (GUILayout.Button("Timeline 10s ahead"))
             {
                 localTimeline += 10.0;
