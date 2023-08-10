@@ -35,6 +35,7 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private AccountModule _accountMod;
 
     public static event Action OnLoginSuccess;
+    public static event Action<string> OnLocalDatasChecked;
 
     public Data Data => _accountMod.Data;
     public AccountData Account => _accountMod.Data.Account;
@@ -128,14 +129,18 @@ public class PlayFabManager : MonoBehaviour
 
     private void Start()
     {
-        OnBigLoadingStart?.Invoke();
-        _accountMod.StartLogin();
+        _accountMod.CheckLocalDatas();
     }
+
+    public void InvokeOnBigLoadingStart() => OnBigLoadingStart?.Invoke();
 
     #region Account
 
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
+    public void InvokeOnLocalDatasChecked(string username) => OnLocalDatasChecked?.Invoke(username);
 
+    public void Login() => _accountMod.Login();
+    public void Login(string email, string password) => _accountMod.Login(email, password);
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
 

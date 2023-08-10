@@ -2,9 +2,20 @@ using UnityEngine;
 
 public class Popup : MonoBehaviour
 {
+    private Canvas _canvas;
+    private GameObject _screenwidePrefab;
+
+    //Popup game object needs to have -1 to Pos Z + Box Collider
+
     private void Awake()
     {
-        GetComponent<Canvas>().worldCamera = Camera.main;
+        _canvas = GetComponent<Canvas>();
+        _canvas.worldCamera = Camera.main;
+        _canvas.sortingOrder = 10;
+
+        _screenwidePrefab = Resources.Load<GameObject>("Prefabs/UI/ScreenwideBackground");
+        GameObject screenwide = Instantiate(_screenwidePrefab, transform);
+        screenwide.transform.SetSiblingIndex(0);
     }
     /*private void Start()
     {
