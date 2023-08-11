@@ -20,6 +20,9 @@ public class EconomyModule : Module
     public readonly Dictionary<string, CatalogItem> Stores = new();
     public readonly List<CatalogItem> CatalogItems = new();
 
+    public readonly float RatioUpgrade = 0.04f;
+    public readonly float RatioUpgradeSubStat = 0.01f;
+
     private readonly Dictionary<string, string> _currencies = new();
     private readonly Dictionary<string, string> _itemsById = new();
     private readonly Dictionary<string, string> _itemsByName = new();
