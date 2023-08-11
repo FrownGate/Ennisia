@@ -914,9 +914,9 @@ GameObject:
   - component: {fileID: 1059916444}
   - component: {fileID: 1059916443}
   - component: {fileID: 1059916442}
-  - component: {fileID: 1059916441}
+  - component: {fileID: 1059916445}
   m_Layer: 5
-  m_Name: Logout
+  m_Name: StartOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -943,20 +943,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 220, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1059916441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059916439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c20730fca3684749b2e6c2945d23d4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scene: LoginRegisterPopup
-  _params: 
 --- !u!61 &1059916442
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1040,6 +1026,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059916439}
   m_CullTransparentMesh: 1
+--- !u!114 &1059916445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059916439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236785157e8f55943a86f8d158125b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 1519223272}
 --- !u!1001 &1112442858
 PrefabInstance:
   m_ObjectHideFlags: 0

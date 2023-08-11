@@ -268,6 +268,12 @@ public class AccountModule : Module
         _authData = new();
     }
 
+    public void DevAnonymousLogin()
+    {
+        _authData = new();
+        AnonymousLogin();
+    }
+
     private void RegisterAccount(string email, string password) //This function will be registered to a button event
     {
         _manager.StartRequest("Registering account...");

@@ -145,6 +145,7 @@ public class PlayFabManager : MonoBehaviour
     public void Login(string email, string password) => _accountMod.Login(email, password);
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
+    public void DevAnonymousLogin() => _accountMod.DevAnonymousLogin();
 
     #endregion
 
