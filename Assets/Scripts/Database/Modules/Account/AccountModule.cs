@@ -24,6 +24,7 @@ public class AccountModule : Module
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path; //Local save path
+    private bool _reset;
 
     //TODO -> event when file upload is finished, prevent double uploads
 
@@ -38,6 +39,7 @@ public class AccountModule : Module
         _path = Application.persistentDataPath + "/ennisia.save";
         Debug.Log($"Your save path is : {_path}");
         IsLoggedIn = false;
+        _reset = false;
     }
 
     #region Local Save
@@ -126,16 +128,17 @@ public class AccountModule : Module
     private void OnLoginRequestSuccess(LoginResult result)
     {
         _manager.InvokeOnBigLoadingStart();
+
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
         Debug.Log(_manager.Entity.Id);
 
+        CreateLocalData(CreateUsername());
+
         UserAccountInfo info = result.InfoResultPayload.AccountInfo;
-        IsFirstLogin = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
+        IsFirstLogin = _reset || (info.Created == info.TitleInfo.Created && result.LastLoginTime == null);
 
         _manager.EndRequest("Login request success !");
-
-        CreateLocalData(CreateUsername());
         StartCoroutine(GetPlayerBaseStats());
 
         if (HasAuthData()) CreateSave();
@@ -271,7 +274,45 @@ public class AccountModule : Module
     public void DevAnonymousLogin()
     {
         _authData = new();
-        AnonymousLogin();
+        _reset = true;
+
+        PlayFabClientAPI.LoginWithCustomID(new()
+        {
+            CustomId = SystemInfo.deviceUniqueIdentifier,
+            CreateAccount = true,
+            InfoRequestParameters = new() { GetUserAccountInfo = true }
+        }, res =>
+        {
+            Debug.Log("Starting account reset...");
+
+            PlayFabAdminAPI.DeletePlayer(new()
+            {
+                PlayFabId = res.PlayFabId
+            }, res => LoginAfterReset(), _manager.OnRequestError);
+        }, _manager.OnRequestError);
+    }
+
+    private void LoginAfterReset()
+    {
+        try
+        {
+            Debug.Log("try");
+            AnonymousLogin();
+        }
+        catch
+        {
+            LoginAfterReset();
+        }
+    }
+
+    private IEnumerator ResetAccountDatas()
+    {
+        yield return _manager.StartAsyncRequest("Resetting account...");
+        PlayFabDataAPI.DeleteFiles(new()
+        {
+            Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type },
+            FileNames = new() { Data.GetType().Name }
+        }, res =>_manager.EndRequest(), _manager.OnRequestError);
     }
 
     private void RegisterAccount(string email, string password) //This function will be registered to a button event
