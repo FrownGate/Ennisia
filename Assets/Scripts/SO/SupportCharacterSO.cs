@@ -11,6 +11,6 @@ public class SupportCharacterSO : SkillsToInitSO
     public ElementType Element;
     public string Description;
     public string Catchphrase;
-    //public Sprite Icon;
+    public Sprite Icon;
     [HideInInspector] public SupportHUD Button;
 }
