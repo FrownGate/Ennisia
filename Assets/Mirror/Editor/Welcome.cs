@@ -1,4 +1,5 @@
 ﻿// Shows either a welcome message, only once per session.
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;

@@ -5,9 +5,8 @@ namespace Mirror.Examples.CCU
     [AddComponentMenu("")]
     public class CCUNetworkManager : NetworkManager
     {
-        [Header("Spawns")]
-        public int spawnAmount = 10_000;
-        public float      interleave = 1;
+        [Header("Spawns")] public int spawnAmount = 10_000;
+        public float interleave = 1;
         public GameObject spawnPrefab;
 
         // player spawn positions should be spread across the world.

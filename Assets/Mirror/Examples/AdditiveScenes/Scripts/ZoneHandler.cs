@@ -9,8 +9,7 @@ namespace Mirror.Examples.AdditiveScenes
     // client that entered the Zone to load the subscene assigned to the subscene property.
     public class ZoneHandler : MonoBehaviour
     {
-        [Scene]
-        [Tooltip("Assign the sub-scene to load for this zone")]
+        [Scene] [Tooltip("Assign the sub-scene to load for this zone")]
         public string subScene;
 
         [ServerCallback]
@@ -21,7 +20,8 @@ namespace Mirror.Examples.AdditiveScenes
 
             if (other.TryGetComponent(out NetworkIdentity networkIdentity))
             {
-                SceneMessage message = new SceneMessage { sceneName = subScene, sceneOperation = SceneOperation.LoadAdditive };
+                SceneMessage message = new SceneMessage
+                    { sceneName = subScene, sceneOperation = SceneOperation.LoadAdditive };
                 networkIdentity.connectionToClient.Send(message);
             }
         }
@@ -34,7 +34,8 @@ namespace Mirror.Examples.AdditiveScenes
 
             if (other.TryGetComponent(out NetworkIdentity networkIdentity))
             {
-                SceneMessage message = new SceneMessage { sceneName = subScene, sceneOperation = SceneOperation.UnloadAdditive };
+                SceneMessage message = new SceneMessage
+                    { sceneName = subScene, sceneOperation = SceneOperation.UnloadAdditive };
                 networkIdentity.connectionToClient.Send(message);
             }
         }

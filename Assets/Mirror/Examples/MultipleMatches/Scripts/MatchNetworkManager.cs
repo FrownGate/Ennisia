@@ -6,8 +6,7 @@ namespace Mirror.Examples.MultipleMatch
     [AddComponentMenu("")]
     public class MatchNetworkManager : NetworkManager
     {
-        [Header("Match GUI")]
-        public GameObject canvas;
+        [Header("Match GUI")] public GameObject canvas;
         public CanvasController canvasController;
 
         public static new MatchNetworkManager singleton { get; private set; }

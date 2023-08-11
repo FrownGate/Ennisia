@@ -5,11 +5,9 @@ namespace Mirror.Examples.Basic
 {
     public class PlayerUI : MonoBehaviour
     {
-        [Header("Player Components")]
-        public Image image;
+        [Header("Player Components")] public Image image;
 
-        [Header("Child Text Objects")]
-        public Text playerNameText;
+        [Header("Child Text Objects")] public Text playerNameText;
         public Text playerDataText;
 
         // Sets a highlight color for the local player

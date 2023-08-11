@@ -35,6 +35,7 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private AccountModule _accountMod;
 
     public static event Action OnLoginSuccess;
+    public static event Action<string> OnLocalDatasChecked;
 
     public Data Data => _accountMod.Data;
     public AccountData Account => _accountMod.Data.Account;
@@ -128,14 +129,18 @@ public class PlayFabManager : MonoBehaviour
 
     private void Start()
     {
-        OnBigLoadingStart?.Invoke();
-        _accountMod.StartLogin();
+        _accountMod.CheckLocalDatas();
     }
+
+    public void InvokeOnBigLoadingStart() => OnBigLoadingStart?.Invoke();
 
     #region Account
 
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
+    public void InvokeOnLocalDatasChecked(string username) => OnLocalDatasChecked?.Invoke(username);
 
+    public void Login() => _accountMod.Login();
+    public void Login(string email, string password) => _accountMod.Login(email, password);
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
 
@@ -260,12 +265,35 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
 
         Debug.LogWarning("TESTING ACTIVATED");
-        //
-        // Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
+        
+        //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
+        
+        // AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
+        
+         // List<Gear> _gearList = new List<Gear>
+         // {
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Helmet, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Chest, Rarity.Common, null),
+             // new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null)
+         // };
+         // foreach (var gear in _gearList)
+         // {
+         //     AddInventoryItem(gear);
+         //     //Player.Equip(gear, false);
+         //     UpdateItem(gear);
+         // }
+
+         
         // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
         // Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
         // Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
@@ -275,7 +303,7 @@ public class PlayFabManager : MonoBehaviour
         // {
         //     Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
         // }
-        //
+        
         // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
         // Debug.Log(support.Name);
         // Player.Equip(support, 0, false); //Slot 1

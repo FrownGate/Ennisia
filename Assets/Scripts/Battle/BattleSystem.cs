@@ -127,8 +127,8 @@ public class BattleSystem : StateMachine
         {
             SupportHUD hud = Instantiate(_supportSlot, _canvas.transform).GetComponent<SupportHUD>();
 
-            if (support != null) support.Init();
-            hud.Init(support,  position);
+            support?.Init();
+            hud.Init(support?.Skills, position);
             position -= 190; //TODO -> dynamic position
 
             if (support == null) continue;
@@ -159,7 +159,7 @@ public class BattleSystem : StateMachine
 
         foreach (var enemyName in mission.Waves[wave])
         {
-            //Debug.Log(enemyName);
+            Debug.Log(enemyName);
             Enemy enemy = new(id, Resources.Load<EnemySO>($"SO/Enemies/{enemyName}"));
             Enemies.Add(enemy);
             id++;

@@ -5,17 +5,31 @@ using UnityEngine;
 
 public enum MissionType
 {
-    MainStory, SideStory, AlternativeStory, Dungeon, Raid, Expedition, EndlessTower
+    MainStory,
+    SideStory,
+    AlternativeStory,
+    Dungeon,
+    Raid,
+    Expedition,
+    EndlessTower
 }
 
 public enum MissionState
 {
-    Locked, Unlocked, InProgress, Completed
+    Locked,
+    Unlocked,
+    InProgress,
+    Completed
 }
 
 public enum Difficulty
 {
-    Peaceful, Easy, Normal, Hard, Insane, Ultimate
+    Peaceful,
+    Easy,
+    Normal,
+    Hard,
+    Insane,
+    Ultimate
 }
 
 public class MissionManager : MonoBehaviour
@@ -141,6 +155,7 @@ public class MissionManager : MonoBehaviour
             {
                 nextMission.State = MissionState.Unlocked;
                 Debug.Log("Next mission unlocked: " + nextMission.Id);
+                Debug.LogWarning(nextMission.State);
                 //TODO -> Update database
             }
         }
