@@ -60,6 +60,8 @@ public class PlayFabManager : MonoBehaviour
     public Dictionary<string, PlayFab.EconomyModels.CatalogItem> Stores => _economyMod.Stores;
     public List<PlayFab.EconomyModels.CatalogItem> Items => _economyMod.CatalogItems;
     public int Energy => _economyMod.Energy;
+    public float RatioUpgrade => _economyMod.RatioUpgrade;
+    public float RatioUpgradeSubStat => _economyMod.RatioUpgradeSubStat;
 
     public PlayFab.EconomyModels.CatalogItem GetItemById(string id) => _economyMod.GetItemById(id);
 
@@ -270,7 +272,8 @@ public class PlayFabManager : MonoBehaviour
         
         //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
         
-        // AddInventoryItem(new Gear(GearType.Helmet, Rarity.Common, null));
+        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Rare, null));
+        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
         
          // List<Gear> _gearList = new List<Gear>
          // {
