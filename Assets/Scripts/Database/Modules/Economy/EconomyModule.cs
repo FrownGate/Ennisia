@@ -62,10 +62,6 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    /// <summary>
-    /// Get game currencies. New player -> Add initial currencies. Else -> Get currencies
-    /// </summary>
-
     private void InitEconomyData()
     {
         foreach (CatalogItem item in CatalogItems)
@@ -96,6 +92,11 @@ public class EconomyModule : Module
         {
             StartCoroutine(CreateInitialCurrencies());
             return;
+        }
+
+        if (_manager.IsAccountReset)
+        {
+            //Adjust currencies and inventory
         }
 
         PlayFabClientAPI.GetUserInventory(new(), res =>
@@ -139,6 +140,7 @@ public class EconomyModule : Module
         }
 
         _manager.UpdateData();
+        OnInitComplete?.Invoke();
         yield return null;
     }
 
@@ -153,6 +155,12 @@ public class EconomyModule : Module
         {
             foreach (InventoryItem item in res.Items)
             {
+                if (_manager.IsAccountReset)
+                {
+                    //remove item
+                    continue;
+                }
+
                 if (item.Type == "currency")
                 {
                     Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = (int)item.Amount;
@@ -162,6 +170,13 @@ public class EconomyModule : Module
                     Type type = Type.GetType(_itemsById[item.Id]);
                     Activator.CreateInstance(type, item);
                 }
+            }
+            
+            if (_manager.IsAccountReset)
+            {
+                _manager.EndRequest();
+                StartCoroutine(CreateInitialCurrencies());
+                return;
             }
 
             _manager.Data.UpdateEquippedGears();

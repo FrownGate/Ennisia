@@ -19,12 +19,12 @@ public class AccountModule : Module
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
     public bool IsLoggedIn { get; private set; }
     public bool IsFirstLogin { get; private set; }
+    public bool IsAccountReset { get; private set; }
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
 
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path; //Local save path
-    private bool _reset;
 
     //TODO -> event when file upload is finished, prevent double uploads
 
@@ -39,7 +39,7 @@ public class AccountModule : Module
         _path = Application.persistentDataPath + "/ennisia.save";
         Debug.Log($"Your save path is : {_path}");
         IsLoggedIn = false;
-        _reset = false;
+        IsAccountReset = false;
     }
 
     #region Local Save
@@ -136,19 +136,20 @@ public class AccountModule : Module
         CreateLocalData(CreateUsername());
 
         UserAccountInfo info = result.InfoResultPayload.AccountInfo;
-        IsFirstLogin = _reset || (info.Created == info.TitleInfo.Created && result.LastLoginTime == null);
+        IsFirstLogin = IsAccountReset || (info.Created == info.TitleInfo.Created && result.LastLoginTime == null);
 
         _manager.EndRequest("Login request success !");
         StartCoroutine(GetPlayerBaseStats());
 
         if (HasAuthData()) CreateSave();
 
-        if (!IsFirstLogin)
+        if (!IsFirstLogin && !IsAccountReset)
         {
             GetAccountData();
             return;
         }
 
+        StartCoroutine(UpdateData());
         OnInitComplete?.Invoke();
 
         //Use this line once to test PlayFab Register & Login
@@ -271,38 +272,12 @@ public class AccountModule : Module
         _authData = new();
     }
 
-    public void DevAnonymousLogin()
+    public void ResetAccount(bool admin = false)
     {
-        _authData = new();
-        _reset = true;
-
-        PlayFabClientAPI.LoginWithCustomID(new()
-        {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true,
-            InfoRequestParameters = new() { GetUserAccountInfo = true }
-        }, res =>
-        {
-            Debug.Log("Starting account reset...");
-
-            PlayFabAdminAPI.DeletePlayer(new()
-            {
-                PlayFabId = res.PlayFabId
-            }, res => LoginAfterReset(), _manager.OnRequestError);
-        }, _manager.OnRequestError);
-    }
-
-    private void LoginAfterReset()
-    {
-        try
-        {
-            Debug.Log("try");
-            AnonymousLogin();
-        }
-        catch
-        {
-            LoginAfterReset();
-        }
+        Debug.Log("Starting account reset...");
+        if (!admin) _authData = new();
+        IsAccountReset = true;
+        Login();
     }
 
     private IEnumerator ResetAccountDatas()

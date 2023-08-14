@@ -45,6 +45,7 @@ public class PlayFabManager : MonoBehaviour
     public PlayFab.ClientModels.EntityKey Entity => _accountMod.Entity;
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
+    public bool IsAccountReset => _accountMod.IsAccountReset;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -145,7 +146,7 @@ public class PlayFabManager : MonoBehaviour
     public void Login(string email, string password) => _accountMod.Login(email, password);
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
-    public void DevAnonymousLogin() => _accountMod.DevAnonymousLogin();
+    public void ResetAccount(bool admin = false) => _accountMod.ResetAccount(admin);
 
     #endregion
 
