@@ -2297,6 +2297,7 @@ GameObject:
   - component: {fileID: 502770831}
   - component: {fileID: 502770834}
   - component: {fileID: 502770833}
+  - component: {fileID: 502770835}
   m_Layer: 0
   m_Name: NetworkManager Steam
   m_TagString: Untagged
@@ -2387,6 +2388,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4bffeda13d7a748973ff9204401c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &502770835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502770827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a79643b3ed7c946bff875245d00d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostButton: {fileID: 1795787912}
 --- !u!1 &513013449
 GameObject:
   m_ObjectHideFlags: 1
@@ -5468,13 +5482,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 502770827}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 502770835}
+        m_TargetAssemblyTypeName: SteamLobby, Assembly-CSharp
+        m_MethodName: HostLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

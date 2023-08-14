@@ -25,7 +25,7 @@ public class SteamLobby : MonoBehaviour
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
     }
 
-    private void HostLobby()
+    public void HostLobby()
     {
         hostButton.SetActive(false);
 
