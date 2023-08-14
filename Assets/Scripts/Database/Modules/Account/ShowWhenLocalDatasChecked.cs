@@ -16,12 +16,12 @@ public class ShowWhenLocalDatasChecked : MonoBehaviour
         PlayFabManager.OnLocalDatasChecked -= ShowUI;
     }
 
-    private void ShowUI(string username)
+    private void ShowUI(string user)
     {
         gameObject.SetActive(true);
 
-        _startText.text = !string.IsNullOrEmpty(username) ?
-            $"Local data found. Click anywhere to login to {username}."
+        _startText.text = !string.IsNullOrEmpty(user) ?
+            $"Local data found. Click anywhere to login to {user}."
             : "No local data found. Click anywhere to create a new account.";
     }
 }

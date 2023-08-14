@@ -6,12 +6,12 @@ public class StartOver : MonoBehaviour
     [SerializeField] private TMP_Text _text;
 
     //Prevent deleting dev testing account
-    private bool IsDevTesting => !string.IsNullOrEmpty(_username) && _username == "testing5624e";
-    private string _username;
+    private bool IsDevTesting => !string.IsNullOrEmpty(_user) && _user == "testing@gmail.com";
+    private string _user;
 
     private void Awake()
     {
-        _username = null;
+        _user = null;
         gameObject.SetActive(false);
         PlayFabManager.OnLocalDatasChecked += Init;
     }
@@ -21,18 +21,18 @@ public class StartOver : MonoBehaviour
         PlayFabManager.OnLocalDatasChecked -= Init;
     }
 
-    private void Init(string username)
+    private void Init(string user)
     {
-        _username = username;
+        _user = user;
 
-        if (!string.IsNullOrEmpty(_username))
+        if (!string.IsNullOrEmpty(_user))
         {
             gameObject.SetActive(true);
         }
 
         if (IsDevTesting)
         {
-            _text.text = "Anonymous Login";
+            _text.text = "Dev Testing";
         }
     }
 
