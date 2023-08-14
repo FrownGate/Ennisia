@@ -41,3 +41,4 @@ MonoBehaviour:
       Value: 10
     - Key: 8
       Value: 60
+  EnemySprite: {fileID: 21300000, guid: 975beba63c5ab2141ba8d40ba7fad5c1, type: 3}

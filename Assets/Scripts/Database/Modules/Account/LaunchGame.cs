@@ -20,10 +20,11 @@ public class LaunchGame : MonoBehaviour
     private void SetActiveScene()
     {
         _activeScene = PlayFabManager.Instance.Account.Gender == 0 ? _genderSelection : _mainMenu;
+        ScenesManager.Instance.SetScene(_activeScene);
     }
 
-    private void OnMouseDown()
+    private void OnMouseUpAsButton()
     {
-        ScenesManager.Instance.SetScene(_activeScene);
+        PlayFabManager.Instance.Login();
     }
 }

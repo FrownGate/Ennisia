@@ -18,8 +18,6 @@ public class Gear : Item
     public string Description;
     public int Level;
     public float StatUpgrade;
-    public float RatioUpgrade = 0.04f;
-    public float RatioUpgradeSubStat = 0.01f;
     public GearSO WeaponSO;
     public GearSet GearSet;
 
@@ -30,16 +28,14 @@ public class Gear : Item
         public float Value;
     }
 
-    public Gear()
-    {
-    }
+    public Gear() { }
 
     public Gear(GearType type, Rarity rarity, GearSet gearSet, GearSO weapon = null)
     {
         Debug.Log("gear created");
 
         WeaponSO = weapon;
-        WeaponType = weapon ? weapon.WeaponType : null;
+        //WeaponType = weapon ? weapon.WeaponType : null;
         Id = SetId();
         Stack = Id.ToString();
         Type = type;
@@ -59,13 +55,9 @@ public class Gear : Item
         ObtainGear?.Invoke(type);
     }
 
-    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon)
-    {
-    }
+    public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon) { }
 
-    public Gear(GearSO gear) : this(gear.Type, gear.Rarity, null, gear.Type == GearType.Weapon ? gear : null)
-    {
-    }
+    public Gear(GearSO gear) : this(gear.Type, gear.Rarity, null, gear.Type == GearType.Weapon ? gear : null) { }
 
     public Gear(InventoryItem item)
     {
@@ -96,7 +88,7 @@ public class Gear : Item
         //ObtainGear?.Invoke(Type); ????
     }
 
-    public Gear(CatalogItem item)
+    public Gear(CatalogItem item) //TODO -> to remove
     {
         Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
         gear.Deserialize();
@@ -228,9 +220,10 @@ public class Gear : Item
 
             do
             {
-                stat = (Attribute)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Attribute)).Length);
+                stat = (Attribute)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Attribute)).Length);
+                Debug.Log($"Substat #{i + 1} attribute = {stat}");
                 possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
-            } while (possibleValues == null);
+            } while (possibleValues == null || substats.ContainsKey((Attribute)stat));
 
             substats[(Attribute)stat] =
                 UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
@@ -254,17 +247,19 @@ public class Gear : Item
         Debug.Log("lvl :" + Level);
         LevelUp?.Invoke();
         int rand = UnityEngine.Random.Range(0, 100);
+
         if (rand > (100 - Level))
         {
             Debug.Log("failed to upgrade");
             return false;
         }
+
         Level++;
         Debug.Log("level up !");
         Debug.Log("lvl :" + Level);
         Debug.Log(Value + " ->");
         Debug.Log(BaseValue);
-        Value += BaseValue * RatioUpgrade * Level;
+        Value += BaseValue * PlayFabManager.Instance.RatioUpgrade * Level;
         Debug.Log(Value);
         if (Level % 5 == 0)
         {
@@ -272,7 +267,7 @@ public class Gear : Item
             {
                 Debug.Log(substat.Key + " " + SubStats[substat.Key] + " before");
                 Debug.Log(substat.Value + "UwU");
-                SubStats[substat.Key] = substat.Value + substat.Value * RatioUpgradeSubStat * Level;
+                SubStats[substat.Key] = substat.Value + substat.Value * PlayFabManager.Instance.RatioUpgradeSubStat * Level;
                 Debug.Log(substat.Key + " " + SubStats[substat.Key] + "after");
             }
         }
@@ -287,8 +282,7 @@ public class Gear : Item
         if (_level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
 
-
-        Value += BaseValue * RatioUpgrade * _level;
+        Value += BaseValue * PlayFabManager.Instance.RatioUpgrade * _level;
 
         PlayFabManager.Instance.UpdateItem(this);
     }

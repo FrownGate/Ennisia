@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class CreateGuild : MonoBehaviour
 {
-    [SerializeField] private Button _createButton;
     [SerializeField] private TMP_InputField _name;
     [SerializeField] private TMP_InputField _description;
 
