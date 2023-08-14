@@ -27,6 +27,11 @@
         {
             foreach (var effect in _entity.Effects)
             {
+                if (effect.IsExpired)
+                {
+                    RemoveEffectIcon(effect.Data.Name);
+                    _processedEffects.Remove(effect.Data.Name);
+                }
                 // If it's a new effect we haven't processed yet
                 if (Effects.Contains(effect.Data.Name) && !_processedEffects.Contains(effect.Data.Name))
                 {
@@ -46,11 +51,19 @@
         {
             var effect = Instantiate(_effectIconPrefab, _container.transform);
             effect.transform.SetParent(_container.transform);
+            effect.SetActive(true);
             effect.name = effectName;
             _effectIcon = effect.GetComponent<Image>();
             _effectIcon.sprite = _sprites[Random.Range(0,3)];
             Debug.LogWarning("Created Effect Icon");
-            //_effectIcons.Add(effect);
+            _effectIcons.Add(effect);
+        }
+        
+        public void RemoveEffectIcon(string effectName)
+        {
+            var effect = _effectIcons.Find(x => x.name == effectName);
+            _effectIcons.Remove(effect);
+            Destroy(effect);
         }
         
         private void InitExistingEffect()
