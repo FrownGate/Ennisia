@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class EntityHUD : MonoBehaviour
 {
     public static event Action<Entity> OnEntitySelected;
-
-    [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private Slider _hpBar;
+    
     [SerializeField] private SpriteRenderer _sprite;
     [SerializeField] private TextMeshProUGUI _idText;
     [SerializeField] private EffectHUD _effectHUD;
@@ -27,8 +25,7 @@ public class EntityHUD : MonoBehaviour
     private void Update()
     {
         if (_entity == null) return;
-        _hpBar.value = _entity.CurrentHp >= 0 ? _entity.CurrentHp : 0;
-        _text.text = Mathf.Round(_entity.CurrentHp) + "/" + Mathf.Round(_entity.Stats[Attribute.HP].Value);
+
         _hpText.text = Mathf.Round(_entity.CurrentHp) + "/" + Mathf.Round(_entity.Stats[Attribute.HP].Value);
         
         float currentFillAmount = _entity.CurrentHp / _entity.Stats[Attribute.HP].Value;
@@ -64,9 +61,7 @@ public class EntityHUD : MonoBehaviour
         _entity = entity;
         _id = id;
         _idText.text = "ID:" + _id;
-        _hpBar.maxValue = _entity.Stats[Attribute.HP].Value;
-        _hpBar.value = _entity.CurrentHp;
-
+        
         if (entity is not Player && !entity.IsBoss) //TODO -> check if boss
         {
             transform.localScale = transform.localScale / 1.5f;
