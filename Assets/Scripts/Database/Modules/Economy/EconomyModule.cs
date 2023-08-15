@@ -20,6 +20,9 @@ public class EconomyModule : Module
     public readonly Dictionary<string, CatalogItem> Stores = new();
     public readonly List<CatalogItem> CatalogItems = new();
 
+    public readonly float RatioUpgrade = 0.04f;
+    public readonly float RatioUpgradeSubStat = 0.01f;
+
     private readonly Dictionary<string, string> _currencies = new();
     private readonly Dictionary<string, string> _itemsById = new();
     private readonly Dictionary<string, string> _itemsByName = new();
@@ -59,10 +62,6 @@ public class EconomyModule : Module
         }, _manager.OnRequestError);
     }
 
-    /// <summary>
-    /// Get game currencies. New player -> Add initial currencies. Else -> Get currencies
-    /// </summary>
-
     private void InitEconomyData()
     {
         foreach (CatalogItem item in CatalogItems)
@@ -84,7 +83,6 @@ public class EconomyModule : Module
                 _storesById[item.Id] = item.AlternateIds[0].Value;
                 _storesByName[item.AlternateIds[0].Value] = item.Id;
                 Stores[item.Id] = item;
-
             }
         }
 
@@ -107,6 +105,8 @@ public class EconomyModule : Module
     /// </summary>
     private IEnumerator CreateInitialCurrencies()
     {
+        yield return _manager.StartAsyncRequest();
+
         foreach (KeyValuePair<Currency, int> currency in Currencies)
         {
             if (currency.Value == 0) continue;
@@ -135,21 +135,31 @@ public class EconomyModule : Module
             yield return new WaitUntil(() => _currencyAdded);
         }
 
-        _manager.UpdateData();
+        //_manager.UpdateData();
+        _manager.EndRequest();
+        OnInitComplete?.Invoke();
         yield return null;
     }
 
     private void GetPlayerInventory()
     {
-        _manager.StartRequest();
+        _manager.StartRequest("Getting player's inventory...");
 
         PlayFabEconomyAPI.GetInventoryItems(new()
         {
             Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type }
         }, res =>
         {
+            _manager.EndRequest();
+
             foreach (InventoryItem item in res.Items)
             {
+                if (_manager.IsAccountReset)
+                {
+                    StartCoroutine(DeleteItem(item));
+                    continue;
+                }
+
                 if (item.Type == "currency")
                 {
                     Currencies[Enum.Parse<Currency>(_currencies[item.Id])] = (int)item.Amount;
@@ -160,9 +170,14 @@ public class EconomyModule : Module
                     Activator.CreateInstance(type, item);
                 }
             }
+            
+            if (_manager.IsAccountReset)
+            {
+                StartCoroutine(CreateInitialCurrencies());
+                return;
+            }
 
             _manager.Data.UpdateEquippedGears();
-            _manager.EndRequest();
             OnInitComplete?.Invoke();
         }, _manager.OnRequestError);
     }
@@ -380,6 +395,23 @@ public class EconomyModule : Module
             _manager.Inventory.RemoveItem(item);
             _manager.EndRequest("Item used !");
         }, _manager.OnRequestError);
+    }
+
+    private IEnumerator DeleteItem(InventoryItem item)
+    {
+        yield return _manager.StartAsyncRequest();
+
+        PlayFabEconomyAPI.SubtractInventoryItems(new()
+        {
+            Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type },
+            Item = new()
+            {
+                Id = item.Id,
+                StackId = item.StackId
+            },
+            DeleteEmptyStacks = true,
+            Amount = item.Amount
+        }, res => _manager.EndRequest(), _manager.OnRequestError);
     }
 
     public IEnumerator PurchaseInventoryItem(Item item, int amount = 1)

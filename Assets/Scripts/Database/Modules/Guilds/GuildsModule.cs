@@ -19,6 +19,8 @@ public class GuildsModule : Module
     //TODO -> Remove guild member
     //TODO -> check role for applications functions
     //TODO -> Check if player's application has been accepted in update ?
+    //TODO -> fix set objects request error
+    //TODO -> reset applications on reset
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class GuildsModule : Module
 
     public void GetPlayerGuild()
     {
+        //TODO -> reset guild if account reset
         _manager.StartRequest("Fetching player's guild...");
 
         PlayFabGroupsAPI.ListMembership(new(), res =>
@@ -77,18 +80,20 @@ public class GuildsModule : Module
                 EscapeObject = true
             }, res =>
             {
-                GuildData data = new(res.Objects[new GuildData().GetType().Name]);
-                PlayerGuildData = guild == PlayerGuild ? data : PlayerGuildData;
+                //TODO -> Fix GuildData creation
+                //GuildData data = new(res.Objects[new GuildData().GetType().Name]);
+                //PlayerGuildData = guild == PlayerGuild ? data : PlayerGuildData;
 
                 PlayFabGroupsAPI.ListGroupMembers(new()
                 {
                     Group = guild.Group
                 }, res =>
                 {
-                    _manager.InvokeOnGetGuildData(data, res.Members);
+                    //_manager.InvokeOnGetGuildData(data, res.Members);
 
                     if (!_manager.LoggedIn)
                     {
+                        if (_manager.IsAccountReset) StartCoroutine(ResetGuild());
                         OnInitComplete?.Invoke();
                         return;
                     }
@@ -97,6 +102,25 @@ public class GuildsModule : Module
                 }, _manager.OnRequestError);
             }, _manager.OnRequestError);
         }, _manager.OnRequestError);
+    }
+
+    private IEnumerator ResetGuild()
+    {
+        EntityWithLineage admin = PlayerGuildMembers.Find(x => x.RoleId == "admins").Members[0];
+
+        if (admin.Key.Id == _manager.Entity.Id)
+        {
+            yield return DeleteGuild();
+            yield break;
+        }
+
+        EntityKey user = new()
+        {
+            Id = _manager.Entity.Id,
+            Type = _manager.Entity.Type
+        };
+
+        yield return KickPlayer(user);
     }
 
     public IEnumerator CreateGuild(string name, string description)
@@ -155,6 +179,16 @@ public class GuildsModule : Module
                 }, _manager.OnRequestError);*/
             }, _manager.OnRequestError);
         }, _manager.OnRequestError);
+    }
+
+    public IEnumerator DeleteGuild()
+    {
+        yield return _manager.StartAsyncRequest("Deleting guild...");
+
+        PlayFabGroupsAPI.DeleteGroup(new()
+        {
+            Group = PlayerGuild.Group
+        }, res => _manager.EndRequest("Guild deleted !"), _manager.OnRequestError);
     }
 
     public IEnumerator UpdatePlayerGuild()

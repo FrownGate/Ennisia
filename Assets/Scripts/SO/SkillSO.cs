@@ -18,7 +18,7 @@ public class SkillSO : ScriptableObject
     public bool IsPassive;
 
     public SkillType SkillType;
-    //public Sprite Icon;
+    public Sprite Icon;
 }
 
 public enum SkillType

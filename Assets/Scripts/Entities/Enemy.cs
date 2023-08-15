@@ -28,6 +28,7 @@ public class Enemy : Entity
 
         data.Init();
         Skills = data.Skills;
+        EntitySprite = data.EnemySprite;
     }
 
     public override bool HaveBeenTargeted()

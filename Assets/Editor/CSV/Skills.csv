@@ -37,7 +37,7 @@ ID,skillName,description,damageAmount,shieldAmount,healingAmount,buffAmount,maxC
 36,Quaking Suppression,Has a 70% chance to stun for 1 turn and a 100% chance to silence for 2 turns.,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 37,Terra Shockwave,"deals 50% of magical attack, has a 50% chance to stun the target for 1 turn, and has a 75% chance to increase the target’s third skill cooldown by 2 turns.",150,0,0,0,3,0,0,FALSE,TRUE,TRUE,Support Skill
 38,Thunderstrike Assassination,Penetrate defense by 100%,150,0,0,0,3,100,0,FALSE,FALSE,TRUE,Support Skill
-39,Breeze of Vitality,heal for 30% of max health. Increase heal by 10% for each enemy still alive.,0,0,30,10,3,0,0,FALSE,FALSE,TRUE,Support Skill
+39,Breeze Of Vitality,heal for 30% of max health. Increase heal by 10% for each enemy still alive.,0,0,30,10,3,0,0,FALSE,FALSE,TRUE,Support Skill
 40,Tidal Execution,"Deals damage scaling by the target’s lost health, if the target has 5% hp or lower, execute the target.",0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 41,Flame Purification,Cleanse all debuffs,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill
 42,Gale Disruption,Remove all buffs from target,0,0,0,0,3,0,0,FALSE,FALSE,TRUE,Support Skill

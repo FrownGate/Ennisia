@@ -52,28 +52,35 @@ public class ShowStoryChapter : MonoBehaviour
 
         TextMeshProUGUI buttonText = Info.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = $"<b>{mission.Name}</b>\n";
-        buttonText.text += "<b>Enemies:</b>\n";
-
-        foreach (string enemy in mission.Enemies)
+        if (mission.Enemies.Count > 0)
         {
-            buttonText.text += $"-{enemy}\n";
+            buttonText.text += "\n<b>Enemies:</b>\n";
+
+            foreach (string enemy in mission.Enemies)
+            {
+                buttonText.text += $"-{enemy}\n";
+            }
+            
         }
 
-        buttonText.text += "<b>Rewards:</b>\n";
-        foreach (var currencyReward in mission.CurrencyRewards)
+        if (mission.CurrencyRewards.Count > 0)
         {
-            buttonText.text += $"-{currencyReward.Key}: {currencyReward.Value}\n";
+            buttonText.text += "\n<b>Rewards:</b>\n";
+            foreach (var currencyReward in mission.CurrencyRewards)
+            {
+                buttonText.text += $"-{currencyReward.Key}: {currencyReward.Value}\n";
+            }
+            
         }
-
         if (mission.RewardData != null && mission.RewardData.Count > 0)
         {
-            buttonText.text += "<b>Gear:</b>\n";
+            buttonText.text += "\n<b>Gear:</b>\n";
             foreach (var reward in mission.RewardData)
             {
                 buttonText.text += $"-{reward}\n";
             }
         }
 
-        buttonText.text += "<b>XP:</b> " + mission.Experience;
+        buttonText.text += "\n<b>XP:</b> " + mission.Experience;
     }
 }
