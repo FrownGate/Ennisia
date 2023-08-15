@@ -30,6 +30,9 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnRequest;
     public static event Action OnEndRequest;
 
+    //Game events
+    public static event Action OnObsoleteVersion;
+
     //Account Module
     [SerializeField] private AccountModule _accountMod;
 
@@ -135,7 +138,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void Start()
     {
-        _accountMod.CheckLocalDatas();
+        CheckGameVersion();
     }
 
     public void InvokeOnBigLoadingStart() => OnBigLoadingStart?.Invoke();
@@ -224,6 +227,37 @@ public class PlayFabManager : MonoBehaviour
     public int HasSupport(int id) => _summonMod.HasSupport(id);
     public void AddSupports(Dictionary<int, int> pulledSupports) => _summonMod.AddSupports(pulledSupports);
 
+    #endregion
+
+    #region Game
+    public void CheckGameVersion()
+    {
+        PlayFabClientAPI.LoginWithCustomID(new()
+        {
+            CustomId = SystemInfo.deviceUniqueIdentifier,
+            CreateAccount = false
+        }, res =>
+        {
+            PlayFabClientAPI.GetTitleData(new(), res =>
+            {
+                string version = res.Data["Version"];
+                string localVersion = Application.version;
+
+                EndRequest($"Last game version available : {version}");
+
+                if (version != localVersion)
+                {
+                    Debug.LogWarning($"Local version obsolete : {localVersion}");
+                    OnObsoleteVersion?.Invoke();
+                    //TODO -> Add popup
+                    return;
+                }
+
+                Debug.Log("Game version up to date !");
+                _accountMod.CheckLocalDatas();
+            }, OnRequestError);
+        }, OnRequestError);
+    }
     #endregion
 
     #region Requests
