@@ -1,9 +1,13 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class ShowWhenLocalDatasChecked : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _startText;
+    [SerializeField] private Animation _startAnimation;
+    [SerializeField] private AnimationClip _fadeIn;
+    [SerializeField] private AnimationClip _fadeOut;
 
     private void Awake()
     {
@@ -23,5 +27,16 @@ public class ShowWhenLocalDatasChecked : MonoBehaviour
         _startText.text = !string.IsNullOrEmpty(user) ?
             $"Local data found. Click anywhere to login to {user}."
             : "No local data found. Click anywhere to create a new account.";
+
+        StartCoroutine(FadeAnimation());
+    }
+
+    private IEnumerator FadeAnimation()
+    {
+        _startAnimation.Play(_fadeIn.name);
+        yield return new WaitForSeconds(_fadeIn.length * 2);
+        _startAnimation.Play(_fadeOut.name);
+        yield return new WaitForSeconds(_fadeOut.length);
+        StartCoroutine(FadeAnimation());
     }
 }
