@@ -232,6 +232,8 @@ public class PlayFabManager : MonoBehaviour
     #region Game
     public void CheckGameVersion()
     {
+        StartRequest();
+
         PlayFabClientAPI.LoginWithCustomID(new()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
