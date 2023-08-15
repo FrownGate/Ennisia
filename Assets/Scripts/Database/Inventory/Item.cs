@@ -38,7 +38,8 @@ public class Item
     public Attribute? Attribute;
     public GearSetData? Set;
     public int? Available;
-
+    public bool IsSelected;
+    
     //Json Utility
     public string JsonRarity;
     public string JsonCategory;
