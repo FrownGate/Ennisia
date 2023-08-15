@@ -101,7 +101,9 @@ public class BattleSystem : StateMachine
         {
             Debug.Log("Creating new battle datas for player");
             Player = player ?? new();
-            Player.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
+            var playerGO = Instantiate(_entitySlot, _canvas.transform);
+            Destroy(playerGO.GetComponent<BoxCollider2D>());
+            Player.HUD = playerGO.GetComponent<EntityHUD>();
             Player.HUD.Init((Player)Player);
         }
 

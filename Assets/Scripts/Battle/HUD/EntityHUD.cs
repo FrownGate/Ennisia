@@ -10,6 +10,7 @@ public class EntityHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Slider _hpBar;
     [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private TextMeshProUGUI _idText;
     [SerializeField] private EffectHUD EffectHUD;
 
     private Entity _entity;
@@ -35,8 +36,7 @@ public class EntityHUD : MonoBehaviour
         {
             _sprite.sprite = Resources.Load<Sprite>($"Textures/Enemies/Player");
         }
-        //TODO -> Show Id on HUD
-        //Tempo parce que c'est uwu
+
         switch (entity.Name)
         {
             case "Wolf Pack Leader":
@@ -44,12 +44,11 @@ public class EntityHUD : MonoBehaviour
                 _sprite.flipX = true;
                 break;
         }
-
-        ////////
+        
         Debug.Log($"Assets/Resources/Textures/Enemies/{entity.Name}");
-        //TODO -> Show Id on HUD
         _entity = entity;
         _id = id;
+        _idText.text = "ID:" + _id.ToString();
         _hpBar.maxValue = _entity.Stats[Attribute.HP].Value;
         _hpBar.value = _entity.CurrentHp;
 
