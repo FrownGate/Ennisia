@@ -11,14 +11,17 @@ public class EntityHUD : MonoBehaviour
     [SerializeField] private Slider _hpBar;
     [SerializeField] private SpriteRenderer _sprite;
     [SerializeField] private TextMeshProUGUI _idText;
-    [SerializeField] private EffectHUD EffectHUD;
-
+    [SerializeField] private EffectHUD _effectHUD;
+    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private TextMeshProUGUI _hpText;
+    
     private Entity _entity;
     private int _id;
+    private float _previousHp;
 
     private void Start()
     {
-        EffectHUD.Init(_entity);
+        _effectHUD.Init(_entity);
     }
 
     private void Update()
@@ -26,6 +29,17 @@ public class EntityHUD : MonoBehaviour
         if (_entity == null) return;
         _hpBar.value = _entity.CurrentHp >= 0 ? _entity.CurrentHp : 0;
         _text.text = Mathf.Round(_entity.CurrentHp) + "/" + Mathf.Round(_entity.Stats[Attribute.HP].Value);
+        _hpText.text = Mathf.Round(_entity.CurrentHp) + "/" + Mathf.Round(_entity.Stats[Attribute.HP].Value);
+        
+        float currentFillAmount = _entity.CurrentHp / _entity.Stats[Attribute.HP].Value;
+        
+        if(currentFillAmount != _previousHp)
+        {
+            _healthBar.hpImg.fillAmount = currentFillAmount;
+            StartCoroutine(_healthBar.UpdateHpEffectCoroutine());
+        }
+        
+        _previousHp = currentFillAmount;
     }
 
     public void Init(Entity entity, int id = 0)
@@ -40,6 +54,7 @@ public class EntityHUD : MonoBehaviour
         switch (entity.Name)
         {
             case "Wolf Pack Leader":
+                break;
             case "Player":
                 _sprite.flipX = true;
                 break;
@@ -48,7 +63,7 @@ public class EntityHUD : MonoBehaviour
         Debug.Log($"Assets/Resources/Textures/Enemies/{entity.Name}");
         _entity = entity;
         _id = id;
-        _idText.text = "ID:" + _id.ToString();
+        _idText.text = "ID:" + _id;
         _hpBar.maxValue = _entity.Stats[Attribute.HP].Value;
         _hpBar.value = _entity.CurrentHp;
 
