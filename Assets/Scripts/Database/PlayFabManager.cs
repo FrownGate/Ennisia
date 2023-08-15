@@ -284,12 +284,12 @@ public class PlayFabManager : MonoBehaviour
          // {
          //     new Gear(GearType.Helmet, Rarity.Common, null),
          //     new Gear(GearType.Helmet, Rarity.Common, null),
-             // new Gear(GearType.Helmet, Rarity.Common, null),
-             // new Gear(GearType.Helmet, Rarity.Common, null),
-             // new Gear(GearType.Chest, Rarity.Common, null),
-             // new Gear(GearType.Chest, Rarity.Common, null),
-             // new Gear(GearType.Chest, Rarity.Common, null),
-             // new Gear(GearType.Boots, Rarity.Common, null),
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+         //     new Gear(GearType.Helmet, Rarity.Common, null),
+         //     new Gear(GearType.Chest, Rarity.Common, null),
+         //     new Gear(GearType.Chest, Rarity.Common, null),
+         //     new Gear(GearType.Chest, Rarity.Common, null),
+         //     new Gear(GearType.Boots, Rarity.Common, null),
          //     new Gear(GearType.Boots, Rarity.Common, null),
          //     new Gear(GearType.Boots, Rarity.Common, null),
          //     new Gear(GearType.Boots, Rarity.Common, null)
