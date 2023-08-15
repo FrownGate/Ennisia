@@ -24,6 +24,7 @@ namespace CheatCodeNS
 
     public enum CheatCode
     {
+        // ALLY
         Unkillable,
         NoCooldown,
         FullLife,
@@ -42,7 +43,25 @@ namespace CheatCodeNS
         CritDamageBuff,
         CritRateBuff,
         AttackBuff,
+        // ENEMY
+        EnemyLife25,
+        EnemyLife50,
+        EnemyLife75,
+        EnemyPurify,
+        EnemySilenceEffect,
+        EnemyStunEffect,
+        EnemyTauntEffect,
+        EnemyDemonicMarkEffect,
+        EnemyImmunityBuff,
+        EnemySupportSilenceEffect,
+        EnemyBreakAttackDebuff,
+        EnemyBreakDefenseDebuff,
+        EnemyCritDamageBuff,
+        EnemyCritRateBuff,
+        EnemyAttackBuff,
         AttackUnlimited,
+
+
         Victory,
         Defeat,
         CleanWave
@@ -80,6 +99,21 @@ namespace CheatCodeNS
                 new CheatCodeData("critrate","critratebuff", ActivateCritRateBuff, null, CheatCode.CritRateBuff),
                 new CheatCodeData("atkbuff","attackbuff", ActivateAttackBuff, null, CheatCode.AttackBuff),
                 new CheatCodeData("attackunlimited","ICanDoThisAllDay", ActivateAttackUnlimited, RemoveAttackUnlimited, CheatCode.AttackUnlimited),
+                new CheatCodeData("enemylife25","enemylife25", ActivateEnemyLife25, null, CheatCode.EnemyLife25),
+                new CheatCodeData("enemylife50","enemylife50", ActivateEnemyLife50, null, CheatCode.EnemyLife50),
+                new CheatCodeData("enemylife75","enemylife75", ActivateEnemyLife75, null, CheatCode.EnemyLife75),
+                new CheatCodeData("enemypurify","enemypurify", ActivateEnemyPurify, null, CheatCode.EnemyPurify),
+                new CheatCodeData("enemysilence","enemysilence", ActivateEnemySilence, null, CheatCode.EnemySilenceEffect),
+                new CheatCodeData("enemystun","enemystun", ActivateEnemyStun, null, CheatCode.EnemyStunEffect),
+                new CheatCodeData("enemytaunt","enemytaunt", ActivateEnemyTaunt, null, CheatCode.EnemyTauntEffect),
+                new CheatCodeData("enemydemonicmark","enemydemonicmark", ActivateEnemyDemonicMark, null, CheatCode.EnemyDemonicMarkEffect),
+                new CheatCodeData("enemysuppsilence","enemysuppsilence", ActivateEnemySupportSilence, null, CheatCode.EnemySupportSilenceEffect),
+                new CheatCodeData("enemyimmunity","enemyimmunity", ActivateEnemyImmunityBuff, null, CheatCode.EnemyImmunityBuff),
+                new CheatCodeData("enemybreakatk","enemybreakatk", ActivateEnemyBreakAttackDebuff, null, CheatCode.EnemyBreakAttackDebuff),
+                new CheatCodeData("enemybreakdeff","enemybreakdeff", ActivateEnemyBreakDefenseDebuff, null, CheatCode.EnemyBreakDefenseDebuff),
+                new CheatCodeData("enemycritdmg","enemycritdmg", ActivateEnemyCritDamageBuff, null, CheatCode.EnemyCritDamageBuff),
+                new CheatCodeData("enemycritrate","enemycritrate", ActivateEnemyCritRateBuff, null, CheatCode.EnemyCritRateBuff),
+                new CheatCodeData("enemyatkbuff","enemyatkbuff", ActivateEnemyAttackBuff, null, CheatCode.EnemyAttackBuff),
                 new CheatCodeData("victory","WhatIsBestInLife", ActivateVictory, null, CheatCode.Victory),
                 new CheatCodeData("defeat","IllBeBack", ActivateDefeat, null, CheatCode.Defeat),
                 new CheatCodeData("cleanwave","cleanwave", ActivateCleanWave, null, CheatCode.CleanWave)
@@ -88,6 +122,7 @@ namespace CheatCodeNS
 
         }
 
+        
         public void CheckAndActivateCheat(string input)
         {
             input = input.ToLower();
@@ -135,7 +170,7 @@ namespace CheatCodeNS
                 }
             }
         }
-
+        #region Ally
         private void ActivateUnkillable()
         {
             Debug.LogWarning("Unkillable activated");
@@ -264,6 +299,9 @@ namespace CheatCodeNS
 
             Debug.LogWarning("Attack unlimited activated");
         }
+
+        #endregion
+
         private void ActivateVictory()
         {
             _battleInstance.SetState(new Won(_battleInstance));
@@ -282,6 +320,162 @@ namespace CheatCodeNS
             Debug.LogWarning("Clean wave activated");
             ActiveCheatCodes.Remove(CheatCode.CleanWave);
         }
+
+        #region Enemy
+
+        private void ActivateEnemyLife25()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.CurrentHp = enemy.Stats[Attribute.HP].Value * 25 / 100;
+            }
+            Debug.LogWarning("Enemy life 25% activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyLife25);
+        }
+
+        private void ActivateEnemyLife50()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.CurrentHp = enemy.Stats[Attribute.HP].Value * 50 / 100;
+            }
+            Debug.LogWarning("Enemy life 50% activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyLife50);
+        }
+
+        private void ActivateEnemyLife75()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.CurrentHp = enemy.Stats[Attribute.HP].Value * 75 / 100;
+            }
+            Debug.LogWarning("Enemy life 75% activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyLife75);
+        }
+
+        private void ActivateEnemyPurify()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.RemoveAlterations();
+            }
+            Debug.LogWarning("Enemy purify activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyPurify);
+        }
+
+        private void ActivateEnemySilence()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new Silence(2));
+            }
+            Debug.LogWarning("Enemy silence activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemySilenceEffect);
+        }
+
+        private void ActivateEnemyStun()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new Stun(2));
+            }
+            Debug.LogWarning("Enemy stun activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyStunEffect);
+        }
+
+        private void ActivateEnemyTaunt()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new Taunt(2));
+            }
+            Debug.LogWarning("Enemy taunt activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyTauntEffect);
+        }
+
+        private void ActivateEnemyDemonicMark()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new DemonicMark(), 4);
+            }
+            Debug.LogWarning("Enemy demonic mark activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyDemonicMarkEffect);
+        }
+
+        private void ActivateEnemySupportSilence()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new SupportSilence(2));
+            }
+            Debug.LogWarning("Enemy support silence activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemySupportSilenceEffect);
+        }
+
+        private void ActivateEnemyImmunityBuff()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new Immunity(2));
+            }
+            Debug.LogWarning("Enemy immunity buff activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyImmunityBuff);
+        }
+
+        private void ActivateEnemyBreakAttackDebuff()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new BreakAttack(2));
+            }
+            Debug.LogWarning("Enemy break attack activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyBreakAttackDebuff);
+        }
+
+        private void ActivateEnemyBreakDefenseDebuff()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new BreakDefense(2));
+            }
+            Debug.LogWarning("Enemy break defense activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyBreakDefenseDebuff);
+        }
+
+        private void ActivateEnemyCritDamageBuff()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new CritDmgBuff(2));
+            }
+            Debug.LogWarning("Enemy crit damage buff activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyCritDamageBuff);
+        }
+
+        private void ActivateEnemyCritRateBuff()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new CritRateBuff(2));
+            }
+            Debug.LogWarning("Enemy crit rate buff activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyCritRateBuff);
+        }
+
+        private void ActivateEnemyAttackBuff()
+        {
+            foreach (Entity enemy in _battleInstance.Enemies)
+            {
+                enemy.ApplyEffect(new AttackBuff(2));
+            }
+            Debug.LogWarning("Enemy attack buff activated");
+            ActiveCheatCodes.Remove(CheatCode.EnemyAttackBuff);
+        }
+
+
+
+        #endregion
 
         // REMOVERS
         private void RemoveUnkillable()
@@ -308,6 +502,8 @@ namespace CheatCodeNS
             ActiveCheatCodes.Remove(CheatCode.AttackUnlimited);
             Debug.LogWarning("Attack unlimited removed");
         }
+
+        
     }
 }
 // FIXME: This is examples :: DO NOT REMOVE

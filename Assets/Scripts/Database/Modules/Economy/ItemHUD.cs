@@ -31,8 +31,12 @@ public class ItemHUD : MonoBehaviour
         if (item is Gear gear) Gear = gear;
 
         _sprite = GetComponentInChildren<Image>();
-        _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/Default");
-        if (Item.Type != null) _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/{Item.Name}");
+        if (_sprite != null)
+        {
+            _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/Default");
+            if (Item.Type != null) _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/{Item.Name}");
+        }
+
         if (Gear == null) return;
         Debug.Log(Gear.Attribute + " " + Gear.Value);
         _textValue.text = Gear.Attribute + " " + Gear.Value;
@@ -56,7 +60,7 @@ public class ItemHUD : MonoBehaviour
     private void ChangeItem(Item item)
     {
         Debug.Log($"{item.Name} is now selected.");
-        OnItemChange?.Invoke(item,Item);
+        OnItemChange?.Invoke(item, Item);
         Init(item);
         ItemSelection.OnItemSelected -= ChangeItem;
         ShowItems.OnPopupLoaded -= SetSelection;

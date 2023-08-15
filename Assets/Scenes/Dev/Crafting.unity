@@ -721,6 +721,7 @@ GameObject:
   - component: {fileID: 673954511}
   - component: {fileID: 673954510}
   - component: {fileID: 673954509}
+  - component: {fileID: 673954514}
   m_Layer: 5
   m_Name: PC Canvas
   m_TagString: Untagged
@@ -830,6 +831,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &673954514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673954508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3583039f63f3fec439865840908c96ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemHUD: {fileID: 2814415651691544923, guid: f05cd85bba4ee3d46add55fe5f7ff007, type: 3}
+  _layout: {fileID: 457867395}
 --- !u!1 &737357569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,53 +1727,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281540250}
   m_CullTransparentMesh: 1
---- !u!1 &1294299215
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1294299216}
-  - component: {fileID: 1294299217}
-  m_Layer: 0
-  m_Name: UwU
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1294299216
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1294299215}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.137871, y: -0.5685586, z: 69.37834}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1294299217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1294299215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3583039f63f3fec439865840908c96ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemHUD: {fileID: 2814415651691544923, guid: f05cd85bba4ee3d46add55fe5f7ff007, type: 3}
-  _layout: {fileID: 457867395}
-  ItemSelected: []
 --- !u!1 &1304843275
 GameObject:
   m_ObjectHideFlags: 0
