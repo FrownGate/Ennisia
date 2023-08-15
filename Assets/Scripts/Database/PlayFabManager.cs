@@ -308,46 +308,11 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
+        Debug.LogWarning("TESTING");
+        //EquipTest();
+        //Gear gear = Inventory.GetGearById(1);
+        //Player.Equip(gear);
 
-        //Debug.LogWarning("TESTING ACTIVATED");
-        
-        //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
-        
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Rare, null));
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
-        
-         // List<Gear> _gearList = new List<Gear>
-         // {
-         //     new Gear(GearType.Helmet, Rarity.Common, null),
-         //     new Gear(GearType.Helmet, Rarity.Common, null),
-             // new Gear(GearType.Helmet, Rarity.Common, null),
-             // new Gear(GearType.Helmet, Rarity.Common, null),
-             // new Gear(GearType.Chest, Rarity.Common, null),
-             // new Gear(GearType.Chest, Rarity.Common, null),
-             // new Gear(GearType.Chest, Rarity.Common, null),
-             // new Gear(GearType.Boots, Rarity.Common, null),
-         //     new Gear(GearType.Boots, Rarity.Common, null),
-         //     new Gear(GearType.Boots, Rarity.Common, null),
-         //     new Gear(GearType.Boots, Rarity.Common, null)
-         // };
-         // foreach (var gear in _gearList)
-         // {
-         //     AddInventoryItem(gear);
-         //     //Player.Equip(gear, false);
-         //     UpdateItem(gear);
-         // }
-
-         
-        // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Earrings, Rarity.Legendary, null), false);
-        //
-        // foreach (var gear in Player.EquippedGears)
-        // {
-        //     Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
-        // }
-        
         // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
         // Debug.Log(support.Name);
         // Player.Equip(support, 0, false); //Slot 1
@@ -355,7 +320,20 @@ public class PlayFabManager : MonoBehaviour
         // support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Ugho");
         // Debug.Log(support.Name);
         // Player.Equip(support, 1, false); //Slot 2
+    }
 
-        
+    private void EquipTest()
+    {
+        List<Gear> gears = new();
+
+        foreach (GearType type in Enum.GetValues(typeof(GearType)))
+        {
+            if (type == GearType.Weapon) continue;
+            Gear gear = new(type, Rarity.Legendary, null);
+            AddInventoryItem(gear);
+            gears.Add(gear);
+        }
+
+        Player.Equip(gears);
     }
 }
