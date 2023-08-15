@@ -5,7 +5,6 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
-using System.Linq;
 
 public enum Rarity
 {
@@ -45,6 +44,7 @@ public class PlayFabManager : MonoBehaviour
     public PlayFab.ClientModels.EntityKey Entity => _accountMod.Entity;
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
+    public bool IsAccountReset => _accountMod.IsAccountReset;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -114,8 +114,11 @@ public class PlayFabManager : MonoBehaviour
             _summonMod.Init(this);
 
             AccountModule.OnInitComplete += _economyMod.GetEconomyData;
-            EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
-            GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
+            EconomyModule.OnInitComplete += _accountMod.CompleteLogin;
+
+            //TODO -> Fix Guilds Module
+            //EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
+            //GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
 
             _requests = 0;
             Token = null;
@@ -125,8 +128,9 @@ public class PlayFabManager : MonoBehaviour
     private void OnDestroy()
     {
         AccountModule.OnInitComplete -= _economyMod.GetEconomyData;
-        EconomyModule.OnInitComplete -= _guildsMod.GetPlayerGuild;
-        GuildsModule.OnInitComplete -= _accountMod.CompleteLogin;
+        EconomyModule.OnInitComplete -= _accountMod.CompleteLogin;
+        //EconomyModule.OnInitComplete -= _guildsMod.GetPlayerGuild;
+        //GuildsModule.OnInitComplete -= _accountMod.CompleteLogin;
     }
 
     private void Start()
@@ -145,6 +149,7 @@ public class PlayFabManager : MonoBehaviour
     public void Login(string email, string password) => _accountMod.Login(email, password);
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
+    public void ResetAccount(bool admin = false) => _accountMod.ResetAccount(admin);
 
     #endregion
 
