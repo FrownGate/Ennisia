@@ -3,22 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AllBonus { EXP, REFUND, GOLD, AFFINITY, GEAREXP, UPGRADEGEAR, CONTROLPOINT, ADDITIONALGEAR };
+
 public class PetsBonus : MonoBehaviour
 {
+
     private static PetsBonus instance = null;
     public static PetsBonus Instance => instance;
 
-    public int GoldBonus;
-    public int AffinityBonus;
-    public int GearUpdateChance;
-    public int ControlPointBonus;
-    public int AdditionalGearChance;
-
     public List<Pet> Pets;
-    public List<int> Bonus;
     private PetSO[] _petList;
-
-    public enum AllPets { CATTOW, FULFFY, KISEKI, NAOKI, OBISIDIAN, TANGERINE, YOICHI, YUKI };
+    public Dictionary<AllBonus, int> Bonus;
+    
 
     public void Awake()
     {
@@ -33,8 +29,9 @@ public class PetsBonus : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
 
-        ;
         _petList = Resources.LoadAll<PetSO>("SO/Pets");
+
+        Bonus = InitDictionary();
 
         foreach (PetSO file in _petList)
         {
@@ -44,11 +41,24 @@ public class PetsBonus : MonoBehaviour
         }
     }
 
+
+    protected Dictionary<AllBonus, int> InitDictionary()
+    {
+        Dictionary<AllBonus, int> dictionary = new();
+
+        foreach (string bonus in Enum.GetNames(typeof(AllBonus)))
+        {
+            dictionary[Enum.Parse<AllBonus>(bonus)] = 1;
+        }
+
+        return dictionary;
+    }
+    // TO DO -> function to create according to db
     public void UpdatePets()
     {
         foreach(Pet item in Pets)
         {
-            Bonus[Pets.IndexOf(item)] = item.Obatined ? item.BonusAmount : 0;
+            if (item.Obatined) { Bonus[item.Data.BonusType] += item.Data.BonusAmount; }
         }
         
     }
