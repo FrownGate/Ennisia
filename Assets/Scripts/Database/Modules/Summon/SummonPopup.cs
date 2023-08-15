@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SummonPopup : MonoBehaviour
 {
-    [SerializeField] private GameObject _canvas;
+    [SerializeField] private GameObject _summonArea;
     [SerializeField] private GameObject _pulledSupportPrefab;
 
     private void Awake()
@@ -29,7 +29,7 @@ public class SummonPopup : MonoBehaviour
             //pos = i % 5 == 0 ? 0 : pos + 190;
             //Vector3 position = new(500 + pos, 300 + 190 * row, 3);
 
-            GameObject pulledSupport = Instantiate(_pulledSupportPrefab, _canvas.transform);
+            GameObject pulledSupport = Instantiate(_pulledSupportPrefab, _summonArea.transform);
             //pulledSupport.transform.position = position;
             pulledSupport.GetComponent<ShowSupport>().Init(pulledSupports[i]);
         }
