@@ -9,4 +9,5 @@ public class EnemySO : SkillsToInitSO
     public string Description;
     public bool IsBoss;
     public SerializedDictionary<Attribute, float> Stats = new();
+    public Sprite EnemySprite;
 }
