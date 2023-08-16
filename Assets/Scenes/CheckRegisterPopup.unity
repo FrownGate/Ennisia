@@ -540,6 +540,7 @@ GameObject:
   - component: {fileID: 538156645}
   - component: {fileID: 538156644}
   - component: {fileID: 538156643}
+  - component: {fileID: 538156646}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -653,6 +654,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538156640}
   m_CullTransparentMesh: 1
+--- !u!114 &538156646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538156640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73336b1237c83d42957c68ae2bf1fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scene: LoginRegisterPopup
 --- !u!1 &1087954983
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,9 +751,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StartLogin, Assembly-CSharp
-        m_MethodName: SubmitLogin
+      - m_Target: {fileID: 538156646}
+        m_TargetAssemblyTypeName: RegistrationHandle, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1304,9 +1318,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StartLogin, Assembly-CSharp
-        m_MethodName: SubmitLogin
+      - m_Target: {fileID: 538156646}
+        m_TargetAssemblyTypeName: RegistrationHandle, Assembly-CSharp
+        m_MethodName: StartRegister
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

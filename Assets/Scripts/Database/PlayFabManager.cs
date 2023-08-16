@@ -154,6 +154,7 @@ public class PlayFabManager : MonoBehaviour
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
     public void ResetAccount(bool admin = false) => _accountMod.ResetAccount(admin);
+    public void RegisterAccount(string email, string password) => StartCoroutine(_accountMod.RegisterAccount(email, password));
 
     #endregion
 

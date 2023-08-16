@@ -300,7 +300,7 @@ public class AccountModule : Module
         Login();
     }
 
-    private IEnumerator RegisterAccount(string email, string password) //This function will be registered to a button event
+    public IEnumerator RegisterAccount(string email, string password)
     {
         yield return _manager.StartAsyncRequest("Registering account...");
         CreateAccountData(email, password);
@@ -314,9 +314,15 @@ public class AccountModule : Module
         },
         res =>
         {
-            _manager.EndRequest("Account registered !");
-            StartCoroutine(UpdateName(username));
-            CreateSave();
+            PlayFabClientAPI.UnlinkCustomID(new()
+            {
+                CustomId = SystemInfo.deviceUniqueIdentifier
+            }, res =>
+            {
+                _manager.EndRequest("Account registered !");
+                StartCoroutine(UpdateName(username));
+                CreateSave();
+            }, _manager.OnRequestError);
         }, _manager.OnRequestError);
     }
 
