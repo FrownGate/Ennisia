@@ -20,6 +20,7 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
     [SerializeField] private GameObject _skillSlot;
+    [SerializeField] private GameObject _skillSlotContainer;
     [SerializeField] private Canvas _canvasPC;
     [SerializeField] private Canvas _canvasMobile;
     [SerializeField] private Image _background;
@@ -112,7 +113,7 @@ public class BattleSystem : StateMachine
 
         Player.InitElement();
 
-        int position = 0;
+
 
         foreach (var skill in Player.Skills)
         {
@@ -120,11 +121,12 @@ public class BattleSystem : StateMachine
             skill.ConstantPassive(Enemies, Player, Turn, Allies); // constant passive at battle start
             //skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
             //skill.Button.Init(skill, position);
+            var skillGO = Instantiate(_skillSlot, _canvas.transform);
+            skillGO.transform.SetParent(_skillSlotContainer.transform);
+            skill.SkillButton = skillGO.GetComponent<SkillButton>();
+            skill.SkillButton.Init(skill);
+            //DONE -> dynamic position
             
-            skill.SkillButton = Instantiate(_skillSlot, _canvas.transform).GetComponent<SkillButton>();
-            skill.SkillButton.Init(skill, position);
-            
-            position += 160; //TODO -> dynamic position
         }
     }
 
@@ -212,7 +214,8 @@ public class BattleSystem : StateMachine
     {
         foreach (var skill in Player.Skills)
         {
-            skill.Button.ToggleHUD(active);
+            //skill.Button.ToggleHUD(active);
+            skill.SkillButton.ToggleHUD(active);
             //if (Player.HasEffect(new Silence())) break;
         }
 

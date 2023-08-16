@@ -43,7 +43,7 @@ public class SkillButton : MonoBehaviour
     {
         //if (!_isActive || _skill == null) return;
         _isSelected = true;
-        //OnSkillSelected?.Invoke(_skill);
+        OnSkillSelected?.Invoke(_skill);
     }
 
     public void OnMouseOver()
@@ -56,10 +56,9 @@ public class SkillButton : MonoBehaviour
         _frameImage.gameObject.SetActive(false);
     }
     
-    public void Init(Skill skill, int x)
+    public void Init(Skill skill)
     {
         _image.sprite = skill.Data.Icon != null ? skill.Data.Icon : _blankSprite;
         _skill = skill;
-        transform.localPosition = new Vector3(-800 + x, -465, 0);
     }
 }
