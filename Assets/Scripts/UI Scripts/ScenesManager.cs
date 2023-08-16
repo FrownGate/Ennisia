@@ -57,7 +57,7 @@ public class ScenesManager : MonoBehaviour
     public void SetScene(string scene)
     {
         _sceneToLoad = GetSceneName(scene);
-        if (_isPopupLoaded && _sceneToLoad.Contains("Popup")) return;
+        if (_isPopupLoaded && _sceneToLoad.Contains("Popup")) UnloadPopup(_activeScene);
         Debug.Log($"Going to scene {_sceneToLoad}");
         StartCoroutine(LoadScene());
     }

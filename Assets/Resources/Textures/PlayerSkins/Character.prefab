@@ -71,7 +71,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: d963eba06f7bcfd4bbce7e5517fa2754, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8865ae9b8e5437a4a806506b0767ab8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterPrefab: {fileID: 0}
+  _characterImage: {fileID: 482671907983847974}
   _female: {fileID: 21300000, guid: d963eba06f7bcfd4bbce7e5517fa2754, type: 3}
   _male: {fileID: 21300000, guid: a90732ac804687c4797ff0fa2a7e8809, type: 3}
 --- !u!212 &4056055978225322273

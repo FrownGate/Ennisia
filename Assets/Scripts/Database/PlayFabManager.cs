@@ -48,6 +48,7 @@ public class PlayFabManager : MonoBehaviour
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
     public bool IsAccountReset => _accountMod.IsAccountReset;
+    public bool HasAuthData => _accountMod.HasAuthData;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -95,6 +96,7 @@ public class PlayFabManager : MonoBehaviour
     //Requests
     private int _requests;
     public string Token;
+    public bool AccountChecked { get; set; }
 
     //TODO -> refresh ui after some events
 
@@ -125,6 +127,7 @@ public class PlayFabManager : MonoBehaviour
 
             _requests = 0;
             Token = null;
+            AccountChecked = false;
         }
     }
 
@@ -153,6 +156,7 @@ public class PlayFabManager : MonoBehaviour
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
     public void ResetAccount(bool admin = false) => _accountMod.ResetAccount(admin);
+    public void RegisterAccount(string email, string password) => StartCoroutine(_accountMod.RegisterAccount(email, password));
 
     #endregion
 
@@ -237,7 +241,7 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithCustomID(new()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = false
+            CreateAccount = true
         }, res =>
         {
             PlayFabClientAPI.GetTitleData(new(), res =>
