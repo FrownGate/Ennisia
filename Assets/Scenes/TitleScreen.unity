@@ -778,6 +778,8 @@ GameObject:
   - component: {fileID: 811521258}
   - component: {fileID: 811521260}
   - component: {fileID: 811521259}
+  - component: {fileID: 811521262}
+  - component: {fileID: 811521261}
   m_Layer: 5
   m_Name: Start Text
   m_TagString: Untagged
@@ -803,7 +805,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 50}
+  m_SizeDelta: {x: 1900, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &811521259
 MonoBehaviour:
@@ -902,6 +904,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811521257}
   m_CullTransparentMesh: 1
+--- !u!225 &811521261
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811521257}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!111 &811521262
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811521257}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 142fce3f75b3a9d4bab6fc2f6a21c95e, type: 2}
+  - {fileID: 7400000, guid: 542b9d2c62656a04984835cfb7fecb51, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1059916439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1948,7 +1979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 138197708882358416, guid: 6b5a826234c3b3e43b420f9665bb5d2a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1775128503294153522, guid: 6b5a826234c3b3e43b420f9665bb5d2a, type: 3}
       propertyPath: m_RootOrder
@@ -2256,6 +2287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startText: {fileID: 811521259}
+  _startAnimation: {fileID: 811521262}
+  _fadeIn: {fileID: 7400000, guid: 142fce3f75b3a9d4bab6fc2f6a21c95e, type: 2}
+  _fadeOut: {fileID: 7400000, guid: 542b9d2c62656a04984835cfb7fecb51, type: 2}
 --- !u!1001 &137243220617459402
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -224,6 +224,16 @@ public class AccountModule : Module
             //TODO -> check if there's no missing datas
             Data.UpdateLocalData(Encoding.UTF8.GetString(res));
             _manager.EndRequest("Local datas updated !");
+
+            if (Data.HasMissingDatas)
+            {
+                StartCoroutine(UpdateData());
+                return;
+            }
+
+            Debug.Log($"init completed : {_isInitCompleted}");
+            if (_isInitCompleted) return;
+            _isInitCompleted = true;
             OnInitComplete?.Invoke();
         }, error => Debug.LogError(error));
     }
@@ -247,6 +257,7 @@ public class AccountModule : Module
                 }, res => {
                     _manager.EndRequest("Files uploaded !");
 
+                    Debug.Log($"init completed : {_isInitCompleted}");
                     if (_isInitCompleted) return;
                     _isInitCompleted = true;
                     OnInitComplete?.Invoke();
@@ -337,7 +348,6 @@ public class AccountModule : Module
         _manager.Testing();
     }
     #endregion
-
 
     private void PlayerCpEarned(int exp)
     {
