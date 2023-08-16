@@ -20,6 +20,7 @@ public class AccountModule : Module
     public bool IsLoggedIn { get; private set; }
     public bool IsFirstLogin { get; private set; }
     public bool IsAccountReset { get; private set; }
+    public bool HasAuthData => !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
 
     private AuthData _authData;
@@ -68,6 +69,7 @@ public class AccountModule : Module
 
             Debug.Log("Local datas found !");
             user = _authData.Email;
+            //TODO -> remove temp anonymous account
         }
         catch
         {
@@ -93,7 +95,7 @@ public class AccountModule : Module
     #region Login
     public void Login()
     {
-        if (!HasAuthData())
+        if (!HasAuthData)
         {
             AnonymousLogin();
             return;
@@ -147,20 +149,17 @@ public class AccountModule : Module
 
         yield return GetPlayerBaseStats();
 
-        if (HasAuthData()) CreateSave();
+        if (HasAuthData) CreateSave();
 
         if (!IsFirstLogin && !IsAccountReset)
         {
             GetAccountData();
+
+            //TODO -> Check if authdata are well saved
             yield break;
         }
 
         yield return UpdateData();
-    }
-
-    private bool HasAuthData()
-    {
-        return !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
     }
 
     private void OnLoginRequestError(PlayFabError error)
@@ -207,7 +206,6 @@ public class AccountModule : Module
             {
                 Debug.LogWarning("Missing datas - creating ones...");
                 StartCoroutine(UpdateData());
-                OnInitComplete?.Invoke();
                 return;
             }
 
@@ -289,7 +287,7 @@ public class AccountModule : Module
             _binaryFormatter.Serialize(file, _authData);
         }
 
-        _authData = new();
+        //_authData = new();
     }
 
     public void ResetAccount(bool admin = false)

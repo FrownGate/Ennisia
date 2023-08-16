@@ -48,6 +48,7 @@ public class PlayFabManager : MonoBehaviour
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
     public bool IsAccountReset => _accountMod.IsAccountReset;
+    public bool HasAuthData => _accountMod.HasAuthData;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -237,7 +238,7 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithCustomID(new()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = false
+            CreateAccount = true
         }, res =>
         {
             PlayFabClientAPI.GetTitleData(new(), res =>

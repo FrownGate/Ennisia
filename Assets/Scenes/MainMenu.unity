@@ -977,6 +977,7 @@ GameObject:
   - component: {fileID: 139167418}
   - component: {fileID: 139167417}
   - component: {fileID: 139167421}
+  - component: {fileID: 139167422}
   m_Layer: 5
   m_Name: PC Canvas
   m_TagString: Untagged
@@ -1098,6 +1099,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e772dec005b09d14a99ed5df411147f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &139167422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139167416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f123a79f89c0578498f8caffe777af26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _popup: CheckRegisterPopup
 --- !u!1001 &148830279
 PrefabInstance:
   m_ObjectHideFlags: 0
