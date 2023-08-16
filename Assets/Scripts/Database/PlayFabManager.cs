@@ -96,6 +96,7 @@ public class PlayFabManager : MonoBehaviour
     //Requests
     private int _requests;
     public string Token;
+    public bool AccountChecked { get; set; }
 
     //TODO -> refresh ui after some events
 
@@ -126,6 +127,7 @@ public class PlayFabManager : MonoBehaviour
 
             _requests = 0;
             Token = null;
+            AccountChecked = false;
         }
     }
 

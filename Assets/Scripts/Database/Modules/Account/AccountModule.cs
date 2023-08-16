@@ -273,6 +273,7 @@ public class AccountModule : Module
     private string CreateUsername(string email = "user")
     {
         string name = email.Split('@')[0];
+        name = CSVUtils.GetFileName(name);
         name += SystemInfo.deviceUniqueIdentifier[..5];
         Debug.Log($"Creating username {name}...");
         return name;

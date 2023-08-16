@@ -32,6 +32,7 @@ public class StartLoginRegister : MonoBehaviour
         if (_loggedIn)
         {
             PlayFabManager.Instance.RegisterAccount(_email.text, _password.text);
+            ScenesManager.Instance.UnloadPopup(gameObject.scene);
             return;
         }
 
