@@ -38,3 +38,4 @@ MonoBehaviour:
       Value: 100
     - Key: 8
       Value: 125
+  EnemySprite: {fileID: 0}

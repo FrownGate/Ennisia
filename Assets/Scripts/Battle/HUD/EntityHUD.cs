@@ -24,12 +24,23 @@ public class EntityHUD : MonoBehaviour
     public void Init(Entity entity, int id = 0)
     {
 
-        _sprite.sprite = Resources.Load<Sprite>(entity.Name != "" ? $"Textures/Enemies/{entity.Name}" : $"Textures/Enemies/Player");
+        _sprite.sprite = entity.EntitySprite;
+        if (_sprite.sprite == null)
+        {
+            _sprite.sprite = Resources.Load<Sprite>($"Textures/Enemies/Player");
+        }
+        //TODO -> Show Id on HUD
         //Tempo parce que c'est uwu
-        if (entity.Name == "Wolf Pack Leader") _sprite.flipX = true;
+        switch (entity.Name)
+        {
+            case "Wolf Pack Leader":
+            case "Player":
+                _sprite.flipX = true;
+                break;
+        }
+
         ////////
         Debug.Log($"Assets/Resources/Textures/Enemies/{entity.Name}");
-        //TODO -> Show Id on HUD
         _entity = entity;
         _id = id;
         _hpBar.maxValue = _entity.Stats[Attribute.HP].Value;
@@ -42,6 +53,8 @@ public class EntityHUD : MonoBehaviour
         }
 
         transform.localPosition = new Vector3(-495, 0, 0);
+
+        gameObject.name = entity.Name;
     }
 
     private void OnMouseUpAsButton()
