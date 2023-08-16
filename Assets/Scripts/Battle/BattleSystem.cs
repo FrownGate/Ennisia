@@ -19,6 +19,7 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
+    [SerializeField] private GameObject _skillSlot;
     [SerializeField] private Canvas _canvasPC;
     [SerializeField] private Canvas _canvasMobile;
     [SerializeField] private Image _background;
@@ -117,8 +118,12 @@ public class BattleSystem : StateMachine
         {
             //TODO -> Set position
             skill.ConstantPassive(Enemies, Player, Turn, Allies); // constant passive at battle start
-            skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
-            skill.Button.Init(skill, position);
+            //skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
+            //skill.Button.Init(skill, position);
+            
+            skill.SkillButton = Instantiate(_skillSlot, _canvas.transform).GetComponent<SkillButton>();
+            skill.SkillButton.Init(skill, position);
+            
             position += 160; //TODO -> dynamic position
         }
     }
