@@ -5,6 +5,7 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
+using Unity.VisualScripting;
 
 public enum Rarity
 {
@@ -314,8 +315,9 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
-        Debug.LogWarning("TESTING");
-        //EquipTest();
+        // Debug.LogWarning("TESTING");
+        // EquipTest();
+        // AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
         //Gear gear = Inventory.GetGearById(1);
         //Player.Equip(gear);
 
@@ -335,7 +337,7 @@ public class PlayFabManager : MonoBehaviour
         foreach (GearType type in Enum.GetValues(typeof(GearType)))
         {
             if (type == GearType.Weapon) continue;
-            Gear gear = new(type, Rarity.Legendary, null);
+            Gear gear = new(type, Rarity.Common, null);
             AddInventoryItem(gear);
             gears.Add(gear);
         }
