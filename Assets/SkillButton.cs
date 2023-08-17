@@ -15,14 +15,24 @@ public class SkillButton : MonoBehaviour
     private Skill _skill;
     private bool _isActive;
     private bool _isSelected;
-    
+    private bool isSkillSelected = false;
     private float _rotateSpeed => 0.5f;
+    
+    private void Start()
+    {
+        _frameImage.gameObject.SetActive(false);
+        _bgImagemage.gameObject.SetActive(false);
+    }
     private void Update()
     {
         
         if (_isSelected)
         {
             _bgImagemage.transform.Rotate(Vector3.forward, _rotateSpeed);
+        }else
+        {
+            _bgImagemage.transform.rotation = Quaternion.identity;
+            _bgImagemage.gameObject.SetActive(false);
         }
     }
 
@@ -41,8 +51,9 @@ public class SkillButton : MonoBehaviour
 
     public void OnMouseUpAsButton()
     {
-        //if (!_isActive || _skill == null) return;
-        _isSelected = true;
+        if (!_isActive || _skill == null) return;
+        OnSkillButtonClicked();
+        _bgImagemage.gameObject.SetActive(isSkillSelected);
         OnSkillSelected?.Invoke(_skill);
     }
 
@@ -54,6 +65,17 @@ public class SkillButton : MonoBehaviour
     public void OnMouseExit()
     {
         _frameImage.gameObject.SetActive(false);
+    }
+    
+    public void OnSkillButtonClicked()
+    {
+        isSkillSelected = !isSkillSelected;
+        _isSelected = !_isSelected;
+    }
+    
+    public void DeSelect()
+    {
+        _isSelected = false;
     }
     
     public void Init(Skill skill)

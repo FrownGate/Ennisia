@@ -25,6 +25,7 @@ public class BattleSystem : StateMachine
     [SerializeField] private Canvas _canvasMobile;
     [SerializeField] private Image _background;
     public TextMeshProUGUI DialogueText;
+    public TextMeshProUGUI TurnText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
     //TODO -> move popup in BattleSystem game object
@@ -48,6 +49,7 @@ public class BattleSystem : StateMachine
         _canvas = _canvasPC; //TODO -> check platform
         EntityHUD.OnEntitySelected += SelectEntity;
         HUD.OnSkillSelected += SelectSkill;
+        SkillButton.OnSkillSelected += SelectSkill;
         MissionManager.OnNextWave += InitBattle;
         MissionManager.OnMissionComplete += EndBattle;
         InitBattle();
@@ -57,8 +59,14 @@ public class BattleSystem : StateMachine
     {
         EntityHUD.OnEntitySelected -= SelectEntity;
         HUD.OnSkillSelected -= SelectSkill;
+        SkillButton.OnSkillSelected -= SelectSkill;
         MissionManager.OnNextWave -= InitBattle;
         MissionManager.OnMissionComplete -= EndBattle;
+    }
+    
+    private void Update()
+    {
+        TurnText.text = $"Turn {Turn}";
     }
 
     public void InitBattle()
@@ -125,8 +133,6 @@ public class BattleSystem : StateMachine
             skillGO.transform.SetParent(_skillSlotContainer.transform);
             skill.SkillButton = skillGO.GetComponent<SkillButton>();
             skill.SkillButton.Init(skill);
-            //DONE -> dynamic position
-            
         }
     }
 
@@ -207,11 +213,19 @@ public class BattleSystem : StateMachine
 
     private void SelectSkill(Skill skill)
     {
+         
         SetState(new SelectTarget(this, skill));
     }
 
     public void ToggleSkills(bool active)
     {
+        if (!active)
+        {
+            foreach (var skill in Player.Skills)
+            {
+                skill.SkillButton.DeSelect();
+            }
+        }
         foreach (var skill in Player.Skills)
         {
             //skill.Button.ToggleHUD(active);
