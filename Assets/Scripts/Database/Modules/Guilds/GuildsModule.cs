@@ -19,7 +19,6 @@ public class GuildsModule : Module
     //TODO -> Remove guild member
     //TODO -> check role for applications functions
     //TODO -> Check if player's application has been accepted in update ?
-    //TODO -> fix set objects request error
     //TODO -> reset applications on reset
 
     private void Awake()
@@ -49,6 +48,7 @@ public class GuildsModule : Module
                 return;
             }
 
+            Debug.Log("Player has no Guild.");
             if (!_manager.LoggedIn) OnInitComplete?.Invoke();
 
         }, _manager.OnRequestError);
@@ -58,21 +58,21 @@ public class GuildsModule : Module
     {
         yield return _manager.StartAsyncRequest();
 
+        List<EntityMemberRole> members = new();
+
         PlayFabGroupsAPI.ListGroupMembers(new()
         {
             Group = guild.Group
         }, res =>
         {
-            _manager.EndRequest();
-            PlayerGuildMembers = guild == PlayerGuild ? res.Members : PlayerGuildMembers;
+            members = res.Members;
+            PlayerGuildMembers = guild == PlayerGuild ? members : PlayerGuildMembers;
 
-            if (guild == PlayerGuild && PlayerGuildData != null)
+            if (!_manager.LoggedIn && _manager.IsAccountReset)
             {
-                StartCoroutine(UpdatePlayerGuild());
+                StartCoroutine(ResetGuild());
                 return;
             }
-
-            _manager.StartRequest();
 
             PlayFabDataAPI.GetObjects(new()
             {
@@ -80,26 +80,13 @@ public class GuildsModule : Module
                 EscapeObject = true
             }, res =>
             {
-                //TODO -> Fix GuildData creation
-                //GuildData data = new(res.Objects[new GuildData().GetType().Name]);
-                //PlayerGuildData = guild == PlayerGuild ? data : PlayerGuildData;
+                _manager.EndRequest();
+                GuildData data = new(res.Objects[new GuildData().GetType().Name]);
+                PlayerGuildData = guild == PlayerGuild ? data : PlayerGuildData;
 
-                PlayFabGroupsAPI.ListGroupMembers(new()
-                {
-                    Group = guild.Group
-                }, res =>
-                {
-                    //_manager.InvokeOnGetGuildData(data, res.Members);
+                _manager.InvokeOnGetGuildData(data, members);
 
-                    if (!_manager.LoggedIn)
-                    {
-                        if (_manager.IsAccountReset) StartCoroutine(ResetGuild());
-                        OnInitComplete?.Invoke();
-                        return;
-                    }
-
-                    _manager.EndRequest();
-                }, _manager.OnRequestError);
+                if (!_manager.LoggedIn) OnInitComplete?.Invoke();
             }, _manager.OnRequestError);
         }, _manager.OnRequestError);
     }
@@ -121,25 +108,43 @@ public class GuildsModule : Module
         };
 
         yield return KickPlayer(user);
+        OnInitComplete?.Invoke();
     }
 
     public IEnumerator CreateGuild(string name, string description)
     {
         Debug.Log("Creating guild...");
-        //TODO -> save description as object
 
         //TODO -> Check if name already exists
         PlayerGuildData = new(description);
 
         yield return _manager.StartAsyncRequest();
 
+        CreateGroupResponse newGuild = null;
+
         PlayFabGroupsAPI.CreateGroup(new()
         {
             GroupName = name
-        }, OnCreateGuild, _manager.OnRequestError);
+        }, res =>
+        {
+            newGuild = res;
+
+            PlayFabDataAPI.SetObjects(new()
+            {
+                Objects = new()
+            {
+                new()
+                {
+                    ObjectName = PlayerGuildData.GetType().Name,
+                    DataObject = PlayerGuildData
+                }
+            },
+                Entity = new() { Id = newGuild.Group.Id, Type = newGuild.Group.Type }
+            }, res => AddFakePlayer(newGuild), _manager.OnRequestError);
+        }, _manager.OnRequestError);
     }
 
-    private void OnCreateGuild(CreateGroupResponse response)
+    private void AddFakePlayer(CreateGroupResponse response)
     {
         Debug.Log($"Guild {response.GroupName} created !");
         _guildEntity = response.Group;
@@ -189,24 +194,6 @@ public class GuildsModule : Module
         {
             Group = PlayerGuild.Group
         }, res => _manager.EndRequest("Guild deleted !"), _manager.OnRequestError);
-    }
-
-    public IEnumerator UpdatePlayerGuild()
-    {
-        yield return _manager.StartAsyncRequest();
-
-        PlayFabDataAPI.SetObjects(new()
-        {
-            Objects = new()
-            {
-                new()
-                {
-                    ObjectName = PlayerGuildData.GetType().Name,
-                    DataObject = PlayerGuildData
-                }
-            },
-            Entity = new() { Id = PlayerGuild.Group.Id, Type = PlayerGuild.Group.Type }
-        }, res => _manager.EndRequest(), _manager.OnRequestError);
     }
 
     public IEnumerator GetGuilds()
