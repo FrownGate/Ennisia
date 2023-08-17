@@ -6,7 +6,7 @@ public class ShowGuildInfo : MonoBehaviour
     [SerializeField] private GameObject _applyButton;
     [SerializeField] private CanvasGroup _canvasGroup;
 
-    private GroupWithRoles _guild;
+    private EntityKey _guild;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class ShowGuildInfo : MonoBehaviour
         GuildInfo.OnClick -= ShowInfo;
     }
 
-    private void ShowInfo(GroupWithRoles guild)
+    private void ShowInfo(EntityKey guild)
     {
         _canvasGroup.alpha = 1;
         _guild = guild;

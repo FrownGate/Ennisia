@@ -80,7 +80,7 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<List<GroupApplication>> OnGetApplications;
     public static event Action<List<GroupInvitation>> OnGetInvitations;
 
-    public GroupWithRoles PlayerGuild => _guildsMod.PlayerGuild;
+    public PlayFab.GroupsModels.EntityKey PlayerGuild => _guildsMod.PlayerGuild;
     public GuildData PlayerGuildData => _guildsMod.PlayerGuildData;
     public List<EntityMemberRole> PlayerGuildMembers => _guildsMod.PlayerGuildMembers;
     public int GuildPrice => _guildsMod.GuildPrice;
@@ -194,10 +194,10 @@ public class PlayFabManager : MonoBehaviour
     public void InvokeOnGetInvitations(List<GroupInvitation> invitations) => OnGetInvitations?.Invoke(invitations);
 
     public void CreateGuild(string name, string description) => StartCoroutine(_guildsMod.CreateGuild(name, description));
-    public void GetGuildData(GroupWithRoles guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
+    public void GetGuildData(PlayFab.GroupsModels.EntityKey guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
     public void GetGuilds() => StartCoroutine(_guildsMod.GetGuilds());
     public void GetPlayerOpportunities() => StartCoroutine(_guildsMod.GetPlayerOpportunities());
-    public void ApplyToGuild(GroupWithRoles guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
+    public void ApplyToGuild(PlayFab.GroupsModels.EntityKey guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
     public void GetGuildApplications() => StartCoroutine(_guildsMod.GetGuildApplications());
     public void AcceptGuildApplication(string applicant) => StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
     public void DenyGuildApplication(string applicant) => StartCoroutine(_guildsMod.DenyGuildApplication(applicant));

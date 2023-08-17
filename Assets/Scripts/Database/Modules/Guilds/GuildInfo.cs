@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GuildInfo : MonoBehaviour
 {
-    public static event Action<GroupWithRoles> OnClick;
+    public static event Action<EntityKey> OnClick;
 
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _members;
@@ -21,7 +21,7 @@ public class GuildInfo : MonoBehaviour
     {
         _guild = guild;
         _name.text = _guild.GroupName;
-        PlayFabManager.Instance.GetGuildData(_guild);
+        PlayFabManager.Instance.GetGuildData(_guild.Group);
     }
 
     private void SetData(GuildData data, List<EntityMemberRole> members)
@@ -34,6 +34,6 @@ public class GuildInfo : MonoBehaviour
 
     private void OnMouseUp()
     {
-        OnClick?.Invoke(_guild);
+        OnClick?.Invoke(_guild.Group);
     }
 }
