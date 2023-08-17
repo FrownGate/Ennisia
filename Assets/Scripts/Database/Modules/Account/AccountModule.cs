@@ -28,6 +28,7 @@ public class AccountModule : Module
     private BinaryFormatter _binaryFormatter;
     private string _path; //Local save path
     private bool _isInitCompleted;
+    private readonly string[] _characterNames = new string[2] { "FemalePlayerName", "MalePlayerName" };
 
     //TODO -> event when file upload is finished, prevent double uploads
     //TODO -> fix display name
@@ -345,6 +346,7 @@ public class AccountModule : Module
     public void SetGender(int gender)
     {
         Data.Account.Gender = gender;
+        Data.Player.Name = _characterNames[gender - 1];
         StartCoroutine(UpdateData());
     }
 
