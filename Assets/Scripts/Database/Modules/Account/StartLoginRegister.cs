@@ -21,6 +21,21 @@ public class StartLoginRegister : MonoBehaviour
         _loggedIn = false;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (_email.isFocused)
+            {
+                _password.Select();
+            }
+            else if (_password.isFocused)
+            {
+                _email.Select();
+            }
+        }
+    }
+
     public void Submit()
     {
         if (string.IsNullOrEmpty(_email.text) || string.IsNullOrEmpty(_password.text))
