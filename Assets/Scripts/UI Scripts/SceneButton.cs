@@ -7,7 +7,7 @@ public class SceneButton : MonoBehaviour
 {
     [Scene] public string Scene;
     [SerializeField] private string _params;
-    public static event Action<int> ChangeSceneSFX;
+    public static event Action<int,string> ChangeSceneSFX;
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class SceneButton : MonoBehaviour
 
     protected virtual void OnMouseUpAsButton()
     {
-        ChangeSceneSFX?.Invoke(1);
+        ChangeSceneSFX?.Invoke(1,Scene);
         ScenesManager.Instance.SetScene($"{Scene}#{_params}");
     }
 
