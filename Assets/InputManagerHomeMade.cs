@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour
     
     void Update()
     {
+        if (!Input.GetKey(KeyCode.LeftControl)) return;
         if (Input.GetKeyDown(KeyCode.P))
         {
             foreach (var stat in PlayFabManager.Instance.Player.Stats)
@@ -28,7 +29,7 @@ public class InputManager : MonoBehaviour
                 Debug.Log(stat.Key + " : " + stat.Value.Value);
             }
         }
-        if(Input.GetKeyDown(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.C))
         {
             ScenesManager.Instance.SetScene("Crafting");
         }

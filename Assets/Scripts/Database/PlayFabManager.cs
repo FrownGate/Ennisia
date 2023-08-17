@@ -123,11 +123,8 @@ public class PlayFabManager : MonoBehaviour
             _summonMod.Init(this);
 
             AccountModule.OnInitComplete += _economyMod.GetEconomyData;
-            EconomyModule.OnInitComplete += _accountMod.CompleteLogin;
-
-            //TODO -> Fix Guilds Module
-            //EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
-            //GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
+            EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
+            GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
 
             _requests = 0;
             Token = null;
@@ -139,9 +136,8 @@ public class PlayFabManager : MonoBehaviour
     private void OnDestroy()
     {
         AccountModule.OnInitComplete -= _economyMod.GetEconomyData;
-        EconomyModule.OnInitComplete -= _accountMod.CompleteLogin;
-        //EconomyModule.OnInitComplete -= _guildsMod.GetPlayerGuild;
-        //GuildsModule.OnInitComplete -= _accountMod.CompleteLogin;
+        EconomyModule.OnInitComplete -= _guildsMod.GetPlayerGuild;
+        GuildsModule.OnInitComplete -= _accountMod.CompleteLogin;
     }
 
     private void Start()
@@ -192,26 +188,17 @@ public class PlayFabManager : MonoBehaviour
     #region Guilds
 
     public void InvokeOnGetGuilds(List<GroupWithRoles> guilds) => OnGetGuilds?.Invoke(guilds);
-
-    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) =>
-        OnGetGuildData?.Invoke(guild, members);
-
+    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) => OnGetGuildData?.Invoke(guild, members);
     public void InvokeOnGetApplications(List<GroupApplication> applications) => OnGetApplications?.Invoke(applications);
     public void InvokeOnGetInvitations(List<GroupInvitation> invitations) => OnGetInvitations?.Invoke(invitations);
 
-    public void CreateGuild(string name, string description) =>
-        StartCoroutine(_guildsMod.CreateGuild(name, description));
-
-    public void UpdatePlayerGuild() => StartCoroutine(_guildsMod.UpdatePlayerGuild());
+    public void CreateGuild(string name, string description) => StartCoroutine(_guildsMod.CreateGuild(name, description));
     public void GetGuildData(GroupWithRoles guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
     public void GetGuilds() => StartCoroutine(_guildsMod.GetGuilds());
     public void GetPlayerOpportunities() => StartCoroutine(_guildsMod.GetPlayerOpportunities());
     public void ApplyToGuild(GroupWithRoles guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
     public void GetGuildApplications() => StartCoroutine(_guildsMod.GetGuildApplications());
-
-    public void AcceptGuildApplication(string applicant) =>
-        StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
-
+    public void AcceptGuildApplication(string applicant) => StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
     public void DenyGuildApplication(string applicant) => StartCoroutine(_guildsMod.DenyGuildApplication(applicant));
     public void SendGuildInvitation(string username) => StartCoroutine(_guildsMod.SendGuildInvitation(username));
     public void GetGuildInvitations() => StartCoroutine(_guildsMod.GetGuildInvitations());
