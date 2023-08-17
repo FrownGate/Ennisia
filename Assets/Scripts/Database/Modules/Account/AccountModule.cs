@@ -170,6 +170,7 @@ public class AccountModule : Module
 
     private void OnLoginRequestError(PlayFabError error)
     {
+        _manager.InvokeOnLoginError();
         _manager.OnRequestError(error);
         _authData = new();
 

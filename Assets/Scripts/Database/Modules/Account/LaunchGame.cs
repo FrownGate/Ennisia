@@ -7,14 +7,19 @@ public class LaunchGame : MonoBehaviour
     [SerializeField, Scene] private string _genderSelection;
     [Scene] private string _activeScene;
 
+    private bool _canClick;
+
     private void Awake()
     {
+        EnableClick();
         PlayFabManager.OnLoginSuccess += SetActiveScene;
+        PlayFabManager.OnLoginError += EnableClick;
     }
 
     private void OnDestroy()
     {
         PlayFabManager.OnLoginSuccess -= SetActiveScene;
+        PlayFabManager.OnLoginError -= EnableClick;
     }
 
     private void SetActiveScene()
@@ -23,8 +28,15 @@ public class LaunchGame : MonoBehaviour
         ScenesManager.Instance.SetScene(_activeScene);
     }
 
+    private void EnableClick()
+    {
+        _canClick = true;
+    }
+
     private void OnMouseUpAsButton()
     {
+        if (!_canClick) return;
+        _canClick = false;
         PlayFabManager.Instance.Login();
     }
 }
