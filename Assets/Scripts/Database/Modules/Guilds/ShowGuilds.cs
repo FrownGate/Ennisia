@@ -1,11 +1,13 @@
 using PlayFab.GroupsModels;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShowGuilds : MonoBehaviour
 {
     [SerializeField] private GameObject _content;
     [SerializeField] private GameObject _guildPrefab;
+    [SerializeField] private TMP_Text _emptyText;
 
     private void Start()
     {
@@ -21,8 +23,9 @@ public class ShowGuilds : MonoBehaviour
     private void InitGuilds(List<GroupWithRoles> guilds)
     {
         int position = 0;
+        //TODO -> use vertical layout instead
 
-        //TODO -> get all guild datas here with coroutine then use alpha visibility
+        if (guilds.Count == 0) _emptyText.gameObject.SetActive(true);
 
         foreach (GroupWithRoles guild in guilds)
         {
