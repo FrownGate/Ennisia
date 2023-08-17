@@ -83,6 +83,7 @@ public class PlayFabManager : MonoBehaviour
     public GroupWithRoles PlayerGuild => _guildsMod.PlayerGuild;
     public GuildData PlayerGuildData => _guildsMod.PlayerGuildData;
     public List<EntityMemberRole> PlayerGuildMembers => _guildsMod.PlayerGuildMembers;
+    public int GuildPrice => _guildsMod.GuildPrice;
 
     //Social Module
     [SerializeField] private SocialModule _socialMod;

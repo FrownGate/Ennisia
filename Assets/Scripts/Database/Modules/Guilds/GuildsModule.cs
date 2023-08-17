@@ -11,6 +11,7 @@ public class GuildsModule : Module
     public GroupWithRoles PlayerGuild { get; private set; }
     public GuildData PlayerGuildData { get; private set; }
     public List<EntityMemberRole> PlayerGuildMembers { get; private set; }
+    public readonly int GuildPrice = 100000;
 
     private EntityKey _guildEntity; //Current request's guild's entity
     private PlayFab.ClientModels.EntityKey _adminEntity;
