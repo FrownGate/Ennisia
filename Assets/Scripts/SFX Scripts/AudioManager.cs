@@ -3,6 +3,7 @@ using UnityEngine.Audio;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class AudioManager : MonoBehaviour
     AudioClip[] audioClip;
     public float DefautlVolume = 0.05f;
     private float _saveVolume = 0.1f;
+    public float BGMSaveVolume = 0.1f;
+    public float SFXSaveVolume = 0.1f;
     private float _stepVolume = 0.01f;
     public static AudioManager Instance { get; private set; }
 
@@ -26,13 +29,13 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         //get all audio in resource folder : SFX/
-        audioClip = Resources.LoadAll<AudioClip>("SFX/");
+        audioClip = Resources.LoadAll<AudioClip>("Audio/");
         //create a Sound for eache clip
         foreach (AudioClip clip in audioClip)
         {
             Sound sound = new Sound();
             sound.clip = clip;
-            //if BGM then set loop to true. To do : need to find a better way to check if it's a BGM
+            //if BGM then set loop to true.
             if (clip.name.Contains("BGM"))
             {
                 sound.loop = true;
@@ -49,64 +52,19 @@ public class AudioManager : MonoBehaviour
             sound.Source.volume = DefautlVolume;
             sound.Source.pitch = 1;
             sound.Source.loop = sound.loop;
+            if (sound.name.Contains("Bgm")) sound.Source.volume = BGMSaveVolume;
+            if (sound.name.Contains("SFX")) sound.Source.volume = SFXSaveVolume;
+
         }
     }
 
     private void Start()
     {
-        FindObjectOfType<AudioManager>().Play("BGM1");
+        FindObjectOfType<AudioManager>().Play("MenusBgm");
     }
-
-    private void Update()
-    {
-        //To mute/Un mute
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Debug.Log("wui");
-            foreach (var sound in sounds)
-            {
-                if (sound.Source.volume > 0)
-                {
-                    Debug.Log("mute");
-                    _saveVolume = sound.Source.volume;
-                    sound.Source.volume = 0;
-                }
-                else
-                {
-                    Debug.Log("unmute");
-                    sound.Source.volume = _saveVolume;
-                }
-            }
-        }
-        // Volume up
-        if (Input.GetKey(KeyCode.UpArrow)) 
-        {
-            Debug.Log("up volume");
-            foreach (var sound in sounds)
-            {
-                if(sound.Source.volume < 1)
-                {
-                    sound.Source.volume += _stepVolume;
-                }
-            }
-        }
-        // Volume down
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            Debug.Log("down volume");
-            foreach (var sound in sounds)
-            {
-                if (sound.Source.volume > 0)
-                {
-                    sound.Source.volume -= _stepVolume;
-                }
-            }
-        }
-    }
-
     private void OnClickSFX(int index)
     {
-        FindObjectOfType<AudioManager>().Play("button" + index);
+        FindObjectOfType<AudioManager>().Play("SFXbutton" + index);
         //Debug.Log("button sfx " + index + " played");
     }
     private void MissionStartBGM(MissionSO missionSO)
@@ -115,22 +73,22 @@ public class AudioManager : MonoBehaviour
         switch (missionSO.Type)
         {
             case MissionType.Raid:
-                FindObjectOfType<AudioManager>().Play("raidsBGM");
+                FindObjectOfType<AudioManager>().Play("RaidBgm");
                 Debug.Log("Raid BGM played" + MissionType.Raid);
                 break;
 
             case MissionType.Dungeon:
-                FindObjectOfType<AudioManager>().Play("dungeonBGM");
+                FindObjectOfType<AudioManager>().Play("RaidBgm");
                 Debug.Log("Dungeon BGM played");
                 break;
 
             case MissionType.MainStory:
-                FindObjectOfType<AudioManager>().Play("mainStoryBGM");
+                FindObjectOfType<AudioManager>().Play("StoryBgm");
                 Debug.Log("MainStory BGM played");
                 break;
 
             case MissionType.SideStory:
-                FindObjectOfType<AudioManager>().Play("sideStoryBGM");
+                FindObjectOfType<AudioManager>().Play("StoryBgm");
                 Debug.Log("SideStory BGM played");
                 break;
 
@@ -145,7 +103,7 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case MissionType.Expedition:
-                FindObjectOfType<AudioManager>().Play("expeditionBGM");
+                FindObjectOfType<AudioManager>().Play("StoryBgm");
                 Debug.Log("Expedition BGM played");
                 break;
         }

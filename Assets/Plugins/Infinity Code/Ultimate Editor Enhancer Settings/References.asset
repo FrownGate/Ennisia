@@ -355,14 +355,16 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
+  - name: SettingsPopup
+    path: Assets/Scenes/SettingsPopup.unity
+  - name: MainMenu
+    path: Assets/Scenes/MainMenu.unity
   - name: CraftingMat
     path: Assets/Scenes/Dev/CraftingMat.unity
   - name: Crafting
     path: Assets/Scenes/Dev/Crafting.unity
   - name: ItemsToSelectPopup
     path: Assets/Scenes/Inventory/ItemsToSelectPopup.unity
-  - name: MainMenu
-    path: Assets/Scenes/MainMenu.unity
   - name: Summon
     path: Assets/Scenes/Summon/Summon.unity
   - name: SummonPopup
@@ -391,6 +393,4 @@ MonoBehaviour:
     path: Assets/Scenes/Loading_Big.unity
   - name: Loading_Mini
     path: Assets/Scenes/Loading_Mini.unity
-  - name: EventPopup
-    path: Assets/Scenes/EventPopup.unity
   _notes: []

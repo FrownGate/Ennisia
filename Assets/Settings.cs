@@ -8,19 +8,29 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _SFXSlider;
 
-    private void Start()
+    private void Awake()
     {
         _musicSlider.maxValue = 0.5f;
         _musicSlider.minValue = 0;
-        _musicSlider.value = AudioManager.Instance.DefautlVolume;
+        _musicSlider.value = AudioManager.Instance.BGMSaveVolume;
+        _SFXSlider.maxValue = 0.5f;
+        _SFXSlider.minValue = 0;
+        _SFXSlider.value = AudioManager.Instance.SFXSaveVolume;
     }
 
     private void Update()
     {
-        foreach (var sound in AudioManager.Instance.sounds.Where(sound => sound.name.Contains("BGM")))
+        foreach (var sound in AudioManager.Instance.sounds.Where(sound => sound.name.Contains("Bgm")))
         {
             sound.Source.volume = _musicSlider.value;
+            AudioManager.Instance.BGMSaveVolume = _musicSlider.value;
+        }
+        foreach (var sound in AudioManager.Instance.sounds.Where(sound => sound.name.Contains("SFX")))
+        {
+            sound.Source.volume = _SFXSlider.value;
+            AudioManager.Instance.SFXSaveVolume = _SFXSlider.value;
         }
     }
 } 
