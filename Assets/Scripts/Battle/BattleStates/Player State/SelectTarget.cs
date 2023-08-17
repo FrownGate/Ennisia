@@ -19,14 +19,6 @@ public class SelectTarget : State
 
     public override IEnumerator Attack()
     {
-        // Check if Player is not null
-        /*if (BattleSystem.Player == null)
-        {
-            Debug.LogError("Player is null");
-            yield break;
-        }*/
-
-        // Check if Targetables is not null and contains items
         if (BattleSystem.Targets == null || BattleSystem.Targets.Count == 0)
         {
             // Debug.LogWarning(BattleSystem.Targetables.)
@@ -34,7 +26,7 @@ public class SelectTarget : State
             yield break;
         }
         BattleSystem.Player.AtkBar = 0;
-        //Attack Button
+
         if (BattleSystem.Targets.Count == 0)
         {
             BattleSystem.DialogueText.text = "No targets selected";

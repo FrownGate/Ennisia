@@ -26,6 +26,7 @@ public class BattleSystem : StateMachine
     [SerializeField] private Image _background;
     public TextMeshProUGUI DialogueText;
     public TextMeshProUGUI TurnText;
+    public TextMeshProUGUI CombatHistoryText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
     //TODO -> move popup in BattleSystem game object
@@ -42,6 +43,7 @@ public class BattleSystem : StateMachine
     public AtkBarSystem AttackBarSystem { get; set; }
 
     private Canvas _canvas;
+    public Skill PreviousSkill { get; private set;}
 
     private void Awake()
     {
@@ -213,7 +215,6 @@ public class BattleSystem : StateMachine
 
     private void SelectSkill(Skill skill)
     {
-         
         SetState(new SelectTarget(this, skill));
     }
 
@@ -223,7 +224,7 @@ public class BattleSystem : StateMachine
         {
             foreach (var skill in Player.Skills)
             {
-                skill.SkillButton.DeSelect();
+                skill.SkillButton.ToggleBackgroundImage();
             }
         }
         foreach (var skill in Player.Skills)

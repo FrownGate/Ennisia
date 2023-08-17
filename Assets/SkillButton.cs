@@ -31,15 +31,13 @@ public class SkillButton : MonoBehaviour
             _bgImagemage.transform.Rotate(Vector3.forward, _rotateSpeed);
         }else
         {
-            _bgImagemage.transform.rotation = Quaternion.identity;
-            _bgImagemage.gameObject.SetActive(false);
+            ToggleBackgroundImage();
         }
     }
 
     public void ToggleHUD(bool active)
     {
         if (active && !_skill.IsUseable()) return;
-        //_newframeImage.sprite = active ? 1 : 0;
         ToggleUse(active);
     }
 
@@ -71,6 +69,12 @@ public class SkillButton : MonoBehaviour
     {
         isSkillSelected = !isSkillSelected;
         _isSelected = !_isSelected;
+    }
+
+    public void ToggleBackgroundImage()
+    {
+        _bgImagemage.transform.rotation = Quaternion.identity;
+        _bgImagemage.gameObject.SetActive(false);
     }
     
     public void DeSelect()
