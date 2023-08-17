@@ -9,6 +9,7 @@ public class Settings : MonoBehaviour
 {
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _SFXSlider;
+    [SerializeField] private Toggle _FullScreenToggle;
 
     private void Awake()
     {
@@ -18,6 +19,13 @@ public class Settings : MonoBehaviour
         _SFXSlider.maxValue = 0.5f;
         _SFXSlider.minValue = 0;
         _SFXSlider.value = AudioManager.Instance.SFXSaveVolume;
+    }
+
+    private void Start()
+    {
+        _FullScreenToggle.isOn = Screen.fullScreen;
+
+        _FullScreenToggle.onValueChanged.AddListener(OnFullscreenToggleChanged);
     }
 
     private void Update()
@@ -33,4 +41,9 @@ public class Settings : MonoBehaviour
             AudioManager.Instance.SFXSaveVolume = _SFXSlider.value;
         }
     }
-} 
+
+    private void OnFullscreenToggleChanged(bool newValue)
+    {
+        Screen.fullScreen = newValue;
+    }
+}
