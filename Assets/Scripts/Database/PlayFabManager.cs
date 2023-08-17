@@ -38,6 +38,7 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private AccountModule _accountMod;
 
     public static event Action OnLoginSuccess;
+    public static event Action OnLoginError;
     public static event Action<string> OnLocalDatasChecked;
 
     public Data Data => _accountMod.Data;
@@ -50,6 +51,7 @@ public class PlayFabManager : MonoBehaviour
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
     public bool IsAccountReset => _accountMod.IsAccountReset;
     public bool HasAuthData => _accountMod.HasAuthData;
+    public bool HasAuthFile => _accountMod.HasAuthFile;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -152,6 +154,7 @@ public class PlayFabManager : MonoBehaviour
     #region Account
 
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
+    public void InvokeOnLoginError() => OnLoginError?.Invoke();
     public void InvokeOnLocalDatasChecked(string username) => OnLocalDatasChecked?.Invoke(username);
 
     public void Login() => _accountMod.Login();
@@ -243,8 +246,7 @@ public class PlayFabManager : MonoBehaviour
 
         PlayFabClientAPI.LoginWithCustomID(new()
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true
+            CustomId = "2367ED32E69E8D86" //GuestAccount -> To encrypt
         }, res =>
         {
             PlayFabClientAPI.GetTitleData(new(), res =>

@@ -21,6 +21,7 @@ public class AccountModule : Module
     public bool IsFirstLogin { get; private set; }
     public bool IsAccountReset { get; private set; }
     public bool HasAuthData => !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
+    public bool HasAuthFile { get; private set; }
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
 
     private AuthData _authData;
@@ -43,6 +44,7 @@ public class AccountModule : Module
         Debug.Log($"Your save path is : {_path}");
         IsLoggedIn = false;
         IsAccountReset = false;
+        HasAuthFile = false;
         _isInitCompleted = false;
     }
 
@@ -55,10 +57,14 @@ public class AccountModule : Module
         //Check if binary file with user datas exists
         if (!File.Exists(_path))
         {
+            HasAuthFile = false;
             Debug.Log("No local datas found.");
             _manager.InvokeOnLocalDatasChecked(user);
             return;
         }
+
+        HasAuthFile = true;
+        Debug.Log("Local datas found !");
 
         try
         {
@@ -67,14 +73,15 @@ public class AccountModule : Module
                 _authData = (AuthData)_binaryFormatter.Deserialize(file);
             }
 
-            Debug.Log("Local datas found !");
             user = _authData.Email;
-            //TODO -> remove temp anonymous account
+            if (user == null) Debug.Log("No registered account found.");
         }
         catch
         {
-            Debug.LogError("Error with local datas");
+            Debug.LogError("Error with local datas.");
             File.Delete(_path);
+            //_authData = new();
+            //CreateSave();
         }
 
         _manager.InvokeOnLocalDatasChecked(user);
@@ -146,10 +153,9 @@ public class AccountModule : Module
         //yield return RegisterAccount("testing@gmail.com", "testing");
 
         CreateLocalData(CreateUsername()); //TODO -> create username only if first login
+        CreateSave();
 
         yield return GetPlayerBaseStats();
-
-        if (HasAuthData) CreateSave();
 
         if (!IsFirstLogin && !IsAccountReset)
         {
@@ -164,8 +170,9 @@ public class AccountModule : Module
 
     private void OnLoginRequestError(PlayFabError error)
     {
+        _manager.InvokeOnLoginError();
         _manager.OnRequestError(error);
-        _authData ??= null;
+        _authData = new();
 
         if (File.Exists(_path)) File.Delete(_path);
         CheckLocalDatas();
@@ -283,12 +290,10 @@ public class AccountModule : Module
     {
         Debug.Log("Creating local save...");
 
-        using (FileStream file = new(_path, FileMode.OpenOrCreate))
+        using (FileStream file = new(_path, FileMode.Create))
         {
             _binaryFormatter.Serialize(file, _authData);
         }
-
-        //_authData = new();
     }
 
     public void ResetAccount(bool admin = false)
