@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CreateGuild : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class CreateGuild : MonoBehaviour
             return;
         }
 
+        if (!PlayFabManager.Instance.HasEnoughCurrency(100000, Currency.Gold)) return;
         PlayFabManager.Instance.CreateGuild(_name.text, _description.text);
     }
 }
