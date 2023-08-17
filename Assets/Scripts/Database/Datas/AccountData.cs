@@ -12,6 +12,8 @@ public class AccountData
     public int Gender;
     public bool Tutorial;
     public List<MissionData> MissionsData;
+    public DateTime? LastReward;
+    public int LastRewardDay;
     [NonSerialized] public Dictionary<MissionType, List<MissionSO>> MissionsList;
 
     [NonSerialized] private bool _missingDatas;
@@ -24,6 +26,8 @@ public class AccountData
         Gender = 0;
         Tutorial = false;
         _missingDatas = false;
+        LastReward = null;
+        LastRewardDay = 0;
 
         if (PlayFabManager.Instance.IsFirstLogin || PlayFabManager.Instance.IsAccountReset) GetMissionsData();
 

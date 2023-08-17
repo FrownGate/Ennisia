@@ -48,6 +48,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuPopup.unity
     guid: c1e758dfa5282754a93a2b23908c3fd4
   - enabled: 1
+    path: Assets/Scenes/CheckRegisterPopup.unity
+    guid: 9e283eedaf9ddf64fb8e1a7542f4254c
+  - enabled: 1
     path: Assets/Scenes/SettingsPopup.unity
     guid: a2d12d7d40bbbb945a67991d2cf73c6b
   - enabled: 1

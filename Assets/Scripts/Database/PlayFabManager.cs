@@ -5,6 +5,7 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
+using Unity.VisualScripting;
 
 public enum Rarity
 {
@@ -37,6 +38,7 @@ public class PlayFabManager : MonoBehaviour
     [SerializeField] private AccountModule _accountMod;
 
     public static event Action OnLoginSuccess;
+    public static event Action OnLoginError;
     public static event Action<string> OnLocalDatasChecked;
 
     public Data Data => _accountMod.Data;
@@ -48,6 +50,8 @@ public class PlayFabManager : MonoBehaviour
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
     public bool IsAccountReset => _accountMod.IsAccountReset;
+    public bool HasAuthData => _accountMod.HasAuthData;
+    public bool HasAuthFile => _accountMod.HasAuthFile;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -95,6 +99,8 @@ public class PlayFabManager : MonoBehaviour
     //Requests
     private int _requests;
     public string Token;
+    public bool AccountChecked { get; set; }
+    public bool DailiesCheck { get; set; }
 
     //TODO -> refresh ui after some events
 
@@ -125,6 +131,8 @@ public class PlayFabManager : MonoBehaviour
 
             _requests = 0;
             Token = null;
+            AccountChecked = false;
+            DailiesCheck = false;
         }
     }
 
@@ -146,6 +154,7 @@ public class PlayFabManager : MonoBehaviour
     #region Account
 
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
+    public void InvokeOnLoginError() => OnLoginError?.Invoke();
     public void InvokeOnLocalDatasChecked(string username) => OnLocalDatasChecked?.Invoke(username);
 
     public void Login() => _accountMod.Login();
@@ -153,6 +162,7 @@ public class PlayFabManager : MonoBehaviour
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
     public void ResetAccount(bool admin = false) => _accountMod.ResetAccount(admin);
+    public void RegisterAccount(string email, string password) => StartCoroutine(_accountMod.RegisterAccount(email, password));
 
     #endregion
 
@@ -236,8 +246,7 @@ public class PlayFabManager : MonoBehaviour
 
         PlayFabClientAPI.LoginWithCustomID(new()
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = false
+            CustomId = "2367ED32E69E8D86" //GuestAccount -> To encrypt
         }, res =>
         {
             PlayFabClientAPI.GetTitleData(new(), res =>
@@ -308,8 +317,9 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
-        Debug.LogWarning("TESTING");
-        //EquipTest();
+        // Debug.LogWarning("TESTING");
+        // EquipTest();
+        // AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
         //Gear gear = Inventory.GetGearById(1);
         //Player.Equip(gear);
 
@@ -329,7 +339,7 @@ public class PlayFabManager : MonoBehaviour
         foreach (GearType type in Enum.GetValues(typeof(GearType)))
         {
             if (type == GearType.Weapon) continue;
-            Gear gear = new(type, Rarity.Legendary, null);
+            Gear gear = new(type, Rarity.Common, null);
             AddInventoryItem(gear);
             gears.Add(gear);
         }

@@ -25,10 +25,12 @@ public class ShowWhenLocalDatasChecked : MonoBehaviour
         gameObject.SetActive(true);
 
         _startText.text = !string.IsNullOrEmpty(user) ?
-            $"Local data found. Click anywhere to login to {user}."
+            $"Registered account found. Click anywhere to login to {user}."
+            : PlayFabManager.Instance.HasAuthFile ?
+            "Local data found. Click anywhere to continue."
             : "No local data found. Click anywhere to create a new account.";
 
-        StartCoroutine(FadeAnimation());
+        if (!_startAnimation.isPlaying) StartCoroutine(FadeAnimation());
     }
 
     private IEnumerator FadeAnimation()

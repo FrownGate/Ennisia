@@ -4,7 +4,7 @@ public class ClosePopup : MonoBehaviour
 {
     private void OnMouseUpAsButton()
     {
-        Debug.Log("click");
+        Debug.Log("Closing popup");
         ScenesManager.Instance.UnloadPopup(gameObject.scene);
     }
 }
