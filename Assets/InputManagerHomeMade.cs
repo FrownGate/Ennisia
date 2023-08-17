@@ -32,5 +32,9 @@ public class InputManager : MonoBehaviour
         {
             ScenesManager.Instance.SetScene("Crafting");
         }
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            ScenesManager.Instance.SetScene("CraftingMat");
+        }
     }
 }
