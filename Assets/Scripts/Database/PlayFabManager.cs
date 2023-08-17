@@ -30,6 +30,9 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnRequest;
     public static event Action OnEndRequest;
 
+    //Game events
+    public static event Action OnObsoleteVersion;
+
     //Account Module
     [SerializeField] private AccountModule _accountMod;
 
@@ -45,6 +48,7 @@ public class PlayFabManager : MonoBehaviour
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
     public bool IsAccountReset => _accountMod.IsAccountReset;
+    public bool HasAuthData => _accountMod.HasAuthData;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -92,6 +96,8 @@ public class PlayFabManager : MonoBehaviour
     //Requests
     private int _requests;
     public string Token;
+    public bool AccountChecked { get; set; }
+    public bool DailiesCheck { get; set; }
 
     //TODO -> refresh ui after some events
 
@@ -122,6 +128,8 @@ public class PlayFabManager : MonoBehaviour
 
             _requests = 0;
             Token = null;
+            AccountChecked = false;
+            DailiesCheck = false;
         }
     }
 
@@ -135,7 +143,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void Start()
     {
-        _accountMod.CheckLocalDatas();
+        CheckGameVersion();
     }
 
     public void InvokeOnBigLoadingStart() => OnBigLoadingStart?.Invoke();
@@ -150,6 +158,7 @@ public class PlayFabManager : MonoBehaviour
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
     public void ResetAccount(bool admin = false) => _accountMod.ResetAccount(admin);
+    public void RegisterAccount(string email, string password) => StartCoroutine(_accountMod.RegisterAccount(email, password));
 
     #endregion
 
@@ -226,6 +235,39 @@ public class PlayFabManager : MonoBehaviour
 
     #endregion
 
+    #region Game
+    public void CheckGameVersion()
+    {
+        StartRequest();
+
+        PlayFabClientAPI.LoginWithCustomID(new()
+        {
+            CustomId = SystemInfo.deviceUniqueIdentifier,
+            CreateAccount = true
+        }, res =>
+        {
+            PlayFabClientAPI.GetTitleData(new(), res =>
+            {
+                string version = res.Data["Version"];
+                string localVersion = Application.version;
+
+                EndRequest($"Last game version available : {version}");
+
+                if (version != localVersion)
+                {
+                    Debug.LogWarning($"Local version obsolete : {localVersion}");
+                    OnObsoleteVersion?.Invoke();
+                    //TODO -> Add popup
+                    return;
+                }
+
+                Debug.Log("Game version up to date !");
+                _accountMod.CheckLocalDatas();
+            }, OnRequestError);
+        }, OnRequestError);
+    }
+    #endregion
+
     #region Requests
 
     public void OnRequestError(PlayFabError error)
@@ -272,46 +314,11 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
+        Debug.LogWarning("TESTING");
+        //EquipTest();
+        //Gear gear = Inventory.GetGearById(1);
+        //Player.Equip(gear);
 
-        //Debug.LogWarning("TESTING ACTIVATED");
-        
-        //AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
-        
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Rare, null));
-        //AddInventoryItem(new Gear(GearType.Helmet, Rarity.Legendary, null));
-        
-         // List<Gear> _gearList = new List<Gear>
-         // {
-         //     new Gear(GearType.Helmet, Rarity.Common, null),
-         //     new Gear(GearType.Helmet, Rarity.Common, null),
-         //     new Gear(GearType.Helmet, Rarity.Common, null),
-         //     new Gear(GearType.Helmet, Rarity.Common, null),
-         //     new Gear(GearType.Chest, Rarity.Common, null),
-         //     new Gear(GearType.Chest, Rarity.Common, null),
-         //     new Gear(GearType.Chest, Rarity.Common, null),
-         //     new Gear(GearType.Boots, Rarity.Common, null),
-         //     new Gear(GearType.Boots, Rarity.Common, null),
-         //     new Gear(GearType.Boots, Rarity.Common, null),
-         //     new Gear(GearType.Boots, Rarity.Common, null)
-         // };
-         // foreach (var gear in _gearList)
-         // {
-         //     AddInventoryItem(gear);
-         //     //Player.Equip(gear, false);
-         //     UpdateItem(gear);
-         // }
-
-         
-        // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Earrings, Rarity.Legendary, null), false);
-        //
-        // foreach (var gear in Player.EquippedGears)
-        // {
-        //     Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
-        // }
-        
         // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
         // Debug.Log(support.Name);
         // Player.Equip(support, 0, false); //Slot 1
@@ -319,7 +326,20 @@ public class PlayFabManager : MonoBehaviour
         // support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Ugho");
         // Debug.Log(support.Name);
         // Player.Equip(support, 1, false); //Slot 2
+    }
 
-        
+    private void EquipTest()
+    {
+        List<Gear> gears = new();
+
+        foreach (GearType type in Enum.GetValues(typeof(GearType)))
+        {
+            if (type == GearType.Weapon) continue;
+            Gear gear = new(type, Rarity.Legendary, null);
+            AddInventoryItem(gear);
+            gears.Add(gear);
+        }
+
+        Player.Equip(gears);
     }
 }

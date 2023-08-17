@@ -44,9 +44,6 @@ public class MissionManager : MonoBehaviour
     public MissionSO CurrentMission;
     public int CurrentWave { get; private set; }
 
-    private readonly Dictionary<MissionType, MissionSO[]> _missionLists = new();
-    private readonly string _path = "SO/Missions/";
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -58,22 +55,7 @@ public class MissionManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        //Init missions list with MissionSO
-        foreach (MissionType missionType in Enum.GetValues(typeof(MissionType))) LoadMissionsFromFolder(missionType);
-
         BattleSystem.OnWaveCompleted += NextWave;
-    }
-
-    private void LoadMissionsFromFolder(MissionType missionType)
-    {
-        var missions = Resources.LoadAll<MissionSO>(_path + missionType);
-
-        foreach (var mission in missions)
-        {
-            //TODO -> Update SO with database datas
-        }
-
-        _missionLists.Add(missionType, missions);
     }
 
     public void StartMission()
@@ -115,55 +97,52 @@ public class MissionManager : MonoBehaviour
             return;
         }
 
-        CurrentMission.State = MissionState.Completed;
-        Debug.LogWarning("Mission completed");
-        //TODO -> Update database
         //GiveRewards();
-        UnlockNextMission();
         OnMissionComplete?.Invoke(CurrentMission);
+        //UnlockNextMission();
         ResetData();
     }
 
-    private void UnlockNextMission()
-    {
-        var missionType = CurrentMission.Type;
+    //private void UnlockNextMission()
+    //{
+    //    var missionType = CurrentMission.Type;
 
-        if (!_missionLists.TryGetValue(missionType, out var missionList))
-        {
-            Debug.LogError("Invalid mission type: " + missionType);
-            return;
-        }
+    //    if (!PlayFabManager.Instance.Account.MissionsList.TryGetValue(missionType, out var missionList))
+    //    {
+    //        Debug.LogError("Invalid mission type: " + missionType);
+    //        return;
+    //    }
 
-        var completedMissionIndex = Array.IndexOf(missionList, CurrentMission);
+    //    int completedMissionIndex = PlayFabManager.Instance.Account.MissionsList[missionType].IndexOf(CurrentMission);
 
-        if (completedMissionIndex == -1)
-        {
-            Debug.LogError("Completed mission not found in the mission list");
-            return;
-        }
+    //    if (completedMissionIndex == -1)
+    //    {
+    //        Debug.LogError("Completed mission not found in the mission list");
+    //        return;
+    //    }
 
-        if (completedMissionIndex + 1 < missionList.Length)
-        {
-            var nextMission = missionList[completedMissionIndex + 1];
+    //    if (completedMissionIndex + 1 < missionList.Count)
+    //    {
+    //        var nextMission = missionList[completedMissionIndex + 1];
 
-            if (nextMission.State != MissionState.Locked) return;
-            if (nextMission.ChapterId != CurrentMission.ChapterId)
-            {
-                Debug.Log("chapter End");
-            }
-            else
-            {
-                nextMission.State = MissionState.Unlocked;
-                Debug.Log("Next mission unlocked: " + nextMission.Id);
-                Debug.LogWarning(nextMission.State);
-                //TODO -> Update database
-            }
-        }
-        else
-        {
-            Debug.Log("No more missions available in the " + missionType + " category.");
-        }
-    }
+    //        if (nextMission.State != MissionState.Locked) return;
+    //        if (nextMission.ChapterId != CurrentMission.ChapterId)
+    //        {
+    //            Debug.Log("chapter End");
+    //        }
+    //        else
+    //        {
+    //            nextMission.State = MissionState.Unlocked;
+    //            Debug.Log("Next mission unlocked: " + nextMission.Id);
+    //            Debug.LogWarning(nextMission.State);
+    //            //TODO -> Update database
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("No more missions available in the " + missionType + " category.");
+    //    }
+    //}
 
     private void DisplayMissionNarrative(MissionSO mission)
     {
@@ -180,13 +159,15 @@ public class MissionManager : MonoBehaviour
 
     public void SetMission(MissionSO mission)
     {
+        Debug.Log(mission.State);
         CurrentMission = mission;
     }
 
     public List<MissionSO> GetMissionsByChapterId(MissionType missionType, int chapterId)
     {
-        if (_missionLists.TryGetValue(missionType, out var missionList))
+        if (PlayFabManager.Instance.Account.MissionsList.TryGetValue(missionType, out var missionList))
             return missionList.Where(missionSO => missionSO.ChapterId == chapterId).ToList();
+
         Debug.LogError("Invalid mission type: " + missionType);
         return new List<MissionSO>();
     }
