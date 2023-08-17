@@ -49,6 +49,7 @@ public class PlayFabManager : MonoBehaviour
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
     public bool IsAccountReset => _accountMod.IsAccountReset;
     public bool HasAuthData => _accountMod.HasAuthData;
+    public bool HasAuthFile => _accountMod.HasAuthFile;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
