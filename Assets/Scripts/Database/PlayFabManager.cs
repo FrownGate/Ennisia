@@ -242,8 +242,7 @@ public class PlayFabManager : MonoBehaviour
 
         PlayFabClientAPI.LoginWithCustomID(new()
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true
+            CustomId = "2367ED32E69E8D86" //GuestAccount -> To encrypt
         }, res =>
         {
             PlayFabClientAPI.GetTitleData(new(), res =>
