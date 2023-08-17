@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class GuildInfo : MonoBehaviour
 {
-    public static event Action<EntityKey> OnClick;
+    public static event Action<GroupWithRoles, GuildData> OnClick;
 
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _members;
+
     private GroupWithRoles _guild;
+    private GuildData _guildData;
 
     private void Awake()
     {
@@ -29,11 +31,12 @@ public class GuildInfo : MonoBehaviour
         //TODO -> add guild description
         Debug.Log($"Found {members.Count} member(s).");
         _members.text = $"{members.Count - 1}/30";
+        _guildData = data;
         PlayFabManager.OnGetGuildData -= SetData;
     }
 
     private void OnMouseUp()
     {
-        OnClick?.Invoke(_guild.Group);
+        OnClick?.Invoke(_guild, _guildData);
     }
 }
