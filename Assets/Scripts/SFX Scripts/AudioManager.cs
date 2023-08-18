@@ -15,10 +15,12 @@ public class AudioManager : MonoBehaviour
     public float BGMSaveVolume = 0.1f;
     public float SFXSaveVolume = 0.1f;
     private float _stepVolume = 0.01f;
-    private Sound _BGMCurentlyPlaying;
     public static AudioManager Instance { get; private set; }
 
-    // Start is called before the first frame update
+    private AudioMixer audioMixer;
+
+    private AudioMixerGroup[] audioMixGroup;
+    private Sound BGMCurentlyPlaying;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,7 +33,6 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
 
-        _BGMCurentlyPlaying = new Sound();
 
         //get all audio in resource folder : SFX/
         audioClip = Resources.LoadAll<AudioClip>("Audio/");
@@ -50,39 +51,50 @@ public class AudioManager : MonoBehaviour
 
             //add the create Sound to the list
             sounds.Add(sound);
+            audioMixer = Resources.Load<AudioMixer>("Audio/AudioSettings");
+
+            audioMixGroup = audioMixer.FindMatchingGroups("Master");
+
+            BGMCurentlyPlaying = new Sound();
         }
 
         //for each sound in the list, create an AudioSource component and set the settings
         foreach (var sound in sounds)
         {
             sound.Source = gameObject.AddComponent<AudioSource>();
+
             sound.name = sound.clip.name;
+            if (sound.name.Contains("BGM"))
+            {
+                sound.Source.outputAudioMixerGroup = audioMixGroup[1];
+            }
+
+            if (sound.name.Contains("SFX"))
+            {
+                sound.Source.outputAudioMixerGroup = audioMixGroup[2];
+            }
             sound.Source.clip = sound.clip;
             sound.Source.volume = DefautlVolume;
             sound.Source.pitch = 1;
             sound.Source.loop = sound.loop;
-            if (sound.name.Contains("Bgm")) sound.Source.volume = BGMSaveVolume;
+            if (sound.name.Contains("BGM")) sound.Source.volume = BGMSaveVolume;
             if (sound.name.Contains("SFX")) sound.Source.volume = SFXSaveVolume;
         }
     }
 
     private void Start()
     {
-        Play("MainMenuBgm");
+        Play("BGM MainMenu");
     }
 
-    private void OnClickSFX(int index, string sceneName)
+    private void OnClickSFX(string sceneName)
     {
-        if (!Play("SFX " + sceneName))
-        {
-            Debug.Log("SFX for the scene : " + sceneName + " not found");
-            if (!Play("SFXbutton" + index)) Debug.Log("SFX for the button : " + index + " not found");
-        }
-        if (!Play(sceneName + "Bgm")) Debug.Log("BGM for the scene : " + sceneName + " not found");
+        if (!Play("SFX " + sceneName)) Play("SFXbutton1");
+    }
 
-
-            
-        
+    private void OnClickBGM(string sceneName)
+    {
+        Play("BGM " + sceneName);
     }
 
     private void MissionStartBGM(MissionSO missionSO)
@@ -93,7 +105,7 @@ public class AudioManager : MonoBehaviour
             case MissionType.Raid:
                 Play("SFX RaidStart");
                 Play("RaidBgm");
-                Debug.Log("Raid BGM played" + MissionType.Raid);
+                Debug.Log("Raid BGM played");
                 break;
 
             case MissionType.Dungeon:
@@ -134,7 +146,7 @@ public class AudioManager : MonoBehaviour
 
     private void MissionDone(MissionSO mission)
     {
-        Play("missionDone");
+        Play("SFX MissionDone");
     }
 
     private void KillSFX(string name)
@@ -152,21 +164,20 @@ public class AudioManager : MonoBehaviour
             return false;
         }
 
-        if (s.name == _BGMCurentlyPlaying.name) return true;
-        if (name.Contains("Bgm"))
+        if (name.Contains("BGM"))
         {
-            foreach (var sound in sounds.Where(sound => sound.name.Contains("Bgm")))
+            if (name != BGMCurentlyPlaying.name)
             {
-                Debug.Log("other bgm stopped");
-                sound.Source.Stop();
-            }
-
-            _BGMCurentlyPlaying = s;
+                foreach (var sound in sounds.Where(sound => sound.name.Contains("BGM")))
+                {
+                    sound.Source.Stop();
+                }
+                BGMCurentlyPlaying = s;
+            }else return true;
         }
-
+        
         s.Source.Play();
-
-
+        Debug.Log(name + " is playing");
         return true;
     }
 
@@ -176,7 +187,8 @@ public class AudioManager : MonoBehaviour
         MissionManager.OnMissionComplete += MissionDone;
         //Move event to SkillHUD
         //BattleSystem.OnClickSFX += OnClickSFX;
-        SceneButton.ChangeSceneSFX += OnClickSFX;
+        SceneButton.PlaySFXOnSceneChange += OnClickSFX;
+        SceneButton.PlayMusicOnSceneChange += OnClickBGM;
         ShowStoryAct.Onclick += OnClickSFX;
         MissionManager.OnMissionStart += MissionStartBGM;
     }
@@ -187,7 +199,8 @@ public class AudioManager : MonoBehaviour
         MissionManager.OnMissionComplete -= MissionDone;
         //Move event to SkillHUD
         //BattleSystem.OnClickSFX -= OnClickSFX;
-        SceneButton.ChangeSceneSFX -= OnClickSFX;
+        SceneButton.PlaySFXOnSceneChange -= OnClickSFX;
+        SceneButton.PlayMusicOnSceneChange -= OnClickBGM;
         ShowStoryAct.Onclick -= OnClickSFX;
         MissionManager.OnMissionStart -= MissionStartBGM;
     }

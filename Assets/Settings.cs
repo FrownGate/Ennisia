@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
@@ -7,15 +8,19 @@ public class Settings : MonoBehaviour
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _SFXSlider;
     [SerializeField] private Toggle _FullScreenToggle;
+    private AudioMixer audioMixer;
+
+    [SerializeField] private float MaxVolLvl;
+    [SerializeField] private float MinVolLvl;
 
     private void Awake()
     {
-        _musicSlider.maxValue = 0.5f;
-        _musicSlider.minValue = 0;
-        _SFXSlider.maxValue = 0.5f;
-        _SFXSlider.minValue = 0;
+        _musicSlider.maxValue = MaxVolLvl;
+        _musicSlider.minValue = MinVolLvl;
+        _SFXSlider.maxValue = MaxVolLvl;
+        _SFXSlider.minValue = MinVolLvl;
         _FullScreenToggle.onValueChanged.AddListener(OnFullscreenToggleChanged);
-
+        audioMixer = Resources.Load<AudioMixer>("Audio/AudioSettings");
         GetSettings();
     }
 
@@ -39,15 +44,22 @@ public class Settings : MonoBehaviour
 
     private void Update()
     {
-        foreach (var sound in AudioManager.Instance.sounds.Where(sound => sound.name.Contains("Bgm")))
+        if (_musicSlider.value > -10)
         {
-            sound.Source.volume = _musicSlider.value;
-            AudioManager.Instance.BGMSaveVolume = _musicSlider.value;
+            audioMixer.SetFloat("BGMVolume", _musicSlider.value);
         }
-        foreach (var sound in AudioManager.Instance.sounds.Where(sound => sound.name.Contains("SFX")))
+        else
         {
-            sound.Source.volume = _SFXSlider.value;
-            AudioManager.Instance.SFXSaveVolume = _SFXSlider.value;
+            audioMixer.SetFloat("BGMVolume", -80);
+        }
+
+        if (_SFXSlider.value > -10)
+        {
+            audioMixer.SetFloat("SFXVolume", _SFXSlider.value);
+        }
+        else
+        {
+            audioMixer.SetFloat("SFXVolume", -80);
         }
     }
 

@@ -1928,6 +1928,8 @@ MonoBehaviour:
   _musicSlider: {fileID: 514024241}
   _SFXSlider: {fileID: 308805520}
   _FullScreenToggle: {fileID: 348009889}
+  MaxVolLvl: 15
+  MinVolLvl: -10
 --- !u!1 &308805518
 GameObject:
   m_ObjectHideFlags: 0
