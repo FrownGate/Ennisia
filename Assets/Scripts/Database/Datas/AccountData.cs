@@ -15,6 +15,7 @@ public class AccountData
     public DateTime? LastReward;
     public int LastRewardDay;
     [NonSerialized] public Dictionary<MissionType, List<MissionSO>> MissionsList;
+    [NonSerialized] public string Email;
 
     [NonSerialized] private bool _missingDatas;
 
