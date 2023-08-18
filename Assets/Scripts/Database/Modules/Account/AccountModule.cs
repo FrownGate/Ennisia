@@ -275,6 +275,7 @@ public class AccountModule : Module
     public void CreateLocalData(string username)
     {
         Data = new(username);
+        Data.Account.Email = HasAuthData ? _authData.Email : null;
     }
 
     #region Utilities

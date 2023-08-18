@@ -8,6 +8,7 @@ public class Data
     public AccountData Account;
     public PlayerData Player;
     public InventoryData Inventory;
+    public SettingsData Settings;
     [NonSerialized] public bool HasMissingDatas;
 
     public Data(string username)
@@ -15,6 +16,7 @@ public class Data
         Account = new(username);
         Player = new();
         Inventory = new();
+        Settings = new();
     }
 
     public byte[] Serialize()
@@ -28,6 +30,7 @@ public class Data
         Account = data.Account;
         Player = data.Player;
         Inventory = data.Inventory;
+        Settings = data.Settings;
 
         Player.UpdateEquippedSupports();
         Player.UpdatePlayerStats();
