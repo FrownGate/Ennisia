@@ -69,6 +69,10 @@ public class BattleSystem : StateMachine
     private void Update()
     {
         TurnText.text = $"Turn {Turn}";
+        if (State is SelectTarget)
+        {
+            //TODO: highlight targets than can be selected
+        }
     }
 
     public void InitBattle()
