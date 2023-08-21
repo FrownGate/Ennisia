@@ -6,19 +6,26 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Button _musicMuteButton;
     [SerializeField] private Slider _SFXSlider;
+    [SerializeField] private Button _sfxMuteButton;
     [SerializeField] private Toggle _FullScreenToggle;
     private AudioMixer audioMixer;
 
     [SerializeField] private float MaxVolLvl;
     [SerializeField] private float MinVolLvl;
 
+    private bool _musicMuted = false;
+    private bool _sfxMuted = false;
+
     private void Awake()
     {
         _musicSlider.maxValue = MaxVolLvl;
         _musicSlider.minValue = MinVolLvl;
+        _musicMuteButton.onClick.AddListener(ToggleMusicMute);
         _SFXSlider.maxValue = MaxVolLvl;
         _SFXSlider.minValue = MinVolLvl;
+        _sfxMuteButton.onClick.AddListener(ToggleSFXMute);
         _FullScreenToggle.onValueChanged.AddListener(OnFullscreenToggleChanged);
         audioMixer = Resources.Load<AudioMixer>("Audio/AudioSettings");
         GetSettings();
@@ -32,7 +39,7 @@ public class Settings : MonoBehaviour
         _FullScreenToggle.isOn = PlayFabManager.Instance.Settings.Fullscreen;
     }
 
-    public void SaveSettings()
+    public void ApplySettings()
     {
         Debug.Log(_musicSlider.value);
         PlayFabManager.Instance.Settings.MusicVolume = _musicSlider.value;
@@ -66,5 +73,19 @@ public class Settings : MonoBehaviour
     private void OnFullscreenToggleChanged(bool newValue)
     {
         Screen.fullScreen = newValue;
+    }
+
+    public void ToggleMusicMute()
+    {
+        _musicMuted = !_musicMuted;
+        float musicVolume = _musicMuted ? MinVolLvl : _musicSlider.value;
+        audioMixer.SetFloat("BGMVolume", musicVolume);
+    }
+
+    public void ToggleSFXMute()
+    {
+        _sfxMuted = !_sfxMuted;
+        float sfxVolume = _sfxMuted ? MinVolLvl : _SFXSlider.value;
+        audioMixer.SetFloat("SFXVolume", sfxVolume);
     }
 }
