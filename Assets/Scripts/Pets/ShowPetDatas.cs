@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class ShowPetDatas : MonoBehaviour
     [SerializeField] private Slider _gauge;
     [SerializeField] private TextMeshProUGUI _nonObtainedText;
     [SerializeField] private TextMeshProUGUI _howToText;
+    [SerializeField] private List<GameObject> _buttons;
 
     void Awake()
     {
@@ -41,18 +43,22 @@ public class ShowPetDatas : MonoBehaviour
         _howToText.enabled = false;
 
         _data = Resources.Load<PetSO>("SO/Pets/" + name);
-            //Image.sprite = _data.Icon;
-            _lore.text = _data.Lore;
-            _level.text = _showpet.ActualPet.AffinityLevel.ToString();
-            _gauge.maxValue = _showpet.ActualPet.ToGetXp;
-            _gauge.value = _showpet.ActualPet.ActualXP;
-            _xp.text = _showpet.ActualPet.ActualXP.ToString() + " / " + _showpet.ActualPet.ToGetXp.ToString();
+        //Image.sprite = _data.Icon;
+        _lore.text = _data.Lore;
+        _level.text = _showpet.ActualPet.AffinityLevel.ToString();
+        _gauge.maxValue = _showpet.ActualPet.ToGetXp;
+        _gauge.value = _showpet.ActualPet.ActualXP;
+        _xp.text = _showpet.ActualPet.ActualXP.ToString() + " / " + _showpet.ActualPet.ToGetXp.ToString();
 
-   
+        foreach (GameObject button in _buttons)
+        {
+            button.SetActive(true);
+        }
     }
     private void DisplayNotObtained(string name)
     {
-
+        Debug.Log("not obtained");
+        _image.enabled = false;
         _nonObtainedText.enabled = true;
         _howToText.enabled = true;
         _data = Resources.Load<PetSO>("SO/Pets/" + name);
@@ -61,7 +67,12 @@ public class ShowPetDatas : MonoBehaviour
         _gauge.enabled = false;
         _xp.enabled = false;
 
-       // _howToText.text = _data.HowToObtain
+        foreach(GameObject button in _buttons)
+        {
+            button.SetActive(false);
+        }
+
+        // _howToText.text = _data.HowToObtain
 
 
     }
