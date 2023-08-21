@@ -24,4 +24,10 @@ public class MissionSO : ScriptableObject
     public int Experience; 
     // Add additional mission data as needed
     public Sprite MissionBackground;
+
+    public void UpdateData(MissionData data)
+    {
+        State = data.State;
+        Unlocked = data.Unlocked;
+    }
 }

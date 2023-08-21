@@ -20,12 +20,15 @@ public class AccountModule : Module
     public bool IsLoggedIn { get; private set; }
     public bool IsFirstLogin { get; private set; }
     public bool IsAccountReset { get; private set; }
+    public bool HasAuthData => !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
+    public bool HasAuthFile { get; private set; }
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
 
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path; //Local save path
     private bool _isInitCompleted;
+    private readonly string[] _characterNames = new string[2] { "FemalePlayerName", "MalePlayerName" };
 
     //TODO -> event when file upload is finished, prevent double uploads
     //TODO -> fix display name
@@ -42,6 +45,7 @@ public class AccountModule : Module
         Debug.Log($"Your save path is : {_path}");
         IsLoggedIn = false;
         IsAccountReset = false;
+        HasAuthFile = false;
         _isInitCompleted = false;
     }
 
@@ -54,10 +58,14 @@ public class AccountModule : Module
         //Check if binary file with user datas exists
         if (!File.Exists(_path))
         {
+            HasAuthFile = false;
             Debug.Log("No local datas found.");
             _manager.InvokeOnLocalDatasChecked(user);
             return;
         }
+
+        HasAuthFile = true;
+        Debug.Log("Local datas found !");
 
         try
         {
@@ -66,13 +74,15 @@ public class AccountModule : Module
                 _authData = (AuthData)_binaryFormatter.Deserialize(file);
             }
 
-            Debug.Log("Local datas found !");
             user = _authData.Email;
+            if (user == null) Debug.Log("No registered account found.");
         }
         catch
         {
-            Debug.LogError("Error with local datas");
+            Debug.LogError("Error with local datas.");
             File.Delete(_path);
+            //_authData = new();
+            //CreateSave();
         }
 
         _manager.InvokeOnLocalDatasChecked(user);
@@ -93,7 +103,7 @@ public class AccountModule : Module
     #region Login
     public void Login()
     {
-        if (!HasAuthData())
+        if (!HasAuthData)
         {
             AnonymousLogin();
             return;
@@ -144,29 +154,26 @@ public class AccountModule : Module
         //yield return RegisterAccount("testing@gmail.com", "testing");
 
         CreateLocalData(CreateUsername()); //TODO -> create username only if first login
+        CreateSave();
 
         yield return GetPlayerBaseStats();
-
-        if (HasAuthData()) CreateSave();
 
         if (!IsFirstLogin && !IsAccountReset)
         {
             GetAccountData();
+
+            //TODO -> Check if authdata are well saved
             yield break;
         }
 
         yield return UpdateData();
     }
 
-    private bool HasAuthData()
-    {
-        return !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
-    }
-
     private void OnLoginRequestError(PlayFabError error)
     {
+        _manager.InvokeOnLoginError();
         _manager.OnRequestError(error);
-        _authData ??= null;
+        _authData = new();
 
         if (File.Exists(_path)) File.Delete(_path);
         CheckLocalDatas();
@@ -207,7 +214,6 @@ public class AccountModule : Module
             {
                 Debug.LogWarning("Missing datas - creating ones...");
                 StartCoroutine(UpdateData());
-                OnInitComplete?.Invoke();
                 return;
             }
 
@@ -224,6 +230,16 @@ public class AccountModule : Module
             //TODO -> check if there's no missing datas
             Data.UpdateLocalData(Encoding.UTF8.GetString(res));
             _manager.EndRequest("Local datas updated !");
+
+            if (Data.HasMissingDatas)
+            {
+                StartCoroutine(UpdateData());
+                return;
+            }
+
+            Debug.Log($"init completed : {_isInitCompleted}");
+            if (_isInitCompleted) return;
+            _isInitCompleted = true;
             OnInitComplete?.Invoke();
         }, error => Debug.LogError(error));
     }
@@ -247,6 +263,7 @@ public class AccountModule : Module
                 }, res => {
                     _manager.EndRequest("Files uploaded !");
 
+                    Debug.Log($"init completed : {_isInitCompleted}");
                     if (_isInitCompleted) return;
                     _isInitCompleted = true;
                     OnInitComplete?.Invoke();
@@ -258,12 +275,14 @@ public class AccountModule : Module
     public void CreateLocalData(string username)
     {
         Data = new(username);
+        Data.Account.Email = HasAuthData ? _authData.Email : null;
     }
 
     #region Utilities
     private string CreateUsername(string email = "user")
     {
         string name = email.Split('@')[0];
+        name = CSVUtils.GetFileName(name);
         name += SystemInfo.deviceUniqueIdentifier[..5];
         Debug.Log($"Creating username {name}...");
         return name;
@@ -273,12 +292,10 @@ public class AccountModule : Module
     {
         Debug.Log("Creating local save...");
 
-        using (FileStream file = new(_path, FileMode.OpenOrCreate))
+        using (FileStream file = new(_path, FileMode.Create))
         {
             _binaryFormatter.Serialize(file, _authData);
         }
-
-        _authData = new();
     }
 
     public void ResetAccount(bool admin = false)
@@ -291,7 +308,7 @@ public class AccountModule : Module
         Login();
     }
 
-    private IEnumerator RegisterAccount(string email, string password) //This function will be registered to a button event
+    public IEnumerator RegisterAccount(string email, string password)
     {
         yield return _manager.StartAsyncRequest("Registering account...");
         CreateAccountData(email, password);
@@ -305,9 +322,15 @@ public class AccountModule : Module
         },
         res =>
         {
-            _manager.EndRequest("Account registered !");
-            StartCoroutine(UpdateName(username));
-            CreateSave();
+            PlayFabClientAPI.UnlinkCustomID(new()
+            {
+                CustomId = SystemInfo.deviceUniqueIdentifier
+            }, res =>
+            {
+                _manager.EndRequest("Account registered !");
+                StartCoroutine(UpdateName(username));
+                CreateSave();
+            }, _manager.OnRequestError);
         }, _manager.OnRequestError);
     }
 
@@ -324,6 +347,7 @@ public class AccountModule : Module
     public void SetGender(int gender)
     {
         Data.Account.Gender = gender;
+        Data.Player.Name = _characterNames[gender - 1];
         StartCoroutine(UpdateData());
     }
 
@@ -337,7 +361,6 @@ public class AccountModule : Module
         _manager.Testing();
     }
     #endregion
-
 
     private void PlayerCpEarned(int exp)
     {

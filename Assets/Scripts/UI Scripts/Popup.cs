@@ -16,6 +16,7 @@ public class Popup : MonoBehaviour
         _screenwidePrefab = Resources.Load<GameObject>("Prefabs/UI/ScreenwideBackground");
         GameObject screenwide = Instantiate(_screenwidePrefab, transform);
         screenwide.transform.SetSiblingIndex(0);
+        //TODO -> Add text 'click outside to close'
     }
     /*private void Start()
     {

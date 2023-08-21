@@ -8,12 +8,15 @@ public class Data
     public AccountData Account;
     public PlayerData Player;
     public InventoryData Inventory;
+    public SettingsData Settings;
+    [NonSerialized] public bool HasMissingDatas;
 
     public Data(string username)
     {
         Account = new(username);
         Player = new();
         Inventory = new();
+        Settings = new();
     }
 
     public byte[] Serialize()
@@ -27,11 +30,15 @@ public class Data
         Account = data.Account;
         Player = data.Player;
         Inventory = data.Inventory;
+        Settings = data.Settings;
 
         Player.UpdateEquippedSupports();
         Player.UpdatePlayerStats();
 
         Debug.Log($"User has {Inventory.Supports.Count} support(s).");
+        //Debug.LogWarning($"{Account.MissionsData.Count}");
+
+        HasMissingDatas = Account.GetMissionsData();
     }
 
     public void UpdateEquippedGears()
@@ -53,6 +60,7 @@ public class Data
                 {
                     changes = true;
                     gears[index] = 0;
+                    Debug.Log($"No equipped gear on {(GearType)index} slot.");
                     continue;
                 }
 

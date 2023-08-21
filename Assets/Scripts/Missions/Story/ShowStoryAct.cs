@@ -9,7 +9,7 @@ public class ShowStoryAct : MonoBehaviour
     public int TargetActId;
     public GameObject ButtonPrefab; // The prefab for the UI button
     [Scene] public string scene;
-    public static event Action<int> Onclick;
+    public static event Action<int,string> Onclick;
 
     public void Start()
     {
@@ -58,7 +58,7 @@ public class ShowStoryAct : MonoBehaviour
 
     private void ButtonClicked(ChapterSO scriptableObject)
     {
-        Onclick?.Invoke(2);
+        Onclick?.Invoke(2,null);
         MissionManager.Instance.SetChapter(scriptableObject);
         ScenesManager.Instance.SetScene(scene);
     }

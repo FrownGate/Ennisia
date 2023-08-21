@@ -16,8 +16,7 @@ public class ShowMaterials : MonoBehaviour
 
         foreach (var item in PlayFabManager.Instance.GetItems())
         {
-            if (item is not Material)
-                continue;
+            if (item is not Material) continue;
             if (item.Category == ItemCategory.Weapon) continue;
             GameObject materialObject = Instantiate(_materialPrefab, gameObject.transform);
             materialObject.transform.localPosition =
