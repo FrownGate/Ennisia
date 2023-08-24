@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Minor Demon
   m_EditorClassIdentifier: 
   SkillsData:
+  - {fileID: 11400000, guid: 9a67a53e2256a7a43bae5ffdc7ae8278, type: 2}
+  - {fileID: 11400000, guid: 937919c039a73624f8cf98bc62ef4b15, type: 2}
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 37
   Name: Minor Demon

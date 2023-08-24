@@ -19,9 +19,32 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 1
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Small Mushroom
+      - Small Mushroom
+      - Small Mushroom
+    - Key: 2
+      Value:
+      - Evil Gardener
+      - Haunted Tree
+      - Haunted Tree
+    - Key: 3
+      Value:
+      - Magic Flower
+      - Magic Flower
+      - Magic Flower
+    - Key: 4
+      Value:
+      - Backan
+  WavesCount: 4
+  Enemies:
+  - Small Mushroom
+  - Evil Gardener
+  - Haunted Tree
+  - Magic Flower
+  - Backan
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 1
