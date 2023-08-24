@@ -1,7 +1,7 @@
-ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,Wave4,Wave5,Wave6,IDDialogue,IDChap,Num,Gold,Crystals,XP,Gear
-1,Hall of Agony,5,TRUE,,,,,,,0,1,1,1000,100,10,none
-2,Hall of Agony,5,TRUE,,,,,,,0,1,2,1000,100,10,none
-3,Hall of Diamonds,5,TRUE,,,,,,,0,2,1,1000,100,10,none
-4,Hall of Diamonds,5,TRUE,,,,,,,0,2,2,1000,100,10,none
-5,Hall of Warfare,5,TRUE,,,,,,,0,3,1,1000,100,10,none
-6,Hall of Warfare,5,TRUE,,,,,,,0,3,2,1000,100,10,none
+ID,Name,EnergyCost,Unlocked,Wave1,Wave2,Wave3,Wave4,IDDialogue,IDChap,Num,Gold,Crystals,XP,Gear
+1,Hall of Agony,5,TRUE,"Minor Demon,Minor Demon,Minor Demon","Demonic Slime,Demonic Slime,Minor Demon","Goblin Cyclop,Cyclop,Goblin Cyclop",Major Demon,0,1,1,1000,100,10,none
+2,Hall of Agony,5,TRUE,"Demonic Wolf,Demonic Wolf,Minor Demon","Major Demon,Major Demon,Minor Demon","Stixent,Stixent,Stixent",Demon Commander,0,1,2,1000,100,10,none
+3,Hall of Diamonds,5,TRUE,"Wolf,Wolf,Wolf Pack Leader","Bandit,Bandit Chief,Wolf","Spreegal,Spreegal,Spreegal",Berserker,0,2,1,1000,100,10,none
+4,Hall of Diamonds,5,TRUE,"Rock Worm,Rock Worm,Rock Worm","Sanunter,Sanunter,Spreegal","Brigand,Brigand,Rock Worm",Ghost Paladin,0,2,2,1000,100,10,none
+5,Hall of Warfare,5,TRUE,"Small Mushroom,Small Mushroom,Small Mushroom","Evil Gardener,Haunted Tree,Haunted Tree","Magic Flower,Magic Flower,Magic Flower",Backan,0,3,1,1000,100,10,none
+6,Hall of Warfare,5,TRUE,"Haunted Mushroom,Haunted Mushroom,Haunted Tree","Elf,Elf,Mage Elf","Winderer,Mage Elf,Mage Elf",The condemner,0,3,2,1000,100,10,none

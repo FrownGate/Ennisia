@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Ghost Paladin
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: 2c74f91e3d05b49d29d5410c811f8e37, type: 2}
+  - {fileID: 11400000, guid: 83d9f306bbf0b45809d73db73983b408, type: 2}
+  - {fileID: 11400000, guid: 530fde9fb06c842c3963f812122a4596, type: 2}
   ID: 56
   Name: Ghost Paladin
   Description: description
