@@ -45,7 +45,7 @@ public class BattleModeSelection : MonoBehaviour
             if (!IsUnlocked(missionType))
             {
                 var background = buttons[buttonIndex].GetComponent<Image>();
-                background.color = new Color(1, 1, 1, 0.5f);
+                background.color = Color.gray;
                 buttonText.color = new Color(0, 0, 0, 0.5f);
                 Destroy(sceneButton);
             }
@@ -68,7 +68,7 @@ public class BattleModeSelection : MonoBehaviour
 
     private bool IsUnlocked(MissionType missionType)
     {
-        MissionSO firstMission = Resources.Load<MissionSO>($"SO/Missions/{missionType}");
+        MissionSO firstMission = PlayFabManager.Instance.Account.MissionsList[missionType][0];
         if (firstMission == null || firstMission.State == MissionState.Locked) return false;
         return true;
     }
