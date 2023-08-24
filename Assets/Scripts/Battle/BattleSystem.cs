@@ -224,6 +224,7 @@ public class BattleSystem : StateMachine
     {
         //Debug.Log("Entity seleted.");
         if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
+        Player.HUD.AttackAnimation();
         Targets.Add(entity);
         StartCoroutine(State.Attack());
     }

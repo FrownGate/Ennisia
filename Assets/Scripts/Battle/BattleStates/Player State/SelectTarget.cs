@@ -19,14 +19,8 @@ public class SelectTarget : State
 
     public override IEnumerator Attack()
     {
-        // Check if Player is not null
-        /*if (BattleSystem.Player == null)
-        {
-            Debug.LogError("Player is null");
-            yield break;
-        }*/
-
-        // Check if Targetables is not null and contains items
+        yield return new WaitForSeconds(0.5f); //TODO -> Player attack movement animation Remove when have animation sprite sheet 
+        
         if (BattleSystem.Targets == null || BattleSystem.Targets.Count == 0)
         {
             // Debug.LogWarning(BattleSystem.Targetables.)
@@ -40,12 +34,7 @@ public class SelectTarget : State
             BattleSystem.DialogueText.text = "No targets selected";
             yield break;
         }
-        /*if (_selectedSkill.Cooldown > 0)
-        {
-            BattleSystem.DialogueText.text = "Skill in Cooldown";
-            yield break;
-        }*/
-
+        
         BattleSystem.SkillOnTurn(_selectedSkill);
         BattleSystem.ReduceCooldown();
 
@@ -57,9 +46,6 @@ public class SelectTarget : State
         if (BattleSystem.Enemies.Count == 0) //TODO -> use BattleSystem.AllEnemiesDead()
         {
             BattleSystem.SetState(new Won(BattleSystem));
-
-            // BattleSystem.SetState(new WinState(BattleSystem));
-            // yield break;
         }
         else
         {
