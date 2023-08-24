@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b666e32f860d74e9e25365088f5b19, type: 3}
-  m_Name: AspectoftheDemonicAngel
+  m_Name: AspectOfTheDemonicAngel
   m_EditorClassIdentifier: 
   Id: 104
-  Name: Aspect of the Demonic Angel
+  Name: Aspect Of The Demonic Angel
   Description: 'When Hp is lower than 30% of max health, activate Berserk, gives
     undispellable attack and Crit dmg buff. '
   DamageRatio: 0
