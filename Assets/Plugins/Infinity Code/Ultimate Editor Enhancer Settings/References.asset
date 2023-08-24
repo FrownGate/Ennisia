@@ -544,20 +544,10 @@ MonoBehaviour:
     icon: VideoPlayer Icon
     color: {r: 0.5764706, g: 0.43921572, b: 0.8588236, a: 1}
   _sceneHistory:
-  - name: TitleScreen
-    path: Assets/Scenes/TitleScreen.unity
-  - name: MainStory
-    path: Assets/Scenes/Missions/MainStory.unity
-  - name: GenderSelection
-    path: Assets/Scenes/GenderSelection.unity
-  - name: SettingsPopup
-    path: Assets/Scenes/SettingsPopup.unity
   - name: MainMenu
     path: Assets/Scenes/MainMenu.unity
-  - name: ProfilePopup
-    path: Assets/Scenes/ProfilePopup.unity
-  - name: Loading_Mini
-    path: Assets/Scenes/Loading_Mini.unity
-  - name: EventPopup
-    path: Assets/Scenes/EventPopup.unity
+  - name: CheckRegisterPopup
+    path: Assets/Scenes/CheckRegisterPopup.unity
+  - name: TitleScreen
+    path: Assets/Scenes/TitleScreen.unity
   _notes: []
