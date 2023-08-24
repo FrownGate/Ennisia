@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,17 +12,29 @@ public class Settings : MonoBehaviour
     {
         _musicSlider.maxValue = 0.5f;
         _musicSlider.minValue = 0;
-        _musicSlider.value = AudioManager.Instance.BGMSaveVolume;
         _SFXSlider.maxValue = 0.5f;
         _SFXSlider.minValue = 0;
-        _SFXSlider.value = AudioManager.Instance.SFXSaveVolume;
+        _FullScreenToggle.onValueChanged.AddListener(OnFullscreenToggleChanged);
+
+        GetSettings();
     }
 
-    private void Start()
+    private void GetSettings()
     {
-        _FullScreenToggle.isOn = Screen.fullScreen;
+        Debug.Log(PlayFabManager.Instance.Settings.MusicVolume);
+        _musicSlider.value = PlayFabManager.Instance.Settings.MusicVolume;
+        _SFXSlider.value = PlayFabManager.Instance.Settings.SFXVolume;
+        _FullScreenToggle.isOn = PlayFabManager.Instance.Settings.Fullscreen;
+    }
 
-        _FullScreenToggle.onValueChanged.AddListener(OnFullscreenToggleChanged);
+    public void SaveSettings()
+    {
+        Debug.Log(_musicSlider.value);
+        PlayFabManager.Instance.Settings.MusicVolume = _musicSlider.value;
+        PlayFabManager.Instance.Settings.SFXVolume = _SFXSlider.value;
+        PlayFabManager.Instance.Settings.Fullscreen = _FullScreenToggle.isOn;
+        Debug.Log(PlayFabManager.Instance.Settings.MusicVolume);
+        PlayFabManager.Instance.UpdateData();
     }
 
     private void Update()

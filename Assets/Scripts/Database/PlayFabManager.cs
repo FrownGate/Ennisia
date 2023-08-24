@@ -45,6 +45,7 @@ public class PlayFabManager : MonoBehaviour
     public AccountData Account => _accountMod.Data.Account;
     public PlayerData Player => _accountMod.Data.Player;
     public InventoryData Inventory => _accountMod.Data.Inventory;
+    public SettingsData Settings => _accountMod.Data.Settings;
     public string PlayFabId => _accountMod.PlayFabId;
     public PlayFab.ClientModels.EntityKey Entity => _accountMod.Entity;
     public bool LoggedIn => _accountMod.IsLoggedIn;
