@@ -37,6 +37,13 @@ public class LaunchGame : MonoBehaviour
     {
         if (!_canClick) return;
         _canClick = false;
-        PlayFabManager.Instance.Login();
+
+        if (!PlayFabManager.Instance.IsObsolete)
+        {
+            PlayFabManager.Instance.Login();
+            return;
+        }
+
+        Application.Quit();
     }
 }
