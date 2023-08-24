@@ -31,6 +31,7 @@ public partial class GenderSelection : MonoBehaviour
     {
         PlayFabManager.Instance.SetGender(_gender);
         ScenesManager.Instance.SetScene(_mainMenu);
+        AudioManager.Instance.Play("SFX GenderSelection");
     }
     
     public void OnHover()
