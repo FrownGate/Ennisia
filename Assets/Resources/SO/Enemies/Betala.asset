@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Betala
   m_EditorClassIdentifier: 
   SkillsData:
+  - {fileID: 11400000, guid: 64627b15d877f4d87beb46c3b6d3bf46, type: 2}
+  - {fileID: 11400000, guid: 4bc9bbe086add446cbb078f93bd0c93e, type: 2}
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 51
   Name: Betala

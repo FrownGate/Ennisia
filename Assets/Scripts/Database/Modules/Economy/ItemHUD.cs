@@ -1,8 +1,5 @@
 using NaughtyAttributes;
 using System;
-using System.Globalization;
-using InfinityCode.UltimateEditorEnhancer.SceneTools;
-using InfinityCode.UltimateEditorEnhancer.Windows;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

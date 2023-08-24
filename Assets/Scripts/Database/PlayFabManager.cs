@@ -5,7 +5,6 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
-using Unity.VisualScripting;
 
 public enum Rarity
 {
@@ -45,6 +44,7 @@ public class PlayFabManager : MonoBehaviour
     public AccountData Account => _accountMod.Data.Account;
     public PlayerData Player => _accountMod.Data.Player;
     public InventoryData Inventory => _accountMod.Data.Inventory;
+    public SettingsData Settings => _accountMod.Data.Settings;
     public string PlayFabId => _accountMod.PlayFabId;
     public PlayFab.ClientModels.EntityKey Entity => _accountMod.Entity;
     public bool LoggedIn => _accountMod.IsLoggedIn;
@@ -80,9 +80,10 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<List<GroupApplication>> OnGetApplications;
     public static event Action<List<GroupInvitation>> OnGetInvitations;
 
-    public GroupWithRoles PlayerGuild => _guildsMod.PlayerGuild;
+    public PlayFab.GroupsModels.EntityKey PlayerGuild => _guildsMod.PlayerGuild;
     public GuildData PlayerGuildData => _guildsMod.PlayerGuildData;
     public List<EntityMemberRole> PlayerGuildMembers => _guildsMod.PlayerGuildMembers;
+    public int GuildPrice => _guildsMod.GuildPrice;
 
     //Social Module
     [SerializeField] private SocialModule _socialMod;
@@ -101,6 +102,7 @@ public class PlayFabManager : MonoBehaviour
     public string Token;
     public bool AccountChecked { get; set; }
     public bool DailiesCheck { get; set; }
+    public bool IsObsolete { get; private set; }
 
     //TODO -> refresh ui after some events
 
@@ -123,25 +125,22 @@ public class PlayFabManager : MonoBehaviour
             _summonMod.Init(this);
 
             AccountModule.OnInitComplete += _economyMod.GetEconomyData;
-            EconomyModule.OnInitComplete += _accountMod.CompleteLogin;
-
-            //TODO -> Fix Guilds Module
-            //EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
-            //GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
+            EconomyModule.OnInitComplete += _guildsMod.GetPlayerGuild;
+            GuildsModule.OnInitComplete += _accountMod.CompleteLogin;
 
             _requests = 0;
             Token = null;
             AccountChecked = false;
             DailiesCheck = false;
+            IsObsolete = false;
         }
     }
 
     private void OnDestroy()
     {
         AccountModule.OnInitComplete -= _economyMod.GetEconomyData;
-        EconomyModule.OnInitComplete -= _accountMod.CompleteLogin;
-        //EconomyModule.OnInitComplete -= _guildsMod.GetPlayerGuild;
-        //GuildsModule.OnInitComplete -= _accountMod.CompleteLogin;
+        EconomyModule.OnInitComplete -= _guildsMod.GetPlayerGuild;
+        GuildsModule.OnInitComplete -= _accountMod.CompleteLogin;
     }
 
     private void Start()
@@ -192,26 +191,17 @@ public class PlayFabManager : MonoBehaviour
     #region Guilds
 
     public void InvokeOnGetGuilds(List<GroupWithRoles> guilds) => OnGetGuilds?.Invoke(guilds);
-
-    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) =>
-        OnGetGuildData?.Invoke(guild, members);
-
+    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) => OnGetGuildData?.Invoke(guild, members);
     public void InvokeOnGetApplications(List<GroupApplication> applications) => OnGetApplications?.Invoke(applications);
     public void InvokeOnGetInvitations(List<GroupInvitation> invitations) => OnGetInvitations?.Invoke(invitations);
 
-    public void CreateGuild(string name, string description) =>
-        StartCoroutine(_guildsMod.CreateGuild(name, description));
-
-    public void UpdatePlayerGuild() => StartCoroutine(_guildsMod.UpdatePlayerGuild());
-    public void GetGuildData(GroupWithRoles guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
+    public void CreateGuild(string name, string description) => StartCoroutine(_guildsMod.CreateGuild(name, description));
+    public void GetGuildData(PlayFab.GroupsModels.EntityKey guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
     public void GetGuilds() => StartCoroutine(_guildsMod.GetGuilds());
     public void GetPlayerOpportunities() => StartCoroutine(_guildsMod.GetPlayerOpportunities());
-    public void ApplyToGuild(GroupWithRoles guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
+    public void ApplyToGuild(PlayFab.GroupsModels.EntityKey guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
     public void GetGuildApplications() => StartCoroutine(_guildsMod.GetGuildApplications());
-
-    public void AcceptGuildApplication(string applicant) =>
-        StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
-
+    public void AcceptGuildApplication(string applicant) => StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
     public void DenyGuildApplication(string applicant) => StartCoroutine(_guildsMod.DenyGuildApplication(applicant));
     public void SendGuildInvitation(string username) => StartCoroutine(_guildsMod.SendGuildInvitation(username));
     public void GetGuildInvitations() => StartCoroutine(_guildsMod.GetGuildInvitations());
@@ -259,8 +249,8 @@ public class PlayFabManager : MonoBehaviour
                 if (version != localVersion)
                 {
                     Debug.LogWarning($"Local version obsolete : {localVersion}");
+                    IsObsolete = true;
                     OnObsoleteVersion?.Invoke();
-                    //TODO -> Add popup
                     return;
                 }
 

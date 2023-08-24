@@ -1,6 +1,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(DynamicButtonGenerator))]
 public class BattleModeSelection : MonoBehaviour
@@ -37,22 +38,39 @@ public class BattleModeSelection : MonoBehaviour
             // Set the button's name based on the MissionType enum value
             buttons[buttonIndex].name = missionType.ToString();
             var buttonText = buttons[buttonIndex].GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = missionType == MissionType.EndlessTower
-                ? $"<b>{MissionType.EndlessTower}</b>\n"
-                : $"<b>{buttons[buttonIndex].name}</b>\n";
+            buttonText.text = missionType.ToString();
+
+            var sceneButton = buttons[buttonIndex].GetComponentInChildren<SceneButton>();
+
+            if (!IsUnlocked(missionType))
+            {
+                var background = buttons[buttonIndex].GetComponent<Image>();
+                background.color = Color.gray;
+                buttonText.color = new Color(0, 0, 0, 0.5f);
+                Destroy(sceneButton);
+            }
+            else
+            {
+                sceneButton.Scene = missionType switch
+                {
+                    MissionType.Raid or MissionType.Dungeon => "Raids&Dungeons", //TODO -> use serialized scene
+                    _ => missionType.ToString(),
+                };
+                sceneButton.SetParam(missionType.ToString()); //TODO -> use manager instead of params
+            }
+
 #if UNITY_IOS || UNITY_ANDROID
             buttonText.fontSize = 150;
 #endif
-            var sceneButton = buttons[buttonIndex].GetComponentInChildren<SceneButton>();
-
-            sceneButton.Scene = missionType switch
-            {
-                MissionType.Raid or MissionType.Dungeon => "Raids&Dungeons", //TODO -> use serialized scene
-                _ => missionType.ToString(),
-            };
-            sceneButton.SetParam(missionType.ToString()); //TODO -> use manager instead of params
             buttonIndex++;
         }
+    }
+
+    private bool IsUnlocked(MissionType missionType)
+    {
+        MissionSO firstMission = PlayFabManager.Instance.Account.MissionsList[missionType][0];
+        if (firstMission == null || firstMission.State == MissionState.Locked) return false;
+        return true;
     }
 
     private int CountValidMissionTypes(MissionType[] missionTypes)
