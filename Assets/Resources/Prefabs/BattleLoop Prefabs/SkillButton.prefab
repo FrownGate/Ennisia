@@ -150,10 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc98e4bbcbdcd9247b498e06ec6fe147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 0}
+  _image: {fileID: 4798536937129638233}
   _blankSprite: {fileID: 21300000, guid: a5ddec0d766dd8b43bc384a208aab942, type: 3}
   _canvas: {fileID: 6385555246660865746}
-  _image: {fileID: 4798536937129638233}
 --- !u!1 &4256208508737080849
 GameObject:
   m_ObjectHideFlags: 0
