@@ -318,6 +318,7 @@ public class BattleSystem : StateMachine
         }
 
         OnPlayerLose?.Invoke(true);
+        AudioManager.Instance.Play("SFX Lose");
         //TODO -> Load game over popup
     }
 

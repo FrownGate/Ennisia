@@ -7,7 +7,8 @@ public class SceneButton : MonoBehaviour
 {
     [Scene] public string Scene;
     [SerializeField] private string _params;
-    public static event Action<int,string> ChangeSceneSFX;
+    public static event Action<string> PlaySFXOnSceneChange;
+    public static event Action<string> PlayMusicOnSceneChange;
 
     private void Start()
     {
@@ -17,7 +18,11 @@ public class SceneButton : MonoBehaviour
 
     protected virtual void OnMouseUpAsButton()
     {
-        ChangeSceneSFX?.Invoke(1,Scene);
+        if (gameObject.GetComponent<PLaySFX>() == null)
+        {
+            PlaySFXOnSceneChange?.Invoke(Scene);
+        }
+        PlayMusicOnSceneChange?.Invoke(Scene);
         ScenesManager.Instance.SetScene($"{Scene}#{_params}");
     }
 
