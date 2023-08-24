@@ -19,9 +19,33 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 1
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Wolf
+      - Wolf
+      - Wolf Pack Leader
+    - Key: 2
+      Value:
+      - Bandit
+      - Bandit Chief
+      - Wolf
+    - Key: 3
+      Value:
+      - Spreegal
+      - Spreegal
+      - Spreegal
+    - Key: 4
+      Value:
+      - Berserker
+  WavesCount: 4
+  Enemies:
+  - Wolf
+  - Wolf Pack Leader
+  - Bandit
+  - Bandit Chief
+  - Spreegal
+  - Berserker
   DialogueId: 0
   ChapterId: 2
   NumInChapter: 1

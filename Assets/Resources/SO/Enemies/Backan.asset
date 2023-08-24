@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Backan
   m_EditorClassIdentifier: 
   SkillsData:
+  - {fileID: 11400000, guid: 67106e92801464c4483abb0da80aaff4, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 45
   Name: Backan

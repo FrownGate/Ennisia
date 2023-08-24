@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Goblin Cyclop
   m_EditorClassIdentifier: 
   SkillsData:
+  - {fileID: 11400000, guid: 27dac9dedf2a24c4b948571fe2f26ce2, type: 2}
+  - {fileID: 11400000, guid: 6d5aba02c4a56404689ce33a364a1042, type: 2}
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 30
   Name: Goblin Cyclop
