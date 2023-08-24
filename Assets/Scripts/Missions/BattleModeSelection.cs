@@ -1,6 +1,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(DynamicButtonGenerator))]
 public class BattleModeSelection : MonoBehaviour
@@ -37,9 +38,15 @@ public class BattleModeSelection : MonoBehaviour
             // Set the button's name based on the MissionType enum value
             buttons[buttonIndex].name = missionType.ToString();
             var buttonText = buttons[buttonIndex].GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = missionType == MissionType.EndlessTower
-                ? $"<b>{MissionType.EndlessTower}</b>\n"
-                : $"<b>{buttons[buttonIndex].name}</b>\n";
+            buttonText.text = missionType.ToString();
+
+            if (!IsUnlocked(missionType))
+            {
+                var background = buttons[buttonIndex].GetComponent<Image>();
+                background.color = new Color(1, 1, 1, 0.5f);
+                buttonText.color = new Color(0, 0, 0, 0.5f);
+            }
+
 #if UNITY_IOS || UNITY_ANDROID
             buttonText.fontSize = 150;
 #endif
@@ -53,6 +60,13 @@ public class BattleModeSelection : MonoBehaviour
             sceneButton.SetParam(missionType.ToString()); //TODO -> use manager instead of params
             buttonIndex++;
         }
+    }
+
+    private bool IsUnlocked(MissionType missionType)
+    {
+        MissionSO firstMission = Resources.Load<MissionSO>($"SO/Missions/{missionType}");
+        if (firstMission == null || firstMission.State == MissionState.Locked) return false;
+        return true;
     }
 
     private int CountValidMissionTypes(MissionType[] missionTypes)
