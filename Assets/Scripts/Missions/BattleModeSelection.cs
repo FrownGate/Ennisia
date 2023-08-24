@@ -40,24 +40,28 @@ public class BattleModeSelection : MonoBehaviour
             var buttonText = buttons[buttonIndex].GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = missionType.ToString();
 
+            var sceneButton = buttons[buttonIndex].GetComponentInChildren<SceneButton>();
+
             if (!IsUnlocked(missionType))
             {
                 var background = buttons[buttonIndex].GetComponent<Image>();
                 background.color = new Color(1, 1, 1, 0.5f);
                 buttonText.color = new Color(0, 0, 0, 0.5f);
+                Destroy(sceneButton);
+            }
+            else
+            {
+                sceneButton.Scene = missionType switch
+                {
+                    MissionType.Raid or MissionType.Dungeon => "Raids&Dungeons", //TODO -> use serialized scene
+                    _ => missionType.ToString(),
+                };
+                sceneButton.SetParam(missionType.ToString()); //TODO -> use manager instead of params
             }
 
 #if UNITY_IOS || UNITY_ANDROID
             buttonText.fontSize = 150;
 #endif
-            var sceneButton = buttons[buttonIndex].GetComponentInChildren<SceneButton>();
-
-            sceneButton.Scene = missionType switch
-            {
-                MissionType.Raid or MissionType.Dungeon => "Raids&Dungeons", //TODO -> use serialized scene
-                _ => missionType.ToString(),
-            };
-            sceneButton.SetParam(missionType.ToString()); //TODO -> use manager instead of params
             buttonIndex++;
         }
     }
