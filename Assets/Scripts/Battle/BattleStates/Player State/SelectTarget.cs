@@ -28,7 +28,7 @@ public class SelectTarget : State
             yield break;
         }
         BattleSystem.Player.AtkBar = 0;
-        //Attack Button
+
         if (BattleSystem.Targets.Count == 0)
         {
             BattleSystem.DialogueText.text = "No targets selected";
