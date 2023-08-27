@@ -1,13 +1,18 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EntityHUD : MonoBehaviour
 {
     public static event Action<Entity> OnEntitySelected;
     
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private Image _sprite;
+    [SerializeField] private Sprite _female;
+    [SerializeField] private Sprite _male;
+    [SerializeField] private GameObject _idPanel;
     [SerializeField] private TextMeshProUGUI _idText;
     [SerializeField] private EffectHUD _effectHUD;
     [SerializeField] private HealthBar _healthBar;
@@ -64,16 +69,26 @@ public class EntityHUD : MonoBehaviour
         _entity = entity;
         _effectHUD.Init(_entity);
         _id = id;
-        _idText.text = "ID:" + _id;
+        _idText.text = _id.ToString();
 
         if (entity is Player)
         {
-            _sprite.flipX = true;
+            _idPanel.SetActive(false);
+
+            switch (PlayFabManager.Instance.Account.Gender)
+            {
+                case 1:
+                    _sprite.sprite = _female;
+                    break;
+                case 2:
+                    _sprite.sprite = _male;
+                    break;
+            }
         }
-        
-        if (entity is not Player && !entity.IsBoss) //TODO -> check if boss
+
+        if (entity is not Player && !entity.IsBoss)
         {
-            transform.localScale = transform.localScale / 1.5f;
+            transform.localScale = transform.localScale / 2f;
             return;
         }
 
@@ -86,7 +101,7 @@ public class EntityHUD : MonoBehaviour
     {
         if (_entity == null || entity != _entity) return;
         var damages = Instantiate(_damagesPrefab, _canvas.transform);
-        damages.transform.localPosition = Vector3.zero;
+        //damages.transform.localPosition = Vector3.zero;
         damages.text = $"-{damage}";
         damages.color = color;
         StartCoroutine(Wait(damages));
@@ -95,7 +110,7 @@ public class EntityHUD : MonoBehaviour
     private IEnumerator Wait(TMP_Text damages)
     {
         yield return new WaitForSeconds(_damageAnimation.length);
-        Destroy(damages.gameObject);
+        //Destroy(damages.gameObject);
     }
 
     private void OnMouseUpAsButton()
