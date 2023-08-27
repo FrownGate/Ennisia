@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 2354811239645441520}
   - component: {fileID: 8451062153709070712}
   - component: {fileID: 3371741038390149683}
+  - component: {fileID: 4851871124329400760}
   - component: {fileID: 1965016350113141987}
   m_Layer: 0
   m_Name: EntitySlot
@@ -394,6 +395,22 @@ MonoBehaviour:
   _effectHUD: {fileID: 1053544261696465754}
   _healthBar: {fileID: 8934845083660812961}
   _hpText: {fileID: 2947193915156304929}
+  _battleAnimation: {fileID: 4851871124329400760}
+--- !u!114 &4851871124329400760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790394792616838198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e78ea5d9b14a35489c37c43d489b0d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  giggleAmount: 0.1
+  stepBackAmount: 0.5
+  animationTime: 0.5
 --- !u!222 &1965016350113141987
 CanvasRenderer:
   m_ObjectHideFlags: 0

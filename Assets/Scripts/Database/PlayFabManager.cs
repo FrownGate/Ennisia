@@ -5,7 +5,6 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
-using Unity.VisualScripting;
 
 public enum Rarity
 {
@@ -103,6 +102,7 @@ public class PlayFabManager : MonoBehaviour
     public string Token;
     public bool AccountChecked { get; set; }
     public bool DailiesCheck { get; set; }
+    public bool IsObsolete { get; private set; }
 
     //TODO -> refresh ui after some events
 
@@ -132,6 +132,7 @@ public class PlayFabManager : MonoBehaviour
             Token = null;
             AccountChecked = false;
             DailiesCheck = false;
+            IsObsolete = false;
         }
     }
 
@@ -248,8 +249,8 @@ public class PlayFabManager : MonoBehaviour
                 if (version != localVersion)
                 {
                     Debug.LogWarning($"Local version obsolete : {localVersion}");
+                    IsObsolete = true;
                     OnObsoleteVersion?.Invoke();
-                    //TODO -> Add popup
                     return;
                 }
 
