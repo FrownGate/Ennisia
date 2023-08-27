@@ -101,7 +101,6 @@ public class EntityHUD : MonoBehaviour
     {
         if (_entity == null || entity != _entity) return;
         var damages = Instantiate(_damagesPrefab, _canvas.transform);
-        //damages.transform.localPosition = Vector3.zero;
         damages.text = $"-{damage}";
         damages.color = color;
         StartCoroutine(Wait(damages));
@@ -110,7 +109,7 @@ public class EntityHUD : MonoBehaviour
     private IEnumerator Wait(TMP_Text damages)
     {
         yield return new WaitForSeconds(_damageAnimation.length);
-        //Destroy(damages.gameObject);
+        Destroy(damages.gameObject);
     }
 
     private void OnMouseUpAsButton()
