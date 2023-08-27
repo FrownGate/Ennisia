@@ -1,7 +1,7 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EntityHUD : MonoBehaviour
 {
@@ -13,14 +13,23 @@ public class EntityHUD : MonoBehaviour
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private TextMeshProUGUI _hpText;
     [SerializeField] private BattleAnimation _battleAnimation;
-    
+    [SerializeField] private TMP_Text _damagesPrefab;
+    [SerializeField] private AnimationClip _damageAnimation;
+  
     private Entity _entity;
     private int _id;
     private float _previousHp;
+    private Canvas _canvas;
 
-    private void Start()
+    private void Awake()
     {
-        _effectHUD.Init(_entity);
+        _canvas = GetComponentInChildren<Canvas>();
+        Entity.OnDamageTaken += ShowDamages;
+    }
+
+    private void OnDestroy()
+    {
+        Entity.OnDamageTaken -= ShowDamages;
     }
 
     private void Update()
@@ -45,24 +54,22 @@ public class EntityHUD : MonoBehaviour
     {
 
         _sprite.sprite = entity.EntitySprite;
+
         if (_sprite.sprite == null)
         {
             _sprite.sprite = Resources.Load<Sprite>($"Textures/Enemies/Player");
         }
-
-        switch (entity.Name)
-        {
-            case "Wolf Pack Leader":
-                break;
-            case "Player":
-                _sprite.flipX = true;
-                break;
-        }
         
         Debug.Log($"Assets/Resources/Textures/Enemies/{entity.Name}");
         _entity = entity;
+        _effectHUD.Init(_entity);
         _id = id;
         _idText.text = "ID:" + _id;
+
+        if (entity is Player)
+        {
+            _sprite.flipX = true;
+        }
         
         if (entity is not Player && !entity.IsBoss) //TODO -> check if boss
         {
@@ -73,6 +80,22 @@ public class EntityHUD : MonoBehaviour
         transform.localPosition = new Vector3(-495, 0, 0);
 
         gameObject.name = entity.Name;
+    }
+
+    private void ShowDamages(Entity entity, int damage, Color color)
+    {
+        if (_entity == null || entity != _entity) return;
+        var damages = Instantiate(_damagesPrefab, _canvas.transform);
+        damages.transform.localPosition = Vector3.zero;
+        damages.text = $"-{damage}";
+        damages.color = color;
+        StartCoroutine(Wait(damages));
+    }
+
+    private IEnumerator Wait(TMP_Text damages)
+    {
+        yield return new WaitForSeconds(_damageAnimation.length);
+        Destroy(damages.gameObject);
     }
 
     private void OnMouseUpAsButton()
