@@ -40,6 +40,8 @@ public abstract class Entity
     public bool IsBoss { get; set; } = false;
 
     public EntityHUD HUD { get; set; }
+    
+    public Sprite EntitySprite { get; set; }
 
     public Entity(Dictionary<Attribute, float> stats = null)
     {

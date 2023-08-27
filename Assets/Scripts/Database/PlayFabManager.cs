@@ -5,7 +5,6 @@ using PlayFab;
 using PlayFab.GroupsModels;
 using UnityEngine;
 using PlayFab.ClientModels;
-using System.Linq;
 
 public enum Rarity
 {
@@ -31,19 +30,28 @@ public class PlayFabManager : MonoBehaviour
     public static event Action OnRequest;
     public static event Action OnEndRequest;
 
+    //Game events
+    public static event Action OnObsoleteVersion;
+
     //Account Module
     [SerializeField] private AccountModule _accountMod;
 
     public static event Action OnLoginSuccess;
+    public static event Action OnLoginError;
+    public static event Action<string> OnLocalDatasChecked;
 
     public Data Data => _accountMod.Data;
     public AccountData Account => _accountMod.Data.Account;
     public PlayerData Player => _accountMod.Data.Player;
     public InventoryData Inventory => _accountMod.Data.Inventory;
+    public SettingsData Settings => _accountMod.Data.Settings;
     public string PlayFabId => _accountMod.PlayFabId;
     public PlayFab.ClientModels.EntityKey Entity => _accountMod.Entity;
     public bool LoggedIn => _accountMod.IsLoggedIn;
     public bool IsFirstLogin => _accountMod.IsFirstLogin;
+    public bool IsAccountReset => _accountMod.IsAccountReset;
+    public bool HasAuthData => _accountMod.HasAuthData;
+    public bool HasAuthFile => _accountMod.HasAuthFile;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
 
     //Economy Module
@@ -59,6 +67,8 @@ public class PlayFabManager : MonoBehaviour
     public Dictionary<string, PlayFab.EconomyModels.CatalogItem> Stores => _economyMod.Stores;
     public List<PlayFab.EconomyModels.CatalogItem> Items => _economyMod.CatalogItems;
     public int Energy => _economyMod.Energy;
+    public float RatioUpgrade => _economyMod.RatioUpgrade;
+    public float RatioUpgradeSubStat => _economyMod.RatioUpgradeSubStat;
 
     public PlayFab.EconomyModels.CatalogItem GetItemById(string id) => _economyMod.GetItemById(id);
 
@@ -70,9 +80,10 @@ public class PlayFabManager : MonoBehaviour
     public static event Action<List<GroupApplication>> OnGetApplications;
     public static event Action<List<GroupInvitation>> OnGetInvitations;
 
-    public GroupWithRoles PlayerGuild => _guildsMod.PlayerGuild;
+    public PlayFab.GroupsModels.EntityKey PlayerGuild => _guildsMod.PlayerGuild;
     public GuildData PlayerGuildData => _guildsMod.PlayerGuildData;
     public List<EntityMemberRole> PlayerGuildMembers => _guildsMod.PlayerGuildMembers;
+    public int GuildPrice => _guildsMod.GuildPrice;
 
     //Social Module
     [SerializeField] private SocialModule _socialMod;
@@ -89,6 +100,9 @@ public class PlayFabManager : MonoBehaviour
     //Requests
     private int _requests;
     public string Token;
+    public bool AccountChecked { get; set; }
+    public bool DailiesCheck { get; set; }
+    public bool IsObsolete { get; private set; }
 
     //TODO -> refresh ui after some events
 
@@ -116,6 +130,9 @@ public class PlayFabManager : MonoBehaviour
 
             _requests = 0;
             Token = null;
+            AccountChecked = false;
+            DailiesCheck = false;
+            IsObsolete = false;
         }
     }
 
@@ -128,16 +145,23 @@ public class PlayFabManager : MonoBehaviour
 
     private void Start()
     {
-        OnBigLoadingStart?.Invoke();
-        _accountMod.StartLogin();
+        CheckGameVersion();
     }
+
+    public void InvokeOnBigLoadingStart() => OnBigLoadingStart?.Invoke();
 
     #region Account
 
     public void InvokeOnLoginSuccess() => OnLoginSuccess?.Invoke();
+    public void InvokeOnLoginError() => OnLoginError?.Invoke();
+    public void InvokeOnLocalDatasChecked(string username) => OnLocalDatasChecked?.Invoke(username);
 
+    public void Login() => _accountMod.Login();
+    public void Login(string email, string password) => _accountMod.Login(email, password);
     public void UpdateData() => StartCoroutine(_accountMod.UpdateData());
     public void SetGender(int gender) => _accountMod.SetGender(gender);
+    public void ResetAccount(bool admin = false) => _accountMod.ResetAccount(admin);
+    public void RegisterAccount(string email, string password) => StartCoroutine(_accountMod.RegisterAccount(email, password));
 
     #endregion
 
@@ -167,26 +191,17 @@ public class PlayFabManager : MonoBehaviour
     #region Guilds
 
     public void InvokeOnGetGuilds(List<GroupWithRoles> guilds) => OnGetGuilds?.Invoke(guilds);
-
-    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) =>
-        OnGetGuildData?.Invoke(guild, members);
-
+    public void InvokeOnGetGuildData(GuildData guild, List<EntityMemberRole> members) => OnGetGuildData?.Invoke(guild, members);
     public void InvokeOnGetApplications(List<GroupApplication> applications) => OnGetApplications?.Invoke(applications);
     public void InvokeOnGetInvitations(List<GroupInvitation> invitations) => OnGetInvitations?.Invoke(invitations);
 
-    public void CreateGuild(string name, string description) =>
-        StartCoroutine(_guildsMod.CreateGuild(name, description));
-
-    public void UpdatePlayerGuild() => StartCoroutine(_guildsMod.UpdatePlayerGuild());
-    public void GetGuildData(GroupWithRoles guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
+    public void CreateGuild(string name, string description) => StartCoroutine(_guildsMod.CreateGuild(name, description));
+    public void GetGuildData(PlayFab.GroupsModels.EntityKey guild) => StartCoroutine(_guildsMod.GetGuildData(guild));
     public void GetGuilds() => StartCoroutine(_guildsMod.GetGuilds());
     public void GetPlayerOpportunities() => StartCoroutine(_guildsMod.GetPlayerOpportunities());
-    public void ApplyToGuild(GroupWithRoles guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
+    public void ApplyToGuild(PlayFab.GroupsModels.EntityKey guild) => StartCoroutine(_guildsMod.ApplyToGuild(guild));
     public void GetGuildApplications() => StartCoroutine(_guildsMod.GetGuildApplications());
-
-    public void AcceptGuildApplication(string applicant) =>
-        StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
-
+    public void AcceptGuildApplication(string applicant) => StartCoroutine(_guildsMod.AcceptGuildApplication(applicant));
     public void DenyGuildApplication(string applicant) => StartCoroutine(_guildsMod.DenyGuildApplication(applicant));
     public void SendGuildInvitation(string username) => StartCoroutine(_guildsMod.SendGuildInvitation(username));
     public void GetGuildInvitations() => StartCoroutine(_guildsMod.GetGuildInvitations());
@@ -212,6 +227,38 @@ public class PlayFabManager : MonoBehaviour
     public int HasSupport(int id) => _summonMod.HasSupport(id);
     public void AddSupports(Dictionary<int, int> pulledSupports) => _summonMod.AddSupports(pulledSupports);
 
+    #endregion
+
+    #region Game
+    public void CheckGameVersion()
+    {
+        StartRequest();
+
+        PlayFabClientAPI.LoginWithCustomID(new()
+        {
+            CustomId = "2367ED32E69E8D86" //GuestAccount -> To encrypt
+        }, res =>
+        {
+            PlayFabClientAPI.GetTitleData(new(), res =>
+            {
+                string version = res.Data["Version"];
+                string localVersion = Application.version;
+
+                EndRequest($"Last game version available : {version}");
+
+                if (version != localVersion)
+                {
+                    Debug.LogWarning($"Local version obsolete : {localVersion}");
+                    IsObsolete = true;
+                    OnObsoleteVersion?.Invoke();
+                    return;
+                }
+
+                Debug.Log("Game version up to date !");
+                _accountMod.CheckLocalDatas();
+            }, OnRequestError);
+        }, OnRequestError);
+    }
     #endregion
 
     #region Requests
@@ -260,22 +307,12 @@ public class PlayFabManager : MonoBehaviour
     //Called after login success to test code
     public void Testing()
     {
+        // Debug.LogWarning("TESTING");
+        // EquipTest();
+        // AddInventoryItem(new Material(ItemCategory.Armor,Rarity.Common,300));
+        //Gear gear = Inventory.GetGearById(1);
+        //Player.Equip(gear);
 
-
-        // Debug.LogWarning("TESTING ACTIVATED");
-        //
-        // Player.Equip(new Gear(GearType.Helmet, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Chest, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Boots, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Necklace, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Ring, Rarity.Legendary, null), false);
-        // Player.Equip(new Gear(GearType.Earrings, Rarity.Legendary, null), false);
-        //
-        // foreach (var gear in Player.EquippedGears)
-        // {
-        //     Debug.Log(gear.Value != null ? gear.Value.Name : $"{gear.Key} is empty");
-        // }
-        //
         // SupportCharacterSO support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Hem-Mily");
         // Debug.Log(support.Name);
         // Player.Equip(support, 0, false); //Slot 1
@@ -283,7 +320,20 @@ public class PlayFabManager : MonoBehaviour
         // support = Resources.Load<SupportCharacterSO>("SO/SupportsCharacter/Legendary/Ugho");
         // Debug.Log(support.Name);
         // Player.Equip(support, 1, false); //Slot 2
+    }
 
-        
+    private void EquipTest()
+    {
+        List<Gear> gears = new();
+
+        foreach (GearType type in Enum.GetValues(typeof(GearType)))
+        {
+            if (type == GearType.Weapon) continue;
+            Gear gear = new(type, Rarity.Common, null);
+            AddInventoryItem(gear);
+            gears.Add(gear);
+        }
+
+        Player.Equip(gears);
     }
 }

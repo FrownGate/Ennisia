@@ -9,7 +9,7 @@ public class ShowStoryAct : MonoBehaviour
     public int TargetActId;
     public GameObject ButtonPrefab; // The prefab for the UI button
     [Scene] public string scene;
-    public static event Action<int> Onclick;
+    public static event Action<string> Onclick;
 
     public void Start()
     {
@@ -37,6 +37,7 @@ public class ShowStoryAct : MonoBehaviour
         GameObject buttonObj = Instantiate(ButtonPrefab, transform);
         buttonObj.name = "upcomming";
         Button buttonComponent = buttonObj.GetComponent<Button>();
+        buttonComponent.interactable = false;
         TextMeshProUGUI buttonText = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = "Coming Soon";
     }
@@ -57,7 +58,7 @@ public class ShowStoryAct : MonoBehaviour
 
     private void ButtonClicked(ChapterSO scriptableObject)
     {
-        Onclick?.Invoke(2);
+        Onclick?.Invoke(scene);
         MissionManager.Instance.SetChapter(scriptableObject);
         ScenesManager.Instance.SetScene(scene);
     }

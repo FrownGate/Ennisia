@@ -18,14 +18,15 @@ MonoBehaviour:
     as physical damage, if the player is stunned after attack, inflict 2 Demonic
     Mark. If the player is not stunned after the attack, inflict a defense break
     (debuff) to the user.
-  DamageRatio: 70
+  DamageRatio: 170
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
-  MaxCooldown: 2
+  MaxCooldown: 1
   IgnoreDef: 0
   HitNumber: 1
   AOE: 0
   IsMagic: 0
   IsPassive: 0
   SkillType: 6
+  Icon: {fileID: 0}

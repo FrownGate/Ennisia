@@ -5,19 +5,20 @@ using UnityEngine;
 public class ShowAllPets : MonoBehaviour
 {
     public static event Action<string> OnPopupShow;
+    public static event Action<string> OnNonObtained;
 
     [SerializeField] private GameObject _prefabPetButton;
     [SerializeField] private GameObject _petPopup;
     [SerializeField] private GameObject _buttonsContainer;
 
-    public Dictionary<string,Pet> AllPets;
+    public Dictionary<string, Pet> AllPets;
 
     public Pet ActualPet { get; private set; }
     private PetSO[] _petList;
 
     public void Awake()
     {
-        AllPets = new Dictionary<string,Pet>();
+        AllPets = new Dictionary<string, Pet>();
         _petList = Resources.LoadAll<PetSO>("SO/Pets");
 
         ShowPetButton.OnPetClick += ShowPetInfo;
@@ -41,9 +42,17 @@ public class ShowAllPets : MonoBehaviour
     private void ShowPetInfo(string name)
     {
         if (!_petPopup.activeSelf) _petPopup.SetActive(true);
-
         ActualPet = AllPets[name];
-        Debug.Log(ActualPet._name);
-        OnPopupShow?.Invoke(name);
+        if (ActualPet.Obatined)
+        {
+            
+            OnPopupShow?.Invoke(name);
+        }
+        else
+        {
+           
+            OnNonObtained?.Invoke(name);
+        }
+
     }
 }

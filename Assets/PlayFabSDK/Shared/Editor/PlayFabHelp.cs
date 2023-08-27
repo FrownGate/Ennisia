@@ -8,7 +8,8 @@ namespace PlayFab.PfEditor
         [MenuItem("PlayFab/GettingStarted")]
         private static void GettingStarted()
         {
-            Application.OpenURL("https://docs.microsoft.com/en-us/gaming/playfab/index#pivot=documentation&panel=quickstarts");
+            Application.OpenURL(
+                "https://docs.microsoft.com/en-us/gaming/playfab/index#pivot=documentation&panel=quickstarts");
         }
 
         [MenuItem("PlayFab/Docs")]

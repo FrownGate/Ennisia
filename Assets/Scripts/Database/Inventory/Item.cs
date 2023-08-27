@@ -35,16 +35,15 @@ public class Item
     public Rarity? Rarity;
     public ItemCategory? Category;
     public GearType? Type;
-    public WeaponType? WeaponType;
     public Attribute? Attribute;
     public GearSetData? Set;
     public int? Available;
-
+    public bool IsSelected;
+    
     //Json Utility
     public string JsonRarity;
     public string JsonCategory;
     public string JsonType;
-    public string JsonWeapon;
     public string JsonAttribute;
 
     public Item()
@@ -83,8 +82,12 @@ public class Item
         JsonRarity = Rarity.ToString();
         JsonCategory = Category.ToString();
         JsonType = Type.ToString();
-        JsonWeapon = WeaponType.ToString();
         JsonAttribute = Attribute.ToString();
+
+        Rarity = null;
+        Category = null;
+        Type = null;
+        Attribute = null;
     }
 
     public virtual void Deserialize()
@@ -92,8 +95,8 @@ public class Item
         Rarity = string.IsNullOrEmpty(JsonRarity) ? null : Enum.Parse<Rarity>(JsonRarity);
         Category = string.IsNullOrEmpty(JsonCategory) ? null : Enum.Parse<ItemCategory>(JsonCategory);
         Type = string.IsNullOrEmpty(JsonType) ? null : Enum.Parse<GearType>(JsonType);
-        WeaponType = string.IsNullOrEmpty(JsonWeapon) ? null : Enum.Parse<WeaponType>(JsonWeapon);
         Attribute = string.IsNullOrEmpty(JsonAttribute) ? null : Enum.Parse<Attribute>(JsonAttribute);
+        //Attribute = JsonAttribute == null ? null : (Attribute)JsonAttribute;
     }
 
     protected virtual void SetName() { }

@@ -19,9 +19,32 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 1
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Minor Demon
+      - Minor Demon
+      - Minor Demon
+    - Key: 2
+      Value:
+      - Demonic Slime
+      - Demonic Slime
+      - Minor Demon
+    - Key: 3
+      Value:
+      - Goblin Cyclop
+      - Cyclop
+      - Goblin Cyclop
+    - Key: 4
+      Value:
+      - Major Demon
+  WavesCount: 4
+  Enemies:
+  - Minor Demon
+  - Demonic Slime
+  - Goblin Cyclop
+  - Cyclop
+  - Major Demon
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 1
@@ -33,3 +56,4 @@ MonoBehaviour:
       Value: 100
   RewardData: []
   Experience: 10
+  MissionBackground: {fileID: 0}

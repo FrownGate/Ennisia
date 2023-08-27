@@ -1,4 +1,5 @@
 // a simple snapshot with timestamp & interpolation
+
 using UnityEngine;
 
 namespace Mirror.Examples.SnapshotInterpolationDemo

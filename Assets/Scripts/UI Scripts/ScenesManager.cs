@@ -16,7 +16,8 @@ public class ScenesManager : MonoBehaviour
     private string _sceneToLoad;
     private bool _isPopupLoaded;
 
-    private bool _loading;
+    private bool _isMiniLoading;
+    private bool _isBigLoading;
 
     private void Awake()
     {
@@ -38,7 +39,8 @@ public class ScenesManager : MonoBehaviour
 
         Params = null;
         _activeScene = SceneManager.GetActiveScene();
-        _loading = false;
+        _isMiniLoading = false;
+        _isBigLoading = false;
         _isPopupLoaded = false;
     }
 
@@ -55,7 +57,7 @@ public class ScenesManager : MonoBehaviour
     public void SetScene(string scene)
     {
         _sceneToLoad = GetSceneName(scene);
-        if (_isPopupLoaded && _sceneToLoad.Contains("Popup")) return;
+        if (_isPopupLoaded && _sceneToLoad.Contains("Popup")) UnloadPopup(_activeScene);
         Debug.Log($"Going to scene {_sceneToLoad}");
         StartCoroutine(LoadScene());
     }
@@ -113,20 +115,20 @@ public class ScenesManager : MonoBehaviour
         _previousScene = scene;
         //Debug.Log($"{_previousScene.name} unloaded !");
 
-        if (_previousScene.name == _loadingMini) _loading = false;
+        if (_previousScene.name == _loadingMini) _isMiniLoading = false;
         if (_previousScene.name.Contains("Popup")) _isPopupLoaded = false;
     }
 
     private void BigLoading()
     {
-        _loading = true;
+        _isBigLoading = true;
         SceneManager.LoadScene(_loadingBig, LoadSceneMode.Additive);
     }
 
     private void MiniLoading()
     {
-        if (_loading) return;
-        _loading = true;
+        if (_isMiniLoading || _isBigLoading) return;
+        _isMiniLoading = true;
         SceneManager.LoadScene(_loadingMini, LoadSceneMode.Additive);
     }
 
@@ -137,7 +139,7 @@ public class ScenesManager : MonoBehaviour
 
     private void StopBigLoading()
     {
-        _loading = false;
+        _isBigLoading = false;
         if (SceneManager.GetSceneByName(_loadingBig).isLoaded) SceneManager.UnloadSceneAsync(_loadingBig);
     }
 }

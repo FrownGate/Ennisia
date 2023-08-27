@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Berserker
   m_EditorClassIdentifier: 
   SkillsData:
+  - {fileID: 11400000, guid: 0f70c3b43f5267340889d2e1a2c48712, type: 2}
+  - {fileID: 11400000, guid: 0429c5734ea441b44a3ea8cc59012922, type: 2}
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 41
   Name: Berserker
@@ -38,3 +40,4 @@ MonoBehaviour:
       Value: 35
     - Key: 8
       Value: 80
+  EnemySprite: {fileID: 0}

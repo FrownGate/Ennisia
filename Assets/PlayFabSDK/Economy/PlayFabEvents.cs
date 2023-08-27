@@ -13,14 +13,24 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<CreateUploadUrlsResponse> OnEconomyCreateUploadUrlsResultEvent;
         public event PlayFabRequestEvent<DeleteEntityItemReviewsRequest> OnEconomyDeleteEntityItemReviewsRequestEvent;
         public event PlayFabResultEvent<DeleteEntityItemReviewsResponse> OnEconomyDeleteEntityItemReviewsResultEvent;
-        public event PlayFabRequestEvent<DeleteInventoryCollectionRequest> OnEconomyDeleteInventoryCollectionRequestEvent;
-        public event PlayFabResultEvent<DeleteInventoryCollectionResponse> OnEconomyDeleteInventoryCollectionResultEvent;
+
+        public event PlayFabRequestEvent<DeleteInventoryCollectionRequest>
+            OnEconomyDeleteInventoryCollectionRequestEvent;
+
+        public event PlayFabResultEvent<DeleteInventoryCollectionResponse>
+            OnEconomyDeleteInventoryCollectionResultEvent;
+
         public event PlayFabRequestEvent<DeleteInventoryItemsRequest> OnEconomyDeleteInventoryItemsRequestEvent;
         public event PlayFabResultEvent<DeleteInventoryItemsResponse> OnEconomyDeleteInventoryItemsResultEvent;
         public event PlayFabRequestEvent<DeleteItemRequest> OnEconomyDeleteItemRequestEvent;
         public event PlayFabResultEvent<DeleteItemResponse> OnEconomyDeleteItemResultEvent;
-        public event PlayFabRequestEvent<ExecuteInventoryOperationsRequest> OnEconomyExecuteInventoryOperationsRequestEvent;
-        public event PlayFabResultEvent<ExecuteInventoryOperationsResponse> OnEconomyExecuteInventoryOperationsResultEvent;
+
+        public event PlayFabRequestEvent<ExecuteInventoryOperationsRequest>
+            OnEconomyExecuteInventoryOperationsRequestEvent;
+
+        public event PlayFabResultEvent<ExecuteInventoryOperationsResponse>
+            OnEconomyExecuteInventoryOperationsResultEvent;
+
         public event PlayFabRequestEvent<GetCatalogConfigRequest> OnEconomyGetCatalogConfigRequestEvent;
         public event PlayFabResultEvent<GetCatalogConfigResponse> OnEconomyGetCatalogConfigResultEvent;
         public event PlayFabRequestEvent<GetDraftItemRequest> OnEconomyGetDraftItemRequestEvent;
@@ -31,8 +41,13 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<GetEntityDraftItemsResponse> OnEconomyGetEntityDraftItemsResultEvent;
         public event PlayFabRequestEvent<GetEntityItemReviewRequest> OnEconomyGetEntityItemReviewRequestEvent;
         public event PlayFabResultEvent<GetEntityItemReviewResponse> OnEconomyGetEntityItemReviewResultEvent;
-        public event PlayFabRequestEvent<GetInventoryCollectionIdsRequest> OnEconomyGetInventoryCollectionIdsRequestEvent;
-        public event PlayFabResultEvent<GetInventoryCollectionIdsResponse> OnEconomyGetInventoryCollectionIdsResultEvent;
+
+        public event PlayFabRequestEvent<GetInventoryCollectionIdsRequest>
+            OnEconomyGetInventoryCollectionIdsRequestEvent;
+
+        public event PlayFabResultEvent<GetInventoryCollectionIdsResponse>
+            OnEconomyGetInventoryCollectionIdsResultEvent;
+
         public event PlayFabRequestEvent<GetInventoryItemsRequest> OnEconomyGetInventoryItemsRequestEvent;
         public event PlayFabResultEvent<GetInventoryItemsResponse> OnEconomyGetInventoryItemsResultEvent;
         public event PlayFabRequestEvent<GetItemRequest> OnEconomyGetItemRequestEvent;
@@ -49,26 +64,56 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<GetItemReviewSummaryResponse> OnEconomyGetItemReviewSummaryResultEvent;
         public event PlayFabRequestEvent<GetItemsRequest> OnEconomyGetItemsRequestEvent;
         public event PlayFabResultEvent<GetItemsResponse> OnEconomyGetItemsResultEvent;
-        public event PlayFabRequestEvent<GetMicrosoftStoreAccessTokensRequest> OnEconomyGetMicrosoftStoreAccessTokensRequestEvent;
-        public event PlayFabResultEvent<GetMicrosoftStoreAccessTokensResponse> OnEconomyGetMicrosoftStoreAccessTokensResultEvent;
+
+        public event PlayFabRequestEvent<GetMicrosoftStoreAccessTokensRequest>
+            OnEconomyGetMicrosoftStoreAccessTokensRequestEvent;
+
+        public event PlayFabResultEvent<GetMicrosoftStoreAccessTokensResponse>
+            OnEconomyGetMicrosoftStoreAccessTokensResultEvent;
+
         public event PlayFabRequestEvent<GetTransactionHistoryRequest> OnEconomyGetTransactionHistoryRequestEvent;
         public event PlayFabResultEvent<GetTransactionHistoryResponse> OnEconomyGetTransactionHistoryResultEvent;
         public event PlayFabRequestEvent<PublishDraftItemRequest> OnEconomyPublishDraftItemRequestEvent;
         public event PlayFabResultEvent<PublishDraftItemResponse> OnEconomyPublishDraftItemResultEvent;
         public event PlayFabRequestEvent<PurchaseInventoryItemsRequest> OnEconomyPurchaseInventoryItemsRequestEvent;
         public event PlayFabResultEvent<PurchaseInventoryItemsResponse> OnEconomyPurchaseInventoryItemsResultEvent;
-        public event PlayFabRequestEvent<RedeemAppleAppStoreInventoryItemsRequest> OnEconomyRedeemAppleAppStoreInventoryItemsRequestEvent;
-        public event PlayFabResultEvent<RedeemAppleAppStoreInventoryItemsResponse> OnEconomyRedeemAppleAppStoreInventoryItemsResultEvent;
-        public event PlayFabRequestEvent<RedeemGooglePlayInventoryItemsRequest> OnEconomyRedeemGooglePlayInventoryItemsRequestEvent;
-        public event PlayFabResultEvent<RedeemGooglePlayInventoryItemsResponse> OnEconomyRedeemGooglePlayInventoryItemsResultEvent;
-        public event PlayFabRequestEvent<RedeemMicrosoftStoreInventoryItemsRequest> OnEconomyRedeemMicrosoftStoreInventoryItemsRequestEvent;
-        public event PlayFabResultEvent<RedeemMicrosoftStoreInventoryItemsResponse> OnEconomyRedeemMicrosoftStoreInventoryItemsResultEvent;
-        public event PlayFabRequestEvent<RedeemNintendoEShopInventoryItemsRequest> OnEconomyRedeemNintendoEShopInventoryItemsRequestEvent;
-        public event PlayFabResultEvent<RedeemNintendoEShopInventoryItemsResponse> OnEconomyRedeemNintendoEShopInventoryItemsResultEvent;
-        public event PlayFabRequestEvent<RedeemPlayStationStoreInventoryItemsRequest> OnEconomyRedeemPlayStationStoreInventoryItemsRequestEvent;
-        public event PlayFabResultEvent<RedeemPlayStationStoreInventoryItemsResponse> OnEconomyRedeemPlayStationStoreInventoryItemsResultEvent;
-        public event PlayFabRequestEvent<RedeemSteamInventoryItemsRequest> OnEconomyRedeemSteamInventoryItemsRequestEvent;
-        public event PlayFabResultEvent<RedeemSteamInventoryItemsResponse> OnEconomyRedeemSteamInventoryItemsResultEvent;
+
+        public event PlayFabRequestEvent<RedeemAppleAppStoreInventoryItemsRequest>
+            OnEconomyRedeemAppleAppStoreInventoryItemsRequestEvent;
+
+        public event PlayFabResultEvent<RedeemAppleAppStoreInventoryItemsResponse>
+            OnEconomyRedeemAppleAppStoreInventoryItemsResultEvent;
+
+        public event PlayFabRequestEvent<RedeemGooglePlayInventoryItemsRequest>
+            OnEconomyRedeemGooglePlayInventoryItemsRequestEvent;
+
+        public event PlayFabResultEvent<RedeemGooglePlayInventoryItemsResponse>
+            OnEconomyRedeemGooglePlayInventoryItemsResultEvent;
+
+        public event PlayFabRequestEvent<RedeemMicrosoftStoreInventoryItemsRequest>
+            OnEconomyRedeemMicrosoftStoreInventoryItemsRequestEvent;
+
+        public event PlayFabResultEvent<RedeemMicrosoftStoreInventoryItemsResponse>
+            OnEconomyRedeemMicrosoftStoreInventoryItemsResultEvent;
+
+        public event PlayFabRequestEvent<RedeemNintendoEShopInventoryItemsRequest>
+            OnEconomyRedeemNintendoEShopInventoryItemsRequestEvent;
+
+        public event PlayFabResultEvent<RedeemNintendoEShopInventoryItemsResponse>
+            OnEconomyRedeemNintendoEShopInventoryItemsResultEvent;
+
+        public event PlayFabRequestEvent<RedeemPlayStationStoreInventoryItemsRequest>
+            OnEconomyRedeemPlayStationStoreInventoryItemsRequestEvent;
+
+        public event PlayFabResultEvent<RedeemPlayStationStoreInventoryItemsResponse>
+            OnEconomyRedeemPlayStationStoreInventoryItemsResultEvent;
+
+        public event PlayFabRequestEvent<RedeemSteamInventoryItemsRequest>
+            OnEconomyRedeemSteamInventoryItemsRequestEvent;
+
+        public event PlayFabResultEvent<RedeemSteamInventoryItemsResponse>
+            OnEconomyRedeemSteamInventoryItemsResultEvent;
+
         public event PlayFabRequestEvent<ReportItemRequest> OnEconomyReportItemRequestEvent;
         public event PlayFabResultEvent<ReportItemResponse> OnEconomyReportItemResultEvent;
         public event PlayFabRequestEvent<ReportItemReviewRequest> OnEconomyReportItemReviewRequestEvent;

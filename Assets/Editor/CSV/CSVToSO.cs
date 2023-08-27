@@ -223,6 +223,9 @@ public class CSVToSO : EditorWindow
         scriptableObject.Description = rowData["Description"].Replace("\"", string.Empty);
         scriptableObject.Catchphrase = rowData["CatchPhrase"].Replace("\"", string.Empty);
 
+        scriptableObject.Icon = Resources.Load<Sprite>($"Textures/Supports/{scriptableObject.Name}");
+
+        
         // Create the folder if it doesn't exist
         var folderPath = $"Assets/Resources/SO/SupportsCharacter/{scriptableObject.Rarity}";
         if (!Directory.Exists(folderPath))
@@ -259,6 +262,9 @@ public class CSVToSO : EditorWindow
         scriptableObject.SkillType = skillType;
         scriptableObject.IsPassive = type.Contains("Passif");
 
+        scriptableObject.Icon = Resources.Load<Sprite>($"Textures/Skills/{scriptableObject.Name}");
+        
+        
         // Create the folder if it doesn't exist
         var folderPath = $"Assets/Resources/SO/Skills/{skillType}";
         if (!Directory.Exists(folderPath))
@@ -469,8 +475,24 @@ public class CSVToSO : EditorWindow
 
         scriptableObject.Experience = int.Parse(rowData["XP"]);
 
-        // Remove special characters and spaces from the mission name
         var missionName = CSVUtils.GetFileName(rowData["Name"]);
+
+        // Load all sprites from the "Resources/Missions" folder with the given mission name prefix
+        Sprite[] missionSprites = Resources.LoadAll<Sprite>($"Textures/Backgrounds/Missions/{scriptableObject.Type}/{missionName}");
+
+        if(scriptableObject.Type == MissionType.MainStory) Debug.Log("truc = " );
+        // Check if any sprites were loaded
+        if (missionSprites.Length > 0)
+        {
+            // Assuming you want the first sprite (e.g., "floor 1") from the list
+            Sprite missionSprite = missionSprites[0];
+            scriptableObject.MissionBackground = missionSprite;
+        }
+        else
+        {
+            Debug.Log($"Sprites for mission '{missionName}' not found in 'Resources/Textures/Missions' folder with the prefix '{missionName}'.");
+        }
+        // Remove special characters and spaces from the mission name
 
         var savePath =
             $"Assets/Resources/SO/Missions/{scriptableObject.Type}/{scriptableObject.ChapterId}.{scriptableObject.NumInChapter}-{missionName}.asset";
@@ -568,7 +590,8 @@ public class CSVToSO : EditorWindow
         AssignSkillData(rowData, "Skill 3", ref scriptableObject.SkillsData);
         AssignSkillData(rowData, "Passif", ref scriptableObject.SkillsData);
 
-
+        scriptableObject.EnemySprite = Resources.Load<Sprite>($"Textures/Enemies/{scriptableObject.Name}");
+        
         var savePath = $"Assets/Resources/SO/Enemies/{scriptableObject.Name}.asset";
         AssetDatabase.CreateAsset(scriptableObject, savePath);
     }

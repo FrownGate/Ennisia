@@ -16,14 +16,18 @@ namespace PlayFab
         public string ProductBundle;
         public string Version;
         public string Company;
+
         public RuntimePlatform Platform;
+
         // UNITY_5 Graphics Abilities
         public bool GraphicsMultiThreaded;
 #else
         public enum GraphicsDeviceType
         {
-            OpenGL2 = 0, Direct3D9 = 1, Direct3D11 = 2, PlayStation3 = 3, Null = 4, Xbox360 = 6, OpenGLES2 = 8, OpenGLES3 = 11, PlayStationVita = 12,
-            PlayStation4 = 13, XboxOne = 14, PlayStationMobile = 15, Metal = 16, OpenGLCore = 17, Direct3D12 = 18, Nintendo3DS = 19
+            OpenGL2 = 0, Direct3D9 = 1, Direct3D11 = 2, PlayStation3 = 3, Null = 4, Xbox360 = 6, OpenGLES2 =
+ 8, OpenGLES3 = 11, PlayStationVita = 12,
+            PlayStation4 = 13, XboxOne = 14, PlayStationMobile = 15, Metal = 16, OpenGLCore = 17, Direct3D12 =
+ 18, Nintendo3DS = 19
         }
 
         // RuntimePlatform Enum info:
@@ -47,6 +51,7 @@ namespace PlayFab
 
         //DEVICE & OS
         public string DeviceModel;
+
         //public enum DeviceType { Unknown, Handheld, Console, Desktop }
         public DeviceType DeviceType;
         public string DeviceUniqueId;
@@ -132,6 +137,7 @@ namespace PlayFab
                 var fld = field.GetValue(this).ToString();
                 sb.AppendFormat("System Info - {0}: {1}\n", field.Name, fld);
             }
+
             return sb.ToString();
         }
     }

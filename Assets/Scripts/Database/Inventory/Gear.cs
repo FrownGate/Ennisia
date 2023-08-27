@@ -2,7 +2,6 @@ using PlayFab.EconomyModels;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
 public class Gear : Item
 {
@@ -15,10 +14,10 @@ public class Gear : Item
     public Dictionary<Attribute, float> BaseSubStats; //used for upgrade
     public Dictionary<Attribute, float> SubStats;
     public JsonSubstatsDictionary[] JsonSubstats;
+    public JsonSubstatsDictionary[] JsonBaseSubStats;
     public string Description;
     public int Level;
     public float StatUpgrade;
-    public float RatioUpgrade = 0.04f;
     public GearSO WeaponSO;
     public GearSet GearSet;
 
@@ -36,7 +35,7 @@ public class Gear : Item
         Debug.Log("gear created");
 
         WeaponSO = weapon;
-        WeaponType = weapon ? weapon.WeaponType : null;
+        //WeaponType = weapon ? weapon.WeaponType : null;
         Id = SetId();
         Stack = Id.ToString();
         Type = type;
@@ -57,6 +56,7 @@ public class Gear : Item
     }
 
     public Gear(GearSO weapon, Rarity rarity) : this(weapon.Type, rarity, null, weapon) { }
+
     public Gear(GearSO gear) : this(gear.Type, gear.Rarity, null, gear.Type == GearType.Weapon ? gear : null) { }
 
     public Gear(InventoryItem item)
@@ -73,8 +73,8 @@ public class Gear : Item
         Attribute = gear.Attribute;
         BaseValue = gear.BaseValue;
         Value = BaseValue;
-        BaseSubStats = gear.SubStats;
-        SubStats = BaseSubStats;
+        BaseSubStats = gear.BaseSubStats;
+        SubStats = gear.SubStats;
         Level = gear.Level;
         Name = gear.Name;
 
@@ -88,7 +88,7 @@ public class Gear : Item
         //ObtainGear?.Invoke(Type); ????
     }
 
-    public Gear(CatalogItem item)
+    public Gear(CatalogItem item) //TODO -> to remove
     {
         Gear gear = JsonUtility.FromJson<Gear>(item.DisplayProperties.ToString());
         gear.Deserialize();
@@ -102,8 +102,8 @@ public class Gear : Item
         Attribute = gear.Attribute;
         BaseValue = gear.BaseValue;
         Value = BaseValue;
-        BaseSubStats = gear.SubStats;
-        SubStats = BaseSubStats;
+        BaseSubStats = gear.BaseSubStats;
+        SubStats = gear.SubStats;
         Level = gear.Level;
         Name = gear.Name;
 
@@ -114,7 +114,6 @@ public class Gear : Item
         }
 
         AddToInventory();
-        
     }
 
     public override void Serialize()
@@ -122,6 +121,7 @@ public class Gear : Item
         if (Category != ItemCategory.Weapon && Rarity != global::Rarity.Common)
         {
             JsonSubstats = new JsonSubstatsDictionary[(int)Rarity];
+            JsonBaseSubStats = new JsonSubstatsDictionary[(int)Rarity];
             int i = 0;
 
             foreach (KeyValuePair<Attribute, float> substat in SubStats)
@@ -134,9 +134,24 @@ public class Gear : Item
 
                 i++;
             }
+
+            i = 0;
+
+            foreach (KeyValuePair<Attribute, float> substat in BaseSubStats)
+            {
+                JsonBaseSubStats[i] = new JsonSubstatsDictionary
+                {
+                    Key = substat.Key.ToString(),
+                    Value = substat.Value
+                };
+
+                i++;
+            }
         }
 
         WeaponSO = null;
+        SubStats = null;
+        BaseSubStats = null;
         base.Serialize();
     }
 
@@ -145,12 +160,13 @@ public class Gear : Item
         base.Deserialize();
 
         if (Category == ItemCategory.Weapon || Rarity == global::Rarity.Common) return;
+        BaseSubStats = new();
         SubStats = new();
 
         for (int i = 0; i < JsonSubstats.Length; i++)
         {
-            SubStats[System.Enum.Parse<Attribute>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
-            Debug.Log(JsonSubstats[i].Key);
+            BaseSubStats[Enum.Parse<Attribute>(JsonBaseSubStats[i].Key)] = JsonBaseSubStats[i].Value;
+            SubStats[Enum.Parse<Attribute>(JsonSubstats[i].Key)] = JsonSubstats[i].Value;
         }
     }
 
@@ -178,7 +194,8 @@ public class Gear : Item
     {
         if (Category == ItemCategory.Weapon) return WeaponSO.Attribute;
 
-        List<Attribute> possiblesAttributes = Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
+        List<Attribute> possiblesAttributes =
+            Resources.Load<EquipmentAttributesSO>($"SO/EquipmentStats/Attributes/{Type}").Attributes;
         return possiblesAttributes[UnityEngine.Random.Range(0, possiblesAttributes.Count - 1)];
     }
 
@@ -186,7 +203,8 @@ public class Gear : Item
     {
         if (Category == ItemCategory.Weapon) return WeaponSO.StatValue;
 
-        StatMinMaxValuesSO possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{Attribute}");
+        StatMinMaxValuesSO possibleValues =
+            Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{Attribute}");
         return UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float
     }
 
@@ -202,11 +220,13 @@ public class Gear : Item
 
             do
             {
-                stat = (Attribute)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Attribute)).Length);
+                stat = (Attribute)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Attribute)).Length);
+                Debug.Log($"Substat #{i + 1} attribute = {stat}");
                 possibleValues = Resources.Load<StatMinMaxValuesSO>($"SO/EquipmentStats/Values/{Rarity}_{stat}");
-            } while (possibleValues == null);
+            } while (possibleValues == null || substats.ContainsKey((Attribute)stat));
 
-            substats[(Attribute)stat] = UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
+            substats[(Attribute)stat] =
+                UnityEngine.Random.Range(possibleValues.MinValue, possibleValues.MaxValue); //TODO -> use random float;
         }
 
         return substats;
@@ -224,19 +244,35 @@ public class Gear : Item
         //TODO -> substats upgrade formula
         if (Level >= 50) return false;
         Debug.Log($"Upgrading {Name}...");
+        Debug.Log("lvl :" + Level);
         LevelUp?.Invoke();
         int rand = UnityEngine.Random.Range(0, 100);
-        if (rand > (100 - Level)) return false;
+
+        if (rand > (100 - Level))
+        {
+            Debug.Log("failed to upgrade");
+            return false;
+        }
+
         Level++;
-        Value += BaseValue * RatioUpgrade * Level;
+        Debug.Log("level up !");
+        Debug.Log("lvl :" + Level);
+        Debug.Log(Value + " ->");
+        Debug.Log(BaseValue);
+        Value += BaseValue * PlayFabManager.Instance.RatioUpgrade * Level;
+        Debug.Log(Value);
         if (Level % 5 == 0)
         {
             foreach (var substat in BaseSubStats)
             {
-                SubStats[substat.Key] = substat.Value * RatioUpgrade * Level; ;
+                Debug.Log(substat.Key + " " + SubStats[substat.Key] + " before");
+                Debug.Log(substat.Value + "UwU");
+                SubStats[substat.Key] = substat.Value + substat.Value * PlayFabManager.Instance.RatioUpgradeSubStat * Level;
+                Debug.Log(substat.Key + " " + SubStats[substat.Key] + "after");
             }
         }
-        if(Level==50) MaxLevel?.Invoke(Type);
+
+        if (Level == 50) MaxLevel?.Invoke(Type);
         PlayFabManager.Instance.UpdateItem(this);
         return true;
     }
@@ -246,8 +282,7 @@ public class Gear : Item
         if (_level >= 50) return;
         Debug.Log($"Upgrading {Name}...");
 
-
-        Value += BaseValue * RatioUpgrade * _level;
+        Value += BaseValue * PlayFabManager.Instance.RatioUpgrade * _level;
 
         PlayFabManager.Instance.UpdateItem(this);
     }

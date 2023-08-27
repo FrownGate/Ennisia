@@ -15,7 +15,7 @@ MonoBehaviour:
   SkillsData:
   - {fileID: 11400000, guid: a41afa4271358d04398d39bae7825e0f, type: 2}
   - {fileID: 11400000, guid: 618f188436bc0cf47ab8073e50f68900, type: 2}
-  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: 1ccfbde3db16c9743a67714392987647, type: 2}
   ID: 5
   Name: Wolf
   Description: description
@@ -40,3 +40,4 @@ MonoBehaviour:
       Value: 10
     - Key: 8
       Value: 60
+  EnemySprite: {fileID: 21300000, guid: 000888ad43a52a147bfc1f719124e959, type: 3}

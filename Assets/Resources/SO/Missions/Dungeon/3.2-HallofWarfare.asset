@@ -19,9 +19,33 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 1
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Haunted Mushroom
+      - Haunted Mushroom
+      - Haunted Tree
+    - Key: 2
+      Value:
+      - Elf
+      - Elf
+      - Mage Elf
+    - Key: 3
+      Value:
+      - Winderer
+      - Mage Elf
+      - Mage Elf
+    - Key: 4
+      Value:
+      - The condemner
+  WavesCount: 4
+  Enemies:
+  - Haunted Mushroom
+  - Haunted Tree
+  - Elf
+  - Mage Elf
+  - Winderer
+  - The condemner
   DialogueId: 0
   ChapterId: 3
   NumInChapter: 2
@@ -33,3 +57,4 @@ MonoBehaviour:
       Value: 100
   RewardData: []
   Experience: 10
+  MissionBackground: {fileID: 0}

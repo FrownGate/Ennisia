@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Evil Gardener
   m_EditorClassIdentifier: 
   SkillsData:
+  - {fileID: 11400000, guid: 513aefdddef8ec14da9c1ff1ed5b6121, type: 2}
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 36
   Name: Evil Gardener
@@ -38,3 +39,4 @@ MonoBehaviour:
       Value: 60
     - Key: 8
       Value: 55
+  EnemySprite: {fileID: 0}

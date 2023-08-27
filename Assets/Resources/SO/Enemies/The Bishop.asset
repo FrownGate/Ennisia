@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillsData:
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 59
   Name: The Bishop
   Description: description
@@ -38,3 +40,4 @@ MonoBehaviour:
       Value: 10
     - Key: 8
       Value: 100
+  EnemySprite: {fileID: 0}

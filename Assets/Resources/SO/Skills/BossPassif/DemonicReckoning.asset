@@ -19,14 +19,15 @@ MonoBehaviour:
     as physical damage. Has a 50% (100% on insane) chance to attack again for each
     Demonic Marks, each hit deals damage equivalent to 25% of the boss's Attack as
     Magical Damages. After attacking, inflict an attack (debuff).
-  DamageRatio: 50
+  DamageRatio: 150
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
-  MaxCooldown: 5
+  MaxCooldown: 1
   IgnoreDef: 0
   HitNumber: 1
   AOE: 0
   IsMagic: 0
   IsPassive: 1
   SkillType: 7
+  Icon: {fileID: 0}

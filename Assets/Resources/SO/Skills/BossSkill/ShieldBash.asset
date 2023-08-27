@@ -16,14 +16,15 @@ MonoBehaviour:
   Name: Shield Bash
   Description: 'Inflicts damage based on 25% of his defense and has a 40% chance
     of Taunting. '
-  DamageRatio: 25
+  DamageRatio: 125
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
-  MaxCooldown: 0
+  MaxCooldown: 1
   IgnoreDef: 0
   HitNumber: 1
   AOE: 0
   IsMagic: 0
   IsPassive: 0
   SkillType: 6
+  Icon: {fileID: 0}

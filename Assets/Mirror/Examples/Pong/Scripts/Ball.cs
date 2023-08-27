@@ -44,8 +44,8 @@ namespace Mirror.Examples.Pong
             {
                 // Calculate y direction via hit Factor
                 float y = HitFactor(transform.position,
-                                    col.transform.position,
-                                    col.collider.bounds.size.y);
+                    col.transform.position,
+                    col.collider.bounds.size.y);
 
                 // Calculate x direction via opposite collision
                 float x = col.relativeVelocity.x > 0 ? 1 : -1;

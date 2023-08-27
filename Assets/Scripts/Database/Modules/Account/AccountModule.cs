@@ -13,18 +13,29 @@ using System.Collections.Generic;
 public class AccountModule : Module
 {
     public static event Action OnInitComplete;
+
     public Data Data { get; private set; } //Account, Player and Inventory datas
     public string PlayFabId { get; private set; }
     public PlayFab.ClientModels.EntityKey Entity { get; private set; }
     public bool IsLoggedIn { get; private set; }
     public bool IsFirstLogin { get; private set; }
+    public bool IsAccountReset { get; private set; }
+    public bool HasAuthData => !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
+    public bool HasAuthFile { get; private set; }
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
 
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
     private string _path; //Local save path
+    private bool _isInitCompleted;
+    private readonly string[] _characterNames = new string[2] { "FemalePlayerName", "MalePlayerName" };
 
     //TODO -> event when file upload is finished, prevent double uploads
+    //TODO -> fix display name
+
+    //Testing account
+    //Email : testing@gmail.com
+    //Password : testing
 
     private void Awake()
     {
@@ -33,22 +44,28 @@ public class AccountModule : Module
         _path = Application.persistentDataPath + "/ennisia.save";
         Debug.Log($"Your save path is : {_path}");
         IsLoggedIn = false;
-    }
-
-    public void StartLogin()
-    {
-        // if (HasLocalSave()) return;
-        // AnonymousLogin();
-
-        //Use this line instead of AnonymousLogin to test PlayFab Login with no local save
-        Login("testing@gmail.com", "testing");
+        IsAccountReset = false;
+        HasAuthFile = false;
+        _isInitCompleted = false;
     }
 
     #region Local Save
-    private bool HasLocalSave()
+    public void CheckLocalDatas()
     {
+        Debug.Log("Checking local datas...");
+        string user = null;
+
         //Check if binary file with user datas exists
-        if (!File.Exists(_path)) return false;
+        if (!File.Exists(_path))
+        {
+            HasAuthFile = false;
+            Debug.Log("No local datas found.");
+            _manager.InvokeOnLocalDatasChecked(user);
+            return;
+        }
+
+        HasAuthFile = true;
+        Debug.Log("Local datas found !");
 
         try
         {
@@ -57,19 +74,23 @@ public class AccountModule : Module
                 _authData = (AuthData)_binaryFormatter.Deserialize(file);
             }
 
-            Debug.Log("Loading local save...");
-            Login(_authData.Email, _authData.Password);
-            return true;
+            user = _authData.Email;
+            if (user == null) Debug.Log("No registered account found.");
         }
         catch
         {
+            Debug.LogError("Error with local datas.");
             File.Delete(_path);
-            return false;
+            //_authData = new();
+            //CreateSave();
         }
+
+        _manager.InvokeOnLocalDatasChecked(user);
     }
 
     private void CreateAccountData(string email, string password)
     {
+        Debug.Log("Creating account data...");
         //Create binary file with user datas
         _authData = new()
         {
@@ -80,33 +101,44 @@ public class AccountModule : Module
     #endregion
 
     #region Login
-    private void Login(string email, string password)
+    public void Login()
     {
-        _manager.StartRequest();
+        if (!HasAuthData)
+        {
+            AnonymousLogin();
+            return;
+        }
 
-        if (_authData == null) CreateAccountData(email, password);
+        Login(_authData.Email, _authData.Password);
+    }
+
+    public void Login(string email, string password)
+    {
+        _manager.StartRequest($"Starting login to {email}...");
+
+        CreateAccountData(email, password);
 
         PlayFabClientAPI.LoginWithEmailAddress(new()
         {
             Email = email,
             Password = password,
             InfoRequestParameters = new() { GetUserAccountInfo = true }
-        }, OnLoginRequestSuccess, OnLoginRequestError);
+        }, res => StartCoroutine(OnLoginRequestSuccess(res)), OnLoginRequestError);
     }
 
     private void AnonymousLogin()
     {
-        _manager.StartRequest("No local save found -> anonymous login...");
+        _manager.StartRequest("Starting anonymous login...");
 
         PlayFabClientAPI.LoginWithCustomID(new()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true,
             InfoRequestParameters = new() { GetUserAccountInfo = true }
-        }, OnLoginRequestSuccess, _manager.OnRequestError);
+        }, res => StartCoroutine(OnLoginRequestSuccess(res)), _manager.OnRequestError);
     }
 
-    private void OnLoginRequestSuccess(LoginResult result)
+    private IEnumerator OnLoginRequestSuccess(LoginResult result)
     {
         PlayFabId = result.PlayFabId;
         Entity = result.EntityToken.Entity;
@@ -116,35 +148,35 @@ public class AccountModule : Module
         IsFirstLogin = info.Created == info.TitleInfo.Created && result.LastLoginTime == null;
 
         _manager.EndRequest("Login request success !");
-
-        CreateLocalData(CreateUsername());
-        StartCoroutine(GetPlayerBaseStats());
-
-        if (HasAuthData()) CreateSave();
-
-        if (!IsFirstLogin)
-        {
-            GetAccountData();
-            return;
-        }
-
-        OnInitComplete?.Invoke();
+        _manager.InvokeOnBigLoadingStart();
 
         //Use this line once to test PlayFab Register & Login
-        //RegisterAccount("testing@gmail.com", "Testing");
-    }
+        //yield return RegisterAccount("testing@gmail.com", "testing");
 
-    private bool HasAuthData()
-    {
-        return !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Email);
+        CreateLocalData(CreateUsername()); //TODO -> create username only if first login
+        CreateSave();
+
+        yield return GetPlayerBaseStats();
+
+        if (!IsFirstLogin && !IsAccountReset)
+        {
+            GetAccountData();
+
+            //TODO -> Check if authdata are well saved
+            yield break;
+        }
+
+        yield return UpdateData();
     }
 
     private void OnLoginRequestError(PlayFabError error)
     {
+        _manager.InvokeOnLoginError();
         _manager.OnRequestError(error);
-        _authData ??= null;
+        _authData = new();
 
         if (File.Exists(_path)) File.Delete(_path);
+        CheckLocalDatas();
     }
     #endregion
 
@@ -182,7 +214,6 @@ public class AccountModule : Module
             {
                 Debug.LogWarning("Missing datas - creating ones...");
                 StartCoroutine(UpdateData());
-                OnInitComplete?.Invoke();
                 return;
             }
 
@@ -199,6 +230,16 @@ public class AccountModule : Module
             //TODO -> check if there's no missing datas
             Data.UpdateLocalData(Encoding.UTF8.GetString(res));
             _manager.EndRequest("Local datas updated !");
+
+            if (Data.HasMissingDatas)
+            {
+                StartCoroutine(UpdateData());
+                return;
+            }
+
+            Debug.Log($"init completed : {_isInitCompleted}");
+            if (_isInitCompleted) return;
+            _isInitCompleted = true;
             OnInitComplete?.Invoke();
         }, error => Debug.LogError(error));
     }
@@ -219,7 +260,14 @@ public class AccountModule : Module
                 {
                     Entity = new() { Id = _manager.Entity.Id, Type = _manager.Entity.Type },
                     FileNames = new() { Data.GetType().Name }
-                }, res => _manager.EndRequest("Files uploaded !"), _manager.OnRequestError);
+                }, res => {
+                    _manager.EndRequest("Files uploaded !");
+
+                    Debug.Log($"init completed : {_isInitCompleted}");
+                    if (_isInitCompleted) return;
+                    _isInitCompleted = true;
+                    OnInitComplete?.Invoke();
+                }, _manager.OnRequestError);
             }, error => Debug.LogError(error));
         }, _manager.OnRequestError);
     }
@@ -227,12 +275,14 @@ public class AccountModule : Module
     public void CreateLocalData(string username)
     {
         Data = new(username);
+        Data.Account.Email = HasAuthData ? _authData.Email : null;
     }
 
     #region Utilities
     private string CreateUsername(string email = "user")
     {
         string name = email.Split('@')[0];
+        name = CSVUtils.GetFileName(name);
         name += SystemInfo.deviceUniqueIdentifier[..5];
         Debug.Log($"Creating username {name}...");
         return name;
@@ -242,17 +292,25 @@ public class AccountModule : Module
     {
         Debug.Log("Creating local save...");
 
-        using (FileStream file = new(_path, FileMode.OpenOrCreate))
+        using (FileStream file = new(_path, FileMode.Create))
         {
             _binaryFormatter.Serialize(file, _authData);
         }
-
-        _authData = new();
     }
 
-    private void RegisterAccount(string email, string password) //This function will be registered to a button event
+    public void ResetAccount(bool admin = false)
     {
-        _manager.StartRequest("Registering account...");
+        Debug.Log("Starting account reset...");
+        IsAccountReset = true;
+
+        if (admin) _authData = new();
+
+        Login();
+    }
+
+    public IEnumerator RegisterAccount(string email, string password)
+    {
+        yield return _manager.StartAsyncRequest("Registering account...");
         CreateAccountData(email, password);
         string username = CreateUsername(email);
 
@@ -264,15 +322,21 @@ public class AccountModule : Module
         },
         res =>
         {
-            _manager.EndRequest();
-            UpdateName(username);
-            CreateSave();
+            PlayFabClientAPI.UnlinkCustomID(new()
+            {
+                CustomId = SystemInfo.deviceUniqueIdentifier
+            }, res =>
+            {
+                _manager.EndRequest("Account registered !");
+                StartCoroutine(UpdateName(username));
+                CreateSave();
+            }, _manager.OnRequestError);
         }, _manager.OnRequestError);
     }
 
-    public void UpdateName(string name)
+    public IEnumerator UpdateName(string name)
     {
-        _manager.StartRequest("Updating username...");
+        yield return _manager.StartAsyncRequest("Updating username...");
 
         PlayFabClientAPI.UpdateUserTitleDisplayName(new()
         {
@@ -283,6 +347,7 @@ public class AccountModule : Module
     public void SetGender(int gender)
     {
         Data.Account.Gender = gender;
+        Data.Player.Name = _characterNames[gender - 1];
         StartCoroutine(UpdateData());
     }
 
@@ -296,7 +361,6 @@ public class AccountModule : Module
         _manager.Testing();
     }
     #endregion
-
 
     private void PlayerCpEarned(int exp)
     {

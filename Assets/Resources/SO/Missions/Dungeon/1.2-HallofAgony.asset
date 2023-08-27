@@ -19,9 +19,32 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 1
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Demonic Wolf
+      - Demonic Wolf
+      - Minor Demon
+    - Key: 2
+      Value:
+      - Major Demon
+      - Major Demon
+      - Minor Demon
+    - Key: 3
+      Value:
+      - Stixent
+      - Stixent
+      - Stixent
+    - Key: 4
+      Value:
+      - Demon Commander
+  WavesCount: 4
+  Enemies:
+  - Demonic Wolf
+  - Minor Demon
+  - Major Demon
+  - Stixent
+  - Demon Commander
   DialogueId: 0
   ChapterId: 1
   NumInChapter: 2
@@ -33,3 +56,4 @@ MonoBehaviour:
       Value: 100
   RewardData: []
   Experience: 10
+  MissionBackground: {fileID: 0}

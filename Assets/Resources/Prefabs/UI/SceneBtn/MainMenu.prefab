@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4531749331517624270}
   - component: {fileID: 5872148974560727644}
   - component: {fileID: 252290311071921964}
+  - component: {fileID: 9051828978228403824}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -137,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scene: MainMenu
+  _params: 
 --- !u!114 &252290311071921964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,3 +151,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6099d06203ea648a5d1f7b27a7c6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9051828978228403824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5257932854862073106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3311180f249dcb84ba0f53619a01c146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSFX: {fileID: 8300000, guid: 9f8f0ec068f1c8e46a6e22fc73207d7d, type: 3}
+  audioBGM: {fileID: 0}

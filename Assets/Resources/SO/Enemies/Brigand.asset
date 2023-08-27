@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Brigand
   m_EditorClassIdentifier: 
   SkillsData:
+  - {fileID: 11400000, guid: 1b401e19ebd3cd048927b3acee7d9c15, type: 2}
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 35
   Name: Brigand
@@ -38,3 +39,4 @@ MonoBehaviour:
       Value: 70
     - Key: 8
       Value: 80
+  EnemySprite: {fileID: 0}

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillsData:
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 54
   Name: Desert King
   Description: description
@@ -38,3 +40,4 @@ MonoBehaviour:
       Value: 30
     - Key: 8
       Value: 150
+  EnemySprite: {fileID: 0}

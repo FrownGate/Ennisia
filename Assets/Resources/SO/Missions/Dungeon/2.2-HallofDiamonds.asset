@@ -19,9 +19,32 @@ MonoBehaviour:
   EnergyCost: 5
   Unlocked: 1
   Waves:
-    _serializedList: []
-  WavesCount: 0
-  Enemies: []
+    _serializedList:
+    - Key: 1
+      Value:
+      - Rock Worm
+      - Rock Worm
+      - Rock Worm
+    - Key: 2
+      Value:
+      - Sanunter
+      - Sanunter
+      - Spreegal
+    - Key: 3
+      Value:
+      - Brigand
+      - Brigand
+      - Rock Worm
+    - Key: 4
+      Value:
+      - Ghost Paladin
+  WavesCount: 4
+  Enemies:
+  - Rock Worm
+  - Sanunter
+  - Spreegal
+  - Brigand
+  - Ghost Paladin
   DialogueId: 0
   ChapterId: 2
   NumInChapter: 2
@@ -33,3 +56,4 @@ MonoBehaviour:
       Value: 100
   RewardData: []
   Experience: 10
+  MissionBackground: {fileID: 0}

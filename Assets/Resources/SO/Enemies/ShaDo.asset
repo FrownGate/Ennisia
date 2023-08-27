@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ShaDo
   m_EditorClassIdentifier: 
   SkillsData:
-  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: 25d30eda3cb1848c09c4f725f5a6d824, type: 2}
+  - {fileID: 11400000, guid: 5c8d9368e5494440b99b4a530a8f598e, type: 2}
+  - {fileID: 11400000, guid: 9a6fc04d9ab0140fdb1f8631a3e0c512, type: 2}
   ID: 52
   Name: ShaDo
   Description: description
@@ -38,3 +40,4 @@ MonoBehaviour:
       Value: 110
     - Key: 8
       Value: 100
+  EnemySprite: {fileID: 0}

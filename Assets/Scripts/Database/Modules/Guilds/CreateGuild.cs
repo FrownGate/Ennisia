@@ -1,10 +1,8 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CreateGuild : MonoBehaviour
 {
-    [SerializeField] private Button _createButton;
     [SerializeField] private TMP_InputField _name;
     [SerializeField] private TMP_InputField _description;
 
@@ -16,6 +14,7 @@ public class CreateGuild : MonoBehaviour
             return;
         }
 
+        if (!PlayFabManager.Instance.HasEnoughCurrency(100000, Currency.Gold)) return;
         PlayFabManager.Instance.CreateGuild(_name.text, _description.text);
     }
 }

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillsData:
   - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
   ID: 63
   Name: Elubinard
   Description: description
@@ -38,3 +40,4 @@ MonoBehaviour:
       Value: 60
     - Key: 8
       Value: 65
+  EnemySprite: {fileID: 0}

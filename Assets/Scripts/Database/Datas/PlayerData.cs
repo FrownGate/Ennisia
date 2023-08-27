@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [Serializable]
 public class PlayerData
@@ -57,6 +55,8 @@ public class PlayerData
 
     public void UpdateEquippedSupports()
     {
+        Debug.LogWarning("PLAYER SUPPORTS");
+
         for (int i = 0; i < EquippedSupportsPath.Length; i++)
         {
             EquippedSupports[i] = EquippedSupportsPath[i] != null ? Resources.Load<SupportCharacterSO>(EquippedSupportsPath[i]) : null;
@@ -119,6 +119,7 @@ public class PlayerData
 
     public void Unequip(GearType type, bool update = true)
     {
+        Debug.Log("unequipped gear :" + type + "|id : " + (int)type);
         RemoveModifiers(type);
         EquippedGearsId[(int)type] = 0;
         EquippedGears[type] = null;

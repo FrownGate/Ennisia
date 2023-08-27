@@ -20,10 +20,11 @@ MonoBehaviour:
   ShieldAmount: 10
   HealingAmount: 20
   BuffAmount: 0
-  MaxCooldown: 3
+  MaxCooldown: 1
   IgnoreDef: 0
   HitNumber: 0
   AOE: 0
   IsMagic: 0
   IsPassive: 0
   SkillType: 4
+  Icon: {fileID: 0}

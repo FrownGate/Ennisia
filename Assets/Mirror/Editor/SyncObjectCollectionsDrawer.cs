@@ -1,6 +1,7 @@
 // helper class for NetworkBehaviourInspector to draw all enumerable SyncObjects
 // (SyncList/Set/Dictionary)
 // 'SyncObjectCollectionsDrawer' is a nicer name than 'IEnumerableSyncObjectsDrawer'
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -45,7 +46,10 @@ namespace Mirror
 
         public void Draw()
         {
-            if (syncObjectCollectionFields.Count == 0) { return; }
+            if (syncObjectCollectionFields.Count == 0)
+            {
+                return;
+            }
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Sync Collections", EditorStyles.boldLabel);
@@ -58,7 +62,8 @@ namespace Mirror
 
         void DrawSyncObjectCollection(SyncObjectCollectionField syncObjectCollectionField)
         {
-            syncObjectCollectionField.visible = EditorGUILayout.Foldout(syncObjectCollectionField.visible, syncObjectCollectionField.label);
+            syncObjectCollectionField.visible =
+                EditorGUILayout.Foldout(syncObjectCollectionField.visible, syncObjectCollectionField.label);
             if (syncObjectCollectionField.visible)
             {
                 using (new EditorGUI.IndentLevelScope())

@@ -20,15 +20,12 @@ public class InventoryData
 
     public Material GetMaterial(int type, int rarity)
     {
-        Material material = null;
+        Material material = new Material();
 
-        foreach (Material item in Items[material.GetType().Name])
+        foreach (Material item in Items[material.GetType().Name].Cast<Material>().Where(item => item.Rarity != null && item.Category != null && (int)item.Category == type && (int)item.Rarity == rarity))
         {
-            if ((int)item.Category == type && (int)item.Rarity == rarity)
-            {
-                material = item;
-                break;
-            }
+            material = item;
+            break;
         }
 
         return material;
@@ -44,6 +41,7 @@ public class InventoryData
 
     public Gear GetGearById(int id)
     {
+        if (!Items.ContainsKey("Gear")) return null;
         return (Gear)Items["Gear"].Find(gear => gear.Id == id);
     }
 

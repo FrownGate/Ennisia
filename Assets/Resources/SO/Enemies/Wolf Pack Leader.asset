@@ -15,7 +15,7 @@ MonoBehaviour:
   SkillsData:
   - {fileID: 11400000, guid: a41afa4271358d04398d39bae7825e0f, type: 2}
   - {fileID: 11400000, guid: 618f188436bc0cf47ab8073e50f68900, type: 2}
-  - {fileID: 11400000, guid: 1ccfbde3db16c9743a67714392987647, type: 2}
+  - {fileID: 11400000, guid: 9d99da0ba9afa5d4391e471a55e7ade2, type: 2}
   - {fileID: 11400000, guid: 9d99da0ba9afa5d4391e471a55e7ade2, type: 2}
   ID: 6
   Name: Wolf Pack Leader
@@ -41,3 +41,4 @@ MonoBehaviour:
       Value: 10
     - Key: 8
       Value: 60
+  EnemySprite: {fileID: 21300000, guid: 975beba63c5ab2141ba8d40ba7fad5c1, type: 3}

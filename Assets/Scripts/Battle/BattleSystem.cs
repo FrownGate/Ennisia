@@ -19,10 +19,14 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
+    [SerializeField] private GameObject _skillSlot;
+    [SerializeField] private GameObject _skillSlotContainer;
     [SerializeField] private Canvas _canvasPC;
     [SerializeField] private Canvas _canvasMobile;
     [SerializeField] private Image _background;
     public TextMeshProUGUI DialogueText;
+    public TextMeshProUGUI TurnText;
+    public TextMeshProUGUI CombatHistoryText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
     //TODO -> move popup in BattleSystem game object
@@ -39,6 +43,7 @@ public class BattleSystem : StateMachine
     public AtkBarSystem AttackBarSystem { get; set; }
 
     private Canvas _canvas;
+    public Skill PreviousSkill { get; private set;}
 
     private void Awake()
     {
@@ -46,6 +51,7 @@ public class BattleSystem : StateMachine
         _canvas = _canvasPC; //TODO -> check platform
         EntityHUD.OnEntitySelected += SelectEntity;
         HUD.OnSkillSelected += SelectSkill;
+        SkillButton.OnSkillSelected += SelectSkill;
         MissionManager.OnNextWave += InitBattle;
         MissionManager.OnMissionComplete += EndBattle;
         InitBattle();
@@ -55,14 +61,24 @@ public class BattleSystem : StateMachine
     {
         EntityHUD.OnEntitySelected -= SelectEntity;
         HUD.OnSkillSelected -= SelectSkill;
+        SkillButton.OnSkillSelected -= SelectSkill;
         MissionManager.OnNextWave -= InitBattle;
         MissionManager.OnMissionComplete -= EndBattle;
+    }
+    
+    private void Update()
+    {
+        TurnText.text = $"Turn {Turn}";
+        if (State is SelectTarget)
+        {
+            //TODO: highlight targets than can be selected
+        }
     }
 
     public void InitBattle()
     {
         //TODO -> set background
-        _background.sprite = Resources.Load<Sprite>("Textures/Backgrounds/V1_PRAIRIE"); //to change based on mission
+        _background.sprite = MissionManager.Instance.CurrentMission.MissionBackground != null ? MissionManager.Instance.CurrentMission.MissionBackground : Resources.Load<Sprite>( $"Textures/Backgrounds/V1_PRAIRIE");
         //TODO -> show turn n° ?
         Targets = new();
 
@@ -101,21 +117,28 @@ public class BattleSystem : StateMachine
         {
             Debug.Log("Creating new battle datas for player");
             Player = player ?? new();
-            Player.HUD = Instantiate(_entitySlot, _canvas.transform).GetComponent<EntityHUD>();
+            var playerGO = Instantiate(_entitySlot, _canvas.transform);
+            playerGO.tag = "Player";
+            Destroy(playerGO.GetComponent<BoxCollider2D>());
+            Player.HUD = playerGO.GetComponent<EntityHUD>();
+            Player.Name = "Player";
             Player.HUD.Init((Player)Player);
         }
 
         Player.InitElement();
 
-        int position = 0;
+
 
         foreach (var skill in Player.Skills)
         {
             //TODO -> Set position
             skill.ConstantPassive(Enemies, Player, Turn, Allies); // constant passive at battle start
-            skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
-            skill.Button.Init(skill, position);
-            position += 160; //TODO -> dynamic position
+            //skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
+            //skill.Button.Init(skill, position);
+            var skillGO = Instantiate(_skillSlot, _canvas.transform);
+            skillGO.transform.SetParent(_skillSlotContainer.transform);
+            skill.SkillButton = skillGO.GetComponent<SkillButton>();
+            skill.SkillButton.Init(skill);
         }
     }
 
@@ -127,8 +150,8 @@ public class BattleSystem : StateMachine
         {
             SupportHUD hud = Instantiate(_supportSlot, _canvas.transform).GetComponent<SupportHUD>();
 
-            if (support != null) support.Init();
-            hud.Init(support == null ? null : support.Skills, position);
+            support?.Init();
+            hud.Init(support, position);
             position -= 190; //TODO -> dynamic position
 
             if (support == null) continue;
@@ -159,7 +182,7 @@ public class BattleSystem : StateMachine
 
         foreach (var enemyName in mission.Waves[wave])
         {
-            //Debug.Log(enemyName);
+            Debug.Log(enemyName);
             Enemy enemy = new(id, Resources.Load<EnemySO>($"SO/Enemies/{enemyName}"));
             Enemies.Add(enemy);
             id++;
@@ -201,9 +224,17 @@ public class BattleSystem : StateMachine
 
     public void ToggleSkills(bool active)
     {
+        if (!active)
+        {
+            foreach (var skill in Player.Skills)
+            {
+                skill.SkillButton.ToggleBackgroundImage();
+            }
+        }
         foreach (var skill in Player.Skills)
         {
-            skill.Button.ToggleHUD(active);
+            //skill.Button.ToggleHUD(active);
+            skill.SkillButton.ToggleHUD(active);
             //if (Player.HasEffect(new Silence())) break;
         }
 
@@ -220,6 +251,7 @@ public class BattleSystem : StateMachine
     {
         //Debug.Log("Entity seleted.");
         if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
+        Player.HUD.AttackAnimation();
         Targets.Add(entity);
         StartCoroutine(State.Attack());
     }
@@ -314,6 +346,7 @@ public class BattleSystem : StateMachine
         }
 
         OnPlayerLose?.Invoke(true);
+        AudioManager.Instance.Play("SFX Lose");
         //TODO -> Load game over popup
     }
 
