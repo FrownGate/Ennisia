@@ -12,6 +12,7 @@ public class EntityHUD : MonoBehaviour
     [SerializeField] private EffectHUD _effectHUD;
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private TextMeshProUGUI _hpText;
+    [SerializeField] private BattleAnimation _battleAnimation;
     
     private Entity _entity;
     private int _id;
@@ -34,6 +35,7 @@ public class EntityHUD : MonoBehaviour
         {
             _healthBar.hpImg.fillAmount = currentFillAmount;
             StartCoroutine(_healthBar.UpdateHpEffectCoroutine());
+            _battleAnimation.DamageTaken();
         }
         
         _previousHp = currentFillAmount;
@@ -76,5 +78,11 @@ public class EntityHUD : MonoBehaviour
     private void OnMouseUpAsButton()
     {
         OnEntitySelected?.Invoke(_entity);
+    }
+    
+    //TODO: Temporary
+    public void AttackAnimation()
+    {
+        _battleAnimation.MadeAttack();
     }
 }
