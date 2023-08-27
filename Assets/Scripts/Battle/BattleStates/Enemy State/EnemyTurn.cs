@@ -15,6 +15,7 @@ public class EnemyTurn : State
         BattleSystem.ToggleSkills(false);
 
         BattleSystem.DialogueText.text = "Enemy " + BattleSystem.EnemyPlayingID + "turn";
+        
         BattleSystem.Enemies[BattleSystem.EnemyPlayingID].AtkBar = 0;
 
         UseSkill(enemy.Skills[AI.ChooseSkill(BattleSystem, enemy, true)]);
@@ -65,5 +66,6 @@ public class EnemyTurn : State
         {
             skill.PassiveAfterAttack(Targets, enemy, BattleSystem.Turn, totalDamage, Allies);
         }
+        BattleSystem.CombatHistoryText.text += $"\n{enemy.Name}[{enemy.Id}] -> {skillUsed.Data.Name}";
     }
 }

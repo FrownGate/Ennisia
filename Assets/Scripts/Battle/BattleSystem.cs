@@ -19,10 +19,14 @@ public class BattleSystem : StateMachine
     [SerializeField] private GameObject _supportSlot;
     [SerializeField] private GameObject _entitySlot;
     [SerializeField] private GameObject _skillButton;
+    [SerializeField] private GameObject _skillSlot;
+    [SerializeField] private GameObject _skillSlotContainer;
     [SerializeField] private Canvas _canvasPC;
     [SerializeField] private Canvas _canvasMobile;
     [SerializeField] private Image _background;
     public TextMeshProUGUI DialogueText;
+    public TextMeshProUGUI TurnText;
+    public TextMeshProUGUI CombatHistoryText;
     public GameObject WonPopUp;
     public GameObject LostPopUp;
     //TODO -> move popup in BattleSystem game object
@@ -39,6 +43,7 @@ public class BattleSystem : StateMachine
     public AtkBarSystem AttackBarSystem { get; set; }
 
     private Canvas _canvas;
+    public Skill PreviousSkill { get; private set;}
 
     private void Awake()
     {
@@ -46,6 +51,7 @@ public class BattleSystem : StateMachine
         _canvas = _canvasPC; //TODO -> check platform
         EntityHUD.OnEntitySelected += SelectEntity;
         HUD.OnSkillSelected += SelectSkill;
+        SkillButton.OnSkillSelected += SelectSkill;
         MissionManager.OnNextWave += InitBattle;
         MissionManager.OnMissionComplete += EndBattle;
         InitBattle();
@@ -55,8 +61,18 @@ public class BattleSystem : StateMachine
     {
         EntityHUD.OnEntitySelected -= SelectEntity;
         HUD.OnSkillSelected -= SelectSkill;
+        SkillButton.OnSkillSelected -= SelectSkill;
         MissionManager.OnNextWave -= InitBattle;
         MissionManager.OnMissionComplete -= EndBattle;
+    }
+    
+    private void Update()
+    {
+        TurnText.text = $"Turn {Turn}";
+        if (State is SelectTarget)
+        {
+            //TODO: highlight targets than can be selected
+        }
     }
 
     public void InitBattle()
@@ -111,15 +127,18 @@ public class BattleSystem : StateMachine
 
         Player.InitElement();
 
-        int position = 0;
+
 
         foreach (var skill in Player.Skills)
         {
             //TODO -> Set position
             skill.ConstantPassive(Enemies, Player, Turn, Allies); // constant passive at battle start
-            skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
-            skill.Button.Init(skill, position);
-            position += 160; //TODO -> dynamic position
+            //skill.Button = Instantiate(_skillButton, _canvas.transform).GetComponent<SkillHUD>();
+            //skill.Button.Init(skill, position);
+            var skillGO = Instantiate(_skillSlot, _canvas.transform);
+            skillGO.transform.SetParent(_skillSlotContainer.transform);
+            skill.SkillButton = skillGO.GetComponent<SkillButton>();
+            skill.SkillButton.Init(skill);
         }
     }
 
@@ -183,7 +202,7 @@ public class BattleSystem : StateMachine
             int x = enemy.Id < 3 ? enemy.Id % 2 == 0 ? 45 : 480 : enemy.Id % 2 == 0 ? 480 : 45;
             int y = enemy.Id > 4 ? -250 : enemy.Id > 2 ? 250 : 0;
 
-            if (enemy.Id > 2) x += 250;
+            if (enemy.Id > 2) x += 215;
 
             enemy.HUD.transform.localPosition = new Vector3(x, y, 0);
         }
@@ -205,9 +224,17 @@ public class BattleSystem : StateMachine
 
     public void ToggleSkills(bool active)
     {
+        if (!active)
+        {
+            foreach (var skill in Player.Skills)
+            {
+                skill.SkillButton.ToggleBackgroundImage();
+            }
+        }
         foreach (var skill in Player.Skills)
         {
-            skill.Button.ToggleHUD(active);
+            //skill.Button.ToggleHUD(active);
+            skill.SkillButton.ToggleHUD(active);
             //if (Player.HasEffect(new Silence())) break;
         }
 
@@ -224,6 +251,7 @@ public class BattleSystem : StateMachine
     {
         //Debug.Log("Entity seleted.");
         if (IsBattleOver() || State is not SelectTarget || entity.IsDead) return;
+        Player.HUD.AttackAnimation();
         Targets.Add(entity);
         StartCoroutine(State.Attack());
     }

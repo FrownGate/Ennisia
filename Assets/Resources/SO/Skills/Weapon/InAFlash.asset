@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: In A Flash !
   Description: deals 2 hits to an enemy with a powerful attack, penetrating his soul
     and his defense by 50%.
-  DamageRatio: 190
+  DamageRatio: 150
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0

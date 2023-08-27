@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0dfefcd3f51a7e4fbf478e4c098e4a1, type: 3}
   m_Name: Red Slime
   m_EditorClassIdentifier: 
-  SkillsData:
-  - {fileID: 11400000, guid: 6f9de658d9493644b97208d93ababce6, type: 2}
-  - {fileID: 11400000, guid: 07a1ceca638a9af499859a19697b9d45, type: 2}
-  - {fileID: 11400000, guid: bf1aae433e3af7141b1a4906a69d7aa1, type: 2}
+  SkillsData: []
   ID: 1
   Name: Red Slime
   Description: description

@@ -8,7 +8,7 @@ public abstract class Skill
     public static event Action OnLevelUp;
 
     public SkillHUD Button { get; set; }
-
+    public SkillButton SkillButton { get; set; }
     public SkillSO Data { get; protected set; }
     public float RatioModifier { get; protected set; }
     public float DamageModifier { get; protected set; }

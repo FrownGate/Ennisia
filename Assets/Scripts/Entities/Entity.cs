@@ -10,6 +10,7 @@ public enum Attribute //TODO -> move DefIgnored alone
 
 public abstract class Entity
 {
+    public static event Action<Entity, int, Color> OnDamageTaken;
     public virtual string Name { get; set; }
     public virtual string Description { get; set; }
     public virtual int Level { get; set; }
@@ -79,31 +80,36 @@ public abstract class Entity
 
     public void TakeDamage(float damage)
     {
-        if (this is Player && CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.Unkillable))
+        if (HasEffect(new Invincibility()) || (this is Player && CheatCodeManager.Lazy.Value.ActiveCheatCodes.Contains(CheatCode.Unkillable)))
         {
             return;
         }
-        if (this.Effects.Find(effect => effect.GetType() == typeof(Invincibility)) != null)
-        {
-            damage = 0;
-            return;
-        }
-        Debug.Log($"Damage taken : {damage}");
+
+        Debug.Log($"Damage taken before shield : {damage}");
+
         if (Shield > 0)
         {
             Shield -= damage;
 
             if (damage > Shield)
             {
+                damage -= Shield;
                 Shield = 0;
-                CurrentHp -= damage - Shield;
             }
+            else
+            {
+                damage = 0;
+            }
+
+            OnDamageTaken?.Invoke(this, (int)damage, Color.blue);
         }
-        else
-        {
-            CurrentHp -= damage;
-            CurrentHp = CurrentHp < 0 ? 0 : CurrentHp;
-        }
+
+        Debug.Log($"Damage taken after shield : {damage}");
+
+        CurrentHp -= damage;
+        CurrentHp = CurrentHp < 0 ? 0 : CurrentHp;
+
+        if (damage > 0) OnDamageTaken?.Invoke(this, (int)damage, Color.red);
     }
 
     public virtual void Heal(float amount)

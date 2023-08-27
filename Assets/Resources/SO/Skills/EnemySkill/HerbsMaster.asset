@@ -20,7 +20,7 @@ MonoBehaviour:
   ShieldAmount: 0
   HealingAmount: 50
   BuffAmount: 0
-  MaxCooldown: 3
+  MaxCooldown: 1
   IgnoreDef: 0
   HitNumber: 0
   AOE: 0
