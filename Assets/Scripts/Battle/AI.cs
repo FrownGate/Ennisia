@@ -108,6 +108,7 @@ public abstract class AI
 
         foreach (Skill skill in list)
         {
+            Debug.Log(skill.Cooldown + $"cooldown {skill.Data.name}");
             if (skill.Cooldown == 0 && skill.GetType() != typeof(PassiveSkill))
             {
                 if ((caster.CurrentHp < caster.Stats[Attribute.HP].Value * 20 / 100 || AllyLowAndAoeCheck(battleSystem.EnemyPlayingID, battleSystem, enemyTurn)) && CanProtect(caster))
@@ -143,7 +144,7 @@ public abstract class AI
             }
         }
         list.Reverse();
-
+        
         Debug.Log($"{caster.Name} selected {skillToUse.Data.Name}");
         return list.IndexOf(skillToUse);
     }

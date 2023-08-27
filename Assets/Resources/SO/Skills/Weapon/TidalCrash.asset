@@ -15,11 +15,11 @@ MonoBehaviour:
   Id: 2
   Name: Tidal Crash
   Description: deals 3 hits to all enemies, creating a huge tidal wave.
-  DamageRatio: 170
+  DamageRatio: 200
   ShieldAmount: 0
   HealingAmount: 0
   BuffAmount: 0
-  MaxCooldown: 3
+  MaxCooldown: 2
   IgnoreDef: 0
   HitNumber: 3
   AOE: 1

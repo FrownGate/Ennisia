@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     [SerializeField] private Slider _musicSlider;
-    [SerializeField] private Button _musicMuteButton;
+    [SerializeField] private Toggle _musicMuteButton;
     [SerializeField] private Slider _SFXSlider;
-    [SerializeField] private Button _sfxMuteButton;
+    [SerializeField] private Toggle _sfxMuteButton;
     [SerializeField] private Toggle _FullScreenToggle;
     private AudioMixer audioMixer;
 
@@ -22,10 +22,10 @@ public class Settings : MonoBehaviour
     {
         _musicSlider.maxValue = MaxVolLvl;
         _musicSlider.minValue = MinVolLvl;
-        _musicMuteButton.onClick.AddListener(ToggleMusicMute);
+        _musicMuteButton.onValueChanged.AddListener(ToggleMusicMute);
         _SFXSlider.maxValue = MaxVolLvl;
         _SFXSlider.minValue = MinVolLvl;
-        _sfxMuteButton.onClick.AddListener(ToggleSFXMute);
+        _sfxMuteButton.onValueChanged.AddListener(ToggleSFXMute);
         _FullScreenToggle.onValueChanged.AddListener(OnFullscreenToggleChanged);
         audioMixer = Resources.Load<AudioMixer>("Audio/AudioSettings");
         GetSettings();
@@ -75,16 +75,16 @@ public class Settings : MonoBehaviour
         Screen.fullScreen = newValue;
     }
 
-    public void ToggleMusicMute()
+    public void ToggleMusicMute(bool newValue)
     {
-        _musicMuted = !_musicMuted;
+        _musicMuted = newValue;
         float musicVolume = _musicMuted ? MinVolLvl : _musicSlider.value;
         audioMixer.SetFloat("BGMVolume", musicVolume);
     }
 
-    public void ToggleSFXMute()
+    public void ToggleSFXMute(bool newValue)
     {
-        _sfxMuted = !_sfxMuted;
+        _sfxMuted = newValue;
         float sfxVolume = _sfxMuted ? MinVolLvl : _SFXSlider.value;
         audioMixer.SetFloat("SFXVolume", sfxVolume);
     }
