@@ -13,10 +13,12 @@ public class ShowQuests : MonoBehaviour
 
     [SerializeField] private Slider _questTotalCompletionSlider;
     [SerializeField] private float _totalCompletionPercentage;
+    [SerializeField] private Button _achievmentButton;
     
     private void Start()
     {
         _generator = GetComponent<DynamicButtonGenerator>();
+        _achievmentButton.Select();
         Achievement();
     }
 

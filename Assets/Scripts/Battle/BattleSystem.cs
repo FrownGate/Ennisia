@@ -202,7 +202,7 @@ public class BattleSystem : StateMachine
             int x = enemy.Id < 3 ? enemy.Id % 2 == 0 ? 45 : 480 : enemy.Id % 2 == 0 ? 480 : 45;
             int y = enemy.Id > 4 ? -250 : enemy.Id > 2 ? 250 : 0;
 
-            if (enemy.Id > 2) x += 250;
+            if (enemy.Id > 2) x += 215;
 
             enemy.HUD.transform.localPosition = new Vector3(x, y, 0);
         }

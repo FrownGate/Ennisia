@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,20 +9,32 @@ public class EntityHUD : MonoBehaviour
 {
     public static event Action<Entity> OnEntitySelected;
     
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private Image _sprite;
+    [SerializeField] private Sprite _female;
+    [SerializeField] private Sprite _male;
+    [SerializeField] private GameObject _idPanel;
     [SerializeField] private TextMeshProUGUI _idText;
     [SerializeField] private EffectHUD _effectHUD;
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private TextMeshProUGUI _hpText;
     [SerializeField] private BattleAnimation _battleAnimation;
-    
+    [SerializeField] private TMP_Text _damagesPrefab;
+    [SerializeField] private AnimationClip _damageAnimation;
+  
     private Entity _entity;
     private int _id;
     private float _previousHp;
+    private Canvas _canvas;
 
-    private void Start()
+    private void Awake()
     {
-        _effectHUD.Init(_entity);
+        _canvas = GetComponentInChildren<Canvas>();
+        Entity.OnDamageTaken += ShowDamages;
+    }
+
+    private void OnDestroy()
+    {
+        Entity.OnDamageTaken -= ShowDamages;
     }
 
     private void Update()
@@ -45,34 +59,57 @@ public class EntityHUD : MonoBehaviour
     {
 
         _sprite.sprite = entity.EntitySprite;
+
         if (_sprite.sprite == null)
         {
             _sprite.sprite = Resources.Load<Sprite>($"Textures/Enemies/Player");
         }
-
-        switch (entity.Name)
-        {
-            case "Wolf Pack Leader":
-                break;
-            case "Player":
-                _sprite.flipX = true;
-                break;
-        }
         
         Debug.Log($"Assets/Resources/Textures/Enemies/{entity.Name}");
         _entity = entity;
+        _effectHUD.Init(_entity);
         _id = id;
-        _idText.text = "ID:" + _id;
-        
-        if (entity is not Player && !entity.IsBoss) //TODO -> check if boss
+        _idText.text = _id.ToString();
+
+        if (entity is Player)
         {
-            transform.localScale = transform.localScale / 1.5f;
+            _idPanel.SetActive(false);
+
+            switch (PlayFabManager.Instance.Account.Gender)
+            {
+                case 1:
+                    _sprite.sprite = _female;
+                    break;
+                case 2:
+                    _sprite.sprite = _male;
+                    break;
+            }
+        }
+
+        if (entity is not Player && !entity.IsBoss)
+        {
+            transform.localScale = transform.localScale / 2f;
             return;
         }
 
         transform.localPosition = new Vector3(-495, 0, 0);
 
         gameObject.name = entity.Name;
+    }
+
+    private void ShowDamages(Entity entity, int damage, Color color)
+    {
+        if (_entity == null || entity != _entity) return;
+        var damages = Instantiate(_damagesPrefab, _canvas.transform);
+        damages.text = $"-{damage}";
+        damages.color = color;
+        StartCoroutine(Wait(damages));
+    }
+
+    private IEnumerator Wait(TMP_Text damages)
+    {
+        yield return new WaitForSeconds(_damageAnimation.length);
+        Destroy(damages.gameObject);
     }
 
     private void OnMouseUpAsButton()
