@@ -93,9 +93,13 @@ public class PlayFabManager : MonoBehaviour
     //Summon Module
     [SerializeField] private SummonModule _summonMod;
 
+    public static event Action<List<SupportCharacterSO>> OnSummon;
+
     public int SummonCost => _summonMod.SummonCost;
     public int FragmentsGain => _summonMod.FragmentsGain;
     public Dictionary<Rarity, double> Chances => _summonMod.Chances;
+
+    public bool CanPull(int amount) => _summonMod.CanPull(amount);
 
     //Requests
     private int _requests;
@@ -222,6 +226,8 @@ public class PlayFabManager : MonoBehaviour
     #endregion
 
     #region Summon
+
+    public void InvokeOnSummon(List<SupportCharacterSO> supports) => OnSummon?.Invoke(supports);
 
     public Dictionary<int, int> GetSupports() => _summonMod.GetSupports();
     public int HasSupport(int id) => _summonMod.HasSupport(id);

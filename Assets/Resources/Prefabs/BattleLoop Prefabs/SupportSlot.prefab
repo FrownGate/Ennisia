@@ -99,7 +99,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a6cadd3c6085d244ea66f18a1c7ab9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 399520b23753cca419d938bf517aad8f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 1296581350786176157}
-  _blankSprite: {fileID: 21300000, guid: a6cadd3c6085d244ea66f18a1c7ab9ee, type: 3}
+  _blankSprite: {fileID: 21300000, guid: 36a0e5e0823ddbb41814e47d5ec65168, type: 3}
   _canvas: {fileID: 6928698771579776513}
 --- !u!225 &6928698771579776513
 CanvasGroup:
