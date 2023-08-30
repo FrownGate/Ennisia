@@ -8,9 +8,13 @@ public class ShowSupports : MonoBehaviour
 {
     [SerializeField] private GameObject _container;
     [SerializeField] private GameObject _supportBannerPrefab;
+    [SerializeField] private Image _supportImage;
+    [SerializeField] private TMP_Text _supportText;
 
     private void Awake()
     {
+        ShowSupportData.OnClick += ShowData;
+
         RectTransform rect = _container.GetComponent<RectTransform>();
 
         foreach (string rarity in Enum.GetNames(typeof(Rarity)).Reverse()) {
@@ -19,10 +23,23 @@ public class ShowSupports : MonoBehaviour
             foreach (SupportCharacterSO character in supports)
             {
                 var support = Instantiate(_supportBannerPrefab, _container.transform);
+                support.GetComponent<ShowSupportData>().Support = character;
                 support.GetComponentInChildren<TMP_Text>().text = character.Name;
                 float y = rect.sizeDelta.y + support.GetComponent<RectTransform>().rect.height + _container.GetComponent<VerticalLayoutGroup>().spacing;
                 rect.sizeDelta = new Vector2(rect.sizeDelta.x, y);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        ShowSupportData.OnClick -= ShowData;
+    }
+
+    private void ShowData(SupportCharacterSO support)
+    {
+        Sprite sprite = Resources.Load<Sprite>($"Textures/Supports/{support.Name}_art") ?? Resources.Load<Sprite>("Textures/Supports/empty");
+        Debug.Log(sprite.name);
+        _supportImage.sprite = sprite;
     }
 }

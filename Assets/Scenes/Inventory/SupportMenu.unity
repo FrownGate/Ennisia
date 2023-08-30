@@ -1340,6 +1340,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _container: {fileID: 685251431}
   _supportBannerPrefab: {fileID: 6515579297772113286, guid: 665d1ed64658da740b26e51af0beae82, type: 3}
+  _supportImage: {fileID: 1820700155}
+  _supportText: {fileID: 1281593415}
 --- !u!1 &504921148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4045,7 +4047,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee5ff580b9e352c4e9b48a776a55857a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36a0e5e0823ddbb41814e47d5ec65168, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
