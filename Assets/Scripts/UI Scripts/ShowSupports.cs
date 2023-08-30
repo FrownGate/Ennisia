@@ -41,5 +41,13 @@ public class ShowSupports : MonoBehaviour
         Sprite sprite = Resources.Load<Sprite>($"Textures/Supports/{support.Name}_art") ?? Resources.Load<Sprite>("Textures/Supports/empty");
         Debug.Log(sprite.name);
         _supportImage.sprite = sprite;
+        _supportText.text = $"{support.Description}\n\n";
+
+        support.Init();
+
+        foreach (var skill in support.Skills)
+        {
+            _supportText.text += $"<b>{skill.Data.Name}</b>\n{skill.Data.Description}\n\n";
+        }
     }
 }
