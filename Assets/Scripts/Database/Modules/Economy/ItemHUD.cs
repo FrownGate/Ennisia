@@ -34,7 +34,7 @@ public class ItemHUD : MonoBehaviour
 
         if (Item is not Gear) return;
         Gear gear = Item as Gear;
-        Debug.Log(gear.Attribute + " " + gear.Value);
+        Debug.Log($"Attribute : {gear.Attribute}, value : {gear.Value}");
         _textValue.text = gear.Attribute + " " + gear.Value;
         _textLvl.text = gear.Level.ToString();
     }
