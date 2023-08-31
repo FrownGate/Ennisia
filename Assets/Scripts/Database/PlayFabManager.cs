@@ -33,6 +33,9 @@ public class PlayFabManager : MonoBehaviour
     //Game events
     public static event Action OnObsoleteVersion;
 
+    //Game datas
+    public Dictionary<Rarity, Color32> RarityColors;
+
     //Account Module
     [SerializeField] private AccountModule _accountMod;
 
@@ -99,16 +102,12 @@ public class PlayFabManager : MonoBehaviour
     public int FragmentsGain => _summonMod.FragmentsGain;
     public Dictionary<Rarity, double> Chances => _summonMod.Chances;
 
-    public bool CanPull(int amount) => _summonMod.CanPull(amount);
-
     //Requests
     private int _requests;
     public string Token;
     public bool AccountChecked { get; set; }
     public bool DailiesCheck { get; set; }
     public bool IsObsolete { get; private set; }
-
-    //TODO -> refresh ui after some events
 
     private void Awake()
     {
@@ -137,6 +136,13 @@ public class PlayFabManager : MonoBehaviour
             AccountChecked = false;
             DailiesCheck = false;
             IsObsolete = false;
+
+            RarityColors = new() {
+                { Rarity.Common, new Color32(164, 165, 172, 255) },
+                { Rarity.Rare, new Color32(93, 144, 212, 255) },
+                { Rarity.Epic, new Color32(170, 93, 212, 255) },
+                { Rarity.Legendary, new Color32(212, 161, 93, 255) },
+            };
         }
     }
 
@@ -228,10 +234,8 @@ public class PlayFabManager : MonoBehaviour
     #region Summon
 
     public void InvokeOnSummon(List<SupportCharacterSO> supports) => OnSummon?.Invoke(supports);
-
-    public Dictionary<int, int> GetSupports() => _summonMod.GetSupports();
-    public int HasSupport(int id) => _summonMod.HasSupport(id);
-    public void AddSupports(Dictionary<int, int> pulledSupports) => _summonMod.AddSupports(pulledSupports);
+    public bool CanPull(int amount) => _summonMod.CanPull(amount);
+    public void Summon() => _summonMod.Summon();
 
     #endregion
 

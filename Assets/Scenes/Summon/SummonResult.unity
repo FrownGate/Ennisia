@@ -391,7 +391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5257932854862073106, guid: 53b93e9be37dffd4cb1deda08f3391d9, type: 3}
       propertyPath: m_Name
-      value: MainMenu
+      value: GoBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872148974560727644, guid: 53b93e9be37dffd4cb1deda08f3391d9, type: 3}
+      propertyPath: Scene
+      value: Summon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -526,6 +530,7 @@ GameObject:
   - component: {fileID: 1698021913}
   - component: {fileID: 1698021915}
   - component: {fileID: 1698021916}
+  - component: {fileID: 1698021917}
   m_Layer: 5
   m_Name: Supports
   m_TagString: Untagged
@@ -551,7 +556,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 1000, y: 800}
+  m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1698021913
 MonoBehaviour:
@@ -619,17 +624,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
+    m_Left: 20
+    m_Right: 20
+    m_Top: 20
+    m_Bottom: 20
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 150, y: 150}
+  m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1698021917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698021911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9368066c4ac014cbdca4a94ade2fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _summonArea: {fileID: 0}
+  _pulledSupportPrefab: {fileID: 7552711304523899612, guid: c7adf2b55b3499845ab8c36682f69611, type: 3}
 --- !u!1001 &1762581107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -749,7 +768,6 @@ GameObject:
   - component: {fileID: 2095003530}
   - component: {fileID: 2095003529}
   - component: {fileID: 2095003528}
-  - component: {fileID: 2095003527}
   m_Layer: 5
   m_Name: PC Canvas
   m_TagString: Untagged
@@ -757,20 +775,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2095003527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095003526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb17bb8e76cd54d49bf77870a8f9e70b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _content: {fileID: 0}
-  _bannerPrefab: {fileID: 5746150107052018067, guid: b739f4630f5d9e24fb0aec947365de15, type: 3}
 --- !u!114 &2095003528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,7 +837,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 374867874}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

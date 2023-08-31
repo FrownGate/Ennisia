@@ -32,7 +32,7 @@ public class SummonModule : Module
         }
     }
 
-    public Dictionary<int, int> GetSupports()
+    private Dictionary<int, int> GetSupports()
     {
         Dictionary<int, int> supports = new();
 
@@ -44,17 +44,7 @@ public class SummonModule : Module
         return supports;
     }
 
-    public int HasSupport(int id)
-    {
-        for (int i = 0; i < _manager.Inventory.Supports.Count; i++)
-        {
-            if (_manager.Inventory.Supports[i].Id == id) return i;
-        }
-
-        return 0;
-    }
-
-    public void AddSupports(Dictionary<int, int> pulledSupports)
+    private void AddSupports(Dictionary<int, int> pulledSupports)
     {
         List<SupportData> supports = new();
 
@@ -92,19 +82,18 @@ public class SummonModule : Module
                     continue;
                 }
 
-                //newFragments += PlayFabManager.Instance.FragmentsGain * (int)pulledSupport.Rarity;
+                newFragments += FragmentsGain * (int)pulledSupport.Rarity;
                 continue;
             }
 
             _alreadyPulledSupports[pulledSupport.Id] = 1;
         }
 
+        AddSupports(_alreadyPulledSupports);
         _manager.InvokeOnSummon(_pulledSupports);
-        PlayFabManager.Instance.AddSupports(_alreadyPulledSupports);
-        //DisplayPull(); //TODO -> Use event
 
         if (newFragments == 0) return;
-        PlayFabManager.Instance.AddCurrency(Currency.Fragments, newFragments);
+        _manager.AddCurrency(Currency.Fragments, newFragments);
 
     }
 
@@ -141,8 +130,8 @@ public class SummonModule : Module
         _amount = amount;
         if (HasTicket()) return true;
 
-        int cost = PlayFabManager.Instance.SummonCost * amount;
-        if (!PlayFabManager.Instance.HasEnoughCurrency(cost, Currency.Crystals)) return false;
+        int cost = SummonCost * amount;
+        if (!_manager.HasEnoughCurrency(cost, Currency.Crystals)) return false;
 
         return true;
     }
@@ -157,7 +146,7 @@ public class SummonModule : Module
 
             if (ticket != null && ticket.Amount >= _amount)
             {
-                PlayFabManager.Instance.UseItem(ticket, _amount);
+                _manager.UseItem(ticket, _amount);
                 _chance = Chances[rarity];
                 return true;
             }
