@@ -4459,13 +4459,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5590375576557690095, guid: 373759d8092acbf43938fc064e7f4919, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7427807988229117873, guid: 373759d8092acbf43938fc064e7f4919, type: 3}
       propertyPath: _spriteBox
       value: 
       objectReference: {fileID: 714312552}
     - target: {fileID: 8321745944622115819, guid: 373759d8092acbf43938fc064e7f4919, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8321745944622115819, guid: 373759d8092acbf43938fc064e7f4919, type: 3}
       propertyPath: m_LocalPosition.x
