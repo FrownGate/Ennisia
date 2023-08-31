@@ -11,7 +11,7 @@ public class LogHandler : MonoBehaviour
     [SerializeField] private ScrollRect _scrollRect;
     
     public CanvasGroup MessageBoxCanvasGroup;
-    private bool _isMessageBoxVisible = true;
+    private bool _isMessageBoxVisible = false;
     private readonly float _offset = -1.5f;
     
     private void Awake()
