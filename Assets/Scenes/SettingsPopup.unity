@@ -2178,9 +2178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _musicSlider: {fileID: 514024241}
-  _musicMuteButton: {fileID: 417121201}
+  _musicMuteToggle: {fileID: 417121201}
   _SFXSlider: {fileID: 308805520}
-  _sfxMuteButton: {fileID: 100657989}
+  _sfxMuteToggle: {fileID: 100657989}
   _FullScreenToggle: {fileID: 348009889}
   MaxVolLvl: 15
   MinVolLvl: -10
