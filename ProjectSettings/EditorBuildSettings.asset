@@ -48,9 +48,6 @@ EditorBuildSettings:
     path: Assets/Scenes/PauseBattlePopup.unity
     guid: 29232a39660558943a8c6a88ab02d745
   - enabled: 1
-    path: Assets/Scenes/MenuPopup.unity
-    guid: c1e758dfa5282754a93a2b23908c3fd4
-  - enabled: 1
     path: Assets/Scenes/CheckRegisterPopup.unity
     guid: 9e283eedaf9ddf64fb8e1a7542f4254c
   - enabled: 1
