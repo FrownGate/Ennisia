@@ -23,6 +23,7 @@ public class AccountModule : Module
     public bool HasAuthData => !string.IsNullOrEmpty(_authData.Email) && !string.IsNullOrEmpty(_authData.Password);
     public bool HasAuthFile { get; private set; }
     public readonly Dictionary<Attribute, float> PlayerBaseStats = new();
+    public Dictionary<int, int> PlayerlevelExperienceMap;
 
     private AuthData _authData;
     private BinaryFormatter _binaryFormatter;
@@ -276,6 +277,7 @@ public class AccountModule : Module
     {
         Data = new(username);
         Data.Account.Email = HasAuthData ? _authData.Email : null;
+        LoadLevelExperienceMap();
     }
 
     #region Utilities
@@ -376,5 +378,33 @@ public class AccountModule : Module
     private void OnDisable()
     {
         RewardsManager.GainXp -= PlayerCpEarned;
+    }
+
+    private void LoadLevelExperienceMap()
+    {
+        //TODO -> Use CSVUtils
+        PlayerlevelExperienceMap = new Dictionary<int, int>();
+
+        //var filePath = Path.Combine(Application.dataPath, "Resources/CSV/PlayerXpCSVExport.csv");
+        var filePath = Path.Combine(Application.streamingAssetsPath, "PlayerXpCSVExport.csv");
+
+        var csvLines = File.ReadAllLines(filePath);
+
+        foreach (var line in csvLines)
+        {
+            var values = line.Split(',');
+
+            if (values.Length >= 2)
+            {
+                var level = int.Parse(values[0]);
+                var experienceRequired = int.Parse(values[1]);
+
+                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
+            }
+            else
+            {
+                Debug.LogWarning("Format invalide dans le fichier CSV : " + line);
+            }
+        }
     }
 }

@@ -56,6 +56,7 @@ public class PlayFabManager : MonoBehaviour
     public bool HasAuthData => _accountMod.HasAuthData;
     public bool HasAuthFile => _accountMod.HasAuthFile;
     public Dictionary<Attribute, float> PlayerBaseStats => _accountMod.PlayerBaseStats;
+    public Dictionary<int, int> PlayerlevelExperienceMap => _accountMod.PlayerlevelExperienceMap;
 
     //Economy Module
     [SerializeField] private EconomyModule _economyMod;

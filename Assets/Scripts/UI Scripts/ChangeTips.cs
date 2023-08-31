@@ -11,7 +11,10 @@ public class ChangeTips : MonoBehaviour
 
     private void Start()
     {
-        string filePath = Application.dataPath + $"/Resources/CSV/Tips.csv";
+        //var file = Resources.Load<TextAsset>("CSV/Tips");
+        Debug.Log(Application.streamingAssetsPath);
+        //string filePath = Application.dataPath + $"/Resources/CSV/Tips.csv";
+        var filePath = Path.Combine(Application.streamingAssetsPath, "Tips.csv");
         string[] lines = File.ReadAllLines(filePath);
         _lines = lines.Length;
 

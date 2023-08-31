@@ -15,7 +15,6 @@ public class PlayerData
     [NonSerialized] public readonly Dictionary<GearType, Gear> EquippedGears = new();
     [NonSerialized] public readonly Dictionary<Attribute, Stat<float>> Stats = new();
     [NonSerialized] private readonly Dictionary<GearType, Dictionary<Attribute, List<ModifierID>>> _modifiers = new();
-    public Dictionary<int, int> PlayerlevelExperienceMap;
     public static event Action<int, LevelUpQuestEvent.LvlType> OnPlayerLevelUp;
 
     public PlayerData()
@@ -36,7 +35,6 @@ public class PlayerData
         {
             Stats[Enum.Parse<Attribute>(stat)] = new(1);
         }
-        LoadLevelExperienceMap();
         InitModifiers();
     }
 
@@ -177,52 +175,24 @@ public class PlayerData
         
         return 1;
     }
-
-    private void LoadLevelExperienceMap()
-    {
-        //TODO -> Use CSVUtils
-        PlayerlevelExperienceMap = new Dictionary<int, int>();
-
-        var filePath = Path.Combine(Application.dataPath, "Resources/CSV/PlayerXpCSVExport.csv");
-
-        var csvLines = File.ReadAllLines(filePath);
-
-        foreach (var line in csvLines)
-        {
-            var values = line.Split(',');
-
-            if (values.Length >= 2)
-            {
-                var level = int.Parse(values[0]);
-                var experienceRequired = int.Parse(values[1]);
-
-                PlayerlevelExperienceMap[level] = experienceRequired; // Associe le niveau à l'expérience requise
-            }
-            else
-            {
-                Debug.LogWarning("Format invalide dans le fichier CSV : " + line);
-            }
-        }
-    }
     public void GainExperiencePlayer(int expToAdd)
     {
         Level = PlayFabManager.Instance.Player.Level;
         Exp = PlayFabManager.Instance.Player.Exp;
+        Dictionary<int, int> expMap = PlayFabManager.Instance.PlayerlevelExperienceMap;
 
-        if (Level >= PlayerlevelExperienceMap.Count)
+        if (Level >= expMap.Count)
             // Le joueur a atteint le niveau maximum, ne gagne plus d'expérience
             return;
 
         Exp += expToAdd; // Ajoute l'expérience spécifiée
         Debug.Log("player gain " + expToAdd + " xp");
 
-
-
-        while (PlayerlevelExperienceMap.ContainsKey(Level + 1) && Exp >= PlayerlevelExperienceMap[Level + 1])
+        while (expMap.ContainsKey(Level + 1) && Exp >= expMap[Level + 1])
         {
             Level++; // Incrémente le niveau
             Exp -=
-                PlayerlevelExperienceMap[Level]; // Déduit l'expérience requise pour atteindre le niveau suivant
+                expMap[Level]; // Déduit l'expérience requise pour atteindre le niveau suivant
             PlayFabManager.Instance.Player.Level = Level;
             PlayFabManager.Instance.Player.Exp = Exp;
             OnPlayerLevelUp?.Invoke(Level, LevelUpQuestEvent.LvlType.Player);
