@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     [SerializeField] private Slider _musicSlider;
-    [SerializeField] private Toggle _musicMuteButton;
+    [SerializeField] private Toggle _musicMuteToggle;
     [SerializeField] private Slider _SFXSlider;
-    [SerializeField] private Toggle _sfxMuteButton;
+    [SerializeField] private Toggle _sfxMuteToggle;
     [SerializeField] private Toggle _FullScreenToggle;
     private AudioMixer audioMixer;
 
@@ -22,10 +22,10 @@ public class Settings : MonoBehaviour
     {
         _musicSlider.maxValue = MaxVolLvl;
         _musicSlider.minValue = MinVolLvl;
-        _musicMuteButton.onValueChanged.AddListener(ToggleMusicMute);
+        _musicMuteToggle.onValueChanged.AddListener(ToggleMusicMute);
         _SFXSlider.maxValue = MaxVolLvl;
         _SFXSlider.minValue = MinVolLvl;
-        _sfxMuteButton.onValueChanged.AddListener(ToggleSFXMute);
+        _sfxMuteToggle.onValueChanged.AddListener(ToggleSFXMute);
         _FullScreenToggle.onValueChanged.AddListener(OnFullscreenToggleChanged);
         audioMixer = Resources.Load<AudioMixer>("Audio/AudioSettings");
         GetSettings();

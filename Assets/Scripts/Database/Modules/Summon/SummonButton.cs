@@ -6,7 +6,7 @@ public class SummonButton : SceneButton
 
     protected override void OnMouseUpAsButton()
     {
-        if (!SummonManager.Instance.CanPull(_pullAmount)) return;
+        if (!PlayFabManager.Instance.CanPull(_pullAmount)) return;
         AudioManager.Instance.Play("SFX SummonButton");
         base.OnMouseUpAsButton();
     }

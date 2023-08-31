@@ -1297,7 +1297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e764d0a0bac6fab46b3ad749ba6f944d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: SummonPopup
+  Scene: SummonResult
   _params: 
   _pullAmount: 10
 --- !u!1 &702536598
@@ -4118,7 +4118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e764d0a0bac6fab46b3ad749ba6f944d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: SummonPopup
+  Scene: SummonResult
   _params: 
   _pullAmount: 1
 --- !u!1 &2079246415

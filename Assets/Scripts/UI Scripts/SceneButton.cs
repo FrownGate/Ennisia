@@ -18,6 +18,7 @@ public class SceneButton : MonoBehaviour
 
     protected virtual void OnMouseUpAsButton()
     {
+        //Debug.Log("SceneButton");
         if (gameObject.GetComponent<PLaySFX>() == null)
         {
             PlaySFXOnSceneChange?.Invoke(Scene);

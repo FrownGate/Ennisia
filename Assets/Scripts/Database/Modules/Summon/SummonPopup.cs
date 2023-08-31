@@ -8,13 +8,12 @@ public class SummonPopup : MonoBehaviour
 
     private void Awake()
     {
-        SummonManager.OnSupportPulled += Init;
-        SummonManager.Instance.Summon();
+        PlayFabManager.OnSummon += Init;
     }
 
     private void OnDestroy()
     {
-        SummonManager.OnSupportPulled -= Init;
+        PlayFabManager.OnSummon -= Init;
     }
 
     private void Init(List<SupportCharacterSO> pulledSupports)
