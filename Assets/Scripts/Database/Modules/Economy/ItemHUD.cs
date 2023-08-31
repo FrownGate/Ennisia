@@ -20,24 +20,23 @@ public class ItemHUD : MonoBehaviour
 
     [SerializeField] private GearType _gearType;
     public Item Item { get; protected set; }
-    public Gear Gear { get; protected set; }
 
     public void Init(Item item)
     {
         Item = item;
-        if (item is Gear gear) Gear = gear;
 
         _sprite = GetComponentInChildren<Image>();
         if (_sprite != null)
         {
-            _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/Default");
+            _sprite.sprite = Resources.Load<Sprite>($"Textures/empty");
             if (Item.Type != null) _sprite.sprite = Resources.Load<Sprite>($"Textures/Equipments/{Item.Name}");
         }
 
-        if (Gear == null) return;
-        Debug.Log(Gear.Attribute + " " + Gear.Value);
-        _textValue.text = Gear.Attribute + " " + Gear.Value;
-        _textLvl.text = Gear.Level.ToString();
+        if (Item is not Gear) return;
+        Gear gear = Item as Gear;
+        Debug.Log(gear.Attribute + " " + gear.Value);
+        _textValue.text = gear.Attribute + " " + gear.Value;
+        _textLvl.text = gear.Level.ToString();
     }
 
     private void OnMouseUpAsButton()
